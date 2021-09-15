@@ -1,228 +1,2459 @@
-define(['dart_sdk', 'packages/flutter/src/painting/borders.dart', 'packages/flutter/src/painting/colors.dart', 'packages/flutter/src/foundation/debug.dart'], (function load__packages__flutter__src__material__floating_action_button_theme_dart(dart_sdk, packages__flutter__src__painting__borders$46dart, packages__flutter__src__painting__colors$46dart, packages__flutter__src__foundation__debug$46dart) {
+define(['dart_sdk', 'packages/get/get_rx/src/rx_stream/rx_stream.dart'], (function load__packages__get__get_rx__src__rx_types__rx_types_dart(dart_sdk, packages__get__get_rx__src__rx_stream__rx_stream$46dart) {
   'use strict';
   const core = dart_sdk.core;
-  const ui = dart_sdk.ui;
+  const _internal = dart_sdk._internal;
+  const async = dart_sdk.async;
+  const _interceptors = dart_sdk._interceptors;
+  const _js_helper = dart_sdk._js_helper;
+  const collection = dart_sdk.collection;
   const dart = dart_sdk.dart;
   const dartx = dart_sdk.dartx;
-  const borders = packages__flutter__src__painting__borders$46dart.src__painting__borders;
-  const colors = packages__flutter__src__painting__colors$46dart.src__painting__colors;
-  const diagnostics = packages__flutter__src__foundation__debug$46dart.src__foundation__diagnostics;
-  var floating_action_button_theme = Object.create(dart.library);
-  var $runtimeType = dartx.runtimeType;
+  const rx_stream = packages__get__get_rx__src__rx_stream__rx_stream$46dart.get_rx__src__rx_stream__rx_stream;
+  var rx_types = Object.create(dart.library);
+  var $toString = dartx.toString;
+  var $hashCode = dartx.hashCode;
+  var $_get = dartx._get;
+  var $_set = dartx._set;
+  var $add = dartx.add;
+  var $isNotEmpty = dartx.isNotEmpty;
+  var $containsKey = dartx.containsKey;
+  var $forEach = dartx.forEach;
+  var $clear = dartx.clear;
+  var $allMatches = dartx.allMatches;
+  var $matchAsPrefix = dartx.matchAsPrefix;
+  var $compareTo = dartx.compareTo;
+  var $iterator = dartx.iterator;
+  var $addAll = dartx.addAll;
+  var $length = dartx.length;
+  var $insertAll = dartx.insertAll;
+  var $reversed = dartx.reversed;
+  var $where = dartx.where;
+  var $whereType = dartx.whereType;
+  var $sort = dartx.sort;
+  var $plus = dartx['+'];
+  var $_equals = dartx._equals;
+  var $contains = dartx.contains;
+  var $toSet = dartx.toSet;
+  var $keys = dartx.keys;
+  var $remove = dartx.remove;
+  var $modulo = dartx['%'];
+  var $truncate = dartx.truncate;
+  var $remainder = dartx.remainder;
+  var $isNaN = dartx.isNaN;
+  var $isNegative = dartx.isNegative;
+  var $isInfinite = dartx.isInfinite;
+  var $isFinite = dartx.isFinite;
+  var $abs = dartx.abs;
+  var $sign = dartx.sign;
+  var $round = dartx.round;
+  var $floor = dartx.floor;
+  var $ceil = dartx.ceil;
+  var $roundToDouble = dartx.roundToDouble;
+  var $floorToDouble = dartx.floorToDouble;
+  var $ceilToDouble = dartx.ceilToDouble;
+  var $truncateToDouble = dartx.truncateToDouble;
+  var $clamp = dartx.clamp;
+  var $toInt = dartx.toInt;
+  var $toDouble = dartx.toDouble;
+  var $toStringAsFixed = dartx.toStringAsFixed;
+  var $toStringAsExponential = dartx.toStringAsExponential;
+  var $toStringAsPrecision = dartx.toStringAsPrecision;
+  var $leftShift = dartx['<<'];
+  var $rightShift = dartx['>>'];
+  var $modPow = dartx.modPow;
+  var $modInverse = dartx.modInverse;
+  var $gcd = dartx.gcd;
+  var $isEven = dartx.isEven;
+  var $isOdd = dartx.isOdd;
+  var $bitLength = dartx.bitLength;
+  var $toUnsigned = dartx.toUnsigned;
+  var $toSigned = dartx.toSigned;
+  var $endsWith = dartx.endsWith;
+  var $startsWith = dartx.startsWith;
+  var $indexOf = dartx.indexOf;
+  var $lastIndexOf = dartx.lastIndexOf;
+  var $isEmpty = dartx.isEmpty;
+  var $substring = dartx.substring;
+  var $trim = dartx.trim;
+  var $trimLeft = dartx.trimLeft;
+  var $trimRight = dartx.trimRight;
+  var $padLeft = dartx.padLeft;
+  var $padRight = dartx.padRight;
+  var $replaceAll = dartx.replaceAll;
+  var $split = dartx.split;
+  var $codeUnits = dartx.codeUnits;
+  var $runes = dartx.runes;
+  var $toLowerCase = dartx.toLowerCase;
+  var $toUpperCase = dartx.toUpperCase;
   dart._checkModuleNullSafetyMode(true);
-  var T = {
-    DiagnosticsPropertyOfShapeBorder: () => (T.DiagnosticsPropertyOfShapeBorder = dart.constFn(diagnostics.DiagnosticsProperty$(borders.ShapeBorder)))()
+  var T$ = {
+    JSArrayOfStreamSubscription: () => (T$.JSArrayOfStreamSubscription = dart.constFn(_interceptors.JSArray$(async.StreamSubscription)))(),
+    ListOfStreamSubscription: () => (T$.ListOfStreamSubscription = dart.constFn(core.List$(async.StreamSubscription)))(),
+    LinkedMapOfGetStream$ListOfStreamSubscription: () => (T$.LinkedMapOfGetStream$ListOfStreamSubscription = dart.constFn(_js_helper.LinkedMap$(rx_stream.GetStream, T$.ListOfStreamSubscription())))(),
+    GetStreamAndListOfStreamSubscriptionTovoid: () => (T$.GetStreamAndListOfStreamSubscriptionTovoid = dart.constFn(dart.fnType(dart.void, [rx_stream.GetStream, T$.ListOfStreamSubscription()])))(),
+    RxOfbool: () => (T$.RxOfbool = dart.constFn(rx_types.Rx$(core.bool)))(),
+    VoidToRxOfbool: () => (T$.VoidToRxOfbool = dart.constFn(dart.fnType(T$.RxOfbool(), [])))(),
+    boolN: () => (T$.boolN = dart.constFn(dart.nullable(core.bool)))(),
+    RxOfboolN: () => (T$.RxOfboolN = dart.constFn(rx_types.Rx$(T$.boolN())))(),
+    RxNOfboolN: () => (T$.RxNOfboolN = dart.constFn(dart.nullable(T$.RxOfboolN())))(),
+    VoidToRxNOfboolN: () => (T$.VoidToRxNOfboolN = dart.constFn(dart.fnType(T$.RxNOfboolN(), [])))(),
+    numTonum: () => (T$.numTonum = dart.constFn(dart.fnType(core.num, [core.num])))(),
+    VoidTonum: () => (T$.VoidTonum = dart.constFn(dart.fnType(core.num, [])))(),
+    VoidToint: () => (T$.VoidToint = dart.constFn(dart.fnType(core.int, [])))(),
+    VoidTodouble: () => (T$.VoidTodouble = dart.constFn(dart.fnType(core.double, [])))(),
+    numAndnumTonum: () => (T$.numAndnumTonum = dart.constFn(dart.fnType(core.num, [core.num, core.num])))(),
+    intToString: () => (T$.intToString = dart.constFn(dart.fnType(core.String, [core.int])))(),
+    intN: () => (T$.intN = dart.constFn(dart.nullable(core.int)))(),
+    intNToString: () => (T$.intNToString = dart.constFn(dart.fnType(core.String, [], [T$.intN()])))(),
+    numN: () => (T$.numN = dart.constFn(dart.nullable(core.num)))(),
+    numTonumN: () => (T$.numTonumN = dart.constFn(dart.fnType(T$.numN(), [core.num])))(),
+    VoidTonumN: () => (T$.VoidTonumN = dart.constFn(dart.fnType(T$.numN(), [])))(),
+    VoidTointN: () => (T$.VoidTointN = dart.constFn(dart.fnType(T$.intN(), [])))(),
+    doubleN: () => (T$.doubleN = dart.constFn(dart.nullable(core.double)))(),
+    VoidTodoubleN: () => (T$.VoidTodoubleN = dart.constFn(dart.fnType(T$.doubleN(), [])))(),
+    numAndnumTonumN: () => (T$.numAndnumTonumN = dart.constFn(dart.fnType(T$.numN(), [core.num, core.num])))(),
+    StringN: () => (T$.StringN = dart.constFn(dart.nullable(core.String)))(),
+    intToStringN: () => (T$.intToStringN = dart.constFn(dart.fnType(T$.StringN(), [core.int])))(),
+    intNToStringN: () => (T$.intNToStringN = dart.constFn(dart.fnType(T$.StringN(), [], [T$.intN()])))(),
+    intAndintToint: () => (T$.intAndintToint = dart.constFn(dart.fnType(core.int, [core.int, core.int])))(),
+    intToint: () => (T$.intToint = dart.constFn(dart.fnType(core.int, [core.int])))(),
+    intAndintTointN: () => (T$.intAndintTointN = dart.constFn(dart.fnType(T$.intN(), [core.int, core.int])))(),
+    intTointN: () => (T$.intTointN = dart.constFn(dart.fnType(T$.intN(), [core.int])))(),
+    StringToint: () => (T$.StringToint = dart.constFn(dart.fnType(core.int, [core.String])))(),
+    StringTobool: () => (T$.StringTobool = dart.constFn(dart.fnType(core.bool, [core.String])))(),
+    PatternAndintTobool: () => (T$.PatternAndintTobool = dart.constFn(dart.fnType(core.bool, [core.Pattern], [core.int])))(),
+    PatternAndintToint: () => (T$.PatternAndintToint = dart.constFn(dart.fnType(core.int, [core.Pattern], [core.int])))(),
+    PatternAndintNToint: () => (T$.PatternAndintNToint = dart.constFn(dart.fnType(core.int, [core.Pattern], [T$.intN()])))(),
+    intAndintNToString: () => (T$.intAndintNToString = dart.constFn(dart.fnType(core.String, [core.int], [T$.intN()])))(),
+    VoidToString: () => (T$.VoidToString = dart.constFn(dart.fnType(core.String, [])))(),
+    intAndStringToString: () => (T$.intAndStringToString = dart.constFn(dart.fnType(core.String, [core.int], [core.String])))(),
+    PatternAndStringToString: () => (T$.PatternAndStringToString = dart.constFn(dart.fnType(core.String, [core.Pattern, core.String])))(),
+    ListOfString: () => (T$.ListOfString = dart.constFn(core.List$(core.String)))(),
+    PatternToListOfString: () => (T$.PatternToListOfString = dart.constFn(dart.fnType(T$.ListOfString(), [core.Pattern])))(),
+    IterableOfMatch: () => (T$.IterableOfMatch = dart.constFn(core.Iterable$(core.Match)))(),
+    StringAndintToIterableOfMatch: () => (T$.StringAndintToIterableOfMatch = dart.constFn(dart.fnType(T$.IterableOfMatch(), [core.String], [core.int])))(),
+    MatchN: () => (T$.MatchN = dart.constFn(dart.nullable(core.Match)))(),
+    StringAndintToMatchN: () => (T$.StringAndintToMatchN = dart.constFn(dart.fnType(T$.MatchN(), [core.String], [core.int])))(),
+    StringTointN: () => (T$.StringTointN = dart.constFn(dart.fnType(T$.intN(), [core.String])))(),
+    StringToboolN: () => (T$.StringToboolN = dart.constFn(dart.fnType(T$.boolN(), [core.String])))(),
+    PatternAndintToboolN: () => (T$.PatternAndintToboolN = dart.constFn(dart.fnType(T$.boolN(), [core.Pattern], [core.int])))(),
+    PatternAndintTointN: () => (T$.PatternAndintTointN = dart.constFn(dart.fnType(T$.intN(), [core.Pattern], [core.int])))(),
+    PatternAndintNTointN: () => (T$.PatternAndintNTointN = dart.constFn(dart.fnType(T$.intN(), [core.Pattern], [T$.intN()])))(),
+    intAndintNToStringN: () => (T$.intAndintNToStringN = dart.constFn(dart.fnType(T$.StringN(), [core.int], [T$.intN()])))(),
+    VoidToStringN: () => (T$.VoidToStringN = dart.constFn(dart.fnType(T$.StringN(), [])))(),
+    intAndStringToStringN: () => (T$.intAndStringToStringN = dart.constFn(dart.fnType(T$.StringN(), [core.int], [core.String])))(),
+    PatternAndStringToStringN: () => (T$.PatternAndStringToStringN = dart.constFn(dart.fnType(T$.StringN(), [core.Pattern, core.String])))(),
+    ListNOfString: () => (T$.ListNOfString = dart.constFn(dart.nullable(T$.ListOfString())))(),
+    PatternToListNOfString: () => (T$.PatternToListNOfString = dart.constFn(dart.fnType(T$.ListNOfString(), [core.Pattern])))(),
+    IterableNOfMatch: () => (T$.IterableNOfMatch = dart.constFn(dart.nullable(T$.IterableOfMatch())))(),
+    StringAndintToIterableNOfMatch: () => (T$.StringAndintToIterableNOfMatch = dart.constFn(dart.fnType(T$.IterableNOfMatch(), [core.String], [core.int])))(),
+    VoidTobool: () => (T$.VoidTobool = dart.constFn(dart.fnType(core.bool, [])))()
   };
   const CT = Object.create({
     _: () => (C, CT)
   });
   dart.defineLazy(CT, {
     get C0() {
-      return C[0] = dart.const({
-        __proto__: floating_action_button_theme.FloatingActionButtonThemeData.prototype,
-        [shape$]: null,
-        [highlightElevation$]: null,
-        [disabledElevation$]: null,
-        [hoverElevation$]: null,
-        [focusElevation$]: null,
-        [elevation$]: null,
-        [splashColor$]: null,
-        [hoverColor$]: null,
-        [focusColor$]: null,
-        [backgroundColor$]: null,
-        [foregroundColor$]: null
-      });
+      return C[0] = dart.constList([], dart.Never);
+    },
+    get C1() {
+      return C[1] = dart.constSet(dart.Never, []);
+    },
+    get C2() {
+      return C[2] = dart.constMap(dart.Never, dart.Never, []);
     }
   }, false);
-  var C = [void 0];
-  var I = [
-    "file:///C:/flutter/packages/flutter/lib/src/material/floating_action_button_theme.dart",
-    "package:flutter/src/material/floating_action_button_theme.dart"
-  ];
-  var foregroundColor$ = dart.privateName(floating_action_button_theme, "FloatingActionButtonThemeData.foregroundColor");
-  var backgroundColor$ = dart.privateName(floating_action_button_theme, "FloatingActionButtonThemeData.backgroundColor");
-  var focusColor$ = dart.privateName(floating_action_button_theme, "FloatingActionButtonThemeData.focusColor");
-  var hoverColor$ = dart.privateName(floating_action_button_theme, "FloatingActionButtonThemeData.hoverColor");
-  var splashColor$ = dart.privateName(floating_action_button_theme, "FloatingActionButtonThemeData.splashColor");
-  var elevation$ = dart.privateName(floating_action_button_theme, "FloatingActionButtonThemeData.elevation");
-  var focusElevation$ = dart.privateName(floating_action_button_theme, "FloatingActionButtonThemeData.focusElevation");
-  var hoverElevation$ = dart.privateName(floating_action_button_theme, "FloatingActionButtonThemeData.hoverElevation");
-  var disabledElevation$ = dart.privateName(floating_action_button_theme, "FloatingActionButtonThemeData.disabledElevation");
-  var highlightElevation$ = dart.privateName(floating_action_button_theme, "FloatingActionButtonThemeData.highlightElevation");
-  var shape$ = dart.privateName(floating_action_button_theme, "FloatingActionButtonThemeData.shape");
-  const Object_Diagnosticable$36 = class Object_Diagnosticable extends core.Object {};
-  (Object_Diagnosticable$36.new = function() {
-  }).prototype = Object_Diagnosticable$36.prototype;
-  dart.applyMixin(Object_Diagnosticable$36, diagnostics.Diagnosticable);
-  floating_action_button_theme.FloatingActionButtonThemeData = class FloatingActionButtonThemeData extends Object_Diagnosticable$36 {
-    get foregroundColor() {
-      return this[foregroundColor$];
+  var C = Array(3).fill(void 0);
+  var I = ["package:get/get_rx/src/rx_types/rx_types.dart"];
+  var _$35RxObjectMixin$35_value = dart.privateName(rx_types, "RxObjectMixin._#RxObjectMixin#_value");
+  var _$35RxObjectMixin$35_value$35isSet = dart.privateName(rx_types, "RxObjectMixin._#RxObjectMixin#_value#isSet");
+  var firstRebuild = dart.privateName(rx_types, "RxObjectMixin.firstRebuild");
+  var __RxObjectMixin__value = dart.privateName(rx_types, "_#RxObjectMixin#_value");
+  var __RxObjectMixin__value_isSet = dart.privateName(rx_types, "_#RxObjectMixin#_value#isSet");
+  var _value = dart.privateName(rx_types, "_value");
+  var _subscriptions = dart.privateName(rx_types, "_subscriptions");
+  var subject = dart.privateName(rx_types, "NotifyManager.subject");
+  var _subscriptions$ = dart.privateName(rx_types, "NotifyManager._subscriptions");
+  const _is_NotifyManager_default = Symbol('_is_NotifyManager_default');
+  rx_types.NotifyManager$ = dart.generic(T => {
+    var GetStreamOfT = () => (GetStreamOfT = dart.constFn(rx_stream.GetStream$(T)))();
+    var TTovoid = () => (TTovoid = dart.constFn(dart.fnType(dart.void, [T])))();
+    class NotifyManager extends core.Object {}
+    NotifyManager[dart.mixinOn] = Object => class NotifyManager extends Object {
+      get subject() {
+        return this[subject];
+      }
+      set subject(value) {
+        this[subject] = GetStreamOfT().as(value);
+      }
+      get [_subscriptions]() {
+        return this[_subscriptions$];
+      }
+      set [_subscriptions](value) {
+        super[_subscriptions] = value;
+      }
+      get canUpdate() {
+        return this[_subscriptions][$isNotEmpty];
+      }
+      addListener(rxGetx) {
+        let t4, t3, t2, t1;
+        GetStreamOfT().as(rxGetx);
+        if (!this[_subscriptions][$containsKey](rxGetx)) {
+          let subs = rxGetx.listen(dart.fn(data => {
+            if (!this.subject.isClosed) this.subject.add(data);
+          }, TTovoid()));
+          let listSubscriptions = (t1 = this[_subscriptions], t2 = rxGetx, t3 = t1[$_get](t2), t3 == null ? (t4 = T$.JSArrayOfStreamSubscription().of([]), t1[$_set](t2, t4), t4) : t3);
+          listSubscriptions[$add](subs);
+        }
+      }
+      listen(onData, opts) {
+        let t1;
+        let onError = opts && 'onError' in opts ? opts.onError : null;
+        let onDone = opts && 'onDone' in opts ? opts.onDone : null;
+        let cancelOnError = opts && 'cancelOnError' in opts ? opts.cancelOnError : null;
+        return this.subject.listen(onData, {onError: onError, onDone: onDone, cancelOnError: (t1 = cancelOnError, t1 == null ? false : t1)});
+      }
+      close() {
+        this[_subscriptions][$forEach](dart.fn((getStream, _subscriptions) => {
+          for (let subscription of _subscriptions) {
+            subscription.cancel();
+          }
+        }, T$.GetStreamAndListOfStreamSubscriptionTovoid()));
+        this[_subscriptions][$clear]();
+        this.subject.close();
+      }
+    };
+    (NotifyManager[dart.mixinNew] = function() {
+      this[subject] = new (GetStreamOfT()).new();
+      this[_subscriptions$] = new (T$.LinkedMapOfGetStream$ListOfStreamSubscription()).new();
+    }).prototype = NotifyManager.prototype;
+    dart.addTypeTests(NotifyManager);
+    NotifyManager.prototype[_is_NotifyManager_default] = true;
+    dart.addTypeCaches(NotifyManager);
+    NotifyManager[dart.implements] = () => [core.Object];
+    dart.setMethodSignature(NotifyManager, () => ({
+      __proto__: dart.getMethods(NotifyManager.__proto__),
+      addListener: dart.fnType(dart.void, [dart.nullable(core.Object)]),
+      listen: dart.fnType(async.StreamSubscription$(T), [dart.fnType(dart.void, [T])], {cancelOnError: dart.nullable(core.bool), onDone: dart.nullable(dart.fnType(dart.void, [])), onError: dart.nullable(core.Function)}, {}),
+      close: dart.fnType(dart.void, [])
+    }));
+    dart.setGetterSignature(NotifyManager, () => ({
+      __proto__: dart.getGetters(NotifyManager.__proto__),
+      canUpdate: core.bool
+    }));
+    dart.setLibraryUri(NotifyManager, I[0]);
+    dart.setFieldSignature(NotifyManager, () => ({
+      __proto__: dart.getFields(NotifyManager.__proto__),
+      subject: dart.fieldType(rx_stream.GetStream$(T)),
+      [_subscriptions]: dart.finalFieldType(core.Map$(rx_stream.GetStream, core.List$(async.StreamSubscription)))
+    }));
+    return NotifyManager;
+  });
+  rx_types.NotifyManager = rx_types.NotifyManager$();
+  dart.addTypeTests(rx_types.NotifyManager, _is_NotifyManager_default);
+  const _is_RxObjectMixin_default = Symbol('_is_RxObjectMixin_default');
+  rx_types.RxObjectMixin$ = dart.generic(T => {
+    var TN = () => (TN = dart.constFn(dart.nullable(T)))();
+    var RxObjectMixinOfT = () => (RxObjectMixinOfT = dart.constFn(rx_types.RxObjectMixin$(T)))();
+    var StreamOfT = () => (StreamOfT = dart.constFn(async.Stream$(T)))();
+    var TTovoid = () => (TTovoid = dart.constFn(dart.fnType(dart.void, [T])))();
+    class RxObjectMixin extends rx_types.NotifyManager$(T) {}
+    RxObjectMixin[dart.mixinOn] = NotifyManager => {
+      class RxObjectMixin extends NotifyManager {
+        get [__RxObjectMixin__value]() {
+          return this[_$35RxObjectMixin$35_value];
+        }
+        set [__RxObjectMixin__value](value) {
+          this[_$35RxObjectMixin$35_value] = value;
+        }
+        get [__RxObjectMixin__value_isSet]() {
+          return this[_$35RxObjectMixin$35_value$35isSet];
+        }
+        set [__RxObjectMixin__value_isSet](value) {
+          this[_$35RxObjectMixin$35_value$35isSet] = value;
+        }
+        get firstRebuild() {
+          return this[firstRebuild];
+        }
+        set firstRebuild(value) {
+          this[firstRebuild] = value;
+        }
+        get [_value]() {
+          let t0;
+          return this[__RxObjectMixin__value_isSet] ? (t0 = this[__RxObjectMixin__value], t0) : dart.throw(new _internal.LateError.fieldNI("_value"));
+        }
+        set [_value](t0) {
+          this[__RxObjectMixin__value_isSet] = true;
+          this[__RxObjectMixin__value] = t0;
+        }
+        refresh() {
+          this.subject.add(this.value);
+        }
+        call(v = null) {
+          TN().as(v);
+          if (v != null) {
+            this.value = v;
+          }
+          return this.value;
+        }
+        get string() {
+          return dart.toString(this.value);
+        }
+        toString() {
+          return dart.toString(this.value);
+        }
+        toJson() {
+          return this.value;
+        }
+        _equals(o) {
+          if (o == null) return false;
+          if (T.is(o)) return dart.equals(this.value, o);
+          if (RxObjectMixinOfT().is(o)) return dart.equals(this.value, o.value);
+          return false;
+        }
+        get hashCode() {
+          return dart.hashCode(this[_value]);
+        }
+        set value(val) {
+          T.as(val);
+          if (this.subject.isClosed) return;
+          if (dart.equals(this[_value], val) && !this.firstRebuild) return;
+          this.firstRebuild = false;
+          this[_value] = val;
+          this.subject.add(this[_value]);
+        }
+        get value() {
+          let t1;
+          t1 = rx_types.RxInterface.proxy;
+          t1 == null ? null : t1.addListener(this.subject);
+          return this[_value];
+        }
+        get stream() {
+          return this.subject.stream;
+        }
+        listenAndPump(onData, opts) {
+          let onError = opts && 'onError' in opts ? opts.onError : null;
+          let onDone = opts && 'onDone' in opts ? opts.onDone : null;
+          let cancelOnError = opts && 'cancelOnError' in opts ? opts.cancelOnError : null;
+          let subscription = this.listen(onData, {onError: onError, onDone: onDone, cancelOnError: cancelOnError});
+          this.subject.add(this.value);
+          return subscription;
+        }
+        bindStream(stream) {
+          let t4, t3, t2, t1;
+          StreamOfT().as(stream);
+          let listSubscriptions = (t1 = this[_subscriptions], t2 = this.subject, t3 = t1[$_get](t2), t3 == null ? (t4 = T$.JSArrayOfStreamSubscription().of([]), t1[$_set](t2, t4), t4) : t3);
+          listSubscriptions[$add](stream.listen(dart.fn(va => this.value = va, TTovoid())));
+        }
+      }
+      dart.defineExtensionMethods(RxObjectMixin, ['toString', '_equals']);
+      dart.defineExtensionAccessors(RxObjectMixin, ['hashCode']);
+      return RxObjectMixin;
+    };
+    (RxObjectMixin[dart.mixinNew] = function() {
+      this[_$35RxObjectMixin$35_value] = null;
+      this[_$35RxObjectMixin$35_value$35isSet] = false;
+      this[firstRebuild] = true;
+    }).prototype = RxObjectMixin.prototype;
+    dart.addTypeTests(RxObjectMixin);
+    RxObjectMixin.prototype[_is_RxObjectMixin_default] = true;
+    dart.addTypeCaches(RxObjectMixin);
+    RxObjectMixin[dart.implements] = () => [rx_types.NotifyManager$(T)];
+    dart.setMethodSignature(RxObjectMixin, () => ({
+      __proto__: dart.getMethods(RxObjectMixin.__proto__),
+      refresh: dart.fnType(dart.void, []),
+      call: dart.fnType(T, [], [dart.nullable(core.Object)]),
+      toJson: dart.fnType(dart.dynamic, []),
+      listenAndPump: dart.fnType(async.StreamSubscription$(T), [dart.fnType(dart.void, [T])], {cancelOnError: dart.nullable(core.bool), onDone: dart.nullable(dart.fnType(dart.void, [])), onError: dart.nullable(core.Function)}, {}),
+      bindStream: dart.fnType(dart.void, [dart.nullable(core.Object)])
+    }));
+    dart.setGetterSignature(RxObjectMixin, () => ({
+      __proto__: dart.getGetters(RxObjectMixin.__proto__),
+      [_value]: T,
+      string: core.String,
+      value: T,
+      stream: async.Stream$(T)
+    }));
+    dart.setSetterSignature(RxObjectMixin, () => ({
+      __proto__: dart.getSetters(RxObjectMixin.__proto__),
+      [_value]: T,
+      value: dart.nullable(core.Object)
+    }));
+    dart.setLibraryUri(RxObjectMixin, I[0]);
+    dart.setFieldSignature(RxObjectMixin, () => ({
+      __proto__: dart.getFields(RxObjectMixin.__proto__),
+      [__RxObjectMixin__value]: dart.fieldType(dart.nullable(T)),
+      [__RxObjectMixin__value_isSet]: dart.fieldType(core.bool),
+      firstRebuild: dart.fieldType(core.bool)
+    }));
+    return RxObjectMixin;
+  });
+  rx_types.RxObjectMixin = rx_types.RxObjectMixin$();
+  dart.addTypeTests(rx_types.RxObjectMixin, _is_RxObjectMixin_default);
+  const _is_RxInterface_default = Symbol('_is_RxInterface_default');
+  rx_types.RxInterface$ = dart.generic(T => {
+    class RxInterface extends core.Object {
+      static notifyChildren(T, observer, builder) {
+        let _observer = rx_types.RxInterface.proxy;
+        rx_types.RxInterface.proxy = observer;
+        let result = builder();
+        if (!observer.canUpdate) {
+          rx_types.RxInterface.proxy = _observer;
+          dart.throw("      [Get] the improper use of a GetX has been detected. \n      You should only use GetX or Obx for the specific widget that will be updated.\n      If you are seeing this error, you probably did not insert any observable variables into GetX/Obx \n      or insert them outside the scope that GetX considers suitable for an update \n      (example: GetX => HeavyWidget => variableObservable).\n      If you need to update a parent widget and a child widget, wrap each one in an Obx/GetX.\n      ");
+        }
+        rx_types.RxInterface.proxy = _observer;
+        return result;
+      }
     }
-    set foregroundColor(value) {
-      super.foregroundColor = value;
+    (RxInterface.new = function() {
+      ;
+    }).prototype = RxInterface.prototype;
+    dart.addTypeTests(RxInterface);
+    RxInterface.prototype[_is_RxInterface_default] = true;
+    dart.addTypeCaches(RxInterface);
+    dart.setLibraryUri(RxInterface, I[0]);
+    return RxInterface;
+  });
+  rx_types.RxInterface = rx_types.RxInterface$();
+  dart.defineLazy(rx_types.RxInterface, {
+    /*rx_types.RxInterface.proxy*/get proxy() {
+      return null;
+    },
+    set proxy(_) {}
+  }, false);
+  dart.addTypeTests(rx_types.RxInterface, _is_RxInterface_default);
+  const _is_RxNotifier_default = Symbol('_is_RxNotifier_default');
+  rx_types.RxNotifier$ = dart.generic(T => {
+    var GetStreamOfT = () => (GetStreamOfT = dart.constFn(rx_stream.GetStream$(T)))();
+    const RxInterface_NotifyManager$36 = class RxInterface_NotifyManager extends rx_types.RxInterface$(T) {};
+    (RxInterface_NotifyManager$36.new = function() {
+      rx_types.NotifyManager$(T)[dart.mixinNew].call(this);
+    }).prototype = RxInterface_NotifyManager$36.prototype;
+    dart.applyMixin(RxInterface_NotifyManager$36, rx_types.NotifyManager$(T));
+    class RxNotifier extends RxInterface_NotifyManager$36 {
+      get subject() {
+        return super.subject;
+      }
+      set subject(value) {
+        GetStreamOfT().as(value);
+        return super.subject = value;
+      }
+      get [_subscriptions]() {
+        return super[_subscriptions];
+      }
+      get canUpdate() {
+        return super.canUpdate;
+      }
+      addListener(rxGetx) {
+        GetStreamOfT().as(rxGetx);
+        return super.addListener(rxGetx);
+      }
+      listen(onData, opts) {
+        let onError = opts && 'onError' in opts ? opts.onError : null;
+        let onDone = opts && 'onDone' in opts ? opts.onDone : null;
+        let cancelOnError = opts && 'cancelOnError' in opts ? opts.cancelOnError : null;
+        return super.listen(onData, {onError: onError, onDone: onDone, cancelOnError: cancelOnError});
+      }
+      close() {
+        return super.close();
+      }
     }
-    get backgroundColor() {
-      return this[backgroundColor$];
+    (RxNotifier.new = function() {
+      RxNotifier.__proto__.new.call(this);
+      ;
+    }).prototype = RxNotifier.prototype;
+    dart.addTypeTests(RxNotifier);
+    RxNotifier.prototype[_is_RxNotifier_default] = true;
+    dart.addTypeCaches(RxNotifier);
+    dart.setMethodSignature(RxNotifier, () => ({
+      __proto__: dart.getMethods(RxNotifier.__proto__),
+      addListener: dart.fnType(dart.void, [dart.nullable(core.Object)]),
+      listen: dart.fnType(async.StreamSubscription$(T), [dart.fnType(dart.void, [T])], {cancelOnError: dart.nullable(core.bool), onDone: dart.nullable(dart.fnType(dart.void, [])), onError: dart.nullable(core.Function)}, {}),
+      close: dart.fnType(dart.void, [])
+    }));
+    dart.setGetterSignature(RxNotifier, () => ({
+      __proto__: dart.getGetters(RxNotifier.__proto__),
+      subject: rx_stream.GetStream$(T),
+      [_subscriptions]: core.Map$(rx_stream.GetStream, core.List$(async.StreamSubscription)),
+      canUpdate: core.bool
+    }));
+    dart.setSetterSignature(RxNotifier, () => ({
+      __proto__: dart.getSetters(RxNotifier.__proto__),
+      subject: dart.nullable(core.Object)
+    }));
+    dart.setLibraryUri(RxNotifier, I[0]);
+    return RxNotifier;
+  });
+  rx_types.RxNotifier = rx_types.RxNotifier$();
+  dart.addTypeTests(rx_types.RxNotifier, _is_RxNotifier_default);
+  const _is__RxImpl_default = Symbol('_is__RxImpl_default');
+  rx_types._RxImpl$ = dart.generic(T => {
+    const RxNotifier_RxObjectMixin$36 = class RxNotifier_RxObjectMixin extends rx_types.RxNotifier$(T) {};
+    (RxNotifier_RxObjectMixin$36.new = function() {
+      rx_types.RxObjectMixin$(T)[dart.mixinNew].call(this);
+      RxNotifier_RxObjectMixin$36.__proto__.new.call(this);
+    }).prototype = RxNotifier_RxObjectMixin$36.prototype;
+    dart.applyMixin(RxNotifier_RxObjectMixin$36, rx_types.RxObjectMixin$(T));
+    class _RxImpl extends RxNotifier_RxObjectMixin$36 {
+      addError(error, stackTrace = null) {
+        this.subject.addError(error, stackTrace);
+      }
+      map(R, mapper) {
+        return this.stream.map(R, mapper);
+      }
+      update(fn) {
+        fn(this[_value]);
+        this.subject.add(this[_value]);
+      }
+      trigger(v) {
+        T.as(v);
+        let firstRebuild = this.firstRebuild;
+        this.value = v;
+        if (!firstRebuild) {
+          this.subject.add(v);
+        }
+      }
     }
-    set backgroundColor(value) {
-      super.backgroundColor = value;
+    (_RxImpl.new = function(initial) {
+      _RxImpl.__proto__.new.call(this);
+      this[_value] = initial;
+    }).prototype = _RxImpl.prototype;
+    dart.addTypeTests(_RxImpl);
+    _RxImpl.prototype[_is__RxImpl_default] = true;
+    dart.addTypeCaches(_RxImpl);
+    dart.setMethodSignature(_RxImpl, () => ({
+      __proto__: dart.getMethods(_RxImpl.__proto__),
+      addError: dart.fnType(dart.void, [core.Object], [dart.nullable(core.StackTrace)]),
+      map: dart.gFnType(R => [async.Stream$(R), [dart.fnType(R, [dart.nullable(T)])]], R => [dart.nullable(core.Object)]),
+      update: dart.fnType(dart.void, [dart.fnType(dart.void, [dart.nullable(T)])]),
+      trigger: dart.fnType(dart.void, [dart.nullable(core.Object)])
+    }));
+    dart.setLibraryUri(_RxImpl, I[0]);
+    return _RxImpl;
+  });
+  rx_types._RxImpl = rx_types._RxImpl$();
+  dart.addTypeTests(rx_types._RxImpl, _is__RxImpl_default);
+  const _is_Rx_default = Symbol('_is_Rx_default');
+  rx_types.Rx$ = dart.generic(T => {
+    class Rx extends rx_types._RxImpl$(T) {
+      toJson() {
+        let t1;
+        try {
+          t1 = this.value;
+          return t1 == null ? null : dart.dsend(t1, 'toJson', []);
+        } catch (e) {
+          let _ = dart.getThrown(e);
+          if (core.Exception.is(_)) {
+            dart.throw(dart.str(dart.wrapType(T)) + " has not method [toJson]");
+          } else
+            throw e;
+        }
+      }
     }
-    get focusColor() {
-      return this[focusColor$];
-    }
-    set focusColor(value) {
-      super.focusColor = value;
-    }
-    get hoverColor() {
-      return this[hoverColor$];
-    }
-    set hoverColor(value) {
-      super.hoverColor = value;
-    }
-    get splashColor() {
-      return this[splashColor$];
-    }
-    set splashColor(value) {
-      super.splashColor = value;
-    }
-    get elevation() {
-      return this[elevation$];
-    }
-    set elevation(value) {
-      super.elevation = value;
-    }
-    get focusElevation() {
-      return this[focusElevation$];
-    }
-    set focusElevation(value) {
-      super.focusElevation = value;
-    }
-    get hoverElevation() {
-      return this[hoverElevation$];
-    }
-    set hoverElevation(value) {
-      super.hoverElevation = value;
-    }
-    get disabledElevation() {
-      return this[disabledElevation$];
-    }
-    set disabledElevation(value) {
-      super.disabledElevation = value;
-    }
-    get highlightElevation() {
-      return this[highlightElevation$];
-    }
-    set highlightElevation(value) {
-      super.highlightElevation = value;
-    }
-    get shape() {
-      return this[shape$];
-    }
-    set shape(value) {
-      super.shape = value;
-    }
-    copyWith(opts) {
-      let t0, t0$, t0$0, t0$1, t0$2, t0$3, t0$4, t0$5, t0$6, t0$7, t0$8;
-      let foregroundColor = opts && 'foregroundColor' in opts ? opts.foregroundColor : null;
-      let backgroundColor = opts && 'backgroundColor' in opts ? opts.backgroundColor : null;
-      let focusColor = opts && 'focusColor' in opts ? opts.focusColor : null;
-      let hoverColor = opts && 'hoverColor' in opts ? opts.hoverColor : null;
-      let splashColor = opts && 'splashColor' in opts ? opts.splashColor : null;
-      let elevation = opts && 'elevation' in opts ? opts.elevation : null;
-      let focusElevation = opts && 'focusElevation' in opts ? opts.focusElevation : null;
-      let hoverElevation = opts && 'hoverElevation' in opts ? opts.hoverElevation : null;
-      let disabledElevation = opts && 'disabledElevation' in opts ? opts.disabledElevation : null;
-      let highlightElevation = opts && 'highlightElevation' in opts ? opts.highlightElevation : null;
-      let shape = opts && 'shape' in opts ? opts.shape : null;
-      return new floating_action_button_theme.FloatingActionButtonThemeData.new({foregroundColor: (t0 = foregroundColor, t0 == null ? this.foregroundColor : t0), backgroundColor: (t0$ = backgroundColor, t0$ == null ? this.backgroundColor : t0$), focusColor: (t0$0 = focusColor, t0$0 == null ? this.focusColor : t0$0), hoverColor: (t0$1 = hoverColor, t0$1 == null ? this.hoverColor : t0$1), splashColor: (t0$2 = splashColor, t0$2 == null ? this.splashColor : t0$2), elevation: (t0$3 = elevation, t0$3 == null ? this.elevation : t0$3), focusElevation: (t0$4 = focusElevation, t0$4 == null ? this.focusElevation : t0$4), hoverElevation: (t0$5 = hoverElevation, t0$5 == null ? this.hoverElevation : t0$5), disabledElevation: (t0$6 = disabledElevation, t0$6 == null ? this.disabledElevation : t0$6), highlightElevation: (t0$7 = highlightElevation, t0$7 == null ? this.highlightElevation : t0$7), shape: (t0$8 = shape, t0$8 == null ? this.shape : t0$8)});
-    }
-    static lerp(a, b, t) {
-      let t0, t0$, t0$0, t0$1, t0$2, t0$3, t0$4, t0$5, t0$6, t0$7, t0$8, t0$9, t0$10, t0$11, t0$12, t0$13, t0$14, t0$15, t0$16, t0$17, t0$18, t0$19;
-      if (!(t !== null)) dart.assertFailed(null, I[0], 128, 12, "t != null");
-      if (a == null && b == null) return null;
-      return new floating_action_button_theme.FloatingActionButtonThemeData.new({foregroundColor: ui.Color.lerp((t0 = a, t0 == null ? null : t0.foregroundColor), (t0$ = b, t0$ == null ? null : t0$.foregroundColor), t), backgroundColor: ui.Color.lerp((t0$0 = a, t0$0 == null ? null : t0$0.backgroundColor), (t0$1 = b, t0$1 == null ? null : t0$1.backgroundColor), t), focusColor: ui.Color.lerp((t0$2 = a, t0$2 == null ? null : t0$2.focusColor), (t0$3 = b, t0$3 == null ? null : t0$3.focusColor), t), hoverColor: ui.Color.lerp((t0$4 = a, t0$4 == null ? null : t0$4.hoverColor), (t0$5 = b, t0$5 == null ? null : t0$5.hoverColor), t), splashColor: ui.Color.lerp((t0$6 = a, t0$6 == null ? null : t0$6.splashColor), (t0$7 = b, t0$7 == null ? null : t0$7.splashColor), t), elevation: ui.lerpDouble((t0$8 = a, t0$8 == null ? null : t0$8.elevation), (t0$9 = b, t0$9 == null ? null : t0$9.elevation), t), focusElevation: ui.lerpDouble((t0$10 = a, t0$10 == null ? null : t0$10.focusElevation), (t0$11 = b, t0$11 == null ? null : t0$11.focusElevation), t), hoverElevation: ui.lerpDouble((t0$12 = a, t0$12 == null ? null : t0$12.hoverElevation), (t0$13 = b, t0$13 == null ? null : t0$13.hoverElevation), t), disabledElevation: ui.lerpDouble((t0$14 = a, t0$14 == null ? null : t0$14.disabledElevation), (t0$15 = b, t0$15 == null ? null : t0$15.disabledElevation), t), highlightElevation: ui.lerpDouble((t0$16 = a, t0$16 == null ? null : t0$16.highlightElevation), (t0$17 = b, t0$17 == null ? null : t0$17.highlightElevation), t), shape: borders.ShapeBorder.lerp((t0$18 = a, t0$18 == null ? null : t0$18.shape), (t0$19 = b, t0$19 == null ? null : t0$19.shape), t)});
-    }
-    get hashCode() {
-      return ui.hashValues(this.foregroundColor, this.backgroundColor, this.focusColor, this.hoverColor, this.splashColor, this.elevation, this.focusElevation, this.hoverElevation, this.disabledElevation, this.highlightElevation, this.shape);
-    }
-    _equals(other) {
-      if (other == null) return false;
-      if (this === other) return true;
-      if (!other[$runtimeType]._equals(this[$runtimeType])) return false;
-      return floating_action_button_theme.FloatingActionButtonThemeData.is(other) && dart.equals(other.foregroundColor, this.foregroundColor) && dart.equals(other.backgroundColor, this.backgroundColor) && dart.equals(other.focusColor, this.focusColor) && dart.equals(other.hoverColor, this.hoverColor) && dart.equals(other.splashColor, this.splashColor) && other.elevation == this.elevation && other.focusElevation == this.focusElevation && other.hoverElevation == this.hoverElevation && other.disabledElevation == this.disabledElevation && other.highlightElevation == this.highlightElevation && dart.equals(other.shape, this.shape);
-    }
-    debugFillProperties(properties) {
-      super.debugFillProperties(properties);
-      let defaultData = C[0] || CT.C0;
-      properties.add(new colors.ColorProperty.new("foregroundColor", this.foregroundColor, {defaultValue: defaultData.foregroundColor}));
-      properties.add(new colors.ColorProperty.new("backgroundColor", this.backgroundColor, {defaultValue: defaultData.backgroundColor}));
-      properties.add(new colors.ColorProperty.new("focusColor", this.focusColor, {defaultValue: defaultData.focusColor}));
-      properties.add(new colors.ColorProperty.new("hoverColor", this.hoverColor, {defaultValue: defaultData.hoverColor}));
-      properties.add(new colors.ColorProperty.new("splashColor", this.splashColor, {defaultValue: defaultData.splashColor}));
-      properties.add(new diagnostics.DoubleProperty.new("elevation", this.elevation, {defaultValue: defaultData.elevation}));
-      properties.add(new diagnostics.DoubleProperty.new("focusElevation", this.focusElevation, {defaultValue: defaultData.focusElevation}));
-      properties.add(new diagnostics.DoubleProperty.new("hoverElevation", this.hoverElevation, {defaultValue: defaultData.hoverElevation}));
-      properties.add(new diagnostics.DoubleProperty.new("disabledElevation", this.disabledElevation, {defaultValue: defaultData.disabledElevation}));
-      properties.add(new diagnostics.DoubleProperty.new("highlightElevation", this.highlightElevation, {defaultValue: defaultData.highlightElevation}));
-      properties.add(new (T.DiagnosticsPropertyOfShapeBorder()).new("shape", this.shape, {defaultValue: defaultData.shape}));
+    (Rx.new = function(initial) {
+      Rx.__proto__.new.call(this, initial);
+      ;
+    }).prototype = Rx.prototype;
+    dart.addTypeTests(Rx);
+    Rx.prototype[_is_Rx_default] = true;
+    dart.addTypeCaches(Rx);
+    dart.setLibraryUri(Rx, I[0]);
+    return Rx;
+  });
+  rx_types.Rx = rx_types.Rx$();
+  dart.addTypeTests(rx_types.Rx, _is_Rx_default);
+  rx_types.RxBool = class RxBool extends rx_types.Rx$(core.bool) {
+    toString() {
+      return this.value ? "true" : "false";
     }
   };
-  (floating_action_button_theme.FloatingActionButtonThemeData.new = function(opts) {
-    let foregroundColor = opts && 'foregroundColor' in opts ? opts.foregroundColor : null;
-    let backgroundColor = opts && 'backgroundColor' in opts ? opts.backgroundColor : null;
-    let focusColor = opts && 'focusColor' in opts ? opts.focusColor : null;
-    let hoverColor = opts && 'hoverColor' in opts ? opts.hoverColor : null;
-    let splashColor = opts && 'splashColor' in opts ? opts.splashColor : null;
-    let elevation = opts && 'elevation' in opts ? opts.elevation : null;
-    let focusElevation = opts && 'focusElevation' in opts ? opts.focusElevation : null;
-    let hoverElevation = opts && 'hoverElevation' in opts ? opts.hoverElevation : null;
-    let disabledElevation = opts && 'disabledElevation' in opts ? opts.disabledElevation : null;
-    let highlightElevation = opts && 'highlightElevation' in opts ? opts.highlightElevation : null;
-    let shape = opts && 'shape' in opts ? opts.shape : null;
-    this[foregroundColor$] = foregroundColor;
-    this[backgroundColor$] = backgroundColor;
-    this[focusColor$] = focusColor;
-    this[hoverColor$] = hoverColor;
-    this[splashColor$] = splashColor;
-    this[elevation$] = elevation;
-    this[focusElevation$] = focusElevation;
-    this[hoverElevation$] = hoverElevation;
-    this[disabledElevation$] = disabledElevation;
-    this[highlightElevation$] = highlightElevation;
-    this[shape$] = shape;
+  (rx_types.RxBool.new = function(initial) {
+    rx_types.RxBool.__proto__.new.call(this, initial);
     ;
-  }).prototype = floating_action_button_theme.FloatingActionButtonThemeData.prototype;
-  dart.addTypeTests(floating_action_button_theme.FloatingActionButtonThemeData);
-  dart.addTypeCaches(floating_action_button_theme.FloatingActionButtonThemeData);
-  dart.setMethodSignature(floating_action_button_theme.FloatingActionButtonThemeData, () => ({
-    __proto__: dart.getMethods(floating_action_button_theme.FloatingActionButtonThemeData.__proto__),
-    copyWith: dart.fnType(floating_action_button_theme.FloatingActionButtonThemeData, [], {backgroundColor: dart.nullable(ui.Color), disabledElevation: dart.nullable(core.double), elevation: dart.nullable(core.double), focusColor: dart.nullable(ui.Color), focusElevation: dart.nullable(core.double), foregroundColor: dart.nullable(ui.Color), highlightElevation: dart.nullable(core.double), hoverColor: dart.nullable(ui.Color), hoverElevation: dart.nullable(core.double), shape: dart.nullable(borders.ShapeBorder), splashColor: dart.nullable(ui.Color)}, {})
+  }).prototype = rx_types.RxBool.prototype;
+  dart.addTypeTests(rx_types.RxBool);
+  dart.addTypeCaches(rx_types.RxBool);
+  dart.setLibraryUri(rx_types.RxBool, I[0]);
+  dart.defineExtensionMethods(rx_types.RxBool, ['toString']);
+  rx_types.RxnBool = class RxnBool extends rx_types.Rx$(dart.nullable(core.bool)) {
+    toString() {
+      return dart.str(this.value);
+    }
+  };
+  (rx_types.RxnBool.new = function(initial = null) {
+    rx_types.RxnBool.__proto__.new.call(this, initial);
+    ;
+  }).prototype = rx_types.RxnBool.prototype;
+  dart.addTypeTests(rx_types.RxnBool);
+  dart.addTypeCaches(rx_types.RxnBool);
+  dart.setLibraryUri(rx_types.RxnBool, I[0]);
+  dart.defineExtensionMethods(rx_types.RxnBool, ['toString']);
+  const _is_Rxn_default = Symbol('_is_Rxn_default');
+  rx_types.Rxn$ = dart.generic(T => {
+    class Rxn extends rx_types.Rx$(dart.nullable(T)) {
+      toJson() {
+        let t2;
+        try {
+          t2 = this.value;
+          return t2 == null ? null : dart.dsend(t2, 'toJson', []);
+        } catch (e) {
+          let _ = dart.getThrown(e);
+          if (core.Exception.is(_)) {
+            dart.throw(dart.str(dart.wrapType(T)) + " has not method [toJson]");
+          } else
+            throw e;
+        }
+      }
+    }
+    (Rxn.new = function(initial = null) {
+      Rxn.__proto__.new.call(this, initial);
+      ;
+    }).prototype = Rxn.prototype;
+    dart.addTypeTests(Rxn);
+    Rxn.prototype[_is_Rxn_default] = true;
+    dart.addTypeCaches(Rxn);
+    dart.setLibraryUri(Rxn, I[0]);
+    return Rxn;
+  });
+  rx_types.Rxn = rx_types.Rxn$();
+  dart.addTypeTests(rx_types.Rxn, _is_Rxn_default);
+  rx_types.RxNum = class RxNum extends rx_types.Rx$(core.num) {
+    ['+'](other) {
+      this.value = this.value + other;
+      return this.value;
+    }
+    ['-'](other) {
+      this.value = this.value - other;
+      return this.value;
+    }
+  };
+  (rx_types.RxNum.new = function(initial) {
+    rx_types.RxNum.__proto__.new.call(this, initial);
+    ;
+  }).prototype = rx_types.RxNum.prototype;
+  dart.addTypeTests(rx_types.RxNum);
+  dart.addTypeCaches(rx_types.RxNum);
+  dart.setMethodSignature(rx_types.RxNum, () => ({
+    __proto__: dart.getMethods(rx_types.RxNum.__proto__),
+    '+': dart.fnType(core.num, [core.num]),
+    '-': dart.fnType(core.num, [core.num])
   }));
-  dart.setLibraryUri(floating_action_button_theme.FloatingActionButtonThemeData, I[1]);
-  dart.setFieldSignature(floating_action_button_theme.FloatingActionButtonThemeData, () => ({
-    __proto__: dart.getFields(floating_action_button_theme.FloatingActionButtonThemeData.__proto__),
-    foregroundColor: dart.finalFieldType(dart.nullable(ui.Color)),
-    backgroundColor: dart.finalFieldType(dart.nullable(ui.Color)),
-    focusColor: dart.finalFieldType(dart.nullable(ui.Color)),
-    hoverColor: dart.finalFieldType(dart.nullable(ui.Color)),
-    splashColor: dart.finalFieldType(dart.nullable(ui.Color)),
-    elevation: dart.finalFieldType(dart.nullable(core.double)),
-    focusElevation: dart.finalFieldType(dart.nullable(core.double)),
-    hoverElevation: dart.finalFieldType(dart.nullable(core.double)),
-    disabledElevation: dart.finalFieldType(dart.nullable(core.double)),
-    highlightElevation: dart.finalFieldType(dart.nullable(core.double)),
-    shape: dart.finalFieldType(dart.nullable(borders.ShapeBorder))
+  dart.setLibraryUri(rx_types.RxNum, I[0]);
+  rx_types.RxnNum = class RxnNum extends rx_types.Rx$(dart.nullable(core.num)) {
+    ['+'](other) {
+      if (this.value != null) {
+        this.value = dart.nullCheck(this.value) + other;
+        return this.value;
+      }
+    }
+    ['-'](other) {
+      if (this.value != null) {
+        this.value = dart.nullCheck(this.value) - other;
+        return this.value;
+      }
+    }
+  };
+  (rx_types.RxnNum.new = function(initial = null) {
+    rx_types.RxnNum.__proto__.new.call(this, initial);
+    ;
+  }).prototype = rx_types.RxnNum.prototype;
+  dart.addTypeTests(rx_types.RxnNum);
+  dart.addTypeCaches(rx_types.RxnNum);
+  dart.setMethodSignature(rx_types.RxnNum, () => ({
+    __proto__: dart.getMethods(rx_types.RxnNum.__proto__),
+    '+': dart.fnType(dart.nullable(core.num), [core.num]),
+    '-': dart.fnType(dart.nullable(core.num), [core.num])
   }));
-  dart.defineExtensionMethods(floating_action_button_theme.FloatingActionButtonThemeData, ['_equals']);
-  dart.defineExtensionAccessors(floating_action_button_theme.FloatingActionButtonThemeData, ['hashCode']);
-  dart.trackLibraries("packages/flutter/src/material/floating_action_button_theme.dart", {
-    "package:flutter/src/material/floating_action_button_theme.dart": floating_action_button_theme
+  dart.setLibraryUri(rx_types.RxnNum, I[0]);
+  rx_types.RxDouble = class RxDouble extends rx_types.Rx$(core.double) {};
+  (rx_types.RxDouble.new = function(initial) {
+    rx_types.RxDouble.__proto__.new.call(this, initial);
+    ;
+  }).prototype = rx_types.RxDouble.prototype;
+  dart.addTypeTests(rx_types.RxDouble);
+  dart.addTypeCaches(rx_types.RxDouble);
+  dart.setLibraryUri(rx_types.RxDouble, I[0]);
+  rx_types.RxnDouble = class RxnDouble extends rx_types.Rx$(dart.nullable(core.double)) {};
+  (rx_types.RxnDouble.new = function(initial = null) {
+    rx_types.RxnDouble.__proto__.new.call(this, initial);
+    ;
+  }).prototype = rx_types.RxnDouble.prototype;
+  dart.addTypeTests(rx_types.RxnDouble);
+  dart.addTypeCaches(rx_types.RxnDouble);
+  dart.setLibraryUri(rx_types.RxnDouble, I[0]);
+  rx_types.RxInt = class RxInt extends rx_types.Rx$(core.int) {
+    ['+'](other) {
+      this.value = this.value + other;
+      return this;
+    }
+    ['-'](other) {
+      this.value = this.value - other;
+      return this;
+    }
+  };
+  (rx_types.RxInt.new = function(initial) {
+    rx_types.RxInt.__proto__.new.call(this, initial);
+    ;
+  }).prototype = rx_types.RxInt.prototype;
+  dart.addTypeTests(rx_types.RxInt);
+  dart.addTypeCaches(rx_types.RxInt);
+  dart.setMethodSignature(rx_types.RxInt, () => ({
+    __proto__: dart.getMethods(rx_types.RxInt.__proto__),
+    '+': dart.fnType(rx_types.RxInt, [core.int]),
+    '-': dart.fnType(rx_types.RxInt, [core.int])
+  }));
+  dart.setLibraryUri(rx_types.RxInt, I[0]);
+  rx_types.RxnInt = class RxnInt extends rx_types.Rx$(dart.nullable(core.int)) {
+    ['+'](other) {
+      if (this.value != null) {
+        this.value = dart.nullCheck(this.value) + other;
+      }
+      return this;
+    }
+    ['-'](other) {
+      if (this.value != null) {
+        this.value = dart.nullCheck(this.value) - other;
+      }
+      return this;
+    }
+  };
+  (rx_types.RxnInt.new = function(initial = null) {
+    rx_types.RxnInt.__proto__.new.call(this, initial);
+    ;
+  }).prototype = rx_types.RxnInt.prototype;
+  dart.addTypeTests(rx_types.RxnInt);
+  dart.addTypeCaches(rx_types.RxnInt);
+  dart.setMethodSignature(rx_types.RxnInt, () => ({
+    __proto__: dart.getMethods(rx_types.RxnInt.__proto__),
+    '+': dart.fnType(rx_types.RxnInt, [core.int]),
+    '-': dart.fnType(rx_types.RxnInt, [core.int])
+  }));
+  dart.setLibraryUri(rx_types.RxnInt, I[0]);
+  rx_types.RxString = class RxString extends rx_types.Rx$(core.String) {
+    allMatches(string, start = 0) {
+      return this.value[$allMatches](string, start);
+    }
+    matchAsPrefix(string, start = 0) {
+      return this.value[$matchAsPrefix](string, start);
+    }
+    compareTo(other) {
+      core.String.as(other);
+      return this.value[$compareTo](other);
+    }
+  };
+  (rx_types.RxString.new = function(initial) {
+    rx_types.RxString.__proto__.new.call(this, initial);
+    ;
+  }).prototype = rx_types.RxString.prototype;
+  dart.addTypeTests(rx_types.RxString);
+  dart.addTypeCaches(rx_types.RxString);
+  rx_types.RxString[dart.implements] = () => [core.Comparable$(core.String), core.Pattern];
+  dart.setMethodSignature(rx_types.RxString, () => ({
+    __proto__: dart.getMethods(rx_types.RxString.__proto__),
+    allMatches: dart.fnType(core.Iterable$(core.Match), [core.String], [core.int]),
+    [$allMatches]: dart.fnType(core.Iterable$(core.Match), [core.String], [core.int]),
+    matchAsPrefix: dart.fnType(dart.nullable(core.Match), [core.String], [core.int]),
+    [$matchAsPrefix]: dart.fnType(dart.nullable(core.Match), [core.String], [core.int]),
+    compareTo: dart.fnType(core.int, [dart.nullable(core.Object)]),
+    [$compareTo]: dart.fnType(core.int, [dart.nullable(core.Object)])
+  }));
+  dart.setLibraryUri(rx_types.RxString, I[0]);
+  dart.defineExtensionMethods(rx_types.RxString, ['allMatches', 'matchAsPrefix', 'compareTo']);
+  rx_types.RxnString = class RxnString extends rx_types.Rx$(dart.nullable(core.String)) {
+    allMatches(string, start = 0) {
+      return dart.nullCheck(this.value)[$allMatches](string, start);
+    }
+    matchAsPrefix(string, start = 0) {
+      return dart.nullCheck(this.value)[$matchAsPrefix](string, start);
+    }
+    compareTo(other) {
+      core.String.as(other);
+      return dart.nullCheck(this.value)[$compareTo](other);
+    }
+  };
+  (rx_types.RxnString.new = function(initial = null) {
+    rx_types.RxnString.__proto__.new.call(this, initial);
+    ;
+  }).prototype = rx_types.RxnString.prototype;
+  dart.addTypeTests(rx_types.RxnString);
+  dart.addTypeCaches(rx_types.RxnString);
+  rx_types.RxnString[dart.implements] = () => [core.Comparable$(core.String), core.Pattern];
+  dart.setMethodSignature(rx_types.RxnString, () => ({
+    __proto__: dart.getMethods(rx_types.RxnString.__proto__),
+    allMatches: dart.fnType(core.Iterable$(core.Match), [core.String], [core.int]),
+    [$allMatches]: dart.fnType(core.Iterable$(core.Match), [core.String], [core.int]),
+    matchAsPrefix: dart.fnType(dart.nullable(core.Match), [core.String], [core.int]),
+    [$matchAsPrefix]: dart.fnType(dart.nullable(core.Match), [core.String], [core.int]),
+    compareTo: dart.fnType(core.int, [dart.nullable(core.Object)]),
+    [$compareTo]: dart.fnType(core.int, [dart.nullable(core.Object)])
+  }));
+  dart.setLibraryUri(rx_types.RxnString, I[0]);
+  dart.defineExtensionMethods(rx_types.RxnString, ['allMatches', 'matchAsPrefix', 'compareTo']);
+  const _is_RxList_default = Symbol('_is_RxList_default');
+  rx_types.RxList$ = dart.generic(E => {
+    var ListOfE = () => (ListOfE = dart.constFn(core.List$(E)))();
+    var IterableOfE = () => (IterableOfE = dart.constFn(core.Iterable$(E)))();
+    const ListMixin_NotifyManager$36 = class ListMixin_NotifyManager extends collection.ListMixin$(E) {};
+    (ListMixin_NotifyManager$36.new = function() {
+      rx_types.NotifyManager$(core.List$(E))[dart.mixinNew].call(this);
+    }).prototype = ListMixin_NotifyManager$36.prototype;
+    dart.applyMixin(ListMixin_NotifyManager$36, rx_types.NotifyManager$(core.List$(E)));
+    const ListMixin_RxObjectMixin$36 = class ListMixin_RxObjectMixin extends ListMixin_NotifyManager$36 {};
+    (ListMixin_RxObjectMixin$36.new = function() {
+      rx_types.RxObjectMixin$(core.List$(E))[dart.mixinNew].call(this);
+      ListMixin_RxObjectMixin$36.__proto__.new.call(this);
+    }).prototype = ListMixin_RxObjectMixin$36.prototype;
+    dart.applyMixin(ListMixin_RxObjectMixin$36, rx_types.RxObjectMixin$(core.List$(E)));
+    class RxList extends ListMixin_RxObjectMixin$36 {
+      static filled(length, fill, opts) {
+        let growable = opts && 'growable' in opts ? opts.growable : false;
+        return new (rx_types.RxList$(E)).new(core.List$(E).filled(length, fill, {growable: growable}));
+      }
+      static empty(opts) {
+        let growable = opts && 'growable' in opts ? opts.growable : false;
+        return new (rx_types.RxList$(E)).new(core.List$(E).empty({growable: growable}));
+      }
+      static from(elements, opts) {
+        let growable = opts && 'growable' in opts ? opts.growable : true;
+        return new (rx_types.RxList$(E)).new(core.List$(E).from(elements, {growable: growable}));
+      }
+      static of(elements, opts) {
+        let growable = opts && 'growable' in opts ? opts.growable : true;
+        return new (rx_types.RxList$(E)).new(core.List$(E).of(elements, {growable: growable}));
+      }
+      static generate(length, generator, opts) {
+        let growable = opts && 'growable' in opts ? opts.growable : true;
+        return new (rx_types.RxList$(E)).new(core.List$(E).generate(length, generator, {growable: growable}));
+      }
+      static unmodifiable(elements) {
+        return new (rx_types.RxList$(E)).new(core.List$(E).unmodifiable(elements));
+      }
+      get iterator() {
+        return this.value[$iterator];
+      }
+      _set(index, val$) {
+        let val = val$;
+        E.as(val);
+        this[_value][$_set](index, val);
+        this.refresh();
+        return val$;
+      }
+      ['+'](val) {
+        IterableOfE().as(val);
+        this.addAll(val);
+        this.refresh();
+        return this;
+      }
+      _get(index) {
+        return this.value[$_get](index);
+      }
+      add(item) {
+        E.as(item);
+        this[_value][$add](item);
+        this.refresh();
+      }
+      addAll(item) {
+        IterableOfE().as(item);
+        this[_value][$addAll](item);
+        this.refresh();
+      }
+      get length() {
+        return this.value[$length];
+      }
+      get value() {
+        let t3;
+        t3 = rx_types.RxInterface.proxy;
+        t3 == null ? null : t3.addListener(this.subject);
+        return this[_value];
+      }
+      set value(value) {
+        super.value = value;
+      }
+      set length(newLength) {
+        this[_value][$length] = newLength;
+        this.refresh();
+      }
+      insertAll(index, iterable) {
+        IterableOfE().as(iterable);
+        this[_value][$insertAll](index, iterable);
+        this.refresh();
+      }
+      get reversed() {
+        return this.value[$reversed];
+      }
+      where(test) {
+        return this.value[$where](test);
+      }
+      whereType(T) {
+        return this.value[$whereType](T);
+      }
+      sort(compare = null) {
+        this[_value][$sort](compare);
+        this.refresh();
+      }
+    }
+    (RxList.new = function(initial = C[0] || CT.C0) {
+      RxList.__proto__.new.call(this);
+      this[_value] = ListOfE().from(initial);
+    }).prototype = RxList.prototype;
+    dart.addTypeTests(RxList);
+    RxList.prototype[_is_RxList_default] = true;
+    dart.addTypeCaches(RxList);
+    RxList[dart.implements] = () => [rx_types.RxInterface$(core.List$(E))];
+    dart.setMethodSignature(RxList, () => ({
+      __proto__: dart.getMethods(RxList.__proto__),
+      _set: dart.fnType(dart.void, [core.int, dart.nullable(core.Object)]),
+      [$_set]: dart.fnType(dart.void, [core.int, dart.nullable(core.Object)]),
+      '+': dart.fnType(rx_types.RxList$(E), [dart.nullable(core.Object)]),
+      [$plus]: dart.fnType(rx_types.RxList$(E), [dart.nullable(core.Object)]),
+      _get: dart.fnType(E, [core.int]),
+      [$_get]: dart.fnType(E, [core.int]),
+      whereType: dart.gFnType(T => [core.Iterable$(T), []], T => [dart.nullable(core.Object)]),
+      [$whereType]: dart.gFnType(T => [core.Iterable$(T), []], T => [dart.nullable(core.Object)])
+    }));
+    dart.setGetterSignature(RxList, () => ({
+      __proto__: dart.getGetters(RxList.__proto__),
+      length: core.int,
+      [$length]: core.int
+    }));
+    dart.setSetterSignature(RxList, () => ({
+      __proto__: dart.getSetters(RxList.__proto__),
+      length: core.int,
+      [$length]: core.int
+    }));
+    dart.setLibraryUri(RxList, I[0]);
+    dart.defineExtensionMethods(RxList, [
+      '_set',
+      '+',
+      '_get',
+      'add',
+      'addAll',
+      'insertAll',
+      'where',
+      'whereType',
+      'sort'
+    ]);
+    dart.defineExtensionAccessors(RxList, ['iterator', 'length', 'reversed']);
+    return RxList;
+  });
+  rx_types.RxList = rx_types.RxList$();
+  dart.addTypeTests(rx_types.RxList, _is_RxList_default);
+  const _is_RxSet_default = Symbol('_is_RxSet_default');
+  rx_types.RxSet$ = dart.generic(E => {
+    var LinkedHashSetOfE = () => (LinkedHashSetOfE = dart.constFn(collection.LinkedHashSet$(E)))();
+    var SetOfE = () => (SetOfE = dart.constFn(core.Set$(E)))();
+    var IterableOfE = () => (IterableOfE = dart.constFn(core.Iterable$(E)))();
+    const SetMixin_NotifyManager$36 = class SetMixin_NotifyManager extends collection.SetMixin$(E) {};
+    (SetMixin_NotifyManager$36.new = function() {
+      rx_types.NotifyManager$(core.Set$(E))[dart.mixinNew].call(this);
+    }).prototype = SetMixin_NotifyManager$36.prototype;
+    dart.applyMixin(SetMixin_NotifyManager$36, rx_types.NotifyManager$(core.Set$(E)));
+    const SetMixin_RxObjectMixin$36 = class SetMixin_RxObjectMixin extends SetMixin_NotifyManager$36 {};
+    (SetMixin_RxObjectMixin$36.new = function() {
+      rx_types.RxObjectMixin$(core.Set$(E))[dart.mixinNew].call(this);
+      SetMixin_RxObjectMixin$36.__proto__.new.call(this);
+    }).prototype = SetMixin_RxObjectMixin$36.prototype;
+    dart.applyMixin(SetMixin_RxObjectMixin$36, rx_types.RxObjectMixin$(core.Set$(E)));
+    class RxSet extends SetMixin_RxObjectMixin$36 {
+      ['+'](val) {
+        SetOfE().as(val);
+        this.addAll(val);
+        this.refresh();
+        return this;
+      }
+      update(fn) {
+        fn(this.value);
+        this.refresh();
+      }
+      get value() {
+        let t3;
+        t3 = rx_types.RxInterface.proxy;
+        t3 == null ? null : t3.addListener(this.subject);
+        return this[_value];
+      }
+      set value(val) {
+        SetOfE().as(val);
+        if (this[_value][$_equals](val)) return;
+        this[_value] = val;
+        this.refresh();
+      }
+      add(value) {
+        E.as(value);
+        let val = this[_value].add(value);
+        this.refresh();
+        return val;
+      }
+      contains(element) {
+        return this.value.contains(element);
+      }
+      get iterator() {
+        return this.value.iterator;
+      }
+      get length() {
+        return this.value[$length];
+      }
+      lookup(object) {
+        return this.value.lookup(object);
+      }
+      remove(item) {
+        let hasRemoved = this[_value].remove(item);
+        if (hasRemoved) {
+          this.refresh();
+        }
+        return hasRemoved;
+      }
+      toSet() {
+        return this.value.toSet();
+      }
+      addAll(item) {
+        IterableOfE().as(item);
+        this[_value].addAll(item);
+        this.refresh();
+      }
+      clear() {
+        this[_value].clear();
+        this.refresh();
+      }
+      removeAll(elements) {
+        this[_value].removeAll(elements);
+        this.refresh();
+      }
+      retainAll(elements) {
+        this[_value].retainAll(elements);
+        this.refresh();
+      }
+      retainWhere(E) {
+        this[_value].retainWhere(E);
+        this.refresh();
+      }
+    }
+    (RxSet.new = function(initial = C[1] || CT.C1) {
+      RxSet.__proto__.new.call(this);
+      this[_value] = LinkedHashSetOfE().from(initial);
+    }).prototype = RxSet.prototype;
+    dart.addTypeTests(RxSet);
+    RxSet.prototype[_is_RxSet_default] = true;
+    dart.addTypeCaches(RxSet);
+    RxSet[dart.implements] = () => [rx_types.RxInterface$(core.Set$(E))];
+    dart.setMethodSignature(RxSet, () => ({
+      __proto__: dart.getMethods(RxSet.__proto__),
+      '+': dart.fnType(rx_types.RxSet$(E), [dart.nullable(core.Object)]),
+      update: dart.fnType(dart.void, [dart.fnType(dart.void, [dart.nullable(core.Iterable$(E))])]),
+      add: dart.fnType(core.bool, [dart.nullable(core.Object)]),
+      contains: dart.fnType(core.bool, [dart.nullable(core.Object)]),
+      [$contains]: dart.fnType(core.bool, [dart.nullable(core.Object)]),
+      lookup: dart.fnType(dart.nullable(E), [dart.nullable(core.Object)]),
+      remove: dart.fnType(core.bool, [dart.nullable(core.Object)]),
+      toSet: dart.fnType(core.Set$(E), []),
+      [$toSet]: dart.fnType(core.Set$(E), [])
+    }));
+    dart.setGetterSignature(RxSet, () => ({
+      __proto__: dart.getGetters(RxSet.__proto__),
+      iterator: core.Iterator$(E),
+      [$iterator]: core.Iterator$(E),
+      length: core.int,
+      [$length]: core.int
+    }));
+    dart.setLibraryUri(RxSet, I[0]);
+    dart.defineExtensionMethods(RxSet, ['contains', 'toSet']);
+    dart.defineExtensionAccessors(RxSet, ['iterator', 'length']);
+    return RxSet;
+  });
+  rx_types.RxSet = rx_types.RxSet$();
+  dart.addTypeTests(rx_types.RxSet, _is_RxSet_default);
+  const _is_RxMap_default = Symbol('_is_RxMap_default');
+  rx_types.RxMap$ = dart.generic((K, V) => {
+    var LinkedHashMapOfK$V = () => (LinkedHashMapOfK$V = dart.constFn(collection.LinkedHashMap$(K, V)))();
+    const MapMixin_NotifyManager$36 = class MapMixin_NotifyManager extends collection.MapMixin$(K, V) {};
+    (MapMixin_NotifyManager$36.new = function() {
+      rx_types.NotifyManager$(core.Map$(K, V))[dart.mixinNew].call(this);
+    }).prototype = MapMixin_NotifyManager$36.prototype;
+    dart.applyMixin(MapMixin_NotifyManager$36, rx_types.NotifyManager$(core.Map$(K, V)));
+    const MapMixin_RxObjectMixin$36 = class MapMixin_RxObjectMixin extends MapMixin_NotifyManager$36 {};
+    (MapMixin_RxObjectMixin$36.new = function() {
+      rx_types.RxObjectMixin$(core.Map$(K, V))[dart.mixinNew].call(this);
+      MapMixin_RxObjectMixin$36.__proto__.new.call(this);
+    }).prototype = MapMixin_RxObjectMixin$36.prototype;
+    dart.applyMixin(MapMixin_RxObjectMixin$36, rx_types.RxObjectMixin$(core.Map$(K, V)));
+    class RxMap extends MapMixin_RxObjectMixin$36 {
+      static from(other) {
+        return new (rx_types.RxMap$(K, V)).new(collection.LinkedHashMap$(K, V).from(other));
+      }
+      static of(other) {
+        return new (rx_types.RxMap$(K, V)).new(collection.LinkedHashMap$(K, V).of(other));
+      }
+      static unmodifiable(other) {
+        return new (rx_types.RxMap$(K, V)).new(core.Map$(K, V).unmodifiable(other));
+      }
+      static identity() {
+        return new (rx_types.RxMap$(K, V)).new(new (_js_helper.IdentityMap$(K, V)).new());
+      }
+      _get(key) {
+        return this.value[$_get](K.as(key));
+      }
+      _set(key, value$) {
+        let value = value$;
+        K.as(key);
+        V.as(value);
+        this[_value][$_set](key, value);
+        this.refresh();
+        return value$;
+      }
+      clear() {
+        this[_value][$clear]();
+        this.refresh();
+      }
+      get keys() {
+        return this.value[$keys];
+      }
+      remove(key) {
+        let val = this[_value][$remove](key);
+        this.refresh();
+        return val;
+      }
+      get value() {
+        let t3;
+        t3 = rx_types.RxInterface.proxy;
+        t3 == null ? null : t3.addListener(this.subject);
+        return this[_value];
+      }
+      set value(value) {
+        super.value = value;
+      }
+    }
+    (RxMap.new = function(initial = C[2] || CT.C2) {
+      RxMap.__proto__.new.call(this);
+      this[_value] = LinkedHashMapOfK$V().from(initial);
+    }).prototype = RxMap.prototype;
+    dart.addTypeTests(RxMap);
+    RxMap.prototype[_is_RxMap_default] = true;
+    dart.addTypeCaches(RxMap);
+    RxMap[dart.implements] = () => [rx_types.RxInterface$(core.Map$(K, V))];
+    dart.setMethodSignature(RxMap, () => ({
+      __proto__: dart.getMethods(RxMap.__proto__),
+      _get: dart.fnType(dart.nullable(V), [dart.nullable(core.Object)]),
+      [$_get]: dart.fnType(dart.nullable(V), [dart.nullable(core.Object)]),
+      _set: dart.fnType(dart.void, [dart.nullable(core.Object), dart.nullable(core.Object)]),
+      [$_set]: dart.fnType(dart.void, [dart.nullable(core.Object), dart.nullable(core.Object)]),
+      clear: dart.fnType(dart.void, []),
+      [$clear]: dart.fnType(dart.void, []),
+      remove: dart.fnType(dart.nullable(V), [dart.nullable(core.Object)]),
+      [$remove]: dart.fnType(dart.nullable(V), [dart.nullable(core.Object)])
+    }));
+    dart.setGetterSignature(RxMap, () => ({
+      __proto__: dart.getGetters(RxMap.__proto__),
+      keys: core.Iterable$(K),
+      [$keys]: core.Iterable$(K)
+    }));
+    dart.setLibraryUri(RxMap, I[0]);
+    dart.defineExtensionMethods(RxMap, ['_get', '_set', 'clear', 'remove']);
+    dart.defineExtensionAccessors(RxMap, ['keys']);
+    return RxMap;
+  });
+  rx_types.RxMap = rx_types.RxMap$();
+  dart.addTypeTests(rx_types.RxMap, _is_RxMap_default);
+  rx_types['RxBoolExt|get#isTrue'] = function RxBoolExt$124get$35isTrue($this) {
+    return $this.value;
+  };
+  rx_types['RxBoolExt|get#isFalse'] = function RxBoolExt$124get$35isFalse($this) {
+    return !rx_types['RxBoolExt|get#isTrue']($this);
+  };
+  rx_types['RxBoolExt|&'] = function RxBoolExt$124$38($this, other) {
+    return other && $this.value;
+  };
+  rx_types['RxBoolExt||'] = function RxBoolExt$124$124($this, other) {
+    return other || $this.value;
+  };
+  rx_types['RxBoolExt|^'] = function RxBoolExt$124$94($this, other) {
+    return !other === $this.value;
+  };
+  rx_types['RxBoolExt|toggle'] = function RxBoolExt$124toggle($this) {
+    $this.subject.add($this[_value] = !$this[_value]);
+    return $this;
+  };
+  rx_types['RxBoolExt|get#toggle'] = function RxBoolExt$124get$35toggle($this) {
+    return dart.fn(() => rx_types['RxBoolExt|toggle']($this), T$.VoidToRxOfbool());
+  };
+  rx_types['RxnBoolExt|get#isTrue'] = function RxnBoolExt$124get$35isTrue($this) {
+    return $this.value;
+  };
+  rx_types['RxnBoolExt|get#isFalse'] = function RxnBoolExt$124get$35isFalse($this) {
+    if ($this.value != null) return !dart.nullCheck(rx_types['RxnBoolExt|get#isTrue']($this));
+  };
+  rx_types['RxnBoolExt|&'] = function RxnBoolExt$124$38($this, other) {
+    if ($this.value != null) {
+      return other && dart.nullCheck($this.value);
+    }
+  };
+  rx_types['RxnBoolExt||'] = function RxnBoolExt$124$124($this, other) {
+    if ($this.value != null) {
+      return other || dart.nullCheck($this.value);
+    }
+  };
+  rx_types['RxnBoolExt|^'] = function RxnBoolExt$124$94($this, other) {
+    return !other === $this.value;
+  };
+  rx_types['RxnBoolExt|get#toggle'] = function RxnBoolExt$124get$35toggle($this) {
+    return dart.fn(() => rx_types['RxnBoolExt|toggle']($this), T$.VoidToRxNOfboolN());
+  };
+  rx_types['RxnBoolExt|toggle'] = function RxnBoolExt$124toggle($this) {
+    if ($this[_value] != null) {
+      $this.subject.add($this[_value] = !dart.nullCheck($this[_value]));
+      return $this;
+    }
+  };
+  rx_types['StringExtension|get#obs'] = function StringExtension$124get$35obs($this) {
+    return new rx_types.RxString.new($this);
+  };
+  rx_types['IntExtension|get#obs'] = function IntExtension$124get$35obs($this) {
+    return new rx_types.RxInt.new($this);
+  };
+  rx_types['DoubleExtension|get#obs'] = function DoubleExtension$124get$35obs($this) {
+    return new rx_types.RxDouble.new($this);
+  };
+  rx_types['BoolExtension|get#obs'] = function BoolExtension$124get$35obs($this) {
+    return new rx_types.RxBool.new($this);
+  };
+  rx_types['RxT|get#obs'] = function RxT$124get$35obs(T, $this) {
+    return new (rx_types.Rx$(T)).new($this);
+  };
+  rx_types['RxNumExt|*'] = function RxNumExt$124$42(T, $this, other) {
+    return $this.value * other;
+  };
+  rx_types['RxNumExt|%'] = function RxNumExt$124$37(T, $this, other) {
+    return $this.value[$modulo](other);
+  };
+  rx_types['RxNumExt|/'] = function RxNumExt$124$47(T, $this, other) {
+    return $this.value / other;
+  };
+  rx_types['RxNumExt|~/'] = function RxNumExt$124$126$47(T, $this, other) {
+    return ($this.value / other)[$truncate]();
+  };
+  rx_types['RxNumExt|unary-'] = function RxNumExt$124unary$45(T, $this) {
+    return -$this.value;
+  };
+  rx_types['RxNumExt|remainder'] = function RxNumExt$124remainder(T, $this, other) {
+    return $this.value[$remainder](other);
+  };
+  rx_types['RxNumExt|get#remainder'] = function RxNumExt$124get$35remainder(T, $this) {
+    return dart.fn(other => rx_types['RxNumExt|remainder'](T, $this, other), T$.numTonum());
+  };
+  rx_types['RxNumExt|<'] = function RxNumExt$124$60(T, $this, other) {
+    return $this.value < other;
+  };
+  rx_types['RxNumExt|<='] = function RxNumExt$124$60$61(T, $this, other) {
+    return $this.value <= other;
+  };
+  rx_types['RxNumExt|>'] = function RxNumExt$124$62(T, $this, other) {
+    return $this.value > other;
+  };
+  rx_types['RxNumExt|>='] = function RxNumExt$124$62$61(T, $this, other) {
+    return $this.value >= other;
+  };
+  rx_types['RxNumExt|get#isNaN'] = function RxNumExt$124get$35isNaN(T, $this) {
+    return $this.value[$isNaN];
+  };
+  rx_types['RxNumExt|get#isNegative'] = function RxNumExt$124get$35isNegative(T, $this) {
+    return $this.value[$isNegative];
+  };
+  rx_types['RxNumExt|get#isInfinite'] = function RxNumExt$124get$35isInfinite(T, $this) {
+    return $this.value[$isInfinite];
+  };
+  rx_types['RxNumExt|get#isFinite'] = function RxNumExt$124get$35isFinite(T, $this) {
+    return $this.value[$isFinite];
+  };
+  rx_types['RxNumExt|abs'] = function RxNumExt$124abs(T, $this) {
+    return $this.value[$abs]();
+  };
+  rx_types['RxNumExt|get#abs'] = function RxNumExt$124get$35abs(T, $this) {
+    return dart.fn(() => rx_types['RxNumExt|abs'](T, $this), T$.VoidTonum());
+  };
+  rx_types['RxNumExt|get#sign'] = function RxNumExt$124get$35sign(T, $this) {
+    return $this.value[$sign];
+  };
+  rx_types['RxNumExt|round'] = function RxNumExt$124round(T, $this) {
+    return $this.value[$round]();
+  };
+  rx_types['RxNumExt|get#round'] = function RxNumExt$124get$35round(T, $this) {
+    return dart.fn(() => rx_types['RxNumExt|round'](T, $this), T$.VoidToint());
+  };
+  rx_types['RxNumExt|floor'] = function RxNumExt$124floor(T, $this) {
+    return $this.value[$floor]();
+  };
+  rx_types['RxNumExt|get#floor'] = function RxNumExt$124get$35floor(T, $this) {
+    return dart.fn(() => rx_types['RxNumExt|floor'](T, $this), T$.VoidToint());
+  };
+  rx_types['RxNumExt|ceil'] = function RxNumExt$124ceil(T, $this) {
+    return $this.value[$ceil]();
+  };
+  rx_types['RxNumExt|get#ceil'] = function RxNumExt$124get$35ceil(T, $this) {
+    return dart.fn(() => rx_types['RxNumExt|ceil'](T, $this), T$.VoidToint());
+  };
+  rx_types['RxNumExt|truncate'] = function RxNumExt$124truncate(T, $this) {
+    return $this.value[$truncate]();
+  };
+  rx_types['RxNumExt|get#truncate'] = function RxNumExt$124get$35truncate(T, $this) {
+    return dart.fn(() => rx_types['RxNumExt|truncate'](T, $this), T$.VoidToint());
+  };
+  rx_types['RxNumExt|roundToDouble'] = function RxNumExt$124roundToDouble(T, $this) {
+    return $this.value[$roundToDouble]();
+  };
+  rx_types['RxNumExt|get#roundToDouble'] = function RxNumExt$124get$35roundToDouble(T, $this) {
+    return dart.fn(() => rx_types['RxNumExt|roundToDouble'](T, $this), T$.VoidTodouble());
+  };
+  rx_types['RxNumExt|floorToDouble'] = function RxNumExt$124floorToDouble(T, $this) {
+    return $this.value[$floorToDouble]();
+  };
+  rx_types['RxNumExt|get#floorToDouble'] = function RxNumExt$124get$35floorToDouble(T, $this) {
+    return dart.fn(() => rx_types['RxNumExt|floorToDouble'](T, $this), T$.VoidTodouble());
+  };
+  rx_types['RxNumExt|ceilToDouble'] = function RxNumExt$124ceilToDouble(T, $this) {
+    return $this.value[$ceilToDouble]();
+  };
+  rx_types['RxNumExt|get#ceilToDouble'] = function RxNumExt$124get$35ceilToDouble(T, $this) {
+    return dart.fn(() => rx_types['RxNumExt|ceilToDouble'](T, $this), T$.VoidTodouble());
+  };
+  rx_types['RxNumExt|get#truncateToDouble'] = function RxNumExt$124get$35truncateToDouble(T, $this) {
+    return dart.fn(() => rx_types['RxNumExt|truncateToDouble'](T, $this), T$.VoidTodouble());
+  };
+  rx_types['RxNumExt|truncateToDouble'] = function RxNumExt$124truncateToDouble(T, $this) {
+    return $this.value[$truncateToDouble]();
+  };
+  rx_types['RxNumExt|clamp'] = function RxNumExt$124clamp(T, $this, lowerLimit, upperLimit) {
+    return $this.value[$clamp](lowerLimit, upperLimit);
+  };
+  rx_types['RxNumExt|get#clamp'] = function RxNumExt$124get$35clamp(T, $this) {
+    return dart.fn((lowerLimit, upperLimit) => rx_types['RxNumExt|clamp'](T, $this, lowerLimit, upperLimit), T$.numAndnumTonum());
+  };
+  rx_types['RxNumExt|toInt'] = function RxNumExt$124toInt(T, $this) {
+    return $this.value[$toInt]();
+  };
+  rx_types['RxNumExt|get#toInt'] = function RxNumExt$124get$35toInt(T, $this) {
+    return dart.fn(() => rx_types['RxNumExt|toInt'](T, $this), T$.VoidToint());
+  };
+  rx_types['RxNumExt|toDouble'] = function RxNumExt$124toDouble(T, $this) {
+    return $this.value[$toDouble]();
+  };
+  rx_types['RxNumExt|get#toDouble'] = function RxNumExt$124get$35toDouble(T, $this) {
+    return dart.fn(() => rx_types['RxNumExt|toDouble'](T, $this), T$.VoidTodouble());
+  };
+  rx_types['RxNumExt|toStringAsFixed'] = function RxNumExt$124toStringAsFixed(T, $this, fractionDigits) {
+    return $this.value[$toStringAsFixed](fractionDigits);
+  };
+  rx_types['RxNumExt|get#toStringAsFixed'] = function RxNumExt$124get$35toStringAsFixed(T, $this) {
+    return dart.fn(fractionDigits => rx_types['RxNumExt|toStringAsFixed'](T, $this, fractionDigits), T$.intToString());
+  };
+  rx_types['RxNumExt|toStringAsExponential'] = function RxNumExt$124toStringAsExponential(T, $this, fractionDigits = null) {
+    return $this.value[$toStringAsExponential](fractionDigits);
+  };
+  rx_types['RxNumExt|get#toStringAsExponential'] = function RxNumExt$124get$35toStringAsExponential(T, $this) {
+    return dart.fn((fractionDigits = null) => rx_types['RxNumExt|toStringAsExponential'](T, $this, fractionDigits), T$.intNToString());
+  };
+  rx_types['RxNumExt|toStringAsPrecision'] = function RxNumExt$124toStringAsPrecision(T, $this, precision) {
+    return $this.value[$toStringAsPrecision](precision);
+  };
+  rx_types['RxNumExt|get#toStringAsPrecision'] = function RxNumExt$124get$35toStringAsPrecision(T, $this) {
+    return dart.fn(precision => rx_types['RxNumExt|toStringAsPrecision'](T, $this, precision), T$.intToString());
+  };
+  rx_types['RxnNumExt|*'] = function RxnNumExt$124$42(T, $this, other) {
+    if ($this.value != null) {
+      return dart.nullCheck($this.value) * other;
+    }
+  };
+  rx_types['RxnNumExt|%'] = function RxnNumExt$124$37(T, $this, other) {
+    if ($this.value != null) {
+      return dart.nullCheck($this.value)[$modulo](other);
+    }
+  };
+  rx_types['RxnNumExt|/'] = function RxnNumExt$124$47(T, $this, other) {
+    if ($this.value != null) {
+      return dart.nullCheck($this.value) / other;
+    }
+  };
+  rx_types['RxnNumExt|~/'] = function RxnNumExt$124$126$47(T, $this, other) {
+    if ($this.value != null) {
+      return (dart.nullCheck($this.value) / other)[$truncate]();
+    }
+  };
+  rx_types['RxnNumExt|unary-'] = function RxnNumExt$124unary$45(T, $this) {
+    if ($this.value != null) {
+      return -dart.nullCheck($this.value);
+    }
+  };
+  rx_types['RxnNumExt|remainder'] = function RxnNumExt$124remainder(T, $this, other) {
+    let t74;
+    t74 = $this.value;
+    return t74 == null ? null : t74[$remainder](other);
+  };
+  rx_types['RxnNumExt|get#remainder'] = function RxnNumExt$124get$35remainder(T, $this) {
+    return dart.fn(other => rx_types['RxnNumExt|remainder'](T, $this, other), T$.numTonumN());
+  };
+  rx_types['RxnNumExt|<'] = function RxnNumExt$124$60(T, $this, other) {
+    if ($this.value != null) {
+      return dart.nullCheck($this.value) < other;
+    }
+  };
+  rx_types['RxnNumExt|<='] = function RxnNumExt$124$60$61(T, $this, other) {
+    if ($this.value != null) {
+      return dart.nullCheck($this.value) <= other;
+    }
+  };
+  rx_types['RxnNumExt|>'] = function RxnNumExt$124$62(T, $this, other) {
+    if ($this.value != null) {
+      return dart.nullCheck($this.value) > other;
+    }
+  };
+  rx_types['RxnNumExt|>='] = function RxnNumExt$124$62$61(T, $this, other) {
+    if ($this.value != null) {
+      return dart.nullCheck($this.value) >= other;
+    }
+  };
+  rx_types['RxnNumExt|get#isNaN'] = function RxnNumExt$124get$35isNaN(T, $this) {
+    let t80;
+    t80 = $this.value;
+    return t80 == null ? null : t80[$isNaN];
+  };
+  rx_types['RxnNumExt|get#isNegative'] = function RxnNumExt$124get$35isNegative(T, $this) {
+    let t81;
+    t81 = $this.value;
+    return t81 == null ? null : t81[$isNegative];
+  };
+  rx_types['RxnNumExt|get#isInfinite'] = function RxnNumExt$124get$35isInfinite(T, $this) {
+    let t82;
+    t82 = $this.value;
+    return t82 == null ? null : t82[$isInfinite];
+  };
+  rx_types['RxnNumExt|get#isFinite'] = function RxnNumExt$124get$35isFinite(T, $this) {
+    let t83;
+    t83 = $this.value;
+    return t83 == null ? null : t83[$isFinite];
+  };
+  rx_types['RxnNumExt|abs'] = function RxnNumExt$124abs(T, $this) {
+    let t84;
+    t84 = $this.value;
+    return t84 == null ? null : t84[$abs]();
+  };
+  rx_types['RxnNumExt|get#abs'] = function RxnNumExt$124get$35abs(T, $this) {
+    return dart.fn(() => rx_types['RxnNumExt|abs'](T, $this), T$.VoidTonumN());
+  };
+  rx_types['RxnNumExt|get#sign'] = function RxnNumExt$124get$35sign(T, $this) {
+    let t86;
+    t86 = $this.value;
+    return t86 == null ? null : t86[$sign];
+  };
+  rx_types['RxnNumExt|round'] = function RxnNumExt$124round(T, $this) {
+    let t87;
+    t87 = $this.value;
+    return t87 == null ? null : t87[$round]();
+  };
+  rx_types['RxnNumExt|get#round'] = function RxnNumExt$124get$35round(T, $this) {
+    return dart.fn(() => rx_types['RxnNumExt|round'](T, $this), T$.VoidTointN());
+  };
+  rx_types['RxnNumExt|floor'] = function RxnNumExt$124floor(T, $this) {
+    let t89;
+    t89 = $this.value;
+    return t89 == null ? null : t89[$floor]();
+  };
+  rx_types['RxnNumExt|get#floor'] = function RxnNumExt$124get$35floor(T, $this) {
+    return dart.fn(() => rx_types['RxnNumExt|floor'](T, $this), T$.VoidTointN());
+  };
+  rx_types['RxnNumExt|ceil'] = function RxnNumExt$124ceil(T, $this) {
+    let t91;
+    t91 = $this.value;
+    return t91 == null ? null : t91[$ceil]();
+  };
+  rx_types['RxnNumExt|get#ceil'] = function RxnNumExt$124get$35ceil(T, $this) {
+    return dart.fn(() => rx_types['RxnNumExt|ceil'](T, $this), T$.VoidTointN());
+  };
+  rx_types['RxnNumExt|truncate'] = function RxnNumExt$124truncate(T, $this) {
+    let t93;
+    t93 = $this.value;
+    return t93 == null ? null : t93[$truncate]();
+  };
+  rx_types['RxnNumExt|get#truncate'] = function RxnNumExt$124get$35truncate(T, $this) {
+    return dart.fn(() => rx_types['RxnNumExt|truncate'](T, $this), T$.VoidTointN());
+  };
+  rx_types['RxnNumExt|roundToDouble'] = function RxnNumExt$124roundToDouble(T, $this) {
+    let t95;
+    t95 = $this.value;
+    return t95 == null ? null : t95[$roundToDouble]();
+  };
+  rx_types['RxnNumExt|get#roundToDouble'] = function RxnNumExt$124get$35roundToDouble(T, $this) {
+    return dart.fn(() => rx_types['RxnNumExt|roundToDouble'](T, $this), T$.VoidTodoubleN());
+  };
+  rx_types['RxnNumExt|floorToDouble'] = function RxnNumExt$124floorToDouble(T, $this) {
+    let t97;
+    t97 = $this.value;
+    return t97 == null ? null : t97[$floorToDouble]();
+  };
+  rx_types['RxnNumExt|get#floorToDouble'] = function RxnNumExt$124get$35floorToDouble(T, $this) {
+    return dart.fn(() => rx_types['RxnNumExt|floorToDouble'](T, $this), T$.VoidTodoubleN());
+  };
+  rx_types['RxnNumExt|ceilToDouble'] = function RxnNumExt$124ceilToDouble(T, $this) {
+    let t99;
+    t99 = $this.value;
+    return t99 == null ? null : t99[$ceilToDouble]();
+  };
+  rx_types['RxnNumExt|get#ceilToDouble'] = function RxnNumExt$124get$35ceilToDouble(T, $this) {
+    return dart.fn(() => rx_types['RxnNumExt|ceilToDouble'](T, $this), T$.VoidTodoubleN());
+  };
+  rx_types['RxnNumExt|truncateToDouble'] = function RxnNumExt$124truncateToDouble(T, $this) {
+    let t101;
+    t101 = $this.value;
+    return t101 == null ? null : t101[$truncateToDouble]();
+  };
+  rx_types['RxnNumExt|get#truncateToDouble'] = function RxnNumExt$124get$35truncateToDouble(T, $this) {
+    return dart.fn(() => rx_types['RxnNumExt|truncateToDouble'](T, $this), T$.VoidTodoubleN());
+  };
+  rx_types['RxnNumExt|clamp'] = function RxnNumExt$124clamp(T, $this, lowerLimit, upperLimit) {
+    let t103;
+    t103 = $this.value;
+    return t103 == null ? null : t103[$clamp](lowerLimit, upperLimit);
+  };
+  rx_types['RxnNumExt|get#clamp'] = function RxnNumExt$124get$35clamp(T, $this) {
+    return dart.fn((lowerLimit, upperLimit) => rx_types['RxnNumExt|clamp'](T, $this, lowerLimit, upperLimit), T$.numAndnumTonumN());
+  };
+  rx_types['RxnNumExt|toInt'] = function RxnNumExt$124toInt(T, $this) {
+    let t105;
+    t105 = $this.value;
+    return t105 == null ? null : t105[$toInt]();
+  };
+  rx_types['RxnNumExt|get#toInt'] = function RxnNumExt$124get$35toInt(T, $this) {
+    return dart.fn(() => rx_types['RxnNumExt|toInt'](T, $this), T$.VoidTointN());
+  };
+  rx_types['RxnNumExt|get#toDouble'] = function RxnNumExt$124get$35toDouble(T, $this) {
+    return dart.fn(() => rx_types['RxnNumExt|toDouble'](T, $this), T$.VoidTodoubleN());
+  };
+  rx_types['RxnNumExt|toDouble'] = function RxnNumExt$124toDouble(T, $this) {
+    let t108;
+    t108 = $this.value;
+    return t108 == null ? null : t108[$toDouble]();
+  };
+  rx_types['RxnNumExt|toStringAsFixed'] = function RxnNumExt$124toStringAsFixed(T, $this, fractionDigits) {
+    let t109;
+    t109 = $this.value;
+    return t109 == null ? null : t109[$toStringAsFixed](fractionDigits);
+  };
+  rx_types['RxnNumExt|get#toStringAsFixed'] = function RxnNumExt$124get$35toStringAsFixed(T, $this) {
+    return dart.fn(fractionDigits => rx_types['RxnNumExt|toStringAsFixed'](T, $this, fractionDigits), T$.intToStringN());
+  };
+  rx_types['RxnNumExt|toStringAsExponential'] = function RxnNumExt$124toStringAsExponential(T, $this, fractionDigits = null) {
+    let t111;
+    t111 = $this.value;
+    return t111 == null ? null : t111[$toStringAsExponential](fractionDigits);
+  };
+  rx_types['RxnNumExt|get#toStringAsExponential'] = function RxnNumExt$124get$35toStringAsExponential(T, $this) {
+    return dart.fn((fractionDigits = null) => rx_types['RxnNumExt|toStringAsExponential'](T, $this, fractionDigits), T$.intNToStringN());
+  };
+  rx_types['RxnNumExt|toStringAsPrecision'] = function RxnNumExt$124toStringAsPrecision(T, $this, precision) {
+    let t113;
+    t113 = $this.value;
+    return t113 == null ? null : t113[$toStringAsPrecision](precision);
+  };
+  rx_types['RxnNumExt|get#toStringAsPrecision'] = function RxnNumExt$124get$35toStringAsPrecision(T, $this) {
+    return dart.fn(precision => rx_types['RxnNumExt|toStringAsPrecision'](T, $this, precision), T$.intToStringN());
+  };
+  rx_types['RxDoubleExt|+'] = function RxDoubleExt$124$43($this, other) {
+    $this.value = $this.value + other;
+    return $this;
+  };
+  rx_types['RxDoubleExt|-'] = function RxDoubleExt$124$45($this, other) {
+    $this.value = $this.value - other;
+    return $this;
+  };
+  rx_types['RxDoubleExt|*'] = function RxDoubleExt$124$42($this, other) {
+    return $this.value * other;
+  };
+  rx_types['RxDoubleExt|%'] = function RxDoubleExt$124$37($this, other) {
+    return $this.value[$modulo](other);
+  };
+  rx_types['RxDoubleExt|/'] = function RxDoubleExt$124$47($this, other) {
+    return $this.value / other;
+  };
+  rx_types['RxDoubleExt|~/'] = function RxDoubleExt$124$126$47($this, other) {
+    return ($this.value / other)[$truncate]();
+  };
+  rx_types['RxDoubleExt|unary-'] = function RxDoubleExt$124unary$45($this) {
+    return -$this.value;
+  };
+  rx_types['RxDoubleExt|abs'] = function RxDoubleExt$124abs($this) {
+    return $this.value[$abs]();
+  };
+  rx_types['RxDoubleExt|get#abs'] = function RxDoubleExt$124get$35abs($this) {
+    return dart.fn(() => rx_types['RxDoubleExt|abs']($this), T$.VoidTodouble());
+  };
+  rx_types['RxDoubleExt|get#sign'] = function RxDoubleExt$124get$35sign($this) {
+    return $this.value[$sign];
+  };
+  rx_types['RxDoubleExt|round'] = function RxDoubleExt$124round($this) {
+    return $this.value[$round]();
+  };
+  rx_types['RxDoubleExt|get#round'] = function RxDoubleExt$124get$35round($this) {
+    return dart.fn(() => rx_types['RxDoubleExt|round']($this), T$.VoidToint());
+  };
+  rx_types['RxDoubleExt|floor'] = function RxDoubleExt$124floor($this) {
+    return $this.value[$floor]();
+  };
+  rx_types['RxDoubleExt|get#floor'] = function RxDoubleExt$124get$35floor($this) {
+    return dart.fn(() => rx_types['RxDoubleExt|floor']($this), T$.VoidToint());
+  };
+  rx_types['RxDoubleExt|ceil'] = function RxDoubleExt$124ceil($this) {
+    return $this.value[$ceil]();
+  };
+  rx_types['RxDoubleExt|get#ceil'] = function RxDoubleExt$124get$35ceil($this) {
+    return dart.fn(() => rx_types['RxDoubleExt|ceil']($this), T$.VoidToint());
+  };
+  rx_types['RxDoubleExt|truncate'] = function RxDoubleExt$124truncate($this) {
+    return $this.value[$truncate]();
+  };
+  rx_types['RxDoubleExt|get#truncate'] = function RxDoubleExt$124get$35truncate($this) {
+    return dart.fn(() => rx_types['RxDoubleExt|truncate']($this), T$.VoidToint());
+  };
+  rx_types['RxDoubleExt|get#roundToDouble'] = function RxDoubleExt$124get$35roundToDouble($this) {
+    return dart.fn(() => rx_types['RxDoubleExt|roundToDouble']($this), T$.VoidTodouble());
+  };
+  rx_types['RxDoubleExt|roundToDouble'] = function RxDoubleExt$124roundToDouble($this) {
+    return $this.value[$roundToDouble]();
+  };
+  rx_types['RxDoubleExt|floorToDouble'] = function RxDoubleExt$124floorToDouble($this) {
+    return $this.value[$floorToDouble]();
+  };
+  rx_types['RxDoubleExt|get#floorToDouble'] = function RxDoubleExt$124get$35floorToDouble($this) {
+    return dart.fn(() => rx_types['RxDoubleExt|floorToDouble']($this), T$.VoidTodouble());
+  };
+  rx_types['RxDoubleExt|ceilToDouble'] = function RxDoubleExt$124ceilToDouble($this) {
+    return $this.value[$ceilToDouble]();
+  };
+  rx_types['RxDoubleExt|get#ceilToDouble'] = function RxDoubleExt$124get$35ceilToDouble($this) {
+    return dart.fn(() => rx_types['RxDoubleExt|ceilToDouble']($this), T$.VoidTodouble());
+  };
+  rx_types['RxDoubleExt|truncateToDouble'] = function RxDoubleExt$124truncateToDouble($this) {
+    return $this.value[$truncateToDouble]();
+  };
+  rx_types['RxDoubleExt|get#truncateToDouble'] = function RxDoubleExt$124get$35truncateToDouble($this) {
+    return dart.fn(() => rx_types['RxDoubleExt|truncateToDouble']($this), T$.VoidTodouble());
+  };
+  rx_types['RxnDoubleExt|+'] = function RxnDoubleExt$124$43($this, other) {
+    if ($this.value != null) {
+      $this.value = dart.nullCheck($this.value) + other;
+      return $this;
+    }
+  };
+  rx_types['RxnDoubleExt|-'] = function RxnDoubleExt$124$45($this, other) {
+    if ($this.value != null) {
+      $this.value = dart.nullCheck($this.value) + other;
+      return $this;
+    }
+  };
+  rx_types['RxnDoubleExt|*'] = function RxnDoubleExt$124$42($this, other) {
+    if ($this.value != null) {
+      return dart.nullCheck($this.value) * other;
+    }
+  };
+  rx_types['RxnDoubleExt|%'] = function RxnDoubleExt$124$37($this, other) {
+    if ($this.value != null) {
+      return dart.nullCheck($this.value)[$modulo](other);
+    }
+  };
+  rx_types['RxnDoubleExt|/'] = function RxnDoubleExt$124$47($this, other) {
+    if ($this.value != null) {
+      return dart.nullCheck($this.value) / other;
+    }
+  };
+  rx_types['RxnDoubleExt|~/'] = function RxnDoubleExt$124$126$47($this, other) {
+    if ($this.value != null) {
+      return (dart.nullCheck($this.value) / other)[$truncate]();
+    }
+  };
+  rx_types['RxnDoubleExt|unary-'] = function RxnDoubleExt$124unary$45($this) {
+    if ($this.value != null) {
+      return -dart.nullCheck($this.value);
+    }
+  };
+  rx_types['RxnDoubleExt|abs'] = function RxnDoubleExt$124abs($this) {
+    let t148;
+    t148 = $this.value;
+    return t148 == null ? null : t148[$abs]();
+  };
+  rx_types['RxnDoubleExt|get#abs'] = function RxnDoubleExt$124get$35abs($this) {
+    return dart.fn(() => rx_types['RxnDoubleExt|abs']($this), T$.VoidTodoubleN());
+  };
+  rx_types['RxnDoubleExt|get#sign'] = function RxnDoubleExt$124get$35sign($this) {
+    let t150;
+    t150 = $this.value;
+    return t150 == null ? null : t150[$sign];
+  };
+  rx_types['RxnDoubleExt|round'] = function RxnDoubleExt$124round($this) {
+    let t151;
+    t151 = $this.value;
+    return t151 == null ? null : t151[$round]();
+  };
+  rx_types['RxnDoubleExt|get#round'] = function RxnDoubleExt$124get$35round($this) {
+    return dart.fn(() => rx_types['RxnDoubleExt|round']($this), T$.VoidTointN());
+  };
+  rx_types['RxnDoubleExt|floor'] = function RxnDoubleExt$124floor($this) {
+    let t153;
+    t153 = $this.value;
+    return t153 == null ? null : t153[$floor]();
+  };
+  rx_types['RxnDoubleExt|get#floor'] = function RxnDoubleExt$124get$35floor($this) {
+    return dart.fn(() => rx_types['RxnDoubleExt|floor']($this), T$.VoidTointN());
+  };
+  rx_types['RxnDoubleExt|ceil'] = function RxnDoubleExt$124ceil($this) {
+    let t155;
+    t155 = $this.value;
+    return t155 == null ? null : t155[$ceil]();
+  };
+  rx_types['RxnDoubleExt|get#ceil'] = function RxnDoubleExt$124get$35ceil($this) {
+    return dart.fn(() => rx_types['RxnDoubleExt|ceil']($this), T$.VoidTointN());
+  };
+  rx_types['RxnDoubleExt|truncate'] = function RxnDoubleExt$124truncate($this) {
+    let t157;
+    t157 = $this.value;
+    return t157 == null ? null : t157[$truncate]();
+  };
+  rx_types['RxnDoubleExt|get#truncate'] = function RxnDoubleExt$124get$35truncate($this) {
+    return dart.fn(() => rx_types['RxnDoubleExt|truncate']($this), T$.VoidTointN());
+  };
+  rx_types['RxnDoubleExt|get#roundToDouble'] = function RxnDoubleExt$124get$35roundToDouble($this) {
+    return dart.fn(() => rx_types['RxnDoubleExt|roundToDouble']($this), T$.VoidTodoubleN());
+  };
+  rx_types['RxnDoubleExt|roundToDouble'] = function RxnDoubleExt$124roundToDouble($this) {
+    let t160;
+    t160 = $this.value;
+    return t160 == null ? null : t160[$roundToDouble]();
+  };
+  rx_types['RxnDoubleExt|floorToDouble'] = function RxnDoubleExt$124floorToDouble($this) {
+    let t161;
+    t161 = $this.value;
+    return t161 == null ? null : t161[$floorToDouble]();
+  };
+  rx_types['RxnDoubleExt|get#floorToDouble'] = function RxnDoubleExt$124get$35floorToDouble($this) {
+    return dart.fn(() => rx_types['RxnDoubleExt|floorToDouble']($this), T$.VoidTodoubleN());
+  };
+  rx_types['RxnDoubleExt|ceilToDouble'] = function RxnDoubleExt$124ceilToDouble($this) {
+    let t163;
+    t163 = $this.value;
+    return t163 == null ? null : t163[$ceilToDouble]();
+  };
+  rx_types['RxnDoubleExt|get#ceilToDouble'] = function RxnDoubleExt$124get$35ceilToDouble($this) {
+    return dart.fn(() => rx_types['RxnDoubleExt|ceilToDouble']($this), T$.VoidTodoubleN());
+  };
+  rx_types['RxnDoubleExt|truncateToDouble'] = function RxnDoubleExt$124truncateToDouble($this) {
+    let t165;
+    t165 = $this.value;
+    return t165 == null ? null : t165[$truncateToDouble]();
+  };
+  rx_types['RxnDoubleExt|get#truncateToDouble'] = function RxnDoubleExt$124get$35truncateToDouble($this) {
+    return dart.fn(() => rx_types['RxnDoubleExt|truncateToDouble']($this), T$.VoidTodoubleN());
+  };
+  rx_types['RxIntExt|&'] = function RxIntExt$124$38($this, other) {
+    return ($this.value & other) >>> 0;
+  };
+  rx_types['RxIntExt||'] = function RxIntExt$124$124($this, other) {
+    return ($this.value | other) >>> 0;
+  };
+  rx_types['RxIntExt|^'] = function RxIntExt$124$94($this, other) {
+    return ($this.value ^ other) >>> 0;
+  };
+  rx_types['RxIntExt|~'] = function RxIntExt$124$126($this) {
+    return ~$this.value >>> 0;
+  };
+  rx_types['RxIntExt|<<'] = function RxIntExt$124$60$60($this, shiftAmount) {
+    return $this.value[$leftShift](shiftAmount);
+  };
+  rx_types['RxIntExt|>>'] = function RxIntExt$124$62$62($this, shiftAmount) {
+    return $this.value[$rightShift](shiftAmount);
+  };
+  rx_types['RxIntExt|modPow'] = function RxIntExt$124modPow($this, exponent, modulus) {
+    return $this.value[$modPow](exponent, modulus);
+  };
+  rx_types['RxIntExt|get#modPow'] = function RxIntExt$124get$35modPow($this) {
+    return dart.fn((exponent, modulus) => rx_types['RxIntExt|modPow']($this, exponent, modulus), T$.intAndintToint());
+  };
+  rx_types['RxIntExt|modInverse'] = function RxIntExt$124modInverse($this, modulus) {
+    return $this.value[$modInverse](modulus);
+  };
+  rx_types['RxIntExt|get#modInverse'] = function RxIntExt$124get$35modInverse($this) {
+    return dart.fn(modulus => rx_types['RxIntExt|modInverse']($this, modulus), T$.intToint());
+  };
+  rx_types['RxIntExt|gcd'] = function RxIntExt$124gcd($this, other) {
+    return $this.value[$gcd](other);
+  };
+  rx_types['RxIntExt|get#gcd'] = function RxIntExt$124get$35gcd($this) {
+    return dart.fn(other => rx_types['RxIntExt|gcd']($this, other), T$.intToint());
+  };
+  rx_types['RxIntExt|get#isEven'] = function RxIntExt$124get$35isEven($this) {
+    return $this.value[$isEven];
+  };
+  rx_types['RxIntExt|get#isOdd'] = function RxIntExt$124get$35isOdd($this) {
+    return $this.value[$isOdd];
+  };
+  rx_types['RxIntExt|get#bitLength'] = function RxIntExt$124get$35bitLength($this) {
+    return $this.value[$bitLength];
+  };
+  rx_types['RxIntExt|toUnsigned'] = function RxIntExt$124toUnsigned($this, width) {
+    return $this.value[$toUnsigned](width);
+  };
+  rx_types['RxIntExt|get#toUnsigned'] = function RxIntExt$124get$35toUnsigned($this) {
+    return dart.fn(width => rx_types['RxIntExt|toUnsigned']($this, width), T$.intToint());
+  };
+  rx_types['RxIntExt|toSigned'] = function RxIntExt$124toSigned($this, width) {
+    return $this.value[$toSigned](width);
+  };
+  rx_types['RxIntExt|get#toSigned'] = function RxIntExt$124get$35toSigned($this) {
+    return dart.fn(width => rx_types['RxIntExt|toSigned']($this, width), T$.intToint());
+  };
+  rx_types['RxIntExt|unary-'] = function RxIntExt$124unary$45($this) {
+    return -$this.value;
+  };
+  rx_types['RxIntExt|abs'] = function RxIntExt$124abs($this) {
+    return $this.value[$abs]();
+  };
+  rx_types['RxIntExt|get#abs'] = function RxIntExt$124get$35abs($this) {
+    return dart.fn(() => rx_types['RxIntExt|abs']($this), T$.VoidToint());
+  };
+  rx_types['RxIntExt|get#sign'] = function RxIntExt$124get$35sign($this) {
+    return $this.value[$sign];
+  };
+  rx_types['RxIntExt|round'] = function RxIntExt$124round($this) {
+    return $this.value[$round]();
+  };
+  rx_types['RxIntExt|get#round'] = function RxIntExt$124get$35round($this) {
+    return dart.fn(() => rx_types['RxIntExt|round']($this), T$.VoidToint());
+  };
+  rx_types['RxIntExt|floor'] = function RxIntExt$124floor($this) {
+    return $this.value[$floor]();
+  };
+  rx_types['RxIntExt|get#floor'] = function RxIntExt$124get$35floor($this) {
+    return dart.fn(() => rx_types['RxIntExt|floor']($this), T$.VoidToint());
+  };
+  rx_types['RxIntExt|ceil'] = function RxIntExt$124ceil($this) {
+    return $this.value[$ceil]();
+  };
+  rx_types['RxIntExt|get#ceil'] = function RxIntExt$124get$35ceil($this) {
+    return dart.fn(() => rx_types['RxIntExt|ceil']($this), T$.VoidToint());
+  };
+  rx_types['RxIntExt|truncate'] = function RxIntExt$124truncate($this) {
+    return $this.value[$truncate]();
+  };
+  rx_types['RxIntExt|get#truncate'] = function RxIntExt$124get$35truncate($this) {
+    return dart.fn(() => rx_types['RxIntExt|truncate']($this), T$.VoidToint());
+  };
+  rx_types['RxIntExt|get#roundToDouble'] = function RxIntExt$124get$35roundToDouble($this) {
+    return dart.fn(() => rx_types['RxIntExt|roundToDouble']($this), T$.VoidTodouble());
+  };
+  rx_types['RxIntExt|roundToDouble'] = function RxIntExt$124roundToDouble($this) {
+    return $this.value[$roundToDouble]();
+  };
+  rx_types['RxIntExt|floorToDouble'] = function RxIntExt$124floorToDouble($this) {
+    return $this.value[$floorToDouble]();
+  };
+  rx_types['RxIntExt|get#floorToDouble'] = function RxIntExt$124get$35floorToDouble($this) {
+    return dart.fn(() => rx_types['RxIntExt|floorToDouble']($this), T$.VoidTodouble());
+  };
+  rx_types['RxIntExt|ceilToDouble'] = function RxIntExt$124ceilToDouble($this) {
+    return $this.value[$ceilToDouble]();
+  };
+  rx_types['RxIntExt|get#ceilToDouble'] = function RxIntExt$124get$35ceilToDouble($this) {
+    return dart.fn(() => rx_types['RxIntExt|ceilToDouble']($this), T$.VoidTodouble());
+  };
+  rx_types['RxIntExt|truncateToDouble'] = function RxIntExt$124truncateToDouble($this) {
+    return $this.value[$truncateToDouble]();
+  };
+  rx_types['RxIntExt|get#truncateToDouble'] = function RxIntExt$124get$35truncateToDouble($this) {
+    return dart.fn(() => rx_types['RxIntExt|truncateToDouble']($this), T$.VoidTodouble());
+  };
+  rx_types['RxnIntExt|&'] = function RxnIntExt$124$38($this, other) {
+    if ($this.value != null) {
+      return (dart.nullCheck($this.value) & other) >>> 0;
+    }
+  };
+  rx_types['RxnIntExt||'] = function RxnIntExt$124$124($this, other) {
+    if ($this.value != null) {
+      return (dart.nullCheck($this.value) | other) >>> 0;
+    }
+  };
+  rx_types['RxnIntExt|^'] = function RxnIntExt$124$94($this, other) {
+    if ($this.value != null) {
+      return (dart.nullCheck($this.value) ^ other) >>> 0;
+    }
+  };
+  rx_types['RxnIntExt|~'] = function RxnIntExt$124$126($this) {
+    if ($this.value != null) {
+      return ~dart.nullCheck($this.value) >>> 0;
+    }
+  };
+  rx_types['RxnIntExt|<<'] = function RxnIntExt$124$60$60($this, shiftAmount) {
+    if ($this.value != null) {
+      return dart.nullCheck($this.value)[$leftShift](shiftAmount);
+    }
+  };
+  rx_types['RxnIntExt|>>'] = function RxnIntExt$124$62$62($this, shiftAmount) {
+    if ($this.value != null) {
+      return dart.nullCheck($this.value)[$rightShift](shiftAmount);
+    }
+  };
+  rx_types['RxnIntExt|modPow'] = function RxnIntExt$124modPow($this, exponent, modulus) {
+    let t212;
+    t212 = $this.value;
+    return t212 == null ? null : t212[$modPow](exponent, modulus);
+  };
+  rx_types['RxnIntExt|get#modPow'] = function RxnIntExt$124get$35modPow($this) {
+    return dart.fn((exponent, modulus) => rx_types['RxnIntExt|modPow']($this, exponent, modulus), T$.intAndintTointN());
+  };
+  rx_types['RxnIntExt|modInverse'] = function RxnIntExt$124modInverse($this, modulus) {
+    let t214;
+    t214 = $this.value;
+    return t214 == null ? null : t214[$modInverse](modulus);
+  };
+  rx_types['RxnIntExt|get#modInverse'] = function RxnIntExt$124get$35modInverse($this) {
+    return dart.fn(modulus => rx_types['RxnIntExt|modInverse']($this, modulus), T$.intTointN());
+  };
+  rx_types['RxnIntExt|gcd'] = function RxnIntExt$124gcd($this, other) {
+    let t216;
+    t216 = $this.value;
+    return t216 == null ? null : t216[$gcd](other);
+  };
+  rx_types['RxnIntExt|get#gcd'] = function RxnIntExt$124get$35gcd($this) {
+    return dart.fn(other => rx_types['RxnIntExt|gcd']($this, other), T$.intTointN());
+  };
+  rx_types['RxnIntExt|get#isEven'] = function RxnIntExt$124get$35isEven($this) {
+    let t218;
+    t218 = $this.value;
+    return t218 == null ? null : t218[$isEven];
+  };
+  rx_types['RxnIntExt|get#isOdd'] = function RxnIntExt$124get$35isOdd($this) {
+    let t219;
+    t219 = $this.value;
+    return t219 == null ? null : t219[$isOdd];
+  };
+  rx_types['RxnIntExt|get#bitLength'] = function RxnIntExt$124get$35bitLength($this) {
+    let t220;
+    t220 = $this.value;
+    return t220 == null ? null : t220[$bitLength];
+  };
+  rx_types['RxnIntExt|toUnsigned'] = function RxnIntExt$124toUnsigned($this, width) {
+    let t221;
+    t221 = $this.value;
+    return t221 == null ? null : t221[$toUnsigned](width);
+  };
+  rx_types['RxnIntExt|get#toUnsigned'] = function RxnIntExt$124get$35toUnsigned($this) {
+    return dart.fn(width => rx_types['RxnIntExt|toUnsigned']($this, width), T$.intTointN());
+  };
+  rx_types['RxnIntExt|toSigned'] = function RxnIntExt$124toSigned($this, width) {
+    let t223;
+    t223 = $this.value;
+    return t223 == null ? null : t223[$toSigned](width);
+  };
+  rx_types['RxnIntExt|get#toSigned'] = function RxnIntExt$124get$35toSigned($this) {
+    return dart.fn(width => rx_types['RxnIntExt|toSigned']($this, width), T$.intTointN());
+  };
+  rx_types['RxnIntExt|unary-'] = function RxnIntExt$124unary$45($this) {
+    if ($this.value != null) {
+      return -dart.nullCheck($this.value);
+    }
+  };
+  rx_types['RxnIntExt|abs'] = function RxnIntExt$124abs($this) {
+    let t226;
+    t226 = $this.value;
+    return t226 == null ? null : t226[$abs]();
+  };
+  rx_types['RxnIntExt|get#abs'] = function RxnIntExt$124get$35abs($this) {
+    return dart.fn(() => rx_types['RxnIntExt|abs']($this), T$.VoidTointN());
+  };
+  rx_types['RxnIntExt|get#sign'] = function RxnIntExt$124get$35sign($this) {
+    let t228;
+    t228 = $this.value;
+    return t228 == null ? null : t228[$sign];
+  };
+  rx_types['RxnIntExt|round'] = function RxnIntExt$124round($this) {
+    let t229;
+    t229 = $this.value;
+    return t229 == null ? null : t229[$round]();
+  };
+  rx_types['RxnIntExt|get#round'] = function RxnIntExt$124get$35round($this) {
+    return dart.fn(() => rx_types['RxnIntExt|round']($this), T$.VoidTointN());
+  };
+  rx_types['RxnIntExt|floor'] = function RxnIntExt$124floor($this) {
+    let t231;
+    t231 = $this.value;
+    return t231 == null ? null : t231[$floor]();
+  };
+  rx_types['RxnIntExt|get#floor'] = function RxnIntExt$124get$35floor($this) {
+    return dart.fn(() => rx_types['RxnIntExt|floor']($this), T$.VoidTointN());
+  };
+  rx_types['RxnIntExt|ceil'] = function RxnIntExt$124ceil($this) {
+    let t233;
+    t233 = $this.value;
+    return t233 == null ? null : t233[$ceil]();
+  };
+  rx_types['RxnIntExt|get#ceil'] = function RxnIntExt$124get$35ceil($this) {
+    return dart.fn(() => rx_types['RxnIntExt|ceil']($this), T$.VoidTointN());
+  };
+  rx_types['RxnIntExt|truncate'] = function RxnIntExt$124truncate($this) {
+    let t235;
+    t235 = $this.value;
+    return t235 == null ? null : t235[$truncate]();
+  };
+  rx_types['RxnIntExt|get#truncate'] = function RxnIntExt$124get$35truncate($this) {
+    return dart.fn(() => rx_types['RxnIntExt|truncate']($this), T$.VoidTointN());
+  };
+  rx_types['RxnIntExt|get#roundToDouble'] = function RxnIntExt$124get$35roundToDouble($this) {
+    return dart.fn(() => rx_types['RxnIntExt|roundToDouble']($this), T$.VoidTodoubleN());
+  };
+  rx_types['RxnIntExt|roundToDouble'] = function RxnIntExt$124roundToDouble($this) {
+    let t238;
+    t238 = $this.value;
+    return t238 == null ? null : t238[$roundToDouble]();
+  };
+  rx_types['RxnIntExt|floorToDouble'] = function RxnIntExt$124floorToDouble($this) {
+    let t239;
+    t239 = $this.value;
+    return t239 == null ? null : t239[$floorToDouble]();
+  };
+  rx_types['RxnIntExt|get#floorToDouble'] = function RxnIntExt$124get$35floorToDouble($this) {
+    return dart.fn(() => rx_types['RxnIntExt|floorToDouble']($this), T$.VoidTodoubleN());
+  };
+  rx_types['RxnIntExt|ceilToDouble'] = function RxnIntExt$124ceilToDouble($this) {
+    let t241;
+    t241 = $this.value;
+    return t241 == null ? null : t241[$ceilToDouble]();
+  };
+  rx_types['RxnIntExt|get#ceilToDouble'] = function RxnIntExt$124get$35ceilToDouble($this) {
+    return dart.fn(() => rx_types['RxnIntExt|ceilToDouble']($this), T$.VoidTodoubleN());
+  };
+  rx_types['RxnIntExt|truncateToDouble'] = function RxnIntExt$124truncateToDouble($this) {
+    let t243;
+    t243 = $this.value;
+    return t243 == null ? null : t243[$truncateToDouble]();
+  };
+  rx_types['RxnIntExt|get#truncateToDouble'] = function RxnIntExt$124get$35truncateToDouble($this) {
+    return dart.fn(() => rx_types['RxnIntExt|truncateToDouble']($this), T$.VoidTodoubleN());
+  };
+  rx_types['RxStringExt|+'] = function RxStringExt$124$43($this, val) {
+    return $this[_value] + val;
+  };
+  rx_types['RxStringExt|compareTo'] = function RxStringExt$124compareTo($this, other) {
+    return $this.value[$compareTo](other);
+  };
+  rx_types['RxStringExt|get#compareTo'] = function RxStringExt$124get$35compareTo($this) {
+    return dart.fn(other => rx_types['RxStringExt|compareTo']($this, other), T$.StringToint());
+  };
+  rx_types['RxStringExt|endsWith'] = function RxStringExt$124endsWith($this, other) {
+    return $this.value[$endsWith](other);
+  };
+  rx_types['RxStringExt|get#endsWith'] = function RxStringExt$124get$35endsWith($this) {
+    return dart.fn(other => rx_types['RxStringExt|endsWith']($this, other), T$.StringTobool());
+  };
+  rx_types['RxStringExt|startsWith'] = function RxStringExt$124startsWith($this, pattern, index = 0) {
+    return $this.value[$startsWith](pattern, index);
+  };
+  rx_types['RxStringExt|get#startsWith'] = function RxStringExt$124get$35startsWith($this) {
+    return dart.fn((pattern, index = 0) => rx_types['RxStringExt|startsWith']($this, pattern, index), T$.PatternAndintTobool());
+  };
+  rx_types['RxStringExt|indexOf'] = function RxStringExt$124indexOf($this, pattern, start = 0) {
+    return $this.value[$indexOf](pattern, start);
+  };
+  rx_types['RxStringExt|get#indexOf'] = function RxStringExt$124get$35indexOf($this) {
+    return dart.fn((pattern, start = 0) => rx_types['RxStringExt|indexOf']($this, pattern, start), T$.PatternAndintToint());
+  };
+  rx_types['RxStringExt|lastIndexOf'] = function RxStringExt$124lastIndexOf($this, pattern, start = null) {
+    return $this.value[$lastIndexOf](pattern, start);
+  };
+  rx_types['RxStringExt|get#lastIndexOf'] = function RxStringExt$124get$35lastIndexOf($this) {
+    return dart.fn((pattern, start = null) => rx_types['RxStringExt|lastIndexOf']($this, pattern, start), T$.PatternAndintNToint());
+  };
+  rx_types['RxStringExt|get#isEmpty'] = function RxStringExt$124get$35isEmpty($this) {
+    return $this.value[$isEmpty];
+  };
+  rx_types['RxStringExt|get#isNotEmpty'] = function RxStringExt$124get$35isNotEmpty($this) {
+    return !rx_types['RxStringExt|get#isEmpty']($this);
+  };
+  rx_types['RxStringExt|substring'] = function RxStringExt$124substring($this, startIndex, endIndex = null) {
+    return $this.value[$substring](startIndex, endIndex);
+  };
+  rx_types['RxStringExt|get#substring'] = function RxStringExt$124get$35substring($this) {
+    return dart.fn((startIndex, endIndex = null) => rx_types['RxStringExt|substring']($this, startIndex, endIndex), T$.intAndintNToString());
+  };
+  rx_types['RxStringExt|trim'] = function RxStringExt$124trim($this) {
+    return $this.value[$trim]();
+  };
+  rx_types['RxStringExt|get#trim'] = function RxStringExt$124get$35trim($this) {
+    return dart.fn(() => rx_types['RxStringExt|trim']($this), T$.VoidToString());
+  };
+  rx_types['RxStringExt|trimLeft'] = function RxStringExt$124trimLeft($this) {
+    return $this.value[$trimLeft]();
+  };
+  rx_types['RxStringExt|get#trimLeft'] = function RxStringExt$124get$35trimLeft($this) {
+    return dart.fn(() => rx_types['RxStringExt|trimLeft']($this), T$.VoidToString());
+  };
+  rx_types['RxStringExt|get#trimRight'] = function RxStringExt$124get$35trimRight($this) {
+    return dart.fn(() => rx_types['RxStringExt|trimRight']($this), T$.VoidToString());
+  };
+  rx_types['RxStringExt|trimRight'] = function RxStringExt$124trimRight($this) {
+    return $this.value[$trimRight]();
+  };
+  rx_types['RxStringExt|padLeft'] = function RxStringExt$124padLeft($this, width, padding = " ") {
+    return $this.value[$padLeft](width, padding);
+  };
+  rx_types['RxStringExt|get#padLeft'] = function RxStringExt$124get$35padLeft($this) {
+    return dart.fn((width, padding = " ") => rx_types['RxStringExt|padLeft']($this, width, padding), T$.intAndStringToString());
+  };
+  rx_types['RxStringExt|padRight'] = function RxStringExt$124padRight($this, width, padding = " ") {
+    return $this.value[$padRight](width, padding);
+  };
+  rx_types['RxStringExt|get#padRight'] = function RxStringExt$124get$35padRight($this) {
+    return dart.fn((width, padding = " ") => rx_types['RxStringExt|padRight']($this, width, padding), T$.intAndStringToString());
+  };
+  rx_types['RxStringExt|contains'] = function RxStringExt$124contains($this, other, startIndex = 0) {
+    return $this.value[$contains](other, startIndex);
+  };
+  rx_types['RxStringExt|get#contains'] = function RxStringExt$124get$35contains($this) {
+    return dart.fn((other, startIndex = 0) => rx_types['RxStringExt|contains']($this, other, startIndex), T$.PatternAndintTobool());
+  };
+  rx_types['RxStringExt|replaceAll'] = function RxStringExt$124replaceAll($this, from, replace) {
+    return $this.value[$replaceAll](from, replace);
+  };
+  rx_types['RxStringExt|get#replaceAll'] = function RxStringExt$124get$35replaceAll($this) {
+    return dart.fn((from, replace) => rx_types['RxStringExt|replaceAll']($this, from, replace), T$.PatternAndStringToString());
+  };
+  rx_types['RxStringExt|split'] = function RxStringExt$124split($this, pattern) {
+    return $this.value[$split](pattern);
+  };
+  rx_types['RxStringExt|get#split'] = function RxStringExt$124get$35split($this) {
+    return dart.fn(pattern => rx_types['RxStringExt|split']($this, pattern), T$.PatternToListOfString());
+  };
+  rx_types['RxStringExt|get#codeUnits'] = function RxStringExt$124get$35codeUnits($this) {
+    return $this.value[$codeUnits];
+  };
+  rx_types['RxStringExt|get#runes'] = function RxStringExt$124get$35runes($this) {
+    return $this.value[$runes];
+  };
+  rx_types['RxStringExt|toLowerCase'] = function RxStringExt$124toLowerCase($this) {
+    return $this.value[$toLowerCase]();
+  };
+  rx_types['RxStringExt|get#toLowerCase'] = function RxStringExt$124get$35toLowerCase($this) {
+    return dart.fn(() => rx_types['RxStringExt|toLowerCase']($this), T$.VoidToString());
+  };
+  rx_types['RxStringExt|toUpperCase'] = function RxStringExt$124toUpperCase($this) {
+    return $this.value[$toUpperCase]();
+  };
+  rx_types['RxStringExt|get#toUpperCase'] = function RxStringExt$124get$35toUpperCase($this) {
+    return dart.fn(() => rx_types['RxStringExt|toUpperCase']($this), T$.VoidToString());
+  };
+  rx_types['RxStringExt|allMatches'] = function RxStringExt$124allMatches($this, string, start = 0) {
+    return $this.value[$allMatches](string, start);
+  };
+  rx_types['RxStringExt|get#allMatches'] = function RxStringExt$124get$35allMatches($this) {
+    return dart.fn((string, start = 0) => rx_types['RxStringExt|allMatches']($this, string, start), T$.StringAndintToIterableOfMatch());
+  };
+  rx_types['RxStringExt|matchAsPrefix'] = function RxStringExt$124matchAsPrefix($this, string, start = 0) {
+    return $this.value[$matchAsPrefix](string, start);
+  };
+  rx_types['RxStringExt|get#matchAsPrefix'] = function RxStringExt$124get$35matchAsPrefix($this) {
+    return dart.fn((string, start = 0) => rx_types['RxStringExt|matchAsPrefix']($this, string, start), T$.StringAndintToMatchN());
+  };
+  rx_types['RxnStringExt|+'] = function RxnStringExt$124$43($this, val) {
+    let t286;
+    return dart.notNull((t286 = $this[_value], t286 == null ? "" : t286)) + val;
+  };
+  rx_types['RxnStringExt|compareTo'] = function RxnStringExt$124compareTo($this, other) {
+    let t287;
+    t287 = $this.value;
+    return t287 == null ? null : t287[$compareTo](other);
+  };
+  rx_types['RxnStringExt|get#compareTo'] = function RxnStringExt$124get$35compareTo($this) {
+    return dart.fn(other => rx_types['RxnStringExt|compareTo']($this, other), T$.StringTointN());
+  };
+  rx_types['RxnStringExt|endsWith'] = function RxnStringExt$124endsWith($this, other) {
+    let t289;
+    t289 = $this.value;
+    return t289 == null ? null : t289[$endsWith](other);
+  };
+  rx_types['RxnStringExt|get#endsWith'] = function RxnStringExt$124get$35endsWith($this) {
+    return dart.fn(other => rx_types['RxnStringExt|endsWith']($this, other), T$.StringToboolN());
+  };
+  rx_types['RxnStringExt|startsWith'] = function RxnStringExt$124startsWith($this, pattern, index = 0) {
+    let t291;
+    t291 = $this.value;
+    return t291 == null ? null : t291[$startsWith](pattern, index);
+  };
+  rx_types['RxnStringExt|get#startsWith'] = function RxnStringExt$124get$35startsWith($this) {
+    return dart.fn((pattern, index = 0) => rx_types['RxnStringExt|startsWith']($this, pattern, index), T$.PatternAndintToboolN());
+  };
+  rx_types['RxnStringExt|indexOf'] = function RxnStringExt$124indexOf($this, pattern, start = 0) {
+    let t293;
+    t293 = $this.value;
+    return t293 == null ? null : t293[$indexOf](pattern, start);
+  };
+  rx_types['RxnStringExt|get#indexOf'] = function RxnStringExt$124get$35indexOf($this) {
+    return dart.fn((pattern, start = 0) => rx_types['RxnStringExt|indexOf']($this, pattern, start), T$.PatternAndintTointN());
+  };
+  rx_types['RxnStringExt|lastIndexOf'] = function RxnStringExt$124lastIndexOf($this, pattern, start = null) {
+    let t295;
+    t295 = $this.value;
+    return t295 == null ? null : t295[$lastIndexOf](pattern, start);
+  };
+  rx_types['RxnStringExt|get#lastIndexOf'] = function RxnStringExt$124get$35lastIndexOf($this) {
+    return dart.fn((pattern, start = null) => rx_types['RxnStringExt|lastIndexOf']($this, pattern, start), T$.PatternAndintNTointN());
+  };
+  rx_types['RxnStringExt|get#isEmpty'] = function RxnStringExt$124get$35isEmpty($this) {
+    let t297;
+    t297 = $this.value;
+    return t297 == null ? null : t297[$isEmpty];
+  };
+  rx_types['RxnStringExt|get#isNotEmpty'] = function RxnStringExt$124get$35isNotEmpty($this) {
+    let t298;
+    t298 = $this.value;
+    return t298 == null ? null : t298[$isNotEmpty];
+  };
+  rx_types['RxnStringExt|substring'] = function RxnStringExt$124substring($this, startIndex, endIndex = null) {
+    let t299;
+    t299 = $this.value;
+    return t299 == null ? null : t299[$substring](startIndex, endIndex);
+  };
+  rx_types['RxnStringExt|get#substring'] = function RxnStringExt$124get$35substring($this) {
+    return dart.fn((startIndex, endIndex = null) => rx_types['RxnStringExt|substring']($this, startIndex, endIndex), T$.intAndintNToStringN());
+  };
+  rx_types['RxnStringExt|trim'] = function RxnStringExt$124trim($this) {
+    let t301;
+    t301 = $this.value;
+    return t301 == null ? null : t301[$trim]();
+  };
+  rx_types['RxnStringExt|get#trim'] = function RxnStringExt$124get$35trim($this) {
+    return dart.fn(() => rx_types['RxnStringExt|trim']($this), T$.VoidToStringN());
+  };
+  rx_types['RxnStringExt|get#trimLeft'] = function RxnStringExt$124get$35trimLeft($this) {
+    return dart.fn(() => rx_types['RxnStringExt|trimLeft']($this), T$.VoidToStringN());
+  };
+  rx_types['RxnStringExt|trimLeft'] = function RxnStringExt$124trimLeft($this) {
+    let t304;
+    t304 = $this.value;
+    return t304 == null ? null : t304[$trimLeft]();
+  };
+  rx_types['RxnStringExt|trimRight'] = function RxnStringExt$124trimRight($this) {
+    let t305;
+    t305 = $this.value;
+    return t305 == null ? null : t305[$trimRight]();
+  };
+  rx_types['RxnStringExt|get#trimRight'] = function RxnStringExt$124get$35trimRight($this) {
+    return dart.fn(() => rx_types['RxnStringExt|trimRight']($this), T$.VoidToStringN());
+  };
+  rx_types['RxnStringExt|padLeft'] = function RxnStringExt$124padLeft($this, width, padding = " ") {
+    let t307;
+    t307 = $this.value;
+    return t307 == null ? null : t307[$padLeft](width, padding);
+  };
+  rx_types['RxnStringExt|get#padLeft'] = function RxnStringExt$124get$35padLeft($this) {
+    return dart.fn((width, padding = " ") => rx_types['RxnStringExt|padLeft']($this, width, padding), T$.intAndStringToStringN());
+  };
+  rx_types['RxnStringExt|padRight'] = function RxnStringExt$124padRight($this, width, padding = " ") {
+    let t309;
+    t309 = $this.value;
+    return t309 == null ? null : t309[$padRight](width, padding);
+  };
+  rx_types['RxnStringExt|get#padRight'] = function RxnStringExt$124get$35padRight($this) {
+    return dart.fn((width, padding = " ") => rx_types['RxnStringExt|padRight']($this, width, padding), T$.intAndStringToStringN());
+  };
+  rx_types['RxnStringExt|contains'] = function RxnStringExt$124contains($this, other, startIndex = 0) {
+    let t311;
+    t311 = $this.value;
+    return t311 == null ? null : t311[$contains](other, startIndex);
+  };
+  rx_types['RxnStringExt|get#contains'] = function RxnStringExt$124get$35contains($this) {
+    return dart.fn((other, startIndex = 0) => rx_types['RxnStringExt|contains']($this, other, startIndex), T$.PatternAndintToboolN());
+  };
+  rx_types['RxnStringExt|replaceAll'] = function RxnStringExt$124replaceAll($this, from, replace) {
+    let t313;
+    t313 = $this.value;
+    return t313 == null ? null : t313[$replaceAll](from, replace);
+  };
+  rx_types['RxnStringExt|get#replaceAll'] = function RxnStringExt$124get$35replaceAll($this) {
+    return dart.fn((from, replace) => rx_types['RxnStringExt|replaceAll']($this, from, replace), T$.PatternAndStringToStringN());
+  };
+  rx_types['RxnStringExt|split'] = function RxnStringExt$124split($this, pattern) {
+    let t315;
+    t315 = $this.value;
+    return t315 == null ? null : t315[$split](pattern);
+  };
+  rx_types['RxnStringExt|get#split'] = function RxnStringExt$124get$35split($this) {
+    return dart.fn(pattern => rx_types['RxnStringExt|split']($this, pattern), T$.PatternToListNOfString());
+  };
+  rx_types['RxnStringExt|get#codeUnits'] = function RxnStringExt$124get$35codeUnits($this) {
+    let t317;
+    t317 = $this.value;
+    return t317 == null ? null : t317[$codeUnits];
+  };
+  rx_types['RxnStringExt|get#runes'] = function RxnStringExt$124get$35runes($this) {
+    let t318;
+    t318 = $this.value;
+    return t318 == null ? null : t318[$runes];
+  };
+  rx_types['RxnStringExt|toLowerCase'] = function RxnStringExt$124toLowerCase($this) {
+    let t319;
+    t319 = $this.value;
+    return t319 == null ? null : t319[$toLowerCase]();
+  };
+  rx_types['RxnStringExt|get#toLowerCase'] = function RxnStringExt$124get$35toLowerCase($this) {
+    return dart.fn(() => rx_types['RxnStringExt|toLowerCase']($this), T$.VoidToStringN());
+  };
+  rx_types['RxnStringExt|toUpperCase'] = function RxnStringExt$124toUpperCase($this) {
+    let t321;
+    t321 = $this.value;
+    return t321 == null ? null : t321[$toUpperCase]();
+  };
+  rx_types['RxnStringExt|get#toUpperCase'] = function RxnStringExt$124get$35toUpperCase($this) {
+    return dart.fn(() => rx_types['RxnStringExt|toUpperCase']($this), T$.VoidToStringN());
+  };
+  rx_types['RxnStringExt|allMatches'] = function RxnStringExt$124allMatches($this, string, start = 0) {
+    let t323;
+    t323 = $this.value;
+    return t323 == null ? null : t323[$allMatches](string, start);
+  };
+  rx_types['RxnStringExt|get#allMatches'] = function RxnStringExt$124get$35allMatches($this) {
+    return dart.fn((string, start = 0) => rx_types['RxnStringExt|allMatches']($this, string, start), T$.StringAndintToIterableNOfMatch());
+  };
+  rx_types['RxnStringExt|matchAsPrefix'] = function RxnStringExt$124matchAsPrefix($this, string, start = 0) {
+    let t325;
+    t325 = $this.value;
+    return t325 == null ? null : t325[$matchAsPrefix](string, start);
+  };
+  rx_types['RxnStringExt|get#matchAsPrefix'] = function RxnStringExt$124get$35matchAsPrefix($this) {
+    return dart.fn((string, start = 0) => rx_types['RxnStringExt|matchAsPrefix']($this, string, start), T$.StringAndintToMatchN());
+  };
+  rx_types['ListExtension|get#obs'] = function ListExtension$124get$35obs(E, $this) {
+    return new (rx_types.RxList$(E)).new($this);
+  };
+  rx_types['ListExtension|addNonNull'] = function ListExtension$124addNonNull(E, $this, item) {
+    if (item != null) $this[$add](item);
+  };
+  rx_types['ListExtension|get#addNonNull'] = function ListExtension$124get$35addNonNull(E, $this) {
+    return dart.fn(item => rx_types['ListExtension|addNonNull'](E, $this, item), dart.fnType(dart.void, [E]));
+  };
+  rx_types['ListExtension|addIf'] = function ListExtension$124addIf(E, $this, condition, item) {
+    if (T$.VoidTobool().is(condition)) condition = condition();
+    if (typeof condition == 'boolean' && dart.test(condition)) $this[$add](item);
+  };
+  rx_types['ListExtension|get#addIf'] = function ListExtension$124get$35addIf(E, $this) {
+    return dart.fn((condition, item) => rx_types['ListExtension|addIf'](E, $this, condition, item), dart.fnType(dart.void, [dart.dynamic, E]));
+  };
+  rx_types['ListExtension|addAllIf'] = function ListExtension$124addAllIf(E, $this, condition, items) {
+    if (T$.VoidTobool().is(condition)) condition = condition();
+    if (typeof condition == 'boolean' && dart.test(condition)) $this[$addAll](items);
+  };
+  rx_types['ListExtension|get#addAllIf'] = function ListExtension$124get$35addAllIf(E, $this) {
+    return dart.fn((condition, items) => rx_types['ListExtension|addAllIf'](E, $this, condition, items), dart.fnType(dart.void, [dart.dynamic, core.Iterable$(E)]));
+  };
+  rx_types['ListExtension|assign'] = function ListExtension$124assign(E, $this, item) {
+    $this[$clear]();
+    $this[$add](item);
+  };
+  rx_types['ListExtension|get#assign'] = function ListExtension$124get$35assign(E, $this) {
+    return dart.fn(item => rx_types['ListExtension|assign'](E, $this, item), dart.fnType(dart.void, [E]));
+  };
+  rx_types['ListExtension|assignAll'] = function ListExtension$124assignAll(E, $this, items) {
+    $this[$clear]();
+    $this[$addAll](items);
+  };
+  rx_types['ListExtension|get#assignAll'] = function ListExtension$124get$35assignAll(E, $this) {
+    return dart.fn(items => rx_types['ListExtension|assignAll'](E, $this, items), dart.fnType(dart.void, [core.Iterable$(E)]));
+  };
+  rx_types['MapExtension|get#obs'] = function MapExtension$124get$35obs(K, V, $this) {
+    return new (rx_types.RxMap$(K, V)).new($this);
+  };
+  rx_types['MapExtension|addIf'] = function MapExtension$124addIf(K, V, $this, condition, key, value) {
+    if (T$.VoidTobool().is(condition)) condition = condition();
+    if (typeof condition == 'boolean' && dart.test(condition)) {
+      $this[$_set](key, value);
+    }
+  };
+  rx_types['MapExtension|get#addIf'] = function MapExtension$124get$35addIf(K, V, $this) {
+    return dart.fn((condition, key, value) => rx_types['MapExtension|addIf'](K, V, $this, condition, key, value), dart.fnType(dart.void, [dart.dynamic, K, V]));
+  };
+  rx_types['MapExtension|addAllIf'] = function MapExtension$124addAllIf(K, V, $this, condition, values) {
+    if (T$.VoidTobool().is(condition)) condition = condition();
+    if (typeof condition == 'boolean' && dart.test(condition)) $this[$addAll](values);
+  };
+  rx_types['MapExtension|get#addAllIf'] = function MapExtension$124get$35addAllIf(K, V, $this) {
+    return dart.fn((condition, values) => rx_types['MapExtension|addAllIf'](K, V, $this, condition, values), dart.fnType(dart.void, [dart.dynamic, core.Map$(K, V)]));
+  };
+  rx_types['MapExtension|assign'] = function MapExtension$124assign(K, V, $this, key, val) {
+    if (rx_types.RxMap.is($this)) {
+      let map = rx_types.RxMap.as($this);
+      map[_value][$clear]();
+      $this[$_set](key, val);
+    } else {
+      $this[$clear]();
+      $this[$_set](key, val);
+    }
+  };
+  rx_types['MapExtension|get#assign'] = function MapExtension$124get$35assign(K, V, $this) {
+    return dart.fn((key, val) => rx_types['MapExtension|assign'](K, V, $this, key, val), dart.fnType(dart.void, [K, V]));
+  };
+  rx_types['MapExtension|get#assignAll'] = function MapExtension$124get$35assignAll(K, V, $this) {
+    return dart.fn(val => rx_types['MapExtension|assignAll'](K, V, $this, val), dart.fnType(dart.void, [core.Map$(K, V)]));
+  };
+  rx_types['MapExtension|assignAll'] = function MapExtension$124assignAll(K, V, $this, val) {
+    if (rx_types.RxMap.is(val) && rx_types.RxMap.is($this)) {
+      if (rx_types.RxMap.as(val)[_value][$_equals](rx_types.RxMap.as($this)[_value])) return;
+    }
+    if (rx_types.RxMap.is($this)) {
+      let map = rx_types.RxMap.as($this);
+      if (map[_value][$_equals](val)) return;
+      map[_value] = val;
+      map.refresh();
+    } else {
+      if ($this[$_equals](val)) return;
+      $this[$clear]();
+      $this[$addAll](val);
+    }
+  };
+  rx_types['SetExtension|get#obs'] = function SetExtension$124get$35obs(E, $this) {
+    let t347;
+    t347 = new (rx_types.RxSet$(E)).new(collection.LinkedHashSet$(E).new());
+    return (() => {
+      t347.addAll($this);
+      return t347;
+    })();
+  };
+  rx_types['SetExtension|addIf'] = function SetExtension$124addIf(E, $this, condition, item) {
+    if (T$.VoidTobool().is(condition)) condition = condition();
+    if (typeof condition == 'boolean' && dart.test(condition)) $this.add(item);
+  };
+  rx_types['SetExtension|get#addIf'] = function SetExtension$124get$35addIf(E, $this) {
+    return dart.fn((condition, item) => rx_types['SetExtension|addIf'](E, $this, condition, item), dart.fnType(dart.void, [dart.dynamic, E]));
+  };
+  rx_types['SetExtension|addAllIf'] = function SetExtension$124addAllIf(E, $this, condition, items) {
+    if (T$.VoidTobool().is(condition)) condition = condition();
+    if (typeof condition == 'boolean' && dart.test(condition)) $this.addAll(items);
+  };
+  rx_types['SetExtension|get#addAllIf'] = function SetExtension$124get$35addAllIf(E, $this) {
+    return dart.fn((condition, items) => rx_types['SetExtension|addAllIf'](E, $this, condition, items), dart.fnType(dart.void, [dart.dynamic, core.Iterable$(E)]));
+  };
+  rx_types['SetExtension|assign'] = function SetExtension$124assign(E, $this, item) {
+    $this.clear();
+    $this.add(item);
+  };
+  rx_types['SetExtension|get#assign'] = function SetExtension$124get$35assign(E, $this) {
+    return dart.fn(item => rx_types['SetExtension|assign'](E, $this, item), dart.fnType(dart.void, [E]));
+  };
+  rx_types['SetExtension|assignAll'] = function SetExtension$124assignAll(E, $this, items) {
+    $this.clear();
+    $this.addAll(items);
+  };
+  rx_types['SetExtension|get#assignAll'] = function SetExtension$124get$35assignAll(E, $this) {
+    return dart.fn(items => rx_types['SetExtension|assignAll'](E, $this, items), dart.fnType(dart.void, [core.Iterable$(E)]));
+  };
+  dart.trackLibraries("packages/get/get_rx/src/rx_types/rx_types.dart", {
+    "package:get/get_rx/src/rx_types/rx_types.dart": rx_types
   }, {
-  }, '{"version":3,"sourceRoot":"","sources":["floating_action_button_theme.dart"],"names":[],"mappings":"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","file":"../../../../../../../E:/packages/flutter/src/material/floating_action_button_theme.dart.lib.js"}');
+    "package:get/get_rx/src/rx_types/rx_types.dart": ["rx_core/rx_impl.dart", "rx_core/rx_interface.dart", "rx_core/rx_num.dart", "rx_core/rx_string.dart", "rx_iterables/rx_list.dart", "rx_iterables/rx_set.dart", "rx_iterables/rx_map.dart"]
+  }, '{"version":3,"sourceRoot":"","sources":["rx_core/rx_impl.dart","rx_core/rx_interface.dart","rx_core/rx_num.dart","rx_core/rx_string.dart","rx_iterables/rx_list.dart","rx_iterables/rx_set.dart","rx_iterables/rx_map.dart"],"names":[],"mappings":"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","file":"../../../../../../../../../../E:/packages/get/get_rx/src/rx_types/rx_types.dart.lib.js"}');
   // Exports:
   return {
-    src__material__floating_action_button_theme: floating_action_button_theme
+    get_rx__src__rx_types__rx_types: rx_types
   };
 }));
 
-//# sourceMappingURL=floating_action_button_theme.dart.lib.js.map
+//# sourceMappingURL=rx_types.dart.lib.js.map
