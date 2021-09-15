@@ -11,7 +11,7 @@ class NavDrawer extends StatefulWidget {
 class _NavDrawer extends State<NavDrawer>{
   int _selectedIndex = 0;
 
-  var list = [
+  var pages = [
     GraphText(),
     LoginPage(),
   ];
@@ -125,7 +125,7 @@ class _NavDrawer extends State<NavDrawer>{
           //this is how we navigate
           Expanded(
             child: Center(
-              child: list[_selectedIndex],
+              child: pages[_selectedIndex],
             )
           )
         ],

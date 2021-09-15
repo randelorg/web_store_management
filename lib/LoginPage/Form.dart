@@ -11,7 +11,7 @@ class Body extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        MediaQuery.of(context).size.width >= 1000 //Responsive
+        MediaQuery.of(context).size.width >= 800 //Responsive
              ? Image.asset(
                 'images/login-logo.jpg',
                  width: 350,
