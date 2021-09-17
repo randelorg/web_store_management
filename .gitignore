@@ -31,12 +31,16 @@
 /packages/flutter/coverage/
 version
 analysis_benchmark.json
+.flutter-plugins-dependencies
 
 # packages file containing multi-root paths
 .packages.generated
+.packages
 
 # Flutter/Dart/Pub related
 .dart_tool/
+.env
+.build
 
 # Android related
 **/android/**/gradle-wrapper.jar
