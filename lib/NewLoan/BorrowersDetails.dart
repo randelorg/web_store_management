@@ -10,37 +10,44 @@ class BorrowerDetail extends StatelessWidget{
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Container(
-            width: (MediaQuery.of(context).size.width) /3,
-              child: Column(
+            padding: EdgeInsets.all(40),
+            child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Container(
-                    padding: EdgeInsets.only(bottom: 40),
-                    child: Text(
-                      "Input Borrower's Details",
-                      style: TextStyle(
-                        fontSize: 35,
-                        fontWeight: FontWeight.bold,
+                  Padding(
+                    padding: EdgeInsets.only(top: 40),
+                    child: Container(
+                      child: Image.asset(
+                        '../../assets/images/qr-code-scan.png',
+                        width: 250,
+                        height: 250,
+                        fit: BoxFit.fill,
                       ),
                     ),
                   ),
-                  Container(
-                    child: Image.asset(
-                      '../../assets/images/qr-code-scan.png',
-                      width: 150,
-                      height: 150,
-                      fit: BoxFit.fitWidth,
+                  TextButton.icon(
+                    icon: Icon(
+                      Icons.print,
                     ),
+                    label: Text(
+                      'Print QR',
+                      softWrap: true,
+                      style: TextStyle(
+                        color: Colors.blue,
+                        decoration: TextDecoration.underline,
+                       ),
+                    ),
+                      onPressed: () {}, //pwdeng refresh button
                   ),
                   Padding(
                     padding: EdgeInsets.only(bottom: 20),
                     child: TextButton.icon(
                       icon: Icon(
-                        Icons.print,
+                        Icons.upload,
                       ),
                       label: Text(
-                        'Print QR',
+                        'Upload contract',
                         softWrap: true,
                         style: TextStyle(
                           color: Colors.blue,
@@ -48,6 +55,25 @@ class BorrowerDetail extends StatelessWidget{
                         ),
                       ),
                         onPressed: () {}, //pwdeng refresh button
+                    ),
+                  ),
+                ],
+            ),
+          ),
+          Container(
+            width: (MediaQuery.of(context).size.width) /3,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Container(
+                    //padding: EdgeInsets.only(bottom: 40),
+                    child: Text(
+                      "Input Borrower's Details",
+                      style: TextStyle(
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                   Padding(
@@ -131,27 +157,6 @@ class BorrowerDetail extends StatelessWidget{
                     ),
                   ),
                   //buttons
-                  Padding(
-                    padding: EdgeInsets.only(top: 10.0, bottom: 20.0),
-                    child: ElevatedButton(
-                      style: TextButton.styleFrom(
-                        textStyle: const TextStyle(
-                            color: Colors.white,
-                          ),
-                        backgroundColor: Colors.blue.shade400,
-                      ),
-                      onPressed: () {},
-                      child: const Text(
-                          'UPLOAD \n CONTRACT',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 15,
-                          ),
-                        ),
-                    ),
-                  ),
                   Padding(
                     padding: EdgeInsets.all(10.0),
                     child: ElevatedButton(

@@ -29,6 +29,7 @@ class _NavDrawer extends State<NavDrawer>{
         children: <Widget>[
           //list[_selectedIndex],
           NavigationRail(
+            minWidth: 45.0,
             selectedIndex: _selectedIndex,
             onDestinationSelected: (int index) {
               setState(() {
@@ -60,6 +61,7 @@ class _NavDrawer extends State<NavDrawer>{
                 icon: Icon(Icons.group),
                 label: Text(
                     'Borrowers',
+                    softWrap: true,
                     style: TextStyle(
                     
                   ),
@@ -69,6 +71,7 @@ class _NavDrawer extends State<NavDrawer>{
                 icon: Icon(Icons.payments),
                 label: Text(
                     'Payment',
+                    softWrap: true,
                     style: TextStyle(
                     
                   ),
@@ -78,6 +81,7 @@ class _NavDrawer extends State<NavDrawer>{
                 icon: Icon(Icons.credit_score),
                 label: Text(
                     'Credit Approval',
+                    softWrap: true,
                     style: TextStyle(
                     
                   ),
@@ -87,6 +91,7 @@ class _NavDrawer extends State<NavDrawer>{
                 icon: Icon(Icons.request_quote),
                 label: Text(
                     'Request',
+                    softWrap: true,
                     style: TextStyle(
                     
                   ),
@@ -96,6 +101,7 @@ class _NavDrawer extends State<NavDrawer>{
                 icon: Icon(Icons.build),
                 label: Text(
                     'Repair',
+                    softWrap: true,
                     style: TextStyle(
                     
                   ),
@@ -105,6 +111,7 @@ class _NavDrawer extends State<NavDrawer>{
                 icon: Icon(Icons.inventory_2),
                 label: Text(
                     'Inventory',
+                    softWrap: true,
                     style: TextStyle(
                     
                   ),
@@ -114,6 +121,7 @@ class _NavDrawer extends State<NavDrawer>{
                 icon: Icon(Icons.insights),
                 label: Text(
                     'Reports',
+                    softWrap: true,
                     style: TextStyle(
                     
                   ),
@@ -123,6 +131,7 @@ class _NavDrawer extends State<NavDrawer>{
                 icon: Icon(Icons.badge),
                 label: Text(
                     'Collectors',
+                    softWrap: true,
                     style: TextStyle(
                     
                   ),
@@ -130,7 +139,7 @@ class _NavDrawer extends State<NavDrawer>{
               ),
             ],
           ),
-          const VerticalDivider(width: 50.0),
+          const VerticalDivider(width: 20),
           // This is the main content.
           //this is how we navigate
           Expanded(
@@ -138,6 +147,7 @@ class _NavDrawer extends State<NavDrawer>{
               child: pages[_selectedIndex],
             )
           )
+          ,
         ],
       ),
     );

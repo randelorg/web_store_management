@@ -9,7 +9,6 @@ class TopBar extends StatelessWidget with PreferredSizeWidget{
             style: TextStyle(
               color: Colors.blue,
               fontWeight: FontWeight.bold,
-              fontSize: 25,
             ),
           ),
         //automaticallyImplyLeading: true,
