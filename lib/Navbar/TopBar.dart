@@ -1,20 +1,19 @@
 import 'package:flutter/material.dart';
 
-class TopBar extends StatelessWidget with PreferredSizeWidget
-{
+class TopBar extends StatelessWidget with PreferredSizeWidget{
     @override 
     Widget build(BuildContext context){
     return AppBar(
       title: const Text(
-            'DASHBOARD',
+            'DELLRAINS STORE MANAGEMENT SYSTEM',
             style: TextStyle(
               color: Colors.blue,
               fontWeight: FontWeight.bold,
-              fontSize: 30,
+              fontSize: 25,
             ),
           ),
         //automaticallyImplyLeading: true,
-        centerTitle: true,
+        centerTitle: false,
         backgroundColor: Colors.white,
         leading: Image.asset('../assets/images/store-logo.png'),
         leadingWidth: 100,
@@ -57,3 +56,4 @@ class TopBar extends StatelessWidget with PreferredSizeWidget
   @override
   Size get preferredSize => Size.fromHeight(kToolbarHeight);
 }
+
