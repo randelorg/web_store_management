@@ -7,9 +7,9 @@ class GraphText extends StatefulWidget {
   _GraphText createState() => _GraphText();
 }
 
-class _GraphText extends State<GraphText>{
+class _GraphText extends State<GraphText> {
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
         Container(
@@ -31,7 +31,7 @@ class _GraphText extends State<GraphText>{
               ),
             ),
             onPressed: () {}, //pwdeng refresh button
-          ), 
+          ),
         ),
         Expanded(
           flex: 1,
@@ -46,25 +46,25 @@ class _GraphText extends State<GraphText>{
                   width: 160.0,
                   child: Column(
                     children: <Widget>[
-                      Center( 
-                        child: TextButton.icon(
-                            icon: Icon (
-                              Icons.attach_money,
-                              size: 30.0,
-                              color: Colors.black,
-                            ),
-                            label: Text( //vars here to be setState
-                              '60,000',
-                              softWrap: true,
-                              style: TextStyle(
-                                fontSize: 25,
-                                color: Colors.blue,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            onPressed: () {}, //pwdeng refresh button
-                        )
-                      ),
+                      Center(
+                          child: TextButton.icon(
+                        icon: Icon(
+                          Icons.attach_money,
+                          size: 30.0,
+                          color: Colors.black,
+                        ),
+                        label: Text(
+                          //vars here to be setState
+                          '60,000',
+                          softWrap: true,
+                          style: TextStyle(
+                            fontSize: 25,
+                            color: Colors.blue,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        onPressed: () {}, //pwdeng refresh button
+                      )),
                       Center(
                         child: Text(
                           'TODAY',
@@ -77,25 +77,25 @@ class _GraphText extends State<GraphText>{
                   width: 160.0,
                   child: Column(
                     children: <Widget>[
-                      Center( 
-                        child: TextButton.icon(
-                            icon: Icon (
-                              Icons.attach_money,
-                              size: 30.0,
-                              color: Colors.black,
-                            ),
-                            label: Text( //vars here to be setState
-                              '60,000',
-                              softWrap: true,
-                              style: TextStyle(
-                                fontSize: 25,
-                                color: Colors.blue,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            onPressed: () {}, //pwdeng refresh button
-                        )
-                      ),
+                      Center(
+                          child: TextButton.icon(
+                        icon: Icon(
+                          Icons.attach_money,
+                          size: 30.0,
+                          color: Colors.black,
+                        ),
+                        label: Text(
+                          //vars here to be setState
+                          '60,000',
+                          softWrap: true,
+                          style: TextStyle(
+                            fontSize: 25,
+                            color: Colors.blue,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        onPressed: () {}, //pwdeng refresh button
+                      )),
                       Center(
                         child: Text(
                           'THIS WEEK',
@@ -108,25 +108,25 @@ class _GraphText extends State<GraphText>{
                   width: 160.0,
                   child: Column(
                     children: <Widget>[
-                      Center( 
-                        child: TextButton.icon(
-                            icon: Icon (
-                              Icons.attach_money,
-                              size: 30.0,
-                              color: Colors.black,
-                            ),
-                            label: Text( //vars here to be setState
-                              '60,000',
-                              softWrap: true,
-                              style: TextStyle(
-                                fontSize: 25,
-                                color: Colors.blue,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            onPressed: () {}, //pwdeng refresh button
-                        )
-                      ),
+                      Center(
+                          child: TextButton.icon(
+                        icon: Icon(
+                          Icons.attach_money,
+                          size: 30.0,
+                          color: Colors.black,
+                        ),
+                        label: Text(
+                          //vars here to be setState
+                          '60,000',
+                          softWrap: true,
+                          style: TextStyle(
+                            fontSize: 25,
+                            color: Colors.blue,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        onPressed: () {}, //pwdeng refresh button
+                      )),
                       Center(
                         child: Text(
                           'THIS MONTH',
@@ -140,13 +140,12 @@ class _GraphText extends State<GraphText>{
           ),
         ),
         Expanded(
-          flex: 4,
-          child: Container(
-            width: (MediaQuery.of(context).size.width),
-            height: (MediaQuery.of(context).size.height),
-            child: CollectionGraph.withSampleData(),
-          )
-        ),
+            flex: 4,
+            child: Container(
+              width: (MediaQuery.of(context).size.width),
+              height: (MediaQuery.of(context).size.height),
+              child: CollectionGraph(),
+            )),
       ],
     );
   }
