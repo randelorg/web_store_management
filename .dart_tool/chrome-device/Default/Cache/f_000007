@@ -1,0 +1,1470 @@
+define(['dart_sdk', 'packages/flutter/src/widgets/widget_span.dart', 'packages/web_store_management/DashBoard/GraphText.dart', 'packages/web_store_management/NewLoan/BorrowersDetails.dart', 'packages/flutter/src/material/icon_button.dart', 'packages/flutter/src/painting/strut_style.dart', 'packages/flutter/src/widgets/icon.dart', 'packages/flutter/src/widgets/icon_data.dart'], (function load__packages__web_store_management__Navbar__NavDrawer_dart(dart_sdk, packages__flutter__src__widgets__widget_span$46dart, packages__web_store_management__DashBoard__GraphText$46dart, packages__web_store_management__NewLoan__BorrowersDetails$46dart, packages__flutter__src__material__icon_button$46dart, packages__flutter__src__painting__strut_style$46dart, packages__flutter__src__widgets__icon$46dart, packages__flutter__src__widgets__icon_data$46dart) {
+  'use strict';
+  const core = dart_sdk.core;
+  const _interceptors = dart_sdk._interceptors;
+  const dart = dart_sdk.dart;
+  const dartx = dart_sdk.dartx;
+  const framework = packages__flutter__src__widgets__widget_span$46dart.src__widgets__framework;
+  const widget_inspector = packages__flutter__src__widgets__widget_span$46dart.src__widgets__widget_inspector;
+  const basic = packages__flutter__src__widgets__widget_span$46dart.src__widgets__basic;
+  const text = packages__flutter__src__widgets__widget_span$46dart.src__widgets__text;
+  const GraphText = packages__web_store_management__DashBoard__GraphText$46dart.DashBoard__GraphText;
+  const BorrowersDetails = packages__web_store_management__NewLoan__BorrowersDetails$46dart.NewLoan__BorrowersDetails;
+  const scaffold = packages__flutter__src__material__icon_button$46dart.src__material__scaffold;
+  const navigation_rail = packages__flutter__src__material__icon_button$46dart.src__material__navigation_rail;
+  const divider = packages__flutter__src__material__icon_button$46dart.src__material__divider;
+  const text_style = packages__flutter__src__painting__strut_style$46dart.src__painting__text_style;
+  const icon = packages__flutter__src__widgets__icon$46dart.src__widgets__icon;
+  const icon_data = packages__flutter__src__widgets__icon_data$46dart.src__widgets__icon_data;
+  var NavDrawer = Object.create(dart.library);
+  var $_get = dartx._get;
+  dart._checkModuleNullSafetyMode(true);
+  var T = {
+    JSArrayOfWidget: () => (T.JSArrayOfWidget = dart.constFn(_interceptors.JSArray$(framework.Widget)))(),
+    JSArrayOfString: () => (T.JSArrayOfString = dart.constFn(_interceptors.JSArray$(core.String)))(),
+    VoidTovoid: () => (T.VoidTovoid = dart.constFn(dart.fnType(dart.void, [])))(),
+    intTovoid: () => (T.intTovoid = dart.constFn(dart.fnType(dart.void, [core.int])))()
+  };
+  const CT = Object.create({
+    _: () => (C, CT)
+  });
+  dart.defineLazy(CT, {
+    get C1() {
+      return C[1] = dart.constList([], widget_inspector._Location);
+    },
+    get C0() {
+      return C[0] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[1] || CT.C1,
+        [_Location_name]: null,
+        [_Location_column]: 5,
+        [_Location_line]: 16,
+        [_Location_file]: "file:///C:/Users/rende/Desktop/web_store_management/lib/Navbar/NavDrawer.dart"
+      });
+    },
+    get C2() {
+      return C[2] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[1] || CT.C1,
+        [_Location_name]: null,
+        [_Location_column]: 5,
+        [_Location_line]: 17,
+        [_Location_file]: "file:///C:/Users/rende/Desktop/web_store_management/lib/Navbar/NavDrawer.dart"
+      });
+    },
+    get C8() {
+      return C[8] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "data",
+        [_Location_column]: 21,
+        [_Location_line]: 44,
+        [_Location_file]: null
+      });
+    },
+    get C9() {
+      return C[9] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "style",
+        [_Location_column]: 19,
+        [_Location_line]: 45,
+        [_Location_file]: null
+      });
+    },
+    get C7() {
+      return C[7] = dart.constList([C[8] || CT.C8, C[9] || CT.C9], widget_inspector._Location);
+    },
+    get C6() {
+      return C[6] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[7] || CT.C7,
+        [_Location_name]: null,
+        [_Location_column]: 24,
+        [_Location_line]: 43,
+        [_Location_file]: "file:///C:/Users/rende/Desktop/web_store_management/lib/Navbar/NavDrawer.dart"
+      });
+    },
+    get C10() {
+      return C[10] = dart.const({
+        __proto__: text_style.TextStyle.prototype,
+        [TextStyle_fontFeatures]: null,
+        [TextStyle_shadows]: null,
+        [TextStyle_debugLabel]: null,
+        [TextStyle_decorationThickness]: null,
+        [TextStyle_decorationStyle]: null,
+        [TextStyle_decorationColor]: null,
+        [TextStyle_decoration]: null,
+        [TextStyle_background]: null,
+        [TextStyle_foreground]: null,
+        [TextStyle_locale]: null,
+        [TextStyle_leadingDistribution]: null,
+        [TextStyle_height]: null,
+        [TextStyle_textBaseline]: null,
+        [TextStyle_wordSpacing]: null,
+        [TextStyle_letterSpacing]: null,
+        [TextStyle_fontStyle]: null,
+        [TextStyle_fontWeight]: null,
+        [TextStyle_fontSize]: null,
+        [TextStyle__package]: null,
+        [TextStyle__fontFamilyFallback]: null,
+        [TextStyle_fontFamily]: null,
+        [TextStyle_backgroundColor]: null,
+        [TextStyle_color]: null,
+        [TextStyle_inherit]: true
+      });
+    },
+    get C5() {
+      return C[5] = dart.const({
+        __proto__: text.Text.prototype,
+        [Widget__location]: C[6] || CT.C6,
+        [Widget_key]: null,
+        [Text_textHeightBehavior]: null,
+        [Text_textWidthBasis]: null,
+        [Text_semanticsLabel]: null,
+        [Text_maxLines]: null,
+        [Text_textScaleFactor]: null,
+        [Text_overflow]: null,
+        [Text_softWrap]: null,
+        [Text_locale]: null,
+        [Text_textDirection]: null,
+        [Text_textAlign]: null,
+        [Text_strutStyle]: null,
+        [Text_style]: C[10] || CT.C10,
+        [Text_textSpan]: null,
+        [Text_data]: "Dashboard"
+      });
+    },
+    get C14() {
+      return C[14] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "icon",
+        [_Location_column]: 34,
+        [_Location_line]: 42,
+        [_Location_file]: null
+      });
+    },
+    get C13() {
+      return C[13] = dart.constList([C[14] || CT.C14], widget_inspector._Location);
+    },
+    get C12() {
+      return C[12] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[13] || CT.C13,
+        [_Location_name]: null,
+        [_Location_column]: 23,
+        [_Location_line]: 42,
+        [_Location_file]: "file:///C:/Users/rende/Desktop/web_store_management/lib/Navbar/NavDrawer.dart"
+      });
+    },
+    get C15() {
+      return C[15] = dart.const({
+        __proto__: icon_data.IconData.prototype,
+        [IconData_matchTextDirection]: false,
+        [IconData_fontPackage]: null,
+        [IconData_fontFamily]: "MaterialIcons",
+        [IconData_codePoint]: 58842
+      });
+    },
+    get C11() {
+      return C[11] = dart.const({
+        __proto__: icon.Icon.prototype,
+        [Widget__location]: C[12] || CT.C12,
+        [Widget_key]: null,
+        [Icon_textDirection]: null,
+        [Icon_semanticLabel]: null,
+        [Icon_color]: null,
+        [Icon_size]: null,
+        [Icon_icon]: C[15] || CT.C15
+      });
+    },
+    get C4() {
+      return C[4] = dart.const({
+        __proto__: navigation_rail.NavigationRailDestination.prototype,
+        [NavigationRailDestination_padding]: null,
+        [NavigationRailDestination_label]: C[5] || CT.C5,
+        [NavigationRailDestination_selectedIcon]: C[11] || CT.C11,
+        [NavigationRailDestination_icon]: C[11] || CT.C11
+      });
+    },
+    get C20() {
+      return C[20] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "data",
+        [_Location_column]: 21,
+        [_Location_line]: 53,
+        [_Location_file]: null
+      });
+    },
+    get C21() {
+      return C[21] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "style",
+        [_Location_column]: 19,
+        [_Location_line]: 54,
+        [_Location_file]: null
+      });
+    },
+    get C19() {
+      return C[19] = dart.constList([C[20] || CT.C20, C[21] || CT.C21], widget_inspector._Location);
+    },
+    get C18() {
+      return C[18] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[19] || CT.C19,
+        [_Location_name]: null,
+        [_Location_column]: 24,
+        [_Location_line]: 52,
+        [_Location_file]: "file:///C:/Users/rende/Desktop/web_store_management/lib/Navbar/NavDrawer.dart"
+      });
+    },
+    get C17() {
+      return C[17] = dart.const({
+        __proto__: text.Text.prototype,
+        [Widget__location]: C[18] || CT.C18,
+        [Widget_key]: null,
+        [Text_textHeightBehavior]: null,
+        [Text_textWidthBasis]: null,
+        [Text_semanticsLabel]: null,
+        [Text_maxLines]: null,
+        [Text_textScaleFactor]: null,
+        [Text_overflow]: null,
+        [Text_softWrap]: null,
+        [Text_locale]: null,
+        [Text_textDirection]: null,
+        [Text_textAlign]: null,
+        [Text_strutStyle]: null,
+        [Text_style]: C[10] || CT.C10,
+        [Text_textSpan]: null,
+        [Text_data]: "New Loan"
+      });
+    },
+    get C25() {
+      return C[25] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "icon",
+        [_Location_column]: 34,
+        [_Location_line]: 51,
+        [_Location_file]: null
+      });
+    },
+    get C24() {
+      return C[24] = dart.constList([C[25] || CT.C25], widget_inspector._Location);
+    },
+    get C23() {
+      return C[23] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[24] || CT.C24,
+        [_Location_name]: null,
+        [_Location_column]: 23,
+        [_Location_line]: 51,
+        [_Location_file]: "file:///C:/Users/rende/Desktop/web_store_management/lib/Navbar/NavDrawer.dart"
+      });
+    },
+    get C26() {
+      return C[26] = dart.const({
+        __proto__: icon_data.IconData.prototype,
+        [IconData_matchTextDirection]: false,
+        [IconData_fontPackage]: null,
+        [IconData_fontFamily]: "MaterialIcons",
+        [IconData_codePoint]: 57757
+      });
+    },
+    get C22() {
+      return C[22] = dart.const({
+        __proto__: icon.Icon.prototype,
+        [Widget__location]: C[23] || CT.C23,
+        [Widget_key]: null,
+        [Icon_textDirection]: null,
+        [Icon_semanticLabel]: null,
+        [Icon_color]: null,
+        [Icon_size]: null,
+        [Icon_icon]: C[26] || CT.C26
+      });
+    },
+    get C16() {
+      return C[16] = dart.const({
+        __proto__: navigation_rail.NavigationRailDestination.prototype,
+        [NavigationRailDestination_padding]: null,
+        [NavigationRailDestination_label]: C[17] || CT.C17,
+        [NavigationRailDestination_selectedIcon]: C[22] || CT.C22,
+        [NavigationRailDestination_icon]: C[22] || CT.C22
+      });
+    },
+    get C31() {
+      return C[31] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "data",
+        [_Location_column]: 21,
+        [_Location_line]: 62,
+        [_Location_file]: null
+      });
+    },
+    get C32() {
+      return C[32] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "style",
+        [_Location_column]: 21,
+        [_Location_line]: 63,
+        [_Location_file]: null
+      });
+    },
+    get C30() {
+      return C[30] = dart.constList([C[31] || CT.C31, C[32] || CT.C32], widget_inspector._Location);
+    },
+    get C29() {
+      return C[29] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[30] || CT.C30,
+        [_Location_name]: null,
+        [_Location_column]: 24,
+        [_Location_line]: 61,
+        [_Location_file]: "file:///C:/Users/rende/Desktop/web_store_management/lib/Navbar/NavDrawer.dart"
+      });
+    },
+    get C28() {
+      return C[28] = dart.const({
+        __proto__: text.Text.prototype,
+        [Widget__location]: C[29] || CT.C29,
+        [Widget_key]: null,
+        [Text_textHeightBehavior]: null,
+        [Text_textWidthBasis]: null,
+        [Text_semanticsLabel]: null,
+        [Text_maxLines]: null,
+        [Text_textScaleFactor]: null,
+        [Text_overflow]: null,
+        [Text_softWrap]: null,
+        [Text_locale]: null,
+        [Text_textDirection]: null,
+        [Text_textAlign]: null,
+        [Text_strutStyle]: null,
+        [Text_style]: C[10] || CT.C10,
+        [Text_textSpan]: null,
+        [Text_data]: "Borrowers"
+      });
+    },
+    get C36() {
+      return C[36] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "icon",
+        [_Location_column]: 34,
+        [_Location_line]: 60,
+        [_Location_file]: null
+      });
+    },
+    get C35() {
+      return C[35] = dart.constList([C[36] || CT.C36], widget_inspector._Location);
+    },
+    get C34() {
+      return C[34] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[35] || CT.C35,
+        [_Location_name]: null,
+        [_Location_column]: 23,
+        [_Location_line]: 60,
+        [_Location_file]: "file:///C:/Users/rende/Desktop/web_store_management/lib/Navbar/NavDrawer.dart"
+      });
+    },
+    get C37() {
+      return C[37] = dart.const({
+        __proto__: icon_data.IconData.prototype,
+        [IconData_matchTextDirection]: false,
+        [IconData_fontPackage]: null,
+        [IconData_fontFamily]: "MaterialIcons",
+        [IconData_codePoint]: 58091
+      });
+    },
+    get C33() {
+      return C[33] = dart.const({
+        __proto__: icon.Icon.prototype,
+        [Widget__location]: C[34] || CT.C34,
+        [Widget_key]: null,
+        [Icon_textDirection]: null,
+        [Icon_semanticLabel]: null,
+        [Icon_color]: null,
+        [Icon_size]: null,
+        [Icon_icon]: C[37] || CT.C37
+      });
+    },
+    get C27() {
+      return C[27] = dart.const({
+        __proto__: navigation_rail.NavigationRailDestination.prototype,
+        [NavigationRailDestination_padding]: null,
+        [NavigationRailDestination_label]: C[28] || CT.C28,
+        [NavigationRailDestination_selectedIcon]: C[33] || CT.C33,
+        [NavigationRailDestination_icon]: C[33] || CT.C33
+      });
+    },
+    get C42() {
+      return C[42] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "data",
+        [_Location_column]: 21,
+        [_Location_line]: 71,
+        [_Location_file]: null
+      });
+    },
+    get C43() {
+      return C[43] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "style",
+        [_Location_column]: 21,
+        [_Location_line]: 72,
+        [_Location_file]: null
+      });
+    },
+    get C41() {
+      return C[41] = dart.constList([C[42] || CT.C42, C[43] || CT.C43], widget_inspector._Location);
+    },
+    get C40() {
+      return C[40] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[41] || CT.C41,
+        [_Location_name]: null,
+        [_Location_column]: 24,
+        [_Location_line]: 70,
+        [_Location_file]: "file:///C:/Users/rende/Desktop/web_store_management/lib/Navbar/NavDrawer.dart"
+      });
+    },
+    get C39() {
+      return C[39] = dart.const({
+        __proto__: text.Text.prototype,
+        [Widget__location]: C[40] || CT.C40,
+        [Widget_key]: null,
+        [Text_textHeightBehavior]: null,
+        [Text_textWidthBasis]: null,
+        [Text_semanticsLabel]: null,
+        [Text_maxLines]: null,
+        [Text_textScaleFactor]: null,
+        [Text_overflow]: null,
+        [Text_softWrap]: null,
+        [Text_locale]: null,
+        [Text_textDirection]: null,
+        [Text_textAlign]: null,
+        [Text_strutStyle]: null,
+        [Text_style]: C[10] || CT.C10,
+        [Text_textSpan]: null,
+        [Text_data]: "Payment"
+      });
+    },
+    get C47() {
+      return C[47] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "icon",
+        [_Location_column]: 34,
+        [_Location_line]: 69,
+        [_Location_file]: null
+      });
+    },
+    get C46() {
+      return C[46] = dart.constList([C[47] || CT.C47], widget_inspector._Location);
+    },
+    get C45() {
+      return C[45] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[46] || CT.C46,
+        [_Location_name]: null,
+        [_Location_column]: 23,
+        [_Location_line]: 69,
+        [_Location_file]: "file:///C:/Users/rende/Desktop/web_store_management/lib/Navbar/NavDrawer.dart"
+      });
+    },
+    get C48() {
+      return C[48] = dart.const({
+        __proto__: icon_data.IconData.prototype,
+        [IconData_matchTextDirection]: false,
+        [IconData_fontPackage]: null,
+        [IconData_fontFamily]: "MaterialIcons",
+        [IconData_codePoint]: 58498
+      });
+    },
+    get C44() {
+      return C[44] = dart.const({
+        __proto__: icon.Icon.prototype,
+        [Widget__location]: C[45] || CT.C45,
+        [Widget_key]: null,
+        [Icon_textDirection]: null,
+        [Icon_semanticLabel]: null,
+        [Icon_color]: null,
+        [Icon_size]: null,
+        [Icon_icon]: C[48] || CT.C48
+      });
+    },
+    get C38() {
+      return C[38] = dart.const({
+        __proto__: navigation_rail.NavigationRailDestination.prototype,
+        [NavigationRailDestination_padding]: null,
+        [NavigationRailDestination_label]: C[39] || CT.C39,
+        [NavigationRailDestination_selectedIcon]: C[44] || CT.C44,
+        [NavigationRailDestination_icon]: C[44] || CT.C44
+      });
+    },
+    get C53() {
+      return C[53] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "data",
+        [_Location_column]: 21,
+        [_Location_line]: 80,
+        [_Location_file]: null
+      });
+    },
+    get C54() {
+      return C[54] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "style",
+        [_Location_column]: 21,
+        [_Location_line]: 81,
+        [_Location_file]: null
+      });
+    },
+    get C52() {
+      return C[52] = dart.constList([C[53] || CT.C53, C[54] || CT.C54], widget_inspector._Location);
+    },
+    get C51() {
+      return C[51] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[52] || CT.C52,
+        [_Location_name]: null,
+        [_Location_column]: 24,
+        [_Location_line]: 79,
+        [_Location_file]: "file:///C:/Users/rende/Desktop/web_store_management/lib/Navbar/NavDrawer.dart"
+      });
+    },
+    get C50() {
+      return C[50] = dart.const({
+        __proto__: text.Text.prototype,
+        [Widget__location]: C[51] || CT.C51,
+        [Widget_key]: null,
+        [Text_textHeightBehavior]: null,
+        [Text_textWidthBasis]: null,
+        [Text_semanticsLabel]: null,
+        [Text_maxLines]: null,
+        [Text_textScaleFactor]: null,
+        [Text_overflow]: null,
+        [Text_softWrap]: null,
+        [Text_locale]: null,
+        [Text_textDirection]: null,
+        [Text_textAlign]: null,
+        [Text_strutStyle]: null,
+        [Text_style]: C[10] || CT.C10,
+        [Text_textSpan]: null,
+        [Text_data]: "Credit Approval"
+      });
+    },
+    get C58() {
+      return C[58] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "icon",
+        [_Location_column]: 34,
+        [_Location_line]: 78,
+        [_Location_file]: null
+      });
+    },
+    get C57() {
+      return C[57] = dart.constList([C[58] || CT.C58], widget_inspector._Location);
+    },
+    get C56() {
+      return C[56] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[57] || CT.C57,
+        [_Location_name]: null,
+        [_Location_column]: 23,
+        [_Location_line]: 78,
+        [_Location_file]: "file:///C:/Users/rende/Desktop/web_store_management/lib/Navbar/NavDrawer.dart"
+      });
+    },
+    get C59() {
+      return C[59] = dart.const({
+        __proto__: icon_data.IconData.prototype,
+        [IconData_matchTextDirection]: false,
+        [IconData_fontPackage]: null,
+        [IconData_fontFamily]: "MaterialIcons",
+        [IconData_codePoint]: 57761
+      });
+    },
+    get C55() {
+      return C[55] = dart.const({
+        __proto__: icon.Icon.prototype,
+        [Widget__location]: C[56] || CT.C56,
+        [Widget_key]: null,
+        [Icon_textDirection]: null,
+        [Icon_semanticLabel]: null,
+        [Icon_color]: null,
+        [Icon_size]: null,
+        [Icon_icon]: C[59] || CT.C59
+      });
+    },
+    get C49() {
+      return C[49] = dart.const({
+        __proto__: navigation_rail.NavigationRailDestination.prototype,
+        [NavigationRailDestination_padding]: null,
+        [NavigationRailDestination_label]: C[50] || CT.C50,
+        [NavigationRailDestination_selectedIcon]: C[55] || CT.C55,
+        [NavigationRailDestination_icon]: C[55] || CT.C55
+      });
+    },
+    get C64() {
+      return C[64] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "data",
+        [_Location_column]: 21,
+        [_Location_line]: 89,
+        [_Location_file]: null
+      });
+    },
+    get C65() {
+      return C[65] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "style",
+        [_Location_column]: 21,
+        [_Location_line]: 90,
+        [_Location_file]: null
+      });
+    },
+    get C63() {
+      return C[63] = dart.constList([C[64] || CT.C64, C[65] || CT.C65], widget_inspector._Location);
+    },
+    get C62() {
+      return C[62] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[63] || CT.C63,
+        [_Location_name]: null,
+        [_Location_column]: 24,
+        [_Location_line]: 88,
+        [_Location_file]: "file:///C:/Users/rende/Desktop/web_store_management/lib/Navbar/NavDrawer.dart"
+      });
+    },
+    get C61() {
+      return C[61] = dart.const({
+        __proto__: text.Text.prototype,
+        [Widget__location]: C[62] || CT.C62,
+        [Widget_key]: null,
+        [Text_textHeightBehavior]: null,
+        [Text_textWidthBasis]: null,
+        [Text_semanticsLabel]: null,
+        [Text_maxLines]: null,
+        [Text_textScaleFactor]: null,
+        [Text_overflow]: null,
+        [Text_softWrap]: null,
+        [Text_locale]: null,
+        [Text_textDirection]: null,
+        [Text_textAlign]: null,
+        [Text_strutStyle]: null,
+        [Text_style]: C[10] || CT.C10,
+        [Text_textSpan]: null,
+        [Text_data]: "Request"
+      });
+    },
+    get C69() {
+      return C[69] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "icon",
+        [_Location_column]: 34,
+        [_Location_line]: 87,
+        [_Location_file]: null
+      });
+    },
+    get C68() {
+      return C[68] = dart.constList([C[69] || CT.C69], widget_inspector._Location);
+    },
+    get C67() {
+      return C[67] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[68] || CT.C68,
+        [_Location_name]: null,
+        [_Location_column]: 23,
+        [_Location_line]: 87,
+        [_Location_file]: "file:///C:/Users/rende/Desktop/web_store_management/lib/Navbar/NavDrawer.dart"
+      });
+    },
+    get C70() {
+      return C[70] = dart.const({
+        __proto__: icon_data.IconData.prototype,
+        [IconData_matchTextDirection]: false,
+        [IconData_fontPackage]: null,
+        [IconData_fontFamily]: "MaterialIcons",
+        [IconData_codePoint]: 58671
+      });
+    },
+    get C66() {
+      return C[66] = dart.const({
+        __proto__: icon.Icon.prototype,
+        [Widget__location]: C[67] || CT.C67,
+        [Widget_key]: null,
+        [Icon_textDirection]: null,
+        [Icon_semanticLabel]: null,
+        [Icon_color]: null,
+        [Icon_size]: null,
+        [Icon_icon]: C[70] || CT.C70
+      });
+    },
+    get C60() {
+      return C[60] = dart.const({
+        __proto__: navigation_rail.NavigationRailDestination.prototype,
+        [NavigationRailDestination_padding]: null,
+        [NavigationRailDestination_label]: C[61] || CT.C61,
+        [NavigationRailDestination_selectedIcon]: C[66] || CT.C66,
+        [NavigationRailDestination_icon]: C[66] || CT.C66
+      });
+    },
+    get C75() {
+      return C[75] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "data",
+        [_Location_column]: 21,
+        [_Location_line]: 98,
+        [_Location_file]: null
+      });
+    },
+    get C76() {
+      return C[76] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "style",
+        [_Location_column]: 21,
+        [_Location_line]: 99,
+        [_Location_file]: null
+      });
+    },
+    get C74() {
+      return C[74] = dart.constList([C[75] || CT.C75, C[76] || CT.C76], widget_inspector._Location);
+    },
+    get C73() {
+      return C[73] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[74] || CT.C74,
+        [_Location_name]: null,
+        [_Location_column]: 24,
+        [_Location_line]: 97,
+        [_Location_file]: "file:///C:/Users/rende/Desktop/web_store_management/lib/Navbar/NavDrawer.dart"
+      });
+    },
+    get C72() {
+      return C[72] = dart.const({
+        __proto__: text.Text.prototype,
+        [Widget__location]: C[73] || CT.C73,
+        [Widget_key]: null,
+        [Text_textHeightBehavior]: null,
+        [Text_textWidthBasis]: null,
+        [Text_semanticsLabel]: null,
+        [Text_maxLines]: null,
+        [Text_textScaleFactor]: null,
+        [Text_overflow]: null,
+        [Text_softWrap]: null,
+        [Text_locale]: null,
+        [Text_textDirection]: null,
+        [Text_textAlign]: null,
+        [Text_strutStyle]: null,
+        [Text_style]: C[10] || CT.C10,
+        [Text_textSpan]: null,
+        [Text_data]: "Repair"
+      });
+    },
+    get C80() {
+      return C[80] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "icon",
+        [_Location_column]: 34,
+        [_Location_line]: 96,
+        [_Location_file]: null
+      });
+    },
+    get C79() {
+      return C[79] = dart.constList([C[80] || CT.C80], widget_inspector._Location);
+    },
+    get C78() {
+      return C[78] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[79] || CT.C79,
+        [_Location_name]: null,
+        [_Location_column]: 23,
+        [_Location_line]: 96,
+        [_Location_file]: "file:///C:/Users/rende/Desktop/web_store_management/lib/Navbar/NavDrawer.dart"
+      });
+    },
+    get C81() {
+      return C[81] = dart.const({
+        __proto__: icon_data.IconData.prototype,
+        [IconData_matchTextDirection]: false,
+        [IconData_fontPackage]: null,
+        [IconData_fontFamily]: "MaterialIcons",
+        [IconData_codePoint]: 57622
+      });
+    },
+    get C77() {
+      return C[77] = dart.const({
+        __proto__: icon.Icon.prototype,
+        [Widget__location]: C[78] || CT.C78,
+        [Widget_key]: null,
+        [Icon_textDirection]: null,
+        [Icon_semanticLabel]: null,
+        [Icon_color]: null,
+        [Icon_size]: null,
+        [Icon_icon]: C[81] || CT.C81
+      });
+    },
+    get C71() {
+      return C[71] = dart.const({
+        __proto__: navigation_rail.NavigationRailDestination.prototype,
+        [NavigationRailDestination_padding]: null,
+        [NavigationRailDestination_label]: C[72] || CT.C72,
+        [NavigationRailDestination_selectedIcon]: C[77] || CT.C77,
+        [NavigationRailDestination_icon]: C[77] || CT.C77
+      });
+    },
+    get C86() {
+      return C[86] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "data",
+        [_Location_column]: 21,
+        [_Location_line]: 107,
+        [_Location_file]: null
+      });
+    },
+    get C87() {
+      return C[87] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "style",
+        [_Location_column]: 21,
+        [_Location_line]: 108,
+        [_Location_file]: null
+      });
+    },
+    get C85() {
+      return C[85] = dart.constList([C[86] || CT.C86, C[87] || CT.C87], widget_inspector._Location);
+    },
+    get C84() {
+      return C[84] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[85] || CT.C85,
+        [_Location_name]: null,
+        [_Location_column]: 24,
+        [_Location_line]: 106,
+        [_Location_file]: "file:///C:/Users/rende/Desktop/web_store_management/lib/Navbar/NavDrawer.dart"
+      });
+    },
+    get C83() {
+      return C[83] = dart.const({
+        __proto__: text.Text.prototype,
+        [Widget__location]: C[84] || CT.C84,
+        [Widget_key]: null,
+        [Text_textHeightBehavior]: null,
+        [Text_textWidthBasis]: null,
+        [Text_semanticsLabel]: null,
+        [Text_maxLines]: null,
+        [Text_textScaleFactor]: null,
+        [Text_overflow]: null,
+        [Text_softWrap]: null,
+        [Text_locale]: null,
+        [Text_textDirection]: null,
+        [Text_textAlign]: null,
+        [Text_strutStyle]: null,
+        [Text_style]: C[10] || CT.C10,
+        [Text_textSpan]: null,
+        [Text_data]: "Inventory"
+      });
+    },
+    get C91() {
+      return C[91] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "icon",
+        [_Location_column]: 34,
+        [_Location_line]: 105,
+        [_Location_file]: null
+      });
+    },
+    get C90() {
+      return C[90] = dart.constList([C[91] || CT.C91], widget_inspector._Location);
+    },
+    get C89() {
+      return C[89] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[90] || CT.C90,
+        [_Location_name]: null,
+        [_Location_column]: 23,
+        [_Location_line]: 105,
+        [_Location_file]: "file:///C:/Users/rende/Desktop/web_store_management/lib/Navbar/NavDrawer.dart"
+      });
+    },
+    get C92() {
+      return C[92] = dart.const({
+        __proto__: icon_data.IconData.prototype,
+        [IconData_matchTextDirection]: false,
+        [IconData_fontPackage]: null,
+        [IconData_fontFamily]: "MaterialIcons",
+        [IconData_codePoint]: 58186
+      });
+    },
+    get C88() {
+      return C[88] = dart.const({
+        __proto__: icon.Icon.prototype,
+        [Widget__location]: C[89] || CT.C89,
+        [Widget_key]: null,
+        [Icon_textDirection]: null,
+        [Icon_semanticLabel]: null,
+        [Icon_color]: null,
+        [Icon_size]: null,
+        [Icon_icon]: C[92] || CT.C92
+      });
+    },
+    get C82() {
+      return C[82] = dart.const({
+        __proto__: navigation_rail.NavigationRailDestination.prototype,
+        [NavigationRailDestination_padding]: null,
+        [NavigationRailDestination_label]: C[83] || CT.C83,
+        [NavigationRailDestination_selectedIcon]: C[88] || CT.C88,
+        [NavigationRailDestination_icon]: C[88] || CT.C88
+      });
+    },
+    get C97() {
+      return C[97] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "data",
+        [_Location_column]: 21,
+        [_Location_line]: 116,
+        [_Location_file]: null
+      });
+    },
+    get C98() {
+      return C[98] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "style",
+        [_Location_column]: 21,
+        [_Location_line]: 117,
+        [_Location_file]: null
+      });
+    },
+    get C96() {
+      return C[96] = dart.constList([C[97] || CT.C97, C[98] || CT.C98], widget_inspector._Location);
+    },
+    get C95() {
+      return C[95] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[96] || CT.C96,
+        [_Location_name]: null,
+        [_Location_column]: 24,
+        [_Location_line]: 115,
+        [_Location_file]: "file:///C:/Users/rende/Desktop/web_store_management/lib/Navbar/NavDrawer.dart"
+      });
+    },
+    get C94() {
+      return C[94] = dart.const({
+        __proto__: text.Text.prototype,
+        [Widget__location]: C[95] || CT.C95,
+        [Widget_key]: null,
+        [Text_textHeightBehavior]: null,
+        [Text_textWidthBasis]: null,
+        [Text_semanticsLabel]: null,
+        [Text_maxLines]: null,
+        [Text_textScaleFactor]: null,
+        [Text_overflow]: null,
+        [Text_softWrap]: null,
+        [Text_locale]: null,
+        [Text_textDirection]: null,
+        [Text_textAlign]: null,
+        [Text_strutStyle]: null,
+        [Text_style]: C[10] || CT.C10,
+        [Text_textSpan]: null,
+        [Text_data]: "Reports"
+      });
+    },
+    get C102() {
+      return C[102] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "icon",
+        [_Location_column]: 34,
+        [_Location_line]: 114,
+        [_Location_file]: null
+      });
+    },
+    get C101() {
+      return C[101] = dart.constList([C[102] || CT.C102], widget_inspector._Location);
+    },
+    get C100() {
+      return C[100] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[101] || CT.C101,
+        [_Location_name]: null,
+        [_Location_column]: 23,
+        [_Location_line]: 114,
+        [_Location_file]: "file:///C:/Users/rende/Desktop/web_store_management/lib/Navbar/NavDrawer.dart"
+      });
+    },
+    get C103() {
+      return C[103] = dart.const({
+        __proto__: icon_data.IconData.prototype,
+        [IconData_matchTextDirection]: false,
+        [IconData_fontPackage]: null,
+        [IconData_fontFamily]: "MaterialIcons",
+        [IconData_codePoint]: 58183
+      });
+    },
+    get C99() {
+      return C[99] = dart.const({
+        __proto__: icon.Icon.prototype,
+        [Widget__location]: C[100] || CT.C100,
+        [Widget_key]: null,
+        [Icon_textDirection]: null,
+        [Icon_semanticLabel]: null,
+        [Icon_color]: null,
+        [Icon_size]: null,
+        [Icon_icon]: C[103] || CT.C103
+      });
+    },
+    get C93() {
+      return C[93] = dart.const({
+        __proto__: navigation_rail.NavigationRailDestination.prototype,
+        [NavigationRailDestination_padding]: null,
+        [NavigationRailDestination_label]: C[94] || CT.C94,
+        [NavigationRailDestination_selectedIcon]: C[99] || CT.C99,
+        [NavigationRailDestination_icon]: C[99] || CT.C99
+      });
+    },
+    get C108() {
+      return C[108] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "data",
+        [_Location_column]: 21,
+        [_Location_line]: 125,
+        [_Location_file]: null
+      });
+    },
+    get C109() {
+      return C[109] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "style",
+        [_Location_column]: 21,
+        [_Location_line]: 126,
+        [_Location_file]: null
+      });
+    },
+    get C107() {
+      return C[107] = dart.constList([C[108] || CT.C108, C[109] || CT.C109], widget_inspector._Location);
+    },
+    get C106() {
+      return C[106] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[107] || CT.C107,
+        [_Location_name]: null,
+        [_Location_column]: 24,
+        [_Location_line]: 124,
+        [_Location_file]: "file:///C:/Users/rende/Desktop/web_store_management/lib/Navbar/NavDrawer.dart"
+      });
+    },
+    get C105() {
+      return C[105] = dart.const({
+        __proto__: text.Text.prototype,
+        [Widget__location]: C[106] || CT.C106,
+        [Widget_key]: null,
+        [Text_textHeightBehavior]: null,
+        [Text_textWidthBasis]: null,
+        [Text_semanticsLabel]: null,
+        [Text_maxLines]: null,
+        [Text_textScaleFactor]: null,
+        [Text_overflow]: null,
+        [Text_softWrap]: null,
+        [Text_locale]: null,
+        [Text_textDirection]: null,
+        [Text_textAlign]: null,
+        [Text_strutStyle]: null,
+        [Text_style]: C[10] || CT.C10,
+        [Text_textSpan]: null,
+        [Text_data]: "Collectors"
+      });
+    },
+    get C113() {
+      return C[113] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "icon",
+        [_Location_column]: 34,
+        [_Location_line]: 123,
+        [_Location_file]: null
+      });
+    },
+    get C112() {
+      return C[112] = dart.constList([C[113] || CT.C113], widget_inspector._Location);
+    },
+    get C111() {
+      return C[111] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[112] || CT.C112,
+        [_Location_name]: null,
+        [_Location_column]: 23,
+        [_Location_line]: 123,
+        [_Location_file]: "file:///C:/Users/rende/Desktop/web_store_management/lib/Navbar/NavDrawer.dart"
+      });
+    },
+    get C114() {
+      return C[114] = dart.const({
+        __proto__: icon_data.IconData.prototype,
+        [IconData_matchTextDirection]: false,
+        [IconData_fontPackage]: null,
+        [IconData_fontFamily]: "MaterialIcons",
+        [IconData_codePoint]: 57544
+      });
+    },
+    get C110() {
+      return C[110] = dart.const({
+        __proto__: icon.Icon.prototype,
+        [Widget__location]: C[111] || CT.C111,
+        [Widget_key]: null,
+        [Icon_textDirection]: null,
+        [Icon_semanticLabel]: null,
+        [Icon_color]: null,
+        [Icon_size]: null,
+        [Icon_icon]: C[114] || CT.C114
+      });
+    },
+    get C104() {
+      return C[104] = dart.const({
+        __proto__: navigation_rail.NavigationRailDestination.prototype,
+        [NavigationRailDestination_padding]: null,
+        [NavigationRailDestination_label]: C[105] || CT.C105,
+        [NavigationRailDestination_selectedIcon]: C[110] || CT.C110,
+        [NavigationRailDestination_icon]: C[110] || CT.C110
+      });
+    },
+    get C3() {
+      return C[3] = dart.constList([C[4] || CT.C4, C[16] || CT.C16, C[27] || CT.C27, C[38] || CT.C38, C[49] || CT.C49, C[60] || CT.C60, C[71] || CT.C71, C[82] || CT.C82, C[93] || CT.C93, C[104] || CT.C104], navigation_rail.NavigationRailDestination);
+    },
+    get C117() {
+      return C[117] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "selectedIndex",
+        [_Location_column]: 13,
+        [_Location_line]: 32,
+        [_Location_file]: null
+      });
+    },
+    get C118() {
+      return C[118] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "onDestinationSelected",
+        [_Location_column]: 13,
+        [_Location_line]: 33,
+        [_Location_file]: null
+      });
+    },
+    get C119() {
+      return C[119] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "extended",
+        [_Location_column]: 13,
+        [_Location_line]: 38,
+        [_Location_file]: null
+      });
+    },
+    get C120() {
+      return C[120] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "labelType",
+        [_Location_column]: 13,
+        [_Location_line]: 39,
+        [_Location_file]: null
+      });
+    },
+    get C121() {
+      return C[121] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "destinations",
+        [_Location_column]: 13,
+        [_Location_line]: 40,
+        [_Location_file]: null
+      });
+    },
+    get C116() {
+      return C[116] = dart.constList([C[117] || CT.C117, C[118] || CT.C118, C[119] || CT.C119, C[120] || CT.C120, C[121] || CT.C121], widget_inspector._Location);
+    },
+    get C115() {
+      return C[115] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[116] || CT.C116,
+        [_Location_name]: null,
+        [_Location_column]: 11,
+        [_Location_line]: 31,
+        [_Location_file]: "file:///C:/Users/rende/Desktop/web_store_management/lib/Navbar/NavDrawer.dart"
+      });
+    },
+    get C125() {
+      return C[125] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "width",
+        [_Location_column]: 33,
+        [_Location_line]: 133,
+        [_Location_file]: null
+      });
+    },
+    get C124() {
+      return C[124] = dart.constList([C[125] || CT.C125], widget_inspector._Location);
+    },
+    get C123() {
+      return C[123] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[124] || CT.C124,
+        [_Location_name]: null,
+        [_Location_column]: 17,
+        [_Location_line]: 133,
+        [_Location_file]: "file:///C:/Users/rende/Desktop/web_store_management/lib/Navbar/NavDrawer.dart"
+      });
+    },
+    get C122() {
+      return C[122] = dart.const({
+        __proto__: divider.VerticalDivider.prototype,
+        [Widget__location]: C[123] || CT.C123,
+        [Widget_key]: null,
+        [VerticalDivider_color]: null,
+        [VerticalDivider_endIndent]: null,
+        [VerticalDivider_indent]: null,
+        [VerticalDivider_thickness]: null,
+        [VerticalDivider_width]: 50
+      });
+    },
+    get C128() {
+      return C[128] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 15,
+        [_Location_line]: 138,
+        [_Location_file]: null
+      });
+    },
+    get C127() {
+      return C[127] = dart.constList([C[128] || CT.C128], widget_inspector._Location);
+    },
+    get C126() {
+      return C[126] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[127] || CT.C127,
+        [_Location_name]: null,
+        [_Location_column]: 20,
+        [_Location_line]: 137,
+        [_Location_file]: "file:///C:/Users/rende/Desktop/web_store_management/lib/Navbar/NavDrawer.dart"
+      });
+    },
+    get C131() {
+      return C[131] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 13,
+        [_Location_line]: 137,
+        [_Location_file]: null
+      });
+    },
+    get C130() {
+      return C[130] = dart.constList([C[131] || CT.C131], widget_inspector._Location);
+    },
+    get C129() {
+      return C[129] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[130] || CT.C130,
+        [_Location_name]: null,
+        [_Location_column]: 11,
+        [_Location_line]: 136,
+        [_Location_file]: "file:///C:/Users/rende/Desktop/web_store_management/lib/Navbar/NavDrawer.dart"
+      });
+    },
+    get C134() {
+      return C[134] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "children",
+        [_Location_column]: 9,
+        [_Location_line]: 29,
+        [_Location_file]: null
+      });
+    },
+    get C133() {
+      return C[133] = dart.constList([C[134] || CT.C134], widget_inspector._Location);
+    },
+    get C132() {
+      return C[132] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[133] || CT.C133,
+        [_Location_name]: null,
+        [_Location_column]: 13,
+        [_Location_line]: 28,
+        [_Location_file]: "file:///C:/Users/rende/Desktop/web_store_management/lib/Navbar/NavDrawer.dart"
+      });
+    },
+    get C137() {
+      return C[137] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "body",
+        [_Location_column]: 7,
+        [_Location_line]: 28,
+        [_Location_file]: null
+      });
+    },
+    get C136() {
+      return C[136] = dart.constList([C[137] || CT.C137], widget_inspector._Location);
+    },
+    get C135() {
+      return C[135] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[136] || CT.C136,
+        [_Location_name]: null,
+        [_Location_column]: 12,
+        [_Location_line]: 27,
+        [_Location_file]: "file:///C:/Users/rende/Desktop/web_store_management/lib/Navbar/NavDrawer.dart"
+      });
+    }
+  }, false);
+  var C = Array(138).fill(void 0);
+  var I = ["package:web_store_management/Navbar/NavDrawer.dart"];
+  NavDrawer.NavDrawer = class NavDrawer$ extends framework.StatefulWidget {
+    createState() {
+      return new NavDrawer._NavDrawer.new();
+    }
+  };
+  (NavDrawer.NavDrawer.new = function(opts) {
+    let $36creationLocationd_0dea112b090073317d4 = opts && '$creationLocationd_0dea112b090073317d4' in opts ? opts.$creationLocationd_0dea112b090073317d4 : null;
+    NavDrawer.NavDrawer.__proto__.new.call(this, {$creationLocationd_0dea112b090073317d4: $36creationLocationd_0dea112b090073317d4});
+    ;
+  }).prototype = NavDrawer.NavDrawer.prototype;
+  dart.addTypeTests(NavDrawer.NavDrawer);
+  dart.addTypeCaches(NavDrawer.NavDrawer);
+  dart.setMethodSignature(NavDrawer.NavDrawer, () => ({
+    __proto__: dart.getMethods(NavDrawer.NavDrawer.__proto__),
+    createState: dart.fnType(NavDrawer._NavDrawer, [])
+  }));
+  dart.setLibraryUri(NavDrawer.NavDrawer, I[0]);
+  var _selectedIndex = dart.privateName(NavDrawer, "_selectedIndex");
+  var _Location_parameterLocations = dart.privateName(widget_inspector, "_Location.parameterLocations");
+  var _Location_name = dart.privateName(widget_inspector, "_Location.name");
+  var _Location_column = dart.privateName(widget_inspector, "_Location.column");
+  var _Location_line = dart.privateName(widget_inspector, "_Location.line");
+  var _Location_file = dart.privateName(widget_inspector, "_Location.file");
+  var NavigationRailDestination_padding = dart.privateName(navigation_rail, "NavigationRailDestination.padding");
+  var Widget__location = dart.privateName(framework, "Widget._location");
+  var Widget_key = dart.privateName(framework, "Widget.key");
+  var Text_textHeightBehavior = dart.privateName(text, "Text.textHeightBehavior");
+  var Text_textWidthBasis = dart.privateName(text, "Text.textWidthBasis");
+  var Text_semanticsLabel = dart.privateName(text, "Text.semanticsLabel");
+  var Text_maxLines = dart.privateName(text, "Text.maxLines");
+  var Text_textScaleFactor = dart.privateName(text, "Text.textScaleFactor");
+  var Text_overflow = dart.privateName(text, "Text.overflow");
+  var Text_softWrap = dart.privateName(text, "Text.softWrap");
+  var Text_locale = dart.privateName(text, "Text.locale");
+  var Text_textDirection = dart.privateName(text, "Text.textDirection");
+  var Text_textAlign = dart.privateName(text, "Text.textAlign");
+  var Text_strutStyle = dart.privateName(text, "Text.strutStyle");
+  var TextStyle_fontFeatures = dart.privateName(text_style, "TextStyle.fontFeatures");
+  var TextStyle_shadows = dart.privateName(text_style, "TextStyle.shadows");
+  var TextStyle_debugLabel = dart.privateName(text_style, "TextStyle.debugLabel");
+  var TextStyle_decorationThickness = dart.privateName(text_style, "TextStyle.decorationThickness");
+  var TextStyle_decorationStyle = dart.privateName(text_style, "TextStyle.decorationStyle");
+  var TextStyle_decorationColor = dart.privateName(text_style, "TextStyle.decorationColor");
+  var TextStyle_decoration = dart.privateName(text_style, "TextStyle.decoration");
+  var TextStyle_background = dart.privateName(text_style, "TextStyle.background");
+  var TextStyle_foreground = dart.privateName(text_style, "TextStyle.foreground");
+  var TextStyle_locale = dart.privateName(text_style, "TextStyle.locale");
+  var TextStyle_leadingDistribution = dart.privateName(text_style, "TextStyle.leadingDistribution");
+  var TextStyle_height = dart.privateName(text_style, "TextStyle.height");
+  var TextStyle_textBaseline = dart.privateName(text_style, "TextStyle.textBaseline");
+  var TextStyle_wordSpacing = dart.privateName(text_style, "TextStyle.wordSpacing");
+  var TextStyle_letterSpacing = dart.privateName(text_style, "TextStyle.letterSpacing");
+  var TextStyle_fontStyle = dart.privateName(text_style, "TextStyle.fontStyle");
+  var TextStyle_fontWeight = dart.privateName(text_style, "TextStyle.fontWeight");
+  var TextStyle_fontSize = dart.privateName(text_style, "TextStyle.fontSize");
+  var TextStyle__package = dart.privateName(text_style, "TextStyle._package");
+  var TextStyle__fontFamilyFallback = dart.privateName(text_style, "TextStyle._fontFamilyFallback");
+  var TextStyle_fontFamily = dart.privateName(text_style, "TextStyle.fontFamily");
+  var TextStyle_backgroundColor = dart.privateName(text_style, "TextStyle.backgroundColor");
+  var TextStyle_color = dart.privateName(text_style, "TextStyle.color");
+  var TextStyle_inherit = dart.privateName(text_style, "TextStyle.inherit");
+  var Text_style = dart.privateName(text, "Text.style");
+  var Text_textSpan = dart.privateName(text, "Text.textSpan");
+  var Text_data = dart.privateName(text, "Text.data");
+  var NavigationRailDestination_label = dart.privateName(navigation_rail, "NavigationRailDestination.label");
+  var Icon_textDirection = dart.privateName(icon, "Icon.textDirection");
+  var Icon_semanticLabel = dart.privateName(icon, "Icon.semanticLabel");
+  var Icon_color = dart.privateName(icon, "Icon.color");
+  var Icon_size = dart.privateName(icon, "Icon.size");
+  var IconData_matchTextDirection = dart.privateName(icon_data, "IconData.matchTextDirection");
+  var IconData_fontPackage = dart.privateName(icon_data, "IconData.fontPackage");
+  var IconData_fontFamily = dart.privateName(icon_data, "IconData.fontFamily");
+  var IconData_codePoint = dart.privateName(icon_data, "IconData.codePoint");
+  var Icon_icon = dart.privateName(icon, "Icon.icon");
+  var NavigationRailDestination_selectedIcon = dart.privateName(navigation_rail, "NavigationRailDestination.selectedIcon");
+  var NavigationRailDestination_icon = dart.privateName(navigation_rail, "NavigationRailDestination.icon");
+  var VerticalDivider_color = dart.privateName(divider, "VerticalDivider.color");
+  var VerticalDivider_endIndent = dart.privateName(divider, "VerticalDivider.endIndent");
+  var VerticalDivider_indent = dart.privateName(divider, "VerticalDivider.indent");
+  var VerticalDivider_thickness = dart.privateName(divider, "VerticalDivider.thickness");
+  var VerticalDivider_width = dart.privateName(divider, "VerticalDivider.width");
+  NavDrawer._NavDrawer = class _NavDrawer extends framework.State$(NavDrawer.NavDrawer) {
+    build(context) {
+      return new scaffold.Scaffold.new({body: new basic.Row.new({children: T.JSArrayOfWidget().of([new navigation_rail.NavigationRail.new({selectedIndex: this[_selectedIndex], onDestinationSelected: dart.fn(index => {
+                this.setState(dart.fn(() => {
+                  this[_selectedIndex] = index;
+                }, T.VoidTovoid()));
+              }, T.intTovoid()), extended: true, labelType: navigation_rail.NavigationRailLabelType.none, destinations: C[3] || CT.C3, $creationLocationd_0dea112b090073317d4: C[115] || CT.C115}), C[122] || CT.C122, new basic.Expanded.new({child: new basic.Center.new({child: this.pages[$_get](this[_selectedIndex]), $creationLocationd_0dea112b090073317d4: C[126] || CT.C126}), $creationLocationd_0dea112b090073317d4: C[129] || CT.C129})]), $creationLocationd_0dea112b090073317d4: C[132] || CT.C132}), $creationLocationd_0dea112b090073317d4: C[135] || CT.C135});
+    }
+  };
+  (NavDrawer._NavDrawer.new = function() {
+    this[_selectedIndex] = 1;
+    this.pages = T.JSArrayOfWidget().of([new GraphText.GraphText.new({$creationLocationd_0dea112b090073317d4: C[0] || CT.C0}), new BorrowersDetails.BorrowerDetail.new({$creationLocationd_0dea112b090073317d4: C[2] || CT.C2})]);
+    this.title = T.JSArrayOfString().of(["Dashboard", "New Loan"]);
+    NavDrawer._NavDrawer.__proto__.new.call(this);
+    ;
+  }).prototype = NavDrawer._NavDrawer.prototype;
+  dart.addTypeTests(NavDrawer._NavDrawer);
+  dart.addTypeCaches(NavDrawer._NavDrawer);
+  dart.setMethodSignature(NavDrawer._NavDrawer, () => ({
+    __proto__: dart.getMethods(NavDrawer._NavDrawer.__proto__),
+    build: dart.fnType(framework.Widget, [framework.BuildContext])
+  }));
+  dart.setLibraryUri(NavDrawer._NavDrawer, I[0]);
+  dart.setFieldSignature(NavDrawer._NavDrawer, () => ({
+    __proto__: dart.getFields(NavDrawer._NavDrawer.__proto__),
+    [_selectedIndex]: dart.fieldType(core.int),
+    pages: dart.fieldType(core.List$(framework.Widget)),
+    title: dart.fieldType(core.List$(core.String))
+  }));
+  dart.trackLibraries("packages/web_store_management/Navbar/NavDrawer.dart", {
+    "package:web_store_management/Navbar/NavDrawer.dart": NavDrawer
+  }, {
+  }, '{"version":3,"sourceRoot":"","sources":["NavDrawer.dart"],"names":[],"mappings":";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;AAQ8B;IAAY;;;;;;EAC1C;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;UAgB4B;AACxB,YAAO,kCACC,6BACc,wBAEhB,uDACiB,6CACQ,QAAK;AAGxB,gBAFF,cAAS;AACe,kBAAtB,uBAAiB,KAAK;;2CAGhB,iBACyB,2JAiGrC,+BACS,6BACE,AAAK,kBAAC;IAMzB;;;IAnII,uBAAiB;IAEjB,aAAQ,wBACV,sFACA;IAGE,aAAQ,wBACV,aACA;;;EA2HJ","file":"../../../../../../packages/web_store_management/Navbar/NavDrawer.dart.lib.js"}');
+  // Exports:
+  return {
+    Navbar__NavDrawer: NavDrawer
+  };
+}));
+
+//# sourceMappingURL=NavDrawer.dart.lib.js.map
