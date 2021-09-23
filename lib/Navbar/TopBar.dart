@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart'; //library for going to next pages
+import 'package:web_store_management/LoginPage/LoginPage.dart';
 import '../Dashboard/appBar/NotificationsList.dart';
 
 class TopBar extends StatelessWidget with PreferredSizeWidget {
@@ -39,7 +40,7 @@ class TopBar extends StatelessWidget with PreferredSizeWidget {
           icon: const Icon(Icons.logout, color: Colors.red),
           tooltip: 'Logout',
           onPressed: () {
-            //come up with this
+            Get.to(LoginPage());
           },
         )
       ],

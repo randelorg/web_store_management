@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'LoginPage/LoginPage.dart';
 import 'DashBoard/Home.dart';
+import 'Borrowers/BorrowersScreen.dart';
 
 void main() {
   runApp(MyApp());
@@ -12,7 +13,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: 'Dellrains Store Management System',
-      home: LoginPage(),
+      home: Home(),
       debugShowCheckedModeBanner: false,
     );
   }

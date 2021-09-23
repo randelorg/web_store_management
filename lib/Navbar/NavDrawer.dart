@@ -3,23 +3,26 @@ import 'package:web_store_management/NewLoan/BorrowersDetails.dart';
 
 import '../DashBoard/GraphText.dart';
 import '../NewLoan/BorrowersDetails.dart';
+import '../Borrowers/BorrowersScreen.dart';
 
 class NavDrawer extends StatefulWidget {
   @override
   _NavDrawer createState() => _NavDrawer();
 }
 
-class _NavDrawer extends State<NavDrawer>{
-  int _selectedIndex = 1;
+class _NavDrawer extends State<NavDrawer> {
+  int _selectedIndex = 2;
 
   var pages = [
     GraphText(),
     BorrowerDetail(),
+    BorrowersScreen(),
   ];
 
   var title = [
     "Dashboard",
     'New Loan',
+    'Borrowers',
   ];
 
   @override
@@ -42,99 +45,79 @@ class _NavDrawer extends State<NavDrawer>{
               NavigationRailDestination(
                 icon: Icon(Icons.space_dashboard),
                 label: Text(
-                    'Dashboard',
-                  style: TextStyle(
-
-                  ),
+                  'Dashboard',
+                  style: TextStyle(),
                 ),
               ),
               NavigationRailDestination(
                 icon: Icon(Icons.create),
                 label: Text(
-                    'New Loan',
-                  style: TextStyle(
-
-                  ),
+                  'New Loan',
+                  style: TextStyle(),
                 ),
               ),
               NavigationRailDestination(
                 icon: Icon(Icons.group),
                 label: Text(
-                    'Borrowers',
-                    softWrap: true,
-                    style: TextStyle(
-                    
-                  ),
+                  'Borrowers',
+                  softWrap: true,
+                  style: TextStyle(),
                 ),
               ),
               NavigationRailDestination(
                 icon: Icon(Icons.payments),
                 label: Text(
-                    'Payment',
-                    softWrap: true,
-                    style: TextStyle(
-                    
-                  ),
+                  'Payment',
+                  softWrap: true,
+                  style: TextStyle(),
                 ),
               ),
               NavigationRailDestination(
                 icon: Icon(Icons.credit_score),
                 label: Text(
-                    'Credit Approval',
-                    softWrap: true,
-                    style: TextStyle(
-                    
-                  ),
+                  'Credit Approval',
+                  softWrap: true,
+                  style: TextStyle(),
                 ),
               ),
               NavigationRailDestination(
                 icon: Icon(Icons.request_quote),
                 label: Text(
-                    'Request',
-                    softWrap: true,
-                    style: TextStyle(
-                    
-                  ),
+                  'Request',
+                  softWrap: true,
+                  style: TextStyle(),
                 ),
               ),
               NavigationRailDestination(
                 icon: Icon(Icons.build),
                 label: Text(
-                    'Repair',
-                    softWrap: true,
-                    style: TextStyle(
-                    
-                  ),
+                  'Repair',
+                  softWrap: true,
+                  style: TextStyle(),
                 ),
               ),
               NavigationRailDestination(
                 icon: Icon(Icons.inventory_2),
                 label: Text(
-                    'Inventory',
-                    softWrap: true,
-                    style: TextStyle(
-                    
-                  ),
+                  'Inventory',
+                  softWrap: true,
+                  style: TextStyle(),
                 ),
               ),
               NavigationRailDestination(
                 icon: Icon(Icons.insights),
                 label: Text(
-                    'Reports',
-                    softWrap: true,
-                    style: TextStyle(
-                    
-                  ),
+                  'Reports',
+                  softWrap: true,
+                  style: TextStyle(),
                 ),
               ),
               NavigationRailDestination(
                 icon: Icon(Icons.badge),
                 label: Text(
-                    'Collectors',
-                    softWrap: true,
-                    style: TextStyle(
-                    
-                  ),
+                  'Collectors',
+                  softWrap: true,
+                  style: TextStyle(),
                 ),
               ),
             ],
@@ -143,11 +126,9 @@ class _NavDrawer extends State<NavDrawer>{
           // This is the main content.
           //this is how we navigate
           Expanded(
-            child: Center(
-              child: pages[_selectedIndex],
-            )
-          )
-          ,
+              child: Center(
+            child: pages[_selectedIndex],
+          )),
         ],
       ),
     );
