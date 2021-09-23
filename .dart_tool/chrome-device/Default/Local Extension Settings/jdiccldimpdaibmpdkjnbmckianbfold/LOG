@@ -1,2 +1,7 @@
+<<<<<<< HEAD
 2021/09/07-00:26:57.260 5888 Creating DB C:\Users\RANDEL~1\AppData\Local\Temp\flutter_tools.b4705909\flutter_tools_chrome_device.58574d6a\Default\Local Extension Settings\jdiccldimpdaibmpdkjnbmckianbfold since it was missing.
 2021/09/07-00:26:57.268 5888 Reusing MANIFEST C:\Users\RANDEL~1\AppData\Local\Temp\flutter_tools.b4705909\flutter_tools_chrome_device.58574d6a\Default\Local Extension Settings\jdiccldimpdaibmpdkjnbmckianbfold/MANIFEST-000001
+=======
+2021/09/17-18:34:42.325 28f0 Creating DB C:\Users\rende\AppData\Local\Temp\flutter_tools.b0cad6c\flutter_tools_chrome_device.1ceb6ff6\Default\Local Extension Settings\jdiccldimpdaibmpdkjnbmckianbfold since it was missing.
+2021/09/17-18:34:42.335 28f0 Reusing MANIFEST C:\Users\rende\AppData\Local\Temp\flutter_tools.b0cad6c\flutter_tools_chrome_device.1ceb6ff6\Default\Local Extension Settings\jdiccldimpdaibmpdkjnbmckianbfold/MANIFEST-000001
+>>>>>>> feature-b

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 define(['dart_sdk', 'packages/flutter/src/foundation/serialization.dart', 'packages/flutter/src/foundation/debug.dart', 'packages/flutter/src/foundation/object.dart', 'packages/flutter/src/foundation/synchronous_future.dart', 'packages/flutter/src/scheduler/binding.dart', 'packages/flutter/src/foundation/change_notifier.dart', 'packages/flutter/src/foundation/licenses.dart', 'packages/flutter/src/scheduler/priority.dart', 'packages/flutter/src/foundation/_isolates_web.dart', 'packages/flutter/src/foundation/binding.dart', 'packages/flutter/src/foundation/consolidate_response.dart'], (function load__packages__flutter__src__services__system_channels_dart(dart_sdk, packages__flutter__src__foundation__serialization$46dart, packages__flutter__src__foundation__debug$46dart, packages__flutter__src__foundation__object$46dart, packages__flutter__src__foundation__synchronous_future$46dart, packages__flutter__src__scheduler__binding$46dart, packages__flutter__src__foundation__change_notifier$46dart, packages__flutter__src__foundation__licenses$46dart, packages__flutter__src__scheduler__priority$46dart, packages__flutter__src__foundation___isolates_web$46dart, packages__flutter__src__foundation__binding$46dart, packages__flutter__src__foundation__consolidate_response$46dart) {
   'use strict';
   const core = dart_sdk.core;
@@ -125,11 +126,43 @@ define(['dart_sdk', 'packages/flutter/src/foundation/serialization.dart', 'packa
     ByteDataToString: () => (T$.ByteDataToString = dart.constFn(dart.fnType(core.String, [typed_data.ByteData])))(),
     IdentityMapOfString$FutureOfString: () => (T$.IdentityMapOfString$FutureOfString = dart.constFn(_js_helper.IdentityMap$(core.String, T$.FutureOfString())))(),
     IdentityMapOfString$Future: () => (T$.IdentityMapOfString$Future = dart.constFn(_js_helper.IdentityMap$(core.String, async.Future)))()
+=======
+define(['dart_sdk', 'packages/flutter/src/widgets/widget_span.dart', 'packages/flutter/src/painting/alignment.dart', 'packages/flutter/src/painting/edge_insets.dart', 'packages/flutter/src/material/icon_button.dart', 'packages/flutter/src/widgets/icon.dart', 'packages/flutter/src/material/icons.dart', 'packages/flutter/src/material/colors.dart', 'packages/flutter/src/painting/strut_style.dart', 'packages/flutter/src/widgets/scroll_view.dart', 'packages/flutter/src/painting/basic_types.dart', 'packages/web_store_management/DashBoard/CollectionGraph.dart'], (function load__packages__web_store_management__DashBoard__GraphText_dart(dart_sdk, packages__flutter__src__widgets__widget_span$46dart, packages__flutter__src__painting__alignment$46dart, packages__flutter__src__painting__edge_insets$46dart, packages__flutter__src__material__icon_button$46dart, packages__flutter__src__widgets__icon$46dart, packages__flutter__src__material__icons$46dart, packages__flutter__src__material__colors$46dart, packages__flutter__src__painting__strut_style$46dart, packages__flutter__src__widgets__scroll_view$46dart, packages__flutter__src__painting__basic_types$46dart, packages__web_store_management__DashBoard__CollectionGraph$46dart) {
+  'use strict';
+  const core = dart_sdk.core;
+  const ui = dart_sdk.ui;
+  const _interceptors = dart_sdk._interceptors;
+  const dart = dart_sdk.dart;
+  const dartx = dart_sdk.dartx;
+  const framework = packages__flutter__src__widgets__widget_span$46dart.src__widgets__framework;
+  const basic = packages__flutter__src__widgets__widget_span$46dart.src__widgets__basic;
+  const container = packages__flutter__src__widgets__widget_span$46dart.src__widgets__container;
+  const widget_inspector = packages__flutter__src__widgets__widget_span$46dart.src__widgets__widget_inspector;
+  const text = packages__flutter__src__widgets__widget_span$46dart.src__widgets__text;
+  const scroll_physics = packages__flutter__src__widgets__widget_span$46dart.src__widgets__scroll_physics;
+  const media_query = packages__flutter__src__widgets__widget_span$46dart.src__widgets__media_query;
+  const alignment = packages__flutter__src__painting__alignment$46dart.src__painting__alignment;
+  const edge_insets = packages__flutter__src__painting__edge_insets$46dart.src__painting__edge_insets;
+  const text_button = packages__flutter__src__material__icon_button$46dart.src__material__text_button;
+  const icon = packages__flutter__src__widgets__icon$46dart.src__widgets__icon;
+  const icons = packages__flutter__src__material__icons$46dart.src__material__icons;
+  const colors = packages__flutter__src__material__colors$46dart.src__material__colors;
+  const text_style = packages__flutter__src__painting__strut_style$46dart.src__painting__text_style;
+  const scroll_view = packages__flutter__src__widgets__scroll_view$46dart.src__widgets__scroll_view;
+  const basic_types = packages__flutter__src__painting__basic_types$46dart.src__painting__basic_types;
+  const CollectionGraph = packages__web_store_management__DashBoard__CollectionGraph$46dart.DashBoard__CollectionGraph;
+  var GraphText = Object.create(dart.library);
+  dart._checkModuleNullSafetyMode(true);
+  var T = {
+    VoidTovoid: () => (T.VoidTovoid = dart.constFn(dart.fnType(dart.void, [])))(),
+    JSArrayOfWidget: () => (T.JSArrayOfWidget = dart.constFn(_interceptors.JSArray$(framework.Widget)))()
+>>>>>>> feature-b
   };
   const CT = Object.create({
     _: () => (C, CT)
   });
   dart.defineLazy(CT, {
+<<<<<<< HEAD
     get C1() {
       return C[1] = dart.const({
         __proto__: message_codecs.JSONMethodCodec.prototype
@@ -149,10 +182,20 @@ define(['dart_sdk', 'packages/flutter/src/foundation/serialization.dart', 'packa
         [MethodChannel__binaryMessenger]: null,
         [MethodChannel_codec]: C[1] || CT.C1,
         [MethodChannel_name]: "flutter/platform"
+=======
+    get C0() {
+      return C[0] = dart.const({
+        __proto__: edge_insets.EdgeInsets.prototype,
+        [EdgeInsets_bottom]: 0,
+        [EdgeInsets_right]: 0,
+        [EdgeInsets_top]: 30,
+        [EdgeInsets_left]: 0
+>>>>>>> feature-b
       });
     },
     get C3() {
       return C[3] = dart.const({
+<<<<<<< HEAD
         __proto__: platform_channel.OptionalMethodChannel.prototype,
         [MethodChannel__binaryMessenger]: null,
         [MethodChannel_codec]: C[1] || CT.C1,
@@ -162,10 +205,19 @@ define(['dart_sdk', 'packages/flutter/src/foundation/serialization.dart', 'packa
     get C5() {
       return C[5] = dart.const({
         __proto__: message_codecs.JSONMessageCodec.prototype
+=======
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "icon",
+        [_Location_column]: 21,
+        [_Location_line]: 20,
+        [_Location_file]: null
+>>>>>>> feature-b
       });
     },
     get C4() {
       return C[4] = dart.const({
+<<<<<<< HEAD
         __proto__: platform_channel.BasicMessageChannel.prototype,
         [BasicMessageChannel__binaryMessenger]: null,
         [BasicMessageChannel_codec]: C[5] || CT.C5,
@@ -183,10 +235,42 @@ define(['dart_sdk', 'packages/flutter/src/foundation/serialization.dart', 'packa
         [BasicMessageChannel__binaryMessenger]: null,
         [BasicMessageChannel_codec]: C[7] || CT.C7,
         [BasicMessageChannel_name]: "flutter/lifecycle"
+=======
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "size",
+        [_Location_column]: 15,
+        [_Location_line]: 21,
+        [_Location_file]: null
+      });
+    },
+    get C5() {
+      return C[5] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "color",
+        [_Location_column]: 15,
+        [_Location_line]: 22,
+        [_Location_file]: null
+      });
+    },
+    get C2() {
+      return C[2] = dart.constList([C[3] || CT.C3, C[4] || CT.C4, C[5] || CT.C5], widget_inspector._Location);
+    },
+    get C1() {
+      return C[1] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[2] || CT.C2,
+        [_Location_name]: null,
+        [_Location_column]: 19,
+        [_Location_line]: 19,
+        [_Location_file]: "file:///C:/Users/rende/Desktop/web_store_management/lib/DashBoard/GraphText.dart"
+>>>>>>> feature-b
       });
     },
     get C8() {
       return C[8] = dart.const({
+<<<<<<< HEAD
         __proto__: platform_channel.BasicMessageChannel.prototype,
         [BasicMessageChannel__binaryMessenger]: null,
         [BasicMessageChannel_codec]: C[5] || CT.C5,
@@ -196,10 +280,19 @@ define(['dart_sdk', 'packages/flutter/src/foundation/serialization.dart', 'packa
     get C10() {
       return C[10] = dart.const({
         __proto__: message_codecs.StandardMessageCodec.prototype
+=======
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "data",
+        [_Location_column]: 15,
+        [_Location_line]: 25,
+        [_Location_file]: null
+>>>>>>> feature-b
       });
     },
     get C9() {
       return C[9] = dart.const({
+<<<<<<< HEAD
         __proto__: platform_channel.BasicMessageChannel.prototype,
         [BasicMessageChannel__binaryMessenger]: null,
         [BasicMessageChannel_codec]: C[10] || CT.C10,
@@ -218,26 +311,76 @@ define(['dart_sdk', 'packages/flutter/src/foundation/serialization.dart', 'packa
         [MethodChannel__binaryMessenger]: null,
         [MethodChannel_codec]: C[12] || CT.C12,
         [MethodChannel_name]: "flutter/platform_views"
+=======
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "softWrap",
+        [_Location_column]: 15,
+        [_Location_line]: 26,
+        [_Location_file]: null
+      });
+    },
+    get C10() {
+      return C[10] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "style",
+        [_Location_column]: 15,
+        [_Location_line]: 27,
+        [_Location_file]: null
+      });
+    },
+    get C7() {
+      return C[7] = dart.constList([C[8] || CT.C8, C[9] || CT.C9, C[10] || CT.C10], widget_inspector._Location);
+    },
+    get C6() {
+      return C[6] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[7] || CT.C7,
+        [_Location_name]: null,
+        [_Location_column]: 20,
+        [_Location_line]: 24,
+        [_Location_file]: "file:///C:/Users/rende/Desktop/web_store_management/lib/DashBoard/GraphText.dart"
+>>>>>>> feature-b
       });
     },
     get C13() {
       return C[13] = dart.const({
+<<<<<<< HEAD
         __proto__: platform_channel.MethodChannel.prototype,
         [MethodChannel__binaryMessenger]: null,
         [MethodChannel_codec]: C[1] || CT.C1,
         [MethodChannel_name]: "flutter/skia"
+=======
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "icon",
+        [_Location_column]: 13,
+        [_Location_line]: 19,
+        [_Location_file]: null
+>>>>>>> feature-b
       });
     },
     get C14() {
       return C[14] = dart.const({
+<<<<<<< HEAD
         __proto__: platform_channel.OptionalMethodChannel.prototype,
         [MethodChannel__binaryMessenger]: null,
         [MethodChannel_codec]: C[12] || CT.C12,
         [MethodChannel_name]: "flutter/mousecursor"
+=======
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "label",
+        [_Location_column]: 13,
+        [_Location_line]: 24,
+        [_Location_file]: null
+>>>>>>> feature-b
       });
     },
     get C15() {
       return C[15] = dart.const({
+<<<<<<< HEAD
         __proto__: platform_channel.OptionalMethodChannel.prototype,
         [MethodChannel__binaryMessenger]: null,
         [MethodChannel_codec]: C[12] || CT.C12,
@@ -258,34 +401,96 @@ define(['dart_sdk', 'packages/flutter/src/foundation/serialization.dart', 'packa
         [MethodChannel__binaryMessenger]: null,
         [MethodChannel_codec]: C[1] || CT.C1,
         [MethodChannel_name]: "flutter/localization"
+=======
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "onPressed",
+        [_Location_column]: 13,
+        [_Location_line]: 33,
+        [_Location_file]: null
+      });
+    },
+    get C12() {
+      return C[12] = dart.constList([C[13] || CT.C13, C[14] || CT.C14, C[15] || CT.C15], widget_inspector._Location);
+    },
+    get C11() {
+      return C[11] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[12] || CT.C12,
+        [_Location_name]: null,
+        [_Location_column]: 29,
+        [_Location_line]: 18,
+        [_Location_file]: "file:///C:/Users/rende/Desktop/web_store_management/lib/DashBoard/GraphText.dart"
+>>>>>>> feature-b
       });
     },
     get C18() {
       return C[18] = dart.const({
+<<<<<<< HEAD
         __proto__: core.FormatException.prototype,
         [FormatException_offset]: null,
         [FormatException_source]: null,
         [FormatException_message]: "Message corrupted"
+=======
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "alignment",
+        [_Location_column]: 11,
+        [_Location_line]: 16,
+        [_Location_file]: null
+>>>>>>> feature-b
       });
     },
     get C19() {
       return C[19] = dart.const({
+<<<<<<< HEAD
         __proto__: core.FormatException.prototype,
         [FormatException_offset]: null,
         [FormatException_source]: null,
         [FormatException_message]: "Invalid method call"
+=======
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "margin",
+        [_Location_column]: 11,
+        [_Location_line]: 17,
+        [_Location_file]: null
+>>>>>>> feature-b
       });
     },
     get C20() {
       return C[20] = dart.const({
+<<<<<<< HEAD
         __proto__: core.FormatException.prototype,
         [FormatException_offset]: null,
         [FormatException_source]: null,
         [FormatException_message]: "Expected envelope, got nothing"
+=======
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 11,
+        [_Location_line]: 18,
+        [_Location_file]: null
+      });
+    },
+    get C17() {
+      return C[17] = dart.constList([C[18] || CT.C18, C[19] || CT.C19, C[20] || CT.C20], widget_inspector._Location);
+    },
+    get C16() {
+      return C[16] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[17] || CT.C17,
+        [_Location_name]: null,
+        [_Location_column]: 9,
+        [_Location_line]: 15,
+        [_Location_file]: "file:///C:/Users/rende/Desktop/web_store_management/lib/DashBoard/GraphText.dart"
+>>>>>>> feature-b
       });
     },
     get C21() {
       return C[21] = dart.const({
+<<<<<<< HEAD
         __proto__: core.FormatException.prototype,
         [FormatException_offset]: null,
         [FormatException_source]: null,
@@ -2383,3 +2588,1055 @@ define(['dart_sdk', 'packages/flutter/src/foundation/serialization.dart', 'packa
 }));
 
 //# sourceMappingURL=system_channels.dart.lib.js.map
+=======
+        __proto__: edge_insets.EdgeInsets.prototype,
+        [EdgeInsets_bottom]: 0,
+        [EdgeInsets_right]: 0,
+        [EdgeInsets_top]: 40,
+        [EdgeInsets_left]: 0
+      });
+    },
+    get C24() {
+      return C[24] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "icon",
+        [_Location_column]: 37,
+        [_Location_line]: 52,
+        [_Location_file]: null
+      });
+    },
+    get C25() {
+      return C[25] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "size",
+        [_Location_column]: 31,
+        [_Location_line]: 53,
+        [_Location_file]: null
+      });
+    },
+    get C26() {
+      return C[26] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "color",
+        [_Location_column]: 31,
+        [_Location_line]: 54,
+        [_Location_file]: null
+      });
+    },
+    get C23() {
+      return C[23] = dart.constList([C[24] || CT.C24, C[25] || CT.C25, C[26] || CT.C26], widget_inspector._Location);
+    },
+    get C22() {
+      return C[22] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[23] || CT.C23,
+        [_Location_name]: null,
+        [_Location_column]: 35,
+        [_Location_line]: 51,
+        [_Location_file]: "file:///C:/Users/rende/Desktop/web_store_management/lib/DashBoard/GraphText.dart"
+      });
+    },
+    get C29() {
+      return C[29] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "data",
+        [_Location_column]: 31,
+        [_Location_line]: 57,
+        [_Location_file]: null
+      });
+    },
+    get C30() {
+      return C[30] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "softWrap",
+        [_Location_column]: 31,
+        [_Location_line]: 58,
+        [_Location_file]: null
+      });
+    },
+    get C31() {
+      return C[31] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "style",
+        [_Location_column]: 31,
+        [_Location_line]: 59,
+        [_Location_file]: null
+      });
+    },
+    get C28() {
+      return C[28] = dart.constList([C[29] || CT.C29, C[30] || CT.C30, C[31] || CT.C31], widget_inspector._Location);
+    },
+    get C27() {
+      return C[27] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[28] || CT.C28,
+        [_Location_name]: null,
+        [_Location_column]: 36,
+        [_Location_line]: 56,
+        [_Location_file]: "file:///C:/Users/rende/Desktop/web_store_management/lib/DashBoard/GraphText.dart"
+      });
+    },
+    get C34() {
+      return C[34] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "icon",
+        [_Location_column]: 29,
+        [_Location_line]: 51,
+        [_Location_file]: null
+      });
+    },
+    get C35() {
+      return C[35] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "label",
+        [_Location_column]: 29,
+        [_Location_line]: 56,
+        [_Location_file]: null
+      });
+    },
+    get C36() {
+      return C[36] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "onPressed",
+        [_Location_column]: 29,
+        [_Location_line]: 65,
+        [_Location_file]: null
+      });
+    },
+    get C33() {
+      return C[33] = dart.constList([C[34] || CT.C34, C[35] || CT.C35, C[36] || CT.C36], widget_inspector._Location);
+    },
+    get C32() {
+      return C[32] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[33] || CT.C33,
+        [_Location_name]: null,
+        [_Location_column]: 43,
+        [_Location_line]: 50,
+        [_Location_file]: "file:///C:/Users/rende/Desktop/web_store_management/lib/DashBoard/GraphText.dart"
+      });
+    },
+    get C39() {
+      return C[39] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 25,
+        [_Location_line]: 50,
+        [_Location_file]: null
+      });
+    },
+    get C38() {
+      return C[38] = dart.constList([C[39] || CT.C39], widget_inspector._Location);
+    },
+    get C37() {
+      return C[37] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[38] || CT.C38,
+        [_Location_name]: null,
+        [_Location_column]: 23,
+        [_Location_line]: 49,
+        [_Location_file]: "file:///C:/Users/rende/Desktop/web_store_management/lib/DashBoard/GraphText.dart"
+      });
+    },
+    get C42() {
+      return C[42] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "data",
+        [_Location_column]: 27,
+        [_Location_line]: 70,
+        [_Location_file]: null
+      });
+    },
+    get C41() {
+      return C[41] = dart.constList([C[42] || CT.C42], widget_inspector._Location);
+    },
+    get C40() {
+      return C[40] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[41] || CT.C41,
+        [_Location_name]: null,
+        [_Location_column]: 32,
+        [_Location_line]: 69,
+        [_Location_file]: "file:///C:/Users/rende/Desktop/web_store_management/lib/DashBoard/GraphText.dart"
+      });
+    },
+    get C45() {
+      return C[45] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 25,
+        [_Location_line]: 69,
+        [_Location_file]: null
+      });
+    },
+    get C44() {
+      return C[44] = dart.constList([C[45] || CT.C45], widget_inspector._Location);
+    },
+    get C43() {
+      return C[43] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[44] || CT.C44,
+        [_Location_name]: null,
+        [_Location_column]: 23,
+        [_Location_line]: 68,
+        [_Location_file]: "file:///C:/Users/rende/Desktop/web_store_management/lib/DashBoard/GraphText.dart"
+      });
+    },
+    get C48() {
+      return C[48] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "children",
+        [_Location_column]: 21,
+        [_Location_line]: 48,
+        [_Location_file]: null
+      });
+    },
+    get C47() {
+      return C[47] = dart.constList([C[48] || CT.C48], widget_inspector._Location);
+    },
+    get C46() {
+      return C[46] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[47] || CT.C47,
+        [_Location_name]: null,
+        [_Location_column]: 26,
+        [_Location_line]: 47,
+        [_Location_file]: "file:///C:/Users/rende/Desktop/web_store_management/lib/DashBoard/GraphText.dart"
+      });
+    },
+    get C51() {
+      return C[51] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "width",
+        [_Location_column]: 19,
+        [_Location_line]: 46,
+        [_Location_file]: null
+      });
+    },
+    get C52() {
+      return C[52] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 19,
+        [_Location_line]: 47,
+        [_Location_file]: null
+      });
+    },
+    get C50() {
+      return C[50] = dart.constList([C[51] || CT.C51, C[52] || CT.C52], widget_inspector._Location);
+    },
+    get C49() {
+      return C[49] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[50] || CT.C50,
+        [_Location_name]: null,
+        [_Location_column]: 17,
+        [_Location_line]: 45,
+        [_Location_file]: "file:///C:/Users/rende/Desktop/web_store_management/lib/DashBoard/GraphText.dart"
+      });
+    },
+    get C55() {
+      return C[55] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "icon",
+        [_Location_column]: 37,
+        [_Location_line]: 83,
+        [_Location_file]: null
+      });
+    },
+    get C56() {
+      return C[56] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "size",
+        [_Location_column]: 31,
+        [_Location_line]: 84,
+        [_Location_file]: null
+      });
+    },
+    get C57() {
+      return C[57] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "color",
+        [_Location_column]: 31,
+        [_Location_line]: 85,
+        [_Location_file]: null
+      });
+    },
+    get C54() {
+      return C[54] = dart.constList([C[55] || CT.C55, C[56] || CT.C56, C[57] || CT.C57], widget_inspector._Location);
+    },
+    get C53() {
+      return C[53] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[54] || CT.C54,
+        [_Location_name]: null,
+        [_Location_column]: 35,
+        [_Location_line]: 82,
+        [_Location_file]: "file:///C:/Users/rende/Desktop/web_store_management/lib/DashBoard/GraphText.dart"
+      });
+    },
+    get C60() {
+      return C[60] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "data",
+        [_Location_column]: 31,
+        [_Location_line]: 88,
+        [_Location_file]: null
+      });
+    },
+    get C61() {
+      return C[61] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "softWrap",
+        [_Location_column]: 31,
+        [_Location_line]: 89,
+        [_Location_file]: null
+      });
+    },
+    get C62() {
+      return C[62] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "style",
+        [_Location_column]: 31,
+        [_Location_line]: 90,
+        [_Location_file]: null
+      });
+    },
+    get C59() {
+      return C[59] = dart.constList([C[60] || CT.C60, C[61] || CT.C61, C[62] || CT.C62], widget_inspector._Location);
+    },
+    get C58() {
+      return C[58] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[59] || CT.C59,
+        [_Location_name]: null,
+        [_Location_column]: 36,
+        [_Location_line]: 87,
+        [_Location_file]: "file:///C:/Users/rende/Desktop/web_store_management/lib/DashBoard/GraphText.dart"
+      });
+    },
+    get C65() {
+      return C[65] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "icon",
+        [_Location_column]: 29,
+        [_Location_line]: 82,
+        [_Location_file]: null
+      });
+    },
+    get C66() {
+      return C[66] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "label",
+        [_Location_column]: 29,
+        [_Location_line]: 87,
+        [_Location_file]: null
+      });
+    },
+    get C67() {
+      return C[67] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "onPressed",
+        [_Location_column]: 29,
+        [_Location_line]: 96,
+        [_Location_file]: null
+      });
+    },
+    get C64() {
+      return C[64] = dart.constList([C[65] || CT.C65, C[66] || CT.C66, C[67] || CT.C67], widget_inspector._Location);
+    },
+    get C63() {
+      return C[63] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[64] || CT.C64,
+        [_Location_name]: null,
+        [_Location_column]: 43,
+        [_Location_line]: 81,
+        [_Location_file]: "file:///C:/Users/rende/Desktop/web_store_management/lib/DashBoard/GraphText.dart"
+      });
+    },
+    get C70() {
+      return C[70] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 25,
+        [_Location_line]: 81,
+        [_Location_file]: null
+      });
+    },
+    get C69() {
+      return C[69] = dart.constList([C[70] || CT.C70], widget_inspector._Location);
+    },
+    get C68() {
+      return C[68] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[69] || CT.C69,
+        [_Location_name]: null,
+        [_Location_column]: 23,
+        [_Location_line]: 80,
+        [_Location_file]: "file:///C:/Users/rende/Desktop/web_store_management/lib/DashBoard/GraphText.dart"
+      });
+    },
+    get C73() {
+      return C[73] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "data",
+        [_Location_column]: 27,
+        [_Location_line]: 101,
+        [_Location_file]: null
+      });
+    },
+    get C72() {
+      return C[72] = dart.constList([C[73] || CT.C73], widget_inspector._Location);
+    },
+    get C71() {
+      return C[71] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[72] || CT.C72,
+        [_Location_name]: null,
+        [_Location_column]: 32,
+        [_Location_line]: 100,
+        [_Location_file]: "file:///C:/Users/rende/Desktop/web_store_management/lib/DashBoard/GraphText.dart"
+      });
+    },
+    get C76() {
+      return C[76] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 25,
+        [_Location_line]: 100,
+        [_Location_file]: null
+      });
+    },
+    get C75() {
+      return C[75] = dart.constList([C[76] || CT.C76], widget_inspector._Location);
+    },
+    get C74() {
+      return C[74] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[75] || CT.C75,
+        [_Location_name]: null,
+        [_Location_column]: 23,
+        [_Location_line]: 99,
+        [_Location_file]: "file:///C:/Users/rende/Desktop/web_store_management/lib/DashBoard/GraphText.dart"
+      });
+    },
+    get C79() {
+      return C[79] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "children",
+        [_Location_column]: 21,
+        [_Location_line]: 79,
+        [_Location_file]: null
+      });
+    },
+    get C78() {
+      return C[78] = dart.constList([C[79] || CT.C79], widget_inspector._Location);
+    },
+    get C77() {
+      return C[77] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[78] || CT.C78,
+        [_Location_name]: null,
+        [_Location_column]: 26,
+        [_Location_line]: 78,
+        [_Location_file]: "file:///C:/Users/rende/Desktop/web_store_management/lib/DashBoard/GraphText.dart"
+      });
+    },
+    get C82() {
+      return C[82] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "width",
+        [_Location_column]: 19,
+        [_Location_line]: 77,
+        [_Location_file]: null
+      });
+    },
+    get C83() {
+      return C[83] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 19,
+        [_Location_line]: 78,
+        [_Location_file]: null
+      });
+    },
+    get C81() {
+      return C[81] = dart.constList([C[82] || CT.C82, C[83] || CT.C83], widget_inspector._Location);
+    },
+    get C80() {
+      return C[80] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[81] || CT.C81,
+        [_Location_name]: null,
+        [_Location_column]: 17,
+        [_Location_line]: 76,
+        [_Location_file]: "file:///C:/Users/rende/Desktop/web_store_management/lib/DashBoard/GraphText.dart"
+      });
+    },
+    get C86() {
+      return C[86] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "icon",
+        [_Location_column]: 37,
+        [_Location_line]: 114,
+        [_Location_file]: null
+      });
+    },
+    get C87() {
+      return C[87] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "size",
+        [_Location_column]: 31,
+        [_Location_line]: 115,
+        [_Location_file]: null
+      });
+    },
+    get C88() {
+      return C[88] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "color",
+        [_Location_column]: 31,
+        [_Location_line]: 116,
+        [_Location_file]: null
+      });
+    },
+    get C85() {
+      return C[85] = dart.constList([C[86] || CT.C86, C[87] || CT.C87, C[88] || CT.C88], widget_inspector._Location);
+    },
+    get C84() {
+      return C[84] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[85] || CT.C85,
+        [_Location_name]: null,
+        [_Location_column]: 35,
+        [_Location_line]: 113,
+        [_Location_file]: "file:///C:/Users/rende/Desktop/web_store_management/lib/DashBoard/GraphText.dart"
+      });
+    },
+    get C91() {
+      return C[91] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "data",
+        [_Location_column]: 31,
+        [_Location_line]: 119,
+        [_Location_file]: null
+      });
+    },
+    get C92() {
+      return C[92] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "softWrap",
+        [_Location_column]: 31,
+        [_Location_line]: 120,
+        [_Location_file]: null
+      });
+    },
+    get C93() {
+      return C[93] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "style",
+        [_Location_column]: 31,
+        [_Location_line]: 121,
+        [_Location_file]: null
+      });
+    },
+    get C90() {
+      return C[90] = dart.constList([C[91] || CT.C91, C[92] || CT.C92, C[93] || CT.C93], widget_inspector._Location);
+    },
+    get C89() {
+      return C[89] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[90] || CT.C90,
+        [_Location_name]: null,
+        [_Location_column]: 36,
+        [_Location_line]: 118,
+        [_Location_file]: "file:///C:/Users/rende/Desktop/web_store_management/lib/DashBoard/GraphText.dart"
+      });
+    },
+    get C96() {
+      return C[96] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "icon",
+        [_Location_column]: 29,
+        [_Location_line]: 113,
+        [_Location_file]: null
+      });
+    },
+    get C97() {
+      return C[97] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "label",
+        [_Location_column]: 29,
+        [_Location_line]: 118,
+        [_Location_file]: null
+      });
+    },
+    get C98() {
+      return C[98] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "onPressed",
+        [_Location_column]: 29,
+        [_Location_line]: 127,
+        [_Location_file]: null
+      });
+    },
+    get C95() {
+      return C[95] = dart.constList([C[96] || CT.C96, C[97] || CT.C97, C[98] || CT.C98], widget_inspector._Location);
+    },
+    get C94() {
+      return C[94] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[95] || CT.C95,
+        [_Location_name]: null,
+        [_Location_column]: 43,
+        [_Location_line]: 112,
+        [_Location_file]: "file:///C:/Users/rende/Desktop/web_store_management/lib/DashBoard/GraphText.dart"
+      });
+    },
+    get C101() {
+      return C[101] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 25,
+        [_Location_line]: 112,
+        [_Location_file]: null
+      });
+    },
+    get C100() {
+      return C[100] = dart.constList([C[101] || CT.C101], widget_inspector._Location);
+    },
+    get C99() {
+      return C[99] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[100] || CT.C100,
+        [_Location_name]: null,
+        [_Location_column]: 23,
+        [_Location_line]: 111,
+        [_Location_file]: "file:///C:/Users/rende/Desktop/web_store_management/lib/DashBoard/GraphText.dart"
+      });
+    },
+    get C104() {
+      return C[104] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "data",
+        [_Location_column]: 27,
+        [_Location_line]: 132,
+        [_Location_file]: null
+      });
+    },
+    get C103() {
+      return C[103] = dart.constList([C[104] || CT.C104], widget_inspector._Location);
+    },
+    get C102() {
+      return C[102] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[103] || CT.C103,
+        [_Location_name]: null,
+        [_Location_column]: 32,
+        [_Location_line]: 131,
+        [_Location_file]: "file:///C:/Users/rende/Desktop/web_store_management/lib/DashBoard/GraphText.dart"
+      });
+    },
+    get C107() {
+      return C[107] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 25,
+        [_Location_line]: 131,
+        [_Location_file]: null
+      });
+    },
+    get C106() {
+      return C[106] = dart.constList([C[107] || CT.C107], widget_inspector._Location);
+    },
+    get C105() {
+      return C[105] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[106] || CT.C106,
+        [_Location_name]: null,
+        [_Location_column]: 23,
+        [_Location_line]: 130,
+        [_Location_file]: "file:///C:/Users/rende/Desktop/web_store_management/lib/DashBoard/GraphText.dart"
+      });
+    },
+    get C110() {
+      return C[110] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "children",
+        [_Location_column]: 21,
+        [_Location_line]: 110,
+        [_Location_file]: null
+      });
+    },
+    get C109() {
+      return C[109] = dart.constList([C[110] || CT.C110], widget_inspector._Location);
+    },
+    get C108() {
+      return C[108] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[109] || CT.C109,
+        [_Location_name]: null,
+        [_Location_column]: 26,
+        [_Location_line]: 109,
+        [_Location_file]: "file:///C:/Users/rende/Desktop/web_store_management/lib/DashBoard/GraphText.dart"
+      });
+    },
+    get C113() {
+      return C[113] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "width",
+        [_Location_column]: 19,
+        [_Location_line]: 108,
+        [_Location_file]: null
+      });
+    },
+    get C114() {
+      return C[114] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 19,
+        [_Location_line]: 109,
+        [_Location_file]: null
+      });
+    },
+    get C112() {
+      return C[112] = dart.constList([C[113] || CT.C113, C[114] || CT.C114], widget_inspector._Location);
+    },
+    get C111() {
+      return C[111] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[112] || CT.C112,
+        [_Location_name]: null,
+        [_Location_column]: 17,
+        [_Location_line]: 107,
+        [_Location_file]: "file:///C:/Users/rende/Desktop/web_store_management/lib/DashBoard/GraphText.dart"
+      });
+    },
+    get C117() {
+      return C[117] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "physics",
+        [_Location_column]: 15,
+        [_Location_line]: 42,
+        [_Location_file]: null
+      });
+    },
+    get C118() {
+      return C[118] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "scrollDirection",
+        [_Location_column]: 15,
+        [_Location_line]: 43,
+        [_Location_file]: null
+      });
+    },
+    get C119() {
+      return C[119] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "children",
+        [_Location_column]: 15,
+        [_Location_line]: 44,
+        [_Location_file]: null
+      });
+    },
+    get C116() {
+      return C[116] = dart.constList([C[117] || CT.C117, C[118] || CT.C118, C[119] || CT.C119], widget_inspector._Location);
+    },
+    get C115() {
+      return C[115] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[116] || CT.C116,
+        [_Location_name]: null,
+        [_Location_column]: 20,
+        [_Location_line]: 41,
+        [_Location_file]: "file:///C:/Users/rende/Desktop/web_store_management/lib/DashBoard/GraphText.dart"
+      });
+    },
+    get C122() {
+      return C[122] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "margin",
+        [_Location_column]: 13,
+        [_Location_line]: 40,
+        [_Location_file]: null
+      });
+    },
+    get C123() {
+      return C[123] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 13,
+        [_Location_line]: 41,
+        [_Location_file]: null
+      });
+    },
+    get C121() {
+      return C[121] = dart.constList([C[122] || CT.C122, C[123] || CT.C123], widget_inspector._Location);
+    },
+    get C120() {
+      return C[120] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[121] || CT.C121,
+        [_Location_name]: null,
+        [_Location_column]: 18,
+        [_Location_line]: 38,
+        [_Location_file]: "file:///C:/Users/rende/Desktop/web_store_management/lib/DashBoard/GraphText.dart"
+      });
+    },
+    get C126() {
+      return C[126] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "flex",
+        [_Location_column]: 11,
+        [_Location_line]: 37,
+        [_Location_file]: null
+      });
+    },
+    get C127() {
+      return C[127] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 11,
+        [_Location_line]: 38,
+        [_Location_file]: null
+      });
+    },
+    get C125() {
+      return C[125] = dart.constList([C[126] || CT.C126, C[127] || CT.C127], widget_inspector._Location);
+    },
+    get C124() {
+      return C[124] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[125] || CT.C125,
+        [_Location_name]: null,
+        [_Location_column]: 9,
+        [_Location_line]: 36,
+        [_Location_file]: "file:///C:/Users/rende/Desktop/web_store_management/lib/DashBoard/GraphText.dart"
+      });
+    },
+    get C129() {
+      return C[129] = dart.constList([], widget_inspector._Location);
+    },
+    get C128() {
+      return C[128] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[129] || CT.C129,
+        [_Location_name]: null,
+        [_Location_column]: 36,
+        [_Location_line]: 147,
+        [_Location_file]: "file:///C:/Users/rende/Desktop/web_store_management/lib/DashBoard/GraphText.dart"
+      });
+    },
+    get C132() {
+      return C[132] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "width",
+        [_Location_column]: 13,
+        [_Location_line]: 145,
+        [_Location_file]: null
+      });
+    },
+    get C133() {
+      return C[133] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "height",
+        [_Location_column]: 13,
+        [_Location_line]: 146,
+        [_Location_file]: null
+      });
+    },
+    get C134() {
+      return C[134] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 13,
+        [_Location_line]: 147,
+        [_Location_file]: null
+      });
+    },
+    get C131() {
+      return C[131] = dart.constList([C[132] || CT.C132, C[133] || CT.C133, C[134] || CT.C134], widget_inspector._Location);
+    },
+    get C130() {
+      return C[130] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[131] || CT.C131,
+        [_Location_name]: null,
+        [_Location_column]: 18,
+        [_Location_line]: 144,
+        [_Location_file]: "file:///C:/Users/rende/Desktop/web_store_management/lib/DashBoard/GraphText.dart"
+      });
+    },
+    get C137() {
+      return C[137] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "flex",
+        [_Location_column]: 11,
+        [_Location_line]: 143,
+        [_Location_file]: null
+      });
+    },
+    get C138() {
+      return C[138] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 11,
+        [_Location_line]: 144,
+        [_Location_file]: null
+      });
+    },
+    get C136() {
+      return C[136] = dart.constList([C[137] || CT.C137, C[138] || CT.C138], widget_inspector._Location);
+    },
+    get C135() {
+      return C[135] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[136] || CT.C136,
+        [_Location_name]: null,
+        [_Location_column]: 9,
+        [_Location_line]: 142,
+        [_Location_file]: "file:///C:/Users/rende/Desktop/web_store_management/lib/DashBoard/GraphText.dart"
+      });
+    },
+    get C141() {
+      return C[141] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "children",
+        [_Location_column]: 7,
+        [_Location_line]: 14,
+        [_Location_file]: null
+      });
+    },
+    get C140() {
+      return C[140] = dart.constList([C[141] || CT.C141], widget_inspector._Location);
+    },
+    get C139() {
+      return C[139] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[140] || CT.C140,
+        [_Location_name]: null,
+        [_Location_column]: 12,
+        [_Location_line]: 13,
+        [_Location_file]: "file:///C:/Users/rende/Desktop/web_store_management/lib/DashBoard/GraphText.dart"
+      });
+    }
+  }, false);
+  var C = Array(142).fill(void 0);
+  var I = ["package:web_store_management/DashBoard/GraphText.dart"];
+  GraphText.GraphText = class GraphText$ extends framework.StatefulWidget {
+    createState() {
+      return new GraphText._GraphText.new();
+    }
+  };
+  (GraphText.GraphText.new = function(opts) {
+    let $36creationLocationd_0dea112b090073317d4 = opts && '$creationLocationd_0dea112b090073317d4' in opts ? opts.$creationLocationd_0dea112b090073317d4 : null;
+    GraphText.GraphText.__proto__.new.call(this, {$creationLocationd_0dea112b090073317d4: $36creationLocationd_0dea112b090073317d4});
+    ;
+  }).prototype = GraphText.GraphText.prototype;
+  dart.addTypeTests(GraphText.GraphText);
+  dart.addTypeCaches(GraphText.GraphText);
+  dart.setMethodSignature(GraphText.GraphText, () => ({
+    __proto__: dart.getMethods(GraphText.GraphText.__proto__),
+    createState: dart.fnType(GraphText._GraphText, [])
+  }));
+  dart.setLibraryUri(GraphText.GraphText, I[0]);
+  var EdgeInsets_bottom = dart.privateName(edge_insets, "EdgeInsets.bottom");
+  var EdgeInsets_right = dart.privateName(edge_insets, "EdgeInsets.right");
+  var EdgeInsets_top = dart.privateName(edge_insets, "EdgeInsets.top");
+  var EdgeInsets_left = dart.privateName(edge_insets, "EdgeInsets.left");
+  var _Location_parameterLocations = dart.privateName(widget_inspector, "_Location.parameterLocations");
+  var _Location_name = dart.privateName(widget_inspector, "_Location.name");
+  var _Location_column = dart.privateName(widget_inspector, "_Location.column");
+  var _Location_line = dart.privateName(widget_inspector, "_Location.line");
+  var _Location_file = dart.privateName(widget_inspector, "_Location.file");
+  GraphText._GraphText = class _GraphText extends framework.State$(GraphText.GraphText) {
+    build(context) {
+      return new basic.Column.new({children: T.JSArrayOfWidget().of([new container.Container.new({alignment: alignment.Alignment.topLeft, margin: C[0] || CT.C0, child: new text_button._TextButtonWithIcon.new({icon: new icon.Icon.new(icons.Icons.account_balance_wallet, {size: 40.0, color: colors.Colors.black, $creationLocationd_0dea112b090073317d4: C[1] || CT.C1}), label: new text.Text.new("COLLECTIONS", {softWrap: true, style: new text_style.TextStyle.new({fontSize: 30.0, color: colors.Colors.blue, fontWeight: ui.FontWeight.bold}), $creationLocationd_0dea112b090073317d4: C[6] || CT.C6}), onPressed: dart.fn(() => {
+              }, T.VoidTovoid()), $creationLocationd_0dea112b090073317d4: C[11] || CT.C11}), $creationLocationd_0dea112b090073317d4: C[16] || CT.C16}), new basic.Expanded.new({flex: 1, child: new container.Container.new({margin: C[21] || CT.C21, child: new scroll_view.ListView.new({physics: new scroll_physics.NeverScrollableScrollPhysics.new(), scrollDirection: basic_types.Axis.horizontal, children: T.JSArrayOfWidget().of([new container.Container.new({width: 160.0, child: new basic.Column.new({children: T.JSArrayOfWidget().of([new basic.Center.new({child: new text_button._TextButtonWithIcon.new({icon: new icon.Icon.new(icons.Icons.attach_money, {size: 30.0, color: colors.Colors.black, $creationLocationd_0dea112b090073317d4: C[22] || CT.C22}), label: new text.Text.new("60,000", {softWrap: true, style: new text_style.TextStyle.new({fontSize: 25.0, color: colors.Colors.blue, fontWeight: ui.FontWeight.bold}), $creationLocationd_0dea112b090073317d4: C[27] || CT.C27}), onPressed: dart.fn(() => {
+                            }, T.VoidTovoid()), $creationLocationd_0dea112b090073317d4: C[32] || CT.C32}), $creationLocationd_0dea112b090073317d4: C[37] || CT.C37}), new basic.Center.new({child: new text.Text.new("TODAY", {$creationLocationd_0dea112b090073317d4: C[40] || CT.C40}), $creationLocationd_0dea112b090073317d4: C[43] || CT.C43})]), $creationLocationd_0dea112b090073317d4: C[46] || CT.C46}), $creationLocationd_0dea112b090073317d4: C[49] || CT.C49}), new container.Container.new({width: 160.0, child: new basic.Column.new({children: T.JSArrayOfWidget().of([new basic.Center.new({child: new text_button._TextButtonWithIcon.new({icon: new icon.Icon.new(icons.Icons.attach_money, {size: 30.0, color: colors.Colors.black, $creationLocationd_0dea112b090073317d4: C[53] || CT.C53}), label: new text.Text.new("60,000", {softWrap: true, style: new text_style.TextStyle.new({fontSize: 25.0, color: colors.Colors.blue, fontWeight: ui.FontWeight.bold}), $creationLocationd_0dea112b090073317d4: C[58] || CT.C58}), onPressed: dart.fn(() => {
+                            }, T.VoidTovoid()), $creationLocationd_0dea112b090073317d4: C[63] || CT.C63}), $creationLocationd_0dea112b090073317d4: C[68] || CT.C68}), new basic.Center.new({child: new text.Text.new("THIS WEEK", {$creationLocationd_0dea112b090073317d4: C[71] || CT.C71}), $creationLocationd_0dea112b090073317d4: C[74] || CT.C74})]), $creationLocationd_0dea112b090073317d4: C[77] || CT.C77}), $creationLocationd_0dea112b090073317d4: C[80] || CT.C80}), new container.Container.new({width: 160.0, child: new basic.Column.new({children: T.JSArrayOfWidget().of([new basic.Center.new({child: new text_button._TextButtonWithIcon.new({icon: new icon.Icon.new(icons.Icons.attach_money, {size: 30.0, color: colors.Colors.black, $creationLocationd_0dea112b090073317d4: C[84] || CT.C84}), label: new text.Text.new("60,000", {softWrap: true, style: new text_style.TextStyle.new({fontSize: 25.0, color: colors.Colors.blue, fontWeight: ui.FontWeight.bold}), $creationLocationd_0dea112b090073317d4: C[89] || CT.C89}), onPressed: dart.fn(() => {
+                            }, T.VoidTovoid()), $creationLocationd_0dea112b090073317d4: C[94] || CT.C94}), $creationLocationd_0dea112b090073317d4: C[99] || CT.C99}), new basic.Center.new({child: new text.Text.new("THIS MONTH", {$creationLocationd_0dea112b090073317d4: C[102] || CT.C102}), $creationLocationd_0dea112b090073317d4: C[105] || CT.C105})]), $creationLocationd_0dea112b090073317d4: C[108] || CT.C108}), $creationLocationd_0dea112b090073317d4: C[111] || CT.C111})]), $creationLocationd_0dea112b090073317d4: C[115] || CT.C115}), $creationLocationd_0dea112b090073317d4: C[120] || CT.C120}), $creationLocationd_0dea112b090073317d4: C[124] || CT.C124}), new basic.Expanded.new({flex: 4, child: new container.Container.new({width: media_query.MediaQuery.of(context).size.width, height: media_query.MediaQuery.of(context).size.height, child: CollectionGraph.CollectionGraph.withSampleData({$creationLocationd_0dea112b090073317d4: C[128] || CT.C128}), $creationLocationd_0dea112b090073317d4: C[130] || CT.C130}), $creationLocationd_0dea112b090073317d4: C[135] || CT.C135})]), $creationLocationd_0dea112b090073317d4: C[139] || CT.C139});
+    }
+  };
+  (GraphText._GraphText.new = function() {
+    GraphText._GraphText.__proto__.new.call(this);
+    ;
+  }).prototype = GraphText._GraphText.prototype;
+  dart.addTypeTests(GraphText._GraphText);
+  dart.addTypeCaches(GraphText._GraphText);
+  dart.setMethodSignature(GraphText._GraphText, () => ({
+    __proto__: dart.getMethods(GraphText._GraphText.__proto__),
+    build: dart.fnType(framework.Widget, [framework.BuildContext])
+  }));
+  dart.setLibraryUri(GraphText._GraphText, I[0]);
+  dart.trackLibraries("packages/web_store_management/DashBoard/GraphText.dart", {
+    "package:web_store_management/DashBoard/GraphText.dart": GraphText
+  }, {
+  }, '{"version":3,"sourceRoot":"","sources":["GraphText.dart"],"names":[],"mappings":";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;AAM8B;IAAY;;;;;;EAC1C;;;;;;;;;;;;;;;;;;UAI4B;AACxB,YAAO,iCACa,wBAChB,wCACuB,2DAEH,+CACV,kBACE,2CACA,aACQ,qFAET,kBACL,0BACU,aACH,wCACK,aACI,gCACS,0FAGhB;wJAGf,8BACQ,UACC,6DAGE,uCACI,wEACa,uCACJ,wBAChB,oCACS,cACA,gCACa,wBAChB,6BACoB,+CACR,kBACE,iCACA,aACQ,uFAET,kBACL,qBACU,aACH,wCACK,aACI,gCACS,4FAGhB;sKAGjB,6BACS,kBACL,wPAMV,oCACS,cACA,gCACa,wBAChB,6BACoB,+CACR,kBACE,iCACA,aACQ,uFAET,kBACL,qBACU,aACH,wCACK,aACI,gCACS,4FAGhB;sKAGjB,6BACS,kBACL,4PAMV,oCACS,cACA,gCACa,wBAChB,6BACoB,+CACR,kBACE,iCACA,aACQ,uFAET,kBACL,qBACU,aACH,wCACK,aACI,gCACS,4FAGhB;sKAGjB,6BACS,kBACL,8bAUlB,8BACQ,UACC,oCACc,AAAY,AAAK,0BAAd,OAAO,sBACT,AAAY,AAAK,0BAAd,OAAO,sBACP;IAKjC;;;;;EACF","file":"../../../../../../packages/web_store_management/DashBoard/GraphText.dart.lib.js"}');
+  // Exports:
+  return {
+    DashBoard__GraphText: GraphText
+  };
+}));
+
+//# sourceMappingURL=GraphText.dart.lib.js.map
+>>>>>>> feature-b

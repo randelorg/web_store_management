@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:get/get.dart'; //library for going to next pages
 
-import '../DashBoard/DashBoard.dart';
+import '../DashBoard/Home.dart';
 
 class Body extends StatelessWidget {
   @override
@@ -106,7 +106,7 @@ Widget _formLogin() {
                 height: 50,
                 child: Center(child: Text("Sign In"))),
             onPressed: () {
-              Get.to(DashBoard());
+              Get.to(Home());
             },
             style: ElevatedButton.styleFrom(
               primary: Colors.redAccent.shade200,

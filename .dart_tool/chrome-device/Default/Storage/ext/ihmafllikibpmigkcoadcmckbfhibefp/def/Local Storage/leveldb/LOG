@@ -1,2 +1,7 @@
+<<<<<<< HEAD
 2021/09/07-00:26:56.581 56ac Creating DB C:\Users\RANDEL~1\AppData\Local\Temp\flutter_tools.b4705909\flutter_tools_chrome_device.58574d6a\Default\Storage\ext\ihmafllikibpmigkcoadcmckbfhibefp\def\Local Storage\leveldb since it was missing.
 2021/09/07-00:26:56.596 56ac Reusing MANIFEST C:\Users\RANDEL~1\AppData\Local\Temp\flutter_tools.b4705909\flutter_tools_chrome_device.58574d6a\Default\Storage\ext\ihmafllikibpmigkcoadcmckbfhibefp\def\Local Storage\leveldb/MANIFEST-000001
+=======
+2021/09/17-18:34:41.040 47cc Creating DB C:\Users\rende\AppData\Local\Temp\flutter_tools.b0cad6c\flutter_tools_chrome_device.1ceb6ff6\Default\Storage\ext\ihmafllikibpmigkcoadcmckbfhibefp\def\Local Storage\leveldb since it was missing.
+2021/09/17-18:34:41.274 47cc Reusing MANIFEST C:\Users\rende\AppData\Local\Temp\flutter_tools.b0cad6c\flutter_tools_chrome_device.1ceb6ff6\Default\Storage\ext\ihmafllikibpmigkcoadcmckbfhibefp\def\Local Storage\leveldb/MANIFEST-000001
+>>>>>>> feature-b

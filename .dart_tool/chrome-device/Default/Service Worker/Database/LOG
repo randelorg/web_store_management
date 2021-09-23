@@ -1,3 +1,9 @@
+<<<<<<< HEAD
 2021/09/07-12:02:16.911 5d5c Reusing MANIFEST C:\Users\RANDEL~1\AppData\Local\Temp\flutter_tools.e4c76dc4\flutter_tools_chrome_device.78261030\Default\Service Worker\Database/MANIFEST-000001
 2021/09/07-12:02:16.912 5d5c Recovering log #3
 2021/09/07-12:02:16.912 5d5c Reusing old log C:\Users\RANDEL~1\AppData\Local\Temp\flutter_tools.e4c76dc4\flutter_tools_chrome_device.78261030\Default\Service Worker\Database/000003.log 
+=======
+2021/09/23-14:40:45.454 4184 Reusing MANIFEST C:\Users\rende\AppData\Local\Temp\flutter_tools.92c9e36a\flutter_tools_chrome_device.6b5f053f\Default\Service Worker\Database/MANIFEST-000001
+2021/09/23-14:40:45.455 4184 Recovering log #3
+2021/09/23-14:40:45.457 4184 Reusing old log C:\Users\rende\AppData\Local\Temp\flutter_tools.92c9e36a\flutter_tools_chrome_device.6b5f053f\Default\Service Worker\Database/000003.log 
+>>>>>>> feature-b
