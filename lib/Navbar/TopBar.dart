@@ -22,19 +22,69 @@ class TopBar extends StatelessWidget with PreferredSizeWidget {
 
       actions: <Widget>[
         IconButton(
-          icon: const Icon(Icons.notifications, color: Colors.blue),
-          tooltip: 'Notifactions',
-          onPressed: () {
-            //come up with this
-            Get.to(NotificationsList());
-          },
-        ),
-        IconButton(
           icon: const Icon(Icons.person, color: Colors.blue),
           tooltip: 'Profile',
           onPressed: () {
             //come up with this
           },
+        ),
+        Container(
+          child:PopupMenuButton(
+            child: Icon(Icons.notifications, color: Colors.blue,),
+            //onSelected: (WhyFarther result) { setState(() { _selection = result; }); },
+            itemBuilder: (context) => [
+              PopupMenuItem(
+                child: Column(
+                  children: [
+                    TextButton.icon(
+                      icon: Icon(
+                        Icons.notifications_active,
+                        color: Colors.blue,
+                      ),
+                      label: Text(
+                        'Item 01',
+                        softWrap: true,
+                      ),
+                      onPressed: () {}, //pwdeng refresh button
+                    ),
+                    TextButton.icon(
+                      icon: Icon(
+                        Icons.notifications_active,
+                        color: Colors.blue,
+                      ),
+                      label: Text(
+                        'Item 02',
+                        softWrap: true,
+                      ),
+                      onPressed: () {}, //pwdeng refresh button
+                    ),
+                    TextButton.icon(
+                      icon: Icon(
+                        Icons.notifications_active,
+                        color: Colors.blue,
+                      ),
+                      label: Text(
+                        'Item 03',
+                        softWrap: true,
+                      ),
+                      onPressed: () {}, //pwdeng refresh button
+                    ),
+                    TextButton.icon(
+                      icon: Icon(
+                        Icons.notifications_active,
+                        color: Colors.blue,
+                      ),
+                      label: Text(
+                        'Item 04',
+                        softWrap: true,
+                      ),
+                      onPressed: () {}, //pwdeng refresh button
+                    ),
+                  ],
+                )
+              ),
+            ],
+          ),
         ),
         IconButton(
           icon: const Icon(Icons.logout, color: Colors.red),
