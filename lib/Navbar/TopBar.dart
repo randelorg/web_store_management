@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart'; //library for going to next pages
 import 'package:web_store_management/LoginPage/LoginPage.dart';
-import '../Dashboard/appBar/NotificationsList.dart';
 
 class TopBar extends StatelessWidget with PreferredSizeWidget {
   @override

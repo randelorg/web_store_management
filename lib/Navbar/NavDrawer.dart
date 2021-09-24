@@ -4,6 +4,8 @@ import 'package:web_store_management/NewLoan/BorrowersDetails.dart';
 import '../DashBoard/GraphText.dart';
 import '../NewLoan/BorrowersDetails.dart';
 import '../Borrowers/BorrowersScreen.dart';
+import '../Payment/PaymentScreen.dart';
+import '../CreditApproval/CreditScreen.dart';
 
 class NavDrawer extends StatefulWidget {
   @override
@@ -17,12 +19,16 @@ class _NavDrawer extends State<NavDrawer> {
     GraphText(),
     BorrowerDetail(),
     BorrowersScreen(),
+    PaymentScreen(),
+    CreditScreen(),
   ];
 
   var title = [
     "Dashboard",
     'New Loan',
     'Borrowers',
+    'Payment',
+    'Credit Approval'
   ];
 
   @override
@@ -125,6 +131,7 @@ class _NavDrawer extends State<NavDrawer> {
           const VerticalDivider(width: 20),
           // This is the main content.
           //this is how we navigate
+          //this is where the menus content will be displayed
           Expanded(
               child: Center(
             child: pages[_selectedIndex],

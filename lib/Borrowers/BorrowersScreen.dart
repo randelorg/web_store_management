@@ -9,35 +9,49 @@ class _BorrowersScreen extends State<BorrowersScreen> {
   @override
   Widget build(BuildContext context) {
     return Column(children: <Widget>[
+      Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          Container(
+            padding: EdgeInsets.only(top: 50, right: 20),
+            alignment: Alignment.topLeft,
+            width: (MediaQuery.of(context).size.width) / 4.5,
+            child: TextField(
+              decoration: InputDecoration(
+                hintText: 'Search borrower',
+                suffixIcon: InkWell(
+                  child: IconButton(
+                    icon: Icon(Icons.qr_code_scanner_outlined),
+                    color: Colors.grey,
+                    tooltip: 'Search by QR',
+                    onPressed: () {},
+                  ),
+                ),
+                filled: true,
+                fillColor: Colors.blueGrey[50],
+                labelStyle: TextStyle(fontSize: 12),
+                contentPadding: EdgeInsets.only(left: 30),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
       Container(
           width: (MediaQuery.of(context).size.width),
-          height: (MediaQuery.of(context).size.height) / 2,
+          height: (MediaQuery.of(context).size.height) / 1.5,
           child: ListView(
             padding: const EdgeInsets.all(16),
             children: [
               PaginatedDataTable(
-                header: TextField(
-                  decoration: InputDecoration(
-                    hintText: 'Search borrower',
-                    suffixIcon: InkWell(
-                      child: Icon(
-                        Icons.qr_code_scanner_outlined,
-                        color: Colors.grey,
-                      ),
-                    ),
-                    filled: true,
-                    fillColor: Colors.blueGrey[50],
-                    labelStyle: TextStyle(fontSize: 12),
-                    contentPadding: EdgeInsets.only(left: 30),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                    ),
-                  ),
-                ),
-                rowsPerPage: 15,
+                showCheckboxColumn: false,
+                rowsPerPage: 10,
                 columns: [
                   DataColumn(label: Text('BID')),
                   DataColumn(label: Text('Name')),
@@ -73,206 +87,41 @@ class _Row {
 
 class _DataSource extends DataTableSource {
   _DataSource(this.context) {
-    _rows = <_Row>[
-      _Row(
-        'Cell A1',
-        'CellB1',
-        'CellC1',
-        "CellC1",
-        ClipRRect(
-          borderRadius: BorderRadius.circular(6),
-          child: Stack(
-            children: <Widget>[
-              Positioned.fill(
-                child: Container(
-                  decoration: const BoxDecoration(
-                    color: Colors.blue,
-                  ),
-                ),
-              ),
-              TextButton(
-                style: TextButton.styleFrom(
-                  padding: const EdgeInsets.all(16.0),
-                  primary: Colors.white,
-                  textStyle: const TextStyle(fontSize: 15),
-                ),
-                onPressed: () {},
-                child: const Text('VIEW'),
-              ),
-            ],
-          ),
-        ),
-      ),
-      _Row(
-        'Cell A2',
-        'CellB2',
-        'CellC2',
-        "CellC1",
-        ClipRRect(
-          borderRadius: BorderRadius.circular(6),
-          child: Stack(
-            children: <Widget>[
-              Positioned.fill(
-                child: Container(
-                  decoration: const BoxDecoration(
-                    color: Colors.blue,
-                  ),
-                ),
-              ),
-              TextButton(
-                style: TextButton.styleFrom(
-                  padding: const EdgeInsets.all(16.0),
-                  primary: Colors.white,
-                  textStyle: const TextStyle(fontSize: 15),
-                ),
-                onPressed: () {},
-                child: const Text('VIEW'),
-              ),
-            ],
-          ),
-        ),
-      ),
-      _Row(
-        'Cell A2',
-        'CellB2',
-        'CellC2',
-        "CellC1",
-        ClipRRect(
-          borderRadius: BorderRadius.circular(6),
-          child: Stack(
-            children: <Widget>[
-              Positioned.fill(
-                child: Container(
-                  decoration: const BoxDecoration(
-                    color: Colors.blue,
-                  ),
-                ),
-              ),
-              TextButton(
-                style: TextButton.styleFrom(
-                  padding: const EdgeInsets.all(16.0),
-                  primary: Colors.white,
-                  textStyle: const TextStyle(fontSize: 15),
-                ),
-                onPressed: () {},
-                child: const Text('VIEW'),
-              ),
-            ],
-          ),
-        ),
-      ),
-      _Row(
-        'Cell A2',
-        'CellB2',
-        'CellC2',
-        "CellC1",
-        TextButton(
-          onPressed: () {},
-          child: const Text('VIEW'),
-        ),
-      ),
-      _Row(
-        'Cell A2',
-        'CellB2',
-        'CellC2',
-        "CellC1",
-        ClipRRect(
-          borderRadius: BorderRadius.circular(6),
-          child: Stack(
-            children: <Widget>[
-              Positioned.fill(
-                child: Container(
-                  decoration: const BoxDecoration(
-                    color: Colors.blue,
-                  ),
-                ),
-              ),
-              TextButton(
-                style: TextButton.styleFrom(
-                  padding: const EdgeInsets.all(16.0),
-                  primary: Colors.white,
-                  textStyle: const TextStyle(fontSize: 15),
-                ),
-                onPressed: () {},
-                child: const Text('VIEW'),
-              ),
-            ],
-          ),
-        ),
-      ),
-      _Row(
-        'Cell A2',
-        'CellB2',
-        'CellC2',
-        "CellC1",
-        TextButton(
-          onPressed: () {},
-          child: const Text('VIEW'),
-        ),
-      ),
-      _Row(
-        'Cell A2',
-        'CellB2',
-        'CellC2',
-        "CellC1",
-        ClipRRect(
-          borderRadius: BorderRadius.circular(6),
-          child: Stack(
-            children: <Widget>[
-              Positioned.fill(
-                child: Container(
-                  decoration: const BoxDecoration(
-                    color: Colors.blue,
-                  ),
-                ),
-              ),
-              TextButton(
-                style: TextButton.styleFrom(
-                  padding: const EdgeInsets.all(16.0),
-                  primary: Colors.white,
-                  textStyle: const TextStyle(fontSize: 15),
-                ),
-                onPressed: () {},
-                child: const Text('VIEW'),
-              ),
-            ],
-          ),
-        ),
-      ),
-      _Row(
-        'Cell A2',
-        'CellB2',
-        'CellC2',
-        "CellC1",
-        ClipRRect(
-          borderRadius: BorderRadius.circular(6),
-          child: Stack(
-            children: <Widget>[
-              Positioned.fill(
-                child: Container(
-                  decoration: const BoxDecoration(
-                    color: Colors.blue,
-                  ),
-                ),
-              ),
-              TextButton(
-                style: TextButton.styleFrom(
-                  padding: const EdgeInsets.all(16.0),
-                  primary: Colors.white,
-                  textStyle: const TextStyle(fontSize: 15),
-                ),
-                onPressed: () {},
-                child: const Text('VIEW'),
-              ),
-            ],
-          ),
-        ),
-      ),
-    ];
+    _rows;
   }
 
   final BuildContext context;
-  List<_Row> _rows = [];
+  List<_Row> _rows = List.generate(50, (index) {
+    return _Row(
+      'Cell A2',
+      'CellB2',
+      'CellC2',
+      "CellC1",
+      ClipRRect(
+        borderRadius: BorderRadius.circular(6),
+        child: Stack(
+          children: <Widget>[
+            Positioned.fill(
+              child: Container(
+                decoration: const BoxDecoration(
+                  color: Colors.blue,
+                ),
+              ),
+            ),
+            TextButton(
+              style: TextButton.styleFrom(
+                padding: const EdgeInsets.all(16.0),
+                primary: Colors.white,
+                textStyle: const TextStyle(fontSize: 15),
+              ),
+              onPressed: () {},
+              child: const Text('VIEW'),
+            ),
+          ],
+        ),
+      ),
+    );
+  });
 
   int _selectedCount = 0;
 
