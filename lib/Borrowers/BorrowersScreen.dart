@@ -92,8 +92,9 @@ class _DataSource extends DataTableSource {
 
   final BuildContext context;
   List<_Row> _rows = List.generate(50, (index) {
+    int tot = index + 1;
     return _Row(
-      'Cell A2',
+      tot.toString(),
       'CellB2',
       'CellC2',
       "CellC1",

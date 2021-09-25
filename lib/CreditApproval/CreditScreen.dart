@@ -8,6 +8,9 @@ class CreditScreen extends StatefulWidget {
 }
 
 class _CreditScreen extends State<CreditScreen> {
+  double textSize = 15;
+  double titleSize = 30;
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -17,7 +20,7 @@ class _CreditScreen extends State<CreditScreen> {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Container(
-                padding: EdgeInsets.only(top: 40, bottom: 30, right: 20),
+                padding: EdgeInsets.only(top: 10, bottom: 10, right: 20),
                 alignment: Alignment.topLeft,
                 width: (MediaQuery.of(context).size.width) / 4.5,
                 child: TextField(
@@ -45,106 +48,164 @@ class _CreditScreen extends State<CreditScreen> {
                 ),
               ),
             ]),
-        Container(
-          padding: EdgeInsets.all(20),
-          alignment: Alignment.center,
-          width: (MediaQuery.of(context).size.width),
-          height: (MediaQuery.of(context).size.width) / 2.5,
-          child: GridView.count(
-              crossAxisCount: 4,
-              crossAxisSpacing: 5,
-              childAspectRatio: MediaQuery.of(context).size.width /
-                  (MediaQuery.of(context).size.height),
-              children: List.generate(50, (index) {
-                return Column(
-                  children: [
-                    Card(
-                      shadowColor: Colors.black,
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text(
-                            'PENDING...',
-                            softWrap: true,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 50,
+        Expanded(
+          child: Container(
+            padding: EdgeInsets.only(bottom: 40, right: 20, left: 20),
+            //alignment: Alignment.center,
+            width: (MediaQuery.of(context).size.width),
+            height: (MediaQuery.of(context).size.height),
+            child: GridView.count(
+                crossAxisCount: 4,
+                crossAxisSpacing: 5,
+                childAspectRatio: MediaQuery.of(context).size.width /
+                    (MediaQuery.of(context).size.height),
+                children: List.generate(50, (index) {
+                  return Column(
+                    children: [
+                      Card(
+                        shadowColor: Colors.black,
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              'PENDING...',
+                              softWrap: true,
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: titleSize,
+                              ),
                             ),
-                          ),
-                          Text(
-                            'Randel Reyes',
-                            softWrap: true,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20,
-                            ),
-                          ),
-                          Text(
-                            'Pagdaicon, Mabolo Naga City',
-                            softWrap: true,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20,
-                            ),
-                          ),
-                          Text(
-                            '+63 995 354 5532',
-                            softWrap: true,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20,
-                            ),
-                          ),
-                          Text(
-                            'Show Application',
-                            softWrap: true,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 10,
-                              decoration: TextDecoration.underline,
-                            ),
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(10),
-                                child: Stack(
-                                  children: <Widget>[
-                                    Positioned.fill(
-                                      child: Container(
-                                        decoration: const BoxDecoration(
-                                          color: Colors.blue,
-                                        ),
-                                      ),
+                            Row(
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.only(right: 10),
+                                  child: Text(
+                                    'Name',
+                                    softWrap: true,
+                                    style: TextStyle(
+                                      fontSize: 10,
                                     ),
-                                    TextButton(
-                                      style: TextButton.styleFrom(
-                                        padding: const EdgeInsets.all(5.0),
-                                        primary: Colors.white,
-                                        textStyle: TextStyle(fontSize: 20),
-                                      ),
-                                      onPressed: () {},
-                                      child: const Text('APPROVE'),
+                                  ),
+                                ),
+                                Expanded(
+                                  child: Text(
+                                    'Randel Reyes',
+                                    softWrap: true,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: textSize,
                                     ),
-                                  ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.only(right: 10),
+                                  child: Text(
+                                    'Address',
+                                    softWrap: true,
+                                    style: TextStyle(
+                                      fontSize: 10,
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                  child: Text(
+                                    'Pagdaicon, Mabolo Naga City',
+                                    softWrap: true,
+                                    maxLines: 2,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: textSize,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.only(right: 10),
+                                  child: Text(
+                                    'Number',
+                                    softWrap: true,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 10,
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                  child: Text(
+                                    '+63 995 354 5532',
+                                    softWrap: true,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: textSize,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            TextButton(
+                              child: const Text('Show application'),
+                              style: TextButton.styleFrom(
+                                textStyle: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 10,
+                                  decoration: TextDecoration.underline,
                                 ),
                               ),
-                              IconButton(
-                                icon: Icon(Icons.cancel),
-                                color: Colors.redAccent.shade400,
-                                tooltip: 'DENY CREDIT',
-                                onPressed: () {},
-                              ),
-                            ],
-                          )
-                        ],
-                      ),
-                    )
-                  ],
-                );
-              })),
+                              onPressed: () {},
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(10),
+                                  child: Stack(
+                                    children: <Widget>[
+                                      Positioned.fill(
+                                        child: Container(
+                                          decoration: const BoxDecoration(
+                                            color: Colors.blue,
+                                          ),
+                                        ),
+                                      ),
+                                      TextButton(
+                                        style: TextButton.styleFrom(
+                                          padding: const EdgeInsets.only(
+                                              left: 30,
+                                              right: 30,
+                                              top: 5,
+                                              bottom: 5),
+                                          primary: Colors.white,
+                                          textStyle: TextStyle(fontSize: 20),
+                                        ),
+                                        onPressed: () {},
+                                        child: const Text('APPROVE'),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                IconButton(
+                                  icon: Icon(Icons.cancel),
+                                  color: Colors.redAccent.shade400,
+                                  tooltip: 'DENY CREDIT',
+                                  onPressed: () {},
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
+                      )
+                    ],
+                  );
+                })),
+          ),
         ),
       ],
     );
