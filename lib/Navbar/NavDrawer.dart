@@ -8,6 +8,7 @@ import '../Payment/PaymentScreen.dart';
 import '../CreditApproval/CreditScreen.dart';
 import '../RequestedProducts/RequestedProdScreen.dart';
 import '../Repairs/RepairsScreen.dart';
+import '../Inventory/InventoryScreen.dart';
 
 class NavDrawer extends StatefulWidget {
   @override
@@ -15,7 +16,7 @@ class NavDrawer extends StatefulWidget {
 }
 
 class _NavDrawer extends State<NavDrawer> {
-  int _selectedIndex = 5;
+  int _selectedIndex = 7;
 
   var pages = [
     GraphText(),
@@ -25,6 +26,7 @@ class _NavDrawer extends State<NavDrawer> {
     CreditScreen(),
     RequestedProdScreen(),
     RepairsScreen(),
+    InventoryScreen(),
   ];
 
   var title = [
@@ -35,6 +37,7 @@ class _NavDrawer extends State<NavDrawer> {
     'Credit Approval',
     'Requested Products',
     'Repairs',
+    'Inventory'
   ];
 
   @override

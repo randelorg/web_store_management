@@ -15,7 +15,6 @@ class _BorrowersScreen extends State<BorrowersScreen> {
         children: [
           Container(
             padding: EdgeInsets.only(top: 50, right: 20),
-            alignment: Alignment.topLeft,
             width: (MediaQuery.of(context).size.width) / 4.5,
             child: TextField(
               decoration: InputDecoration(
