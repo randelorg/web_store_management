@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'MakePayment.dart';
+import '../Borrowers/ViewBorrowerProfile.dart';
+import 'package:flutter/widgets.dart';
 
 class PaymentScreen extends StatefulWidget {
   @override
@@ -6,6 +10,8 @@ class PaymentScreen extends StatefulWidget {
 }
 
 class _PaymentScreen extends State<PaymentScreen> {
+  int _currentSortColumn = 0;
+  bool _isAscending = true;
   Widget build(BuildContext context) {
     return Column(children: <Widget>[
       Row(
@@ -49,10 +55,31 @@ class _PaymentScreen extends State<PaymentScreen> {
             padding: const EdgeInsets.all(16),
             children: [
               PaginatedDataTable(
+                sortColumnIndex: _currentSortColumn,
+                sortAscending: _isAscending,
                 showCheckboxColumn: false,
                 rowsPerPage: 10,
                 columns: [
-                  DataColumn(label: Text('BID')),
+                  DataColumn(
+                    label: Text('BID'),
+                    // SORTING **** FIX THE LIST METHOD
+                    // onSort: (columnIndex, _) {
+                    //   setState(() {
+                    //     _currentSortColumn = columnIndex;
+                    //     if (_isAscending == true) {
+                    //       _isAscending = false;
+                    //       // sort the product list in Ascending, order by Price
+                    //       _payments.sort((productA, productB) =>
+                    //           productB['price'].compareTo(productA['price']));
+                    //     } else {
+                    //       _isAscending = true;
+                    //       // sort the product list in Descending, order by Price
+                    //       _payments.sort((productA, productB) =>
+                    //           productA['price'].compareTo(productB['price']));
+                    //     }
+                    //   });
+                    // }
+                  ),
                   DataColumn(label: Text('Name')),
                   DataColumn(label: Text('TOTAL DEBT')),
                   DataColumn(label: Text('PAYMENT')),
@@ -86,72 +113,18 @@ class _Row {
 
 class _DataSource extends DataTableSource {
   _DataSource(this.context) {
-    _rows;
+    _paymentsList(context);
   }
 
   final BuildContext context;
-  List<_Row> _rows = List.generate(50, (index) {
-    int tot = index + 1;
-    return _Row(
-      tot.toString(),
-      'CellB2',
-      'CellC2',
-      ClipRRect(
-        borderRadius: BorderRadius.circular(6),
-        child: Stack(
-          children: <Widget>[
-            Positioned.fill(
-              child: Container(
-                decoration: const BoxDecoration(
-                  color: Colors.blue,
-                ),
-              ),
-            ),
-            TextButton(
-              style: TextButton.styleFrom(
-                padding: const EdgeInsets.all(16.0),
-                primary: Colors.white,
-                textStyle: const TextStyle(fontSize: 15),
-              ),
-              onPressed: () {},
-              child: const Text('PAY'),
-            ),
-          ],
-        ),
-      ),
-      ClipRRect(
-        borderRadius: BorderRadius.circular(6),
-        child: Stack(
-          children: <Widget>[
-            Positioned.fill(
-              child: Container(
-                decoration: const BoxDecoration(
-                  color: Colors.blue,
-                ),
-              ),
-            ),
-            TextButton(
-              style: TextButton.styleFrom(
-                padding: const EdgeInsets.all(16.0),
-                primary: Colors.white,
-                textStyle: const TextStyle(fontSize: 15),
-              ),
-              onPressed: () {},
-              child: const Text('VIEW'),
-            ),
-          ],
-        ),
-      ),
-    );
-  });
 
   int _selectedCount = 0;
 
   @override
   DataRow? getRow(int index) {
     assert(index >= 0);
-    if (index >= _rows.length) return null;
-    final row = _rows[index];
+    if (index >= _paymentsList(context).length) return null;
+    final row = _paymentsList(context)[index];
     return DataRow.byIndex(
       index: index,
       selected: row.selected,
@@ -175,11 +148,83 @@ class _DataSource extends DataTableSource {
   }
 
   @override
-  int get rowCount => _rows.length;
+  int get rowCount => _paymentsList(context).length;
 
   @override
   bool get isRowCountApproximate => false;
 
   @override
   int get selectedRowCount => _selectedCount;
+}
+
+List _paymentsList(BuildContext context) {
+  List<_Row> _payments;
+
+  return _payments = List.generate(50, (index) {
+    int tot = index + 1;
+
+    return _Row(
+      tot.toString(),
+      'CellB2',
+      'CellC2',
+      ClipRRect(
+        borderRadius: BorderRadius.circular(6),
+        child: Stack(
+          children: <Widget>[
+            Positioned.fill(
+              child: Container(
+                decoration: const BoxDecoration(
+                  color: Colors.blue,
+                ),
+              ),
+            ),
+            TextButton(
+              style: TextButton.styleFrom(
+                padding: const EdgeInsets.all(16.0),
+                primary: Colors.white,
+                textStyle: const TextStyle(fontSize: 15),
+              ),
+              onPressed: () {
+                showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return MakePayment();
+                    });
+              },
+              child: const Text('PAY'),
+            ),
+          ],
+        ),
+      ),
+      ClipRRect(
+        borderRadius: BorderRadius.circular(6),
+        child: Stack(
+          children: <Widget>[
+            Positioned.fill(
+              child: Container(
+                decoration: const BoxDecoration(
+                  color: Colors.blue,
+                ),
+              ),
+            ),
+            TextButton(
+              style: TextButton.styleFrom(
+                padding: const EdgeInsets.all(16.0),
+                primary: Colors.white,
+                textStyle: const TextStyle(fontSize: 15),
+              ),
+              onPressed: () {
+                showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return ViewBorrowerProfile();
+                    });
+              },
+              child: const Text('VIEW'),
+            ),
+          ],
+        ),
+      ),
+    );
+  });
 }

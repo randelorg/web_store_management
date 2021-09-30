@@ -16,7 +16,7 @@ class NavDrawer extends StatefulWidget {
 }
 
 class _NavDrawer extends State<NavDrawer> {
-  int _selectedIndex = 7;
+  int _selectedIndex = 4;
 
   var pages = [
     GraphText(),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'ViewBorrowerProfile.dart';
 
 class BorrowersScreen extends StatefulWidget {
   @override
@@ -84,13 +85,10 @@ class _Row {
   bool selected = false;
 }
 
-class _DataSource extends DataTableSource {
-  _DataSource(this.context) {
-    _rows;
-  }
+List _borrowerProfile(BuildContext context) {
+  List<_Row> _profiles;
 
-  final BuildContext context;
-  List<_Row> _rows = List.generate(50, (index) {
+  return _profiles = List.generate(50, (index) {
     int tot = index + 1;
     return _Row(
       tot.toString(),
@@ -114,7 +112,13 @@ class _DataSource extends DataTableSource {
                 primary: Colors.white,
                 textStyle: const TextStyle(fontSize: 15),
               ),
-              onPressed: () {},
+              onPressed: () {
+                showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return ViewBorrowerProfile();
+                    });
+              },
               child: const Text('VIEW'),
             ),
           ],
@@ -122,14 +126,22 @@ class _DataSource extends DataTableSource {
       ),
     );
   });
+}
+
+class _DataSource extends DataTableSource {
+  _DataSource(this.context) {
+    _borrowerProfile(context);
+  }
+
+  final BuildContext context;
 
   int _selectedCount = 0;
 
   @override
   DataRow? getRow(int index) {
     assert(index >= 0);
-    if (index >= _rows.length) return null;
-    final row = _rows[index];
+    if (index >= _borrowerProfile(context).length) return null;
+    final row = _borrowerProfile(context)[index];
     return DataRow.byIndex(
       index: index,
       selected: row.selected,
@@ -153,7 +165,7 @@ class _DataSource extends DataTableSource {
   }
 
   @override
-  int get rowCount => _rows.length;
+  int get rowCount => _borrowerProfile(context).length;
 
   @override
   bool get isRowCountApproximate => false;

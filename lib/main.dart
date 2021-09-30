@@ -4,9 +4,7 @@ import 'LoginPage/LoginPage.dart';
 import 'DashBoard/Home.dart';
 import 'Borrowers/BorrowersScreen.dart';
 
-void main() {
-  runApp(MyApp());
-}
+void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   @override
