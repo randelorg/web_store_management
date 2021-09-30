@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:flutter/widgets.dart';
+
 import 'MakePayment.dart';
 import '../Borrowers/ViewBorrowerProfile.dart';
-import 'package:flutter/widgets.dart';
 
 class PaymentScreen extends StatefulWidget {
   @override

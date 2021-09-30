@@ -135,6 +135,14 @@ class _NavDrawer extends State<NavDrawer> {
                   style: TextStyle(),
                 ),
               ),
+              NavigationRailDestination(
+                icon: Icon(Icons.logout),
+                label: Text(
+                  'Log Out',
+                  softWrap: true,
+                  style: TextStyle(),
+                ),
+              ),
             ],
           ),
           const VerticalDivider(width: 20),

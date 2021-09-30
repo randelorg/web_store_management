@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'dart:math';
 
+import 'UpdateProduct.dart';
+
 class InventoryScreen extends StatefulWidget {
   @override
   _InventoryScreen createState() => _InventoryScreen();
@@ -231,7 +233,7 @@ class _Row {
   );
 
   final String valueA;
-  final String valueB;
+  final Widget valueB;
   final String valueC;
   final Widget valueD;
 
@@ -240,17 +242,76 @@ class _Row {
 
 class _DataSource extends DataTableSource {
   _DataSource(this.context) {
-    _rows;
+    _productList(context);
   }
 
   final BuildContext context;
-  List<_Row> _rows = List.generate(50, (index) {
+  int _selectedCount = 0;
+
+  @override
+  DataRow? getRow(int index) {
+    assert(index >= 0);
+    if (index >= _productList(context).length) return null;
+    final row = _productList(context)[index];
+    return DataRow.byIndex(
+      index: index,
+      selected: row.selected,
+      onSelectChanged: (value) {
+        if (row.selected != value) {
+          var value = false;
+          _selectedCount += value ? 1 : -1;
+          assert(_selectedCount >= 0);
+          row.selected = value;
+          notifyListeners();
+        }
+      },
+      cells: [
+        DataCell(Text(row.valueA)),
+        DataCell((row.valueB)),
+        DataCell(Text(row.valueC)),
+        DataCell((row.valueD)),
+      ],
+    );
+  }
+
+  @override
+  int get rowCount => _productList(context).length;
+
+  @override
+  bool get isRowCountApproximate => false;
+
+  @override
+  int get selectedRowCount => _selectedCount;
+}
+
+//this will identify if stock is <= 2
+//if it reacher 2 stock this will return an icon
+//else it will return the stock number
+Widget _dangerStock(String stuff) {
+  if (int.parse(stuff) > 2) {
+    return _parseString(stuff);
+  } else {
+    return Icon(Icons.warning, color: Colors.red);
+  }
+}
+
+//this will parse the string and convert
+//it to Text Widget
+Widget _parseString(String stuff) {
+  return Text(stuff);
+}
+
+List _productList(BuildContext context) {
+  List<_Row> _products;
+
+  return _products = List.generate(50, (index) {
     Random random = new Random();
-    int randomQty = random.nextInt(100) + 5;
+    int randomQty = random.nextInt(10) + 1;
     double randomPrice = random.nextDouble() + 2000.00;
+
     return _Row(
       'CellB1',
-      randomQty.toString(),
+      _dangerStock(randomQty.toString()),
       double.parse(randomPrice.toStringAsFixed(2)).toString(),
       ClipRRect(
         borderRadius: BorderRadius.circular(6),
@@ -269,7 +330,13 @@ class _DataSource extends DataTableSource {
                 primary: Colors.white,
                 textStyle: const TextStyle(fontSize: 15),
               ),
-              onPressed: () {},
+              onPressed: () {
+                showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return UpdateProduct();
+                    });
+              },
               child: const Text('UPDATE'),
             ),
           ],
@@ -277,41 +344,4 @@ class _DataSource extends DataTableSource {
       ),
     );
   });
-
-  int _selectedCount = 0;
-
-  @override
-  DataRow? getRow(int index) {
-    assert(index >= 0);
-    if (index >= _rows.length) return null;
-    final row = _rows[index];
-    return DataRow.byIndex(
-      index: index,
-      selected: row.selected,
-      onSelectChanged: (value) {
-        if (row.selected != value) {
-          var value = false;
-          _selectedCount += value ? 1 : -1;
-          assert(_selectedCount >= 0);
-          row.selected = value;
-          notifyListeners();
-        }
-      },
-      cells: [
-        DataCell(Text(row.valueA)),
-        DataCell(Text(row.valueB)),
-        DataCell(Text(row.valueC)),
-        DataCell((row.valueD)),
-      ],
-    );
-  }
-
-  @override
-  int get rowCount => _rows.length;
-
-  @override
-  bool get isRowCountApproximate => false;
-
-  @override
-  int get selectedRowCount => _selectedCount;
 }
