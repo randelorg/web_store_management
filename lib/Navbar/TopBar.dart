@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart'; //library for going to next pages
 import 'package:web_store_management/LoginPage/LoginPage.dart';
 
+import 'NotificationDrawer.dart';
+
 class TopBar extends StatelessWidget with PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
@@ -27,71 +29,14 @@ class TopBar extends StatelessWidget with PreferredSizeWidget {
             //come up with this
           },
         ),
-        Container(
-          child:PopupMenuButton(
-            child: Icon(Icons.notifications, color: Colors.blue,),
-            //onSelected: (WhyFarther result) { setState(() { _selection = result; }); },
-            itemBuilder: (context) => [
-              PopupMenuItem(
-                child: Column(
-                  children: [
-                    TextButton.icon(
-                      icon: Icon(
-                        Icons.notifications_active,
-                        color: Colors.blue,
-                      ),
-                      label: Text(
-                        'Item 01',
-                        softWrap: true,
-                      ),
-                      onPressed: () {}, //pwdeng refresh button
-                    ),
-                    TextButton.icon(
-                      icon: Icon(
-                        Icons.notifications_active,
-                        color: Colors.blue,
-                      ),
-                      label: Text(
-                        'Item 02',
-                        softWrap: true,
-                      ),
-                      onPressed: () {}, //pwdeng refresh button
-                    ),
-                    TextButton.icon(
-                      icon: Icon(
-                        Icons.notifications_active,
-                        color: Colors.blue,
-                      ),
-                      label: Text(
-                        'Item 03',
-                        softWrap: true,
-                      ),
-                      onPressed: () {}, //pwdeng refresh button
-                    ),
-                    TextButton.icon(
-                      icon: Icon(
-                        Icons.notifications_active,
-                        color: Colors.blue,
-                      ),
-                      label: Text(
-                        'Item 04',
-                        softWrap: true,
-                      ),
-                      onPressed: () {}, //pwdeng refresh button
-                    ),
-                  ],
-                )
-              ),
-            ],
-          ),
-        ),
+        Container(child: NotificationDrawer()),
         IconButton(
           icon: const Icon(Icons.logout, color: Colors.red),
           tooltip: 'Logout',
           onPressed: () {
             Get.to(LoginPage());
           },
-        )
+        ),
       ],
     );
   }

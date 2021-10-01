@@ -44,25 +44,26 @@ class _BorrowersScreen extends State<BorrowersScreen> {
         ],
       ),
       Container(
-          width: (MediaQuery.of(context).size.width),
-          height: (MediaQuery.of(context).size.height) / 1.5,
-          child: ListView(
-            padding: const EdgeInsets.all(16),
-            children: [
-              PaginatedDataTable(
-                showCheckboxColumn: false,
-                rowsPerPage: 10,
-                columns: [
-                  DataColumn(label: Text('BID')),
-                  DataColumn(label: Text('Name')),
-                  DataColumn(label: Text('Number')),
-                  DataColumn(label: Text('Balance')),
-                  DataColumn(label: Text('Action')),
-                ],
-                source: _DataSource(context),
-              )
-            ],
-          ))
+        width: (MediaQuery.of(context).size.width),
+        height: (MediaQuery.of(context).size.height) / 1.5,
+        child: ListView(
+          padding: const EdgeInsets.all(16),
+          children: [
+            PaginatedDataTable(
+              showCheckboxColumn: false,
+              rowsPerPage: 10,
+              columns: [
+                DataColumn(label: Text('BID')),
+                DataColumn(label: Text('Name')),
+                DataColumn(label: Text('Number')),
+                DataColumn(label: Text('Balance')),
+                DataColumn(label: Text('Action')),
+              ],
+              source: _DataSource(context),
+            )
+          ],
+        ),
+      ),
     ]);
   }
 }
@@ -90,7 +91,7 @@ List _borrowerProfile(BuildContext context) {
 
   return _profiles = List.generate(50, (index) {
     int tot = index + 1;
-    return _Row(
+    return new _Row(
       tot.toString(),
       'CellB2',
       'CellC2',

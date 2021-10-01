@@ -53,18 +53,20 @@ class _CreditScreen extends State<CreditScreen> {
             width: (MediaQuery.of(context).size.width),
             height: (MediaQuery.of(context).size.height),
             child: GridView.count(
-                crossAxisCount: 4,
-                crossAxisSpacing: 10,
-                mainAxisSpacing: 100,
-                shrinkWrap: true,
-                childAspectRatio: MediaQuery.of(context).size.width /
-                    (MediaQuery.of(context).size.height),
-                children: List.generate(50, (index) {
-                  return Column(
-                    children: [
-                      Container(
-                        height: (MediaQuery.of(context).size.height) / 4,
-                        child: Card(
+              crossAxisCount: 4,
+              crossAxisSpacing: 10,
+              mainAxisSpacing: 100,
+              shrinkWrap: true,
+              childAspectRatio: MediaQuery.of(context).size.width /
+                  (MediaQuery.of(context).size.height),
+              children: List.generate(
+                50,
+                (index) {
+                  return new Container(
+                    height: (MediaQuery.of(context).size.height) / 4,
+                    child: Column(
+                      children: [
+                        Card(
                           shadowColor: Colors.black,
                           elevation: 5,
                           child: Column(
@@ -205,10 +207,12 @@ class _CreditScreen extends State<CreditScreen> {
                             ],
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   );
-                })),
+                },
+              ),
+            ),
           ),
         ),
       ],
