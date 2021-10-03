@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:web_store_management/NewLoan/BorrowersDetails.dart';
+import 'package:web_store_management/NewLoan/HomeNewLoan.dart';
 
 import '../DashBoard/GraphText.dart';
-import '../NewLoan/BorrowersDetails.dart';
+import '../NewLoan/HomeNewLoan.dart';
 import '../Borrowers/BorrowersScreen.dart';
 import '../Payment/PaymentScreen.dart';
 import '../CreditApproval/CreditScreen.dart';
@@ -16,11 +16,11 @@ class NavDrawer extends StatefulWidget {
 }
 
 class _NavDrawer extends State<NavDrawer> {
-  int _selectedIndex = 4;
+  int _selectedIndex = 1;
 
   var pages = [
     GraphText(),
-    BorrowerDetail(),
+    HomeNewLoan(),
     BorrowersScreen(),
     PaymentScreen(),
     CreditScreen(),

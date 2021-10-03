@@ -55,7 +55,7 @@ class _CreditScreen extends State<CreditScreen> {
             child: GridView.count(
               crossAxisCount: 4,
               crossAxisSpacing: 10,
-              mainAxisSpacing: 100,
+              mainAxisSpacing: 10,
               shrinkWrap: true,
               childAspectRatio: MediaQuery.of(context).size.width /
                   (MediaQuery.of(context).size.height),

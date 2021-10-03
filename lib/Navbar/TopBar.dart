@@ -9,33 +9,46 @@ class TopBar extends StatelessWidget with PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       title: const Text(
-        'DELLRAINS STORE MANAGEMENT SYSTEM',
+        'DASHBOARD',
         style: TextStyle(
           color: Colors.blue,
           fontWeight: FontWeight.bold,
         ),
       ),
+
       //automaticallyImplyLeading: true,
-      centerTitle: false,
+      centerTitle: true,
       backgroundColor: Colors.white,
       leading: Image.asset('../assets/images/store-logo.png'),
       leadingWidth: 100,
 
       actions: <Widget>[
-        IconButton(
-          icon: const Icon(Icons.person, color: Colors.blue),
-          tooltip: 'Profile',
-          onPressed: () {
-            //come up with this
-          },
+        Padding(
+          padding: EdgeInsets.only(right: 10),
+          child: Container(
+            height: (MediaQuery.of(context).size.height) / 8,
+            child: NotificationDrawer(),
+          ),
         ),
-        Container(child: NotificationDrawer()),
-        IconButton(
-          icon: const Icon(Icons.logout, color: Colors.red),
-          tooltip: 'Logout',
-          onPressed: () {
-            Get.to(LoginPage());
-          },
+        Padding(
+          padding: EdgeInsets.only(right: 10),
+          child: IconButton(
+            icon: const Icon(Icons.person, color: Colors.blue),
+            tooltip: 'Profile',
+            onPressed: () {
+              //come up with this
+            },
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.only(right: 30),
+          child: IconButton(
+            icon: const Icon(Icons.logout, color: Colors.red),
+            tooltip: 'Logout',
+            onPressed: () {
+              Get.to(LoginPage());
+            },
+          ),
         ),
       ],
     );
