@@ -13,44 +13,46 @@ class _PaymentScreen extends State<PaymentScreen> {
   int _currentSortColumn = 0;
   bool _isAscending = true;
   Widget build(BuildContext context) {
-    return Column(children: <Widget>[
-      Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          Container(
-            padding: EdgeInsets.only(top: 50, right: 20),
-            alignment: Alignment.topLeft,
-            width: (MediaQuery.of(context).size.width) / 4.5,
-            child: TextField(
-              decoration: InputDecoration(
-                hintText: 'Search borrower',
-                suffixIcon: InkWell(
-                  child: IconButton(
-                    icon: Icon(Icons.qr_code_scanner_outlined),
-                    color: Colors.grey,
-                    tooltip: 'Search by QR',
-                    onPressed: () {},
+    return ListView(
+      scrollDirection: Axis.vertical,
+      children: <Widget>[
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            Container(
+              padding: EdgeInsets.only(top: 5, right: 20),
+              alignment: Alignment.topLeft,
+              width: (MediaQuery.of(context).size.width) / 4.5,
+              child: TextField(
+                decoration: InputDecoration(
+                  hintText: 'Search borrower',
+                  suffixIcon: InkWell(
+                    child: IconButton(
+                      icon: Icon(Icons.qr_code_scanner_outlined),
+                      color: Colors.grey,
+                      tooltip: 'Search by QR',
+                      onPressed: () {},
+                    ),
                   ),
-                ),
-                filled: true,
-                fillColor: Colors.blueGrey[50],
-                labelStyle: TextStyle(fontSize: 12),
-                contentPadding: EdgeInsets.only(left: 30),
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                  filled: true,
+                  fillColor: Colors.blueGrey[50],
+                  labelStyle: TextStyle(fontSize: 10),
+                  contentPadding: EdgeInsets.only(left: 30),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                  ),
                 ),
               ),
             ),
-          ),
-        ],
-      ),
-      Container(
+          ],
+        ),
+        Container(
           width: (MediaQuery.of(context).size.width),
-          height: (MediaQuery.of(context).size.height) / 1.5,
+          height: (MediaQuery.of(context).size.height) / 1.2,
           child: ListView(
             padding: const EdgeInsets.all(16),
             children: [
@@ -58,7 +60,7 @@ class _PaymentScreen extends State<PaymentScreen> {
                 sortColumnIndex: _currentSortColumn,
                 sortAscending: _isAscending,
                 showCheckboxColumn: false,
-                rowsPerPage: 10,
+                rowsPerPage: 8,
                 columns: [
                   DataColumn(
                     label: Text('BID'),
@@ -86,10 +88,12 @@ class _PaymentScreen extends State<PaymentScreen> {
                   DataColumn(label: Text('VIEW')),
                 ],
                 source: _DataSource(context),
-              )
+              ),
             ],
-          ))
-    ]);
+          ),
+        )
+      ],
+    );
   }
 }
 

@@ -9,13 +9,13 @@ class BorrowersScreen extends StatefulWidget {
 class _BorrowersScreen extends State<BorrowersScreen> {
   @override
   Widget build(BuildContext context) {
-    return Column(children: <Widget>[
+    return ListView(scrollDirection: Axis.vertical, children: <Widget>[
       Row(
         mainAxisAlignment: MainAxisAlignment.end,
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           Container(
-            padding: EdgeInsets.only(top: 50, right: 20),
+            padding: EdgeInsets.only(top: 5, right: 20),
             width: (MediaQuery.of(context).size.width) / 4.5,
             child: TextField(
               decoration: InputDecoration(
@@ -45,13 +45,13 @@ class _BorrowersScreen extends State<BorrowersScreen> {
       ),
       Container(
         width: (MediaQuery.of(context).size.width),
-        height: (MediaQuery.of(context).size.height) / 1.5,
+        height: (MediaQuery.of(context).size.height) / 1.2,
         child: ListView(
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.only(right: 16, left: 16),
           children: [
             PaginatedDataTable(
               showCheckboxColumn: false,
-              rowsPerPage: 10,
+              rowsPerPage: 8,
               columns: [
                 DataColumn(label: Text('BID')),
                 DataColumn(label: Text('Name')),

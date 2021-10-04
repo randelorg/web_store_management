@@ -26,7 +26,6 @@ class TopBar extends StatelessWidget with PreferredSizeWidget {
         Padding(
           padding: EdgeInsets.only(right: 10),
           child: Container(
-            height: (MediaQuery.of(context).size.height) / 8,
             child: NotificationDrawer(),
           ),
         ),

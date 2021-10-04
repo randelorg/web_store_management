@@ -37,7 +37,7 @@ List<Widget> _notificationsList() {
           borderRadius: BorderRadius.circular(10),
         ),
         child: Padding(
-          padding: EdgeInsets.only(top: 10, bottom: 10, right: 30),
+          padding: EdgeInsets.only(top: 10, bottom: 10, right: 20),
           child: TextButton.icon(
             icon: Icon(
               Icons.notifications_active,

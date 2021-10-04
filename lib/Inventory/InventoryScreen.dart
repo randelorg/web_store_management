@@ -13,163 +13,149 @@ class _InventoryScreen extends State<InventoryScreen> {
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-                width: (MediaQuery.of(context).size.width) / 6,
-                height: (MediaQuery.of(context).size.height) / 2.3,
-                child: Expanded(
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: TextButton.icon(
-                          icon: Icon(Icons.add_circle_outline),
-                          label: Text(
-                            'Add Product',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 25,
-                                color: Colors.blue.shade900,
-                                overflow: TextOverflow.fade),
-                            maxLines: 2,
+        Container(
+          width: (MediaQuery.of(context).size.width) / 5,
+          height: (MediaQuery.of(context).size.height) / 2,
+          child: Expanded(
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: TextButton.icon(
+                    icon: Icon(Icons.add_circle_outline),
+                    label: Text(
+                      'Add Product',
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 25,
+                          color: Colors.blue.shade900,
+                          overflow: TextOverflow.fade),
+                      maxLines: 2,
+                    ),
+                    onPressed: () {},
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(6.0),
+                  child: TextField(
+                    decoration: InputDecoration(
+                      hintText: 'Product Name',
+                      filled: true,
+                      fillColor: Colors.blueGrey[50],
+                      labelStyle: TextStyle(fontSize: 12),
+                      contentPadding: EdgeInsets.only(left: 30),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(6.0),
+                  child: TextField(
+                    decoration: InputDecoration(
+                      hintText: 'Quantity',
+                      filled: true,
+                      fillColor: Colors.blueGrey[50],
+                      labelStyle: TextStyle(fontSize: 12),
+                      contentPadding: EdgeInsets.only(left: 30),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(6.0),
+                  child: TextField(
+                    decoration: InputDecoration(
+                      hintText: 'Price',
+                      filled: true,
+                      fillColor: Colors.blueGrey[50],
+                      labelStyle: TextStyle(fontSize: 12),
+                      contentPadding: EdgeInsets.only(left: 30),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(6.0),
+                  child: TextField(
+                    decoration: InputDecoration(
+                      hintText: 'Unit',
+                      filled: true,
+                      fillColor: Colors.blueGrey[50],
+                      labelStyle: TextStyle(fontSize: 12),
+                      contentPadding: EdgeInsets.only(left: 30),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: Stack(
+                      children: <Widget>[
+                        Positioned.fill(
+                          child: Container(
+                            decoration: const BoxDecoration(
+                              color: Colors.blue,
+                            ),
+                          ),
+                        ),
+                        TextButton(
+                          style: TextButton.styleFrom(
+                            padding: const EdgeInsets.all(20),
+                            primary: Colors.white,
+                            textStyle: TextStyle(fontSize: 20),
                           ),
                           onPressed: () {},
+                          child: const Text('ADD'),
                         ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(6.0),
-                        child: TextField(
-                          decoration: InputDecoration(
-                            hintText: 'Product Name',
-                            filled: true,
-                            fillColor: Colors.blueGrey[50],
-                            labelStyle: TextStyle(fontSize: 12),
-                            contentPadding: EdgeInsets.only(left: 30),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide:
-                                  BorderSide(color: Colors.blueGrey.shade50),
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide:
-                                  BorderSide(color: Colors.blueGrey.shade50),
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(6.0),
-                        child: TextField(
-                          decoration: InputDecoration(
-                            hintText: 'Quantity',
-                            filled: true,
-                            fillColor: Colors.blueGrey[50],
-                            labelStyle: TextStyle(fontSize: 12),
-                            contentPadding: EdgeInsets.only(left: 30),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide:
-                                  BorderSide(color: Colors.blueGrey.shade50),
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide:
-                                  BorderSide(color: Colors.blueGrey.shade50),
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(6.0),
-                        child: TextField(
-                          decoration: InputDecoration(
-                            hintText: 'Price',
-                            filled: true,
-                            fillColor: Colors.blueGrey[50],
-                            labelStyle: TextStyle(fontSize: 12),
-                            contentPadding: EdgeInsets.only(left: 30),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide:
-                                  BorderSide(color: Colors.blueGrey.shade50),
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide:
-                                  BorderSide(color: Colors.blueGrey.shade50),
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(6.0),
-                        child: TextField(
-                          decoration: InputDecoration(
-                            hintText: 'Unit',
-                            filled: true,
-                            fillColor: Colors.blueGrey[50],
-                            labelStyle: TextStyle(fontSize: 12),
-                            contentPadding: EdgeInsets.only(left: 30),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide:
-                                  BorderSide(color: Colors.blueGrey.shade50),
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide:
-                                  BorderSide(color: Colors.blueGrey.shade50),
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(10),
-                          child: Stack(
-                            children: <Widget>[
-                              Positioned.fill(
-                                child: Container(
-                                  decoration: const BoxDecoration(
-                                    color: Colors.blue,
-                                  ),
-                                ),
-                              ),
-                              TextButton(
-                                style: TextButton.styleFrom(
-                                  padding: const EdgeInsets.all(20),
-                                  primary: Colors.white,
-                                  textStyle: TextStyle(fontSize: 20),
-                                ),
-                                onPressed: () {},
-                                child: const Text('ADD'),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ))
-          ],
+                ),
+              ],
+            ),
+          ),
         ),
-        Expanded(
-            child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
+        Column(
           children: [
             Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              crossAxisAlignment: CrossAxisAlignment.end,
+              // mainAxisAlignment: MainAxisAlignment.end,
+              // crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Container(
-                  padding: EdgeInsets.only(right: 40),
+                  padding: EdgeInsets.only(right: 80),
                   width: (MediaQuery.of(context).size.width) / 5,
                   child: TextField(
                     decoration: InputDecoration(
@@ -178,7 +164,7 @@ class _InventoryScreen extends State<InventoryScreen> {
                         child: IconButton(
                           icon: Icon(Icons.search_sharp),
                           color: Colors.grey,
-                          //tooltip: 'Search by QR',
+                          tooltip: 'Search by QR',
                           onPressed: () {},
                         ),
                       ),
@@ -205,7 +191,7 @@ class _InventoryScreen extends State<InventoryScreen> {
                 children: [
                   PaginatedDataTable(
                     showCheckboxColumn: false,
-                    rowsPerPage: 12,
+                    rowsPerPage: 10,
                     columns: [
                       DataColumn(label: Text('PRODUCT NAME')),
                       DataColumn(label: Text('QTY')),
@@ -218,7 +204,7 @@ class _InventoryScreen extends State<InventoryScreen> {
               ),
             )
           ],
-        )),
+        ),
       ],
     );
   }

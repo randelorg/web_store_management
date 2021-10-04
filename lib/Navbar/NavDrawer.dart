@@ -16,7 +16,7 @@ class NavDrawer extends StatefulWidget {
 }
 
 class _NavDrawer extends State<NavDrawer> {
-  int _selectedIndex = 1;
+  int _selectedIndex = 7;
 
   var pages = [
     GraphText(),
@@ -47,6 +47,7 @@ class _NavDrawer extends State<NavDrawer> {
         children: <Widget>[
           //list[_selectedIndex],
           NavigationRail(
+            elevation: 5,
             minWidth: 45.0,
             selectedIndex: _selectedIndex,
             onDestinationSelected: (int index) {
@@ -54,7 +55,7 @@ class _NavDrawer extends State<NavDrawer> {
                 _selectedIndex = index;
               });
             },
-            extended: true,
+            //extended: true,
             labelType: NavigationRailLabelType.none,
             destinations: const <NavigationRailDestination>[
               NavigationRailDestination(
@@ -145,14 +146,15 @@ class _NavDrawer extends State<NavDrawer> {
               ),
             ],
           ),
-          const VerticalDivider(width: 20),
+          const VerticalDivider(width: 5),
           // This is the main content.
           //this is how we navigate
           //this is where the menus content will be displayed
           Expanded(
-              child: Center(
-            child: pages[_selectedIndex],
-          )),
+            child: Center(
+              child: pages[_selectedIndex],
+            ),
+          ),
         ],
       ),
     );

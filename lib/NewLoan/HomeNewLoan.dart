@@ -231,7 +231,7 @@ class HomeNewLoan extends StatelessWidget {
                 width: (MediaQuery.of(context).size.width) / 2.5,
                 child: PaginatedDataTable(
                   showCheckboxColumn: false,
-                  rowsPerPage: 10,
+                  rowsPerPage: 8,
                   columns: [
                     DataColumn(label: Text('PRODUCT NAME')),
                     DataColumn(label: Text('PRICE')),
@@ -260,7 +260,7 @@ class HomeNewLoan extends StatelessWidget {
                 width: (MediaQuery.of(context).size.width) / 5,
                 child: PaginatedDataTable(
                   showCheckboxColumn: false,
-                  rowsPerPage: 10,
+                  rowsPerPage: 6,
                   columns: [
                     DataColumn(label: Text('#')),
                     DataColumn(label: Text('PRICE')),
