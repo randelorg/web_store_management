@@ -3,6 +3,7 @@ import 'package:get/get.dart'; //library for going to next pages
 import 'package:web_store_management/LoginPage/LoginPage.dart';
 
 import 'NotificationDrawer.dart';
+import 'ViewProfile.dart';
 
 class TopBar extends StatelessWidget with PreferredSizeWidget {
   @override
@@ -35,7 +36,11 @@ class TopBar extends StatelessWidget with PreferredSizeWidget {
             icon: const Icon(Icons.person, color: Colors.blue),
             tooltip: 'Profile',
             onPressed: () {
-              //come up with this
+              showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return ViewProfile();
+                  });
             },
           ),
         ),
