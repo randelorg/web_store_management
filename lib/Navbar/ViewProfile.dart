@@ -7,10 +7,8 @@ class ViewProfile extends StatelessWidget {
   Widget build(BuildContext context) {
     return AlertDialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-      content: Column(
-        //mainAxisAlignment: MainAxisAlignment.spaceAround,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
+      actions: <Widget>[
+        Column(children: [
           Icon(
             Icons.account_circle,
             size: 200,
@@ -96,56 +94,34 @@ class ViewProfile extends StatelessWidget {
               ],
             ),
           ),
-          TextButton(
-            style: TextButton.styleFrom(
-              padding: const EdgeInsets.only(
-                  left: 30, right: 30, top: 20, bottom: 20),
-              primary: Colors.white,
-              textStyle: TextStyle(fontSize: 25),
+          Padding(
+            padding: EdgeInsets.only(top: 30, bottom: 30),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(20),
+              child: Stack(
+                children: <Widget>[
+                  Positioned.fill(
+                    child: Container(
+                      decoration: const BoxDecoration(
+                        color: Colors.blue,
+                      ),
+                    ),
+                  ),
+                  TextButton(
+                    style: TextButton.styleFrom(
+                      padding: const EdgeInsets.only(
+                          left: 30, right: 30, top: 20, bottom: 20),
+                      primary: Colors.white,
+                      textStyle: TextStyle(fontSize: 25),
+                    ),
+                    onPressed: () {},
+                    child: const Text('Add Account'),
+                  ),
+                ],
+              ),
             ),
-            onPressed: () {},
-            child: const Text('Add Account'),
           ),
-        ],
-      ),
-      actions: <Widget>[
-        // TextButton(
-        //   style: TextButton.styleFrom(
-        //     padding:
-        //         const EdgeInsets.only(left: 30, right: 30, top: 20, bottom: 20),
-        //     primary: Colors.white,
-        //     textStyle: TextStyle(fontSize: 25),
-        //   ),
-        //   onPressed: () {},
-        //   child: const Text('Add Account'),
-        // ),
-        // Padding(
-        //   padding: EdgeInsets.only(top: 30, bottom: 30),
-        //   child: ClipRRect(
-        //     borderRadius: BorderRadius.circular(20),
-        //     child: Stack(
-        //       children: <Widget>[
-        //         Positioned.fill(
-        //           child: Container(
-        //             decoration: const BoxDecoration(
-        //               color: Colors.blue,
-        //             ),
-        //           ),
-        //         ),
-        //         TextButton(
-        //           style: TextButton.styleFrom(
-        //             padding: const EdgeInsets.only(
-        //                 left: 30, right: 30, top: 20, bottom: 20),
-        //             primary: Colors.white,
-        //             textStyle: TextStyle(fontSize: 25),
-        //           ),
-        //           onPressed: () {},
-        //           child: const Text('Add Account'),
-        //         ),
-        //       ],
-        //     ),
-        //   ),
-        // ),
+        ]),
       ],
     );
   }

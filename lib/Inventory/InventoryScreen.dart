@@ -24,18 +24,15 @@ class _InventoryScreen extends State<InventoryScreen> {
               children: [
                 Padding(
                   padding: const EdgeInsets.all(10.0),
-                  child: TextButton.icon(
-                    icon: Icon(Icons.add_circle_outline),
-                    label: Text(
-                      'Add Product',
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 25,
-                          color: Colors.blue.shade900,
-                          overflow: TextOverflow.fade),
-                      maxLines: 2,
-                    ),
-                    onPressed: () {},
+                  child: Text(
+                    'Add Product',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 25,
+                        color: Colors.blue.shade900,
+                        overflow: TextOverflow.fade),
+                    maxLines: 2,
                   ),
                 ),
                 Padding(
@@ -150,44 +147,69 @@ class _InventoryScreen extends State<InventoryScreen> {
         ),
         Column(
           children: [
-            Row(
-              // mainAxisAlignment: MainAxisAlignment.end,
-              // crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                Container(
-                  padding: EdgeInsets.only(right: 80),
-                  width: (MediaQuery.of(context).size.width) / 5,
-                  child: TextField(
-                    decoration: InputDecoration(
-                      hintText: 'Search product',
-                      suffixIcon: InkWell(
-                        child: IconButton(
-                          icon: Icon(Icons.search_sharp),
-                          color: Colors.grey,
-                          tooltip: 'Search by QR',
-                          onPressed: () {},
+            Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
+              Container(
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: Stack(
+                    children: <Widget>[
+                      Positioned.fill(
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.blueGrey.shade50,
+                          ),
                         ),
                       ),
-                      filled: true,
-                      fillColor: Colors.blueGrey[50],
-                      labelStyle: TextStyle(fontSize: 12),
-                      contentPadding: EdgeInsets.only(left: 30),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                      Tooltip(
+                        message: 'Transfer Stocks',
+                        child: TextButton(
+                          style: TextButton.styleFrom(
+                            padding: const EdgeInsets.all(20),
+                            primary: Colors.black,
+                            textStyle: TextStyle(fontSize: 18),
+                          ),
+                          onPressed: () {},
+                          child: const Text('TRANSFER'),
+                        ),
                       ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                    ],
+                  ),
+                ),
+              ),
+              Container(
+                alignment: Alignment.topRight,
+                padding: EdgeInsets.only(top: 10, right: 60),
+                width: (MediaQuery.of(context).size.width) / 5,
+                child: TextField(
+                  decoration: InputDecoration(
+                    hintText: 'Search product',
+                    suffixIcon: InkWell(
+                      child: IconButton(
+                        icon: Icon(Icons.search_sharp),
+                        color: Colors.grey,
+                        tooltip: 'Search by Name',
+                        onPressed: () {},
                       ),
+                    ),
+                    filled: true,
+                    fillColor: Colors.blueGrey[50],
+                    labelStyle: TextStyle(fontSize: 12),
+                    contentPadding: EdgeInsets.only(left: 30),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.blueGrey.shade50),
                     ),
                   ),
                 ),
-              ],
-            ),
+              ),
+            ]),
             Container(
               width: (MediaQuery.of(context).size.width) / 1.5,
               height: (MediaQuery.of(context).size.height) / 1.3,
               child: ListView(
-                padding: const EdgeInsets.all(16),
+                padding: const EdgeInsets.all(10),
                 children: [
                   PaginatedDataTable(
                     showCheckboxColumn: false,
