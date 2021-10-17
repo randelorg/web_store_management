@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'dart:math';
 
+import 'package:web_store_management/Inventory/TransferStock.dart';
 import 'UpdateProduct.dart';
 
 class InventoryScreen extends StatefulWidget {
@@ -168,7 +169,13 @@ class _InventoryScreen extends State<InventoryScreen> {
                             primary: Colors.black,
                             textStyle: TextStyle(fontSize: 18),
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+                            showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return TransferStock();
+                                });
+                          },
                           child: const Text('TRANSFER'),
                         ),
                       ),
