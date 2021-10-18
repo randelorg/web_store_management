@@ -13,15 +13,14 @@ class _PaymentScreen extends State<PaymentScreen> {
   int _currentSortColumn = 0;
   bool _isAscending = true;
   Widget build(BuildContext context) {
-    return ListView(
-      scrollDirection: Axis.vertical,
+    return Column(
       children: <Widget>[
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             Container(
-              padding: EdgeInsets.only(top: 5, right: 20),
+              padding: EdgeInsets.all(15),
               alignment: Alignment.topLeft,
               width: (MediaQuery.of(context).size.width) / 4.5,
               child: TextField(
@@ -50,48 +49,51 @@ class _PaymentScreen extends State<PaymentScreen> {
             ),
           ],
         ),
-        Container(
-          width: (MediaQuery.of(context).size.width),
-          height: (MediaQuery.of(context).size.height) / 1.2,
-          child: ListView(
-            padding: const EdgeInsets.all(16),
-            children: [
-              PaginatedDataTable(
-                sortColumnIndex: _currentSortColumn,
-                sortAscending: _isAscending,
-                showCheckboxColumn: false,
-                rowsPerPage: 8,
-                columns: [
-                  DataColumn(
-                    label: Text('BID'),
-                    // SORTING **** FIX THE LIST METHOD
-                    // onSort: (columnIndex, _) {
-                    //   setState(() {
-                    //     _currentSortColumn = columnIndex;
-                    //     if (_isAscending == true) {
-                    //       _isAscending = false;
-                    //       // sort the product list in Ascending, order by Price
-                    //       _payments.sort((productA, productB) =>
-                    //           productB['price'].compareTo(productA['price']));
-                    //     } else {
-                    //       _isAscending = true;
-                    //       // sort the product list in Descending, order by Price
-                    //       _payments.sort((productA, productB) =>
-                    //           productA['price'].compareTo(productB['price']));
-                    //     }
-                    //   });
-                    // }
-                  ),
-                  DataColumn(label: Text('Name')),
-                  DataColumn(label: Text('TOTAL DEBT')),
-                  DataColumn(label: Text('PAYMENT')),
-                  DataColumn(label: Text('VIEW')),
-                ],
-                source: _DataSource(context),
-              ),
-            ],
+        Expanded(
+          child: Container(
+            width: (MediaQuery.of(context).size.width),
+            height: (MediaQuery.of(context).size.height),
+            child: ListView(
+              scrollDirection: Axis.vertical,
+              padding: const EdgeInsets.only(bottom: 15, right: 15, left: 15),
+              children: [
+                PaginatedDataTable(
+                  sortColumnIndex: _currentSortColumn,
+                  sortAscending: _isAscending,
+                  showCheckboxColumn: false,
+                  rowsPerPage: 15,
+                  columns: [
+                    DataColumn(
+                      label: Text('BID'),
+                      // SORTING **** FIX THE LIST METHOD
+                      // onSort: (columnIndex, _) {
+                      //   setState(() {
+                      //     _currentSortColumn = columnIndex;
+                      //     if (_isAscending == true) {
+                      //       _isAscending = false;
+                      //       // sort the product list in Ascending, order by Price
+                      //       _payments.sort((productA, productB) =>
+                      //           productB['price'].compareTo(productA['price']));
+                      //     } else {
+                      //       _isAscending = true;
+                      //       // sort the product list in Descending, order by Price
+                      //       _payments.sort((productA, productB) =>
+                      //           productA['price'].compareTo(productB['price']));
+                      //     }
+                      //   });
+                      // }
+                    ),
+                    DataColumn(label: Text('Name')),
+                    DataColumn(label: Text('TOTAL DEBT')),
+                    DataColumn(label: Text('PAYMENT')),
+                    DataColumn(label: Text('VIEW')),
+                  ],
+                  source: _DataSource(context),
+                ),
+              ],
+            ),
           ),
-        )
+        ),
       ],
     );
   }

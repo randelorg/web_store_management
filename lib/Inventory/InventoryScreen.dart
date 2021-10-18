@@ -15,142 +15,164 @@ class _InventoryScreen extends State<InventoryScreen> {
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
+      children: <Widget>[
         Container(
           width: (MediaQuery.of(context).size.width) / 5,
           height: (MediaQuery.of(context).size.height) / 2,
-          child: Expanded(
-            child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Text(
-                    'Add Product',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 25,
-                        color: Colors.blue.shade900,
-                        overflow: TextOverflow.fade),
-                    maxLines: 2,
-                  ),
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Text(
+                  'Add Product',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 25,
+                      color: Colors.blue.shade900,
+                      overflow: TextOverflow.fade),
+                  maxLines: 2,
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(6.0),
-                  child: TextField(
-                    decoration: InputDecoration(
-                      hintText: 'Product Name',
-                      filled: true,
-                      fillColor: Colors.blueGrey[50],
-                      labelStyle: TextStyle(fontSize: 12),
-                      contentPadding: EdgeInsets.only(left: 30),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
+              ),
+              Padding(
+                padding: EdgeInsets.all(6.0),
+                child: TextField(
+                  decoration: InputDecoration(
+                    hintText: 'Barcode',
+                    suffixIcon: IconButton(
+                      onPressed: () {},
+                      icon: Icon(Icons.scanner_sharp),
+                      tooltip: 'Scan product barcode',
+                    ),
+                    filled: true,
+                    fillColor: Colors.blueGrey[50],
+                    labelStyle: TextStyle(fontSize: 10),
+                    contentPadding: EdgeInsets.only(left: 30),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                      borderRadius: BorderRadius.circular(5),
                     ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(6.0),
-                  child: TextField(
-                    decoration: InputDecoration(
-                      hintText: 'Quantity',
-                      filled: true,
-                      fillColor: Colors.blueGrey[50],
-                      labelStyle: TextStyle(fontSize: 12),
-                      contentPadding: EdgeInsets.only(left: 30),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(6.0),
+                child: TextField(
+                  decoration: InputDecoration(
+                    hintText: 'Product Name',
+                    filled: true,
+                    fillColor: Colors.blueGrey[50],
+                    labelStyle: TextStyle(fontSize: 12),
+                    contentPadding: EdgeInsets.only(left: 30),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                      borderRadius: BorderRadius.circular(10),
                     ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(6.0),
-                  child: TextField(
-                    decoration: InputDecoration(
-                      hintText: 'Price',
-                      filled: true,
-                      fillColor: Colors.blueGrey[50],
-                      labelStyle: TextStyle(fontSize: 12),
-                      contentPadding: EdgeInsets.only(left: 30),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(6.0),
+                child: TextField(
+                  decoration: InputDecoration(
+                    hintText: 'Quantity',
+                    filled: true,
+                    fillColor: Colors.blueGrey[50],
+                    labelStyle: TextStyle(fontSize: 12),
+                    contentPadding: EdgeInsets.only(left: 30),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                      borderRadius: BorderRadius.circular(10),
                     ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(6.0),
-                  child: TextField(
-                    decoration: InputDecoration(
-                      hintText: 'Unit',
-                      filled: true,
-                      fillColor: Colors.blueGrey[50],
-                      labelStyle: TextStyle(fontSize: 12),
-                      contentPadding: EdgeInsets.only(left: 30),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(6.0),
+                child: TextField(
+                  decoration: InputDecoration(
+                    hintText: 'Price',
+                    filled: true,
+                    fillColor: Colors.blueGrey[50],
+                    labelStyle: TextStyle(fontSize: 12),
+                    contentPadding: EdgeInsets.only(left: 30),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                      borderRadius: BorderRadius.circular(10),
                     ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
-                    child: Stack(
-                      children: <Widget>[
-                        Positioned.fill(
-                          child: Container(
-                            decoration: const BoxDecoration(
-                              color: Colors.blue,
-                            ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(6.0),
+                child: TextField(
+                  decoration: InputDecoration(
+                    hintText: 'Unit',
+                    filled: true,
+                    fillColor: Colors.blueGrey[50],
+                    labelStyle: TextStyle(fontSize: 12),
+                    contentPadding: EdgeInsets.only(left: 30),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: Stack(
+                    children: <Widget>[
+                      Positioned.fill(
+                        child: Container(
+                          decoration: const BoxDecoration(
+                            color: Colors.blue,
                           ),
                         ),
-                        TextButton(
-                          style: TextButton.styleFrom(
-                            padding: const EdgeInsets.all(20),
-                            primary: Colors.white,
-                            textStyle: TextStyle(fontSize: 20),
-                          ),
-                          onPressed: () {},
-                          child: const Text('ADD'),
+                      ),
+                      TextButton(
+                        style: TextButton.styleFrom(
+                          padding: const EdgeInsets.all(20),
+                          primary: Colors.white,
+                          textStyle: TextStyle(fontSize: 20),
                         ),
-                      ],
-                    ),
+                        onPressed: () {},
+                        child: const Text('ADD'),
+                      ),
+                    ],
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
         Column(
           children: [
-            Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
-              Container(
-                child: ClipRRect(
+            Row(
+              children: [
+                ClipRRect(
                   borderRadius: BorderRadius.circular(10),
                   child: Stack(
                     children: <Widget>[
@@ -171,10 +193,11 @@ class _InventoryScreen extends State<InventoryScreen> {
                           ),
                           onPressed: () {
                             showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return TransferStock();
-                                });
+                              context: context,
+                              builder: (BuildContext context) {
+                                return TransferStock();
+                              },
+                            );
                           },
                           child: const Text('TRANSFER'),
                         ),
@@ -182,56 +205,57 @@ class _InventoryScreen extends State<InventoryScreen> {
                     ],
                   ),
                 ),
-              ),
-              Container(
-                alignment: Alignment.topRight,
-                padding: EdgeInsets.only(top: 10, right: 60),
-                width: (MediaQuery.of(context).size.width) / 5,
-                child: TextField(
-                  decoration: InputDecoration(
-                    hintText: 'Search product',
-                    suffixIcon: InkWell(
-                      child: IconButton(
-                        icon: Icon(Icons.search_sharp),
-                        color: Colors.grey,
-                        tooltip: 'Search by Name',
-                        onPressed: () {},
+                Container(
+                  padding: EdgeInsets.only(left: 10, top: 10),
+                  width: (MediaQuery.of(context).size.width) / 6,
+                  child: TextField(
+                    decoration: InputDecoration(
+                      hintText: 'Search product',
+                      suffixIcon: InkWell(
+                        child: IconButton(
+                          icon: Icon(Icons.search_sharp),
+                          color: Colors.grey,
+                          tooltip: 'Search by Name',
+                          onPressed: () {},
+                        ),
                       ),
-                    ),
-                    filled: true,
-                    fillColor: Colors.blueGrey[50],
-                    labelStyle: TextStyle(fontSize: 12),
-                    contentPadding: EdgeInsets.only(left: 30),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                      filled: true,
+                      fillColor: Colors.blueGrey[50],
+                      labelStyle: TextStyle(fontSize: 12),
+                      contentPadding: EdgeInsets.only(left: 30),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                      ),
                     ),
                   ),
                 ),
+              ],
+            ),
+            Expanded(
+              child: Container(
+                width: (MediaQuery.of(context).size.width) / 1.5,
+                height: (MediaQuery.of(context).size.height),
+                child: ListView(
+                  padding: const EdgeInsets.all(10),
+                  children: [
+                    PaginatedDataTable(
+                      showCheckboxColumn: false,
+                      rowsPerPage: 15,
+                      columns: [
+                        DataColumn(label: Text('PRODUCT NAME')),
+                        DataColumn(label: Text('QTY')),
+                        DataColumn(label: Text('PRICE')),
+                        DataColumn(label: Text('ACTION')),
+                      ],
+                      source: _DataSource(context),
+                    )
+                  ],
+                ),
               ),
-            ]),
-            Container(
-              width: (MediaQuery.of(context).size.width) / 1.5,
-              height: (MediaQuery.of(context).size.height) / 1.3,
-              child: ListView(
-                padding: const EdgeInsets.all(10),
-                children: [
-                  PaginatedDataTable(
-                    showCheckboxColumn: false,
-                    rowsPerPage: 10,
-                    columns: [
-                      DataColumn(label: Text('PRODUCT NAME')),
-                      DataColumn(label: Text('QTY')),
-                      DataColumn(label: Text('PRICE')),
-                      DataColumn(label: Text('ACTION')),
-                    ],
-                    source: _DataSource(context),
-                  )
-                ],
-              ),
-            )
+            ),
           ],
         ),
       ],

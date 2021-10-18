@@ -37,10 +37,11 @@ class TopBar extends StatelessWidget with PreferredSizeWidget {
             tooltip: 'Profile',
             onPressed: () {
               showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return ViewProfile();
-                  });
+                context: context,
+                builder: (BuildContext context) {
+                  return ViewProfile();
+                },
+              );
             },
           ),
         ),

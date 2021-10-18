@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:web_store_management/NewLoan/HomeNewLoan.dart';
 
-import '../DashBoard/GraphText.dart';
+import '../DashBoard/TimeCollection.dart';
 import '../NewLoan/HomeNewLoan.dart';
 import '../Borrowers/BorrowersScreen.dart';
 import '../Payment/PaymentScreen.dart';
@@ -16,10 +16,10 @@ class NavDrawer extends StatefulWidget {
 }
 
 class _NavDrawer extends State<NavDrawer> {
-  int _selectedIndex = 7;
+  int _selectedIndex = 4;
 
   var pages = [
-    GraphText(),
+    TimeCollection(),
     HomeNewLoan(),
     BorrowersScreen(),
     PaymentScreen(),
