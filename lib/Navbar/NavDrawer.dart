@@ -49,99 +49,152 @@ class _NavDrawer extends State<NavDrawer> {
           NavigationRail(
             elevation: 5,
             minWidth: 45.0,
+            backgroundColor: Colors.grey.shade900,
             selectedIndex: _selectedIndex,
             onDestinationSelected: (int index) {
               setState(() {
                 _selectedIndex = index;
               });
             },
-            //extended: true,
-            labelType: NavigationRailLabelType.none,
+            labelType: NavigationRailLabelType.all,
             destinations: const <NavigationRailDestination>[
               NavigationRailDestination(
-                icon: Icon(Icons.space_dashboard),
+                icon: Icon(
+                  Icons.space_dashboard,
+                  color: Colors.white,
+                ),
                 label: Text(
                   'Dashboard',
-                  style: TextStyle(),
+                  style: TextStyle(
+                    fontSize: 8,
+                    color: Colors.white,
+                  ),
                 ),
               ),
               NavigationRailDestination(
-                icon: Icon(Icons.create),
+                icon: Icon(
+                  Icons.create,
+                  color: Colors.white,
+                ),
                 label: Text(
                   'New Loan',
-                  style: TextStyle(),
+                  style: TextStyle(
+                    fontSize: 8,
+                    color: Colors.white,
+                  ),
                 ),
               ),
               NavigationRailDestination(
-                icon: Icon(Icons.group),
+                icon: Icon(
+                  Icons.group,
+                  color: Colors.white,
+                ),
                 label: Text(
                   'Borrowers',
                   softWrap: true,
-                  style: TextStyle(),
+                  style: TextStyle(
+                    fontSize: 8,
+                    color: Colors.white,
+                  ),
                 ),
               ),
               NavigationRailDestination(
-                icon: Icon(Icons.payments),
+                icon: Icon(
+                  Icons.payments,
+                  color: Colors.white,
+                ),
                 label: Text(
                   'Payment',
                   softWrap: true,
-                  style: TextStyle(),
+                  style: TextStyle(
+                    fontSize: 8,
+                    color: Colors.white,
+                  ),
                 ),
               ),
               NavigationRailDestination(
-                icon: Icon(Icons.credit_score),
+                icon: Icon(
+                  Icons.credit_score,
+                  color: Colors.white,
+                ),
                 label: Text(
-                  'Credit Approval',
+                  'Credit \n Approval',
                   softWrap: true,
-                  style: TextStyle(),
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 8,
+                    color: Colors.white,
+                  ),
                 ),
               ),
               NavigationRailDestination(
-                icon: Icon(Icons.request_quote),
+                icon: Icon(
+                  Icons.request_quote,
+                  color: Colors.white,
+                ),
                 label: Text(
                   'Request',
                   softWrap: true,
-                  style: TextStyle(),
+                  style: TextStyle(
+                    fontSize: 8,
+                    color: Colors.white,
+                  ),
                 ),
               ),
               NavigationRailDestination(
-                icon: Icon(Icons.build),
+                icon: Icon(
+                  Icons.build,
+                  color: Colors.white,
+                ),
                 label: Text(
                   'Repair',
                   softWrap: true,
-                  style: TextStyle(),
+                  style: TextStyle(
+                    fontSize: 8,
+                    color: Colors.white,
+                  ),
                 ),
               ),
               NavigationRailDestination(
-                icon: Icon(Icons.inventory_2),
+                icon: Icon(
+                  Icons.inventory_2,
+                  color: Colors.white,
+                ),
                 label: Text(
                   'Inventory',
                   softWrap: true,
-                  style: TextStyle(),
+                  style: TextStyle(
+                    fontSize: 8,
+                    color: Colors.white,
+                  ),
                 ),
               ),
               NavigationRailDestination(
-                icon: Icon(Icons.insights),
+                icon: Icon(
+                  Icons.insights,
+                  color: Colors.white,
+                ),
                 label: Text(
                   'Reports',
                   softWrap: true,
-                  style: TextStyle(),
+                  style: TextStyle(
+                    fontSize: 8,
+                    color: Colors.white,
+                  ),
                 ),
               ),
               NavigationRailDestination(
-                icon: Icon(Icons.badge),
-                label: Text(
-                  'Collectors',
-                  softWrap: true,
-                  style: TextStyle(),
+                icon: Icon(
+                  Icons.badge,
+                  color: Colors.white,
                 ),
-              ),
-              NavigationRailDestination(
-                icon: Icon(Icons.logout),
                 label: Text(
-                  'Log Out',
+                  'Employees',
                   softWrap: true,
-                  style: TextStyle(),
+                  style: TextStyle(
+                    fontSize: 8,
+                    color: Colors.white,
+                  ),
                 ),
               ),
             ],
