@@ -57,6 +57,7 @@ class _NavDrawer extends State<NavDrawer> {
             },
             //extended: true,
             labelType: NavigationRailLabelType.none,
+         selectedIconTheme: IconThemeData(color: Colors.red),
             destinations: const <NavigationRailDestination>[
               NavigationRailDestination(
                 icon: Icon(Icons.space_dashboard),

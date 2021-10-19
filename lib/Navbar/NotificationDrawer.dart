@@ -1,4 +1,5 @@
-import 'package:flutter/material.dart'; //library for going to next pages
+import 'package:flutter/material.dart';
+import 'package:hexcolor/hexcolor.dart'; 
 
 class NotificationDrawer extends StatefulWidget {
   @override
@@ -12,7 +13,7 @@ class _NotificationDrawer extends State<NotificationDrawer> {
       elevation: 5,
       child: Icon(
         Icons.notifications,
-        color: Colors.blue,
+        color: HexColor("#155293")
       ),
       itemBuilder: (context) => [
         PopupMenuItem(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hexcolor/hexcolor.dart';
 
 class ViewProfile extends StatelessWidget {
   const ViewProfile({Key? key}) : super(key: key);
@@ -9,8 +10,23 @@ class ViewProfile extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       actions: <Widget>[
         Column(children: [
+   
+          Align(     
+            alignment: Alignment.topRight,
+            child: IconButton(      
+              icon: Icon(
+                Icons.cancel,             
+                size: 30,
+              ),
+              onPressed: () {
+                 Navigator.of(context).pop();
+              },
+            ),
+          ),
+                
           Icon(
             Icons.account_circle,
+            color: HexColor("#155293"),
             size: 200,
           ),
           TextButton(
@@ -19,6 +35,7 @@ class ViewProfile extends StatelessWidget {
               'Update Profile',
               style: TextStyle(
                 fontSize: 10,
+                color: HexColor("#155293"),
                 decoration: TextDecoration.underline,
               ),
             ),
@@ -86,7 +103,7 @@ class ViewProfile extends StatelessWidget {
                     onPressed: () {},
                     child: Text(
                       'Change Password',
-                      style: TextStyle(fontSize: 10),
+                      style: TextStyle(fontSize: 10,color: HexColor("#155293")),
                     ),
                   ),
                 ),
@@ -97,22 +114,22 @@ class ViewProfile extends StatelessWidget {
           Padding(
             padding: EdgeInsets.only(top: 30, bottom: 30),
             child: ClipRRect(
-              borderRadius: BorderRadius.circular(20),
+              borderRadius: BorderRadius.circular(80),
               child: Stack(
                 children: <Widget>[
                   Positioned.fill(
                     child: Container(
-                      decoration: const BoxDecoration(
-                        color: Colors.blue,
+                      decoration: BoxDecoration(
+                        color: HexColor("#155293"),
                       ),
                     ),
                   ),
                   TextButton(
                     style: TextButton.styleFrom(
                       padding: const EdgeInsets.only(
-                          left: 30, right: 30, top: 20, bottom: 20),
+                        left: 30, right: 30, top: 20, bottom: 20),
                       primary: Colors.white,
-                      textStyle: TextStyle(fontSize: 25),
+                      textStyle: TextStyle(fontFamily: 'Cairo_Bold', fontSize: 20),
                     ),
                     onPressed: () {},
                     child: const Text('Add Account'),

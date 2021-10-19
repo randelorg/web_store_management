@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hexcolor/hexcolor.dart';
 
 import 'CollectionGraph.dart';
 
@@ -19,15 +20,15 @@ class _GraphText extends State<GraphText> {
             icon: Icon(
               Icons.account_balance_wallet,
               size: 40.0,
-              color: Colors.black,
+              color: HexColor("#155293"),                        
             ),
             label: Text(
               'COLLECTIONS',
               softWrap: true,
               style: TextStyle(
                 fontSize: 30,
-                color: Colors.blue,
-                fontWeight: FontWeight.bold,
+                color: HexColor("#155293"),
+                fontFamily: 'Cairo_Bold',
               ),
             ),
             onPressed: () {}, //pwdeng refresh button
@@ -59,8 +60,8 @@ class _GraphText extends State<GraphText> {
                           softWrap: true,
                           style: TextStyle(
                             fontSize: 25,
-                            color: Colors.blue,
-                            fontWeight: FontWeight.bold,
+                            color: HexColor("#155293"),
+                            fontFamily: 'Cairo_Bold',
                           ),
                         ),
                         onPressed: () {}, //pwdeng refresh button
@@ -90,8 +91,8 @@ class _GraphText extends State<GraphText> {
                           softWrap: true,
                           style: TextStyle(
                             fontSize: 25,
-                            color: Colors.blue,
-                            fontWeight: FontWeight.bold,
+                            color: HexColor("#155293"),
+                            fontFamily: 'Cairo_Bold',
                           ),
                         ),
                         onPressed: () {}, //pwdeng refresh button
@@ -121,8 +122,8 @@ class _GraphText extends State<GraphText> {
                           softWrap: true,
                           style: TextStyle(
                             fontSize: 25,
-                            color: Colors.blue,
-                            fontWeight: FontWeight.bold,
+                            color: HexColor("#155293"),
+                            fontFamily: 'Cairo_Bold',
                           ),
                         ),
                         onPressed: () {}, //pwdeng refresh button

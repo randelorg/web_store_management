@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'ViewBorrowerProfile.dart';
 
 class BorrowersScreen extends StatefulWidget {
@@ -97,13 +98,13 @@ List _borrowerProfile(BuildContext context) {
       'CellC2',
       "CellC1",
       ClipRRect(
-        borderRadius: BorderRadius.circular(6),
+        borderRadius: BorderRadius.circular(20),
         child: Stack(
           children: <Widget>[
             Positioned.fill(
               child: Container(
-                decoration: const BoxDecoration(
-                  color: Colors.blue,
+                decoration: BoxDecoration(    
+                  color: HexColor("#155293"),
                 ),
               ),
             ),
@@ -111,7 +112,7 @@ List _borrowerProfile(BuildContext context) {
               style: TextButton.styleFrom(
                 padding: const EdgeInsets.all(16.0),
                 primary: Colors.white,
-                textStyle: const TextStyle(fontSize: 15),
+                textStyle: const TextStyle(fontFamily: 'Cairo_SemiBold', fontSize: 15),
               ),
               onPressed: () {
                 showDialog(
