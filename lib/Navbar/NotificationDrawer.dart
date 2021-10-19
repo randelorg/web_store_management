@@ -1,3 +1,4 @@
+import 'package:hexcolor/hexcolor.dart'; 
 import 'package:flutter/material.dart'; //library for going to next pages
 
 class NotificationDrawer extends StatefulWidget {

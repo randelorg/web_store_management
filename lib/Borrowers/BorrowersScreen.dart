@@ -1,3 +1,4 @@
+import 'package:hexcolor/hexcolor.dart';
 import 'package:flutter/material.dart';
 import 'ViewBorrowerProfile.dart';
 
@@ -108,7 +109,6 @@ List _borrowerProfile(BuildContext context) {
             Positioned.fill(
               child: Container(
                 decoration: const BoxDecoration(
-                  color: Colors.blue,
                 ),
               ),
             ),
