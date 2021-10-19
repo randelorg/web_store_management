@@ -77,7 +77,7 @@ class _CreditScreen extends State<CreditScreen> {
                         Padding(
                           padding: EdgeInsets.all(10),
                           child: ListTile(
-                            title: const Text(
+                            title: Text(
                               'PENDING',
                               style: TextStyle(fontSize: 30),
                             ),
@@ -114,7 +114,7 @@ class _CreditScreen extends State<CreditScreen> {
                                   softWrap: true,
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 20,
+                                    fontSize: 18,
                                   ),
                                 ),
                               ),
@@ -144,10 +144,10 @@ class _CreditScreen extends State<CreditScreen> {
                                   'Pagdaicon, Mabolo Naga City',
                                   overflow: TextOverflow.visible,
                                   softWrap: true,
-                                  maxLines: 2,
+                                  maxLines: 3,
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 20,
+                                    fontSize: 18,
                                   ),
                                 ),
                               ),
@@ -181,7 +181,7 @@ class _CreditScreen extends State<CreditScreen> {
                                   maxLines: 2,
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    fontSize: textSize,
+                                    fontSize: 18,
                                   ),
                                 ),
                               ),

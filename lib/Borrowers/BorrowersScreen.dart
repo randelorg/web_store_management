@@ -109,6 +109,7 @@ List _borrowerProfile(BuildContext context) {
             Positioned.fill(
               child: Container(
                 decoration: const BoxDecoration(
+                  color: Colors.blue,
                 ),
               ),
             ),
@@ -120,10 +121,11 @@ List _borrowerProfile(BuildContext context) {
               ),
               onPressed: () {
                 showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return ViewBorrowerProfile();
-                    });
+                  context: context,
+                  builder: (BuildContext context) {
+                    return ViewBorrowerProfile();
+                  },
+                );
               },
               child: const Text('VIEW'),
             ),

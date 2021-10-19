@@ -7,6 +7,7 @@ class ViewProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
+      actionsPadding: EdgeInsets.all(20),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       actions: <Widget>[
         Column(children: [

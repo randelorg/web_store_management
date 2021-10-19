@@ -10,15 +10,17 @@ class _UpdateProduct extends State<UpdateProduct> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
+      actionsPadding: EdgeInsets.all(20),
       title: Text(
         'Update Product',
         softWrap: true,
         textAlign: TextAlign.center,
         style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 35,
-            color: Colors.blue,
-            overflow: TextOverflow.fade),
+          fontWeight: FontWeight.bold,
+          fontSize: 35,
+          color: Colors.blue,
+          overflow: TextOverflow.fade,
+        ),
       ),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       actions: <Widget>[

@@ -192,10 +192,11 @@ List _paymentsList(BuildContext context) {
               ),
               onPressed: () {
                 showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return MakePayment();
-                    });
+                  context: context,
+                  builder: (BuildContext context) {
+                    return MakePayment();
+                  },
+                );
               },
               child: const Text('PAY'),
             ),

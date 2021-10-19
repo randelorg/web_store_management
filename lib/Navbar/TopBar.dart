@@ -17,13 +17,11 @@ class TopBar extends StatelessWidget with PreferredSizeWidget {
           fontWeight: FontWeight.bold,
         ),
       ),
-
-      //automaticallyImplyLeading: true,
+      automaticallyImplyLeading: true,
       centerTitle: true,
       backgroundColor: Colors.white,
       leading: Image.asset('../assets/images/store-logo.png'),
       leadingWidth: 100,
-
       actions: <Widget>[
         Padding(
           padding: EdgeInsets.only(right: 10),

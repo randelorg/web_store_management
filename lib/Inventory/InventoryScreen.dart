@@ -170,67 +170,79 @@ class _InventoryScreen extends State<InventoryScreen> {
         ),
         Column(
           children: [
-            Row(
+            Stack(
               children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: Stack(
-                    children: <Widget>[
-                      Positioned.fill(
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: Colors.blueGrey.shade50,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: Stack(
+                        children: <Widget>[
+                          Positioned.fill(
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Colors.blueGrey.shade50,
+                              ),
+                            ),
                           ),
-                        ),
-                      ),
-                      Tooltip(
-                        message: 'Transfer Stocks',
-                        child: TextButton(
-                          style: TextButton.styleFrom(
-                            padding: const EdgeInsets.all(20),
-                            primary: Colors.black,
-                            textStyle: TextStyle(fontSize: 18),
-                          ),
-                          onPressed: () {
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return TransferStock();
+                          Tooltip(
+                            message: 'Transfer Stocks',
+                            child: TextButton(
+                              style: TextButton.styleFrom(
+                                padding: const EdgeInsets.all(20),
+                                primary: Colors.black,
+                                textStyle: TextStyle(fontSize: 18),
+                              ),
+                              onPressed: () {
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return TransferStock();
+                                  },
+                                );
                               },
-                            );
-                          },
-                          child: const Text('TRANSFER'),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  padding: EdgeInsets.only(left: 10, top: 10),
-                  width: (MediaQuery.of(context).size.width) / 6,
-                  child: TextField(
-                    decoration: InputDecoration(
-                      hintText: 'Search product',
-                      suffixIcon: InkWell(
-                        child: IconButton(
-                          icon: Icon(Icons.search_sharp),
-                          color: Colors.grey,
-                          tooltip: 'Search by Name',
-                          onPressed: () {},
-                        ),
-                      ),
-                      filled: true,
-                      fillColor: Colors.blueGrey[50],
-                      labelStyle: TextStyle(fontSize: 12),
-                      contentPadding: EdgeInsets.only(left: 30),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                              child: const Text('TRANSFER'),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                  ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Container(
+                          padding: EdgeInsets.only(left: 10, top: 10),
+                          width: (MediaQuery.of(context).size.width) / 6,
+                          child: TextField(
+                            decoration: InputDecoration(
+                              hintText: 'Search product',
+                              suffixIcon: InkWell(
+                                child: IconButton(
+                                  icon: Icon(Icons.search_sharp),
+                                  color: Colors.grey,
+                                  tooltip: 'Search by Name',
+                                  onPressed: () {},
+                                ),
+                              ),
+                              filled: true,
+                              fillColor: Colors.blueGrey[50],
+                              labelStyle: TextStyle(fontSize: 12),
+                              contentPadding: EdgeInsets.only(left: 30),
+                              enabledBorder: OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: Colors.blueGrey.shade50),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: Colors.blueGrey.shade50),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
               ],
             ),
