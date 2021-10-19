@@ -178,8 +178,7 @@ class HomeNewLoan extends StatelessWidget {
         Container(
           width: (MediaQuery.of(context).size.width) / 2.5,
           child: Column(
-            //padding: const EdgeInsets.all(10),
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Padding(
                 padding: EdgeInsets.all(5),
@@ -201,43 +200,48 @@ class HomeNewLoan extends StatelessWidget {
                     child: TextField(
                       decoration: InputDecoration(
                         hintText: 'Search Product',
-                        suffixIcon: InkWell(
-                          child: IconButton(
-                            icon: Icon(Icons.qr_code),
-                            color: Colors.grey,
-                            tooltip: 'Search by QR',
-                            onPressed: () {},
-                          ),
+                        suffixIcon: IconButton(
+                          onPressed: () {},
+                          icon: Icon(Icons.scanner_sharp),
+                          tooltip: 'Scan product barcode',
                         ),
                         filled: true,
                         fillColor: Colors.blueGrey[50],
-                        hintStyle: TextStyle(fontSize: 12),
-                        labelStyle: TextStyle(fontSize: 8),
+                        labelStyle: TextStyle(fontSize: 10),
                         contentPadding: EdgeInsets.only(left: 10),
                         enabledBorder: OutlineInputBorder(
                           borderSide:
                               BorderSide(color: Colors.blueGrey.shade50),
+                          borderRadius: BorderRadius.circular(5),
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderSide:
                               BorderSide(color: Colors.blueGrey.shade50),
+                          borderRadius: BorderRadius.circular(5),
                         ),
                       ),
                     ),
                   ),
                 ],
               ),
-              Container(
-                width: (MediaQuery.of(context).size.width) / 2.5,
-                child: PaginatedDataTable(
-                  showCheckboxColumn: false,
-                  rowsPerPage: 8,
-                  columns: [
-                    DataColumn(label: Text('PRODUCT NAME')),
-                    DataColumn(label: Text('PRICE')),
-                    DataColumn(label: Text('ACTION')),
-                  ],
-                  source: _SelectionOfProducts(context),
+              Expanded(
+                child: Container(
+                  width: (MediaQuery.of(context).size.width) / 2.5,
+                  child: ListView(
+                    scrollDirection: Axis.vertical,
+                    children: [
+                      PaginatedDataTable(
+                        showCheckboxColumn: false,
+                        rowsPerPage: 14,
+                        columns: [
+                          DataColumn(label: Text('PRODUCT NAME')),
+                          DataColumn(label: Text('PRICE')),
+                          DataColumn(label: Text('ACTION')),
+                        ],
+                        source: _SelectionOfProducts(context),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],

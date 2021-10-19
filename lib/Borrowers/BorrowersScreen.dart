@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:flutter/material.dart';
 import 'ViewBorrowerProfile.dart';
 
 class BorrowersScreen extends StatefulWidget {
@@ -10,62 +10,67 @@ class BorrowersScreen extends StatefulWidget {
 class _BorrowersScreen extends State<BorrowersScreen> {
   @override
   Widget build(BuildContext context) {
-    return ListView(scrollDirection: Axis.vertical, children: <Widget>[
-      Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          Container(
-            padding: EdgeInsets.only(top: 5, right: 20),
-            width: (MediaQuery.of(context).size.width) / 4.5,
-            child: TextField(
-              decoration: InputDecoration(
-                hintText: 'Search borrower',
-                suffixIcon: InkWell(
-                  child: IconButton(
-                    icon: Icon(Icons.qr_code_scanner_outlined),
-                    color: Colors.grey,
-                    tooltip: 'Search by QR',
-                    onPressed: () {},
+    return Column(
+      children: <Widget>[
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            Container(
+              padding: EdgeInsets.all(15),
+              width: (MediaQuery.of(context).size.width) / 4.5,
+              child: TextField(
+                decoration: InputDecoration(
+                  hintText: 'Search borrower',
+                  suffixIcon: InkWell(
+                    child: IconButton(
+                      icon: Icon(Icons.qr_code_scanner_outlined),
+                      color: Colors.grey,
+                      tooltip: 'Search by QR',
+                      onPressed: () {},
+                    ),
                   ),
-                ),
-                filled: true,
-                fillColor: Colors.blueGrey[50],
-                labelStyle: TextStyle(fontSize: 12),
-                contentPadding: EdgeInsets.only(left: 30),
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                  filled: true,
+                  fillColor: Colors.blueGrey[50],
+                  labelStyle: TextStyle(fontSize: 12),
+                  contentPadding: EdgeInsets.only(left: 30),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                  ),
                 ),
               ),
             ),
-          ),
-        ],
-      ),
-      Container(
-        width: (MediaQuery.of(context).size.width),
-        height: (MediaQuery.of(context).size.height) / 1.2,
-        child: ListView(
-          padding: const EdgeInsets.only(right: 16, left: 16),
-          children: [
-            PaginatedDataTable(
-              showCheckboxColumn: false,
-              rowsPerPage: 8,
-              columns: [
-                DataColumn(label: Text('BID')),
-                DataColumn(label: Text('Name')),
-                DataColumn(label: Text('Number')),
-                DataColumn(label: Text('Balance')),
-                DataColumn(label: Text('Action')),
-              ],
-              source: _DataSource(context),
-            )
           ],
         ),
-      ),
-    ]);
+        Expanded(
+          child: Container(
+            width: (MediaQuery.of(context).size.width),
+            height: (MediaQuery.of(context).size.height),
+            child: ListView(
+              scrollDirection: Axis.vertical,
+              padding: const EdgeInsets.only(right: 16, left: 16),
+              children: [
+                PaginatedDataTable(
+                  showCheckboxColumn: false,
+                  rowsPerPage: 15,
+                  columns: [
+                    DataColumn(label: Text('BID')),
+                    DataColumn(label: Text('Name')),
+                    DataColumn(label: Text('Number')),
+                    DataColumn(label: Text('Balance')),
+                    DataColumn(label: Text('Action')),
+                  ],
+                  source: _DataSource(context),
+                )
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
   }
 }
 
@@ -98,13 +103,12 @@ List _borrowerProfile(BuildContext context) {
       'CellC2',
       "CellC1",
       ClipRRect(
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(6),
         child: Stack(
           children: <Widget>[
             Positioned.fill(
               child: Container(
-                decoration: BoxDecoration(    
-                  color: HexColor("#155293"),
+                decoration: const BoxDecoration(
                 ),
               ),
             ),
@@ -112,7 +116,7 @@ List _borrowerProfile(BuildContext context) {
               style: TextButton.styleFrom(
                 padding: const EdgeInsets.all(16.0),
                 primary: Colors.white,
-                textStyle: const TextStyle(fontFamily: 'Cairo_SemiBold', fontSize: 15),
+                textStyle: const TextStyle(fontSize: 15),
               ),
               onPressed: () {
                 showDialog(

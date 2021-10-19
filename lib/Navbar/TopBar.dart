@@ -1,6 +1,6 @@
+import 'package:hexcolor/hexcolor.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart'; //library for going to next pages
-import 'package:hexcolor/hexcolor.dart';
 import 'package:web_store_management/LoginPage/LoginPage.dart';
 
 import 'NotificationDrawer.dart';
@@ -10,12 +10,11 @@ class TopBar extends StatelessWidget with PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      title: Text(     
+      title: const Text(
         'DASHBOARD',
         style: TextStyle(
-          color: HexColor("#155293"),
-          fontFamily: 'Cairo_Bold',
-          fontSize: 25,
+          color: Colors.blue,
+          fontWeight: FontWeight.bold,
         ),
       ),
 
@@ -35,14 +34,15 @@ class TopBar extends StatelessWidget with PreferredSizeWidget {
         Padding(
           padding: EdgeInsets.only(right: 10),
           child: IconButton(
-            icon: Icon(Icons.person, color: HexColor("#155293")),
+            icon: const Icon(Icons.person, color: Colors.blue),
             tooltip: 'Profile',
             onPressed: () {
               showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return ViewProfile();
-                  });
+                context: context,
+                builder: (BuildContext context) {
+                  return ViewProfile();
+                },
+              );
             },
           ),
         ),
