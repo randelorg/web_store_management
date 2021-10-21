@@ -48,7 +48,8 @@ class _NavDrawer extends State<NavDrawer> {
           //list[_selectedIndex],
           NavigationRail(
             elevation: 5,
-            minWidth: 45.0,
+            minWidth: 30.0,
+            minExtendedWidth: 50.0,
             backgroundColor: Colors.grey.shade900,
             selectedIndex: _selectedIndex,
             onDestinationSelected: (int index) {

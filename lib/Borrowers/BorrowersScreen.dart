@@ -1,6 +1,7 @@
 import 'package:hexcolor/hexcolor.dart';
 import 'package:flutter/material.dart';
 import 'ViewBorrowerProfile.dart';
+import '../Helpers/QRScanner.dart';
 
 class BorrowersScreen extends StatefulWidget {
   @override
@@ -8,6 +9,8 @@ class BorrowersScreen extends StatefulWidget {
 }
 
 class _BorrowersScreen extends State<BorrowersScreen> {
+  ScanQR _scan = new ScanQR();
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -27,7 +30,10 @@ class _BorrowersScreen extends State<BorrowersScreen> {
                       icon: Icon(Icons.qr_code_scanner_outlined),
                       color: Colors.grey,
                       tooltip: 'Search by QR',
-                      onPressed: () {},
+                      onPressed: () {
+                        _scan.scanQR();
+                        print(_scan.getQR());
+                      },
                     ),
                   ),
                   filled: true,

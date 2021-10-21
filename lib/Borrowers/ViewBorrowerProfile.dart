@@ -202,7 +202,7 @@ class _ViewBorrowerProfile extends State<ViewBorrowerProfile> {
                         size: 30,
                       ),
                       tooltip: 'View Contract',
-                      // onPressed: () {_openFileExplorer()},
+                      onPressed: () {},
                     ),
                     Text(
                       'View Contract',
