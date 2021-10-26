@@ -35,8 +35,6 @@ dependencies:
   navigation_rail: ^1.5.0
   intl: ^0.17.0
   hexcolor: ^2.0.5
-  file_picker: ^4.1.4
-  qr_utils: ^0.1.5
 
 dev_dependencies:
   flutter_test:

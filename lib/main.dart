@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'LoginPage/LoginPage.dart';
-import 'DashBoard/Home.dart';
+import 'Screens/LoginPage/LoginPage.dart';
+import 'Screens/DashBoard/Home.dart';
 
 void main() => runApp(MyApp());
 
