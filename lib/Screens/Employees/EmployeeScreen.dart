@@ -22,7 +22,6 @@ class _EmployeeScreen extends State<EmployeeScreen> {
                 width: 200,
                 alignment: Alignment.topLeft,
                 decoration: BoxDecoration(
-                  color: Colors.black,
                   border: Border.all(
                     color: Colors.blueGrey.shade50,
                     style: BorderStyle.solid,
@@ -64,14 +63,7 @@ class _EmployeeScreen extends State<EmployeeScreen> {
                       icon: Icon(Icons.qr_code_scanner_outlined),
                       color: Colors.grey,
                       tooltip: 'Search by QR',
-                      onPressed: () {
-                        // showDialog(
-                        //   context: context,
-                        //   builder: (BuildContext context) {
-                        //     return ReadQR();
-                        //   },
-                        // );
-                      },
+                      onPressed: () {},
                     ),
                   ),
                   filled: true,
@@ -99,14 +91,14 @@ class _EmployeeScreen extends State<EmployeeScreen> {
               children: [
                 PaginatedDataTable(
                   showCheckboxColumn: false,
-                  rowsPerPage: 15,
+                  rowsPerPage: 10,
                   columns: [
                     DataColumn(label: Text('EID')),
-                    DataColumn(label: Text('Roll')),
-                    DataColumn(label: Text('Name')),
-                    DataColumn(label: Text('Number')),
-                    DataColumn(label: Text('Profile')),
-                    DataColumn(label: Text('Payroll')),
+                    DataColumn(label: Text('ROLL')),
+                    DataColumn(label: Text('NAME')),
+                    DataColumn(label: Text('NUMBER')),
+                    DataColumn(label: Text('PROFILE')),
+                    DataColumn(label: Text('PAYROLL')),
                   ],
                   source: _DataSource(context),
                 )

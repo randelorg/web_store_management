@@ -12,6 +12,7 @@ class PaymentScreen extends StatefulWidget {
 class _PaymentScreen extends State<PaymentScreen> {
   int _currentSortColumn = 0;
   bool _isAscending = true;
+
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[

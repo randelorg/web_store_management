@@ -4,6 +4,9 @@ import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 
+import '../Reports/HistoryScreens/PaymentHistoryScreen.dart';
+import '../Reports/HistoryScreens/ProductHistoryScreen.dart';
+
 class ViewBorrowerProfile extends StatefulWidget {
   @override
   _ViewBorrowerProfile createState() => _ViewBorrowerProfile();
@@ -45,31 +48,32 @@ class _ViewBorrowerProfile extends State<ViewBorrowerProfile> {
               onPressed: () {},
             ),
             Card(
-                margin: EdgeInsets.all(10),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-                elevation: 5,
-                shadowColor: Colors.black,
-                child: Row(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(right: 50, top: 10, bottom: 5),
-                      child: Text(
-                        'Firstname',
-                        style: TextStyle(color: Colors.grey),
-                      ),
+              margin: EdgeInsets.all(10),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+              elevation: 5,
+              shadowColor: Colors.black,
+              child: Row(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(right: 50, top: 10, bottom: 5),
+                    child: Text(
+                      'Firstname',
+                      style: TextStyle(color: Colors.grey),
                     ),
-                    Padding(
-                      padding: EdgeInsets.only(top: 10, bottom: 5),
-                      child: Text(
-                        'John Vincent',
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold),
-                      ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(top: 10, bottom: 5),
+                    child: Text(
+                      'John Vincent',
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),
-                  ],
-                )),
+                  ),
+                ],
+              ),
+            ),
             Card(
               margin: EdgeInsets.all(10),
               shape: RoundedRectangleBorder(
@@ -170,7 +174,23 @@ class _ViewBorrowerProfile extends State<ViewBorrowerProfile> {
                         size: 30,
                       ),
                       tooltip: 'Payment History',
-                      onPressed: () {},
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return SimpleDialog(
+                              children: [
+                                Container(
+                                  width:
+                                      (MediaQuery.of(context).size.width) / 2,
+                                  height: (MediaQuery.of(context).size.height),
+                                  child: PaymentHistory(),
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                      },
                     ),
                     Text(
                       'Payment History',
@@ -186,7 +206,23 @@ class _ViewBorrowerProfile extends State<ViewBorrowerProfile> {
                         size: 30,
                       ),
                       tooltip: 'Loan History',
-                      onPressed: () {},
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return SimpleDialog(
+                              children: [
+                                Container(
+                                  width:
+                                      (MediaQuery.of(context).size.width) / 2,
+                                  height: (MediaQuery.of(context).size.height),
+                                  child: ProductHistory(),
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                      },
                     ),
                     Text(
                       'Loan History',
