@@ -196,7 +196,7 @@ class HomeNewLoan extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                    width: (MediaQuery.of(context).size.width) / 8,
+                    width: 400,
                     child: TextField(
                       decoration: InputDecoration(
                         hintText: 'Search Product',

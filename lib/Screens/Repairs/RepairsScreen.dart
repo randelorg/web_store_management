@@ -68,7 +68,7 @@ class _RepairsScreen extends State<RepairsScreen> {
                 Container(
                   padding: EdgeInsets.only(top: 10, bottom: 10, right: 20),
                   alignment: Alignment.topLeft,
-                  width: (MediaQuery.of(context).size.width) / 4.5,
+                  width: 400,
                   child: TextField(
                     decoration: InputDecoration(
                       hintText: 'Search borrower',

@@ -23,7 +23,7 @@ class _PaymentScreen extends State<PaymentScreen> {
             Container(
               padding: EdgeInsets.only(top: 15, bottom: 15, right: 100),
               alignment: Alignment.topLeft,
-              width: (MediaQuery.of(context).size.width) / 4.5,
+              width: 400,
               child: TextField(
                 decoration: InputDecoration(
                   hintText: 'Search borrower',

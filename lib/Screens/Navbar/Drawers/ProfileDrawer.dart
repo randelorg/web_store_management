@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../ViewProfile.dart';
 import '../AddAccount.dart';
+import '../EditProfile.dart';
 
 class ProfileDrawer extends StatefulWidget {
   @override
@@ -66,10 +67,17 @@ class _ProfileDrawer extends State<ProfileDrawer> {
                       color: Colors.blue,
                     ),
                     label: Text(
-                      'Edit Profile',
+                      'Update Profile',
                       softWrap: true,
                     ),
-                    onPressed: () {}, //pwdeng refresh button
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return EditProfile();
+                        },
+                      );
+                    },
                   ),
                 ),
               ),
