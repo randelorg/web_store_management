@@ -2,6 +2,7 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:flutter/material.dart';
 
 import '../ViewProfile.dart';
+import '../AddAccount.dart';
 
 class ProfileDrawer extends StatefulWidget {
   @override
@@ -89,7 +90,14 @@ class _ProfileDrawer extends State<ProfileDrawer> {
                       'Add new account',
                       softWrap: true,
                     ),
-                    onPressed: () {}, //pwdeng refresh button
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AddAccount();
+                        },
+                      );
+                    },
                   ),
                 ),
               ),
