@@ -17,7 +17,7 @@ class NavDrawer extends StatefulWidget {
 }
 
 class _NavDrawer extends State<NavDrawer> {
-  int _selectedIndex = 8;
+  int _selectedIndex = 1;
 
   var pages = [
     TimeCollection(),

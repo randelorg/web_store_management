@@ -181,10 +181,9 @@ class _InventoryScreen extends State<InventoryScreen> {
             Stack(
               children: [
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Container(
-                      alignment: Alignment.topLeft,
+                      padding: EdgeInsets.only(top: 10),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(10),
                         child: Stack(
@@ -222,11 +221,10 @@ class _InventoryScreen extends State<InventoryScreen> {
                   ],
                 ),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Container(
-                      padding: EdgeInsets.only(left: 10, top: 10),
-                      width: 400,
+                      padding: EdgeInsets.only(top: 10, left: 150),
+                      width: 500,
                       child: TextField(
                         decoration: InputDecoration(
                           hintText: 'Search product',

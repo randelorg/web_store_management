@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'Finalize.dart';
+
 class HomeNewLoan extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -196,7 +198,7 @@ class HomeNewLoan extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                    width: 400,
+                    width: 300,
                     child: TextField(
                       decoration: InputDecoration(
                         hintText: 'Search Product',
@@ -277,24 +279,45 @@ class HomeNewLoan extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Container(
-                    width: 80,
+                    width: 120,
                     height: 60,
                     child: ClipRRect(
-                      borderRadius: BorderRadius.circular(15),
+                      borderRadius: BorderRadius.circular(12),
                       child: Stack(
                         children: <Widget>[
                           Positioned.fill(
                             child: Container(
-                              decoration: const BoxDecoration(
-                                color: Colors.blue,
+                              decoration: BoxDecoration(
+                                color: Colors.blue.shade900,
                               ),
                             ),
                           ),
-                          IconButton(
-                            onPressed: () {},
-                            icon: Icon(Icons.navigate_next),
-                            iconSize: 50,
-                            color: Colors.white,
+                          TextButton(
+                            style: TextButton.styleFrom(
+                              padding: const EdgeInsets.all(25.0),
+                              primary: Colors.white,
+                              textStyle: const TextStyle(fontSize: 25),
+                            ),
+                            onPressed: () {
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return SimpleDialog(
+                                    children: [
+                                      Container(
+                                        width: (MediaQuery.of(context)
+                                                .size
+                                                .width) /
+                                            2,
+                                        height: 500,
+                                        child: Finalize(),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                            },
+                            child: const Text('NEXT'),
                           ),
                         ],
                       ),
@@ -372,35 +395,38 @@ class _SelectionOfProducts extends DataTableSource {
 List _selectionProducts(BuildContext context) {
   List<_RowSelectProducts> _selectionProducts;
 
-  return _selectionProducts = List.generate(50, (index) {
-    return new _RowSelectProducts(
-      'Product A',
-      'CellB2',
-      ClipRRect(
-        borderRadius: BorderRadius.circular(12),
-        child: Stack(
-          children: <Widget>[
-            Positioned.fill(
-              child: Container(
-                decoration: const BoxDecoration(
-                  color: Colors.blue,
+  return _selectionProducts = List.generate(
+    50,
+    (index) {
+      return new _RowSelectProducts(
+        'Product A',
+        'CellB2',
+        ClipRRect(
+          borderRadius: BorderRadius.circular(12),
+          child: Stack(
+            children: <Widget>[
+              Positioned.fill(
+                child: Container(
+                  decoration: const BoxDecoration(
+                    color: Colors.blue,
+                  ),
                 ),
               ),
-            ),
-            TextButton(
-              style: TextButton.styleFrom(
-                padding: const EdgeInsets.all(12.0),
-                primary: Colors.white,
-                textStyle: const TextStyle(fontSize: 10),
+              TextButton(
+                style: TextButton.styleFrom(
+                  padding: const EdgeInsets.all(12.0),
+                  primary: Colors.white,
+                  textStyle: const TextStyle(fontSize: 10),
+                ),
+                onPressed: () {},
+                child: const Text('SELECT'),
               ),
-              onPressed: () {},
-              child: const Text('SELECT'),
-            ),
-          ],
+            ],
+          ),
         ),
-      ),
-    );
-  });
+      );
+    },
+  );
 }
 
 // selected products
