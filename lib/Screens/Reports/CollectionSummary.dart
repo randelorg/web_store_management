@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:hexcolor/hexcolor.dart';
 
 import '../DashBoard/CollectionGraph.dart';
 
@@ -123,22 +124,21 @@ class _CollectionSummary extends State<CollectionSummary> {
             Padding(
               padding: EdgeInsets.only(top: 20),
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(20),
+                borderRadius: BorderRadius.circular(18),
                 child: Stack(
                   children: <Widget>[
                     Positioned.fill(
                       child: Container(
-                        decoration: const BoxDecoration(
-                          color: Colors.blue,
+                        decoration: BoxDecoration(
+                          color: HexColor("#155293"),
                         ),
                       ),
                     ),
                     TextButton(
                       style: TextButton.styleFrom(
-                        padding: const EdgeInsets.only(
-                            left: 20, right: 20, top: 15, bottom: 15),
+                        padding: const EdgeInsets.only(left: 20, right: 20, top: 15, bottom: 15),
                         primary: Colors.white,
-                        textStyle: TextStyle(fontSize: 20),
+                        textStyle: TextStyle(fontFamily: 'Cairo_SemiBold', fontSize: 14),
                       ),
                       onPressed: () {},
                       child: const Text('VIEW'),

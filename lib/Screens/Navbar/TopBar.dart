@@ -10,11 +10,12 @@ class TopBar extends StatelessWidget with PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      title: const Text(
+      title:  Text(
         'DASHBOARD',
         style: TextStyle(
-          color: Colors.blue,
-          fontWeight: FontWeight.bold,
+          color: HexColor("#155293"),
+          fontFamily: 'Cairo_Bold',
+          fontSize: 25,
         ),
       ),
       automaticallyImplyLeading: true,
@@ -38,7 +39,7 @@ class TopBar extends StatelessWidget with PreferredSizeWidget {
         Padding(
           padding: EdgeInsets.only(right: 30),
           child: IconButton(
-            icon: const Icon(Icons.logout, color: Colors.red),
+            icon:  Icon(Icons.logout, color: HexColor("#EA1C24")),
             tooltip: 'Logout',
             onPressed: () {
               Get.to(LoginPage());

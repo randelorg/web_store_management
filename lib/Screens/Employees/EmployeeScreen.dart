@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hexcolor/hexcolor.dart';
 
 class EmployeeScreen extends StatefulWidget {
   @override
@@ -142,21 +143,21 @@ List _borrowerProfile(BuildContext context) {
       'CellC2',
       "CellC1",
       ClipRRect(
-        borderRadius: BorderRadius.circular(6),
+        borderRadius: BorderRadius.circular(18),
         child: Stack(
           children: <Widget>[
             Positioned.fill(
               child: Container(
-                decoration: const BoxDecoration(
-                  color: Colors.blue,
+                decoration: BoxDecoration(
+                  color: HexColor("#155293"),
                 ),
               ),
             ),
             TextButton(
               style: TextButton.styleFrom(
-                padding: const EdgeInsets.all(16.0),
+                padding: const EdgeInsets.all(13.0),
                 primary: Colors.white,
-                textStyle: const TextStyle(fontSize: 15),
+                textStyle: TextStyle(fontFamily: 'Cairo_SemiBold', fontSize: 14),
               ),
               onPressed: () {
                 // show here employee profile
@@ -174,21 +175,21 @@ List _borrowerProfile(BuildContext context) {
         ),
       ),
       ClipRRect(
-        borderRadius: BorderRadius.circular(6),
+        borderRadius: BorderRadius.circular(18),
         child: Stack(
           children: <Widget>[
             Positioned.fill(
               child: Container(
-                decoration: const BoxDecoration(
-                  color: Colors.blue,
+                decoration: BoxDecoration(
+                  color: HexColor("#155293"),
                 ),
               ),
             ),
             TextButton(
               style: TextButton.styleFrom(
-                padding: const EdgeInsets.all(16.0),
+                padding: const EdgeInsets.all(13.0),
                 primary: Colors.white,
-                textStyle: const TextStyle(fontSize: 15),
+                textStyle: TextStyle(fontFamily: 'Cairo_SemiBold', fontSize: 14),
               ),
               onPressed: () {
                 // show here the payroll

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:hexcolor/hexcolor.dart';
+
 import 'dart:math';
 
 import 'TransferStock.dart';
@@ -27,12 +29,12 @@ class _InventoryScreen extends State<InventoryScreen> {
                 child: Text(
                   'Add Product',
                   textAlign: TextAlign.center,
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 25,
-                      color: Colors.blue.shade900,
-                      overflow: TextOverflow.fade),
-                  maxLines: 2,
+                  style: TextStyle(                  
+                    color: HexColor("#155293"),
+                    fontFamily: 'Cairo_Bold',
+                    fontSize: 30,
+                    overflow: TextOverflow.fade),
+                    maxLines: 2,
                 ),
               ),
               Padding(
@@ -150,21 +152,21 @@ class _InventoryScreen extends State<InventoryScreen> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius: BorderRadius.circular(18),
                   child: Stack(
                     children: <Widget>[
                       Positioned.fill(
                         child: Container(
-                          decoration: const BoxDecoration(
-                            color: Colors.blue,
+                          decoration: BoxDecoration(
+                            color: HexColor("#155293"),
                           ),
                         ),
                       ),
                       TextButton(
                         style: TextButton.styleFrom(
-                          padding: const EdgeInsets.all(20),
+                          padding: const EdgeInsets.all(13.0),
                           primary: Colors.white,
-                          textStyle: TextStyle(fontSize: 20),
+                          textStyle: TextStyle(fontFamily: 'Cairo_SemiBold', fontSize: 14),
                         ),
                         onPressed: () {},
                         child: const Text('ADD'),
@@ -374,21 +376,21 @@ List _productList(BuildContext context) {
       _dangerStock(randomQty.toString()),
       double.parse(randomPrice.toStringAsFixed(2)).toString(),
       ClipRRect(
-        borderRadius: BorderRadius.circular(6),
+        borderRadius: BorderRadius.circular(18),
         child: Stack(
           children: <Widget>[
             Positioned.fill(
               child: Container(
-                decoration: const BoxDecoration(
-                  color: Colors.blue,
+                decoration: BoxDecoration(
+                  color: HexColor("#155293"),
                 ),
               ),
             ),
             TextButton(
               style: TextButton.styleFrom(
-                padding: const EdgeInsets.all(16.0),
+                padding: const EdgeInsets.all(13.0),
                 primary: Colors.white,
-                textStyle: const TextStyle(fontSize: 15),
+                textStyle: TextStyle(fontFamily: 'Cairo_SemiBold', fontSize: 14),
               ),
               onPressed: () {
                 showDialog(

@@ -14,13 +14,15 @@ class _ProfileDrawer extends State<ProfileDrawer> {
   @override
   Widget build(BuildContext context) {
     return PopupMenuButton(
+      tooltip: "My Profile",
       elevation: 5,
       child: Icon(
         Icons.person,
-        color: Colors.blue,
+        color: HexColor("#155293")
       ),
       itemBuilder: (context) => [
         PopupMenuItem(
+          
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
@@ -31,15 +33,15 @@ class _ProfileDrawer extends State<ProfileDrawer> {
                   borderRadius: BorderRadius.circular(30),
                 ),
                 child: Padding(
-                  padding:
-                      EdgeInsets.only(top: 10, bottom: 10, right: 10, left: 10),
+                  padding: EdgeInsets.only(top: 10, bottom: 10, right: 10, left: 10),
                   child: TextButton.icon(
                     icon: Icon(
                       Icons.visibility,
-                      color: Colors.blue,
+                      color: HexColor("#155293")
                     ),
                     label: Text(
                       'View Profile',
+                      style: TextStyle(fontFamily: 'Cairo_SemiBold', color: HexColor("#155293")),
                       softWrap: true,
                     ),
                     onPressed: () {
@@ -59,15 +61,15 @@ class _ProfileDrawer extends State<ProfileDrawer> {
                   borderRadius: BorderRadius.circular(30),
                 ),
                 child: Padding(
-                  padding:
-                      EdgeInsets.only(top: 10, bottom: 10, right: 10, left: 10),
+                  padding: EdgeInsets.only(top: 10, bottom: 10, right: 10, left: 10),
                   child: TextButton.icon(
                     icon: Icon(
-                      Icons.filter_alt,
-                      color: Colors.blue,
+                      Icons.create_rounded,
+                      color: HexColor("#155293")                   
                     ),
                     label: Text(
                       'Update Profile',
+                      style: TextStyle(fontFamily: 'Cairo_SemiBold', color: HexColor("#155293")),
                       softWrap: true,
                     ),
                     onPressed: () {
@@ -87,15 +89,15 @@ class _ProfileDrawer extends State<ProfileDrawer> {
                   borderRadius: BorderRadius.circular(30),
                 ),
                 child: Padding(
-                  padding:
-                      EdgeInsets.only(top: 10, bottom: 10, right: 10, left: 10),
+                  padding: EdgeInsets.only(top: 10, bottom: 10, right: 10, left: 10),
                   child: TextButton.icon(
                     icon: Icon(
                       Icons.person_add,
-                      color: Colors.blue,
+                      color: HexColor("#155293")
                     ),
                     label: Text(
                       'Add new account',
+                      style: TextStyle(fontFamily: 'Cairo_SemiBold', color: HexColor("#155293")),
                       softWrap: true,
                     ),
                     onPressed: () {

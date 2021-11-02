@@ -10,13 +10,14 @@ class _NotificationDrawer extends State<NotificationDrawer> {
   @override
   Widget build(BuildContext context) {
     return PopupMenuButton(
+      tooltip: "Notifications",
       elevation: 5,
       child: Icon(
         Icons.notifications,
-        color: Colors.blue,
+        color: HexColor("#155293")
       ),
       itemBuilder: (context) => [
-        PopupMenuItem(
+        PopupMenuItem( 
           child: Column(
             children: _notificationsList(),
           ),
@@ -42,10 +43,11 @@ List<Widget> _notificationsList() {
           child: TextButton.icon(
             icon: Icon(
               Icons.notifications_active,
-              color: Colors.blue,
+              color: HexColor("#155293")
             ),
-            label: Text(
+            label: Text(      
               'Longgg notification',
+              style: TextStyle(fontFamily: 'Cairo_SemiBold', color: HexColor("#155293")),
               softWrap: true,
             ),
             onPressed: () {}, //pwdeng refresh button

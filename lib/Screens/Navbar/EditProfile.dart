@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:hexcolor/hexcolor.dart';
+
 
 class EditProfile extends StatefulWidget {
   @override
@@ -16,12 +18,13 @@ class _EditProfile extends State<EditProfile> {
         softWrap: true,
         textAlign: TextAlign.center,
         style: TextStyle(
-          fontWeight: FontWeight.bold,
-          fontSize: 35,
-          color: Colors.blue,
+          color: HexColor("#155293"),
+          fontFamily: 'Cairo_Bold',
+          fontSize: 30,
           overflow: TextOverflow.fade,
         ),
       ),
+
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       actions: <Widget>[
         Column(
@@ -63,7 +66,7 @@ class _EditProfile extends State<EditProfile> {
             ),
             Stack(
               children: [
-                //this will be disabled beacasuse we will display the name here
+                //this will be disabled because we will display the name here
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
@@ -96,7 +99,7 @@ class _EditProfile extends State<EditProfile> {
                     ),
                   ],
                 ),
-                //this will be disabled beacasuse we will display the name here
+                //this will be disabled because we will display the name here
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
