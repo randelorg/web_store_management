@@ -3,6 +3,7 @@ import 'package:flutter/rendering.dart';
 import 'package:get/get.dart'; //library for going to next pages
 
 import '../DashBoard/Home.dart';
+import '../../Backend/Hash.dart';
 
 class Body extends StatelessWidget {
   @override
@@ -31,20 +32,15 @@ class Body extends StatelessWidget {
 }
 
 Widget _formLogin() {
+  //Hash hash = new Hash();
+
+  final username = TextEditingController();
+  final password = TextEditingController();
+
   return Column(
     children: [
-      // Text(
-      //   'Welcome to Store Management System \n',
-      //   textAlign: TextAlign.center,
-      //   style: TextStyle(
-      //     fontSize: 30,
-      //     fontWeight: FontWeight.bold,
-      //   ),
-      // ),
-      // SizedBox(
-      //   height: 30,
-      // ),
       TextField(
+        controller: username,
         decoration: InputDecoration(
           hintText: 'Username',
           filled: true,
@@ -63,6 +59,7 @@ Widget _formLogin() {
       ),
       SizedBox(height: 30),
       TextField(
+        controller: password,
         obscureText: true,
         decoration: InputDecoration(
           hintText: 'Password',

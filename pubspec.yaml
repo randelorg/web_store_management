@@ -35,6 +35,7 @@ dependencies:
   navigation_rail: ^1.5.0
   intl: ^0.17.0
   hexcolor: ^2.0.5
+  xxtea: ^2.1.0 #hashing
 
 dev_dependencies:
   flutter_test:

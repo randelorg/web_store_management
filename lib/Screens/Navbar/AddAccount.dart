@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:web_store_management/Models/Admin.dart';
 
 import 'ConfirmNewAccount.dart';
+import '../../Models/Admin.dart';
 
 class AddAccount extends StatefulWidget {
   @override
@@ -9,6 +11,17 @@ class AddAccount extends StatefulWidget {
 }
 
 class _AddAccount extends State<AddAccount> {
+  //getting the text in the field
+  String? userLevel;
+  final username = TextEditingController();
+  final firstname = TextEditingController();
+  final lastname = TextEditingController();
+  final mobileNumber = TextEditingController();
+  final homeAddress = TextEditingController();
+  final password = TextEditingController();
+
+//for dropdown list
+  String admin = 'Admin';
   String collector = 'Collector';
   String storeAttendant = 'Store Attendant';
 
@@ -60,12 +73,12 @@ class _AddAccount extends State<AddAccount> {
                     iconSize: 24,
                     elevation: 16,
                     style: TextStyle(color: Colors.blue.shade700),
-                    onChanged: (String? newValue) {
+                    onChanged: (userLevel) {
                       setState(() {
-                        collector = newValue!;
+                        collector = userLevel!;
                       });
                     },
-                    items: <String>['Collector', 'Store Attendant']
+                    items: <String>['Admin', 'Collector', 'Store Attendant']
                         .map<DropdownMenuItem<String>>((String value) {
                       return DropdownMenuItem<String>(
                         value: value,
@@ -82,6 +95,7 @@ class _AddAccount extends State<AddAccount> {
             Padding(
               padding: EdgeInsets.only(bottom: 20),
               child: TextField(
+                controller: username,
                 decoration: InputDecoration(
                   hintText: 'Username',
                   filled: true,
@@ -110,6 +124,7 @@ class _AddAccount extends State<AddAccount> {
                       child: Padding(
                         padding: EdgeInsets.only(bottom: 20),
                         child: TextField(
+                          controller: firstname,
                           decoration: InputDecoration(
                             hintText: 'Firstname',
                             filled: true,
@@ -141,6 +156,7 @@ class _AddAccount extends State<AddAccount> {
                       child: Padding(
                         padding: EdgeInsets.only(bottom: 20),
                         child: TextField(
+                          controller: lastname,
                           decoration: InputDecoration(
                             hintText: 'Lastname',
                             filled: true,
@@ -168,6 +184,49 @@ class _AddAccount extends State<AddAccount> {
             Padding(
               padding: EdgeInsets.only(bottom: 20),
               child: TextField(
+                controller: mobileNumber,
+                decoration: InputDecoration(
+                  hintText: 'Mobile number',
+                  filled: true,
+                  fillColor: Colors.blueGrey[50],
+                  labelStyle: TextStyle(fontSize: 10),
+                  contentPadding: EdgeInsets.only(left: 10),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(bottom: 20),
+              child: TextField(
+                controller: homeAddress,
+                decoration: InputDecoration(
+                  hintText: 'Home address',
+                  filled: true,
+                  fillColor: Colors.blueGrey[50],
+                  labelStyle: TextStyle(fontSize: 10),
+                  contentPadding: EdgeInsets.only(left: 10),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(bottom: 20),
+              child: TextField(
+                controller: password,
                 obscureText: true,
                 decoration: InputDecoration(
                   hintText: 'Password',
@@ -218,12 +277,24 @@ class _AddAccount extends State<AddAccount> {
                             textStyle: TextStyle(fontSize: 20),
                           ),
                           onPressed: () {
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return ConfirmAccount();
-                              },
-                            );
+                            if (username.text.isNotEmpty) {
+                              //add the model
+                              var admin = new Admin.withoutImage(
+                                username.text,
+                                password.text,
+                                firstname.text,
+                                lastname.text,
+                                mobileNumber.text,
+                                homeAddress.text,
+                              );
+                              //show dialog
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return ConfirmAccount();
+                                },
+                              );
+                            }
                           },
                           child: const Text('CONFIRM'),
                         ),

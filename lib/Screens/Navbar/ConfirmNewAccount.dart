@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:web_store_management/Backend/GlobalController.dart';
 
 class ConfirmAccount extends StatefulWidget {
   @override
@@ -85,7 +86,9 @@ class _ConfirmAccount extends State<ConfirmAccount> {
                             primary: Colors.white,
                             textStyle: TextStyle(fontSize: 20),
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+                            GlobalController.addAdmin();
+                          },
                           child: const Text('VERIFY'),
                         ),
                       ],
