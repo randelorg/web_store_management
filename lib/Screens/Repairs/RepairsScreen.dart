@@ -38,14 +38,15 @@ class _RepairsScreen extends State<RepairsScreen> {
                           ),
                         ),
                         TextButton.icon(
-                          icon: Icon(Icons.construction, color: Colors.white),
+                          icon:
+                              Icon(Icons.add_box_rounded, color: Colors.white),
                           style: TextButton.styleFrom(
                             padding: const EdgeInsets.only(
                                 left: 5, right: 20, top: 15, bottom: 15),
                             primary: Colors.white,
                             textStyle: TextStyle(fontSize: 20),
                           ),
-                          label: Text('ADD NEW REPAIRS'),
+                          label: Text('NEW REPAIRS'),
                           onPressed: () {
                             showDialog(
                               context: context,

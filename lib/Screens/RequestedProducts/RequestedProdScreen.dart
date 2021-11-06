@@ -38,14 +38,15 @@ class _RequestedProdScreen extends State<RequestedProdScreen> {
                           ),
                         ),
                         TextButton.icon(
-                          icon: Icon(Icons.add_circle, color: Colors.white),
+                          icon:
+                              Icon(Icons.add_box_rounded, color: Colors.white),
                           style: TextButton.styleFrom(
                             padding: const EdgeInsets.only(
                                 left: 5, right: 20, top: 15, bottom: 15),
                             primary: Colors.white,
                             textStyle: TextStyle(fontSize: 20),
                           ),
-                          label: Text('ADD NEW REQUEST'),
+                          label: Text('NEW REQUEST'),
                           onPressed: () {
                             showDialog(
                               context: context,

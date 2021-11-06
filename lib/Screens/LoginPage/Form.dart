@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:get/get.dart'; //library for going to next pages
+import 'package:xxtea/xxtea.dart';
 
 import '../DashBoard/Home.dart';
-import '../../Backend/Hash.dart';
+import '../../Backend/GlobalController.dart';
 
 class Body extends StatelessWidget {
   @override
@@ -32,7 +33,7 @@ class Body extends StatelessWidget {
 }
 
 Widget _formLogin() {
-  //Hash hash = new Hash();
+  var controller = GlobalController();
 
   final username = TextEditingController();
   final password = TextEditingController();
@@ -64,12 +65,6 @@ Widget _formLogin() {
         decoration: InputDecoration(
           hintText: 'Password',
           counterText: 'Forgot password?',
-          suffixIcon: InkWell(
-            child: Icon(
-              Icons.visibility,
-              color: Colors.grey,
-            ),
-          ),
           filled: true,
           fillColor: Colors.blueGrey[50],
           labelStyle: TextStyle(fontSize: 12),
@@ -99,16 +94,19 @@ Widget _formLogin() {
         ),
         child: ElevatedButton(
           child: Container(
-              width: double.infinity,
-              height: 50,
-              child: Center(child: Text("Sign In"))),
-          onPressed: () {
-            Get.to(Home());
-          },
+            width: double.infinity,
+            height: 50,
+            child: Center(
+              child: Text("Sign In"),
+            ),
+          ),
           style: ElevatedButton.styleFrom(
             primary: Colors.redAccent.shade200,
             onPrimary: Colors.white,
           ),
+          onPressed: () {
+            controller.login(password.text);
+          },
         ),
       ),
     ],

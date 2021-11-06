@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 
+import 'AddEmployee.dart';
+
 class EmployeeScreen extends StatefulWidget {
   @override
   _EmployeeScreen createState() => _EmployeeScreen();
@@ -13,72 +15,120 @@ class _EmployeeScreen extends State<EmployeeScreen> {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          crossAxisAlignment: CrossAxisAlignment.end,
+        Stack(
           children: [
-            Padding(
-              padding: EdgeInsets.only(bottom: 15, top: 15, right: 40),
-              child: Container(
-                width: 200,
-                alignment: Alignment.topLeft,
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: Colors.blueGrey.shade50,
-                    style: BorderStyle.solid,
-                    width: 0.80,
-                  ),
-                ),
-                child: DropdownButtonHideUnderline(
-                  child: DropdownButton<String>(
-                    isExpanded: true,
-                    value: collector,
-                    icon: const Icon(Icons.arrow_downward),
-                    iconSize: 24,
-                    elevation: 16,
-                    style: TextStyle(color: Colors.blue.shade700),
-                    onChanged: (String? newValue) {
-                      setState(() {
-                        collector = newValue!;
-                      });
-                    },
-                    items: <String>['Collector', 'Store Attendant']
-                        .map<DropdownMenuItem<String>>((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value),
-                      );
-                    }).toList(),
-                  ),
-                ),
-              ),
-            ),
-            Container(
-              padding: EdgeInsets.only(top: 15, bottom: 15, right: 100),
-              width: 300,
-              child: TextField(
-                decoration: InputDecoration(
-                  hintText: 'Search borrower',
-                  suffixIcon: InkWell(
-                    child: IconButton(
-                      icon: Icon(Icons.qr_code_scanner_outlined),
-                      color: Colors.grey,
-                      tooltip: 'Search by QR',
-                      onPressed: () {},
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(top: 15, bottom: 15, left: 100),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(5),
+                    child: Stack(
+                      children: <Widget>[
+                        Positioned.fill(
+                          child: Container(
+                            decoration: const BoxDecoration(
+                              color: Colors.blue,
+                            ),
+                          ),
+                        ),
+                        TextButton.icon(
+                          icon:
+                              Icon(Icons.add_box_rounded, color: Colors.white),
+                          style: TextButton.styleFrom(
+                            padding: const EdgeInsets.only(
+                                left: 5, right: 20, top: 15, bottom: 15),
+                            primary: Colors.white,
+                            textStyle: TextStyle(fontSize: 20),
+                          ),
+                          label: Text('NEW EMPLOYEE'),
+                          onPressed: () {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AddEmployee();
+                              },
+                            );
+                          },
+                        ),
+                      ],
                     ),
                   ),
-                  filled: true,
-                  fillColor: Colors.blueGrey[50],
-                  labelStyle: TextStyle(fontSize: 12),
-                  contentPadding: EdgeInsets.only(left: 30),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Padding(
+                    padding: EdgeInsets.only(bottom: 30, top: 15, right: 15),
+                    child: Text('Sort by')),
+                Padding(
+                  padding: EdgeInsets.only(bottom: 15, top: 15, right: 40),
+                  child: Container(
+                    width: 200,
+                    alignment: Alignment.topLeft,
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: Colors.blueGrey.shade50,
+                        style: BorderStyle.solid,
+                        width: 0.80,
+                      ),
+                    ),
+                    child: DropdownButtonHideUnderline(
+                      child: DropdownButton<String>(
+                        isExpanded: true,
+                        value: collector,
+                        icon: const Icon(Icons.arrow_downward),
+                        iconSize: 24,
+                        elevation: 16,
+                        style: TextStyle(color: Colors.blue.shade700),
+                        onChanged: (String? newValue) {
+                          setState(() {
+                            collector = newValue!;
+                          });
+                        },
+                        items: <String>['Collector', 'Store Attendant']
+                            .map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
+                      ),
+                    ),
                   ),
                 ),
-              ),
+                Container(
+                  padding: EdgeInsets.only(top: 15, bottom: 15, right: 100),
+                  width: 350,
+                  child: TextField(
+                    decoration: InputDecoration(
+                      hintText: 'Search borrower',
+                      suffixIcon: InkWell(
+                        child: IconButton(
+                          icon: Icon(Icons.qr_code_scanner_outlined),
+                          color: Colors.grey,
+                          tooltip: 'Search by QR',
+                          onPressed: () {},
+                        ),
+                      ),
+                      filled: true,
+                      fillColor: Colors.blueGrey[50],
+                      labelStyle: TextStyle(fontSize: 12),
+                      contentPadding: EdgeInsets.only(left: 30),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
           ],
         ),
@@ -157,7 +207,8 @@ List _borrowerProfile(BuildContext context) {
               style: TextButton.styleFrom(
                 padding: const EdgeInsets.all(13.0),
                 primary: Colors.white,
-                textStyle: TextStyle(fontFamily: 'Cairo_SemiBold', fontSize: 14),
+                textStyle:
+                    TextStyle(fontFamily: 'Cairo_SemiBold', fontSize: 14),
               ),
               onPressed: () {
                 // show here employee profile
@@ -189,7 +240,8 @@ List _borrowerProfile(BuildContext context) {
               style: TextButton.styleFrom(
                 padding: const EdgeInsets.all(13.0),
                 primary: Colors.white,
-                textStyle: TextStyle(fontFamily: 'Cairo_SemiBold', fontSize: 14),
+                textStyle:
+                    TextStyle(fontFamily: 'Cairo_SemiBold', fontSize: 14),
               ),
               onPressed: () {
                 // show here the payroll

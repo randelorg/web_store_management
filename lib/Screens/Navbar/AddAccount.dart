@@ -12,7 +12,6 @@ class AddAccount extends StatefulWidget {
 
 class _AddAccount extends State<AddAccount> {
   //getting the text in the field
-  String? userLevel;
   final username = TextEditingController();
   final firstname = TextEditingController();
   final lastname = TextEditingController();
@@ -20,17 +19,12 @@ class _AddAccount extends State<AddAccount> {
   final homeAddress = TextEditingController();
   final password = TextEditingController();
 
-//for dropdown list
-  String admin = 'Admin';
-  String collector = 'Collector';
-  String storeAttendant = 'Store Attendant';
-
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
       actionsPadding: EdgeInsets.all(20),
       title: Text(
-        'Add Account',
+        'New Admin Account',
         softWrap: true,
         textAlign: TextAlign.center,
         style: TextStyle(
@@ -49,43 +43,7 @@ class _AddAccount extends State<AddAccount> {
               child: Container(
                 child: Container(
                   alignment: Alignment.topLeft,
-                  child: Text('Select roll for the new account'),
-                ),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(bottom: 15),
-              child: Container(
-                width: 320,
-                alignment: Alignment.topLeft,
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: Colors.blueGrey.shade50,
-                    style: BorderStyle.solid,
-                    width: 0.80,
-                  ),
-                ),
-                child: DropdownButtonHideUnderline(
-                  child: DropdownButton<String>(
-                    isExpanded: true,
-                    value: collector,
-                    icon: const Icon(Icons.arrow_downward),
-                    iconSize: 24,
-                    elevation: 16,
-                    style: TextStyle(color: Colors.blue.shade700),
-                    onChanged: (userLevel) {
-                      setState(() {
-                        collector = userLevel!;
-                      });
-                    },
-                    items: <String>['Admin', 'Collector', 'Store Attendant']
-                        .map<DropdownMenuItem<String>>((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value),
-                      );
-                    }).toList(),
-                  ),
+                  child: Text('Add new admin account'),
                 ),
               ),
             ),

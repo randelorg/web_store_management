@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';//library for going to next pages
+import 'package:flutter/rendering.dart'; //library for going to next pages
 
 import 'Form.dart';
-
-//vars
-bool _isHidden = true;
 
 class LoginPage extends StatelessWidget {
   @override
@@ -17,9 +14,9 @@ class LoginPage extends StatelessWidget {
         children: [
           MediaQuery.of(context).size.width >= 880
               ? Body()
-             : SizedBox(), // Responsive
+              : SizedBox(), // Responsive
         ],
-      )
+      ),
     );
   }
 }
