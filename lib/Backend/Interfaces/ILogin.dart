@@ -1,4 +1,7 @@
 class ILogin {
-  void login(final String word) {}
+  Future<String> getData(String username, String password) async {
+    return 'none';
+  }
+
   void logout() {}
 }

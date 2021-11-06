@@ -36,6 +36,7 @@ dependencies:
   intl: ^0.17.0
   hexcolor: ^2.0.5
   xxtea: ^2.1.0 #hashing
+  http: any
 
 dev_dependencies:
   flutter_test:

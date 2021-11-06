@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:get/get.dart'; //library for going to next pages
-import 'package:xxtea/xxtea.dart';
 
 import '../DashBoard/Home.dart';
 import '../../Backend/GlobalController.dart';
@@ -105,7 +104,16 @@ Widget _formLogin() {
             onPrimary: Colors.white,
           ),
           onPressed: () {
-            controller.login(password.text);
+            switch (
+                controller.getData(username.text, password.text).toString()) {
+              case 'success':
+                Get.to(Home());
+                break;
+              case 'failed':
+                SnackBar(content: Text('Login Failed'));
+                break;
+              default:
+            }
           },
         ),
       ),

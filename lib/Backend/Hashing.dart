@@ -21,8 +21,9 @@ class Hashing implements IHash {
     _encryptedWord = xxtea.encryptToString(word, _secretKey).toString();
   }
 
-  void decrypt(String wordEncrypted) {
+  String decrypt(String wordEncrypted) {
     _decryptedWord =
         xxtea.decryptToString(wordEncrypted, _secretKey).toString();
+    return _decryptedWord;
   }
 }
