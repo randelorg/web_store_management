@@ -7,6 +7,14 @@ class Hashing implements IHash {
   String _decryptedWord = 'Unkown';
   String _encryptedWord = 'Unkown';
 
+  // get decryptedWord => this._decryptedWord;
+
+  set decryptedWord(String value) => this._decryptedWord = value;
+
+  get encryptedWord => this._encryptedWord;
+
+  set encryptedWord(value) => this._encryptedWord = value;
+
   //getters
   String getEncrypt() {
     return _encryptedWord;

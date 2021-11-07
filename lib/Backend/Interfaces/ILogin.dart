@@ -1,7 +1,5 @@
 class ILogin {
-  Future<String> getData(String username, String password) async {
-    return 'none';
-  }
-
+  Future<void> getLoginData() async {}
+  String login(String username, String password) {}
   void logout() {}
 }

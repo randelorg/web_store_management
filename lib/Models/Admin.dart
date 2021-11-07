@@ -1,36 +1,48 @@
 import 'Person.dart';
 
 class Admin extends Person {
-  String? username;
-  String? password;
-  String? userImage;
+  String? _adminId;
+  String? _username;
+  String? _password;
+  String? _userImage;
 
-  get getUsername => this.username;
+  get getAdminId => this._adminId;
 
-  set setUsername(username) => this.username = username;
+  set setAdminId(adminId) => this._adminId = adminId;
 
-  get getPassword => this.password;
+  get getUsername => this._username;
 
-  set setPassword(password) => this.password = password;
+  set setUsername(username) => this._username = username;
 
-  get getUserImage => this.userImage;
+  get getPassword => this._password;
 
-  set setUserImage(userImage) => this.userImage = userImage;
+  set setPassword(password) => this._password = password;
+
+  get getUserImage => this._userImage;
+
+  set setUserImage(userImage) => this._userImage = userImage;
+
+  Admin.empty() : super.empty();
 
   Admin(String username, String password, String userImage, String firstname,
       String lastname, String mobileNumber, String homeAddress)
       : super(firstname, lastname, mobileNumber, homeAddress) {
-    this.username = username;
-    this.password = password;
-    this.userImage = userImage;
+    this._username = username;
+    this._password = password;
+    this._userImage = userImage;
   }
 
   Admin.withoutImage(String username, String password, String firstname,
       String lastname, String mobileNumber, String homeAddress)
       : super(firstname, lastname, mobileNumber, homeAddress) {
-    this.username = username;
-    this.password = password;
+    this._username = username;
+    this._password = password;
   }
 
-  //Admin.epmty() : super();
+  Admin.adminOnly(String adminId, String username, String password)
+      : super.empty() {
+    this._adminId = adminId;
+    this._username = username;
+    this._password = password;
+  }
 }

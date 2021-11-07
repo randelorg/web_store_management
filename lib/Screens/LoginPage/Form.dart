@@ -104,13 +104,15 @@ Widget _formLogin() {
             onPrimary: Colors.white,
           ),
           onPressed: () {
-            switch (
-                controller.getData(username.text, password.text).toString()) {
+            String status = controller.login(username.text, password.text);
+            print(status);
+            switch (status) {
               case 'success':
+                print('Success');
                 Get.to(Home());
                 break;
               case 'failed':
-                SnackBar(content: Text('Login Failed'));
+                print('Auth failed');
                 break;
               default:
             }

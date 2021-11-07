@@ -10,7 +10,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: 'Dellrains Store Management System',
-      home: Home(),
+      home: LoginPage(),
       debugShowCheckedModeBanner: false,
     );
   }
