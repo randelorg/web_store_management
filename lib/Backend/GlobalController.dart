@@ -37,4 +37,14 @@ class GlobalController implements ILogin {
       admin.setPassword = i['password'];
     }
   }
+
+  Future<http.Response> fetchLoginAdmin(http.Client client) async {
+    return client.get(Uri.parse('http://localhost:8090/api/loginAdmin'));
+  }
+
+  List<Admin> parseAdminLogin(String responseBody) {
+    final parsed = jsonDecode(responseBody).cast<Map<String, dynamic>>();
+
+    return parsed.map<Admin>((json) => Admin.fromJson(json)).toList();
+  }
 }
