@@ -1,6 +1,7 @@
 # Flutter/Dart/Pub related
 .dart_tool/
 build
+bug
 
 # Android related
 **/android/**/gradle-wrapper.jar

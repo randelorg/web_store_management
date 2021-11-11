@@ -1,4 +1,5 @@
 class Person {
+  int? personId;
   String? firstname;
   String? lastname;
   String? mobileNumber;
@@ -22,8 +23,9 @@ class Person {
 
   Person.empty();
 
-  Person(String firstname, String lastname, String mobileNumber,
+  Person(int persondId, String firstname, String lastname, String mobileNumber,
       String homeAddress) {
+    this.personId = personId;
     this.firstname = firstname;
     this.lastname = lastname;
     this.mobileNumber = mobileNumber;

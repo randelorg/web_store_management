@@ -5,7 +5,20 @@ import 'package:get/get.dart'; //library for going to next pages
 import '../DashBoard/Home.dart';
 import '../../Backend/GlobalController.dart';
 
-class Body extends StatelessWidget {
+class Body extends StatefulWidget {
+  @override
+  _Body createState() => _Body();
+}
+
+class _Body extends State<Body> {
+  var controller = GlobalController();
+
+  @override
+  void initState() {
+    super.initState();
+    controller.fetchAdmin();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -23,7 +36,7 @@ class Body extends StatelessWidget {
               vertical: MediaQuery.of(context).size.height / 40),
           child: Container(
             width: 300,
-            child: _formLogin(),
+            child: _formLogin(controller),
           ),
         )
       ],
@@ -31,9 +44,7 @@ class Body extends StatelessWidget {
   }
 }
 
-Widget _formLogin() {
-  var controller = GlobalController();
-
+Widget _formLogin(GlobalController controller) {
   final username = TextEditingController();
   final password = TextEditingController();
 
@@ -104,17 +115,35 @@ Widget _formLogin() {
             onPrimary: Colors.white,
           ),
           onPressed: () {
-            String status = controller.login(username.text, password.text);
-            print(status);
-            switch (status) {
-              case 'success':
-                print('Success');
-                Get.to(Home());
-                break;
-              case 'failed':
-                print('Auth failed');
-                break;
-              default:
+            if (username.text.isEmpty || password.text.isEmpty) {
+              Get.snackbar(
+                "Error",
+                "Please fill all the fields",
+                backgroundColor: Colors.redAccent.shade200,
+                colorText: Colors.white,
+                snackPosition: SnackPosition.BOTTOM,
+                borderRadius: 20,
+                margin: EdgeInsets.all(20),
+                duration: Duration(seconds: 3),
+              );
+            } else {
+              switch (controller.login(username.text, password.text)) {
+                case 'success':
+                  Get.to(Home());
+                  break;
+                case 'failed':
+                  Get.snackbar(
+                    "Error",
+                    "Username and password are incorrect",
+                    backgroundColor: Colors.redAccent.shade200,
+                    colorText: Colors.white,
+                    snackPosition: SnackPosition.BOTTOM,
+                    borderRadius: 20,
+                    margin: EdgeInsets.all(20),
+                    duration: Duration(seconds: 3),
+                  );
+                  break;
+              }
             }
           },
         ),

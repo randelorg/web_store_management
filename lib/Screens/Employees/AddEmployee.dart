@@ -278,14 +278,6 @@ class _AddEmployee extends State<AddEmployee> {
                           onPressed: () {
                             if (username.text.isNotEmpty) {
                               //add the model
-                              var admin = new Admin.withoutImage(
-                                username.text,
-                                password.text,
-                                firstname.text,
-                                lastname.text,
-                                mobileNumber.text,
-                                homeAddress.text,
-                              );
                               //show dialog
                               showDialog(
                                 context: context,

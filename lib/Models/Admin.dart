@@ -24,20 +24,31 @@ class Admin extends Person {
 
   Admin.empty() : super.empty();
 
-  Admin(String username, String password, String userImage, String firstname,
-      String lastname, String mobileNumber, String homeAddress)
-      : super(firstname, lastname, mobileNumber, homeAddress) {
+  Admin(
+      {this.adminId,
+      this.username,
+      this.password,
+      this.userImage,
+      personId,
+      firstname,
+      lastname,
+      mobileNumber,
+      homeAddress})
+      : super(personId, firstname, lastname, mobileNumber, homeAddress) {
     this.username = username;
     this.password = password;
     this.userImage = userImage;
   }
 
-  Admin.withoutImage(String username, String password, String firstname,
-      String lastname, String mobileNumber, String homeAddress)
-      : super(firstname, lastname, mobileNumber, homeAddress) {
-    this.username = username;
-    this.password = password;
-  }
+  Admin.withoutImage(
+      String username,
+      String password,
+      personId,
+      String firstname,
+      String lastname,
+      String mobileNumber,
+      String homeAddress)
+      : super(personId, firstname, lastname, mobileNumber, homeAddress);
 
   Admin.adminOnly({
     this.adminId,
@@ -49,11 +60,25 @@ class Admin extends Person {
     this.password = password;
   }
 
-  factory Admin.fromJson(Map<String, dynamic> json) {
+  factory Admin.fromJsonAdmin(Map<String, dynamic> json) {
     return Admin.adminOnly(
-      adminId: json['AdminID'] as String,
-      username: json['username'] as String,
-      password: json['password'] as String,
+      adminId: json["AdminID"] as String,
+      username: json["username"] as String,
+      password: json["password"] as String,
+    );
+  }
+
+  factory Admin.fromJson(Map<String, dynamic> json) {
+    return Admin(
+      adminId: json["AdminID"] as String,
+      username: json["username"] as String,
+      password: json["password"] as String,
+      userImage: json["userImage"] as String,
+      personId: json["PersonID"] as int,
+      firstname: json["Firstname"] as String,
+      lastname: json["Lastname"] as String,
+      mobileNumber: json["MobileNumber"] as String,
+      homeAddress: json["HomeAddress"] as String,
     );
   }
 }

@@ -26,11 +26,12 @@ class Employee extends Person {
       String username,
       String password,
       String userImage,
+      int personId,
       String firstname,
       String lastname,
       String mobileNumber,
       String homeAddress)
-      : super(firstname, lastname, mobileNumber, homeAddress) {
+      : super(personId, firstname, lastname, mobileNumber, homeAddress) {
     this.role = role;
     this.username = username;
     this.password = password;
@@ -41,11 +42,12 @@ class Employee extends Person {
       String role,
       String username,
       String password,
+      int personId,
       String firstname,
       String lastname,
       String mobileNumber,
       String homeAddress)
-      : super(firstname, lastname, mobileNumber, homeAddress) {
+      : super(personId, firstname, lastname, mobileNumber, homeAddress) {
     this.role = role;
     this.username = username;
     this.password = password;
