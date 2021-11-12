@@ -94,7 +94,13 @@ class _EmployeeScreen extends State<EmployeeScreen> {
                             .map<DropdownMenuItem<String>>((String value) {
                           return DropdownMenuItem<String>(
                             value: value,
-                            child: Text(value),
+                            child: Padding(
+                              padding: EdgeInsets.only(left: 25),
+                              child: Text(
+                                value,
+                                style: TextStyle(fontSize: 15),
+                              ),
+                            ),
                           );
                         }).toList(),
                       ),

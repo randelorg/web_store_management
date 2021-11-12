@@ -1,8 +1,6 @@
-import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:flutter/material.dart';
 import 'ViewBorrowerProfile.dart';
-import '../../Helpers/ReadQR.dart';
 
 class BorrowersScreen extends StatefulWidget {
   @override
@@ -29,19 +27,7 @@ class _BorrowersScreen extends State<BorrowersScreen> {
                       icon: Icon(Icons.qr_code_scanner_outlined),
                       color: Colors.grey,
                       tooltip: 'Search by QR',
-                      onPressed: () {
-                        // _scan.readQr();
-                        // print(_scan.getQR());
-                        // print('QR form Borrowers screen ' +
-                        //     GetString.getResult());
-
-                        // showDialog(
-                        //   context: context,
-                        //   builder: (BuildContext context) {
-                        //     return ReadQR();
-                        //   },
-                        // );
-                      },
+                      onPressed: () {},
                     ),
                   ),
                   filled: true,
@@ -122,16 +108,15 @@ List _borrowerProfile(BuildContext context) {
           children: <Widget>[
             Positioned.fill(
               child: Container(
-                decoration: BoxDecoration(
-                  color: HexColor("#155293")
-                ),
+                decoration: BoxDecoration(color: HexColor("#155293")),
               ),
             ),
             TextButton(
               style: TextButton.styleFrom(
                 padding: const EdgeInsets.all(13.0),
                 primary: Colors.white,
-                textStyle: TextStyle(fontFamily: 'Cairo_SemiBold', fontSize: 14),
+                textStyle:
+                    TextStyle(fontFamily: 'Cairo_SemiBold', fontSize: 14),
               ),
               onPressed: () {
                 showDialog(

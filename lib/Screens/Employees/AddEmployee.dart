@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:web_store_management/Models/Admin.dart';
-
 import '../Navbar/ConfirmNewAccount.dart';
-import '../../Models/Admin.dart';
 
 class AddEmployee extends StatefulWidget {
   @override
@@ -81,7 +78,13 @@ class _AddEmployee extends State<AddEmployee> {
                         .map<DropdownMenuItem<String>>((String value) {
                       return DropdownMenuItem<String>(
                         value: value,
-                        child: Text(value),
+                        child: Padding(
+                          padding: EdgeInsets.only(left: 25),
+                          child: Text(
+                            value,
+                            style: TextStyle(fontSize: 15),
+                          ),
+                        ),
                       );
                     }).toList(),
                   ),

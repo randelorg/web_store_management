@@ -10,6 +10,9 @@ class Body extends StatefulWidget {
 
 class _Body extends State<Body> {
   var controller = GlobalController();
+  String administrator = 'Administrator';
+  String storeAttendant = 'Store Attendant';
+  String? loginRole;
 
   @override
   void initState() {
@@ -36,101 +39,144 @@ class _Body extends State<Body> {
               vertical: MediaQuery.of(context).size.height / 40),
           child: Container(
             width: 300,
-            child: _formLogin(context, controller),
+            child: _formLogin(),
           ),
         )
       ],
     );
   }
-}
 
-Widget _formLogin(BuildContext context, GlobalController controller) {
-  final username = TextEditingController();
-  final password = TextEditingController();
+  Widget _formLogin() {
+    final username = TextEditingController();
+    final password = TextEditingController();
 
-  return Column(
-    children: [
-      TextField(
-        controller: username,
-        decoration: InputDecoration(
-          hintText: 'Username',
-          filled: true,
-          fillColor: Colors.blueGrey[50],
-          labelStyle: TextStyle(fontSize: 12),
-          contentPadding: EdgeInsets.only(left: 30),
-          enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.blueGrey.shade50),
-            borderRadius: BorderRadius.circular(15),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.blueGrey.shade50),
-            borderRadius: BorderRadius.circular(15),
-          ),
-        ),
-      ),
-      SizedBox(height: 30),
-      TextField(
-        controller: password,
-        obscureText: true,
-        decoration: InputDecoration(
-          hintText: 'Password',
-          counterText: 'Forgot password?',
-          filled: true,
-          fillColor: Colors.blueGrey[50],
-          labelStyle: TextStyle(fontSize: 12),
-          contentPadding: EdgeInsets.only(left: 30),
-          enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.blueGrey.shade50),
-            borderRadius: BorderRadius.circular(15),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.blueGrey.shade50),
-            borderRadius: BorderRadius.circular(15),
-          ),
-        ),
-      ),
-      SizedBox(height: 40),
-      Container(
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(30),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.deepPurple.shade100,
-              spreadRadius: 10,
-              blurRadius: 20,
-            ),
-          ],
-        ),
-        child: ElevatedButton(
+    return Column(
+      children: [
+        Padding(
+          padding: EdgeInsets.only(bottom: 20),
           child: Container(
-            width: double.infinity,
-            height: 50,
-            child: Center(
-              child: Text("Sign In"),
+            width: 300,
+            decoration: BoxDecoration(
+              color: Colors.blueGrey[50],
+              borderRadius: BorderRadius.circular(15),
+              border: Border.all(
+                color: Colors.blueGrey.shade50,
+                style: BorderStyle.solid,
+                width: 0.80,
+              ),
+            ),
+            child: DropdownButtonHideUnderline(
+              child: DropdownButton<String>(
+                isExpanded: true,
+                value: administrator,
+                icon: const Icon(Icons.arrow_downward),
+                iconSize: 24,
+                elevation: 16,
+                style: TextStyle(color: Colors.blue.shade700),
+                onChanged: (role) {
+                  setState(() {
+                    administrator = role!;
+                  });
+                },
+                items: <String>['Administrator', 'Store Attendant']
+                    .map<DropdownMenuItem<String>>((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Padding(
+                      padding: EdgeInsets.only(left: 25),
+                      child: Text(
+                        loginRole = value,
+                        style: TextStyle(fontSize: 15),
+                      ),
+                    ),
+                  );
+                }).toList(),
+              ),
             ),
           ),
-          style: ElevatedButton.styleFrom(
-            primary: Colors.redAccent.shade200,
-            onPrimary: Colors.white,
-          ),
-          onPressed: () {
-            if (username.text.isEmpty || password.text.isEmpty) {
-              SnackNotification.notif("Error", "Please fill all the fields");
-            } else {
-              switch (controller.login(username.text, password.text)) {
-                case 'success':
-                  Navigator.pushNamed(context, '/home');
-                  break;
-                case 'failed':
-                  SnackNotification.notif(
-                      "Error", "Username and password are incorrect");
-                  break;
-              }
-            }
-          },
         ),
-      ),
-    ],
-  );
+        TextField(
+          controller: username,
+          decoration: InputDecoration(
+            hintText: 'Username',
+            filled: true,
+            fillColor: Colors.blueGrey[50],
+            labelStyle: TextStyle(fontSize: 12),
+            contentPadding: EdgeInsets.only(left: 30),
+            enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.blueGrey.shade50),
+              borderRadius: BorderRadius.circular(15),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.blueGrey.shade50),
+              borderRadius: BorderRadius.circular(15),
+            ),
+          ),
+        ),
+        SizedBox(height: 20),
+        TextField(
+          controller: password,
+          obscureText: true,
+          decoration: InputDecoration(
+            hintText: 'Password',
+            counterText: 'Forgot password?',
+            filled: true,
+            fillColor: Colors.blueGrey[50],
+            labelStyle: TextStyle(fontSize: 12),
+            contentPadding: EdgeInsets.only(left: 30),
+            enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.blueGrey.shade50),
+              borderRadius: BorderRadius.circular(15),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.blueGrey.shade50),
+              borderRadius: BorderRadius.circular(15),
+            ),
+          ),
+        ),
+        SizedBox(height: 20),
+        Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(30),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.deepPurple.shade100,
+                spreadRadius: 10,
+                blurRadius: 20,
+              ),
+            ],
+          ),
+          child: ElevatedButton(
+            child: Container(
+              width: double.infinity,
+              height: 50,
+              child: Center(
+                child: Text("Sign In"),
+              ),
+            ),
+            style: ElevatedButton.styleFrom(
+              primary: Colors.redAccent.shade200,
+              onPrimary: Colors.white,
+            ),
+            onPressed: () {
+              if (username.text.isEmpty || password.text.isEmpty) {
+                SnackNotification.notif("Error", "Please fill all the fields");
+              } else {
+                switch (controller.login(username.text, password.text)) {
+                  case 'success':
+                    Navigator.pushNamed(context, '/home');
+                    break;
+                  case 'failed':
+                    SnackNotification.notif(
+                        "Error", "Username and password are incorrect");
+                    break;
+                }
+              }
+            },
+          ),
+        ),
+      ],
+    );
+  }
 }

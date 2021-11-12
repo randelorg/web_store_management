@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:web_store_management/Models/Admin.dart';
+import 'package:web_store_management/Models/Admin_model.dart';
 
 import 'ConfirmNewAccount.dart';
-import '../../Models/Admin.dart';
+import '../../Models/Admin_model.dart';
 
 class AddAccount extends StatefulWidget {
   @override

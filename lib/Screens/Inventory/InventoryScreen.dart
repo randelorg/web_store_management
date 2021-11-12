@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hexcolor/hexcolor.dart';
-
 import 'dart:math';
-
 import 'TransferStock.dart';
 import 'UpdateProduct.dart';
-import '../../Helpers/BarcodeReader.dart';
 
 class InventoryScreen extends StatefulWidget {
   @override
@@ -29,12 +26,12 @@ class _InventoryScreen extends State<InventoryScreen> {
                 child: Text(
                   'Add Product',
                   textAlign: TextAlign.center,
-                  style: TextStyle(                  
-                    color: HexColor("#155293"),
-                    fontFamily: 'Cairo_Bold',
-                    fontSize: 30,
-                    overflow: TextOverflow.fade),
-                    maxLines: 2,
+                  style: TextStyle(
+                      color: HexColor("#155293"),
+                      fontFamily: 'Cairo_Bold',
+                      fontSize: 30,
+                      overflow: TextOverflow.fade),
+                  maxLines: 2,
                 ),
               ),
               Padding(
@@ -166,7 +163,8 @@ class _InventoryScreen extends State<InventoryScreen> {
                         style: TextButton.styleFrom(
                           padding: const EdgeInsets.all(13.0),
                           primary: Colors.white,
-                          textStyle: TextStyle(fontFamily: 'Cairo_SemiBold', fontSize: 14),
+                          textStyle: TextStyle(
+                              fontFamily: 'Cairo_SemiBold', fontSize: 14),
                         ),
                         onPressed: () {},
                         child: const Text('ADD'),
@@ -390,7 +388,8 @@ List _productList(BuildContext context) {
               style: TextButton.styleFrom(
                 padding: const EdgeInsets.all(13.0),
                 primary: Colors.white,
-                textStyle: TextStyle(fontFamily: 'Cairo_SemiBold', fontSize: 14),
+                textStyle:
+                    TextStyle(fontFamily: 'Cairo_SemiBold', fontSize: 14),
               ),
               onPressed: () {
                 showDialog(
