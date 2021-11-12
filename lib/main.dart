@@ -10,8 +10,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: 'Dellrains Store Management System',
-      home: LoginPage(),
       debugShowCheckedModeBanner: false,
+      routes: {
+        '/': (context) => LoginPage(),
+        '/home': (context) => Home(),
+        '/logout': (context) => LoginPage(),
+      },
     );
   }
 }

@@ -1,16 +1,16 @@
 import 'package:hexcolor/hexcolor.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart'; //library for going to next pages
-import '../LoginPage/LoginPage.dart';
+import 'package:flutter/material.dart'; //library for going to next pages
+import 'package:web_store_management/Backend/GlobalController.dart';
 
 import 'Drawers/NotificationDrawer.dart';
 import 'Drawers/ProfileDrawer.dart';
 
 class TopBar extends StatelessWidget with PreferredSizeWidget {
+  var controller = GlobalController();
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      title:  Text(
+      title: Text(
         'DASHBOARD',
         style: TextStyle(
           color: HexColor("#155293"),
@@ -39,10 +39,11 @@ class TopBar extends StatelessWidget with PreferredSizeWidget {
         Padding(
           padding: EdgeInsets.only(right: 30),
           child: IconButton(
-            icon:  Icon(Icons.logout, color: HexColor("#EA1C24")),
+            icon: Icon(Icons.logout, color: HexColor("#EA1C24")),
             tooltip: 'Logout',
             onPressed: () {
-              Get.to(LoginPage());
+              controller.logout(); //destroys the session
+              Navigator.pushNamed(context, '/logout');
             },
           ),
         ),

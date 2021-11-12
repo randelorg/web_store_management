@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:web_store_management/Backend/Session.dart';
 
 import '../DashBoard/TimeCollection.dart';
 import '../NewLoan/HomeNewLoan.dart';
@@ -17,6 +18,21 @@ class NavDrawer extends StatefulWidget {
 }
 
 class _NavDrawer extends State<NavDrawer> {
+  var prefs = Session();
+
+  @override
+  void initState() {
+    super.initState();
+
+    prefs.getvalues().then((value) {
+      setState(() {
+        if (!value) {
+          Navigator.pushNamed(context, '/logout');
+        }
+      });
+    });
+  }
+
   int _selectedIndex = 1;
 
   var pages = [

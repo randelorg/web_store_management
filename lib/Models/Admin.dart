@@ -24,7 +24,7 @@ class Admin extends Person {
 
   Admin.empty() : super.empty();
 
-  Admin(
+  Admin.full(
       {this.adminId,
       this.username,
       this.password,
@@ -69,7 +69,7 @@ class Admin extends Person {
   }
 
   factory Admin.fromJson(Map<String, dynamic> json) {
-    return Admin(
+    return Admin.full(
       adminId: json["AdminID"] as String,
       username: json["username"] as String,
       password: json["password"] as String,

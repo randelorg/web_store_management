@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:get/get.dart'; //library for going to next pages
-
-import '../DashBoard/Home.dart';
+import 'package:web_store_management/Notification/Snack_notification.dart';
 import '../../Backend/GlobalController.dart';
 
 class Body extends StatefulWidget {
@@ -16,6 +14,8 @@ class _Body extends State<Body> {
   @override
   void initState() {
     super.initState();
+    //get all the admin account and compare
+    //in-app authentication of users
     controller.fetchAdmin();
   }
 
@@ -36,7 +36,7 @@ class _Body extends State<Body> {
               vertical: MediaQuery.of(context).size.height / 40),
           child: Container(
             width: 300,
-            child: _formLogin(controller),
+            child: _formLogin(context, controller),
           ),
         )
       ],
@@ -44,7 +44,7 @@ class _Body extends State<Body> {
   }
 }
 
-Widget _formLogin(GlobalController controller) {
+Widget _formLogin(BuildContext context, GlobalController controller) {
   final username = TextEditingController();
   final password = TextEditingController();
 
@@ -116,32 +116,15 @@ Widget _formLogin(GlobalController controller) {
           ),
           onPressed: () {
             if (username.text.isEmpty || password.text.isEmpty) {
-              Get.snackbar(
-                "Error",
-                "Please fill all the fields",
-                backgroundColor: Colors.redAccent.shade200,
-                colorText: Colors.white,
-                snackPosition: SnackPosition.BOTTOM,
-                borderRadius: 20,
-                margin: EdgeInsets.all(20),
-                duration: Duration(seconds: 3),
-              );
+              SnackNotification.notif("Error", "Please fill all the fields");
             } else {
               switch (controller.login(username.text, password.text)) {
                 case 'success':
-                  Get.to(Home());
+                  Navigator.pushNamed(context, '/home');
                   break;
                 case 'failed':
-                  Get.snackbar(
-                    "Error",
-                    "Username and password are incorrect",
-                    backgroundColor: Colors.redAccent.shade200,
-                    colorText: Colors.white,
-                    snackPosition: SnackPosition.BOTTOM,
-                    borderRadius: 20,
-                    margin: EdgeInsets.all(20),
-                    duration: Duration(seconds: 3),
-                  );
+                  SnackNotification.notif(
+                      "Error", "Username and password are incorrect");
                   break;
               }
             }
