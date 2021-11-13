@@ -2,19 +2,17 @@ import 'package:flutter/foundation.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:web_store_management/Models/Employee_model.dart';
 import '../Helpers/Hashing_helper.dart';
 import 'Interfaces/ILogin.dart';
+import 'Interfaces/IAdmin.dart';
 import '../Models/Admin_model.dart';
 import 'Utility/Mapping.dart';
 import 'Session.dart';
 
-class GlobalController implements ILogin {
+class GlobalController implements ILogin, IAdmin {
   var hash = Hashing();
   var admin = Admin.empty();
   var session = Session();
-
-  static void addAdmin() {}
 
   //****for admin login
   Future<List<Admin>> fetchAdmin() async {
@@ -37,8 +35,7 @@ class GlobalController implements ILogin {
   @override
   String login(final String username, final String password) {
     for (var admin in Mapping.adminList) {
-      if (username == admin.getUsername &&
-          password == hash.decrypt(admin.getPassword)) {
+      if (username == admin.getUsername && password == admin.getPassword) {
         //set the session
         //after successful login
         session.setValues(admin.getAdminId, true);
@@ -54,4 +51,6 @@ class GlobalController implements ILogin {
   void logout() {
     session.removeValues(); //remove the values from the session
   }
+
+  static void addAdmin() {}
 }
