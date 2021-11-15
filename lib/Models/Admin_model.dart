@@ -24,7 +24,7 @@ class Admin extends Person {
 
   Admin.empty() : super.empty();
 
-  Admin.full(
+  Admin.fullJson(
       {this.adminId,
       this.username,
       this.password,
@@ -34,10 +34,22 @@ class Admin extends Person {
       lastname,
       mobileNumber,
       homeAddress})
-      : super(personId, firstname, lastname, mobileNumber, homeAddress) {
+      : super.full(personId, firstname, lastname, mobileNumber, homeAddress) {
     this.username = username;
     this.password = password;
     this.userImage = userImage;
+  }
+
+  Admin.withOutId(
+    firstname,
+    lastname,
+    mobileNumber,
+    homeAddress,
+    this.username,
+    this.password,
+  ) : super.withOutId(firstname, lastname, mobileNumber, homeAddress) {
+    this.username = username;
+    this.password = password;
   }
 
   Admin.withoutImage(
@@ -48,9 +60,9 @@ class Admin extends Person {
       String lastname,
       String mobileNumber,
       String homeAddress)
-      : super(personId, firstname, lastname, mobileNumber, homeAddress);
+      : super.full(personId, firstname, lastname, mobileNumber, homeAddress);
 
-  Admin.adminOnly({
+  Admin.adminOnlyJson({
     this.adminId,
     this.username,
     this.password,
@@ -61,7 +73,7 @@ class Admin extends Person {
   }
 
   factory Admin.fromJsonAdmin(Map<String, dynamic> json) {
-    return Admin.adminOnly(
+    return Admin.adminOnlyJson(
       adminId: json["AdminID"] as String,
       username: json["username"] as String,
       password: json["password"] as String,
@@ -69,7 +81,7 @@ class Admin extends Person {
   }
 
   factory Admin.fromJson(Map<String, dynamic> json) {
-    return Admin.full(
+    return Admin.fullJson(
       adminId: json["AdminID"] as String,
       username: json["username"] as String,
       password: json["password"] as String,
@@ -81,4 +93,15 @@ class Admin extends Person {
       homeAddress: json["HomeAddress"] as String,
     );
   }
+
+  Map toJson() => {
+        "AdminID": adminId,
+        "Username": username,
+        "Password": password,
+        "Firstname": firstname,
+        "Lastname": lastname,
+        "MobileNumber": mobileNumber,
+        "HomeAddress": homeAddress,
+        "UserImage": userImage,
+      };
 }

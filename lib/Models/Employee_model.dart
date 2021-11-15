@@ -39,7 +39,7 @@ class Employee extends Person {
       lastname,
       mobileNumber,
       homeAddress})
-      : super(personId, firstname, lastname, mobileNumber, homeAddress) {
+      : super.full(personId, firstname, lastname, mobileNumber, homeAddress) {
     this.role = role;
     this.username = username;
     this.password = password;
@@ -55,7 +55,7 @@ class Employee extends Person {
       String lastname,
       String mobileNumber,
       String homeAddress)
-      : super(personId, firstname, lastname, mobileNumber, homeAddress) {
+      : super.full(personId, firstname, lastname, mobileNumber, homeAddress) {
     this.role = role;
     this.username = username;
     this.password = password;

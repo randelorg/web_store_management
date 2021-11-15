@@ -13,6 +13,11 @@ class Session {
     return prefs.getBool('isLoggedin')!;
   }
 
+  Future<String> getid() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString('id').toString();
+  }
+
   void removeValues() {
     SharedPreferences.getInstance().then((prefs) {
       prefs.remove('id');

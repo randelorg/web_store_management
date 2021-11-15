@@ -278,18 +278,7 @@ class _AddEmployee extends State<AddEmployee> {
                             primary: Colors.white,
                             textStyle: TextStyle(fontSize: 20),
                           ),
-                          onPressed: () {
-                            if (username.text.isNotEmpty) {
-                              //add the model
-                              //show dialog
-                              showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return ConfirmAccount();
-                                },
-                              );
-                            }
-                          },
+                          onPressed: () {},
                           child: const Text('CONFIRM'),
                         ),
                       ],

@@ -23,9 +23,17 @@ class Person {
 
   Person.empty();
 
-  Person(int persondId, String firstname, String lastname, String mobileNumber,
-      String homeAddress) {
+  Person.full(int persondId, String firstname, String lastname,
+      String mobileNumber, String homeAddress) {
     this.personId = personId;
+    this.firstname = firstname;
+    this.lastname = lastname;
+    this.mobileNumber = mobileNumber;
+    this.homeAddress = homeAddress;
+  }
+
+  Person.withOutId(String firstname, String lastname, String mobileNumber,
+      String homeAddress) {
     this.firstname = firstname;
     this.lastname = lastname;
     this.mobileNumber = mobileNumber;

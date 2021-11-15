@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:web_store_management/Models/Admin_model.dart';
-
 import 'ConfirmNewAccount.dart';
+import '../../Backend/Utility/Mapping.dart';
 import '../../Models/Admin_model.dart';
 
 class AddAccount extends StatefulWidget {
@@ -238,6 +237,16 @@ class _AddAccount extends State<AddAccount> {
                             if (username.text.isNotEmpty) {
                               //add the model
                               //show dialog
+                              Mapping.adminList.add(
+                                new Admin.withOutId(
+                                  firstname.text,
+                                  lastname.text,
+                                  mobileNumber.text,
+                                  homeAddress.text,
+                                  username.text,
+                                  password.text,
+                                ),
+                              );
                               showDialog(
                                 context: context,
                                 builder: (BuildContext context) {
