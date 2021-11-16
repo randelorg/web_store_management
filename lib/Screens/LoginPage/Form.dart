@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:web_store_management/Notification/Snack_notification.dart';
+import '../../Backend/Login_operation.dart';
 import '../../Backend/GlobalController.dart';
 
 class Body extends StatefulWidget {
@@ -9,6 +10,7 @@ class Body extends StatefulWidget {
 }
 
 class _Body extends State<Body> {
+  var login = Login();
   var controller = GlobalController();
   String administrator = 'Administrator';
   String storeAttendant = 'Store Attendant';
@@ -163,7 +165,7 @@ class _Body extends State<Body> {
               if (username.text.isEmpty || password.text.isEmpty) {
                 SnackNotification.notif("Error", "Please fill all the fields");
               } else {
-                switch (controller.login(username.text, password.text)) {
+                switch (login.login(username.text, password.text)) {
                   case 'success':
                     Navigator.pushNamed(context, '/home');
                     break;

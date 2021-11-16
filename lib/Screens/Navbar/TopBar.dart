@@ -1,12 +1,14 @@
 import 'package:hexcolor/hexcolor.dart';
 import 'package:flutter/material.dart'; //library for going to next pages
 import 'package:web_store_management/Backend/GlobalController.dart';
+import 'package:web_store_management/Backend/Login_operation.dart';
 
 import 'Drawers/NotificationDrawer.dart';
 import 'Drawers/ProfileDrawer.dart';
 
 class TopBar extends StatelessWidget with PreferredSizeWidget {
   var controller = GlobalController();
+  var login = Login();
   @override
   Widget build(BuildContext context) {
     return AppBar(
@@ -42,7 +44,7 @@ class TopBar extends StatelessWidget with PreferredSizeWidget {
             icon: Icon(Icons.logout, color: HexColor("#EA1C24")),
             tooltip: 'Logout',
             onPressed: () {
-              controller.logout(); //destroys the session
+              login.logout(); //destroys the session
               Navigator.pushNamed(context, '/logout');
             },
           ),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:web_store_management/Backend/GlobalController.dart';
+import '../../Backend/Admin_operation.dart';
 import '../../Backend/Utility/Mapping.dart';
 import '../../Notification/Snack_notification.dart';
 
@@ -11,7 +11,7 @@ class ConfirmAccount extends StatefulWidget {
 
 class _ConfirmAccount extends State<ConfirmAccount> {
   final password = TextEditingController();
-  var controller = GlobalController();
+  var admin = Admin(); //admin operations class
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -92,9 +92,9 @@ class _ConfirmAccount extends State<ConfirmAccount> {
                             textStyle: TextStyle(fontSize: 20),
                           ),
                           onPressed: () {
-                            bool status = controller.verifyUser(password.text);
+                            bool status = admin.verifyAdmin(password.text);
                             if (status) {
-                              controller.createAdminAccount();
+                              admin.createAdminAccount();
                             } else {
                               SnackNotification.notif(
                                   'Try again', 'Wrong Password');
