@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'dart:math';
+import 'package:web_store_management/Backend/GlobalController.dart';
 import 'TransferStock.dart';
 import 'UpdateProduct.dart';
+import '../../Backend/Utility/Mapping.dart';
 
 class InventoryScreen extends StatefulWidget {
   @override
@@ -11,6 +12,15 @@ class InventoryScreen extends StatefulWidget {
 }
 
 class _InventoryScreen extends State<InventoryScreen> {
+  var controller = GlobalController();
+
+  @override
+  void initState() {
+    super.initState();
+    //get all the admin account and compare
+    //in-app authentication of users
+  }
+
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -364,45 +374,46 @@ Widget _parseString(String stuff) {
 List _productList(BuildContext context) {
   List<_Row> _products;
 
-  return _products = List.generate(50, (index) {
-    Random random = new Random();
-    int randomQty = random.nextInt(10) + 1;
-    double randomPrice = random.nextDouble() + 2000.00;
-
-    return _Row(
-      'CellB1',
-      _dangerStock(randomQty.toString()),
-      double.parse(randomPrice.toStringAsFixed(2)).toString(),
-      ClipRRect(
-        borderRadius: BorderRadius.circular(18),
-        child: Stack(
-          children: <Widget>[
-            Positioned.fill(
-              child: Container(
-                decoration: BoxDecoration(
-                  color: HexColor("#155293"),
+  return _products = List.generate(
+    Mapping.productList.length,
+    (index) {
+      return _Row(
+        Mapping.productList[index].getProductName.toString(),
+        _dangerStock(Mapping.productList[index].getProductQty.toString()),
+        Mapping.productList[index].getProductPrice
+            .toStringAsFixed(2)
+            .toString(),
+        ClipRRect(
+          borderRadius: BorderRadius.circular(18),
+          child: Stack(
+            children: <Widget>[
+              Positioned.fill(
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: HexColor("#155293"),
+                  ),
                 ),
               ),
-            ),
-            TextButton(
-              style: TextButton.styleFrom(
-                padding: const EdgeInsets.all(13.0),
-                primary: Colors.white,
-                textStyle:
-                    TextStyle(fontFamily: 'Cairo_SemiBold', fontSize: 14),
+              TextButton(
+                style: TextButton.styleFrom(
+                  padding: const EdgeInsets.all(13.0),
+                  primary: Colors.white,
+                  textStyle:
+                      TextStyle(fontFamily: 'Cairo_SemiBold', fontSize: 14),
+                ),
+                onPressed: () {
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return UpdateProduct();
+                      });
+                },
+                child: const Text('UPDATE'),
               ),
-              onPressed: () {
-                showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return UpdateProduct();
-                    });
-              },
-              child: const Text('UPDATE'),
-            ),
-          ],
+            ],
+          ),
         ),
-      ),
-    );
-  });
+      );
+    },
+  );
 }
