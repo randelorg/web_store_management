@@ -32,5 +32,6 @@ class Login implements ILogin {
 
   void loadAllList() {
     controller.fetchProducts();
+    controller.fetchBorrowers();
   }
 }

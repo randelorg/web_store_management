@@ -1,6 +1,7 @@
 import 'package:hexcolor/hexcolor.dart';
 import 'package:flutter/material.dart';
 import 'ViewBorrowerProfile.dart';
+import '../../Backend/Utility/Mapping.dart';
 
 class BorrowersScreen extends StatefulWidget {
   @override
@@ -94,14 +95,15 @@ class _Row {
 
 List _borrowerProfile(BuildContext context) {
   List<_Row> _profiles;
+  print('HABA ' + Mapping.borrowerList.length.toString());
+  print('Name ' + Mapping.borrowerList[0].getBorrowerId.toString());
 
-  return _profiles = List.generate(50, (index) {
-    int tot = index + 1;
+  return _profiles = List.generate(Mapping.borrowerList.length, (index) {
     return new _Row(
-      tot.toString(),
-      'CellB2',
-      'CellC2',
-      "CellC1",
+      Mapping.borrowerList[index].getBorrowerId.toString(),
+      Mapping.borrowerList[index].toString(),
+      Mapping.borrowerList[index].getMobileNumber.toString(),
+      Mapping.borrowerList[index].getBalance.toStringAsFixed(2).toString(),
       ClipRRect(
         borderRadius: BorderRadius.circular(18),
         child: Stack(

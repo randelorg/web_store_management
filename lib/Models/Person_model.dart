@@ -7,7 +7,7 @@ class Person {
 
   get getFirstname => this.firstname;
 
-  set setFirstname(String? firstname) => this.firstname = firstname;
+  set setFirstname(firstname) => this.firstname = firstname;
 
   get getLastname => this.lastname;
 
@@ -20,6 +20,11 @@ class Person {
   get getHomeAddress => this.homeAddress;
 
   set setHomeAddress(homeAddress) => this.homeAddress = homeAddress;
+
+  @override
+  String toString() {
+    return getFirstname + " " + getLastname;
+  }
 
   Person.empty();
 
