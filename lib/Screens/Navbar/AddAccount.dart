@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'ConfirmNewAccount.dart';
 import '../../Backend/Utility/Mapping.dart';
 import '../../Models/Admin_model.dart';
+import '../../Helpers/FilePicker_helper.dart';
 
 class AddAccount extends StatefulWidget {
   @override
@@ -10,6 +11,7 @@ class AddAccount extends StatefulWidget {
 }
 
 class _AddAccount extends State<AddAccount> {
+  var pick = Picker();
   //getting the text in the field
   final username = TextEditingController();
   final firstname = TextEditingController();
@@ -205,7 +207,12 @@ class _AddAccount extends State<AddAccount> {
             Container(
               alignment: Alignment.topLeft,
               child: TextButton.icon(
-                onPressed: () {},
+                onPressed: () {
+                  String? t;
+                  pick.pickFile().then((value) => t);
+
+                  print('Image path ' + t.toString());
+                },
                 icon: Icon(Icons.file_upload),
                 label: Text('Select account image'),
               ),

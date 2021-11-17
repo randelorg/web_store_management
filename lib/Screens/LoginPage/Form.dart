@@ -12,6 +12,7 @@ class Body extends StatefulWidget {
 class _Body extends State<Body> {
   var login = Login();
   var controller = GlobalController();
+
   String administrator = 'Administrator';
   String storeAttendant = 'Store Attendant';
   String? loginRole;
