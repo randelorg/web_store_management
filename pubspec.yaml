@@ -34,7 +34,7 @@ dependencies:
   navigation_rail: ^1.5.0
   intl: ^0.17.0
   hexcolor: ^2.0.5
-  xxtea: ^2.1.0 #hashing
+  crypto: ^3.0.1 #hashing
   http: ^0.13.4 #fetching json
   shared_preferences: ^2.0.8 #for session
   file_picker: ^4.2.3 #file picker

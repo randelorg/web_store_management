@@ -22,6 +22,10 @@ collection
 2.12
 file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/collection-1.15.0/
 file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/collection-1.15.0/lib/
+crypto
+2.12
+file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/crypto-3.0.1/
+file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/crypto-3.0.1/lib/
 cupertino_icons
 2.12
 file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/cupertino_icons-1.0.3/
@@ -198,10 +202,6 @@ xdg_directories
 2.12
 file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/xdg_directories-0.2.0/
 file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/xdg_directories-0.2.0/lib/
-xxtea
-2.12
-file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/xxtea-2.1.0/
-file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/xxtea-2.1.0/lib/
 sky_engine
 2.12
 file:///C:/flutter/bin/cache/pkg/sky_engine/

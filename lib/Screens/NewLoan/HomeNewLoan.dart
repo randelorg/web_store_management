@@ -1,8 +1,18 @@
 import 'package:flutter/material.dart';
+import '../../Helpers/FilePicker_helper.dart';
 
 import 'Finalize.dart';
 
-class HomeNewLoan extends StatelessWidget {
+class HomeNewLoan extends StatefulWidget {
+  @override
+  _HomeNewLoan createState() => _HomeNewLoan();
+}
+
+class _HomeNewLoan extends State<HomeNewLoan> {
+  //classess
+  var pick = Picker();
+  //display selected file name
+  String fileName = 'UPLOAD \n CONTRACT';
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -139,9 +149,15 @@ class HomeNewLoan extends StatelessWidget {
                       ),
                       backgroundColor: Colors.blue.shade400,
                     ),
-                    onPressed: () {},
-                    child: const Text(
-                      'UPLOAD \n CONTRACT',
+                    onPressed: () {
+                      pick.pickFile().then((value) {
+                        setState(() {
+                          fileName = value;
+                        });
+                      });
+                    },
+                    child: Text(
+                      fileName,
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Colors.white,

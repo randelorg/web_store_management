@@ -1,10 +1,11 @@
+import 'dart:typed_data';
 import 'Person_model.dart';
 
 class Admin extends Person {
   String? adminId;
   String? username;
   String? password;
-  String? userImage;
+  Uint8List? userImage;
 
   get getAdminId => this.adminId;
 
@@ -28,7 +29,6 @@ class Admin extends Person {
       {this.adminId,
       this.username,
       this.password,
-      this.userImage,
       personId,
       firstname,
       lastname,
@@ -37,7 +37,6 @@ class Admin extends Person {
       : super.full(personId, firstname, lastname, mobileNumber, homeAddress) {
     this.username = username;
     this.password = password;
-    this.userImage = userImage;
   }
 
   Admin.withOutId(
@@ -47,9 +46,11 @@ class Admin extends Person {
     homeAddress,
     this.username,
     this.password,
+    this.userImage,
   ) : super.withOutId(firstname, lastname, mobileNumber, homeAddress) {
     this.username = username;
     this.password = password;
+    this.userImage = userImage;
   }
 
   Admin.withoutImage(
@@ -83,9 +84,8 @@ class Admin extends Person {
   factory Admin.fromJson(Map<String, dynamic> json) {
     return Admin.fullJson(
       adminId: json["AdminID"] as String,
-      username: json["username"] as String,
-      password: json["password"] as String,
-      userImage: json["userImage"] as String,
+      username: json["Username"] as String,
+      password: json["Password"] as String,
       personId: json["PersonID"] as int,
       firstname: json["Firstname"] as String,
       lastname: json["Lastname"] as String,
@@ -94,7 +94,12 @@ class Admin extends Person {
     );
   }
 
-  Map toJson() => {
+  Map<String, dynamic> toJsonCredential() => {
+        "Username": username,
+        "Password": password,
+      };
+
+  Map<String, dynamic> toJsonFull() => {
         "AdminID": adminId,
         "Username": username,
         "Password": password,

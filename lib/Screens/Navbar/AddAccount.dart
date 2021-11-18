@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import '../../Helpers/Hashing_helper.dart';
 import 'ConfirmNewAccount.dart';
 import '../../Backend/Utility/Mapping.dart';
 import '../../Models/Admin_model.dart';
@@ -11,7 +12,12 @@ class AddAccount extends StatefulWidget {
 }
 
 class _AddAccount extends State<AddAccount> {
+  //classes
   var pick = Picker();
+  var image = Admin.empty();
+  var hash = Hashing();
+  //dipslay the image name
+  String fileName = 'Select account image';
   //getting the text in the field
   final username = TextEditingController();
   final firstname = TextEditingController();
@@ -208,13 +214,14 @@ class _AddAccount extends State<AddAccount> {
               alignment: Alignment.topLeft,
               child: TextButton.icon(
                 onPressed: () {
-                  String? t;
-                  pick.pickFile().then((value) => t);
-
-                  print('Image path ' + t.toString());
+                  pick.pickFile().then((value) {
+                    setState(() {
+                      fileName = value;
+                    });
+                  });
                 },
                 icon: Icon(Icons.file_upload),
-                label: Text('Select account image'),
+                label: Text(fileName),
               ),
             ),
             Row(
@@ -251,7 +258,8 @@ class _AddAccount extends State<AddAccount> {
                                   mobileNumber.text,
                                   homeAddress.text,
                                   username.text,
-                                  password.text,
+                                  hash.encrypt(password.text),
+                                  image.getUserImage,
                                 ),
                               );
                               showDialog(

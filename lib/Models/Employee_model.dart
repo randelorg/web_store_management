@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'Person_model.dart';
 
 class Employee extends Person {
@@ -5,7 +7,7 @@ class Employee extends Person {
   String? role;
   String? username;
   String? password;
-  String? userImage;
+  Uint8List? userImage;
 
   get getEmployeeID => this.employeeID;
 
@@ -74,17 +76,17 @@ class Employee extends Person {
   factory Employee.fromJsonEmployee(Map<String, dynamic> json) {
     return Employee.emplyeeOnly(
       employeeID: json["EmployeeID"] as String,
-      username: json["username"] as String,
-      password: json["password"] as String,
+      username: json["Username"] as String,
+      password: json["Password"] as String,
     );
   }
 
   factory Employee.fromJson(Map<String, dynamic> json) {
     return Employee.full(
       employeeID: json["EmployeeID"] as String,
-      username: json["username"] as String,
-      password: json["password"] as String,
-      userImage: json["userImage"] as String,
+      username: json["Username"] as String,
+      password: json["Password"] as String,
+      userImage: json["UserImage"] as Uint8List,
       personId: json["PersonID"] as int,
       firstname: json["Firstname"] as String,
       lastname: json["Lastname"] as String,
@@ -92,4 +94,16 @@ class Employee extends Person {
       homeAddress: json["HomeAddress"] as String,
     );
   }
+
+  Map<String, dynamic> toJson() => {
+        "EmployeeID": employeeID,
+        "Role": role,
+        "Username": username,
+        "Password": password,
+        "UserImage": userImage,
+        "Firstname": firstname,
+        "Lastname": lastname,
+        "MobileNumber": mobileNumber,
+        "HomeAddress": homeAddress,
+      };
 }

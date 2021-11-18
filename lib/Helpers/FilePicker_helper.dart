@@ -1,19 +1,22 @@
-import 'dart:io';
 import 'dart:typed_data';
 import 'package:file_picker/file_picker.dart';
+import '../Models/Admin_model.dart';
 
 class Picker {
-  Future<Uint8List?> pickFile() async {
+  var image = Admin.empty();
+
+  Future<String> pickFile() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
       type: FileType.custom,
-      allowedExtensions: ['jpg', 'png', 'jpeg'],
+      allowedExtensions: ['jpg', 'png', 'jpeg', 'pdf'],
     );
 
     if (result != null) {
       Uint8List? uploadfile = result.files.single.bytes;
-      return uploadfile;
+      image.setUserImage = uploadfile;
+      return result.files.single.name.toString();
     }
 
-    return null;
+    return 'No';
   }
 }

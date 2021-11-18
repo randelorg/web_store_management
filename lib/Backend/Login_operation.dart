@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import '../Helpers/Hashing_helper.dart';
 import 'GlobalController.dart';
 import 'Interfaces/ILogin.dart';
@@ -12,17 +14,29 @@ class Login implements ILogin {
   var controller = GlobalController();
 
   @override
-  String login(String username, String password) {
-    for (var admin in Mapping.adminList) {
-      if (username == admin.getUsername && password == admin.getPassword) {
-        //set the session
-        //after successful login
-        session.setValues(admin.getAdminId, true);
-        loadAllList();
-        return "success";
-      }
+  Future<bool> mainLogin(String username, String password) async {
+    final response = await http.post(
+      Uri.parse('http://localhost:8090/api/login'),
+      body: {
+        "Username": username,
+        "Password": hash.encrypt(password),
+      },
+    );
+    print('code ' + response.statusCode.toString());
+    if (response.statusCode == 404) {
+      return false;
     }
-    return "failed";
+
+    await controller
+        .parseAdmin(response.body)
+        .then((value) => Mapping.adminList = value);
+    print(Mapping.adminList.length);
+
+    return true;
+  }
+
+  void setSession(String id) {
+    session.setValues(id, true);
   }
 
   @override

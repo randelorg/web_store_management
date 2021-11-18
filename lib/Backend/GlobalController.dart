@@ -8,23 +8,19 @@ import '../Models/Product_model.dart';
 import '../Models/Borrower_model.dart';
 
 class GlobalController {
-  //for admin login
-  //gathers all accounts from database
-  //after this use the function Login from Admin_operations
-  Future<List<Admin>> fetchAdmin() async {
-    final response =
-        await http.get(Uri.parse('http://localhost:8090/api/loginAdmin'));
+  //get the admin who is logged in
+  // Future<List<Admin>> fetchAdmin() async {
+  //   final response =
+  //       await http.get(Uri.parse('http://localhost:8090/api/loginAdmin'));
 
-    // Use the compute function to run parseAdmin in a separate isolate.
-    return compute(parseAdmin, response.body);
-  }
+  //   // Use the compute function to run parseAdmin in a separate isolate.
+  //   return compute(parseAdmin, response.body);
+  // }
 
   // A function that converts a response body into a List<Admin>.
-  List<Admin> parseAdmin(String responseBody) {
+  Future<List<Admin>> parseAdmin(String responseBody) async {
     final parsed = jsonDecode(responseBody).cast<Map<String, dynamic>>();
-    Mapping.adminList =
-        parsed.map<Admin>((json) => Admin.fromJsonAdmin(json)).toList();
-    return Mapping.adminList;
+    return parsed.map<Admin>((json) => Admin.fromJson(json)).toList();
   }
 
   //fetch all the products from the database

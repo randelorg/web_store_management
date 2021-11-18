@@ -38,6 +38,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "crypto",
+      "rootUri": "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/crypto-3.0.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "cupertino_icons",
       "rootUri": "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/cupertino_icons-1.0.3",
       "packageUri": "lib/",
@@ -326,19 +332,13 @@
       "languageVersion": "2.12"
     },
     {
-      "name": "xxtea",
-      "rootUri": "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/xxtea-2.1.0",
-      "packageUri": "lib/",
-      "languageVersion": "2.12"
-    },
-    {
       "name": "web_store_management",
       "rootUri": "../",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     }
   ],
-  "generated": "2021-11-17T17:08:37.945098Z",
+  "generated": "2021-11-18T10:00:15.309040Z",
   "generator": "pub",
   "generatorVersion": "2.14.4"
 }

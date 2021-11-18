@@ -12,7 +12,8 @@ class Body extends StatefulWidget {
 class _Body extends State<Body> {
   var login = Login();
   var controller = GlobalController();
-
+  //declare if  login is succesfull
+  bool status = false;
   String administrator = 'Administrator';
   String storeAttendant = 'Store Attendant';
   String? loginRole;
@@ -22,7 +23,6 @@ class _Body extends State<Body> {
     super.initState();
     //get all the admin account and compare
     //in-app authentication of users
-    controller.fetchAdmin();
   }
 
   @override
@@ -166,15 +166,18 @@ class _Body extends State<Body> {
               if (username.text.isEmpty || password.text.isEmpty) {
                 SnackNotification.notif("Error", "Please fill all the fields");
               } else {
-                switch (login.login(username.text, password.text)) {
-                  case 'success':
-                    Navigator.pushNamed(context, '/home');
-                    break;
-                  case 'failed':
-                    SnackNotification.notif(
-                        "Error", "Username and password are incorrect");
-                    break;
-                }
+                login.mainLogin(username.text, password.text).then((value) {
+                  setState(() {
+                    status = value;
+
+                    if (value) {
+                      Navigator.pushNamed(context, '/home');
+                    } else {
+                      SnackNotification.notif(
+                          "Error", "Wrong username or password");
+                    }
+                  });
+                });
               }
             },
           ),

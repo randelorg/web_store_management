@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import '../Navbar/ConfirmNewAccount.dart';
+import '../../Helpers/FilePicker_helper.dart';
+import '../../Helpers/Hashing_helper.dart';
+import '../../Models/Employee_model.dart';
 
 class AddEmployee extends StatefulWidget {
   @override
@@ -8,6 +10,12 @@ class AddEmployee extends StatefulWidget {
 }
 
 class _AddEmployee extends State<AddEmployee> {
+  //classess
+  var pick = Picker();
+  var image = Employee.empty();
+  var hash = Hashing();
+  //dipslay the image name
+  String fileName = 'Select account image';
   //getting the text in the field
   String? role;
   final username = TextEditingController();
@@ -250,9 +258,15 @@ class _AddEmployee extends State<AddEmployee> {
             Container(
               alignment: Alignment.topLeft,
               child: TextButton.icon(
-                onPressed: () {},
+                onPressed: () {
+                  pick.pickFile().then((value) {
+                    setState(() {
+                      fileName = value;
+                    });
+                  });
+                },
                 icon: Icon(Icons.file_upload),
-                label: Text('Select account image'),
+                label: Text(fileName),
               ),
             ),
             Row(
