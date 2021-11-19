@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:web_store_management/Notification/Snack_notification.dart';
 import '../Helpers/Hashing_helper.dart';
 import 'GlobalController.dart';
 import 'Interfaces/ILogin.dart';
@@ -54,7 +55,7 @@ class Login implements ILogin {
       print(e.toString());
     }
 
-    loadAllList();
+    loadAllList(response, role);
 
     return true;
   }
@@ -72,8 +73,8 @@ class Login implements ILogin {
       case 'StoreAttendant':
         controller
             .parseEmployee(response.body)
-            .then((value) => Mapping.storeAttendantList = value);
-        print(Mapping.storeAttendantList.length);
+            .then((value) => Mapping.employeeList = value);
+        print(Mapping.employeeList.length);
         setSession(true);
         break;
       default:
@@ -87,14 +88,22 @@ class Login implements ILogin {
   @override
   void logout() {
     session.removeValues(); //remove the values from the session
-    Mapping.adminList.clear(); //clear the list
-    Mapping.storeAttendantList.clear();
+    //clear the list
+    Mapping.adminList.clear();
+    Mapping.employeeList.clear();
     Mapping.productList.clear();
     Mapping.borrowerList.clear();
   }
 
-  void loadAllList() {
-    controller.fetchProducts();
-    controller.fetchBorrowers();
+  Future<void> loadAllList(http.Response response, String role) async {
+    try {
+      //load employees if user is an admin
+      if (role == 'Administrator') await controller.fetchAllEmployees();
+
+      await controller.fetchProducts();
+      await controller.fetchBorrowers();
+    } catch (e) {
+      SnackNotification.notif('Error', 'Cant fetch neccessary data');
+    }
   }
 }

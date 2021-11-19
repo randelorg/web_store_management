@@ -192,12 +192,12 @@ List _borrowerProfile(BuildContext context) {
   List<_Row> _employees;
 
   try {
-    return _employees = List.generate(25, (index) {
+    return _employees = List.generate(Mapping.employeeList.length, (index) {
       return new _Row(
-        Mapping.storeAttendantList[index].getEmployeeID.toString(),
-        Mapping.storeAttendantList[index].getRole.toString(),
-        Mapping.storeAttendantList[index].toString(),
-        Mapping.storeAttendantList[index].getMobileNumber.toString(),
+        Mapping.employeeList[index].getEmployeeID.toString(),
+        Mapping.employeeList[index].getRole.toString(),
+        Mapping.employeeList[index].toString(),
+        Mapping.employeeList[index].getMobileNumber.toString(),
         ClipRRect(
           borderRadius: BorderRadius.circular(18),
           child: Stack(

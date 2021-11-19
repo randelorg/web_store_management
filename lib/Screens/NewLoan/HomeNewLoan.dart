@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../Helpers/FilePicker_helper.dart';
 
 import 'Finalize.dart';
+import '../../Backend/Utility/Mapping.dart';
 
 class HomeNewLoan extends StatefulWidget {
   @override
@@ -411,38 +412,51 @@ class _SelectionOfProducts extends DataTableSource {
 List _selectionProducts(BuildContext context) {
   List<_RowSelectProducts> _selectionProducts;
 
-  return _selectionProducts = List.generate(
-    50,
-    (index) {
-      return new _RowSelectProducts(
-        'Product A',
-        'CellB2',
-        ClipRRect(
-          borderRadius: BorderRadius.circular(12),
-          child: Stack(
-            children: <Widget>[
-              Positioned.fill(
-                child: Container(
-                  decoration: const BoxDecoration(
-                    color: Colors.blue,
+  try {
+    return _selectionProducts = List.generate(
+      Mapping.productList.length,
+      (index) {
+        return new _RowSelectProducts(
+          Mapping.productList[index].getProductName.toString(),
+          Mapping.productList[index].getProductPrice
+              .toStringAsFixed(2)
+              .toString(),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(12),
+            child: Stack(
+              children: <Widget>[
+                Positioned.fill(
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      color: Colors.blue,
+                    ),
                   ),
                 ),
-              ),
-              TextButton(
-                style: TextButton.styleFrom(
-                  padding: const EdgeInsets.all(12.0),
-                  primary: Colors.white,
-                  textStyle: const TextStyle(fontSize: 10),
+                TextButton(
+                  style: TextButton.styleFrom(
+                    padding: const EdgeInsets.all(12.0),
+                    primary: Colors.white,
+                    textStyle: const TextStyle(fontSize: 10),
+                  ),
+                  onPressed: () {},
+                  child: const Text('SELECT'),
                 ),
-                onPressed: () {},
-                child: const Text('SELECT'),
-              ),
-            ],
+              ],
+            ),
           ),
-        ),
+        );
+      },
+    );
+  } catch (e) {
+    //if product list is empty
+    return _selectionProducts = List.generate(0, (index) {
+      return _RowSelectProducts(
+        '',
+        '',
+        Text(''),
       );
-    },
-  );
+    });
+  }
 }
 
 // selected products

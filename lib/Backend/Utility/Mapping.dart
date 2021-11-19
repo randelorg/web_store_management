@@ -5,7 +5,7 @@ import '../../Models/Borrower_model.dart';
 
 class Mapping {
   static List<Admin> adminList = [];
-  static List<Employee> storeAttendantList = [];
+  static List<Employee> employeeList = [];
   static List<Product> productList = [];
   static List<Borrower> borrowerList = [];
 }
