@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'dart:convert';
 import 'package:http/http.dart' as http;
 import '../Helpers/Hashing_helper.dart';
 import 'GlobalController.dart';
@@ -14,23 +14,57 @@ class Login implements ILogin {
   var controller = GlobalController();
 
   @override
-  Future<bool> mainLogin(String username, String password) async {
+  Future<bool> mainLogin(String role, String username, String password) async {
+    //holds the json body
+    var entity;
+
+    switch (role.replaceAll(' ', '')) {
+      case 'Administrator':
+        entity = json
+            .encode({"Username": username, "Password": hash.encrypt(password)});
+        break;
+      case 'StoreAttendant':
+        entity = json.encode({
+          "Role": role.replaceAll(' ', ''),
+          "Username": username.toString(),
+          "Password": hash.encrypt(password)
+        });
+        break;
+      default:
+    }
+
     final response = await http.post(
       Uri.parse('http://localhost:8090/api/login'),
-      body: {
-        "Username": username,
-        "Password": hash.encrypt(password),
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
       },
+      body: entity,
     );
-    print('code ' + response.statusCode.toString());
+
     if (response.statusCode == 404) {
       return false;
     }
 
-    await controller
-        .parseAdmin(response.body)
-        .then((value) => Mapping.adminList = value);
-    print(Mapping.adminList.length);
+    switch (role.replaceAll(' ', '')) {
+      case 'Administrator':
+        controller
+            .parseAdmin(response.body)
+            .then((value) => Mapping.adminList = value);
+        print(Mapping.adminList.length);
+        setSession(Mapping.adminList[0].getAdminId);
+        print(Mapping.adminList[0].getAdminId);
+        break;
+      case 'StoreAttendant':
+        controller
+            .parseEmployee(response.body)
+            .then((value) => Mapping.storeAttendantList = value);
+        print(Mapping.storeAttendantList.length);
+        setSession(Mapping.storeAttendantList[0].getEmployeeID);
+        print(Mapping.storeAttendantList[0].getEmployeeID);
+        break;
+      default:
+    }
 
     return true;
   }
@@ -42,6 +76,10 @@ class Login implements ILogin {
   @override
   void logout() {
     session.removeValues(); //remove the values from the session
+    Mapping.adminList.clear(); //clear the list
+    Mapping.storeAttendantList.clear();
+    Mapping.productList.clear();
+    Mapping.borrowerList.clear();
   }
 
   void loadAllList() {

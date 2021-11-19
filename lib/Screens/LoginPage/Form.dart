@@ -12,8 +12,7 @@ class Body extends StatefulWidget {
 class _Body extends State<Body> {
   var login = Login();
   var controller = GlobalController();
-  //declare if  login is succesfull
-  bool status = false;
+
   String administrator = 'Administrator';
   String storeAttendant = 'Store Attendant';
   String? loginRole;
@@ -88,7 +87,7 @@ class _Body extends State<Body> {
                     child: Padding(
                       padding: EdgeInsets.only(left: 25),
                       child: Text(
-                        loginRole = value,
+                        value,
                         style: TextStyle(fontSize: 15),
                       ),
                     ),
@@ -166,10 +165,12 @@ class _Body extends State<Body> {
               if (username.text.isEmpty || password.text.isEmpty) {
                 SnackNotification.notif("Error", "Please fill all the fields");
               } else {
-                login.mainLogin(username.text, password.text).then((value) {
+                print('Role ' + administrator.toString());
+                login
+                    .mainLogin(
+                        administrator.toString(), username.text, password.text)
+                    .then((value) {
                   setState(() {
-                    status = value;
-
                     if (value) {
                       Navigator.pushNamed(context, '/home');
                     } else {

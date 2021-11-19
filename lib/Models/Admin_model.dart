@@ -73,19 +73,10 @@ class Admin extends Person {
     this.password = password;
   }
 
-  factory Admin.fromJsonAdmin(Map<String, dynamic> json) {
-    return Admin.adminOnlyJson(
-      adminId: json["AdminID"] as String,
-      username: json["username"] as String,
-      password: json["password"] as String,
-    );
-  }
-
   factory Admin.fromJson(Map<String, dynamic> json) {
     return Admin.fullJson(
       adminId: json["AdminID"] as String,
       username: json["Username"] as String,
-      password: json["Password"] as String,
       personId: json["PersonID"] as int,
       firstname: json["Firstname"] as String,
       lastname: json["Lastname"] as String,

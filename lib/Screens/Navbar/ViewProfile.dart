@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
 
 class ViewProfile extends StatelessWidget {
-  const ViewProfile({Key? key}) : super(key: key);
+  ViewProfile({Key? key}) : super(key: key);
+
+  final name = TextEditingController();
+  final role = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
       insetPadding: EdgeInsets.only(left: 20, right: 20, top: 180, bottom: 200),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-   
       actions: <Widget>[
         Column(
-          children: [    
+          children: [
             Align(
               alignment: Alignment.topRight,
               child: IconButton(
@@ -25,25 +27,24 @@ class ViewProfile extends StatelessWidget {
                 },
               ),
             ),
-                 
             MediaQuery.of(context).size.width >= 800 //Responsive
                 ? Image.asset(
                     '../../../assets/images/user.png',
                     width: 200,
                   )
                 : SizedBox(),
-
             Card(
-              margin: EdgeInsets.only(left:5, top: 20, bottom: 5, right: 5),
+              margin: EdgeInsets.only(left: 5, top: 20, bottom: 5, right: 5),
               elevation: 5,
               shadowColor: Colors.black,
               child: Row(
                 children: [
                   Padding(
-                    padding: EdgeInsets.only(left: 10, top: 10, bottom: 10, right: 50),
+                    padding: EdgeInsets.only(
+                        left: 10, top: 10, bottom: 10, right: 50),
                     child: Text(
                       'Name',
-                      style: TextStyle(     
+                      style: TextStyle(
                         color: Colors.grey[700],
                         fontFamily: 'Cairo_SemiBold',
                         fontSize: 12,
@@ -52,37 +53,33 @@ class ViewProfile extends StatelessWidget {
                   ),
                   Text(
                     'Michael Jacinto',
-                    style: TextStyle(                       
-                      fontFamily: 'Cairo_SemiBold',
-                      fontSize: 15
-                    ),
+                    style:
+                        TextStyle(fontFamily: 'Cairo_SemiBold', fontSize: 15),
                   ),
                 ],
               ),
             ),
             Card(
-              margin: EdgeInsets.only(left:5, top: 5, bottom: 5, right: 5),
+              margin: EdgeInsets.only(left: 5, top: 5, bottom: 5, right: 5),
               elevation: 5,
               shadowColor: Colors.black,
               child: Row(
                 children: [
                   Padding(
-                    padding: EdgeInsets.only(left: 10, top: 10, bottom: 15, right: 33),
+                    padding: EdgeInsets.only(
+                        left: 10, top: 10, bottom: 15, right: 33),
                     child: Text(
                       'User Level',
                       style: TextStyle(
-                        color: Colors.grey[700],
-                        fontFamily: 'Cairo_SemiBold',
-                        fontSize: 12
-                      ),
+                          color: Colors.grey[700],
+                          fontFamily: 'Cairo_SemiBold',
+                          fontSize: 12),
                     ),
                   ),
                   Text(
                     'Admin',
-                    style: TextStyle(
-                      fontFamily: 'Cairo_SemiBold',
-                      fontSize: 15
-                    ),
+                    style:
+                        TextStyle(fontFamily: 'Cairo_SemiBold', fontSize: 15),
                   ),
                 ],
               ),

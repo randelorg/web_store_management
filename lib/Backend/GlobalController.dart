@@ -6,6 +6,7 @@ import '../Models/Admin_model.dart';
 import 'Utility/Mapping.dart';
 import '../Models/Product_model.dart';
 import '../Models/Borrower_model.dart';
+import '../Models/Employee_model.dart';
 
 class GlobalController {
   //get the admin who is logged in
@@ -19,8 +20,14 @@ class GlobalController {
 
   // A function that converts a response body into a List<Admin>.
   Future<List<Admin>> parseAdmin(String responseBody) async {
-    final parsed = jsonDecode(responseBody).cast<Map<String, dynamic>>();
+    final parsed = await jsonDecode(responseBody).cast<Map<String, dynamic>>();
     return parsed.map<Admin>((json) => Admin.fromJson(json)).toList();
+  }
+
+  // A function that converts a response body into a List<Employee>.
+  Future<List<Employee>> parseEmployee(String responseBody) async {
+    final parsed = await jsonDecode(responseBody).cast<Map<String, dynamic>>();
+    return parsed.map<Employee>((json) => Employee.fromJson(json)).toList();
   }
 
   //fetch all the products from the database
