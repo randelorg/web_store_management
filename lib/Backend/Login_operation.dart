@@ -42,17 +42,31 @@ class Login implements ILogin {
       body: entity,
     );
 
+    //if response is empty return false
     if (response.statusCode == 404) {
       return false;
     }
 
+    try {
+      //if response is not empty
+      await _users(response, role);
+    } catch (e) {
+      print(e.toString());
+    }
+
+    loadAllList();
+
+    return true;
+  }
+
+  Future<void> _users(http.Response response, String role) async {
     switch (role.replaceAll(' ', '')) {
       case 'Administrator':
         controller
             .parseAdmin(response.body)
             .then((value) => Mapping.adminList = value);
         print(Mapping.adminList.length);
-        setSession(Mapping.adminList[0].getAdminId);
+        setSession(true);
         print(Mapping.adminList[0].getAdminId);
         break;
       case 'StoreAttendant':
@@ -60,17 +74,14 @@ class Login implements ILogin {
             .parseEmployee(response.body)
             .then((value) => Mapping.storeAttendantList = value);
         print(Mapping.storeAttendantList.length);
-        setSession(Mapping.storeAttendantList[0].getEmployeeID);
-        print(Mapping.storeAttendantList[0].getEmployeeID);
+        setSession(true);
         break;
       default:
     }
-
-    return true;
   }
 
-  void setSession(String id) {
-    session.setValues(id, true);
+  void setSession(bool id) {
+    session.setValues2(true);
   }
 
   @override

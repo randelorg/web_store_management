@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
-
+import 'package:web_store_management/Backend/Utility/Mapping.dart';
 import 'AddEmployee.dart';
 
 class EmployeeScreen extends StatefulWidget {
@@ -151,7 +151,7 @@ class _EmployeeScreen extends State<EmployeeScreen> {
                   rowsPerPage: 10,
                   columns: [
                     DataColumn(label: Text('EID')),
-                    DataColumn(label: Text('ROLL')),
+                    DataColumn(label: Text('ROLE')),
                     DataColumn(label: Text('NAME')),
                     DataColumn(label: Text('NUMBER')),
                     DataColumn(label: Text('PROFILE')),
@@ -191,81 +191,94 @@ class _Row {
 List _borrowerProfile(BuildContext context) {
   List<_Row> _employees;
 
-  return _employees = List.generate(25, (index) {
-    int tot = index + 1;
-    return new _Row(
-      tot.toString(),
-      'CellB2',
-      'CellC2',
-      "CellC1",
-      ClipRRect(
-        borderRadius: BorderRadius.circular(18),
-        child: Stack(
-          children: <Widget>[
-            Positioned.fill(
-              child: Container(
-                decoration: BoxDecoration(
-                  color: HexColor("#155293"),
+  try {
+    return _employees = List.generate(25, (index) {
+      return new _Row(
+        Mapping.storeAttendantList[index].getEmployeeID.toString(),
+        Mapping.storeAttendantList[index].getRole.toString(),
+        Mapping.storeAttendantList[index].toString(),
+        Mapping.storeAttendantList[index].getMobileNumber.toString(),
+        ClipRRect(
+          borderRadius: BorderRadius.circular(18),
+          child: Stack(
+            children: <Widget>[
+              Positioned.fill(
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: HexColor("#155293"),
+                  ),
                 ),
               ),
-            ),
-            TextButton(
-              style: TextButton.styleFrom(
-                padding: const EdgeInsets.all(13.0),
-                primary: Colors.white,
-                textStyle:
-                    TextStyle(fontFamily: 'Cairo_SemiBold', fontSize: 14),
-              ),
-              onPressed: () {
-                // show here employee profile
+              TextButton(
+                style: TextButton.styleFrom(
+                  padding: const EdgeInsets.all(13.0),
+                  primary: Colors.white,
+                  textStyle:
+                      TextStyle(fontFamily: 'Cairo_SemiBold', fontSize: 14),
+                ),
+                onPressed: () {
+                  // show here employee profile
 
-                // showDialog(
-                //   context: context,
-                //   builder: (BuildContext context) {
-                //     return ViewBorrowerProfile();
-                //   },
-                // );
-              },
-              child: const Text('PROFILE'),
-            ),
-          ],
+                  // showDialog(
+                  //   context: context,
+                  //   builder: (BuildContext context) {
+                  //     return ViewBorrowerProfile();
+                  //   },
+                  // );
+                },
+                child: const Text('PROFILE'),
+              ),
+            ],
+          ),
         ),
-      ),
-      ClipRRect(
-        borderRadius: BorderRadius.circular(18),
-        child: Stack(
-          children: <Widget>[
-            Positioned.fill(
-              child: Container(
-                decoration: BoxDecoration(
-                  color: HexColor("#155293"),
+        ClipRRect(
+          borderRadius: BorderRadius.circular(18),
+          child: Stack(
+            children: <Widget>[
+              Positioned.fill(
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: HexColor("#155293"),
+                  ),
                 ),
               ),
-            ),
-            TextButton(
-              style: TextButton.styleFrom(
-                padding: const EdgeInsets.all(13.0),
-                primary: Colors.white,
-                textStyle:
-                    TextStyle(fontFamily: 'Cairo_SemiBold', fontSize: 14),
-              ),
-              onPressed: () {
-                // show here the payroll
+              TextButton(
+                style: TextButton.styleFrom(
+                  padding: const EdgeInsets.all(13.0),
+                  primary: Colors.white,
+                  textStyle:
+                      TextStyle(fontFamily: 'Cairo_SemiBold', fontSize: 14),
+                ),
+                onPressed: () {
+                  // show here the payroll
 
-                // showDialog(
-                //   context: context,
-                //   builder: (BuildContext context) {
-                //     return ViewBorrowerProfile();
-                //   },
-                // );
-              },
-              child: const Text('PAYROLL'),
-            ),
-          ],
+                  // showDialog(
+                  //   context: context,
+                  //   builder: (BuildContext context) {
+                  //     return ViewBorrowerProfile();
+                  //   },
+                  // );
+                },
+                child: const Text('PAYROLL'),
+              ),
+            ],
+          ),
         ),
-      ),
-    );
-  });
+      );
+    });
+  } catch (e) {
+    //if employees list is empty
+    return _employees = List.generate(0, (index) {
+      return _Row(
+        '',
+        '',
+        '',
+        '',
+        Text(''),
+        Text(''),
+      );
+    });
+  }
 }
 
 class _DataSource extends DataTableSource {

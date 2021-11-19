@@ -9,15 +9,6 @@ import '../Models/Borrower_model.dart';
 import '../Models/Employee_model.dart';
 
 class GlobalController {
-  //get the admin who is logged in
-  // Future<List<Admin>> fetchAdmin() async {
-  //   final response =
-  //       await http.get(Uri.parse('http://localhost:8090/api/loginAdmin'));
-
-  //   // Use the compute function to run parseAdmin in a separate isolate.
-  //   return compute(parseAdmin, response.body);
-  // }
-
   // A function that converts a response body into a List<Admin>.
   Future<List<Admin>> parseAdmin(String responseBody) async {
     final parsed = await jsonDecode(responseBody).cast<Map<String, dynamic>>();

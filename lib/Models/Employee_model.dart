@@ -33,6 +33,7 @@ class Employee extends Person {
 
   Employee.full(
       {this.employeeID,
+      this.role,
       this.username,
       //this.password,
       //this.userImage,
@@ -42,6 +43,7 @@ class Employee extends Person {
       mobileNumber,
       homeAddress})
       : super.full(personId, firstname, lastname, mobileNumber, homeAddress) {
+    this.employeeID = employeeID;
     this.role = role;
     this.username = username;
     //this.password = password;
@@ -76,6 +78,7 @@ class Employee extends Person {
   factory Employee.fromJson(Map<String, dynamic> json) {
     return Employee.full(
       employeeID: json["EmployeeID"] as String,
+      role: json["Role"] as String,
       username: json["Username"] as String,
       //userImage: json["UserImage"] as Uint8List,
       personId: json["PersonID"] as int,

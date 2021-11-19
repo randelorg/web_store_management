@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:web_store_management/Backend/Utility/Mapping.dart';
 
 import 'MakePayment.dart';
 import '../Borrowers/ViewBorrowerProfile.dart';
@@ -168,73 +169,86 @@ class _DataSource extends DataTableSource {
 List _paymentsList(BuildContext context) {
   List<_Row> _payments;
 
-  return _payments = List.generate(50, (index) {
-    int tot = index + 1;
-
-    return _Row(
-      tot.toString(),
-      'CellB2',
-      'CellC2',
-      ClipRRect(
-        borderRadius: BorderRadius.circular(18),
-        child: Stack(
-          children: <Widget>[
-            Positioned.fill(
-              child: Container(
-                decoration: BoxDecoration(
-                  color: HexColor("#155293"),
+  try {
+    return _payments = List.generate(Mapping.borrowerList.length, (index) {
+      return _Row(
+        Mapping.borrowerList[index].getBorrowerId.toString(),
+        Mapping.borrowerList[index].toString(),
+        Mapping.borrowerList[index].getBalance.toStringAsFixed(2).toString(),
+        ClipRRect(
+          borderRadius: BorderRadius.circular(18),
+          child: Stack(
+            children: <Widget>[
+              Positioned.fill(
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: HexColor("#155293"),
+                  ),
                 ),
               ),
-            ),
-            TextButton(
-              style: TextButton.styleFrom(
-                padding: const EdgeInsets.all(13.0),
-                primary: Colors.white,
-                textStyle: TextStyle(fontFamily: 'Cairo_SemiBold', fontSize: 14),
+              TextButton(
+                style: TextButton.styleFrom(
+                  padding: const EdgeInsets.all(13.0),
+                  primary: Colors.white,
+                  textStyle:
+                      TextStyle(fontFamily: 'Cairo_SemiBold', fontSize: 14),
+                ),
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return MakePayment();
+                    },
+                  );
+                },
+                child: const Text('PAY'),
               ),
-              onPressed: () {
-                showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return MakePayment();
-                  },
-                );
-              },
-              child: const Text('PAY'),
-            ),
-          ],
+            ],
+          ),
         ),
-      ),
-      ClipRRect(
-        borderRadius: BorderRadius.circular(18),
-        child: Stack(
-          children: <Widget>[
-            Positioned.fill(
-              child: Container(
-                decoration: BoxDecoration(
-                  color: HexColor("#155293"),
+        ClipRRect(
+          borderRadius: BorderRadius.circular(18),
+          child: Stack(
+            children: <Widget>[
+              Positioned.fill(
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: HexColor("#155293"),
+                  ),
                 ),
               ),
-            ),
-            TextButton(
-              style: TextButton.styleFrom(
-                padding: const EdgeInsets.all(13.0),
-                primary: Colors.white,
-                textStyle: TextStyle(fontFamily: 'Cairo_SemiBold', fontSize: 14),
+              TextButton(
+                style: TextButton.styleFrom(
+                  padding: const EdgeInsets.all(13.0),
+                  primary: Colors.white,
+                  textStyle:
+                      TextStyle(fontFamily: 'Cairo_SemiBold', fontSize: 14),
+                ),
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return ViewBorrowerProfile();
+                    },
+                  );
+                },
+                child: const Text('VIEW'),
               ),
-              onPressed: () {
-                showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return ViewBorrowerProfile();
-                  },
-                );
-              },
-              child: const Text('VIEW'),
-            ),
-          ],
+            ],
+          ),
         ),
-      ),
-    );
-  });
+      );
+    });
+  } catch (e) {
+    //if borrowers list is empty
+    return _payments = List.generate(0, (index) {
+      return _Row(
+        '',
+        '',
+        '',
+        Text(''),
+        Text(''),
+      );
+    });
+  }
 }

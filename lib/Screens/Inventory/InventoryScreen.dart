@@ -374,41 +374,55 @@ Widget _parseString(String stuff) {
 List _productList(BuildContext context) {
   List<_Row> _products;
 
-  return _products = List.generate(Mapping.productList.length, (index) {
-    return _Row(
-      Mapping.productList[index].getProductName.toString(),
-      _dangerStock(Mapping.productList[index].getProductQty.toString()),
-      Mapping.productList[index].getProductPrice.toStringAsFixed(2).toString(),
-      ClipRRect(
-        borderRadius: BorderRadius.circular(18),
-        child: Stack(
-          children: <Widget>[
-            Positioned.fill(
-              child: Container(
-                decoration: BoxDecoration(
-                  color: HexColor("#155293"),
+  try {
+    return _products = List.generate(Mapping.productList.length, (index) {
+      return _Row(
+        Mapping.productList[index].getProductName.toString(),
+        _dangerStock(Mapping.productList[index].getProductQty.toString()),
+        Mapping.productList[index].getProductPrice
+            .toStringAsFixed(2)
+            .toString(),
+        ClipRRect(
+          borderRadius: BorderRadius.circular(18),
+          child: Stack(
+            children: <Widget>[
+              Positioned.fill(
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: HexColor("#155293"),
+                  ),
                 ),
               ),
-            ),
-            TextButton(
-              style: TextButton.styleFrom(
-                padding: const EdgeInsets.all(13.0),
-                primary: Colors.white,
-                textStyle:
-                    TextStyle(fontFamily: 'Cairo_SemiBold', fontSize: 14),
+              TextButton(
+                style: TextButton.styleFrom(
+                  padding: const EdgeInsets.all(13.0),
+                  primary: Colors.white,
+                  textStyle:
+                      TextStyle(fontFamily: 'Cairo_SemiBold', fontSize: 14),
+                ),
+                onPressed: () {
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return UpdateProduct();
+                      });
+                },
+                child: const Text('UPDATE'),
               ),
-              onPressed: () {
-                showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return UpdateProduct();
-                    });
-              },
-              child: const Text('UPDATE'),
-            ),
-          ],
+            ],
+          ),
         ),
-      ),
-    );
-  });
+      );
+    });
+  } catch (e) {
+    //if product list is empty
+    return _products = List.generate(0, (index) {
+      return _Row(
+        '',
+        Text(''),
+        '',
+        Text(''),
+      );
+    });
+  }
 }

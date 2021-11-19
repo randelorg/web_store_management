@@ -165,7 +165,6 @@ class _Body extends State<Body> {
               if (username.text.isEmpty || password.text.isEmpty) {
                 SnackNotification.notif("Error", "Please fill all the fields");
               } else {
-                print('Role ' + administrator.toString());
                 login
                     .mainLogin(
                         administrator.toString(), username.text, password.text)

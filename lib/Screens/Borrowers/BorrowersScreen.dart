@@ -95,46 +95,63 @@ class _Row {
 
 List _borrowerProfile(BuildContext context) {
   List<_Row> _profiles;
-  print('HABA ' + Mapping.borrowerList.length.toString());
-  print('Name ' + Mapping.borrowerList[0].getBorrowerId.toString());
 
-  return _profiles = List.generate(Mapping.borrowerList.length, (index) {
-    return new _Row(
-      Mapping.borrowerList[index].getBorrowerId.toString(),
-      Mapping.borrowerList[index].toString(),
-      Mapping.borrowerList[index].getMobileNumber.toString(),
-      Mapping.borrowerList[index].getBalance.toStringAsFixed(2).toString(),
-      ClipRRect(
-        borderRadius: BorderRadius.circular(18),
-        child: Stack(
-          children: <Widget>[
-            Positioned.fill(
-              child: Container(
-                decoration: BoxDecoration(color: HexColor("#155293")),
-              ),
-            ),
-            TextButton(
-              style: TextButton.styleFrom(
-                padding: const EdgeInsets.all(13.0),
-                primary: Colors.white,
-                textStyle:
-                    TextStyle(fontFamily: 'Cairo_SemiBold', fontSize: 14),
-              ),
-              onPressed: () {
-                showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return ViewBorrowerProfile();
+  try {
+    return _profiles = List.generate(
+      Mapping.borrowerList.length,
+      (index) {
+        return new _Row(
+          Mapping.borrowerList[index].getBorrowerId.toString(),
+          Mapping.borrowerList[index].toString(),
+          Mapping.borrowerList[index].getMobileNumber.toString(),
+          Mapping.borrowerList[index].getBalance.toStringAsFixed(2).toString(),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(18),
+            child: Stack(
+              children: <Widget>[
+                Positioned.fill(
+                  child: Container(
+                    decoration: BoxDecoration(color: HexColor("#155293")),
+                  ),
+                ),
+                TextButton(
+                  style: TextButton.styleFrom(
+                    padding: const EdgeInsets.all(13.0),
+                    primary: Colors.white,
+                    textStyle:
+                        TextStyle(fontFamily: 'Cairo_SemiBold', fontSize: 14),
+                  ),
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return ViewBorrowerProfile();
+                      },
+                    );
                   },
-                );
-              },
-              child: const Text('VIEW'),
+                  child: const Text('VIEW'),
+                ),
+              ],
             ),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
-  });
+  } catch (e) {
+    //if list borrowers is empty
+    return _profiles = List.generate(
+      0,
+      (index) {
+        return new _Row(
+          "",
+          "",
+          "",
+          "",
+          Text(''),
+        );
+      },
+    );
+  }
 }
 
 class _DataSource extends DataTableSource {

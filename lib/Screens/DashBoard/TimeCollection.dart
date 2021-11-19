@@ -13,109 +13,121 @@ class _TimeCollection extends State<TimeCollection> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        Row(
-          children: [
-            Icon(
-              Icons.account_balance_wallet,
-              size: 40.0,
-              color: Colors.black,
-            ),
-            Text(
-              'COLLECTIONS',
-              softWrap: true,
-              style: TextStyle(
-                fontSize: 30,
-                color: Colors.blue,
-                fontWeight: FontWeight.bold,
+        Padding(
+          padding: EdgeInsets.only(left: 20, top: 20),
+          child: Row(
+            children: [
+              Icon(
+                Icons.account_balance_wallet,
+                size: 40.0,
+                color: Colors.black,
               ),
-            ),
-          ],
+              Text(
+                'COLLECTIONS',
+                softWrap: true,
+                style: TextStyle(
+                  fontSize: 30,
+                  color: Colors.blue,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
+          ),
         ),
         Row(
           children: [
-            Column(
-              children: [
-                TextButton.icon(
-                  //Today collection graph
-                  icon: Icon(
-                    Icons.attach_money,
-                    size: 30.0,
-                    color: Colors.black,
+            Padding(
+              padding: EdgeInsets.all(20),
+              child: Column(
+                children: [
+                  TextButton.icon(
+                    //Today collection graph
+                    icon: Icon(
+                      Icons.attach_money,
+                      size: 30.0,
+                      color: Colors.black,
+                    ),
+                    label: Text(
+                      //vars here to be setState
+                      '60,000',
+                      softWrap: true,
+                      style: TextStyle(
+                        fontSize: 25,
+                        color: Colors.blue,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    onPressed: () {}, //pwdeng refresh button
                   ),
-                  label: Text(
-                    //vars here to be setState
-                    '60,000',
-                    softWrap: true,
-                    style: TextStyle(
-                      fontSize: 25,
-                      color: Colors.blue,
-                      fontWeight: FontWeight.bold,
+                  Center(
+                    child: Text(
+                      'TODAY',
                     ),
                   ),
-                  onPressed: () {}, //pwdeng refresh button
-                ),
-                Center(
-                  child: Text(
-                    'TODAY',
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
-            Column(
-              children: [
-                TextButton.icon(
-                  //this weeek collection graph
-                  icon: Icon(
-                    Icons.attach_money,
-                    size: 30.0,
-                    color: Colors.black,
+            Padding(
+              padding: EdgeInsets.all(20),
+              child: Column(
+                children: [
+                  TextButton.icon(
+                    //this weeek collection graph
+                    icon: Icon(
+                      Icons.attach_money,
+                      size: 30.0,
+                      color: Colors.black,
+                    ),
+                    label: Text(
+                      //vars here to be setState
+                      '60,000',
+                      softWrap: true,
+                      style: TextStyle(
+                        fontSize: 25,
+                        color: Colors.blue,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    onPressed: () {}, //pwdeng refresh button
                   ),
-                  label: Text(
-                    //vars here to be setState
-                    '60,000',
-                    softWrap: true,
-                    style: TextStyle(
-                      fontSize: 25,
-                      color: Colors.blue,
-                      fontWeight: FontWeight.bold,
+                  Center(
+                    child: Text(
+                      'THIS WEEK',
                     ),
                   ),
-                  onPressed: () {}, //pwdeng refresh button
-                ),
-                Center(
-                  child: Text(
-                    'THIS WEEK',
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
-            Column(
-              children: [
-                TextButton.icon(
-                  //Month collection graph
-                  icon: Icon(
-                    Icons.attach_money,
-                    size: 30.0,
-                    color: Colors.black,
+            Padding(
+              padding: EdgeInsets.all(20),
+              child: Column(
+                children: [
+                  TextButton.icon(
+                    //Month collection graph
+                    icon: Icon(
+                      Icons.attach_money,
+                      size: 30.0,
+                      color: Colors.black,
+                    ),
+                    label: Text(
+                      //vars here to be setState
+                      '60,000',
+                      softWrap: true,
+                      style: TextStyle(
+                        fontSize: 25,
+                        color: Colors.blue,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    onPressed: () {}, //pwdeng refresh button
                   ),
-                  label: Text(
-                    //vars here to be setState
-                    '60,000',
-                    softWrap: true,
-                    style: TextStyle(
-                      fontSize: 25,
-                      color: Colors.blue,
-                      fontWeight: FontWeight.bold,
+                  Center(
+                    child: Text(
+                      'THIS MONTH',
                     ),
                   ),
-                  onPressed: () {}, //pwdeng refresh button
-                ),
-                Center(
-                  child: Text(
-                    'THIS MONTH',
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
           ],
         ),
