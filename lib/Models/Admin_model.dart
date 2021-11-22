@@ -77,6 +77,7 @@ class Admin extends Person {
     return Admin.fullJson(
       adminId: json["AdminID"] as String,
       username: json["Username"] as String,
+      password: json["Password"] as String,
       personId: json["PersonID"] as int,
       firstname: json["Firstname"] as String,
       lastname: json["Lastname"] as String,
@@ -84,11 +85,6 @@ class Admin extends Person {
       homeAddress: json["HomeAddress"] as String,
     );
   }
-
-  Map<String, dynamic> toJsonCredential() => {
-        "Username": username,
-        "Password": password,
-      };
 
   Map<String, dynamic> toJsonFull() => {
         "AdminID": adminId,
@@ -98,6 +94,6 @@ class Admin extends Person {
         "Lastname": lastname,
         "MobileNumber": mobileNumber,
         "HomeAddress": homeAddress,
-        "UserImage": userImage,
+        //"UserImage": userImage,
       };
 }

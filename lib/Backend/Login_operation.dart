@@ -50,7 +50,9 @@ class Login implements ILogin {
 
     try {
       //if response is not empty
-      await _users(response, role);
+      bool status = await _users(response, role);
+
+      if (!status) return false;
     } catch (e) {
       print(e.toString());
     }
@@ -60,29 +62,34 @@ class Login implements ILogin {
     return true;
   }
 
-  Future<void> _users(http.Response response, String role) async {
-    switch (role.replaceAll(' ', '')) {
-      case 'Administrator':
-        controller
-            .parseAdmin(response.body)
-            .then((value) => Mapping.adminList = value);
-        print(Mapping.adminList.length);
-        setSession(true);
-        print(Mapping.adminList[0].getAdminId);
-        break;
-      case 'StoreAttendant':
-        controller
-            .parseEmployee(response.body)
-            .then((value) => Mapping.employeeList = value);
-        print(Mapping.employeeList.length);
-        setSession(true);
-        break;
-      default:
+  Future<bool> _users(http.Response response, String role) async {
+    try {
+      switch (role.replaceAll(' ', '')) {
+        case 'Administrator':
+          await controller
+              .parseAdmin(response.body)
+              .then((value) => Mapping.adminList = value);
+          setSession(Mapping.adminList[0].getAdminId.toString(), true);
+          print('ID ' + Mapping.adminList[0].getAdminId);
+          break;
+        case 'StoreAttendant':
+          await controller
+              .parseEmployee(response.body)
+              .then((value) => Mapping.employeeList = value);
+          setSession(Mapping.employeeList[0].getEmployeeID.toString(), true);
+          break;
+        default:
+      }
+    } catch (e) {
+      return false;
     }
+
+    return true;
   }
 
-  void setSession(bool id) {
-    session.setValues2(true);
+  void setSession(String id, bool status) {
+    session.setValues(id, status);
+    print('id ' + id);
   }
 
   @override

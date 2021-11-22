@@ -5,13 +5,23 @@ import '../../Backend/Utility/Mapping.dart';
 import '../../Notification/Snack_notification.dart';
 
 class ConfirmAccount extends StatefulWidget {
+  String? firstname, lastname, mobileNumber, homeAddress, username, password;
+  ConfirmAccount(
+      {this.firstname,
+      this.lastname,
+      this.mobileNumber,
+      this.homeAddress,
+      this.username,
+      this.password});
+
   @override
   _ConfirmAccount createState() => _ConfirmAccount();
 }
 
 class _ConfirmAccount extends State<ConfirmAccount> {
   final password = TextEditingController();
-  var admin = Admin(); //admin operations class
+  var admin = AdminOperation();
+
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -94,7 +104,23 @@ class _ConfirmAccount extends State<ConfirmAccount> {
                           onPressed: () {
                             bool status = admin.verifyAdmin(password.text);
                             if (status) {
-                              admin.createAdminAccount();
+                              admin
+                                  .createAdminAccount(
+                                      widget.firstname,
+                                      widget.lastname,
+                                      widget.mobileNumber,
+                                      widget.homeAddress,
+                                      widget.username,
+                                      widget.password)
+                                  .then((value) {
+                                if (value) {
+                                  SnackNotification.notif(
+                                      'Success', 'Admin account is created');
+                                } else {
+                                  SnackNotification.notif(
+                                      'Error', 'Something went wrong');
+                                }
+                              });
                             } else {
                               SnackNotification.notif(
                                   'Try again', 'Wrong Password');

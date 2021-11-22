@@ -1,9 +1,47 @@
 import 'Interfaces/IAdmin.dart';
+import 'Utility/Mapping.dart';
+import '../Helpers/Hashing_helper.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
-class Admin implements IAdmin {
+class AdminOperation implements IAdmin {
+  final hash = Hashing();
+
   @override
-  void createAdminAccount() {
-    // TODO: implement createAdminAccount
+  Future<bool> createAdminAccount(
+      String? firstname,
+      String? lastname,
+      String? mobileNumber,
+      String? homeAddress,
+      String? username,
+      String? password) async {
+    //json body
+    var id = 'admin_006';
+    var addAdmin = json.encode({
+      'AdminID': id,
+      'Username': username,
+      'Password': password,
+      'Firstname': firstname,
+      'Lastname': lastname,
+      'MobileNumber': mobileNumber,
+      'HomeAddress': homeAddress
+    });
+
+    try {
+      final response = await http.post(
+        Uri.parse("http://localhost:8090/api/admin"),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: addAdmin,
+      );
+
+      if (response.statusCode == 404) return false;
+    } catch (e) {}
+
+    //if status code is 202
+    return true;
   }
 
   @override
@@ -18,7 +56,10 @@ class Admin implements IAdmin {
 
   @override
   bool verifyAdmin(String password) {
-    // TODO: implement verifyAdmin
+    print(Mapping.adminList[0].getPassword.toString());
+    if (Mapping.adminList[0].getPassword.toString() == hash.encrypt(password))
+      return true;
+
     return false;
   }
 }

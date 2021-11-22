@@ -251,21 +251,28 @@ class _AddAccount extends State<AddAccount> {
                             if (username.text.isNotEmpty) {
                               //add the model
                               //show dialog
-                              Mapping.adminList.add(
-                                new Admin.withOutId(
-                                  firstname.text,
-                                  lastname.text,
-                                  mobileNumber.text,
-                                  homeAddress.text,
-                                  username.text,
-                                  hash.encrypt(password.text),
-                                  image.getUserImage,
-                                ),
-                              );
+                              // Mapping.adminList.add(
+                              //   new Admin.withOutId(
+                              //     firstname.text,
+                              //     lastname.text,
+                              //     mobileNumber.text,
+                              //     homeAddress.text,
+                              //     username.text,
+                              //     hash.encrypt(password.text),
+                              //     image.getUserImage,
+                              //   ),
+                              // );
                               showDialog(
                                 context: context,
                                 builder: (BuildContext context) {
-                                  return ConfirmAccount();
+                                  return ConfirmAccount(
+                                    firstname: firstname.text,
+                                    lastname: lastname.text,
+                                    mobileNumber: mobileNumber.text,
+                                    homeAddress: homeAddress.text,
+                                    username: username.text,
+                                    password: hash.encrypt(password.text),
+                                  );
                                 },
                               );
                             }

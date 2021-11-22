@@ -12,6 +12,7 @@ import '../Repairs/RepairsScreen.dart';
 import '../Inventory/InventoryScreen.dart';
 import '../Reports/ReportScreen.dart';
 import '../Employees/EmployeeScreen.dart';
+import '../../Backend/Login_operation.dart';
 
 class NavDrawer extends StatefulWidget {
   @override
@@ -24,6 +25,7 @@ class _NavDrawer extends State<NavDrawer> {
   @override
   void initState() {
     super.initState();
+
     prefs.getvalues().then((value) {
       setState(() {
         if (!value) {
@@ -226,8 +228,30 @@ class _NavDrawer extends State<NavDrawer> {
           //this is how we navigate
           //this is where the menus content will be displayed
           Expanded(
-            child: Center(
-              child: pages[_selectedIndex],
+            child: Stack(
+              clipBehavior: Clip.antiAlias,
+              children: <Widget>[
+                Center(
+                  child: pages[_selectedIndex],
+                ),
+                Container(
+                  margin: EdgeInsets.all(20),
+                  alignment: Alignment.bottomLeft,
+                  child: FittedBox(
+                    fit: BoxFit.fill,
+                    //refresh button
+                    child: FloatingActionButton(
+                      mouseCursor: MaterialStateMouseCursor.clickable,
+                      child: Icon(
+                        Icons.refresh,
+                        size: 30,
+                        color: Colors.white,
+                      ),
+                      onPressed: () {},
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
         ],
