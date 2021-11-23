@@ -38,6 +38,8 @@ dependencies:
   http: ^0.13.4 #fetching json
   shared_preferences: ^2.0.8 #for session
   file_picker: ^4.2.3 #file picker
+  qr_flutter: ^4.0.0
+  barcode_scan2: ^4.1.4 #not compatible with flutter web
 
 dev_dependencies:
   flutter_test:

@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'Interfaces/IAdmin.dart';
 import 'Utility/Mapping.dart';
 import '../Helpers/Hashing_helper.dart';
@@ -14,9 +16,10 @@ class AdminOperation implements IAdmin {
       String? mobileNumber,
       String? homeAddress,
       String? username,
-      String? password) async {
+      String? password,
+      Uint8List? image) async {
     //json body
-    var id = 'admin_006';
+    var id = 'admin_009';
     var addAdmin = json.encode({
       'AdminID': id,
       'Username': username,
@@ -24,7 +27,8 @@ class AdminOperation implements IAdmin {
       'Firstname': firstname,
       'Lastname': lastname,
       'MobileNumber': mobileNumber,
-      'HomeAddress': homeAddress
+      'HomeAddress': homeAddress,
+      'UserImage': image
     });
 
     try {
@@ -38,7 +42,9 @@ class AdminOperation implements IAdmin {
       );
 
       if (response.statusCode == 404) return false;
-    } catch (e) {}
+    } catch (e) {
+      e.toString();
+    }
 
     //if status code is 202
     return true;

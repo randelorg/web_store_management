@@ -8,12 +8,6 @@ class Session {
     });
   }
 
-  void setValues2(bool isLog) {
-    SharedPreferences.getInstance().then((prefs) {
-      prefs.setBool('isLoggedin', isLog);
-    });
-  }
-
   Future<bool> getvalues() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getBool('isLoggedin')!;

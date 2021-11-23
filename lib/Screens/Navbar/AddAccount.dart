@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import '../../Helpers/Hashing_helper.dart';
 import 'ConfirmNewAccount.dart';
-import '../../Backend/Utility/Mapping.dart';
-import '../../Models/Admin_model.dart';
 import '../../Helpers/FilePicker_helper.dart';
 
 class AddAccount extends StatefulWidget {
@@ -14,7 +12,7 @@ class AddAccount extends StatefulWidget {
 class _AddAccount extends State<AddAccount> {
   //classes
   var pick = Picker();
-  var image = Admin.empty();
+  var image;
   var hash = Hashing();
   //dipslay the image name
   String fileName = 'Select account image';
@@ -249,19 +247,11 @@ class _AddAccount extends State<AddAccount> {
                           ),
                           onPressed: () {
                             if (username.text.isNotEmpty) {
-                              //add the model
-                              //show dialog
-                              // Mapping.adminList.add(
-                              //   new Admin.withOutId(
-                              //     firstname.text,
-                              //     lastname.text,
-                              //     mobileNumber.text,
-                              //     homeAddress.text,
-                              //     username.text,
-                              //     hash.encrypt(password.text),
-                              //     image.getUserImage,
-                              //   ),
-                              // );
+                              pick.getImage().then((value) {
+                                setState(() {
+                                  image = value;
+                                });
+                              });
                               showDialog(
                                 context: context,
                                 builder: (BuildContext context) {
@@ -272,6 +262,7 @@ class _AddAccount extends State<AddAccount> {
                                     homeAddress: homeAddress.text,
                                     username: username.text,
                                     password: hash.encrypt(password.text),
+                                    image: image,
                                   );
                                 },
                               );

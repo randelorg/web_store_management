@@ -5,7 +5,7 @@ class Admin extends Person {
   String? adminId;
   String? username;
   String? password;
-  Uint8List? userImage;
+  String? userImage;
 
   get getAdminId => this.adminId;
 
@@ -33,35 +33,13 @@ class Admin extends Person {
       firstname,
       lastname,
       mobileNumber,
-      homeAddress})
+      homeAddress,
+      this.userImage})
       : super.full(personId, firstname, lastname, mobileNumber, homeAddress) {
-    this.username = username;
-    this.password = password;
-  }
-
-  Admin.withOutId(
-    firstname,
-    lastname,
-    mobileNumber,
-    homeAddress,
-    this.username,
-    this.password,
-    this.userImage,
-  ) : super.withOutId(firstname, lastname, mobileNumber, homeAddress) {
     this.username = username;
     this.password = password;
     this.userImage = userImage;
   }
-
-  Admin.withoutImage(
-      String username,
-      String password,
-      personId,
-      String firstname,
-      String lastname,
-      String mobileNumber,
-      String homeAddress)
-      : super.full(personId, firstname, lastname, mobileNumber, homeAddress);
 
   Admin.adminOnlyJson({
     this.adminId,
@@ -83,17 +61,7 @@ class Admin extends Person {
       lastname: json["Lastname"] as String,
       mobileNumber: json["MobileNumber"] as String,
       homeAddress: json["HomeAddress"] as String,
+      //userImage: json["UserImage"] as String,
     );
   }
-
-  Map<String, dynamic> toJsonFull() => {
-        "AdminID": adminId,
-        "Username": username,
-        "Password": password,
-        "Firstname": firstname,
-        "Lastname": lastname,
-        "MobileNumber": mobileNumber,
-        "HomeAddress": homeAddress,
-        //"UserImage": userImage,
-      };
 }

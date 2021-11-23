@@ -20,8 +20,6 @@ class _Body extends State<Body> {
   @override
   void initState() {
     super.initState();
-    //get all the admin account and compare
-    //in-app authentication of users
   }
 
   @override

@@ -25,10 +25,9 @@ class _NavDrawer extends State<NavDrawer> {
   @override
   void initState() {
     super.initState();
-
-    prefs.getvalues().then((value) {
+    prefs.getid().then((id) {
       setState(() {
-        if (!value) {
+        if (id.compareTo('') == 0) {
           Navigator.pushNamed(context, '/logout');
         }
       });

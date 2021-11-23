@@ -1,18 +1,22 @@
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import '../../Backend/Admin_operation.dart';
-import '../../Backend/Utility/Mapping.dart';
 import '../../Notification/Snack_notification.dart';
 
 class ConfirmAccount extends StatefulWidget {
   String? firstname, lastname, mobileNumber, homeAddress, username, password;
-  ConfirmAccount(
-      {this.firstname,
-      this.lastname,
-      this.mobileNumber,
-      this.homeAddress,
-      this.username,
-      this.password});
+  Uint8List? image;
+  //constructor
+  ConfirmAccount({
+    this.firstname,
+    this.lastname,
+    this.mobileNumber,
+    this.homeAddress,
+    this.username,
+    this.password,
+    this.image,
+  });
 
   @override
   _ConfirmAccount createState() => _ConfirmAccount();
@@ -111,7 +115,8 @@ class _ConfirmAccount extends State<ConfirmAccount> {
                                       widget.mobileNumber,
                                       widget.homeAddress,
                                       widget.username,
-                                      widget.password)
+                                      widget.password,
+                                      widget.image)
                                   .then((value) {
                                 if (value) {
                                   SnackNotification.notif(

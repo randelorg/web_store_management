@@ -5,6 +5,7 @@ import 'package:web_store_management/Backend/GlobalController.dart';
 import 'TransferStock.dart';
 import 'UpdateProduct.dart';
 import '../../Backend/Utility/Mapping.dart';
+import '../../Helpers/CreateQr_helper.dart';
 
 class InventoryScreen extends StatefulWidget {
   @override
@@ -51,12 +52,12 @@ class _InventoryScreen extends State<InventoryScreen> {
                     hintText: 'Barcode',
                     suffixIcon: IconButton(
                       onPressed: () {
-                        // showDialog(
-                        //   context: context,
-                        //   builder: (BuildContext context) {
-                        //     return BarcodeReader();
-                        //   },
-                        // );
+                        //scan barcode library
+                        CreateQrHelper.scanQr().then((value) {
+                          if (value.compareTo('') < 0) {
+                            print('VALUE ' + value);
+                          }
+                        });
                       },
                       icon: Icon(Icons.scanner_sharp),
                       tooltip: 'Scan product barcode',
