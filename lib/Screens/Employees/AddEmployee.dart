@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:web_store_management/Notification/Snack_notification.dart';
 import '../../Helpers/FilePicker_helper.dart';
 import '../../Helpers/Hashing_helper.dart';
-import '../../Models/Employee_model.dart';
+import '../../Backend/Employee_operation.dart';
 
 class AddEmployee extends StatefulWidget {
   @override
@@ -12,12 +13,12 @@ class AddEmployee extends StatefulWidget {
 class _AddEmployee extends State<AddEmployee> {
   //classess
   var pick = Picker();
-  var image = Employee.empty();
   var hash = Hashing();
+  var emp = EmployeeOperation();
+  var image;
   //dipslay the image name
   String fileName = 'Select account image';
   //getting the text in the field
-  String? role;
   final username = TextEditingController();
   final firstname = TextEditingController();
   final lastname = TextEditingController();
@@ -77,9 +78,9 @@ class _AddEmployee extends State<AddEmployee> {
                     iconSize: 24,
                     elevation: 16,
                     style: TextStyle(color: Colors.blue.shade700),
-                    onChanged: (role) {
+                    onChanged: (value) {
                       setState(() {
-                        collector = role!;
+                        collector = value!;
                       });
                     },
                     items: <String>['Collector', 'Store Attendant']
@@ -292,7 +293,40 @@ class _AddEmployee extends State<AddEmployee> {
                             primary: Colors.white,
                             textStyle: TextStyle(fontSize: 20),
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+                            if (username.text.isEmpty) {
+                              SnackNotification.notif(
+                                  'Error', 'Please supply all fields.');
+                            } else {
+                              //get the selected image bytes
+                              pick.getImage().then((value) {
+                                setState(() {
+                                  image = value;
+                                });
+                              });
+                              //call creation of employee method
+                              emp
+                                  .createEmployeeAccount(
+                                collector,
+                                firstname.text,
+                                lastname.text,
+                                mobileNumber.text,
+                                homeAddress.text,
+                                username.text,
+                                hash.encrypt(password.text),
+                                image,
+                              )
+                                  .then((value) {
+                                if (value) {
+                                  SnackNotification.notif(
+                                      'Success', 'Employee account is created');
+                                } else {
+                                  SnackNotification.notif(
+                                      'Error', 'Something went wrong');
+                                }
+                              });
+                            }
+                          },
                           child: const Text('CONFIRM'),
                         ),
                       ],

@@ -10,6 +10,8 @@ class TermsAndConditions extends StatefulWidget {
 
 class _TermsAndConditions extends State<TermsAndConditions> {
   TextEditingController dateinput = TextEditingController();
+  String terms = 'Daily';
+  double _currenSliderValue = 3;
 
   @override
   void initState() {
@@ -19,10 +21,8 @@ class _TermsAndConditions extends State<TermsAndConditions> {
 
   @override
   Widget build(BuildContext context) {
-    String _label1 = 'Daily';
-
-    double _currenSliderValue = 1;
     return AlertDialog(
+      actionsPadding: EdgeInsets.all(40),
       title: Text(
         'Terms And Conditions',
         softWrap: true,
@@ -30,7 +30,7 @@ class _TermsAndConditions extends State<TermsAndConditions> {
         style: TextStyle(
           fontWeight: FontWeight.bold,
           fontSize: 25,
-          color: Colors.blue,
+          color: Colors.black,
           overflow: TextOverflow.fade,
         ),
       ),
@@ -42,69 +42,35 @@ class _TermsAndConditions extends State<TermsAndConditions> {
               padding: const EdgeInsets.all(6.0),
               child: TextField(
                 decoration: InputDecoration(
-                  hintText: 'Borrowers Name',
-                  enabled: false,
+                  hintText: 'Borrower Name',
+                  //enabled: false,
                   filled: true,
                   fillColor: Colors.blueGrey[50],
                   labelStyle: TextStyle(fontSize: 12),
                   contentPadding: EdgeInsets.only(left: 30),
                   enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                    borderSide: BorderSide(color: Colors.grey.shade500),
                     borderRadius: BorderRadius.circular(10),
                   ),
                 ),
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(6.0),
-              child: TextField(
-                controller: dateinput,
-                decoration: InputDecoration(
-                  labelStyle: TextStyle(fontSize: 12),
-                  contentPadding: EdgeInsets.only(left: 30),
-                  hintText: 'Date Added',
-                  fillColor: Colors.blueGrey[50],
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
+              padding: EdgeInsets.all(10),
+              child: Container(
+                alignment: Alignment.topLeft,
+                child: Text(
+                  'Terms (if months interact with the slider)',
+                  style: TextStyle(fontSize: 12),
                 ),
-                //readOnly: true,
-                onTap: () async {
-                  DateTime? pickedDate = await showDatePicker(
-                      context: context,
-                      initialDate: DateTime.now(),
-                      firstDate: DateTime(1999),
-                      lastDate: DateTime(2031));
-                  if (pickedDate != null) {
-                    print(pickedDate);
-                    String formattedDate =
-                        DateFormat('dd-MM-yyyy').format(pickedDate);
-                    print(formattedDate);
-                    setState(() {
-                      dateinput.text = formattedDate;
-                    });
-                  } else {
-                    print("Date is not selected");
-                  }
-                },
               ),
             ),
             Padding(
               padding: EdgeInsets.only(bottom: 20),
               child: Container(
-                width: 320,
+                width: 380,
                 alignment: Alignment.topLeft,
                 decoration: BoxDecoration(
-                  color: Colors.blueGrey[50],
                   border: Border.all(
                     color: Colors.blueGrey.shade50,
                     style: BorderStyle.solid,
@@ -114,21 +80,27 @@ class _TermsAndConditions extends State<TermsAndConditions> {
                 child: DropdownButtonHideUnderline(
                   child: DropdownButton<String>(
                     isExpanded: true,
-                    value: _label1,
+                    value: terms,
                     icon: const Icon(Icons.arrow_downward),
                     iconSize: 24,
                     elevation: 16,
                     style: TextStyle(color: Colors.blue.shade700),
-                    onChanged: (String? newValue) {
+                    onChanged: (String? value) {
                       setState(() {
-                        _label1 = newValue!;
+                        terms = value!;
                       });
                     },
                     items: <String>['Daily', 'Every 15 days', 'Monthly']
                         .map<DropdownMenuItem<String>>((String value) {
                       return DropdownMenuItem<String>(
                         value: value,
-                        child: Text(value),
+                        child: Padding(
+                          padding: EdgeInsets.only(left: 25),
+                          child: Text(
+                            value,
+                            style: TextStyle(fontSize: 15),
+                          ),
+                        ),
                       );
                     }).toList(),
                   ),
@@ -137,15 +109,25 @@ class _TermsAndConditions extends State<TermsAndConditions> {
             ),
             Slider(
               value: _currenSliderValue,
-              min: 1,
+              min: 3,
               max: 12,
-              //divisions: 1,
-              label: _currenSliderValue.round().toString(),
+              divisions: 3,
+              label: _currenSliderValue.toString(),
               onChanged: (double value) {
                 setState(() {
                   _currenSliderValue = value;
                 });
               },
+            ),
+            Padding(
+              padding: EdgeInsets.all(10),
+              child: Container(
+                alignment: Alignment.topLeft,
+                child: Text(
+                  'Choose due date if months is selected',
+                  style: TextStyle(fontSize: 12),
+                ),
+              ),
             ),
             Padding(
               padding: const EdgeInsets.all(6.0),
@@ -157,11 +139,7 @@ class _TermsAndConditions extends State<TermsAndConditions> {
                   hintText: 'Due Date',
                   fillColor: Colors.blueGrey[50],
                   enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                    borderSide: BorderSide(color: Colors.grey.shade500),
                     borderRadius: BorderRadius.circular(10),
                   ),
                 ),
@@ -187,7 +165,7 @@ class _TermsAndConditions extends State<TermsAndConditions> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.only(top: 20),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(20),
                 child: Stack(

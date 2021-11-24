@@ -10,21 +10,20 @@ class Finalize extends StatefulWidget {
 
 class _Finalize extends State<Finalize> {
   Widget build(BuildContext context) {
-    return Container(
-      child: ListView(
-        scrollDirection: Axis.vertical,
-        padding: const EdgeInsets.all(10),
-        children: [
-          Padding(
-            padding: EdgeInsets.all(5),
-            child: Center(
-              child: Text(
-                'FINALIZE',
-                style: TextStyle(fontSize: 25),
-              ),
+    return Column(
+      children: [
+        Padding(
+          padding: EdgeInsets.all(5),
+          child: Center(
+            child: Text(
+              'FINALIZE',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
             ),
           ),
-          PaginatedDataTable(
+        ),
+        Container(
+          width: MediaQuery.of(context).size.width / 2,
+          child: PaginatedDataTable(
             showCheckboxColumn: false,
             rowsPerPage: 5,
             columns: [
@@ -35,70 +34,67 @@ class _Finalize extends State<Finalize> {
             ],
             source: _DataSource(context),
           ),
-          Divider(
-            thickness: 2,
-          ),
-          Stack(
-            children: [
-              Padding(
-                padding: EdgeInsets.all(20),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                      'TOTAL:  ',
-                      style: TextStyle(fontSize: 18),
-                    ),
-                    Text(
-                      '15000',
-                      style: TextStyle(fontSize: 18),
-                    ),
-                  ],
-                ),
+        ),
+        Stack(
+          children: [
+            Padding(
+              padding: EdgeInsets.all(20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text(
+                    'TOTAL:  ',
+                    style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                  ),
+                  Text(
+                    '15000',
+                    style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                  ),
+                ],
               ),
-              Padding(
-                padding: EdgeInsets.only(top: 10, right: 20),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(12),
-                      child: Stack(
-                        children: <Widget>[
-                          Positioned.fill(
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: Colors.blue.shade900,
-                              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(top: 10, right: 20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(12),
+                    child: Stack(
+                      children: <Widget>[
+                        Positioned.fill(
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: Colors.blue.shade900,
                             ),
                           ),
-                          TextButton(
-                            style: TextButton.styleFrom(
-                              padding: const EdgeInsets.all(20.0),
-                              primary: Colors.white,
-                              textStyle: const TextStyle(fontSize: 18),
-                            ),
-                            onPressed: () {
-                              Navigator.pop(context, true);
-                              showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return TermsAndConditions();
-                                },
-                              );
-                            },
-                            child: const Text('NEXT'),
+                        ),
+                        TextButton(
+                          style: TextButton.styleFrom(
+                            padding: const EdgeInsets.all(20.0),
+                            primary: Colors.white,
+                            textStyle: const TextStyle(fontSize: 18),
                           ),
-                        ],
-                      ),
+                          onPressed: () {
+                            Navigator.pop(context, true);
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return TermsAndConditions();
+                              },
+                            );
+                          },
+                          child: const Text('NEXT'),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-            ],
-          ),
-        ],
-      ),
+            ),
+          ],
+        ),
+      ],
     );
   }
 }

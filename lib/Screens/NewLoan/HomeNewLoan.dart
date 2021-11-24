@@ -257,6 +257,8 @@ class _HomeNewLoan extends State<HomeNewLoan> {
                         textStyle: const TextStyle(fontSize: 25),
                       ),
                       onPressed: () {
+                        //push to second page
+                        //which is the finalize order page
                         showDialog(
                           context: context,
                           builder: (BuildContext context) {

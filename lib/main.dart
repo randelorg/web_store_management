@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'Screens/LoginPage/LoginPage.dart';
 import 'Screens/DashBoard/Home.dart';
+import 'Screens/NewLoan/Finalize.dart';
 
 void main() => runApp(MyApp());
 

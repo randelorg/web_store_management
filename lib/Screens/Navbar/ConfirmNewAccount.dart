@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import '../../Backend/Admin_operation.dart';
 import '../../Notification/Snack_notification.dart';
 
+// ignore: must_be_immutable
 class ConfirmAccount extends StatefulWidget {
   String? firstname, lastname, mobileNumber, homeAddress, username, password;
   Uint8List? image;
