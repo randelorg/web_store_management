@@ -12,7 +12,6 @@ class AddAccount extends StatefulWidget {
 class _AddAccount extends State<AddAccount> {
   //classes
   var pick = Picker();
-  var image;
   var hash = Hashing();
   //dipslay the image name
   String fileName = 'Select account image';
@@ -247,11 +246,6 @@ class _AddAccount extends State<AddAccount> {
                           ),
                           onPressed: () {
                             if (username.text.isNotEmpty) {
-                              pick.getImage().then((value) {
-                                setState(() {
-                                  image = value;
-                                });
-                              });
                               showDialog(
                                 context: context,
                                 builder: (BuildContext context) {
@@ -262,7 +256,7 @@ class _AddAccount extends State<AddAccount> {
                                     homeAddress: homeAddress.text,
                                     username: username.text,
                                     password: hash.encrypt(password.text),
-                                    image: image,
+                                    image: pick.getImageBytes(),
                                   );
                                 },
                               );

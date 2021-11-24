@@ -1,6 +1,5 @@
 import 'dart:typed_data';
 import 'package:file_picker/file_picker.dart';
-import '../Models/Admin_model.dart';
 
 class Picker {
   //holds the bytes of the image
@@ -17,19 +16,17 @@ class Picker {
     );
 
     if (result != null) {
-      Uint8List? uploadfile = result.files.single.bytes;
       //set the image to the setter
-      image = uploadfile;
+      print(result.files.single.bytes);
+      image = result.files.single.bytes;
 
-      //returns the file name
       return result.files.single.name.toString();
     }
 
-    return 'No';
+    return 'No file is selected';
   }
 
-  //returns the bytes of the image
-  Future<Uint8List> getImage() async {
+  Uint8List getImageBytes() {
     return image;
   }
 }

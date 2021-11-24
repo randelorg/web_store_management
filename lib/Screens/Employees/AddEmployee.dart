@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:web_store_management/Notification/Snack_notification.dart';
@@ -16,6 +18,7 @@ class _AddEmployee extends State<AddEmployee> {
   var hash = Hashing();
   var emp = EmployeeOperation();
   var image;
+
   //dipslay the image name
   String fileName = 'Select account image';
   //getting the text in the field
@@ -298,24 +301,17 @@ class _AddEmployee extends State<AddEmployee> {
                               SnackNotification.notif(
                                   'Error', 'Please supply all fields.');
                             } else {
-                              //get the selected image bytes
-                              pick.getImage().then((value) {
-                                setState(() {
-                                  image = value;
-                                });
-                              });
-                              //call creation of employee method
+                              //creation of employee method
                               emp
                                   .createEmployeeAccount(
-                                collector,
-                                firstname.text,
-                                lastname.text,
-                                mobileNumber.text,
-                                homeAddress.text,
-                                username.text,
-                                hash.encrypt(password.text),
-                                image,
-                              )
+                                      collector.replaceAll(' ', '').toString(),
+                                      firstname.text,
+                                      lastname.text,
+                                      mobileNumber.text,
+                                      homeAddress.text,
+                                      username.text,
+                                      hash.encrypt(password.text),
+                                      pick.getImageBytes())
                                   .then((value) {
                                 if (value) {
                                   SnackNotification.notif(
