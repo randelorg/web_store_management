@@ -1,9 +1,8 @@
 import 'Person_model.dart';
 
 class Borrower extends Person {
-  String? borrowerId;
+  int? borrowerId;
   double? balance;
-  String? qrCode;
   String? contractImage;
 
   get getBorrowerId => this.borrowerId;
@@ -14,10 +13,6 @@ class Borrower extends Person {
 
   set setBalance(balance) => this.balance = balance;
 
-  get getQrCode => this.qrCode;
-
-  set setQrCode(qrCode) => this.qrCode = qrCode;
-
   get getContractImage => this.contractImage;
 
   set setContractImage(contractImage) => this.contractImage = contractImage;
@@ -25,18 +20,16 @@ class Borrower extends Person {
   Borrower.empty() : super.empty();
 
   Borrower.full(
-      String borrowerId,
+      int borrowerId,
       String firstname,
       String lastname,
       String mobileNumber,
       String homeAddress,
       double balance,
-      String qrCode,
       String contractImage)
       : super.withOutId(firstname, lastname, mobileNumber, homeAddress) {
     this.borrowerId = borrowerId;
     this.balance = balance;
-    this.qrCode = qrCode;
     this.contractImage = contractImage;
   }
 
@@ -47,7 +40,6 @@ class Borrower extends Person {
     mobileNumber,
     homeAddress,
     this.balance,
-    this.qrCode,
     this.contractImage,
   }) : super.withOutId(firstname, lastname, mobileNumber, homeAddress);
 
@@ -62,20 +54,19 @@ class Borrower extends Person {
 
   factory Borrower.fromJson(Map<String, dynamic> json) {
     return Borrower.fullJson(
-      borrowerId: json['BorrowerID'] as String,
+      borrowerId: json['BorrowerID'] as int,
       firstname: json['Firstname'] as String,
       lastname: json['Lastname'] as String,
       mobileNumber: json['MobileNumber'] as String,
       homeAddress: json['HomeAddress'] as String,
       balance: json['Balance'] as double,
-      qrCode: json['QRCode'] as String,
       contractImage: json['ContractImage'] as String,
     );
   }
 
   factory Borrower.fromJsonPartial(Map<String, dynamic> json) {
     return Borrower.fullJsonPartial(
-      borrowerId: json['BorrowerID'] as String,
+      borrowerId: json['BorrowerID'] as int,
       firstname: json['Firstname'] as String,
       lastname: json['Lastname'] as String,
       mobileNumber: json['MobileNumber'] as String,

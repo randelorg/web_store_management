@@ -66,26 +66,7 @@ class _PaymentScreen extends State<PaymentScreen> {
                   showCheckboxColumn: false,
                   rowsPerPage: 15,
                   columns: [
-                    DataColumn(
-                      label: Text('BID'),
-                      // SORTING **** FIX THE LIST METHOD
-                      // onSort: (columnIndex, _) {
-                      //   setState(() {
-                      //     _currentSortColumn = columnIndex;
-                      //     if (_isAscending == true) {
-                      //       _isAscending = false;
-                      //       // sort the product list in Ascending, order by Price
-                      //       _payments.sort((productA, productB) =>
-                      //           productB['price'].compareTo(productA['price']));
-                      //     } else {
-                      //       _isAscending = true;
-                      //       // sort the product list in Descending, order by Price
-                      //       _payments.sort((productA, productB) =>
-                      //           productA['price'].compareTo(productB['price']));
-                      //     }
-                      //   });
-                      // }
-                    ),
+                    DataColumn(label: Text('BID')),
                     DataColumn(label: Text('Name')),
                     DataColumn(label: Text('TOTAL DEBT')),
                     DataColumn(label: Text('PAYMENT')),
@@ -150,8 +131,26 @@ class _DataSource extends DataTableSource {
         DataCell(Text(row.valueA)),
         DataCell(Text(row.valueB)),
         DataCell(Text(row.valueC)),
-        DataCell((row.valueD)),
-        DataCell((row.valueE)),
+        DataCell((row.valueD), onTap: () {
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return MakePayment(
+                id: row.valueA,
+                name: row.valueB,
+                debt: row.valueC,
+              );
+            },
+          );
+        }),
+        DataCell((row.valueE), onTap: () {
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return ViewBorrowerProfile();
+            },
+          );
+        }),
       ],
     );
   }
@@ -186,22 +185,17 @@ List _paymentsList(BuildContext context) {
                   ),
                 ),
               ),
-              TextButton(
-                style: TextButton.styleFrom(
-                  padding: const EdgeInsets.all(13.0),
-                  primary: Colors.white,
-                  textStyle:
-                      TextStyle(fontFamily: 'Cairo_SemiBold', fontSize: 14),
+              Padding(
+                padding:
+                    EdgeInsets.only(top: 8, bottom: 8, left: 15, right: 15),
+                child: Text(
+                  'PAY',
+                  style: TextStyle(
+                    fontFamily: 'Cairo_SemiBold',
+                    fontSize: 14,
+                    color: Colors.white,
+                  ),
                 ),
-                onPressed: () {
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return MakePayment();
-                    },
-                  );
-                },
-                child: const Text('PAY'),
               ),
             ],
           ),
@@ -217,22 +211,17 @@ List _paymentsList(BuildContext context) {
                   ),
                 ),
               ),
-              TextButton(
-                style: TextButton.styleFrom(
-                  padding: const EdgeInsets.all(13.0),
-                  primary: Colors.white,
-                  textStyle:
-                      TextStyle(fontFamily: 'Cairo_SemiBold', fontSize: 14),
+              Padding(
+                padding:
+                    EdgeInsets.only(top: 8, bottom: 8, left: 10, right: 10),
+                child: Text(
+                  'VIEW',
+                  style: TextStyle(
+                    fontFamily: 'Cairo_SemiBold',
+                    fontSize: 14,
+                    color: Colors.white,
+                  ),
                 ),
-                onPressed: () {
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return ViewBorrowerProfile();
-                    },
-                  );
-                },
-                child: const Text('VIEW'),
               ),
             ],
           ),

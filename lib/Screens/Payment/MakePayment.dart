@@ -2,17 +2,27 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import 'package:web_store_management/Notification/Snack_notification.dart';
+import '../../Backend/Borrower_operation.dart';
 
 class MakePayment extends StatefulWidget {
+  final String? id, name, debt;
+  MakePayment({this.id, this.name, this.debt});
+
   @override
   _MakePayment createState() => _MakePayment();
 }
 
 class _MakePayment extends State<MakePayment> {
+  TextEditingController name = TextEditingController();
+  TextEditingController debt = TextEditingController();
+  TextEditingController givenAmount = TextEditingController();
   TextEditingController dateinput = TextEditingController();
-
+  var borrower = BorrowerOperation();
   @override
   void initState() {
+    name.text = widget.name.toString();
+    debt.text = widget.debt.toString();
     dateinput.text = "";
     super.initState();
   }
@@ -25,10 +35,11 @@ class _MakePayment extends State<MakePayment> {
         softWrap: true,
         textAlign: TextAlign.center,
         style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 35,
-            color: Colors.blue,
-            overflow: TextOverflow.fade),
+          fontWeight: FontWeight.bold,
+          fontSize: 35,
+          color: Colors.blue,
+          overflow: TextOverflow.fade,
+        ),
       ),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       actions: <Widget>[
@@ -37,8 +48,10 @@ class _MakePayment extends State<MakePayment> {
             Padding(
               padding: const EdgeInsets.all(6.0),
               child: TextField(
+                controller: name,
+                enabled: false,
                 decoration: InputDecoration(
-                  hintText: 'Borrowers Name',
+                  hintText: 'Borrower name',
                   filled: true,
                   fillColor: Colors.blueGrey[50],
                   labelStyle: TextStyle(fontSize: 12),
@@ -57,6 +70,8 @@ class _MakePayment extends State<MakePayment> {
             Padding(
               padding: const EdgeInsets.all(6.0),
               child: TextField(
+                controller: debt,
+                enabled: false,
                 decoration: InputDecoration(
                   hintText: 'Remaining Balaance',
                   filled: true,
@@ -77,6 +92,7 @@ class _MakePayment extends State<MakePayment> {
             Padding(
               padding: const EdgeInsets.all(6.0),
               child: TextField(
+                controller: givenAmount,
                 decoration: InputDecoration(
                   hintText: 'Amount',
                   filled: true,
@@ -122,7 +138,7 @@ class _MakePayment extends State<MakePayment> {
                   if (pickedDate != null) {
                     print(pickedDate);
                     String formattedDate =
-                        DateFormat('dd-MM-yyyy').format(pickedDate);
+                        DateFormat('MM/dd/yyyy').format(pickedDate);
                     print(formattedDate);
                     setState(() {
                       dateinput.text = formattedDate;
@@ -153,7 +169,20 @@ class _MakePayment extends State<MakePayment> {
                         primary: Colors.white,
                         textStyle: TextStyle(fontSize: 30),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        borrower
+                            .makePayment(
+                                int.parse(widget.id.toString()),
+                                double.parse(givenAmount.text),
+                                dateinput.text.toString())
+                            .then((value) {
+                          if (value) {
+                            SnackNotification.notif(
+                                'Success', 'Payment has been recorded');
+                          }
+                        });
+                        Navigator.pop(context);
+                      },
                       child: const Text('PAY'),
                     ),
                   ],

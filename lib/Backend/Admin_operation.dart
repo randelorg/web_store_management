@@ -18,7 +18,7 @@ class AdminOperation implements IAdmin {
       String? password,
       Uint8List? image) async {
     //json body
-    var id = 'admin_009';
+    var id = 'admin-009';
     var addAdmin = json.encode({
       'AdminID': id,
       'Username': username,

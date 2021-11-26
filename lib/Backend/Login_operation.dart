@@ -8,11 +8,10 @@ import '../Models/Admin_model.dart';
 import 'Utility/Mapping.dart';
 import 'Session.dart';
 
-class Login implements ILogin {
+class Login extends GlobalController implements ILogin {
   var hash = Hashing();
   var admin = Admin.empty();
   var session = Session();
-  var controller = GlobalController();
 
   @override
   Future<bool> mainLogin(String role, String username, String password) async {
@@ -66,15 +65,13 @@ class Login implements ILogin {
     try {
       switch (role.replaceAll(' ', '')) {
         case 'Administrator':
-          await controller
-              .parseAdmin(response.body)
+          await parseAdmin(response.body)
               .then((value) => Mapping.adminList = value);
           setSession(Mapping.adminList[0].getAdminId.toString(), true);
           print('ID ' + Mapping.adminList[0].getAdminId);
           break;
         case 'StoreAttendant':
-          await controller
-              .parseEmployee(response.body)
+          await parseEmployee(response.body)
               .then((value) => Mapping.employeeList = value);
           setSession(Mapping.employeeList[0].getEmployeeID.toString(), true);
           break;
@@ -95,7 +92,7 @@ class Login implements ILogin {
   @override
   void logout() {
     session.removeValues(); //remove the values from the session
-    //clear the list
+    //clear the lists
     Mapping.adminList.clear();
     Mapping.employeeList.clear();
     Mapping.productList.clear();
@@ -105,10 +102,10 @@ class Login implements ILogin {
   Future<void> loadAllList(http.Response response, String role) async {
     try {
       //load employees if user is an admin
-      if (role == 'Administrator') await controller.fetchAllEmployees();
+      if (role == 'Administrator') await fetchAllEmployees();
 
-      await controller.fetchProducts();
-      await controller.fetchBorrowers();
+      await fetchProducts();
+      await fetchBorrowers();
     } catch (e) {
       SnackNotification.notif('Error', 'Cant fetch neccessary data');
     }
