@@ -5,6 +5,7 @@ import 'package:web_store_management/Backend/Utility/Mapping.dart';
 
 import 'MakePayment.dart';
 import '../Borrowers/ViewBorrowerProfile.dart';
+import '../../Backend/GlobalController.dart';
 
 class PaymentScreen extends StatefulWidget {
   @override
@@ -14,6 +15,15 @@ class PaymentScreen extends StatefulWidget {
 class _PaymentScreen extends State<PaymentScreen> {
   int _currentSortColumn = 0;
   bool _isAscending = true;
+
+  var controller = GlobalController();
+
+  @override
+  void initState() {
+    super.initState();
+    //fetches the products from the database
+    controller.fetchBorrowers();
+  }
 
   Widget build(BuildContext context) {
     return Column(

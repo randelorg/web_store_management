@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../Helpers/FilePicker_helper.dart';
 import 'Finalize.dart';
 import '../../Backend/Utility/Mapping.dart';
+import '../../Backend/GlobalController.dart';
 
 class HomeNewLoan extends StatefulWidget {
   @override
@@ -14,11 +15,20 @@ class _HomeNewLoan extends State<HomeNewLoan> {
   final lastname = TextEditingController();
   final mobileNumber = TextEditingController();
   final homeAddress = TextEditingController();
-
   //classess
   var pick = Picker();
   //display selected file name
   String fileName = 'UPLOAD CONTRACT';
+
+  var controller = GlobalController();
+
+  @override
+  void initState() {
+    super.initState();
+    //fetches the products from the database
+    controller.fetchProducts();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Row(

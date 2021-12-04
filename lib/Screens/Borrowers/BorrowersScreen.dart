@@ -2,6 +2,7 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:flutter/material.dart';
 import 'ViewBorrowerProfile.dart';
 import '../../Backend/Utility/Mapping.dart';
+import '../../Backend/GlobalController.dart';
 
 class BorrowersScreen extends StatefulWidget {
   @override
@@ -9,6 +10,15 @@ class BorrowersScreen extends StatefulWidget {
 }
 
 class _BorrowersScreen extends State<BorrowersScreen> {
+  var controller = GlobalController();
+
+  @override
+  void initState() {
+    super.initState();
+    //fetches the borrowers from the database
+    controller.fetchBorrowers();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(

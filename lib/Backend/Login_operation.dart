@@ -56,7 +56,7 @@ class Login extends GlobalController implements ILogin {
       print(e.toString());
     }
 
-    loadAllList(response, role);
+    //loadAllList(response, role);
 
     return true;
   }
@@ -97,17 +97,5 @@ class Login extends GlobalController implements ILogin {
     Mapping.employeeList.clear();
     Mapping.productList.clear();
     Mapping.borrowerList.clear();
-  }
-
-  Future<void> loadAllList(http.Response response, String role) async {
-    try {
-      //load employees if user is an admin
-      if (role == 'Administrator') await fetchAllEmployees();
-
-      await fetchProducts();
-      await fetchBorrowers();
-    } catch (e) {
-      SnackNotification.notif('Error', 'Cant fetch neccessary data');
-    }
   }
 }

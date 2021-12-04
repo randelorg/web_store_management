@@ -3,6 +3,7 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
 import 'AddEmployee.dart';
 import 'ViewEmpProfile.dart';
+import '../../Backend/GlobalController.dart';
 
 class EmployeeScreen extends StatefulWidget {
   @override
@@ -12,6 +13,15 @@ class EmployeeScreen extends StatefulWidget {
 class _EmployeeScreen extends State<EmployeeScreen> {
   String collector = 'Collector';
   String storeAttendant = 'Store Attendant';
+  var controller = GlobalController();
+
+  @override
+  void initState() {
+    super.initState();
+    //fetches the emlpoyess from the database
+    controller.fetchAllEmployees();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(

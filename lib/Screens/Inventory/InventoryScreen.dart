@@ -18,8 +18,8 @@ class _InventoryScreen extends State<InventoryScreen> {
   @override
   void initState() {
     super.initState();
-    //get all the admin account and compare
-    //in-app authentication of users
+    //fetches the products from the database
+    controller.fetchProducts();
   }
 
   @override
@@ -340,7 +340,14 @@ class _DataSource extends DataTableSource {
         DataCell(Text(row.valueA)),
         DataCell((row.valueB)),
         DataCell(Text(row.valueC)),
-        DataCell((row.valueD)),
+        DataCell((row.valueD), onTap: () {
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return UpdateProduct();
+            },
+          );
+        }),
       ],
     );
   }
@@ -394,21 +401,17 @@ List _productList(BuildContext context) {
                   ),
                 ),
               ),
-              TextButton(
-                style: TextButton.styleFrom(
-                  padding: const EdgeInsets.all(13.0),
-                  primary: Colors.white,
-                  textStyle:
-                      TextStyle(fontFamily: 'Cairo_SemiBold', fontSize: 14),
+              Padding(
+                padding:
+                    EdgeInsets.only(top: 8, bottom: 8, left: 10, right: 10),
+                child: Text(
+                  'UPDATE',
+                  style: TextStyle(
+                    fontFamily: 'Cairo_SemiBold',
+                    fontSize: 14,
+                    color: Colors.white,
+                  ),
                 ),
-                onPressed: () {
-                  showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return UpdateProduct();
-                      });
-                },
-                child: const Text('UPDATE'),
               ),
             ],
           ),

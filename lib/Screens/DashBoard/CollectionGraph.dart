@@ -175,6 +175,7 @@ class _CollectionGraph extends State<CollectionGraph> {
       ),
       titlesData: FlTitlesData(
         show: true,
+        //dates
         bottomTitles: SideTitles(
           showTitles: true,
           reservedSize: 22,
@@ -196,6 +197,7 @@ class _CollectionGraph extends State<CollectionGraph> {
           margin: 8,
           interval: 1,
         ),
+        //collections (FIAT)
         leftTitles: SideTitles(
           showTitles: true,
           getTextStyles: (context, value) => const TextStyle(
@@ -222,45 +224,16 @@ class _CollectionGraph extends State<CollectionGraph> {
         rightTitles: SideTitles(showTitles: false),
       ),
       borderData: FlBorderData(
-          show: true,
-          border: Border.all(color: const Color(0xff37434d), width: 1)),
+        show: true,
+        border: Border.all(
+          color: const Color(0xff37434d),
+          width: 1,
+        ),
+      ),
       minX: 0,
       maxX: 11,
       minY: 0,
       maxY: 6,
-      lineBarsData: [
-        LineChartBarData(
-          spots: [
-            FlSpot(0, 3.44),
-            FlSpot(2.6, 3.44),
-            FlSpot(4.9, 3.44),
-            FlSpot(6.8, 3.44),
-            FlSpot(8, 3.44),
-            FlSpot(9.5, 3.44),
-            FlSpot(11, 3.44),
-          ],
-          isCurved: true,
-          colors: [
-            ColorTween(begin: gradientColors[0], end: gradientColors[1])
-                .lerp(0.2)!,
-            ColorTween(begin: gradientColors[0], end: gradientColors[1])
-                .lerp(0.2)!,
-          ],
-          barWidth: 5,
-          isStrokeCapRound: true,
-          dotData: FlDotData(
-            show: false,
-          ),
-          belowBarData: BarAreaData(show: true, colors: [
-            ColorTween(begin: gradientColors[0], end: gradientColors[1])
-                .lerp(0.2)!
-                .withOpacity(0.1),
-            ColorTween(begin: gradientColors[0], end: gradientColors[1])
-                .lerp(0.2)!
-                .withOpacity(0.1),
-          ]),
-        ),
-      ],
     );
   }
 }

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:web_store_management/Backend/Session.dart';
-import 'package:web_store_management/Backend/Utility/Mapping.dart';
-
 import '../DashBoard/TimeCollection.dart';
 import '../NewLoan/HomeNewLoan.dart';
 import '../Borrowers/BorrowersScreen.dart';

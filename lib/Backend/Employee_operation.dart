@@ -17,7 +17,7 @@ class EmployeeOperation implements IEmployee {
       String? username,
       String? password,
       Uint8List? image) async {
-    var id = 'emp-006';
+    var id = 'emp-007';
 
     var addEmployee = json.encode(
       {
