@@ -67,13 +67,14 @@ class Login extends GlobalController implements ILogin {
         case 'Administrator':
           await parseAdmin(response.body)
               .then((value) => Mapping.adminList = value);
-          setSession(Mapping.adminList[0].getAdminId.toString(), true);
+          setSession(Mapping.adminList[0].getAdminId.toString(), true, role);
           print('ID ' + Mapping.adminList[0].getAdminId);
           break;
         case 'StoreAttendant':
           await parseEmployee(response.body)
               .then((value) => Mapping.employeeList = value);
-          setSession(Mapping.employeeList[0].getEmployeeID.toString(), true);
+          setSession(
+              Mapping.employeeList[0].getEmployeeID.toString(), true, role);
           break;
         default:
       }
@@ -84,9 +85,8 @@ class Login extends GlobalController implements ILogin {
     return true;
   }
 
-  void setSession(String id, bool status) {
-    session.setValues(id, status);
-    print('id ' + id);
+  void setSession(String id, bool status, String role) {
+    session.setValues(id, status, role);
   }
 
   @override

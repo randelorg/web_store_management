@@ -19,6 +19,7 @@ class _MakePayment extends State<MakePayment> {
   TextEditingController givenAmount = TextEditingController();
   TextEditingController dateinput = TextEditingController();
   var borrower = BorrowerOperation();
+  
   @override
   void initState() {
     name.text = widget.name.toString();

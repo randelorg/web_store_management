@@ -67,7 +67,7 @@ class _PaymentScreen extends State<PaymentScreen> {
                   rowsPerPage: 15,
                   columns: [
                     DataColumn(label: Text('BID')),
-                    DataColumn(label: Text('Name')),
+                    DataColumn(label: Text('NAME')),
                     DataColumn(label: Text('TOTAL DEBT')),
                     DataColumn(label: Text('PAYMENT')),
                     DataColumn(label: Text('VIEW')),
@@ -143,14 +143,7 @@ class _DataSource extends DataTableSource {
             },
           );
         }),
-        DataCell((row.valueE), onTap: () {
-          showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return ViewBorrowerProfile();
-            },
-          );
-        }),
+        DataCell((row.valueE)),
       ],
     );
   }

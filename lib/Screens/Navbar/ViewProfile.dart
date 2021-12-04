@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
+import '../../Backend/Session.dart';
 
 class ViewProfile extends StatelessWidget {
-  ViewProfile({Key? key}) : super(key: key);
-
-  final name = TextEditingController();
-  final role = TextEditingController();
+  // final String? name, role;
+  // ViewProfile({this.name, this.role});
 
   @override
   Widget build(BuildContext context) {
@@ -88,5 +87,12 @@ class ViewProfile extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  String? getRole() {
+    final prefs = Session();
+    String? role;
+    prefs.getrole().then((value) => role);
+    return role;
   }
 }

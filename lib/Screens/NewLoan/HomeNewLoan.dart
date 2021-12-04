@@ -223,6 +223,7 @@ class _HomeNewLoan extends State<HomeNewLoan> {
                   showCheckboxColumn: true,
                   rowsPerPage: 9,
                   columns: [
+                    DataColumn(label: Text('BARCODE')),
                     DataColumn(label: Text('PRODUCT NAME')),
                     DataColumn(label: Text('PRICE')),
                   ],
@@ -293,10 +294,12 @@ class _RowSelectProducts {
   _RowSelectProducts(
     this.valueA,
     this.valueB,
+    this.valueC,
   );
 
   final String valueA;
   final String valueB;
+  final String valueC;
 
   bool selected = false;
 }
@@ -330,6 +333,7 @@ class _SelectionOfProducts extends DataTableSource {
       cells: [
         DataCell(Text(row.valueA)),
         DataCell(Text(row.valueB)),
+        DataCell(Text(row.valueC)),
       ],
     );
   }
@@ -352,6 +356,7 @@ List _selectionProducts(BuildContext context) {
       Mapping.productList.length,
       (index) {
         return new _RowSelectProducts(
+          Mapping.productList[index].getProductCode.toString(),
           Mapping.productList[index].getProductName.toString(),
           Mapping.productList[index].getProductPrice
               .toStringAsFixed(2)
@@ -363,6 +368,7 @@ List _selectionProducts(BuildContext context) {
     //if product list is empty
     return _selectionProducts = List.generate(0, (index) {
       return _RowSelectProducts(
+        '',
         '',
         '',
       );

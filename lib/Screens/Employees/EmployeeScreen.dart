@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
 import 'AddEmployee.dart';
+import 'ViewEmpProfile.dart';
 
 class EmployeeScreen extends StatefulWidget {
   @override
@@ -209,24 +210,17 @@ List _borrowerProfile(BuildContext context) {
                   ),
                 ),
               ),
-              TextButton(
-                style: TextButton.styleFrom(
-                  padding: const EdgeInsets.all(13.0),
-                  primary: Colors.white,
-                  textStyle:
-                      TextStyle(fontFamily: 'Cairo_SemiBold', fontSize: 14),
+              Padding(
+                padding:
+                    EdgeInsets.only(top: 8, bottom: 8, left: 15, right: 15),
+                child: Text(
+                  'PROFILE',
+                  style: TextStyle(
+                    fontFamily: 'Cairo_SemiBold',
+                    fontSize: 14,
+                    color: Colors.white,
+                  ),
                 ),
-                onPressed: () {
-                  // show here employee profile
-
-                  // showDialog(
-                  //   context: context,
-                  //   builder: (BuildContext context) {
-                  //     return ViewBorrowerProfile();
-                  //   },
-                  // );
-                },
-                child: const Text('PROFILE'),
               ),
             ],
           ),
@@ -242,24 +236,17 @@ List _borrowerProfile(BuildContext context) {
                   ),
                 ),
               ),
-              TextButton(
-                style: TextButton.styleFrom(
-                  padding: const EdgeInsets.all(13.0),
-                  primary: Colors.white,
-                  textStyle:
-                      TextStyle(fontFamily: 'Cairo_SemiBold', fontSize: 14),
+              Padding(
+                padding:
+                    EdgeInsets.only(top: 8, bottom: 8, left: 15, right: 15),
+                child: Text(
+                  'PAYROLL',
+                  style: TextStyle(
+                    fontFamily: 'Cairo_SemiBold',
+                    fontSize: 14,
+                    color: Colors.white,
+                  ),
                 ),
-                onPressed: () {
-                  // show here the payroll
-
-                  // showDialog(
-                  //   context: context,
-                  //   builder: (BuildContext context) {
-                  //     return ViewBorrowerProfile();
-                  //   },
-                  // );
-                },
-                child: const Text('PAYROLL'),
               ),
             ],
           ),
@@ -312,7 +299,19 @@ class _DataSource extends DataTableSource {
         DataCell(Text(row.valueB)),
         DataCell(Text(row.valueC)),
         DataCell(Text(row.valueD)),
-        DataCell((row.valueE)),
+        DataCell((row.valueE), onTap: () {
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return ViewEmpProfile(
+                id: row.valueA,
+                role: row.valueB,
+                name: row.valueC,
+                number: row.valueD,
+              );
+            },
+          );
+        }),
         DataCell((row.valueF)),
       ],
     );

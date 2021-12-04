@@ -20,7 +20,6 @@ class _PaymentHistory extends State<PaymentHistory> {
             rowsPerPage: 15,
             columns: [
               DataColumn(label: Text('LOAN ID')),
-              DataColumn(label: Text('COLLECTOR NAME')),
               DataColumn(label: Text('AMOUNT PAID')),
               DataColumn(label: Text('DATE GIVEN')),
             ],
@@ -37,13 +36,11 @@ class _Row {
     this.valueA,
     this.valueB,
     this.valueC,
-    this.valueD,
   );
 
   final String valueA;
   final String valueB;
   final String valueC;
-  final String valueD;
 
   bool selected = false;
 }
@@ -78,7 +75,6 @@ class _DataSource extends DataTableSource {
         DataCell(Text(row.valueA)),
         DataCell(Text(row.valueB)),
         DataCell(Text(row.valueC)),
-        DataCell(Text(row.valueD)),
       ],
     );
   }
@@ -96,16 +92,27 @@ class _DataSource extends DataTableSource {
 List _paymentsHistory(BuildContext context) {
   List<_Row> _paymentsHistory;
 
-  return _paymentsHistory = List.generate(
-    25,
-    (index) {
-      int tot = index + 1;
-      return _Row(
-        'BID',
-        'Randel Reyes',
-        '20,000',
-        '10/31/21',
-      );
-    },
-  );
+  try {
+    return _paymentsHistory = List.generate(
+      25,
+      (index) {
+        return _Row(
+          'BID',
+          '20,000',
+          '12/21/2020',
+        );
+      },
+    );
+  } catch (e) {
+    return _paymentsHistory = List.generate(
+      25,
+      (index) {
+        return _Row(
+          '',
+          '',
+          '',
+        );
+      },
+    );
+  }
 }

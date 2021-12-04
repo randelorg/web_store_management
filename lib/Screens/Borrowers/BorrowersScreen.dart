@@ -111,25 +111,22 @@ List _borrowerProfile(BuildContext context) {
               children: <Widget>[
                 Positioned.fill(
                   child: Container(
-                    decoration: BoxDecoration(color: HexColor("#155293")),
+                    decoration: BoxDecoration(
+                      color: HexColor("#155293"),
+                    ),
                   ),
                 ),
-                TextButton(
-                  style: TextButton.styleFrom(
-                    padding: const EdgeInsets.all(13.0),
-                    primary: Colors.white,
-                    textStyle:
-                        TextStyle(fontFamily: 'Cairo_SemiBold', fontSize: 14),
+                Padding(
+                  padding:
+                      EdgeInsets.only(top: 8, bottom: 8, left: 10, right: 10),
+                  child: Text(
+                    'VIEW',
+                    style: TextStyle(
+                      fontFamily: 'Cairo_SemiBold',
+                      fontSize: 14,
+                      color: Colors.white,
+                    ),
                   ),
-                  onPressed: () {
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return ViewBorrowerProfile();
-                      },
-                    );
-                  },
-                  child: const Text('VIEW'),
                 ),
               ],
             ),
@@ -185,7 +182,19 @@ class _DataSource extends DataTableSource {
         DataCell(Text(row.valueB)),
         DataCell(Text(row.valueC)),
         DataCell(Text(row.valueD)),
-        DataCell((row.valueE)),
+        DataCell((row.valueE), onTap: () {
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return ViewBorrowerProfile(
+                id: row.valueA,
+                name: row.valueB,
+                number: row.valueC,
+                balance: double.parse(row.valueD),
+              );
+            },
+          );
+        }),
       ],
     );
   }

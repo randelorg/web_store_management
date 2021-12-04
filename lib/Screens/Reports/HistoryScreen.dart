@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'HistoryScreens/PaymentHistoryScreen.dart';
 import 'HistoryScreens/ProductHistoryScreen.dart';
+import '../../Backend/Utility/Mapping.dart';
 
 class HistoryScreen extends StatefulWidget {
   @override
@@ -59,7 +60,7 @@ class _HistoryScreen extends State<HistoryScreen> {
                   columns: [
                     DataColumn(label: Text('BID')),
                     DataColumn(label: Text('Name')),
-                    DataColumn(label: Text('ACTION')),
+                    DataColumn(label: Icon(Icons.visibility)),
                   ],
                   source: _DataSource(context),
                 ),
@@ -113,7 +114,7 @@ class _Row {
 
 class _DataSource extends DataTableSource {
   _DataSource(this.context) {
-    _Borrowers(context);
+    _borrowersList(context);
   }
 
   final BuildContext context;
@@ -123,8 +124,8 @@ class _DataSource extends DataTableSource {
   @override
   DataRow? getRow(int index) {
     assert(index >= 0);
-    if (index >= _Borrowers(context).length) return null;
-    final row = _Borrowers(context)[index];
+    if (index >= _borrowersList(context).length) return null;
+    final row = _borrowersList(context)[index];
     return DataRow.byIndex(
       index: index,
       selected: row.selected,
@@ -146,7 +147,7 @@ class _DataSource extends DataTableSource {
   }
 
   @override
-  int get rowCount => _Borrowers(context).length;
+  int get rowCount => _borrowersList(context).length;
 
   @override
   bool get isRowCountApproximate => false;
@@ -155,46 +156,34 @@ class _DataSource extends DataTableSource {
   int get selectedRowCount => _selectedCount;
 }
 
-List _Borrowers(BuildContext context) {
-  List<_Row> _Borrowers;
-
-  return _Borrowers = List.generate(
-    50,
-    (index) {
-      return _Row(
-        '1',
-        'CellC2',
-        ClipRRect(
-          borderRadius: BorderRadius.circular(6),
-          child: Stack(
-            children: <Widget>[
-              Positioned.fill(
-                child: Container(
-                  decoration: const BoxDecoration(
-                    color: Colors.blue,
-                  ),
-                ),
-              ),
-              TextButton(
-                style: TextButton.styleFrom(
-                  padding: const EdgeInsets.all(16.0),
-                  primary: Colors.white,
-                  textStyle: const TextStyle(fontSize: 15),
-                ),
-                onPressed: () {
-                  // showDialog(
-                  //   context: context,
-                  //   builder: (BuildContext context) {
-                  //     return ViewBorrowerProfile();
-                  //   },
-                  // );
-                },
-                child: const Text('SELECT'),
-              ),
-            ],
+List _borrowersList(BuildContext context) {
+  List<_Row> _borrowers;
+  try {
+    return _borrowers = List.generate(
+      Mapping.borrowerList.length,
+      (index) {
+        return _Row(
+          Mapping.borrowerList[index].getBorrowerId.toString(),
+          Mapping.borrowerList[index].toString(),
+          Icon(
+            Icons.show_chart,
+            color: Colors.blue,
+            size: 30,
           ),
-        ),
-      );
-    },
-  );
+        );
+      },
+    );
+  } catch (e) {
+    //if list borrowers is empty
+    return _borrowers = List.generate(
+      0,
+      (index) {
+        return new _Row(
+          "",
+          "",
+          Text(''),
+        );
+      },
+    );
+  }
 }

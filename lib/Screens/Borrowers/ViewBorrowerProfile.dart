@@ -6,8 +6,13 @@ import 'package:flutter/widgets.dart';
 
 import '../Reports/HistoryScreens/PaymentHistoryScreen.dart';
 import '../Reports/HistoryScreens/ProductHistoryScreen.dart';
+import '../../Helpers/CreateQR_helper.dart';
 
 class ViewBorrowerProfile extends StatefulWidget {
+  final String? id, name, number;
+  final double? balance;
+  ViewBorrowerProfile({this.id, this.name, this.number, this.balance});
+
   @override
   _ViewBorrowerProfile createState() => _ViewBorrowerProfile();
 }
@@ -30,9 +35,10 @@ class _ViewBorrowerProfile extends State<ViewBorrowerProfile> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Icon(
-              Icons.qr_code_2_sharp,
-              size: 100,
+            SizedBox(
+              width: 200,
+              height: 200,
+              child: CreateQrHelper.createQr(qrContent()),
             ),
             TextButton(
               style: TextButton.styleFrom(
@@ -59,42 +65,14 @@ class _ViewBorrowerProfile extends State<ViewBorrowerProfile> {
                   Padding(
                     padding: EdgeInsets.only(right: 50, top: 10, bottom: 5),
                     child: Text(
-                      'Firstname',
+                      'Name',
                       style: TextStyle(color: Colors.grey),
                     ),
                   ),
                   Padding(
                     padding: EdgeInsets.only(top: 10, bottom: 5),
                     child: Text(
-                      'John Vincent',
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Card(
-              margin: EdgeInsets.all(10),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.0),
-              ),
-              elevation: 5,
-              shadowColor: Colors.black,
-              child: Row(
-                children: [
-                  Padding(
-                    padding: EdgeInsets.only(right: 50, top: 10, bottom: 5),
-                    child: Text(
-                      'Lastname',
-                      style: TextStyle(color: Colors.grey),
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(top: 10, bottom: 5),
-                    child: Text(
-                      'Aborde',
-                      softWrap: true,
+                      widget.name.toString(),
                       style:
                           TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),
@@ -121,7 +99,7 @@ class _ViewBorrowerProfile extends State<ViewBorrowerProfile> {
                   Padding(
                     padding: EdgeInsets.only(top: 10, bottom: 5),
                     child: Text(
-                      '+639 3323 8234',
+                      widget.number.toString(),
                       softWrap: true,
                       style:
                           TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
@@ -153,7 +131,7 @@ class _ViewBorrowerProfile extends State<ViewBorrowerProfile> {
                   Padding(
                     padding: EdgeInsets.only(top: 10, bottom: 5),
                     child: Text(
-                      '50,000',
+                      widget.balance.toString(),
                       softWrap: true,
                       style:
                           TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
@@ -252,5 +230,17 @@ class _ViewBorrowerProfile extends State<ViewBorrowerProfile> {
         ),
       ],
     );
+  }
+
+  String qrContent() {
+    String content = "Name " +
+        widget.name.toString() +
+        "\n" +
+        "Mobile Number " +
+        widget.number.toString() +
+        "\n" +
+        "Balance " +
+        widget.balance.toString();
+    return content;
   }
 }

@@ -1,4 +1,3 @@
-import 'dart:typed_data';
 import 'Person_model.dart';
 
 class Admin extends Person {
