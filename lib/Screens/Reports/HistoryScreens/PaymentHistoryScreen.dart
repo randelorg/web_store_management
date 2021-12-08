@@ -1,12 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:web_store_management/Backend/Utility/Mapping.dart';
 
 class PaymentHistory extends StatefulWidget {
+  final String? borrowerName;
+  PaymentHistory({this.borrowerName});
+
   @override
   _PaymentHistory createState() => _PaymentHistory();
 }
 
 class _PaymentHistory extends State<PaymentHistory> {
+  var _borrowerName;
+  @override
+  void initState() {
+    super.initState();
+    
+  }
+
   Widget build(BuildContext context) {
     return Container(
       width: (MediaQuery.of(context).size.width),
@@ -16,6 +27,13 @@ class _PaymentHistory extends State<PaymentHistory> {
         padding: const EdgeInsets.all(10),
         children: [
           PaginatedDataTable(
+            header: Text(
+             _borrowerName,
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
             showCheckboxColumn: false,
             rowsPerPage: 15,
             columns: [
@@ -94,18 +112,18 @@ List _paymentsHistory(BuildContext context) {
 
   try {
     return _paymentsHistory = List.generate(
-      25,
+      Mapping.paymentList.length,
       (index) {
         return _Row(
-          'BID',
-          '20,000',
-          '12/21/2020',
+          Mapping.paymentList[index].getCollectionID.toString(),
+          Mapping.paymentList[index].getCollectionAmount.toString(),
+          Mapping.paymentList[index].getGivenDate.toString(),
         );
       },
     );
   } catch (e) {
     return _paymentsHistory = List.generate(
-      25,
+      0,
       (index) {
         return _Row(
           '',

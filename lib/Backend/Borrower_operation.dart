@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:web_store_management/Backend/Interfaces/IBorrower.dart';
 import 'package:web_store_management/Notification/Snack_notification.dart';
@@ -30,7 +31,7 @@ class BorrowerOperation extends Login implements IBorrower {
       if (response.statusCode == 404) return false;
     } catch (e) {
       e.toString();
-      SnackNotification.notif('Error', 'Something went wrong');
+      SnackNotification.notif('Error', 'Something went wrong', Colors.redAccent.shade200);
       return false;
     }
 

@@ -1,6 +1,6 @@
 import 'Person_model.dart';
 
-class Admin extends Person {
+class AdminModel extends PersonModel {
   String? adminId;
   String? username;
   String? password;
@@ -22,9 +22,9 @@ class Admin extends Person {
 
   set setUserImage(userImage) => this.userImage = userImage;
 
-  Admin.empty() : super.empty();
+  AdminModel.empty() : super.empty();
 
-  Admin.fullJson(
+  AdminModel.fullJson(
       {this.adminId,
       this.username,
       this.password,
@@ -40,7 +40,7 @@ class Admin extends Person {
     this.userImage = userImage;
   }
 
-  Admin.adminOnlyJson({
+  AdminModel.adminOnlyJson({
     this.adminId,
     this.username,
     this.password,
@@ -50,8 +50,8 @@ class Admin extends Person {
     this.password = password;
   }
 
-  factory Admin.fromJson(Map<String, dynamic> json) {
-    return Admin.fullJson(
+  factory AdminModel.fromJson(Map<String, dynamic> json) {
+    return AdminModel.fullJson(
       adminId: json["AdminID"] as String,
       username: json["Username"] as String,
       password: json["Password"] as String,

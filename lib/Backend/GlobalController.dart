@@ -10,19 +10,21 @@ import '../Models/Employee_model.dart';
 
 class GlobalController {
   // A function that converts a response body into a List<Admin>.
-  Future<List<Admin>> parseAdmin(String responseBody) async {
+  Future<List<AdminModel>> parseAdmin(String responseBody) async {
     final parsed = await jsonDecode(responseBody).cast<Map<String, dynamic>>();
-    return parsed.map<Admin>((json) => Admin.fromJson(json)).toList();
+    return parsed.map<AdminModel>((json) => AdminModel.fromJson(json)).toList();
   }
 
   // A function that converts a response body into a List<Employee>.
-  Future<List<Employee>> parseEmployee(String responseBody) async {
+  Future<List<EmployeeModel>> parseEmployee(String responseBody) async {
     final parsed = await jsonDecode(responseBody).cast<Map<String, dynamic>>();
-    return parsed.map<Employee>((json) => Employee.fromJson(json)).toList();
+    return parsed
+        .map<EmployeeModel>((json) => EmployeeModel.fromJson(json))
+        .toList();
   }
 
   //fetch all the employees from the database
-  Future<List<Employee>> fetchAllEmployees() async {
+  Future<List<EmployeeModel>> fetchAllEmployees() async {
     final response =
         await http.get(Uri.parse('http://localhost:8090/api/employees'));
 
@@ -30,15 +32,16 @@ class GlobalController {
     return compute(parseAllEmployees, response.body);
   }
 
-  List<Employee> parseAllEmployees(String responseBody) {
+  List<EmployeeModel> parseAllEmployees(String responseBody) {
     final parsed = jsonDecode(responseBody).cast<Map<String, dynamic>>();
-    Mapping.employeeList =
-        parsed.map<Employee>((json) => Employee.fromJson(json)).toList();
+    Mapping.employeeList = parsed
+        .map<EmployeeModel>((json) => EmployeeModel.fromJson(json))
+        .toList();
     return Mapping.employeeList;
   }
 
   //fetch all the products from the database
-  Future<List<Product>> fetchProducts() async {
+  Future<List<ProductModel>> fetchProducts() async {
     final response =
         await http.get(Uri.parse('http://localhost:8090/api/products'));
 
@@ -46,15 +49,16 @@ class GlobalController {
     return compute(parseProducts, response.body);
   }
 
-  List<Product> parseProducts(String responseBody) {
+  List<ProductModel> parseProducts(String responseBody) {
     final parsed = jsonDecode(responseBody).cast<Map<String, dynamic>>();
-    Mapping.productList =
-        parsed.map<Product>((json) => Product.fromJson(json)).toList();
+    Mapping.productList = parsed
+        .map<ProductModel>((json) => ProductModel.fromJson(json))
+        .toList();
     return Mapping.productList;
   }
 
   //fetch all the borrowers from the database
-  Future<List<Borrower>> fetchBorrowers() async {
+  Future<List<BorrowerModel>> fetchBorrowers() async {
     final response =
         await http.get(Uri.parse('http://localhost:8090/api/borrowers'));
 
@@ -62,10 +66,11 @@ class GlobalController {
     return compute(parseBorrowers, response.body);
   }
 
-  List<Borrower> parseBorrowers(String responseBody) {
+  List<BorrowerModel> parseBorrowers(String responseBody) {
     final parsed = jsonDecode(responseBody).cast<Map<String, dynamic>>();
-    Mapping.borrowerList =
-        parsed.map<Borrower>((json) => Borrower.fromJsonPartial(json)).toList();
+    Mapping.borrowerList = parsed
+        .map<BorrowerModel>((json) => BorrowerModel.fromJsonPartial(json))
+        .toList();
     return Mapping.borrowerList;
   }
 }

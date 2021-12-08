@@ -121,15 +121,19 @@ class _ConfirmAccount extends State<ConfirmAccount> {
                                   .then((value) {
                                 if (value) {
                                   SnackNotification.notif(
-                                      'Success', 'Admin account is created');
+                                      'Success',
+                                      'Admin account is created',
+                                      Colors.green.shade600);
                                 } else {
                                   SnackNotification.notif(
-                                      'Error', 'Something went wrong');
+                                      'Error',
+                                      'Something went wrong',
+                                      Colors.red.shade600);
                                 }
                               });
                             } else {
-                              SnackNotification.notif(
-                                  'Try again', 'Wrong Password');
+                              SnackNotification.notif('Try again',
+                                  'Wrong Password', Colors.red.shade600);
                             }
                           },
                           child: const Text('VERIFY'),

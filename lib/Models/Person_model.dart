@@ -1,4 +1,4 @@
-class Person {
+class PersonModel {
   int? personId;
   String? firstname;
   String? lastname;
@@ -26,9 +26,9 @@ class Person {
     return getFirstname + " " + getLastname;
   }
 
-  Person.empty();
+  PersonModel.empty();
 
-  Person.full(int persondId, String firstname, String lastname,
+  PersonModel.full(int persondId, String firstname, String lastname,
       String mobileNumber, String homeAddress) {
     this.personId = personId;
     this.firstname = firstname;
@@ -37,7 +37,7 @@ class Person {
     this.homeAddress = homeAddress;
   }
 
-  Person.withOutId(String firstname, String lastname, String mobileNumber,
+  PersonModel.withOutId(String firstname, String lastname, String mobileNumber,
       String homeAddress) {
     this.firstname = firstname;
     this.lastname = lastname;

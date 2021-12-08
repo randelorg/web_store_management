@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:web_store_management/Backend/GlobalController.dart';
+import 'package:web_store_management/Backend/HistoryOperation.dart';
 
 import 'HistoryScreens/PaymentHistoryScreen.dart';
 import 'HistoryScreens/ProductHistoryScreen.dart';
@@ -10,6 +12,14 @@ class HistoryScreen extends StatefulWidget {
 }
 
 class _HistoryScreen extends State<HistoryScreen> {
+  var controller = GlobalController();
+  @override
+  void initState() {
+    super.initState();
+    //fetches the borrowers from the database
+    controller.fetchBorrowers();
+  }
+
   final List<Tab> myTabs = <Tab>[
     Tab(text: 'Payment History'),
     Tab(text: 'Product Loaned History'),
@@ -113,6 +123,8 @@ class _Row {
 }
 
 class _DataSource extends DataTableSource {
+  var history = HistoryOperation();
+
   _DataSource(this.context) {
     _borrowersList(context);
   }
@@ -129,19 +141,22 @@ class _DataSource extends DataTableSource {
     return DataRow.byIndex(
       index: index,
       selected: row.selected,
-      onSelectChanged: (value) {
-        if (row.selected != value) {
-          var value = false;
-          _selectedCount += value ? 1 : -1;
-          assert(_selectedCount >= 0);
-          row.selected = value;
-          notifyListeners();
-        }
-      },
+      // onSelectChanged: (value) {
+      //   if (row.selected != value) {
+      //     var value = false;
+      //     _selectedCount += value ? 1 : -1;
+      //     assert(_selectedCount >= 0);
+      //     row.selected = value;
+      //     notifyListeners();
+      //   }
+      // },
       cells: [
         DataCell(Text(row.valueA)),
         DataCell(Text(row.valueB)),
-        DataCell((row.valueC)),
+        DataCell((row.valueC), onTap: () {
+          history.viewPaymentHistory(row.valueA);
+          PaymentHistory(borrowerName: row.valueB);
+        }),
       ],
     );
   }
@@ -166,7 +181,7 @@ List _borrowersList(BuildContext context) {
           Mapping.borrowerList[index].getBorrowerId.toString(),
           Mapping.borrowerList[index].toString(),
           Icon(
-            Icons.show_chart,
+            Icons.history,
             color: Colors.blue,
             size: 30,
           ),

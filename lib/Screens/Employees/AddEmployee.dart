@@ -299,7 +299,7 @@ class _AddEmployee extends State<AddEmployee> {
                           onPressed: () {
                             if (username.text.isEmpty) {
                               SnackNotification.notif(
-                                  'Error', 'Please supply all fields.');
+                                  'Error', 'Please supply all fields.', Colors.red.shade600);
                             } else {
                               //creation of employee method
                               emp
@@ -315,10 +315,14 @@ class _AddEmployee extends State<AddEmployee> {
                                   .then((value) {
                                 if (value) {
                                   SnackNotification.notif(
-                                      'Success', 'Employee account is created');
+                                      'Success',
+                                      'Employee account is created',
+                                      Colors.green.shade600);
                                 } else {
                                   SnackNotification.notif(
-                                      'Error', 'Something went wrong');
+                                      'Error',
+                                      'Something went wrong',
+                                      Colors.red.shade600);
                                 }
                               });
                             }

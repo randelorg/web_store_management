@@ -29,7 +29,7 @@ class _InventoryScreen extends State<InventoryScreen> {
       children: <Widget>[
         Container(
           width: (MediaQuery.of(context).size.width) / 5,
-          height: (MediaQuery.of(context).size.height) / 2,
+          height: (MediaQuery.of(context).size.height) / 1.5,
           child: Column(
             children: [
               Padding(
@@ -38,10 +38,11 @@ class _InventoryScreen extends State<InventoryScreen> {
                   'Add Product',
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                      color: HexColor("#155293"),
-                      fontFamily: 'Cairo_Bold',
-                      fontSize: 30,
-                      overflow: TextOverflow.fade),
+                    color: HexColor("#155293"),
+                    fontFamily: 'Cairo_Bold',
+                    fontSize: 30,
+                    overflow: TextOverflow.fade,
+                  ),
                   maxLines: 2,
                 ),
               ),
@@ -121,7 +122,7 @@ class _InventoryScreen extends State<InventoryScreen> {
                 padding: const EdgeInsets.all(6.0),
                 child: TextField(
                   decoration: InputDecoration(
-                    hintText: 'Price',
+                    hintText: 'Unit',
                     filled: true,
                     fillColor: Colors.blueGrey[50],
                     labelStyle: TextStyle(fontSize: 12),
@@ -141,7 +142,7 @@ class _InventoryScreen extends State<InventoryScreen> {
                 padding: const EdgeInsets.all(6.0),
                 child: TextField(
                   decoration: InputDecoration(
-                    hintText: 'Unit',
+                    hintText: 'Price',
                     filled: true,
                     fillColor: Colors.blueGrey[50],
                     labelStyle: TextStyle(fontSize: 12),
@@ -177,8 +178,8 @@ class _InventoryScreen extends State<InventoryScreen> {
                           textStyle: TextStyle(
                               fontFamily: 'Cairo_SemiBold', fontSize: 14),
                         ),
-                        onPressed: () {},
                         child: const Text('ADD'),
+                        onPressed: () {},
                       ),
                     ],
                   ),
@@ -279,6 +280,7 @@ class _InventoryScreen extends State<InventoryScreen> {
                       columns: [
                         DataColumn(label: Text('PRODUCT NAME')),
                         DataColumn(label: Text('QTY')),
+                        DataColumn(label: Text('UNIT')),
                         DataColumn(label: Text('PRICE')),
                         DataColumn(label: Text('ACTION')),
                       ],
@@ -301,12 +303,14 @@ class _Row {
     this.valueB,
     this.valueC,
     this.valueD,
+    this.valueE,
   );
 
   final String valueA;
   final Widget valueB;
   final String valueC;
-  final Widget valueD;
+  final String valueD;
+  final Widget valueE;
 
   bool selected = false;
 }
@@ -340,11 +344,17 @@ class _DataSource extends DataTableSource {
         DataCell(Text(row.valueA)),
         DataCell((row.valueB)),
         DataCell(Text(row.valueC)),
-        DataCell((row.valueD), onTap: () {
+        DataCell(Text(row.valueD)),
+        DataCell((row.valueE), onTap: () {
           showDialog(
             context: context,
             builder: (BuildContext context) {
-              return UpdateProduct();
+              return UpdateProduct(
+                name: row.valueA,
+                //quantity: row.valueB,
+                unit: row.valueC,
+                price: row.valueD,
+              );
             },
           );
         }),
@@ -387,6 +397,7 @@ List _productList(BuildContext context) {
       return _Row(
         Mapping.productList[index].getProductName.toString(),
         _dangerStock(Mapping.productList[index].getProductQty.toString()),
+        Mapping.productList[index].getProductUnit.toString(),
         Mapping.productList[index].getProductPrice
             .toStringAsFixed(2)
             .toString(),
@@ -424,6 +435,7 @@ List _productList(BuildContext context) {
       return _Row(
         '',
         Text(''),
+        '',
         '',
         Text(''),
       );

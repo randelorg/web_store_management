@@ -2,7 +2,7 @@ import 'dart:typed_data';
 
 import 'Person_model.dart';
 
-class Employee extends Person {
+class EmployeeModel extends PersonModel {
   String? employeeID;
   String? role;
   String? username;
@@ -29,9 +29,9 @@ class Employee extends Person {
 
   set setUserImage(userImage) => this.userImage = userImage;
 
-  Employee.empty() : super.empty();
+  EmployeeModel.empty() : super.empty();
 
-  Employee.full(
+  EmployeeModel.full(
       {this.employeeID,
       this.role,
       this.username,
@@ -50,7 +50,7 @@ class Employee extends Person {
     //this.userImage = userImage;
   }
 
-  Employee.withoutImage(
+  EmployeeModel.withoutImage(
       String role,
       String username,
       String password,
@@ -65,7 +65,7 @@ class Employee extends Person {
     this.password = password;
   }
 
-  Employee.emplyeeOnly({
+  EmployeeModel.emplyeeOnly({
     this.employeeID,
     this.username,
     this.password,
@@ -75,8 +75,8 @@ class Employee extends Person {
     this.password = password;
   }
 
-  factory Employee.fromJson(Map<String, dynamic> json) {
-    return Employee.full(
+  factory EmployeeModel.fromJson(Map<String, dynamic> json) {
+    return EmployeeModel.full(
       employeeID: json["EmployeeID"] as String,
       role: json["Role"] as String,
       username: json["Username"] as String,

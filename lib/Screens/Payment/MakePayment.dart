@@ -19,7 +19,7 @@ class _MakePayment extends State<MakePayment> {
   TextEditingController givenAmount = TextEditingController();
   TextEditingController dateinput = TextEditingController();
   var borrower = BorrowerOperation();
-  
+
   @override
   void initState() {
     name.text = widget.name.toString();
@@ -179,7 +179,9 @@ class _MakePayment extends State<MakePayment> {
                             .then((value) {
                           if (value) {
                             SnackNotification.notif(
-                                'Success', 'Payment has been recorded');
+                                'Success',
+                                'Payment has been recorded',
+                                Colors.green.shade600);
                           }
                         });
                         Navigator.pop(context);

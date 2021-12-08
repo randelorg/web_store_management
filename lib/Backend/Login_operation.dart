@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:web_store_management/Notification/Snack_notification.dart';
 import '../Helpers/Hashing_helper.dart';
 import 'GlobalController.dart';
 import 'Interfaces/ILogin.dart';
@@ -10,7 +9,7 @@ import 'Session.dart';
 
 class Login extends GlobalController implements ILogin {
   var hash = Hashing();
-  var admin = Admin.empty();
+  var admin = AdminModel.empty();
   var session = Session();
 
   @override

@@ -1,6 +1,6 @@
 import 'Person_model.dart';
 
-class Borrower extends Person {
+class BorrowerModel extends PersonModel {
   int? borrowerId;
   double? balance;
   String? contractImage;
@@ -17,9 +17,9 @@ class Borrower extends Person {
 
   set setContractImage(contractImage) => this.contractImage = contractImage;
 
-  Borrower.empty() : super.empty();
+  BorrowerModel.empty() : super.empty();
 
-  Borrower.full(
+  BorrowerModel.full(
       int borrowerId,
       String firstname,
       String lastname,
@@ -33,7 +33,7 @@ class Borrower extends Person {
     this.contractImage = contractImage;
   }
 
-  Borrower.fullJson({
+  BorrowerModel.fullJson({
     this.borrowerId,
     firstname,
     lastname,
@@ -43,7 +43,7 @@ class Borrower extends Person {
     this.contractImage,
   }) : super.withOutId(firstname, lastname, mobileNumber, homeAddress);
 
-  Borrower.fullJsonPartial({
+  BorrowerModel.fullJsonPartial({
     this.borrowerId,
     firstname,
     lastname,
@@ -52,8 +52,8 @@ class Borrower extends Person {
     this.balance,
   }) : super.withOutId(firstname, lastname, mobileNumber, homeAddress);
 
-  factory Borrower.fromJson(Map<String, dynamic> json) {
-    return Borrower.fullJson(
+  factory BorrowerModel.fromJson(Map<String, dynamic> json) {
+    return BorrowerModel.fullJson(
       borrowerId: json['BorrowerID'] as int,
       firstname: json['Firstname'] as String,
       lastname: json['Lastname'] as String,
@@ -64,8 +64,8 @@ class Borrower extends Person {
     );
   }
 
-  factory Borrower.fromJsonPartial(Map<String, dynamic> json) {
-    return Borrower.fullJsonPartial(
+  factory BorrowerModel.fromJsonPartial(Map<String, dynamic> json) {
+    return BorrowerModel.fullJsonPartial(
       borrowerId: json['BorrowerID'] as int,
       firstname: json['Firstname'] as String,
       lastname: json['Lastname'] as String,

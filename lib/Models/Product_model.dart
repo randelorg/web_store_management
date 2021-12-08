@@ -1,4 +1,4 @@
-class Product {
+class ProductModel {
   String? productCode;
   String? productName;
   double? productPrice;
@@ -25,9 +25,9 @@ class Product {
 
   set setProductQty(productQty) => this.productQty = productQty;
 
-  Product.empty();
+  ProductModel.empty();
 
-  Product.full(String productCode, String productName, double productPrice,
+  ProductModel.full(String productCode, String productName, double productPrice,
       int productQty, String productUnit) {
     this.productCode = productCode;
     this.productName = productName;
@@ -36,7 +36,7 @@ class Product {
     this.productUnit = productUnit;
   }
 
-  Product.fullJson(
+  ProductModel.fullJson(
       {this.productCode,
       this.productName,
       this.productPrice,
@@ -49,8 +49,8 @@ class Product {
     this.productQty = productQty;
   }
 
-  factory Product.fromJson(Map<String, dynamic> json) {
-    return Product.fullJson(
+  factory ProductModel.fromJson(Map<String, dynamic> json) {
+    return ProductModel.fullJson(
       productCode: json['ProductCode'] as String,
       productName: json['ProdName'] as String,
       productPrice: json['ProdPrice'] as double,
