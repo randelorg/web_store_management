@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:web_store_management/Backend/Session.dart';
+import 'package:web_store_management/Screens/Navbar/TopBar.dart';
 import '../DashBoard/TimeCollection.dart';
 import '../NewLoan/HomeNewLoan.dart';
 import '../Borrowers/BorrowersScreen.dart';
@@ -10,15 +11,17 @@ import '../Repairs/RepairsScreen.dart';
 import '../Inventory/InventoryScreen.dart';
 import '../Reports/ReportScreen.dart';
 import '../Employees/EmployeeScreen.dart';
-import '../../Backend/Login_operation.dart';
 
 class NavDrawer extends StatefulWidget {
+  final Function? callback;
+  NavDrawer({this.callback});
   @override
   _NavDrawer createState() => _NavDrawer();
 }
 
 class _NavDrawer extends State<NavDrawer> {
   var prefs = Session();
+  var topBar = TopBar();
 
   @override
   void initState() {
@@ -75,6 +78,11 @@ class _NavDrawer extends State<NavDrawer> {
             onDestinationSelected: (int index) {
               setState(() {
                 _selectedIndex = index;
+                TopBar(
+                  updateTitle: widget.callback,
+                  title: title[_selectedIndex].toString(),
+                );
+                print(title[_selectedIndex].toString());
               });
             },
             labelType: NavigationRailLabelType.all,
@@ -256,4 +264,3 @@ class _NavDrawer extends State<NavDrawer> {
     );
   }
 }
-

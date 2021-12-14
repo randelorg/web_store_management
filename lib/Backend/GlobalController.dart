@@ -2,27 +2,12 @@ import 'package:flutter/foundation.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import '../Models/Admin_model.dart';
 import 'Utility/Mapping.dart';
 import '../Models/Product_model.dart';
 import '../Models/Borrower_model.dart';
 import '../Models/Employee_model.dart';
 
 class GlobalController {
-  // A function that converts a response body into a List<Admin>.
-  Future<List<AdminModel>> parseAdmin(String responseBody) async {
-    final parsed = await jsonDecode(responseBody).cast<Map<String, dynamic>>();
-    return parsed.map<AdminModel>((json) => AdminModel.fromJson(json)).toList();
-  }
-
-  // A function that converts a response body into a List<Employee>.
-  Future<List<EmployeeModel>> parseEmployee(String responseBody) async {
-    final parsed = await jsonDecode(responseBody).cast<Map<String, dynamic>>();
-    return parsed
-        .map<EmployeeModel>((json) => EmployeeModel.fromJson(json))
-        .toList();
-  }
-
   //fetch all the employees from the database
   Future<List<EmployeeModel>> fetchAllEmployees() async {
     final response =

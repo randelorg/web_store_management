@@ -15,8 +15,6 @@ class _BorrowersScreen extends State<BorrowersScreen> {
   @override
   void initState() {
     super.initState();
-    //fetches the borrowers from the database
-    controller.fetchBorrowers();
   }
 
   @override
@@ -56,29 +54,48 @@ class _BorrowersScreen extends State<BorrowersScreen> {
             ),
           ],
         ),
-        Expanded(
-          child: Container(
-            width: (MediaQuery.of(context).size.width),
-            height: (MediaQuery.of(context).size.height),
-            child: ListView(
-              scrollDirection: Axis.vertical,
-              padding: const EdgeInsets.only(right: 100, left: 100),
-              children: [
-                PaginatedDataTable(
-                  showCheckboxColumn: false,
-                  rowsPerPage: 15,
-                  columns: [
-                    DataColumn(label: Text('BID')),
-                    DataColumn(label: Text('Name')),
-                    DataColumn(label: Text('Number')),
-                    DataColumn(label: Text('Balance')),
-                    DataColumn(label: Text('Action')),
-                  ],
-                  source: _DataSource(context),
-                )
-              ],
-            ),
-          ),
+        FutureBuilder(
+          future: controller.fetchBorrowers(),
+          builder: (context, snapshot) {
+            if (!snapshot.hasData) {
+              return Center(
+                child: CircularProgressIndicator(
+                  semanticsLabel: 'Fetching borrowers',
+                ),
+              );
+            }
+            if (snapshot.hasData) {
+              return Expanded(
+                child: Container(
+                  width: (MediaQuery.of(context).size.width),
+                  height: (MediaQuery.of(context).size.height),
+                  child: ListView(
+                    scrollDirection: Axis.vertical,
+                    padding: const EdgeInsets.only(right: 100, left: 100),
+                    children: [
+                      PaginatedDataTable(
+                        showCheckboxColumn: false,
+                        rowsPerPage: 15,
+                        columns: [
+                          DataColumn(label: Text('BID')),
+                          DataColumn(label: Text('Name')),
+                          DataColumn(label: Text('Number')),
+                          DataColumn(label: Text('Balance')),
+                          DataColumn(label: Text('Action')),
+                        ],
+                        source: _DataSource(context),
+                      )
+                    ],
+                  ),
+                ),
+              );
+            }
+            return Center(
+              child: CircularProgressIndicator(
+                semanticsLabel: 'Fetching borrowers',
+              ),
+            );
+          },
         ),
       ],
     );

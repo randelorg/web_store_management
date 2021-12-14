@@ -7,12 +7,16 @@ import 'HistoryScreens/ProductHistoryScreen.dart';
 import '../../Backend/Utility/Mapping.dart';
 
 class HistoryScreen extends StatefulWidget {
+  final Function? onUpdate;
+  HistoryScreen({this.onUpdate});
+
   @override
   _HistoryScreen createState() => _HistoryScreen();
 }
 
 class _HistoryScreen extends State<HistoryScreen> {
   var controller = GlobalController();
+
   @override
   void initState() {
     super.initState();
@@ -141,21 +145,14 @@ class _DataSource extends DataTableSource {
     return DataRow.byIndex(
       index: index,
       selected: row.selected,
-      // onSelectChanged: (value) {
-      //   if (row.selected != value) {
-      //     var value = false;
-      //     _selectedCount += value ? 1 : -1;
-      //     assert(_selectedCount >= 0);
-      //     row.selected = value;
-      //     notifyListeners();
-      //   }
-      // },
       cells: [
         DataCell(Text(row.valueA)),
         DataCell(Text(row.valueB)),
         DataCell((row.valueC), onTap: () {
-          history.viewPaymentHistory(row.valueA);
-          PaymentHistory(borrowerName: row.valueB);
+          PaymentHistory(
+            id: row.valueA,
+            borrowerName: row.valueB,
+          );
         }),
       ],
     );

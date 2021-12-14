@@ -24,6 +24,23 @@ class AdminModel extends PersonModel {
 
   AdminModel.empty() : super.empty();
 
+  AdminModel.full(
+      String adminId,
+      String username,
+      String password,
+      int personId,
+      String firstname,
+      String lastname,
+      String mobileNumber,
+      String homeAddress,
+      String userImage)
+      : super.full(personId, firstname, lastname, mobileNumber, homeAddress) {
+    this.adminId = adminId;
+    this.username = username;
+    this.password = password;
+    this.userImage = userImage;
+  }
+
   AdminModel.fullJson(
       {this.adminId,
       this.username,

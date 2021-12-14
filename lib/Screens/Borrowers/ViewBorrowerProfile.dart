@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import 'package:web_store_management/Backend/HistoryOperation.dart';
 
 import '../Reports/HistoryScreens/PaymentHistoryScreen.dart';
 import '../Reports/HistoryScreens/ProductHistoryScreen.dart';
@@ -18,6 +19,7 @@ class ViewBorrowerProfile extends StatefulWidget {
 }
 
 class _ViewBorrowerProfile extends State<ViewBorrowerProfile> {
+  var history = HistoryOperation();
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -153,6 +155,7 @@ class _ViewBorrowerProfile extends State<ViewBorrowerProfile> {
                       ),
                       tooltip: 'Payment History',
                       onPressed: () {
+                        history.viewPaymentHistory(widget.id.toString());
                         showDialog(
                           context: context,
                           builder: (BuildContext context) {
@@ -162,7 +165,10 @@ class _ViewBorrowerProfile extends State<ViewBorrowerProfile> {
                                   width:
                                       (MediaQuery.of(context).size.width) / 2,
                                   height: (MediaQuery.of(context).size.height),
-                                  child: PaymentHistory(),
+                                  child: PaymentHistory(
+                                    id: widget.id.toString(),
+                                    borrowerName: widget.name.toString(),
+                                  ),
                                 ),
                               ],
                             );
@@ -194,7 +200,10 @@ class _ViewBorrowerProfile extends State<ViewBorrowerProfile> {
                                   width:
                                       (MediaQuery.of(context).size.width) / 2,
                                   height: (MediaQuery.of(context).size.height),
-                                  child: ProductHistory(),
+                                  child: ProductHistory(
+                                    borrowerId: widget.id.toString(),
+                                    borrowerName: widget.name.toString(),
+                                  ),
                                 ),
                               ],
                             );

@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:web_store_management/Models/Employee_model.dart';
 import '../Helpers/Hashing_helper.dart';
 import 'GlobalController.dart';
 import 'Interfaces/ILogin.dart';
@@ -64,20 +65,26 @@ class Login extends GlobalController implements ILogin {
     try {
       switch (role.replaceAll(' ', '')) {
         case 'Administrator':
-          await parseAdmin(response.body)
-              .then((value) => Mapping.adminList = value);
-          setSession(Mapping.adminList[0].getAdminId.toString(), true, role);
-          print('ID ' + Mapping.adminList[0].getAdminId);
+          Map<String, dynamic> adminMap =
+              jsonDecode(response.body)[0] as Map<String, dynamic>;
+
+          var admin = AdminModel.fromJson(adminMap);
+          print(admin.toString());
+          setSession(admin.toString(), true, role);
+
           break;
         case 'StoreAttendant':
-          await parseEmployee(response.body)
-              .then((value) => Mapping.employeeList = value);
-          setSession(
-              Mapping.employeeList[0].getEmployeeID.toString(), true, role);
+          Map<String, dynamic> empMap =
+              jsonDecode(response.body)[0] as Map<String, dynamic>;
+
+          var emp = EmployeeModel.fromJson(empMap);
+
+          setSession(emp.toString(), true, role);
           break;
         default:
       }
     } catch (e) {
+      print(e.toString());
       return false;
     }
 
@@ -92,9 +99,9 @@ class Login extends GlobalController implements ILogin {
   void logout() {
     session.removeValues(); //remove the values from the session
     //clear the lists
-    Mapping.adminList.clear();
     Mapping.employeeList.clear();
     Mapping.productList.clear();
     Mapping.borrowerList.clear();
+    Mapping.paymentList.clear();
   }
 }

@@ -1,21 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:web_store_management/Backend/HistoryOperation.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
 
 class PaymentHistory extends StatefulWidget {
-  final String? borrowerName;
-  PaymentHistory({this.borrowerName});
+  final String? id, borrowerName;
+  PaymentHistory({this.id, this.borrowerName});
 
   @override
   _PaymentHistory createState() => _PaymentHistory();
 }
 
 class _PaymentHistory extends State<PaymentHistory> {
-  var _borrowerName;
+  var history = HistoryOperation();
+
   @override
   void initState() {
     super.initState();
-    
   }
 
   Widget build(BuildContext context) {
@@ -26,22 +27,37 @@ class _PaymentHistory extends State<PaymentHistory> {
         scrollDirection: Axis.vertical,
         padding: const EdgeInsets.all(10),
         children: [
-          PaginatedDataTable(
-            header: Text(
-             _borrowerName,
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            showCheckboxColumn: false,
-            rowsPerPage: 15,
-            columns: [
-              DataColumn(label: Text('LOAN ID')),
-              DataColumn(label: Text('AMOUNT PAID')),
-              DataColumn(label: Text('DATE GIVEN')),
-            ],
-            source: _DataSource(context),
+          FutureBuilder(
+            future: history.viewPaymentHistory(widget.id.toString()),
+            builder: (context, snapshot) {
+              if (!snapshot.hasData) {
+                return Center(child: CircularProgressIndicator());
+              }
+              if (snapshot.hasData) {
+                return PaginatedDataTable(
+                  header: Text(
+                    widget.borrowerName.toString(),
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  showCheckboxColumn: false,
+                  rowsPerPage: 15,
+                  columns: [
+                    DataColumn(label: Text('COLLECTION ID')),
+                    DataColumn(label: Text('AMOUNT PAID')),
+                    DataColumn(label: Text('DATE GIVEN')),
+                  ],
+                  source: _DataSource(context),
+                );
+              }
+              return Center(
+                child: CircularProgressIndicator(
+                  semanticsLabel: 'Click a borrower to show history',
+                ),
+              );
+            },
           ),
         ],
       ),
@@ -80,15 +96,6 @@ class _DataSource extends DataTableSource {
     return DataRow.byIndex(
       index: index,
       selected: row.selected,
-      onSelectChanged: (value) {
-        if (row.selected != value) {
-          var value = false;
-          _selectedCount += value ? 1 : -1;
-          assert(_selectedCount >= 0);
-          row.selected = value;
-          notifyListeners();
-        }
-      },
       cells: [
         DataCell(Text(row.valueA)),
         DataCell(Text(row.valueB)),

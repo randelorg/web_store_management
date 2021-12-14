@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/route_manager.dart';
 import '../../Helpers/FilePicker_helper.dart';
 import 'Finalize.dart';
 import '../../Backend/Utility/Mapping.dart';
@@ -25,8 +26,6 @@ class _HomeNewLoan extends State<HomeNewLoan> {
   @override
   void initState() {
     super.initState();
-    //fetches the products from the database
-    controller.fetchProducts();
   }
 
   @override
@@ -227,18 +226,37 @@ class _HomeNewLoan extends State<HomeNewLoan> {
                   ),
                 ],
               ),
-              Container(
-                width: (MediaQuery.of(context).size.width) / 2,
-                child: PaginatedDataTable(
-                  showCheckboxColumn: true,
-                  rowsPerPage: 9,
-                  columns: [
-                    DataColumn(label: Text('BARCODE')),
-                    DataColumn(label: Text('PRODUCT NAME')),
-                    DataColumn(label: Text('PRICE')),
-                  ],
-                  source: _SelectionOfProducts(context),
-                ),
+              FutureBuilder(
+                future: controller.fetchProducts(),
+                builder: (context, snapshot) {
+                  if (!snapshot.hasData) {
+                    return Center(
+                      child: CircularProgressIndicator(
+                        semanticsLabel: 'Fetching products',
+                      ),
+                    );
+                  }
+                  if (snapshot.hasData) {
+                    return Container(
+                      width: (MediaQuery.of(context).size.width) / 2,
+                      child: PaginatedDataTable(
+                        showCheckboxColumn: true,
+                        rowsPerPage: 9,
+                        columns: [
+                          DataColumn(label: Text('BARCODE')),
+                          DataColumn(label: Text('PRODUCT NAME')),
+                          DataColumn(label: Text('PRICE')),
+                        ],
+                        source: _SelectionOfProducts(context),
+                      ),
+                    );
+                  }
+                  return Center(
+                    child: CircularProgressIndicator(
+                      semanticsLabel: 'Fetching products',
+                    ),
+                  );
+                },
               ),
             ],
           ),
@@ -331,15 +349,15 @@ class _SelectionOfProducts extends DataTableSource {
     return DataRow.byIndex(
       index: index,
       selected: row.selected,
-      onSelectChanged: (value) {
-        if (row.selected != value) {
-          var value = false;
-          _selectedCount += value ? 1 : -1;
-          assert(_selectedCount >= 0);
-          row.selected = value;
-          notifyListeners();
-        }
-      },
+      // onSelectChanged: (value) {
+      //   if (row.selected != value) {
+      //     var value = false;
+      //     _selectedCount += value ? 1 : -1;
+      //     assert(_selectedCount >= 0);
+      //     row.selected = value;
+      //     notifyListeners();
+      //   }
+      // },
       cells: [
         DataCell(Text(row.valueA)),
         DataCell(Text(row.valueB)),

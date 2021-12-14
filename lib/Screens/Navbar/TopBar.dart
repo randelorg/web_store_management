@@ -6,14 +6,37 @@ import 'package:web_store_management/Backend/Login_operation.dart';
 import 'Drawers/NotificationDrawer.dart';
 import 'Drawers/ProfileDrawer.dart';
 
-class TopBar extends StatelessWidget with PreferredSizeWidget {
+class TopBar extends StatefulWidget with PreferredSizeWidget {
+  final Function? updateTitle;
+  final String? title;
+  TopBar({this.updateTitle, this.title});
+
+  @override
+  _TopBar createState() => _TopBar();
+
+  @override
+  Size get preferredSize => Size.fromHeight(kToolbarHeight);
+}
+
+class _TopBar extends State<TopBar> {
   var controller = GlobalController();
   var login = Login();
+  String? title;
+
+  @override
+  void initState() {
+    super.initState();
+    setState(() {
+      title = widget.title.toString();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    print(widget.title.toString());
     return AppBar(
       title: Text(
-        'DASHBOARD',
+        title.toString(),
         style: TextStyle(
           color: HexColor("#155293"),
           fontFamily: 'Cairo_Bold',
@@ -52,7 +75,4 @@ class TopBar extends StatelessWidget with PreferredSizeWidget {
       ],
     );
   }
-
-  @override
-  Size get preferredSize => Size.fromHeight(kToolbarHeight);
 }

@@ -267,28 +267,47 @@ class _InventoryScreen extends State<InventoryScreen> {
                 ),
               ],
             ),
-            Expanded(
-              child: Container(
-                width: (MediaQuery.of(context).size.width) / 1.5,
-                height: (MediaQuery.of(context).size.height),
-                child: ListView(
-                  padding: const EdgeInsets.all(10),
-                  children: [
-                    PaginatedDataTable(
-                      showCheckboxColumn: false,
-                      rowsPerPage: 15,
-                      columns: [
-                        DataColumn(label: Text('PRODUCT NAME')),
-                        DataColumn(label: Text('QTY')),
-                        DataColumn(label: Text('UNIT')),
-                        DataColumn(label: Text('PRICE')),
-                        DataColumn(label: Text('ACTION')),
-                      ],
-                      source: _DataSource(context),
-                    )
-                  ],
-                ),
-              ),
+            FutureBuilder(
+              future: controller.fetchProducts(),
+              builder: (context, snapshot) {
+                if (!snapshot.hasData) {
+                  return Center(
+                    child: CircularProgressIndicator(
+                      semanticsLabel: 'Fetching products',
+                    ),
+                  );
+                }
+                if (snapshot.hasData) {
+                  return Expanded(
+                    child: Container(
+                      width: (MediaQuery.of(context).size.width) / 1.5,
+                      height: (MediaQuery.of(context).size.height),
+                      child: ListView(
+                        padding: const EdgeInsets.all(10),
+                        children: [
+                          PaginatedDataTable(
+                            showCheckboxColumn: false,
+                            rowsPerPage: 15,
+                            columns: [
+                              DataColumn(label: Text('PRODUCT NAME')),
+                              DataColumn(label: Text('QTY')),
+                              DataColumn(label: Text('UNIT')),
+                              DataColumn(label: Text('PRICE')),
+                              DataColumn(label: Text('ACTION')),
+                            ],
+                            source: _DataSource(context),
+                          )
+                        ],
+                      ),
+                    ),
+                  );
+                }
+                return Center(
+                  child: CircularProgressIndicator(
+                    semanticsLabel: 'Fetching products',
+                  ),
+                );
+              },
             ),
           ],
         ),
@@ -331,15 +350,15 @@ class _DataSource extends DataTableSource {
     return DataRow.byIndex(
       index: index,
       selected: row.selected,
-      onSelectChanged: (value) {
-        if (row.selected != value) {
-          var value = false;
-          _selectedCount += value ? 1 : -1;
-          assert(_selectedCount >= 0);
-          row.selected = value;
-          notifyListeners();
-        }
-      },
+      // onSelectChanged: (value) {
+      //   if (row.selected != value) {
+      //     var value = false;
+      //     _selectedCount += value ? 1 : -1;
+      //     assert(_selectedCount >= 0);
+      //     row.selected = value;
+      //     notifyListeners();
+      //   }
+      // },
       cells: [
         DataCell(Text(row.valueA)),
         DataCell((row.valueB)),

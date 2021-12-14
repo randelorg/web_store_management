@@ -2,9 +2,6 @@ import 'package:flutter/material.dart';
 import '../../Backend/Session.dart';
 
 class ViewProfile extends StatelessWidget {
-  // final String? name, role;
-  // ViewProfile({this.name, this.role});
-
   @override
   Widget build(BuildContext context) {
     return AlertDialog(

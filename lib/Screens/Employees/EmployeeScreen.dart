@@ -149,30 +149,49 @@ class _EmployeeScreen extends State<EmployeeScreen> {
             ),
           ],
         ),
-        Expanded(
-          child: Container(
-            width: (MediaQuery.of(context).size.width),
-            height: (MediaQuery.of(context).size.height),
-            child: ListView(
-              scrollDirection: Axis.vertical,
-              padding: const EdgeInsets.only(right: 100, left: 100),
-              children: [
-                PaginatedDataTable(
-                  showCheckboxColumn: false,
-                  rowsPerPage: 10,
-                  columns: [
-                    DataColumn(label: Text('EID')),
-                    DataColumn(label: Text('ROLE')),
-                    DataColumn(label: Text('NAME')),
-                    DataColumn(label: Text('NUMBER')),
-                    DataColumn(label: Text('PROFILE')),
-                    DataColumn(label: Text('PAYROLL')),
-                  ],
-                  source: _DataSource(context),
-                )
-              ],
-            ),
-          ),
+        FutureBuilder(
+          future: controller.fetchBorrowers(),
+          builder: (context, snapshot) {
+            if (!snapshot.hasData) {
+              return Center(
+                child: CircularProgressIndicator(
+                  semanticsLabel: 'Fetching borrowers',
+                ),
+              );
+            }
+            if (snapshot.hasData) {
+              return Expanded(
+                child: Container(
+                  width: (MediaQuery.of(context).size.width),
+                  height: (MediaQuery.of(context).size.height),
+                  child: ListView(
+                    scrollDirection: Axis.vertical,
+                    padding: const EdgeInsets.only(right: 100, left: 100),
+                    children: [
+                      PaginatedDataTable(
+                        showCheckboxColumn: false,
+                        rowsPerPage: 10,
+                        columns: [
+                          DataColumn(label: Text('EID')),
+                          DataColumn(label: Text('ROLE')),
+                          DataColumn(label: Text('NAME')),
+                          DataColumn(label: Text('NUMBER')),
+                          DataColumn(label: Text('PROFILE')),
+                          DataColumn(label: Text('PAYROLL')),
+                        ],
+                        source: _DataSource(context),
+                      )
+                    ],
+                  ),
+                ),
+              );
+            }
+            return Center(
+              child: CircularProgressIndicator(
+                semanticsLabel: 'Fetching borrowers',
+              ),
+            );
+          },
         ),
       ],
     );

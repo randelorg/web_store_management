@@ -21,8 +21,6 @@ class _PaymentScreen extends State<PaymentScreen> {
   @override
   void initState() {
     super.initState();
-    //fetches the products from the database
-    controller.fetchBorrowers();
   }
 
   Widget build(BuildContext context) {
@@ -62,31 +60,51 @@ class _PaymentScreen extends State<PaymentScreen> {
             ),
           ],
         ),
-        Expanded(
-          child: Container(
-            width: (MediaQuery.of(context).size.width),
-            height: (MediaQuery.of(context).size.height),
-            child: ListView(
-              scrollDirection: Axis.vertical,
-              padding: const EdgeInsets.only(bottom: 15, right: 100, left: 100),
-              children: [
-                PaginatedDataTable(
-                  sortColumnIndex: _currentSortColumn,
-                  sortAscending: _isAscending,
-                  showCheckboxColumn: false,
-                  rowsPerPage: 15,
-                  columns: [
-                    DataColumn(label: Text('BID')),
-                    DataColumn(label: Text('NAME')),
-                    DataColumn(label: Text('TOTAL DEBT')),
-                    DataColumn(label: Text('PAYMENT')),
-                    DataColumn(label: Text('VIEW')),
-                  ],
-                  source: _DataSource(context),
+        FutureBuilder(
+          future: controller.fetchBorrowers(),
+          builder: (context, snapshot) {
+            if (!snapshot.hasData) {
+              return Center(
+                child: CircularProgressIndicator(
+                  semanticsLabel: 'Fetching borrowers',
                 ),
-              ],
-            ),
-          ),
+              );
+            }
+            if (snapshot.hasData) {
+              return Expanded(
+                child: Container(
+                  width: (MediaQuery.of(context).size.width),
+                  height: (MediaQuery.of(context).size.height),
+                  child: ListView(
+                    scrollDirection: Axis.vertical,
+                    padding: const EdgeInsets.only(
+                        bottom: 15, right: 100, left: 100),
+                    children: [
+                      PaginatedDataTable(
+                        sortColumnIndex: _currentSortColumn,
+                        sortAscending: _isAscending,
+                        showCheckboxColumn: false,
+                        rowsPerPage: 15,
+                        columns: [
+                          DataColumn(label: Text('BID')),
+                          DataColumn(label: Text('NAME')),
+                          DataColumn(label: Text('TOTAL DEBT')),
+                          DataColumn(label: Text('PAYMENT')),
+                          DataColumn(label: Text('VIEW')),
+                        ],
+                        source: _DataSource(context),
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            }
+            return Center(
+              child: CircularProgressIndicator(
+                semanticsLabel: 'Fetching borrowers',
+              ),
+            );
+          },
         ),
       ],
     );

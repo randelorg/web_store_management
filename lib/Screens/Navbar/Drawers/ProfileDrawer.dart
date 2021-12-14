@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../ViewProfile.dart';
 import '../AddAccount.dart';
-import '../EditProfile.dart';
+import '../UpdateProfile.dart';
 
 class ProfileDrawer extends StatefulWidget {
   @override
@@ -73,7 +73,7 @@ class _ProfileDrawer extends State<ProfileDrawer> {
                       showDialog(
                         context: context,
                         builder: (BuildContext context) {
-                          return EditProfile();
+                          return UpdateProfile();
                         },
                       );
                     },
