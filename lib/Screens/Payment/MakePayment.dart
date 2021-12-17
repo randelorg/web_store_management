@@ -132,14 +132,15 @@ class _MakePayment extends State<MakePayment> {
                 //readOnly: true,
                 onTap: () async {
                   DateTime? pickedDate = await showDatePicker(
-                      context: context,
-                      initialDate: DateTime.now(),
-                      firstDate: DateTime(1999),
-                      lastDate: DateTime(2031));
+                    context: context,
+                    initialDate: DateTime.now(),
+                    firstDate: DateTime(1999),
+                    lastDate: DateTime(2050),
+                  );
                   if (pickedDate != null) {
                     print(pickedDate);
                     String formattedDate =
-                        DateFormat('MM/dd/yyyy').format(pickedDate);
+                        DateFormat('yyyy-MM-dd').format(pickedDate);
                     print(formattedDate);
                     setState(() {
                       dateinput.text = formattedDate;

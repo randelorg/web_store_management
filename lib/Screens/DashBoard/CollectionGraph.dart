@@ -4,6 +4,7 @@ import 'package:fl_chart/fl_chart.dart';
 class CollectionGraph extends StatefulWidget {
   @override
   _CollectionGraph createState() => _CollectionGraph();
+
 }
 
 class _CollectionGraph extends State<CollectionGraph> {

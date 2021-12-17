@@ -84,6 +84,7 @@ class Login extends GlobalController implements ILogin {
         default:
       }
     } catch (e) {
+      print('login');
       print(e.toString());
       return false;
     }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:web_store_management/Backend/Dashboard_operation.dart';
 
 import 'CollectionGraph.dart';
 
@@ -8,6 +9,8 @@ class TimeCollection extends StatefulWidget {
 }
 
 class _TimeCollection extends State<TimeCollection> {
+  var dashboard = DashboardOperation();
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -22,15 +25,6 @@ class _TimeCollection extends State<TimeCollection> {
                 size: 40.0,
                 color: Colors.black,
               ),
-              Text(
-                'COLLECTIONS',
-                softWrap: true,
-                style: TextStyle(
-                  fontSize: 30,
-                  color: Colors.blue,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
             ],
           ),
         ),
@@ -40,24 +34,49 @@ class _TimeCollection extends State<TimeCollection> {
               padding: EdgeInsets.all(20),
               child: Column(
                 children: [
-                  TextButton.icon(
-                    //Today collection graph
-                    icon: Icon(
-                      Icons.attach_money,
-                      size: 30.0,
-                      color: Colors.black,
-                    ),
-                    label: Text(
-                      //vars here to be setState
-                      '60,000',
-                      softWrap: true,
-                      style: TextStyle(
-                        fontSize: 25,
-                        color: Colors.blue,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    onPressed: () {}, //pwdeng refresh button
+                  FutureBuilder(
+                    future: dashboard.getTodayCollection(),
+                    builder: (context, snapshot) {
+                      if (!snapshot.hasData) {
+                        return Center(
+                          child: CircularProgressIndicator(
+                            semanticsLabel: 'Fetching today collection',
+                          ),
+                        );
+                      }
+                      if (snapshot.hasData) {
+                        return TextButton.icon(
+                          //Today collection graph
+                          icon: Icon(
+                            Icons.attach_money,
+                            size: 30.0,
+                            color: Colors.black,
+                          ),
+                          label: Text(
+                            //vars here to be setState
+                            snapshot.data.toString(),
+                            softWrap: true,
+                            style: TextStyle(
+                              fontSize: 25,
+                              color: Colors.blue,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          onPressed: () {}, //pwdeng refresh button
+                        );
+                      }
+                      return Center(
+                        child: Text(
+                          '0',
+                          softWrap: true,
+                          style: TextStyle(
+                            fontSize: 30,
+                            color: Colors.blue,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      );
+                    },
                   ),
                   Center(
                     child: Text(
@@ -71,24 +90,49 @@ class _TimeCollection extends State<TimeCollection> {
               padding: EdgeInsets.all(20),
               child: Column(
                 children: [
-                  TextButton.icon(
-                    //this weeek collection graph
-                    icon: Icon(
-                      Icons.attach_money,
-                      size: 30.0,
-                      color: Colors.black,
-                    ),
-                    label: Text(
-                      //vars here to be setState
-                      '60,000',
-                      softWrap: true,
-                      style: TextStyle(
-                        fontSize: 25,
-                        color: Colors.blue,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    onPressed: () {}, //pwdeng refresh button
+                  FutureBuilder(
+                    future: dashboard.getWeekCollection(),
+                    builder: (context, snapshot) {
+                      if (!snapshot.hasData) {
+                        return Center(
+                          child: CircularProgressIndicator(
+                            semanticsLabel: 'Fetching this week collection',
+                          ),
+                        );
+                      }
+                      if (snapshot.hasData) {
+                        return TextButton.icon(
+                          //this weeek collection graph
+                          icon: Icon(
+                            Icons.attach_money,
+                            size: 30.0,
+                            color: Colors.black,
+                          ),
+                          label: Text(
+                            //vars here to be setState
+                            snapshot.data.toString(),
+                            softWrap: true,
+                            style: TextStyle(
+                              fontSize: 25,
+                              color: Colors.blue,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          onPressed: () {}, //pwdeng refresh button
+                        );
+                      }
+                      return Center(
+                        child: Text(
+                          '0',
+                          softWrap: true,
+                          style: TextStyle(
+                            fontSize: 30,
+                            color: Colors.blue,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      );
+                    },
                   ),
                   Center(
                     child: Text(

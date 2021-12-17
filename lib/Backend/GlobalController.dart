@@ -8,6 +8,17 @@ import '../Models/Borrower_model.dart';
 import '../Models/Employee_model.dart';
 
 class GlobalController {
+  //fetch this week collection
+  Future<List<String>> getThisWeekCollection() async {
+    List<String> collection = [];
+    DateTime today = DateTime.now();
+    DateTime _firstDayOfTheweek =
+        today.subtract(new Duration(days: today.weekday - 1));
+    print(_firstDayOfTheweek.day);
+
+    return collection;
+  }
+
   //fetch all the employees from the database
   Future<List<EmployeeModel>> fetchAllEmployees() async {
     final response =

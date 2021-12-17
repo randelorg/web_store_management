@@ -349,15 +349,15 @@ class _SelectionOfProducts extends DataTableSource {
     return DataRow.byIndex(
       index: index,
       selected: row.selected,
-      // onSelectChanged: (value) {
-      //   if (row.selected != value) {
-      //     var value = false;
-      //     _selectedCount += value ? 1 : -1;
-      //     assert(_selectedCount >= 0);
-      //     row.selected = value;
-      //     notifyListeners();
-      //   }
-      // },
+      onSelectChanged: (value) {
+        if (row.selected != value) {
+          var value = false;
+          _selectedCount += value ? 1 : -1;
+          assert(_selectedCount >= 0);
+          row.selected = value;
+          notifyListeners();
+        }
+      },
       cells: [
         DataCell(Text(row.valueA)),
         DataCell(Text(row.valueB)),
