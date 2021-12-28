@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:get/route_manager.dart';
 import '../../Helpers/FilePicker_helper.dart';
 import 'Finalize.dart';
 import '../../Backend/Utility/Mapping.dart';
 import '../../Backend/GlobalController.dart';
 
 class HomeNewLoan extends StatefulWidget {
+  const HomeNewLoan({Key? key}) : super(key: key);
+
   @override
   _HomeNewLoan createState() => _HomeNewLoan();
 }
 
 class _HomeNewLoan extends State<HomeNewLoan> {
-  //textedited controllers
   final firstname = TextEditingController();
   final lastname = TextEditingController();
   final mobileNumber = TextEditingController();
@@ -350,8 +350,8 @@ class _SelectionOfProducts extends DataTableSource {
       index: index,
       selected: row.selected,
       onSelectChanged: (value) {
+        var value = false;
         if (row.selected != value) {
-          var value = false;
           _selectedCount += value ? 1 : -1;
           assert(_selectedCount >= 0);
           row.selected = value;

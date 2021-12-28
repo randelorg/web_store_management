@@ -70,6 +70,19 @@ class Login extends GlobalController implements ILogin {
 
           var admin = AdminModel.fromJson(adminMap);
           print(admin.toString());
+          Mapping.adminList.add(
+            AdminModel.full(
+              admin.getAdminId,
+              admin.getUsername,
+              admin.getPassword,
+              admin.getFirstname,
+              admin.getLastname,
+              admin.getMobileNumber,
+              admin.getHomeAddress,
+              admin.getUserImage,
+            ),
+          );
+
           setSession(admin.toString(), true, role);
 
           break;
@@ -78,6 +91,7 @@ class Login extends GlobalController implements ILogin {
               jsonDecode(response.body)[0] as Map<String, dynamic>;
 
           var emp = EmployeeModel.fromJson(empMap);
+          Mapping.employeeList.add(emp);
 
           setSession(emp.toString(), true, role);
           break;

@@ -16,14 +16,14 @@ public final class GeneratedPluginRegistrant {
   private static final String TAG = "GeneratedPluginRegistrant";
   public static void registerWith(@NonNull FlutterEngine flutterEngine) {
     try {
-      flutterEngine.getPlugins().add(new de.mintware.barcode_scan.BarcodeScanPlugin());
-    } catch(Exception e) {
-      Log.e(TAG, "Error registering plugin barcode_scan2, de.mintware.barcode_scan.BarcodeScanPlugin", e);
-    }
-    try {
       flutterEngine.getPlugins().add(new com.mr.flutter.plugin.filepicker.FilePickerPlugin());
     } catch(Exception e) {
       Log.e(TAG, "Error registering plugin file_picker, com.mr.flutter.plugin.filepicker.FilePickerPlugin", e);
+    }
+    try {
+      flutterEngine.getPlugins().add(new com.dynamsoft.flutter_barcode_sdk.FlutterBarcodeSdkPlugin());
+    } catch(Exception e) {
+      Log.e(TAG, "Error registering plugin flutter_barcode_sdk, com.dynamsoft.flutter_barcode_sdk.FlutterBarcodeSdkPlugin", e);
     }
     try {
       flutterEngine.getPlugins().add(new io.flutter.plugins.flutter_plugin_android_lifecycle.FlutterAndroidLifecyclePlugin());

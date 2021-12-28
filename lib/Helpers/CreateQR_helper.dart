@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
-import 'package:barcode_scan2/barcode_scan2.dart';
 
 class CreateQrHelper {
   static Widget createQr(String content) {
@@ -13,10 +12,5 @@ class CreateQrHelper {
       ),
       size: 200.0,
     );
-  }
-
-  static Future<String> scanQr() async {
-    var barcode = await BarcodeScanner.scan();
-    return barcode.rawContent.toString();
   }
 }

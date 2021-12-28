@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:get/get_navigation/src/snackbar/snack.dart';
 
 class SnackNotification {
   static void notif(String title, String message, Color color) {

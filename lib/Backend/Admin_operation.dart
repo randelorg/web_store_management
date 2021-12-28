@@ -18,7 +18,7 @@ class AdminOperation implements IAdmin {
       String? password,
       Uint8List? image) async {
     //json body
-    var id = 'admin-009';
+    var id = 'admin-011';
     var addAdmin = json.encode({
       'AdminID': id,
       'Username': username,
@@ -43,6 +43,7 @@ class AdminOperation implements IAdmin {
       if (response.statusCode == 404) return false;
     } catch (e) {
       e.toString();
+      return false;
     }
 
     //if status code is 202

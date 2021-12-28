@@ -1,6 +1,5 @@
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import '../../Backend/Admin_operation.dart';
 import '../../Notification/Snack_notification.dart';
 
@@ -26,6 +25,10 @@ class ConfirmAccount extends StatefulWidget {
 class _ConfirmAccount extends State<ConfirmAccount> {
   final password = TextEditingController();
   var admin = AdminOperation();
+
+  void clearText() {
+    password.clear();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -120,19 +123,24 @@ class _ConfirmAccount extends State<ConfirmAccount> {
                                       widget.image)
                                   .then((value) {
                                 if (value) {
+                                  Navigator.pop(context);
                                   SnackNotification.notif(
-                                      'Success',
-                                      'Admin account is created',
-                                      Colors.green.shade600);
+                                  
+                                    'Success',
+                                    'Admin account is created',
+                                    Colors.green.shade600,
+                                  );
                                 } else {
                                   SnackNotification.notif(
-                                      'Error',
-                                      'Something went wrong',
-                                      Colors.red.shade600);
+                                   
+                                    'Error',
+                                    'Something went wrong',
+                                    Colors.red.shade600,
+                                  );
                                 }
                               });
                             } else {
-                              SnackNotification.notif('Try again',
+                              SnackNotification.notif( 'Try again',
                                   'Wrong Password', Colors.red.shade600);
                             }
                           },

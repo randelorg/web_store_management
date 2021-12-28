@@ -245,6 +245,7 @@ class _AddAccount extends State<AddAccount> {
                             textStyle: TextStyle(fontSize: 20),
                           ),
                           onPressed: () {
+                            Navigator.pop(context);
                             if (username.text.isNotEmpty) {
                               showDialog(
                                 context: context,

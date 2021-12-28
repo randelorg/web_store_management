@@ -1,4 +1,9 @@
+import 'package:intl/intl.dart';
+
 class PaymentHistoryModel {
+  var _formatter = new DateFormat('yyyy-MM-dd');
+  var _now = new DateTime.now();
+
   int? collectionID;
   String? givenDate;
   double? collectionAmount;
@@ -12,9 +17,17 @@ class PaymentHistoryModel {
   set setCollectionAmount(double collectionAmount) =>
       this.collectionAmount = collectionAmount;
 
-  get getGivenDate => this.givenDate;
+  get getGivenDate => convertDateTimeDisplay(this.givenDate.toString());
 
   set setGivenDate(String givenDate) => this.givenDate = givenDate;
+
+  String convertDateTimeDisplay(String date) {
+    final DateFormat displayFormater = DateFormat('yyyy-MM-ddTHH:mm:ss.SSS');
+    final DateFormat serverFormater = DateFormat('dd-MM-yyyy');
+    final DateTime displayDate = displayFormater.parse(date);
+    final String formatted = serverFormater.format(displayDate);
+    return formatted;
+  }
 
   PaymentHistoryModel.empty();
 

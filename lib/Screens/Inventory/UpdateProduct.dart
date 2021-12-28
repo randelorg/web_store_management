@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:web_store_management/Notification/Snack_notification.dart';
+import 'package:web_store_management/Screens/Inventory/InventoryScreen.dart';
 import '../../Backend/Product_operation.dart';
 import '../../Backend/Utility/Mapping.dart';
 
@@ -14,6 +14,7 @@ class UpdateProduct extends StatefulWidget {
 
 class _UpdateProduct extends State<UpdateProduct> {
   var operation = Product();
+  var updateTable = InventoryScreen();
   final prodName = TextEditingController();
   final prodQuantity = TextEditingController();
   final prodQtySuffix = TextEditingController();

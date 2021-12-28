@@ -31,7 +31,7 @@ class BorrowerOperation extends Login implements IBorrower {
       if (response.statusCode == 404) return false;
     } catch (e) {
       e.toString();
-      SnackNotification.notif('Error', 'Something went wrong', Colors.redAccent.shade200);
+      //SnackNotification.notif('Error', 'Something went wrong', Colors.redAccent.shade200);
       return false;
     }
 

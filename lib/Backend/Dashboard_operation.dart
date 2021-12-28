@@ -7,12 +7,13 @@ import 'package:web_store_management/Models/Collection_model.dart';
 import 'package:web_store_management/Notification/Snack_notification.dart';
 
 class DashboardOperation implements IDashboard {
+  late final BuildContext context;
   var _formatter = new DateFormat('yyyy-MM-dd');
   var _now = new DateTime.now();
+
   @override
   String getTodayDate() {
-    var formatter = new DateFormat('yyyy-MM-dd');
-    String formattedDate = formatter.format(_now);
+    String formattedDate = _formatter.format(_now);
     return formattedDate;
   }
 
@@ -46,6 +47,7 @@ class DashboardOperation implements IDashboard {
 
       if (response.statusCode == 404) {
         SnackNotification.notif(
+ 
           'Error',
           'Cant fetch loaned product history',
           Colors.red.shade600,
@@ -57,6 +59,7 @@ class DashboardOperation implements IDashboard {
     } catch (e) {
       print(e.toString());
       SnackNotification.notif(
+
         'Error',
         'There is an error in fetching today collection',
         Colors.red.shade600,
@@ -78,6 +81,7 @@ class DashboardOperation implements IDashboard {
 
       if (response.statusCode == 404) {
         SnackNotification.notif(
+
           'Error',
           'Cant fetch loaned product history',
           Colors.red.shade600,
@@ -89,6 +93,7 @@ class DashboardOperation implements IDashboard {
     } catch (e) {
       print(e.toString());
       SnackNotification.notif(
+
         'Error',
         'There is an error in fetching today collection',
         Colors.red.shade600,

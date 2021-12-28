@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/widgets.dart';
 import 'package:web_store_management/Notification/Snack_notification.dart';
 import '../../Backend/Borrower_operation.dart';
 
@@ -180,9 +178,10 @@ class _MakePayment extends State<MakePayment> {
                             .then((value) {
                           if (value) {
                             SnackNotification.notif(
-                                'Success',
-                                'Payment has been recorded',
-                                Colors.green.shade600);
+                              'Success',
+                              'Payment has been recorded',
+                              Colors.green.shade600,
+                            );
                           }
                         });
                         Navigator.pop(context);

@@ -1,7 +1,12 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import '../../Backend/Session.dart';
+import '../../Backend/Utility/Mapping.dart';
 
 class ViewProfile extends StatelessWidget {
+  final List<int> bufferInt2 = Mapping.adminList[0].getUserImage.cast<int>();
+
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -23,12 +28,12 @@ class ViewProfile extends StatelessWidget {
                 },
               ),
             ),
-            MediaQuery.of(context).size.width >= 800 //Responsive
-                ? Image.asset(
-                    '../../../assets/images/user.png',
-                    width: 200,
-                  )
-                : SizedBox(),
+            Image.memory(
+              Uint8List.fromList(bufferInt2),
+              height: 200,
+              width: 200,
+              fit: BoxFit.fitWidth,
+            ),
             Card(
               margin: EdgeInsets.only(left: 5, top: 20, bottom: 5, right: 5),
               elevation: 5,
@@ -48,7 +53,7 @@ class ViewProfile extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    'Michael Jacinto',
+                    Mapping.adminList[0].toString(),
                     style:
                         TextStyle(fontFamily: 'Cairo_SemiBold', fontSize: 15),
                   ),
@@ -73,7 +78,7 @@ class ViewProfile extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    'Admin',
+                    getRole().toString().toUpperCase(),
                     style:
                         TextStyle(fontFamily: 'Cairo_SemiBold', fontSize: 15),
                   ),
@@ -86,10 +91,10 @@ class ViewProfile extends StatelessWidget {
     );
   }
 
-  String? getRole() {
+  Future<String> getRole() async {
     final prefs = Session();
     String? role;
-    prefs.getrole().then((value) => role);
-    return role;
+    await prefs.getrole().then((value) => role);
+    return role.toString();
   }
 }

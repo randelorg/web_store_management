@@ -1,10 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/widgets.dart';
 import 'package:web_store_management/Backend/HistoryOperation.dart';
-
 import '../Reports/HistoryScreens/PaymentHistoryScreen.dart';
 import '../Reports/HistoryScreens/ProductHistoryScreen.dart';
 import '../../Helpers/CreateQR_helper.dart';

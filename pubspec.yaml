@@ -39,7 +39,8 @@ dependencies:
   shared_preferences: ^2.0.8 #for session
   file_picker: ^4.2.3 #file picker
   qr_flutter: ^4.0.0
-  barcode_scan2: ^4.1.4 #not compatible with flutter web
+  jsqr: ^0.1.4
+  flutter_barcode_sdk: ^1.2.2
 
 dev_dependencies:
   flutter_test:

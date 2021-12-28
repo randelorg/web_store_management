@@ -1,3 +1,5 @@
+import 'package:intl/intl.dart';
+
 class LoanedProductHistory {
   int? loanId;
 
@@ -29,7 +31,7 @@ class LoanedProductHistory {
 
   set setPaymentPlan(paymentPlan) => this.paymentPlan = paymentPlan;
 
-  get getDueDate => this.dueDate;
+  get getDueDate => convertDateTimeDisplay(this.dueDate.toString());
 
   set setDueDate(dueDate) => this.dueDate = dueDate;
 
@@ -37,9 +39,17 @@ class LoanedProductHistory {
 
   set setTerm(term) => this.term = term;
 
-  get getDateAdded => this.dateAdded;
+  get getDateAdded => convertDateTimeDisplay(this.dateAdded.toString());
 
   set setDateAdded(dateAdded) => this.dateAdded = dateAdded;
+
+  String convertDateTimeDisplay(String date) {
+    final DateFormat displayFormater = DateFormat('yyyy-MM-ddTHH:mm:ss.SSS');
+    final DateFormat serverFormater = DateFormat('dd-MM-yyyy');
+    final DateTime displayDate = displayFormater.parse(date);
+    final String formatted = serverFormater.format(displayDate);
+    return formatted;
+  }
 
   LoanedProductHistory.empty();
 

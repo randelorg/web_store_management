@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:web_store_management/Backend/GlobalController.dart';
 import 'TransferStock.dart';
 import 'UpdateProduct.dart';
 import '../../Backend/Utility/Mapping.dart';
-import '../../Helpers/CreateQr_helper.dart';
 
 class InventoryScreen extends StatefulWidget {
   @override
@@ -52,14 +50,7 @@ class _InventoryScreen extends State<InventoryScreen> {
                   decoration: InputDecoration(
                     hintText: 'Barcode',
                     suffixIcon: IconButton(
-                      onPressed: () {
-                        //scan barcode library
-                        CreateQrHelper.scanQr().then((value) {
-                          if (value.compareTo('') < 0) {
-                            print('VALUE ' + value);
-                          }
-                        });
-                      },
+                      onPressed: () {},
                       icon: Icon(Icons.scanner_sharp),
                       tooltip: 'Scan product barcode',
                     ),
@@ -267,51 +258,55 @@ class _InventoryScreen extends State<InventoryScreen> {
                 ),
               ],
             ),
-            FutureBuilder(
-              future: controller.fetchProducts(),
-              builder: (context, snapshot) {
-                if (!snapshot.hasData) {
-                  return Center(
-                    child: CircularProgressIndicator(
-                      semanticsLabel: 'Fetching products',
-                    ),
-                  );
-                }
-                if (snapshot.hasData) {
-                  return Expanded(
-                    child: Container(
-                      width: (MediaQuery.of(context).size.width) / 1.5,
-                      height: (MediaQuery.of(context).size.height),
-                      child: ListView(
-                        padding: const EdgeInsets.all(10),
-                        children: [
-                          PaginatedDataTable(
-                            showCheckboxColumn: false,
-                            rowsPerPage: 15,
-                            columns: [
-                              DataColumn(label: Text('PRODUCT NAME')),
-                              DataColumn(label: Text('QTY')),
-                              DataColumn(label: Text('UNIT')),
-                              DataColumn(label: Text('PRICE')),
-                              DataColumn(label: Text('ACTION')),
-                            ],
-                            source: _DataSource(context),
-                          )
-                        ],
-                      ),
-                    ),
-                  );
-                }
-                return Center(
-                  child: CircularProgressIndicator(
-                    semanticsLabel: 'Fetching products',
-                  ),
-                );
-              },
-            ),
+            tableProducts(),
           ],
         ),
       ],
+    );
+  }
+
+  Widget tableProducts() {
+    return FutureBuilder(
+      future: controller.fetchProducts(),
+      builder: (context, snapshot) {
+        if (!snapshot.hasData) {
+          return Center(
+            child: CircularProgressIndicator(
+              semanticsLabel: 'Fetching products',
+            ),
+          );
+        }
+        if (snapshot.hasData) {
+          return Expanded(
+            child: Container(
+              width: (MediaQuery.of(context).size.width) / 1.5,
+              height: (MediaQuery.of(context).size.height),
+              child: ListView(
+                padding: const EdgeInsets.all(10),
+                children: [
+                  PaginatedDataTable(
+                    showCheckboxColumn: false,
+                    rowsPerPage: 15,
+                    columns: [
+                      DataColumn(label: Text('PRODUCT NAME')),
+                      DataColumn(label: Text('QTY')),
+                      DataColumn(label: Text('UNIT')),
+                      DataColumn(label: Text('PRICE')),
+                      DataColumn(label: Text('ACTION')),
+                    ],
+                    source: _DataSource(context),
+                  )
+                ],
+              ),
+            ),
+          );
+        }
+        return Center(
+          child: CircularProgressIndicator(
+            semanticsLabel: 'Fetching products',
+          ),
+        );
+      },
     );
   }
 }

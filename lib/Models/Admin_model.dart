@@ -4,7 +4,8 @@ class AdminModel extends PersonModel {
   String? adminId;
   String? username;
   String? password;
-  String? userImage;
+  List<dynamic>? userImage;
+  //List<int> bufferInt = userImage.map((e) => e as int).toList();
 
   get getAdminId => this.adminId;
 
@@ -28,13 +29,12 @@ class AdminModel extends PersonModel {
       String adminId,
       String username,
       String password,
-      int personId,
       String firstname,
       String lastname,
       String mobileNumber,
       String homeAddress,
-      String userImage)
-      : super.full(personId, firstname, lastname, mobileNumber, homeAddress) {
+      List<dynamic> userImage)
+      : super.partial(firstname, lastname, mobileNumber, homeAddress) {
     this.adminId = adminId;
     this.username = username;
     this.password = password;
@@ -77,7 +77,7 @@ class AdminModel extends PersonModel {
       lastname: json["Lastname"] as String,
       mobileNumber: json["MobileNumber"] as String,
       homeAddress: json["HomeAddress"] as String,
-      //userImage: json["UserImage"] as String,
+      userImage: json["UserImage"]["data"] as List<dynamic>,
     );
   }
 }

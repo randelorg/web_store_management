@@ -161,8 +161,8 @@ class _Body extends State<Body> {
             ),
             onPressed: () {
               if (username.text.isEmpty || password.text.isEmpty) {
-                SnackNotification.notif(
-                    "Error", "Please fill all the fields", Colors.red.shade600);
+                SnackNotification.notif( "Error",
+                    "Please fill all the fields", Colors.red.shade600);
               } else {
                 login
                     .mainLogin(
@@ -172,7 +172,7 @@ class _Body extends State<Body> {
                     if (value) {
                       Navigator.pushNamed(context, '/home');
                     } else {
-                      SnackNotification.notif("Error",
+                      SnackNotification.notif( "Error",
                           "Wrong username or password", Colors.red.shade600);
                     }
                   });
