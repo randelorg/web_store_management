@@ -69,7 +69,7 @@ class Login extends GlobalController implements ILogin {
               jsonDecode(response.body)[0] as Map<String, dynamic>;
 
           var admin = AdminModel.fromJson(adminMap);
-          print(admin.toString());
+
           Mapping.adminList.add(
             AdminModel.full(
               admin.getAdminId,
@@ -83,7 +83,7 @@ class Login extends GlobalController implements ILogin {
             ),
           );
 
-          //setSession(admin.toString(), true, role);
+          await setSession(admin.toString(), true, role);
 
           break;
         case 'StoreAttendant':
@@ -93,12 +93,11 @@ class Login extends GlobalController implements ILogin {
           var emp = EmployeeModel.fromJson(empMap);
           Mapping.employeeList.add(emp);
 
-          //setSession(emp.toString(), true, role);
+          await setSession(emp.toString(), true, role);
           break;
         default:
       }
     } catch (e) {
-      print('login');
       print(e.toString());
       return false;
     }
@@ -106,13 +105,13 @@ class Login extends GlobalController implements ILogin {
     return true;
   }
 
-  void setSession(String id, bool status, String role) {
-    session.setValues(id, status, role);
+  Future<void> setSession(String id, bool status, String role) async {
+    await Session.setValues(id, status, role);
   }
 
   @override
   void logout() {
-    session.removeValues(); //remove the values from the session
+    Session.removeValues(); //remove the values from the session
     //clear the lists
     Mapping.employeeList.clear();
     Mapping.productList.clear();

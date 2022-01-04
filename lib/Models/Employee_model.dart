@@ -9,6 +9,13 @@ class EmployeeModel extends PersonModel {
   String? password;
   Uint8List? userImage;
 
+  //for payroll
+  String? payrollID;
+  double? wage;
+  double? salary;
+  String? checkin;
+  String? checkout;
+
   get getEmployeeID => this.employeeID;
 
   set setEmployeeID(employeeID) => this.employeeID = employeeID;
@@ -28,6 +35,26 @@ class EmployeeModel extends PersonModel {
   get getUserImage => this.userImage;
 
   set setUserImage(userImage) => this.userImage = userImage;
+
+  get getPayrollID => this.payrollID;
+
+  set setPayrollID(payrollID) => this.payrollID = payrollID;
+
+  get getWage => this.wage;
+
+  set setWage(wage) => this.wage = wage;
+
+  get getSalary => this.salary;
+
+  set setSalary(salary) => this.salary = salary;
+
+  get getCheckin => this.checkin;
+
+  set setCheckin(checkin) => this.checkin = checkin;
+
+  get getCheckout => this.checkout;
+
+  set setCheckout(checkout) => this.checkout = checkout;
 
   EmployeeModel.empty() : super.empty();
 
@@ -73,6 +100,17 @@ class EmployeeModel extends PersonModel {
     this.employeeID = employeeID;
     this.username = username;
     this.password = password;
+  }
+
+  EmployeeModel.payroll({this.payrollID, this.checkin, this.checkout})
+      : super.empty();
+
+  factory EmployeeModel.payrollJson(Map<String, dynamic> json) {
+    return EmployeeModel.payroll(
+      payrollID: json['payrollID'] as String,
+      checkin: json['checkin'] as String,
+      checkout: json['checkout'] as String,
+    );
   }
 
   factory EmployeeModel.fromJson(Map<String, dynamic> json) {
