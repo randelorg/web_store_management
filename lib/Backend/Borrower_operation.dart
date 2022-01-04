@@ -28,15 +28,18 @@ class BorrowerOperation extends Login implements IBorrower {
         },
         body: paymentLoad,
       );
+
       if (response.statusCode == 404) return false;
     } catch (e) {
       e.toString();
-      //SnackNotification.notif('Error', 'Something went wrong', Colors.redAccent.shade200);
+      SnackNotification.notif(
+        'Error',
+        'Something went wrong while fetching borrowers',
+        Colors.redAccent.shade200,
+      );
       return false;
     }
 
-    //refresh list
-    await fetchBorrowers();
     //if status code is 202
     return true;
   }

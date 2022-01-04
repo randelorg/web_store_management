@@ -1,5 +1,6 @@
 import 'package:hexcolor/hexcolor.dart';
 import 'package:flutter/material.dart';
+import 'package:async/async.dart';
 import 'ViewBorrowerProfile.dart';
 import '../../Backend/Utility/Mapping.dart';
 import '../../Backend/GlobalController.dart';
@@ -11,13 +12,16 @@ class BorrowersScreen extends StatefulWidget {
 
 class _BorrowersScreen extends State<BorrowersScreen> {
   var controller = GlobalController();
-
+  final AsyncMemoizer _memoizer = AsyncMemoizer();
+  late Future borrowers;
   @override
   void initState() {
     super.initState();
+    borrowers = controller.fetchBorrowers();
   }
 
   @override
+  // ignore: must_call_super
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
@@ -54,22 +58,22 @@ class _BorrowersScreen extends State<BorrowersScreen> {
             ),
           ],
         ),
-        FutureBuilder(
-          future: controller.fetchBorrowers(),
-          builder: (context, snapshot) {
-            if (!snapshot.hasData) {
-              return Center(
-                child: CircularProgressIndicator(
-                  semanticsLabel: 'Fetching borrowers',
-                ),
-              );
-            }
-            if (snapshot.hasData) {
-              return Expanded(
-                child: Container(
-                  width: (MediaQuery.of(context).size.width),
-                  height: (MediaQuery.of(context).size.height),
-                  child: ListView(
+        Expanded(
+          child: Container(
+            width: (MediaQuery.of(context).size.width),
+            height: (MediaQuery.of(context).size.height),
+            child: FutureBuilder(
+              future: borrowers,
+              builder: (context, snapshot) {
+                if (!snapshot.hasData) {
+                  return Center(
+                    child: CircularProgressIndicator(
+                      semanticsLabel: 'Fetching borrowers',
+                    ),
+                  );
+                }
+                if (snapshot.hasData) {
+                  return ListView(
                     scrollDirection: Axis.vertical,
                     padding: const EdgeInsets.only(right: 100, left: 100),
                     children: [
@@ -86,19 +90,25 @@ class _BorrowersScreen extends State<BorrowersScreen> {
                         source: _DataSource(context),
                       )
                     ],
+                  );
+                }
+                return Center(
+                  child: CircularProgressIndicator(
+                    semanticsLabel: 'Fetching borrowers',
                   ),
-                ),
-              );
-            }
-            return Center(
-              child: CircularProgressIndicator(
-                semanticsLabel: 'Fetching borrowers',
-              ),
-            );
-          },
+                );
+              },
+            ),
+          ),
         ),
       ],
     );
+  }
+
+  _getBorrowers() async {
+    return this._memoizer.runOnce(() {
+      return controller.fetchBorrowers();
+    });
   }
 }
 

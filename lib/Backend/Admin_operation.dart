@@ -1,4 +1,6 @@
 import 'dart:typed_data';
+import 'package:flutter/material.dart';
+import 'package:web_store_management/Notification/Snack_notification.dart';
 import 'Interfaces/IAdmin.dart';
 import 'Utility/Mapping.dart';
 import '../Helpers/Hashing_helper.dart';
@@ -9,7 +11,7 @@ class AdminOperation implements IAdmin {
   final hash = Hashing();
 
   @override
-  Future<bool> createAdminAccount(
+  Future<void> createAdminAccount(
       String? firstname,
       String? lastname,
       String? mobileNumber,
@@ -18,7 +20,7 @@ class AdminOperation implements IAdmin {
       String? password,
       Uint8List? image) async {
     //json body
-    var id = 'admin-011';
+    var id = 'admin-015';
     var addAdmin = json.encode({
       'AdminID': id,
       'Username': username,
@@ -40,25 +42,26 @@ class AdminOperation implements IAdmin {
         body: addAdmin,
       );
 
-      if (response.statusCode == 404) return false;
+      if (response.statusCode == 404)
+        SnackNotification.notif(
+            'Error', 'Unexpected error occured', Colors.red);
     } catch (e) {
       e.toString();
-      return false;
+      //return false;
+      SnackNotification.notif('Error', 'Unexpected error occured', Colors.red);
     }
 
     //if status code is 202
-    return true;
+    SnackNotification.notif(
+        'Success', 'Successfully added $firstname', Colors.green);
+    //return true;
   }
 
   @override
-  void deleteAdminAccount() {
-    // TODO: implement deleteAdminAccount
-  }
+  void deleteAdminAccount() {}
 
   @override
-  void updateAdminAccount() {
-    // TODO: implement updateAdminAccount
-  }
+  void updateAdminAccount() {}
 
   @override
   bool verifyAdmin(String password) {

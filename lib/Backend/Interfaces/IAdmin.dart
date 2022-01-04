@@ -1,7 +1,7 @@
 import 'dart:typed_data';
 
 class IAdmin {
-  Future<bool> createAdminAccount(
+  Future<void> createAdminAccount(
       String? firstname,
       String? lastname,
       String? mobileNumber,
@@ -9,7 +9,7 @@ class IAdmin {
       String? username,
       String? password,
       Uint8List? image) async {
-    return false;
+    //return false;
   }
 
   void deleteAdminAccount() {}

@@ -26,9 +26,6 @@ class _TopBar extends State<TopBar> {
   @override
   void initState() {
     super.initState();
-    setState(() {
-      title = widget.title.toString();
-    });
   }
 
   @override

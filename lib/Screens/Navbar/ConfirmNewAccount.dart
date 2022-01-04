@@ -112,35 +112,18 @@ class _ConfirmAccount extends State<ConfirmAccount> {
                           onPressed: () {
                             bool status = admin.verifyAdmin(password.text);
                             if (status) {
-                              admin
-                                  .createAdminAccount(
-                                      widget.firstname,
-                                      widget.lastname,
-                                      widget.mobileNumber,
-                                      widget.homeAddress,
-                                      widget.username,
-                                      widget.password,
-                                      widget.image)
-                                  .then((value) {
-                                if (value) {
-                                  Navigator.pop(context);
-                                  SnackNotification.notif(
-                                  
-                                    'Success',
-                                    'Admin account is created',
-                                    Colors.green.shade600,
-                                  );
-                                } else {
-                                  SnackNotification.notif(
-                                   
-                                    'Error',
-                                    'Something went wrong',
-                                    Colors.red.shade600,
-                                  );
-                                }
-                              });
+                              admin.createAdminAccount(
+                                widget.firstname,
+                                widget.lastname,
+                                widget.mobileNumber,
+                                widget.homeAddress,
+                                widget.username,
+                                widget.password,
+                                widget.image,
+                              );
+                              Navigator.pop(context);
                             } else {
-                              SnackNotification.notif( 'Try again',
+                              SnackNotification.notif('Try again',
                                   'Wrong Password', Colors.red.shade600);
                             }
                           },

@@ -150,12 +150,12 @@ class _EmployeeScreen extends State<EmployeeScreen> {
           ],
         ),
         FutureBuilder(
-          future: controller.fetchBorrowers(),
+          future: controller.fetchAllEmployees(),
           builder: (context, snapshot) {
             if (!snapshot.hasData) {
               return Center(
                 child: CircularProgressIndicator(
-                  semanticsLabel: 'Fetching borrowers',
+                  semanticsLabel: 'Fetching employees',
                 ),
               );
             }

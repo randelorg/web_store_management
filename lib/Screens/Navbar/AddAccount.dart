@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import '../../Helpers/Hashing_helper.dart';
 import 'ConfirmNewAccount.dart';
 import '../../Helpers/FilePicker_helper.dart';

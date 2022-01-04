@@ -83,7 +83,7 @@ class Login extends GlobalController implements ILogin {
             ),
           );
 
-          setSession(admin.toString(), true, role);
+          //setSession(admin.toString(), true, role);
 
           break;
         case 'StoreAttendant':
@@ -93,7 +93,7 @@ class Login extends GlobalController implements ILogin {
           var emp = EmployeeModel.fromJson(empMap);
           Mapping.employeeList.add(emp);
 
-          setSession(emp.toString(), true, role);
+          //setSession(emp.toString(), true, role);
           break;
         default:
       }

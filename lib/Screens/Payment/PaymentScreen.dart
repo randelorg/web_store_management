@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:async/async.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
-
 import 'MakePayment.dart';
-import '../Borrowers/ViewBorrowerProfile.dart';
 import '../../Backend/GlobalController.dart';
 
 class PaymentScreen extends StatefulWidget {
@@ -15,12 +13,14 @@ class PaymentScreen extends StatefulWidget {
 class _PaymentScreen extends State<PaymentScreen> {
   int _currentSortColumn = 0;
   bool _isAscending = true;
-
+  final AsyncMemoizer _memoizer = AsyncMemoizer();
+  late Future borrowers;
   var controller = GlobalController();
 
   @override
   void initState() {
     super.initState();
+    borrowers = this._getBorrowers();
   }
 
   Widget build(BuildContext context) {
@@ -60,22 +60,22 @@ class _PaymentScreen extends State<PaymentScreen> {
             ),
           ],
         ),
-        FutureBuilder(
-          future: controller.fetchBorrowers(),
-          builder: (context, snapshot) {
-            if (!snapshot.hasData) {
-              return Center(
-                child: CircularProgressIndicator(
-                  semanticsLabel: 'Fetching borrowers',
-                ),
-              );
-            }
-            if (snapshot.hasData) {
-              return Expanded(
-                child: Container(
-                  width: (MediaQuery.of(context).size.width),
-                  height: (MediaQuery.of(context).size.height),
-                  child: ListView(
+        Expanded(
+          child: Container(
+            width: (MediaQuery.of(context).size.width),
+            height: (MediaQuery.of(context).size.height),
+            child: FutureBuilder(
+              future: borrowers,
+              builder: (context, snapshot) {
+                if (!snapshot.hasData) {
+                  return Center(
+                    child: CircularProgressIndicator(
+                      semanticsLabel: 'Fetching borrowers',
+                    ),
+                  );
+                }
+                if (snapshot.hasData) {
+                  return ListView(
                     scrollDirection: Axis.vertical,
                     padding: const EdgeInsets.only(
                         bottom: 15, right: 100, left: 100),
@@ -95,19 +95,25 @@ class _PaymentScreen extends State<PaymentScreen> {
                         source: _DataSource(context),
                       ),
                     ],
+                  );
+                }
+                return Center(
+                  child: CircularProgressIndicator(
+                    semanticsLabel: 'Fetching borrowers',
                   ),
-                ),
-              );
-            }
-            return Center(
-              child: CircularProgressIndicator(
-                semanticsLabel: 'Fetching borrowers',
-              ),
-            );
-          },
+                );
+              },
+            ),
+          ),
         ),
       ],
     );
+  }
+
+  _getBorrowers() async {
+    return this._memoizer.runOnce(() {
+      return controller.fetchBorrowers();
+    });
   }
 }
 

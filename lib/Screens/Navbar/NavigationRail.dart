@@ -21,7 +21,6 @@ class NavDrawer extends StatefulWidget {
 
 class _NavDrawer extends State<NavDrawer> {
   var prefs = Session();
-  var topBar = TopBar();
 
   @override
   void initState() {
@@ -34,6 +33,8 @@ class _NavDrawer extends State<NavDrawer> {
       });
     });
   }
+
+  
 
   int _selectedIndex = 1;
 
@@ -79,7 +80,6 @@ class _NavDrawer extends State<NavDrawer> {
               setState(() {
                 _selectedIndex = index;
                 TopBar(
-                  updateTitle: widget.callback,
                   title: title[_selectedIndex].toString(),
                 );
                 print(title[_selectedIndex].toString());
