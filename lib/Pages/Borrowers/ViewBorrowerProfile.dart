@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:web_store_management/Backend/HistoryOperation.dart';
+import 'package:web_store_management/Backend/Utility/Mapping.dart';
+import 'package:web_store_management/Pages/Borrowers/UpdateBorrowerPage.dart';
 import '../Reports/HistoryScreens/PaymentHistoryScreen.dart';
 import '../Reports/HistoryScreens/ProductHistoryScreen.dart';
 import '../../Helpers/CreateQR_helper.dart';
@@ -7,7 +9,12 @@ import '../../Helpers/CreateQR_helper.dart';
 class ViewBorrowerProfile extends StatefulWidget {
   final String? id, name, number;
   final double? balance;
-  ViewBorrowerProfile({this.id, this.name, this.number, this.balance});
+  ViewBorrowerProfile({
+    required this.id,
+    required this.name,
+    required this.number,
+    required this.balance,
+  });
 
   @override
   _ViewBorrowerProfile createState() => _ViewBorrowerProfile();
@@ -15,6 +22,14 @@ class ViewBorrowerProfile extends StatefulWidget {
 
 class _ViewBorrowerProfile extends State<ViewBorrowerProfile> {
   var history = HistoryOperation();
+  String address = "";
+
+  @override
+  void initState() {
+    super.initState();
+    address = _findAddress(widget.id.toString());
+  }
+
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -48,7 +63,22 @@ class _ViewBorrowerProfile extends State<ViewBorrowerProfile> {
                 'Update Profile',
                 style: TextStyle(color: Colors.black),
               ),
-              onPressed: () {},
+              onPressed: () async {
+                String fullname = widget.name.toString().trim();
+                List name = fullname.split(" ");
+                await showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return UpdateBorrowerPage(
+                      bid: widget.id.toString(),
+                      firstname: name[0],
+                      lastname: name[1],
+                      number: widget.number.toString(),
+                      address: _findAddress(widget.id.toString()),
+                    );
+                  },
+                );
+              },
             ),
             Card(
               margin: EdgeInsets.all(10),
@@ -234,6 +264,17 @@ class _ViewBorrowerProfile extends State<ViewBorrowerProfile> {
         ),
       ],
     );
+  }
+
+  String _findAddress(String bid) {
+    Mapping.borrowerList
+        .where((element) => element.borrowerId?.toString() == bid)
+        .forEach((element) {
+      print(element.getHomeAddress);
+      return element.getHomeAddress;
+    });
+
+    return 'Not found';
   }
 
   String qrContent() {

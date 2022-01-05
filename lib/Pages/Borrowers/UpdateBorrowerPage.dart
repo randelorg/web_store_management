@@ -1,33 +1,31 @@
 import 'package:flutter/material.dart';
-import 'package:web_store_management/Notification/Snack_notification.dart';
-import 'package:web_store_management/Pages/Inventory/InventoryPage.dart';
-import '../../Backend/Product_operation.dart';
-import '../../Backend/Utility/Mapping.dart';
 
-class UpdateProduct extends StatefulWidget {
-  final String? name, quantity, price, unit;
-  UpdateProduct({this.name, this.quantity, this.price, this.unit});
+class UpdateBorrowerPage extends StatefulWidget {
+  final String? bid, firstname, lastname, number, address;
+  UpdateBorrowerPage(
+      {required this.bid,
+      this.firstname,
+      this.lastname,
+      this.number,
+      this.address});
 
   @override
-  _UpdateProduct createState() => _UpdateProduct();
+  _UpdateBorrowerPage createState() => _UpdateBorrowerPage();
 }
 
-class _UpdateProduct extends State<UpdateProduct> {
-  var operation = Product();
-  var updateTable = InventoryPage();
-  final prodName = TextEditingController();
-  final prodQuantity = TextEditingController();
-  final prodQtySuffix = TextEditingController();
-  final prodPrice = TextEditingController();
-  final prodUnit = TextEditingController();
-
+class _UpdateBorrowerPage extends State<UpdateBorrowerPage> {
+  final firstname = TextEditingController();
+  final lastname = TextEditingController();
+  final number = TextEditingController();
+  final address = TextEditingController();
+  
   @override
   void initState() {
     super.initState();
-    prodName.text = widget.name.toString();
-    prodQtySuffix.text = _findQty();
-    prodPrice.text = widget.price.toString();
-    prodUnit.text = widget.unit.toString();
+    firstname.text = widget.firstname.toString();
+    lastname.text = widget.lastname.toString();
+    number.text = widget.number.toString();
+    address.text = widget.address.toString();
   }
 
   @override
@@ -35,12 +33,12 @@ class _UpdateProduct extends State<UpdateProduct> {
     return AlertDialog(
       actionsPadding: EdgeInsets.all(15),
       title: Text(
-        'Update Product',
+        'Update Borrower',
         softWrap: true,
         textAlign: TextAlign.center,
         style: TextStyle(
           fontWeight: FontWeight.bold,
-          fontSize: 35,
+          fontSize: 25,
           color: Colors.blue,
           overflow: TextOverflow.fade,
         ),
@@ -54,7 +52,7 @@ class _UpdateProduct extends State<UpdateProduct> {
               child: Container(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  'Product name',
+                  'Firstname',
                   style: TextStyle(fontSize: 10),
                 ),
               ),
@@ -63,79 +61,9 @@ class _UpdateProduct extends State<UpdateProduct> {
               padding: const EdgeInsets.only(
                   left: 6.0, right: 6.0, bottom: 6.0, top: 1.0),
               child: TextField(
-                controller: prodName,
+                controller: firstname,
                 decoration: InputDecoration(
-                  hintText: 'Product Name',
-                  filled: true,
-                  fillColor: Colors.blueGrey[50],
-                  labelStyle: TextStyle(fontSize: 12),
-                  contentPadding: EdgeInsets.only(left: 15),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                ),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(left: 7),
-              child: Container(
-                alignment: Alignment.centerLeft,
-                child: Text("Quantity AVL: " + _findQty(),
-                    style: TextStyle(fontSize: 12, color: Colors.blue)),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(
-                  left: 6.0, right: 6.0, bottom: 6.0, top: 1.0),
-              child: TextField(
-                controller: prodQuantity,
-                // onChanged: (value) {
-                //   //if value is empty then set the qty suffix to empty or 0
-                //   if (value.isEmpty) {
-                //     setState(() {
-                //       prodQuantity.text = '0';
-                //     });
-                //   }
-                // },
-                decoration: InputDecoration(
-                  hintText: 'Quantity',
-                  filled: true,
-                  fillColor: Colors.blueGrey[50],
-                  labelStyle: TextStyle(fontSize: 12),
-                  contentPadding: EdgeInsets.only(left: 15, right: 10),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                ),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(left: 7),
-              child: Container(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  'Unit',
-                  style: TextStyle(fontSize: 10),
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(
-                  left: 6.0, right: 6.0, bottom: 6.0, top: 1.0),
-              child: TextField(
-                controller: prodUnit,
-                decoration: InputDecoration(
-                  hintText: 'Unit',
+                  hintText: 'Firstname',
                   filled: true,
                   fillColor: Colors.blueGrey[50],
                   labelStyle: TextStyle(fontSize: 12),
@@ -156,7 +84,7 @@ class _UpdateProduct extends State<UpdateProduct> {
               child: Container(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  'Price',
+                  'Lastname',
                   style: TextStyle(fontSize: 10),
                 ),
               ),
@@ -165,9 +93,73 @@ class _UpdateProduct extends State<UpdateProduct> {
               padding: const EdgeInsets.only(
                   left: 6.0, right: 6.0, bottom: 6.0, top: 1.0),
               child: TextField(
-                controller: prodPrice,
+                controller: lastname,
                 decoration: InputDecoration(
-                  hintText: 'Price',
+                  hintText: 'Lastname',
+                  filled: true,
+                  fillColor: Colors.blueGrey[50],
+                  labelStyle: TextStyle(fontSize: 12),
+                  contentPadding: EdgeInsets.only(left: 15),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(left: 7),
+              child: Container(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Mobile number',
+                  style: TextStyle(fontSize: 10),
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(
+                  left: 6.0, right: 6.0, bottom: 6.0, top: 1.0),
+              child: TextField(
+                controller: number,
+                decoration: InputDecoration(
+                  hintText: 'Number',
+                  filled: true,
+                  fillColor: Colors.blueGrey[50],
+                  labelStyle: TextStyle(fontSize: 12),
+                  contentPadding: EdgeInsets.only(left: 15),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(left: 7),
+              child: Container(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Address',
+                  style: TextStyle(fontSize: 10),
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(
+                  left: 6.0, right: 6.0, bottom: 6.0, top: 1.0),
+              child: TextField(
+                controller: address,
+                decoration: InputDecoration(
+                  hintText: 'Address',
                   filled: true,
                   fillColor: Colors.blueGrey[50],
                   labelStyle: TextStyle(fontSize: 12),
@@ -204,33 +196,7 @@ class _UpdateProduct extends State<UpdateProduct> {
                         textStyle: TextStyle(fontSize: 20),
                       ),
                       child: const Text('UPDATE'),
-                      onPressed: () {
-                        operation
-                            .updateProductDetails(
-                          _findBarcode(),
-                          prodName.text,
-                          int.parse(_qtyIsEmpty()),
-                          prodUnit.text,
-                          double.parse(prodPrice.text),
-                        )
-                            .then((value) {
-                          print('Value ' + value.toString());
-                          if (value > 0) {
-                            Navigator.pop(context);
-                            SnackNotification.notif(
-                              'Success',
-                              "Product " + prodName.text + " is updated",
-                              Colors.green.shade600,
-                            );
-                          } else {
-                            SnackNotification.notif(
-                              'Error',
-                              "Product " + prodName.text + " failed to  update",
-                              Colors.red.shade600,
-                            );
-                          }
-                        });
-                      },
+                      onPressed: () {},
                     ),
                   ],
                 ),
@@ -242,33 +208,5 @@ class _UpdateProduct extends State<UpdateProduct> {
     );
   }
 
-  String _qtyIsEmpty() {
-    if (prodQuantity.text.isEmpty) {
-      return '0';
-    } else {
-      return prodQuantity.text;
-    }
-  }
-
-  String _findBarcode() {
-    String barcode = '';
-    Mapping.productList
-        .where((element) =>
-            element.productName?.toLowerCase() == prodName.text.toLowerCase())
-        .forEach((element) {
-      barcode = element.getProductCode;
-    });
-    return barcode;
-  }
-
-  String _findQty() {
-    int qty = 0;
-    Mapping.productList
-        .where((element) =>
-            element.productName?.toLowerCase() == prodName.text.toLowerCase())
-        .forEach((element) {
-      qty = element.getProductQty;
-    });
-    return qty.toString();
-  }
+  
 }

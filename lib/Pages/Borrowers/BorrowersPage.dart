@@ -14,14 +14,14 @@ class _BorrowersPage extends State<BorrowersPage> {
   var controller = GlobalController();
   final AsyncMemoizer _memoizer = AsyncMemoizer();
   late Future borrowers;
+
   @override
   void initState() {
     super.initState();
-    borrowers = controller.fetchBorrowers();
+    borrowers = _getBorrowers();
   }
 
   @override
-  // ignore: must_call_super
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
@@ -111,6 +111,8 @@ class _BorrowersPage extends State<BorrowersPage> {
     });
   }
 }
+
+
 
 class _Row {
   _Row(
