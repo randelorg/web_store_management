@@ -7,7 +7,6 @@ import 'package:web_store_management/Notification/Snack_notification.dart';
 import 'Interfaces/IHistory.dart';
 import '../Backend/Utility/Mapping.dart';
 
-
 class HistoryOperation implements IHistory {
   @override
   Future<int> viewLoanHistory(String borrowerId) async {
@@ -52,7 +51,7 @@ class HistoryOperation implements IHistory {
 
       if (response.statusCode == 404) {
         SnackNotification.notif(
-            'Error', 'Cant fetch payment history', Colors.red.shade600);
+            'Error', 'There is history of this borrower', Colors.red.shade600);
         return -1;
       }
 

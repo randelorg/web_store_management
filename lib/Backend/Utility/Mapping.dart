@@ -6,6 +6,8 @@ import '../../Models/Product_model.dart';
 import '../../Models/Borrower_model.dart';
 
 class Mapping {
+  //for identifying user role
+  static String userRole = '';
   static List<AdminModel> adminList = [];
   static List<EmployeeModel> employeeList = [];
   static List<ProductModel> productList = [];

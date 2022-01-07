@@ -4,8 +4,28 @@ import 'package:flutter/material.dart';
 import '../../Backend/Session.dart';
 import '../../Backend/Utility/Mapping.dart';
 
-class ViewProfile extends StatelessWidget {
-  final List<int> bufferInt2 = Mapping.adminList[0].getUserImage.cast<int>();
+class ViewProfile extends StatefulWidget {
+  @override
+  State<ViewProfile> createState() => _ViewProfileState();
+}
+
+class _ViewProfileState extends State<ViewProfile> {
+  List<int> picture = [];
+
+  @override
+  void initState() {
+    super.initState();
+    try {
+      if (Mapping.userRole == 'StoreAttendant') {
+        picture = Mapping.employeeList[0].getUserImage.cast<int>();
+      } else {
+        //if user is admin
+        picture = Mapping.adminList[0].getUserImage.cast<int>();
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +49,7 @@ class ViewProfile extends StatelessWidget {
               ),
             ),
             Image.memory(
-              Uint8List.fromList(bufferInt2),
+              Uint8List.fromList(picture),
               height: 200,
               width: 200,
               fit: BoxFit.fitWidth,
@@ -79,7 +99,7 @@ class ViewProfile extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    getRole().toString().toUpperCase(),
+                    Mapping.userRole.toUpperCase(),
                     style: TextStyle(
                       fontFamily: 'Cairo_SemiBold',
                       fontSize: 15,

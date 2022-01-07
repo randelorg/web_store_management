@@ -62,6 +62,8 @@ class Login extends GlobalController implements ILogin {
   }
 
   Future<bool> _users(http.Response response, String role) async {
+    //for identifying the user role
+    Mapping.userRole = role;
     try {
       switch (role.replaceAll(' ', '')) {
         case 'Administrator':
