@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:web_store_management/Backend/GlobalController.dart';
+import 'package:web_store_management/Backend/Product_operation.dart';
+import 'package:web_store_management/Notification/Snack_notification.dart';
 import 'TransferStock.dart';
 import 'UpdateProduct.dart';
 import '../../Backend/Utility/Mapping.dart';
@@ -12,7 +14,15 @@ class InventoryPage extends StatefulWidget {
 
 class _InventoryPage extends State<InventoryPage> {
   var controller = GlobalController();
+  var product = ProductOperation();
   late Future _products;
+
+  final TextEditingController barcode = TextEditingController();
+  final TextEditingController prodName = TextEditingController();
+  final TextEditingController quantity = TextEditingController();
+  final TextEditingController unit = TextEditingController();
+  final TextEditingController price = TextEditingController();
+
   @override
   void initState() {
     super.initState();
@@ -47,6 +57,7 @@ class _InventoryPage extends State<InventoryPage> {
               Padding(
                 padding: EdgeInsets.all(6.0),
                 child: TextField(
+                  controller: barcode,
                   decoration: InputDecoration(
                     hintText: 'Barcode',
                     suffixIcon: IconButton(
@@ -72,6 +83,7 @@ class _InventoryPage extends State<InventoryPage> {
               Padding(
                 padding: const EdgeInsets.all(6.0),
                 child: TextField(
+                  controller: prodName,
                   decoration: InputDecoration(
                     hintText: 'Product Name',
                     filled: true,
@@ -92,6 +104,7 @@ class _InventoryPage extends State<InventoryPage> {
               Padding(
                 padding: const EdgeInsets.all(6.0),
                 child: TextField(
+                  controller: quantity,
                   decoration: InputDecoration(
                     hintText: 'Quantity',
                     filled: true,
@@ -112,6 +125,7 @@ class _InventoryPage extends State<InventoryPage> {
               Padding(
                 padding: const EdgeInsets.all(6.0),
                 child: TextField(
+                  controller: unit,
                   decoration: InputDecoration(
                     hintText: 'Unit',
                     filled: true,
@@ -132,6 +146,7 @@ class _InventoryPage extends State<InventoryPage> {
               Padding(
                 padding: const EdgeInsets.all(6.0),
                 child: TextField(
+                  controller: price,
                   decoration: InputDecoration(
                     hintText: 'Price',
                     filled: true,
@@ -170,7 +185,28 @@ class _InventoryPage extends State<InventoryPage> {
                               fontFamily: 'Cairo_SemiBold', fontSize: 14),
                         ),
                         child: const Text('ADD'),
-                        onPressed: () {},
+                        onPressed: () {
+                          product
+                              .addProduct(
+                            barcode.text,
+                            prodName.text,
+                            quantity.text,
+                            unit.text,
+                            double.parse(price.text),
+                          )
+                              .then((value) {
+                            if (value) {
+                              SnackNotification.notif(
+                                'Error',
+                                "Product " + prodName.text + " is now added",
+                                Colors.green.shade600,
+                              );
+                              setState(() {
+                                this._products = controller.fetchProducts();
+                              });
+                            }
+                          });
+                        },
                       ),
                     ],
                   ),
@@ -258,6 +294,7 @@ class _InventoryPage extends State<InventoryPage> {
                 ),
               ],
             ),
+            //the list of products
             tableProducts(),
           ],
         ),

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:web_store_management/Backend/Borrower_operation.dart';
+import 'package:web_store_management/Notification/Snack_notification.dart';
 
 class UpdateBorrowerPage extends StatefulWidget {
   final String? bid, firstname, lastname, number, address;
@@ -14,11 +16,12 @@ class UpdateBorrowerPage extends StatefulWidget {
 }
 
 class _UpdateBorrowerPage extends State<UpdateBorrowerPage> {
+  var borrower = BorrowerOperation();
   final firstname = TextEditingController();
   final lastname = TextEditingController();
   final number = TextEditingController();
   final address = TextEditingController();
-  
+
   @override
   void initState() {
     super.initState();
@@ -196,7 +199,30 @@ class _UpdateBorrowerPage extends State<UpdateBorrowerPage> {
                         textStyle: TextStyle(fontSize: 20),
                       ),
                       child: const Text('UPDATE'),
-                      onPressed: () {},
+                      onPressed: () {
+                        borrower
+                            .updateBorrower(
+                          int.parse(widget.bid.toString()),
+                          firstname.text,
+                          lastname.text,
+                          number.text,
+                          address.text,
+                        )
+                            .then((value) {
+                          if (value) {
+                            Navigator.pop(context);
+                            SnackNotification.notif(
+                              'Success',
+                              'Borrower ' +
+                                  widget.firstname.toString() +
+                                  ' ' +
+                                  widget.lastname.toString() +
+                                  ' has been updated',
+                              Colors.greenAccent.shade200,
+                            );
+                          }
+                        });
+                      },
                     ),
                   ],
                 ),
@@ -207,6 +233,4 @@ class _UpdateBorrowerPage extends State<UpdateBorrowerPage> {
       ],
     );
   }
-
-  
 }

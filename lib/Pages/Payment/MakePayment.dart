@@ -16,6 +16,7 @@ class _MakePayment extends State<MakePayment> {
   TextEditingController debt = TextEditingController();
   TextEditingController givenAmount = TextEditingController();
   TextEditingController dateinput = TextEditingController();
+
   var borrower = BorrowerOperation();
 
   @override

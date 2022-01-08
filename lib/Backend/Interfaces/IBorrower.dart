@@ -1,16 +1,14 @@
 class IBorrower {
-  Future<bool> makePayment(int id, double payment, String date) {
-    var a;
-    return a;
-  }
+  
 
   Future<bool> addBorrower() {
     var a;
     return a;
   }
 
-  bool updateBorrower() {
-    return false;
+  Future<bool> updateBorrower(int id, String firstname, String lastname, String mobile, String address) {
+   var a;
+    return a;
   }
 
   bool removeBorrower() {

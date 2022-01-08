@@ -13,7 +13,7 @@ class UpdateProduct extends StatefulWidget {
 }
 
 class _UpdateProduct extends State<UpdateProduct> {
-  var operation = Product();
+  var operation = ProductOperation();
   var updateTable = InventoryPage();
   final prodName = TextEditingController();
   final prodQuantity = TextEditingController();
@@ -207,26 +207,19 @@ class _UpdateProduct extends State<UpdateProduct> {
                       onPressed: () {
                         operation
                             .updateProductDetails(
-                          _findBarcode(),
+                          _findBarName(),
                           prodName.text,
-                          int.parse(_qtyIsEmpty()),
+                          _qtyIsEmpty(),
                           prodUnit.text,
                           double.parse(prodPrice.text),
                         )
                             .then((value) {
-                          print('Value ' + value.toString());
-                          if (value > 0) {
+                          if (value) {
                             Navigator.pop(context);
                             SnackNotification.notif(
                               'Success',
                               "Product " + prodName.text + " is updated",
                               Colors.green.shade600,
-                            );
-                          } else {
-                            SnackNotification.notif(
-                              'Error',
-                              "Product " + prodName.text + " failed to  update",
-                              Colors.red.shade600,
                             );
                           }
                         });
@@ -242,15 +235,15 @@ class _UpdateProduct extends State<UpdateProduct> {
     );
   }
 
-  String _qtyIsEmpty() {
+  int _qtyIsEmpty() {
     if (prodQuantity.text.isEmpty) {
-      return '0';
+      return 0;
     } else {
-      return prodQuantity.text;
+      return int.parse(prodQuantity.text);
     }
   }
 
-  String _findBarcode() {
+  String _findBarName() {
     String barcode = '';
     Mapping.productList
         .where((element) =>

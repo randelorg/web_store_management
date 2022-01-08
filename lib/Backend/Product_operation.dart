@@ -1,52 +1,12 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:web_store_management/Notification/Snack_notification.dart';
 import 'package:http/http.dart' as http;
 import 'Interfaces/IProduct.dart';
 
-class Product implements IProduct {
+class ProductOperation implements IProduct {
   @override
-  void addProduct() {
-    // TODO: implement addProduct
-  }
-
-  @override
-  void deleteProduct() {
-    // TODO: implement deleteProduct
-  }
-
-  @override
-  void transferProduct() {
-    // TODO: implement transferProduct
-  }
-
-  @override
-  void updateProduct(
-    String barcode,
-    String name,
-    int quantity,
-    String unit,
-    double price,
-  ) {
-    var status;
-    try {
-      updateProductDetails(barcode, name, quantity, unit, price)
-          .then((value) => status);
-      print('status: $status');
-      if (status > 0) {
-        SnackNotification.notif('Success', "Product" + '$name' + " is updated",
-            Colors.green.shade600);
-      } else {
-        SnackNotification.notif('Error',
-            "Product" + '$name' + " is not updated", Colors.red.shade600);
-      }
-    } catch (e) {
-      SnackNotification.notif('Error', e.toString(), Colors.red.shade600);
-    }
-  }
-
-  Future<int> updateProductDetails(
+  Future<bool> updateProductDetails(
       String barcode, String name, int qty, String unit, double price) async {
     var product = json.encode(
       {
@@ -58,11 +18,9 @@ class Product implements IProduct {
       },
     );
 
-    print(product);
-
     try {
       final response = await http.post(
-        Uri.parse("http://localhost:8090/api/products"),
+        Uri.parse("http://localhost:8090/api/product"),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json'
@@ -70,13 +28,68 @@ class Product implements IProduct {
         body: product,
       );
 
-      if (response.statusCode == 404)
-        return -1;
-      else if (response.statusCode == 202) return 1;
+      if (response.statusCode == 202) {
+        return true;
+      }
     } catch (e) {
       e.toString();
+      //if there is an error in the method
+      SnackNotification.notif(
+        'Error',
+        "Product " + name + " failed to  update",
+        Colors.red.shade600,
+      );
     }
 
-    return -1;
+    return true;
+  }
+
+  Future<bool> addProduct(String barcode, String productName, String quantity,
+      String unit, double price) async {
+    print('ob ' + productName);
+    var newProduct = json.encode(
+      {
+        "barcode": barcode,
+        "name": productName,
+        "quantity": quantity,
+        "unit": unit,
+        "price": price
+      },
+    );
+
+    try {
+      final response = await http.post(
+        Uri.parse("http://localhost:8090/api/addproduct"),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: newProduct,
+      );
+
+      if (response.statusCode == 202) {
+        return true;
+      }
+    } catch (e) {
+      e.toString();
+      //if there is an error in the method
+      SnackNotification.notif(
+        'Error',
+        "Product " + productName + " failed to  add",
+        Colors.red.shade600,
+      );
+    }
+
+    return true;
+  }
+
+  @override
+  void deleteProduct() {
+    // TODO: implement deleteProduct
+  }
+
+  @override
+  void transferProduct() {
+    // TODO: implement transferProduct
   }
 }

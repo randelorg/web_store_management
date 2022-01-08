@@ -27,7 +27,6 @@ class _ViewBorrowerProfile extends State<ViewBorrowerProfile> {
   @override
   void initState() {
     super.initState();
-    address = _findAddress(widget.id.toString());
   }
 
   @override
@@ -64,6 +63,7 @@ class _ViewBorrowerProfile extends State<ViewBorrowerProfile> {
                 style: TextStyle(color: Colors.black),
               ),
               onPressed: () async {
+                print('button' + address);
                 String fullname = widget.name.toString().trim();
                 List name = fullname.split(" ");
                 await showDialog(
@@ -267,14 +267,13 @@ class _ViewBorrowerProfile extends State<ViewBorrowerProfile> {
   }
 
   String _findAddress(String bid) {
+    String address = '';
     Mapping.borrowerList
         .where((element) => element.borrowerId?.toString() == bid)
         .forEach((element) {
-      print(element.getHomeAddress);
-      return element.getHomeAddress;
+      address = element.getHomeAddress;
     });
-
-    return 'Not found';
+    return address;
   }
 
   String qrContent() {
