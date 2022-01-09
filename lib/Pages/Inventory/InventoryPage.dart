@@ -323,6 +323,7 @@ class _InventoryPage extends State<InventoryPage> {
                 if (snapshot.hasData) {
                   return PaginatedDataTable(
                     showCheckboxColumn: false,
+                    showFirstLastButtons: true,
                     rowsPerPage: 15,
                     columns: [
                       DataColumn(label: Text('PRODUCT NAME')),
@@ -368,29 +369,30 @@ class _Row {
 
 class _DataSource extends DataTableSource {
   _DataSource(this.context) {
-    _productList(context);
+    _products = _productList(context);
   }
 
   final BuildContext context;
   int _selectedCount = 0;
+  List<_Row> _products = [];
 
   @override
   DataRow? getRow(int index) {
     assert(index >= 0);
-    if (index >= _productList(context).length) return null;
-    final row = _productList(context)[index];
+    if (index >= _products.length) return null;
+    final row = _products[index];
     return DataRow.byIndex(
       index: index,
       selected: row.selected,
-      // onSelectChanged: (value) {
-      //   if (row.selected != value) {
-      //     var value = false;
-      //     _selectedCount += value ? 1 : -1;
-      //     assert(_selectedCount >= 0);
-      //     row.selected = value;
-      //     notifyListeners();
-      //   }
-      // },
+      onSelectChanged: (value) {
+        if (row.selected != value) {
+          var value = false;
+          _selectedCount += value ? 1 : -1;
+          assert(_selectedCount >= 0);
+          row.selected = value;
+          notifyListeners();
+        }
+      },
       cells: [
         DataCell(Text(row.valueA)),
         DataCell((row.valueB)),
@@ -414,13 +416,65 @@ class _DataSource extends DataTableSource {
   }
 
   @override
-  int get rowCount => _productList(context).length;
+  int get rowCount => _products.length;
 
   @override
   bool get isRowCountApproximate => false;
 
   @override
   int get selectedRowCount => _selectedCount;
+
+  List<_Row> _productList(BuildContext context) {
+    try {
+      return List.generate(Mapping.productList.length, (index) {
+        return _Row(
+          Mapping.productList[index].getProductName.toString(),
+          _dangerStock(Mapping.productList[index].getProductQty.toString()),
+          Mapping.productList[index].getProductUnit.toString(),
+          Mapping.productList[index].getProductPrice
+              .toStringAsFixed(2)
+              .toString(),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(18),
+            child: Stack(
+              children: <Widget>[
+                Positioned.fill(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: HexColor("#155293"),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding:
+                      EdgeInsets.only(top: 8, bottom: 8, left: 10, right: 10),
+                  child: Text(
+                    'UPDATE',
+                    style: TextStyle(
+                      fontFamily: 'Cairo_SemiBold',
+                      fontSize: 14,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      });
+    } catch (e) {
+      //if product list is empty
+      return List.generate(0, (index) {
+        return _Row(
+          '',
+          Text(''),
+          '',
+          '',
+          Text(''),
+        );
+      });
+    }
+  }
 }
 
 //this will identify if stock is <= 2
@@ -438,58 +492,4 @@ Widget _dangerStock(String stuff) {
 //it to Text Widget
 Widget _parseString(String stuff) {
   return Text(stuff);
-}
-
-List _productList(BuildContext context) {
-  List<_Row> _products;
-
-  try {
-    return _products = List.generate(Mapping.productList.length, (index) {
-      return _Row(
-        Mapping.productList[index].getProductName.toString(),
-        _dangerStock(Mapping.productList[index].getProductQty.toString()),
-        Mapping.productList[index].getProductUnit.toString(),
-        Mapping.productList[index].getProductPrice
-            .toStringAsFixed(2)
-            .toString(),
-        ClipRRect(
-          borderRadius: BorderRadius.circular(18),
-          child: Stack(
-            children: <Widget>[
-              Positioned.fill(
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: HexColor("#155293"),
-                  ),
-                ),
-              ),
-              Padding(
-                padding:
-                    EdgeInsets.only(top: 8, bottom: 8, left: 10, right: 10),
-                child: Text(
-                  'UPDATE',
-                  style: TextStyle(
-                    fontFamily: 'Cairo_SemiBold',
-                    fontSize: 14,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      );
-    });
-  } catch (e) {
-    //if product list is empty
-    return _products = List.generate(0, (index) {
-      return _Row(
-        '',
-        Text(''),
-        '',
-        '',
-        Text(''),
-      );
-    });
-  }
 }

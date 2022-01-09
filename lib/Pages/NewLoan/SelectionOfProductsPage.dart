@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:web_store_management/Models/SelectedProducts_model.dart';
 import '../../Helpers/FilePicker_helper.dart';
 import 'FinalizePage.dart';
 import '../../Backend/Utility/Mapping.dart';
@@ -242,7 +243,8 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
                     return Container(
                       width: (MediaQuery.of(context).size.width) / 2,
                       child: PaginatedDataTable(
-                        showCheckboxColumn: true,
+                        sortAscending: true,
+                        showFirstLastButtons: true,
                         rowsPerPage: 9,
                         columns: [
                           DataColumn(label: Text('BARCODE')),
@@ -336,27 +338,53 @@ class _RowSelectProducts {
 
 class _SelectionOfProducts extends DataTableSource {
   _SelectionOfProducts(this.context) {
-    _selectionProducts(context);
+    _rows = _selectionProducts();
   }
 
-  final BuildContext context;
-
   int _selectedCount = 0;
+  final BuildContext context;
+  List<_RowSelectProducts> _rows = [];
 
   @override
   DataRow? getRow(int index) {
     assert(index >= 0);
-    if (index >= _selectionProducts(context).length) return null;
-    final row = _selectionProducts(context)[index];
+    if (index >= _rows.length) return null;
+    final row = _rows[index];
     return DataRow.byIndex(
       index: index,
       selected: row.selected,
       onSelectChanged: (value) {
-        var value = false;
+        if (row.selected) {
+          value = false;
+        } else {
+          value = true;
+        }
+
         if (row.selected != value) {
-          _selectedCount += value ? 1 : -1;
+          if (value) {
+            _selectedCount = 1;
+          }
+
           assert(_selectedCount >= 0);
           row.selected = value;
+          //add the checked product to the list
+          //we will remove the duplicate products afterward
+          Mapping.selectedProducts.add(
+            SelectedProductsModel.full(
+              row.valueA.toString(),
+              row.valueB.toString(),
+              double.parse(
+                row.valueC.toString(),
+              ),
+            ),
+          );
+
+          //delete the uncheck product to the list
+          if (value == false) {
+            Mapping.selectedProducts.removeWhere(
+                (element) => element.barcode == row.valueA.toString());
+          }
+
           notifyListeners();
         }
       },
@@ -369,39 +397,37 @@ class _SelectionOfProducts extends DataTableSource {
   }
 
   @override
-  int get rowCount => _selectionProducts(context).length;
+  int get rowCount => _rows.length;
 
   @override
   bool get isRowCountApproximate => false;
 
   @override
   int get selectedRowCount => _selectedCount;
-}
 
-List _selectionProducts(BuildContext context) {
-  List<_RowSelectProducts> _selectionProducts;
-
-  try {
-    return _selectionProducts = List.generate(
-      Mapping.productList.length,
-      (index) {
-        return new _RowSelectProducts(
-          Mapping.productList[index].getProductCode.toString(),
-          Mapping.productList[index].getProductName.toString(),
-          Mapping.productList[index].getProductPrice
-              .toStringAsFixed(2)
-              .toString(),
-        );
-      },
-    );
-  } catch (e) {
-    //if product list is empty
-    return _selectionProducts = List.generate(0, (index) {
-      return _RowSelectProducts(
-        '',
-        '',
-        '',
+  List<_RowSelectProducts> _selectionProducts() {
+    try {
+      return List.generate(
+        Mapping.productList.length,
+        (index) {
+          return new _RowSelectProducts(
+            Mapping.productList[index].getProductCode.toString(),
+            Mapping.productList[index].getProductName.toString(),
+            Mapping.productList[index].getProductPrice
+                .toStringAsFixed(2)
+                .toString(),
+          );
+        },
       );
-    });
+    } catch (e) {
+      //if product list is empty
+      return List.generate(0, (index) {
+        return _RowSelectProducts(
+          '',
+          '',
+          '',
+        );
+      });
+    }
   }
 }

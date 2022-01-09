@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:web_store_management/Backend/HistoryOperation.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
 
@@ -39,6 +38,7 @@ class _ProductHistory extends State<ProductHistory> {
                     ),
                   ),
                   showCheckboxColumn: false,
+                  showFirstLastButtons: true,
                   rowsPerPage: 15,
                   columns: [
                     DataColumn(label: Text('LOANID')),
@@ -55,7 +55,7 @@ class _ProductHistory extends State<ProductHistory> {
               }
               return Center(
                 child: Text(
-                  'There is no loan history for this borrower',
+                  'No loan history for this borrower',
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
@@ -96,30 +96,23 @@ class _Row {
 
 class _DataSource extends DataTableSource {
   _DataSource(this.context) {
-    _productHistory(context);
+    _productsHistory = _products();
   }
 
   final BuildContext context;
 
   int _selectedCount = 0;
 
+  List<_Row> _productsHistory = [];
+
   @override
   DataRow? getRow(int index) {
     assert(index >= 0);
-    if (index >= _productHistory(context).length) return null;
-    final row = _productHistory(context)[index];
+    if (index >= _productsHistory.length) return null;
+    final row = _productsHistory[index];
     return DataRow.byIndex(
       index: index,
       selected: row.selected,
-      // onSelectChanged: (value) {
-      //   if (row.selected != value) {
-      //     var value = false;
-      //     _selectedCount += value ? 1 : -1;
-      //     assert(_selectedCount >= 0);
-      //     row.selected = value;
-      //     notifyListeners();
-      //   }
-      // },
       cells: [
         DataCell(Text(row.valueA)),
         DataCell(Text(row.valueB)),
@@ -134,40 +127,38 @@ class _DataSource extends DataTableSource {
   }
 
   @override
-  int get rowCount => _productHistory(context).length;
+  int get rowCount => _productsHistory.length;
 
   @override
   bool get isRowCountApproximate => false;
 
   @override
   int get selectedRowCount => _selectedCount;
-}
 
-List _productHistory(BuildContext context) {
-  List<_Row> _productHistory;
-
-  try {
-    return _productHistory = List.generate(
-      Mapping.productHistoryList.length,
-      (index) {
-        return _Row(
-          Mapping.productHistoryList[index].getLoanId.toString(),
-          Mapping.productHistoryList[index].getProductName,
-          Mapping.productHistoryList[index].getPrice,
-          Mapping.productHistoryList[index].getQty,
-          Mapping.productHistoryList[index].getPaymentPlan,
-          Mapping.productHistoryList[index].getDateAdded,
-          Mapping.productHistoryList[index].getDueDate,
-          Mapping.productHistoryList[index].getTerm,
-        );
-      },
-    );
-  } catch (e) {
-    return _productHistory = List.generate(
-      0,
-      (index) {
-        return _Row('', '', 0, 0, '', '', '', '');
-      },
-    );
+  List<_Row> _products() {
+    try {
+      return List.generate(
+        Mapping.productHistoryList.length,
+        (index) {
+          return _Row(
+            Mapping.productHistoryList[index].getLoanId.toString(),
+            Mapping.productHistoryList[index].getProductName,
+            Mapping.productHistoryList[index].getPrice,
+            Mapping.productHistoryList[index].getQty,
+            Mapping.productHistoryList[index].getPaymentPlan,
+            Mapping.productHistoryList[index].getDateAdded,
+            Mapping.productHistoryList[index].getDueDate,
+            Mapping.productHistoryList[index].getTerm,
+          );
+        },
+      );
+    } catch (e) {
+      return List.generate(
+        0,
+        (index) {
+          return _Row('', '', 0, 0, '', '', '', '');
+        },
+      );
+    }
   }
 }

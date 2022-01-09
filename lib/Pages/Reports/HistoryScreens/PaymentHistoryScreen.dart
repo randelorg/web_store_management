@@ -44,6 +44,7 @@ class _PaymentHistory extends State<PaymentHistory> {
                     ),
                   ),
                   showCheckboxColumn: false,
+                  showFirstLastButtons: true,
                   rowsPerPage: 15,
                   columns: [
                     DataColumn(label: Text('COLLECTION ID')),
@@ -54,8 +55,14 @@ class _PaymentHistory extends State<PaymentHistory> {
                 );
               }
               return Center(
-                child: CircularProgressIndicator(
-                  semanticsLabel: 'Click a borrower to show history',
+                child: Center(
+                  child: Text(
+                    'No payment history for this borrower',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
               );
             },
@@ -82,18 +89,19 @@ class _Row {
 
 class _DataSource extends DataTableSource {
   _DataSource(this.context) {
-    _paymentsHistory(context);
+    _payHistory = _paymentsHistory();
   }
 
   final BuildContext context;
 
   int _selectedCount = 0;
+  List<_Row> _payHistory = [];
 
   @override
   DataRow? getRow(int index) {
     assert(index >= 0);
-    if (index >= _paymentsHistory(context).length) return null;
-    final row = _paymentsHistory(context)[index];
+    if (index >= _payHistory.length) return null;
+    final row = _payHistory[index];
     return DataRow.byIndex(
       index: index,
       selected: row.selected,
@@ -106,39 +114,37 @@ class _DataSource extends DataTableSource {
   }
 
   @override
-  int get rowCount => _paymentsHistory(context).length;
+  int get rowCount => _payHistory.length;
 
   @override
   bool get isRowCountApproximate => false;
 
   @override
   int get selectedRowCount => _selectedCount;
-}
 
-List _paymentsHistory(BuildContext context) {
-  List<_Row> _paymentsHistory;
-
-  try {
-    return _paymentsHistory = List.generate(
-      Mapping.paymentList.length,
-      (index) {
-        return _Row(
-          Mapping.paymentList[index].getCollectionID.toString(),
-          Mapping.paymentList[index].getCollectionAmount.toString(),
-          Mapping.paymentList[index].getGivenDate.toString(),
-        );
-      },
-    );
-  } catch (e) {
-    return _paymentsHistory = List.generate(
-      0,
-      (index) {
-        return _Row(
-          '',
-          '',
-          '',
-        );
-      },
-    );
+  List<_Row> _paymentsHistory() {
+    try {
+      return List.generate(
+        Mapping.paymentList.length,
+        (index) {
+          return _Row(
+            Mapping.paymentList[index].getCollectionID.toString(),
+            Mapping.paymentList[index].getCollectionAmount.toString(),
+            Mapping.paymentList[index].getGivenDate.toString(),
+          );
+        },
+      );
+    } catch (e) {
+      return List.generate(
+        0,
+        (index) {
+          return _Row(
+            '',
+            '',
+            '',
+          );
+        },
+      );
+    }
   }
 }

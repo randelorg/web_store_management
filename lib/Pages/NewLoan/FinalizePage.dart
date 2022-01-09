@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-
+import 'package:kt_dart/src/collection/interop.dart';
+import 'package:kt_dart/src/collection/kt_iterable.dart';
+import 'package:web_store_management/Backend/Utility/Mapping.dart';
 import 'TermsAndConditionsPage.dart';
 
 class FinalizePage extends StatefulWidget {
@@ -30,7 +31,6 @@ class _FinalizePage extends State<FinalizePage> {
               DataColumn(label: Text('PRODUCT NAME')),
               DataColumn(label: Text('PRICE')),
               DataColumn(label: Text('QTY')),
-              DataColumn(label: Text('ACTTION')),
             ],
             source: _DataSource(context),
           ),
@@ -104,31 +104,30 @@ class _Row {
     this.valueA,
     this.valueB,
     this.valueC,
-    this.valueD,
   );
 
   final String valueA;
   final String valueB;
   final Widget valueC;
-  final Widget valueD;
 
   bool selected = false;
 }
 
 class _DataSource extends DataTableSource {
   _DataSource(this.context) {
-    _finalizeProducts(context);
+    _selectedProducts = _finalizeProducts();
   }
 
   final BuildContext context;
 
   int _selectedCount = 0;
+  List<_Row> _selectedProducts = [];
 
   @override
   DataRow? getRow(int index) {
     assert(index >= 0);
-    if (index >= _finalizeProducts(context).length) return null;
-    final row = _finalizeProducts(context)[index];
+    if (index >= _selectedProducts.length) return null;
+    final row = _selectedProducts[index];
     return DataRow.byIndex(
       index: index,
       selected: row.selected,
@@ -145,73 +144,52 @@ class _DataSource extends DataTableSource {
         DataCell(Text(row.valueA)),
         DataCell(Text(row.valueB)),
         DataCell((row.valueC)),
-        DataCell((row.valueD)),
       ],
     );
   }
 
   @override
-  int get rowCount => _finalizeProducts(context).length;
+  int get rowCount => _selectedProducts.length;
 
   @override
   bool get isRowCountApproximate => false;
 
   @override
   int get selectedRowCount => _selectedCount;
-}
 
-List _finalizeProducts(BuildContext context) {
-  List<_Row> _finalizeProducts;
+  List<_Row> _finalizeProducts() {
+    final _productsWithoutDuplicates =
+        Mapping.selectedProducts.map((e) => e.getName).toSet();
+    Mapping.selectedProducts
+        .retainWhere((x) => _productsWithoutDuplicates.remove(x.getName));
 
-  return _finalizeProducts = List.generate(
-    5,
-    (index) {
-      return new _Row(
-        'Hanabishi Blender',
-        '3000',
-        Row(
-          children: [
-            IconButton(
-              onPressed: () {},
-              icon: Icon(
-                Icons.add_circle,
-                color: Colors.blue.shade400,
-              ),
-            ),
-            Text('3'),
-            IconButton(
-              onPressed: () {},
-              icon: Icon(
-                Icons.remove_circle,
-                color: Colors.red.shade400,
-              ),
-            )
-          ],
-        ),
-        ClipRRect(
-          borderRadius: BorderRadius.circular(12),
-          child: Stack(
-            children: <Widget>[
-              Positioned.fill(
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.red.shade400,
-                  ),
-                ),
-              ),
-              TextButton(
-                style: TextButton.styleFrom(
-                  padding: const EdgeInsets.all(15.0),
-                  primary: Colors.white,
-                  textStyle: const TextStyle(fontSize: 15),
+    return List.generate(
+      Mapping.selectedProducts.length,
+      (index) {
+        return new _Row(
+          Mapping.selectedProducts[index].getName.toString(),
+          Mapping.selectedProducts[index].getPrice.toString(),
+          Row(
+            children: [
+              IconButton(
+                icon: Icon(
+                  Icons.add_circle,
+                  color: Colors.blue.shade400,
                 ),
                 onPressed: () {},
-                child: const Text('DELETE'),
               ),
+              Text('3'),
+              IconButton(
+                icon: Icon(
+                  Icons.remove_circle,
+                  color: Colors.red.shade400,
+                ),
+                onPressed: () {},
+              )
             ],
           ),
-        ),
-      );
-    },
-  );
+        );
+      },
+    );
+  }
 }

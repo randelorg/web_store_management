@@ -41,6 +41,7 @@ dependencies:
   qr_flutter: ^4.0.0
   jsqr: ^0.1.4
   flutter_barcode_sdk: ^1.2.2
+  kt_dart: ^0.10.0
 
 dev_dependencies:
   flutter_test:

@@ -164,6 +164,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "kt_dart",
+      "rootUri": "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/kt_dart-0.10.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "matcher",
       "rootUri": "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/matcher-0.12.11",
       "packageUri": "lib/",
@@ -362,7 +368,7 @@
       "languageVersion": "2.12"
     }
   ],
-  "generated": "2022-01-05T06:29:40.453527Z",
+  "generated": "2022-01-09T16:55:32.496142Z",
   "generator": "pub",
   "generatorVersion": "2.15.1"
 }

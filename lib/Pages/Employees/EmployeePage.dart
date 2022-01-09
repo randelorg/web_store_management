@@ -217,99 +217,21 @@ class _Row {
   bool selected = false;
 }
 
-List _borrowerProfile(BuildContext context) {
-  List<_Row> _employees;
-
-  try {
-    return _employees = List.generate(Mapping.employeeList.length, (index) {
-      return new _Row(
-        Mapping.employeeList[index].getEmployeeID.toString(),
-        Mapping.employeeList[index].getRole.toString(),
-        Mapping.employeeList[index].toString(),
-        Mapping.employeeList[index].getMobileNumber.toString(),
-        ClipRRect(
-          borderRadius: BorderRadius.circular(18),
-          child: Stack(
-            children: <Widget>[
-              Positioned.fill(
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: HexColor("#155293"),
-                  ),
-                ),
-              ),
-              Padding(
-                padding:
-                    EdgeInsets.only(top: 8, bottom: 8, left: 15, right: 15),
-                child: Text(
-                  'PROFILE',
-                  style: TextStyle(
-                    fontFamily: 'Cairo_SemiBold',
-                    fontSize: 14,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-        ClipRRect(
-          borderRadius: BorderRadius.circular(18),
-          child: Stack(
-            children: <Widget>[
-              Positioned.fill(
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: HexColor("#155293"),
-                  ),
-                ),
-              ),
-              Padding(
-                padding:
-                    EdgeInsets.only(top: 8, bottom: 8, left: 15, right: 15),
-                child: Text(
-                  'PAYROLL',
-                  style: TextStyle(
-                    fontFamily: 'Cairo_SemiBold',
-                    fontSize: 14,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      );
-    });
-  } catch (e) {
-    //if employees list is empty
-    return _employees = List.generate(0, (index) {
-      return _Row(
-        '',
-        '',
-        '',
-        '',
-        Text(''),
-        Text(''),
-      );
-    });
-  }
-}
-
 class _DataSource extends DataTableSource {
   _DataSource(this.context) {
-    _borrowerProfile(context);
+    _employees = _borrowerProfile(context);
   }
 
   final BuildContext context;
 
   int _selectedCount = 0;
+  List<_Row> _employees = [];
 
   @override
   DataRow? getRow(int index) {
     assert(index >= 0);
-    if (index >= _borrowerProfile(context).length) return null;
-    final row = _borrowerProfile(context)[index];
+    if (index >= _employees.length) return null;
+    final row = _employees[index];
     return DataRow.byIndex(
       index: index,
       selected: row.selected,
@@ -361,11 +283,88 @@ class _DataSource extends DataTableSource {
   }
 
   @override
-  int get rowCount => _borrowerProfile(context).length;
+  int get rowCount => _employees.length;
 
   @override
   bool get isRowCountApproximate => false;
 
   @override
   int get selectedRowCount => _selectedCount;
+
+  List<_Row> _borrowerProfile(BuildContext context) {
+    try {
+      return List.generate(Mapping.employeeList.length, (index) {
+        return new _Row(
+          Mapping.employeeList[index].getEmployeeID.toString(),
+          Mapping.employeeList[index].getRole.toString(),
+          Mapping.employeeList[index].toString(),
+          Mapping.employeeList[index].getMobileNumber.toString(),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(18),
+            child: Stack(
+              children: <Widget>[
+                Positioned.fill(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: HexColor("#155293"),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding:
+                      EdgeInsets.only(top: 8, bottom: 8, left: 15, right: 15),
+                  child: Text(
+                    'PROFILE',
+                    style: TextStyle(
+                      fontFamily: 'Cairo_SemiBold',
+                      fontSize: 14,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(18),
+            child: Stack(
+              children: <Widget>[
+                Positioned.fill(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: HexColor("#155293"),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding:
+                      EdgeInsets.only(top: 8, bottom: 8, left: 15, right: 15),
+                  child: Text(
+                    'PAYROLL',
+                    style: TextStyle(
+                      fontFamily: 'Cairo_SemiBold',
+                      fontSize: 14,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      });
+    } catch (e) {
+      //if employees list is empty
+      return List.generate(0, (index) {
+        return _Row(
+          '',
+          '',
+          '',
+          '',
+          Text(''),
+          Text(''),
+        );
+      });
+    }
+  }
 }
