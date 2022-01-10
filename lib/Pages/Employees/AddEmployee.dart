@@ -5,7 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:web_store_management/Notification/Snack_notification.dart';
 import '../../Helpers/FilePicker_helper.dart';
 import '../../Helpers/Hashing_helper.dart';
-import '../../Backend/Employee_operation.dart';
+import '../../Backend/EmployeeOperation.dart';
 
 class AddEmployee extends StatefulWidget {
   @override

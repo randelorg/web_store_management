@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:web_store_management/Backend/Dashboard_operation.dart';
+import 'package:web_store_management/Backend/DashboardOperation.dart';
 import 'CollectionGraph.dart';
 
 class TimeCollection extends StatefulWidget {

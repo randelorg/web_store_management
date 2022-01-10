@@ -3,9 +3,9 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'Utility/Mapping.dart';
-import '../Models/Product_model.dart';
-import '../Models/Borrower_model.dart';
-import '../Models/Employee_model.dart';
+import '../Models/ProductModel.dart';
+import '../Models/BorrowerModel.dart';
+import '../Models/EmployeeModel.dart';
 
 class GlobalController {
   //fetch this week collection
@@ -68,5 +68,22 @@ class GlobalController {
         .map<BorrowerModel>((json) => BorrowerModel.fromJsonPartial(json))
         .toList();
     return Mapping.borrowerList;
+  }
+
+  //fetch all the credit approvals from the database
+  Future<List<BorrowerModel>> fetchCreditApprovals() async {
+    final response =
+        await http.get(Uri.parse('http://localhost:8090/api/credit'));
+
+    // Use the compute function to run parseAdmin in a separate isolate.
+    return compute(parseCreditApprovals, response.body);
+  }
+
+  List<BorrowerModel> parseCreditApprovals(String responseBody) {
+    final parsed = jsonDecode(responseBody).cast<Map<String, dynamic>>();
+    Mapping.creditApprovals = parsed
+        .map<BorrowerModel>((json) => BorrowerModel.fromJsonApproval(json))
+        .toList();
+    return Mapping.creditApprovals;
   }
 }

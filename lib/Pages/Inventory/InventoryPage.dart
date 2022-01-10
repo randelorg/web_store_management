@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:web_store_management/Backend/GlobalController.dart';
-import 'package:web_store_management/Backend/Product_operation.dart';
+import 'package:web_store_management/Backend/ProductOperation.dart';
 import 'package:web_store_management/Notification/Snack_notification.dart';
 import 'TransferStock.dart';
 import 'UpdateProduct.dart';

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:web_store_management/Models/Admin_model.dart';
-import 'package:web_store_management/Models/Employee_model.dart';
+import 'package:web_store_management/Models/AdminModel.dart';
+import 'package:web_store_management/Models/EmployeeModel.dart';
 import '../../Backend/Session.dart';
 
 class UpdateProfile extends StatefulWidget {

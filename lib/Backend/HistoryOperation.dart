@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:web_store_management/Models/LoanedProductHistory_model.dart';
-import 'package:web_store_management/Models/PaymentHistory_model.dart';
+import 'package:web_store_management/Models/LoanedProductHistoryModel.dart';
+import 'package:web_store_management/Models/PaymentHistoryModel.dart';
 import 'package:web_store_management/Notification/Snack_notification.dart';
 import 'Interfaces/IHistory.dart';
 import '../Backend/Utility/Mapping.dart';

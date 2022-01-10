@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:web_store_management/Notification/Snack_notification.dart';
 import 'package:web_store_management/Pages/Inventory/InventoryPage.dart';
-import '../../Backend/Product_operation.dart';
+import '../../Backend/ProductOperation.dart';
 import '../../Backend/Utility/Mapping.dart';
 
 class UpdateProduct extends StatefulWidget {

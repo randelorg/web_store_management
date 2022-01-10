@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:web_store_management/Notification/Snack_notification.dart';
-import '../../Backend/Borrower_operation.dart';
+import '../../Backend/BorrowerOperation.dart';
 
 class MakePayment extends StatefulWidget {
   final String? id, name, debt;

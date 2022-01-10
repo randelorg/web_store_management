@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:web_store_management/Backend/Borrower_operation.dart';
+import 'package:web_store_management/Backend/BorrowerOperation.dart';
+import 'package:web_store_management/Backend/NewLoanOperation.dart';
 import 'package:web_store_management/Notification/Snack_notification.dart';
 
 class PaymentPlanPage extends StatefulWidget {
@@ -20,6 +21,7 @@ class PaymentPlanPage extends StatefulWidget {
 
 class _PaymentPlanPage extends State<PaymentPlanPage> {
   var borrower = BorrowerOperation();
+  var newloan = NewLoanOperation();
   TextEditingController borrowerName = TextEditingController();
   TextEditingController totalAmount = TextEditingController();
   TextEditingController duedate = TextEditingController();
@@ -233,7 +235,7 @@ class _PaymentPlanPage extends State<PaymentPlanPage> {
                             .then(
                           (value) {
                             if (value) {
-                              borrower
+                              newloan
                                   .addNewLoan(
                                     widget.firstname.toString(),
                                     widget.lastname.toString(),

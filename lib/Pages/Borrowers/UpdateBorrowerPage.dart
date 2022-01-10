@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:web_store_management/Backend/Borrower_operation.dart';
+import 'package:web_store_management/Backend/BorrowerOperation.dart';
 import 'package:web_store_management/Notification/Snack_notification.dart';
 
 class UpdateBorrowerPage extends StatefulWidget {

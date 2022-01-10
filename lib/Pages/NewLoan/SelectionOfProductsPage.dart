@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:web_store_management/Models/Product_model.dart';
+import 'package:web_store_management/Models/ProductModel.dart';
 import '../../Helpers/FilePicker_helper.dart';
 import 'FinalizePage.dart';
 import '../../Backend/Utility/Mapping.dart';
