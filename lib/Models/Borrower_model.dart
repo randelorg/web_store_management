@@ -3,7 +3,7 @@ import 'Person_model.dart';
 class BorrowerModel extends PersonModel {
   int? borrowerId;
   double? balance;
-  String? contractImage;
+  List<dynamic>? contractImage;
 
   get getBorrowerId => this.borrowerId;
 
@@ -19,6 +19,12 @@ class BorrowerModel extends PersonModel {
 
   BorrowerModel.empty() : super.empty();
 
+  BorrowerModel.newLoan(String firstname, String lastname, String mobile,
+      String homeAddress, List<dynamic> contract)
+      : super.withOutId(firstname, lastname, mobile, homeAddress) {
+    this.contractImage = contract;
+  }
+
   BorrowerModel.full(
       int borrowerId,
       String firstname,
@@ -26,7 +32,7 @@ class BorrowerModel extends PersonModel {
       String mobileNumber,
       String homeAddress,
       double balance,
-      String contractImage)
+      List<dynamic> contractImage)
       : super.withOutId(firstname, lastname, mobileNumber, homeAddress) {
     this.borrowerId = borrowerId;
     this.balance = balance;
@@ -60,7 +66,7 @@ class BorrowerModel extends PersonModel {
       mobileNumber: json['MobileNumber'] as String,
       homeAddress: json['HomeAddress'] as String,
       balance: json['Balance'] as double,
-      contractImage: json['ContractImage'] as String,
+      contractImage: json['ContractImage'] as List<dynamic>,
     );
   }
 

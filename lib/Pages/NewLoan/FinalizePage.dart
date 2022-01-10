@@ -1,20 +1,38 @@
 import 'package:flutter/material.dart';
-import 'package:kt_dart/src/collection/interop.dart';
-import 'package:kt_dart/src/collection/kt_iterable.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
-import 'TermsAndConditionsPage.dart';
+import 'PaymentPlan.dart';
 
 class FinalizePage extends StatefulWidget {
+  final String? firstname, lastname, mobile, address;
+  final num total;
+  FinalizePage({
+    required this.firstname,
+    required this.lastname,
+    required this.mobile,
+    required this.address,
+    required this.total,
+  });
+
   @override
   _FinalizePage createState() => _FinalizePage();
 }
 
 class _FinalizePage extends State<FinalizePage> {
+  @override
   Widget build(BuildContext context) {
     return Column(
       children: [
+        Center(
+          child: Text(
+            "Step 3",
+            style: TextStyle(
+              fontSize: 15,
+              fontWeight: FontWeight.normal,
+            ),
+          ),
+        ),
         Padding(
-          padding: EdgeInsets.all(5),
+          padding: EdgeInsets.only(bottom: 5),
           child: Center(
             child: Text(
               'FINALIZE',
@@ -30,29 +48,15 @@ class _FinalizePage extends State<FinalizePage> {
             columns: [
               DataColumn(label: Text('PRODUCT NAME')),
               DataColumn(label: Text('PRICE')),
+              DataColumn(label: Text(' ')),
               DataColumn(label: Text('QTY')),
+              DataColumn(label: Text(' ')),
             ],
             source: _DataSource(context),
           ),
         ),
         Stack(
           children: [
-            Padding(
-              padding: EdgeInsets.all(20),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Text(
-                    'TOTAL:  ',
-                    style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-                  ),
-                  Text(
-                    '15000',
-                    style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-                  ),
-                ],
-              ),
-            ),
             Padding(
               padding: EdgeInsets.only(top: 10, right: 20),
               child: Row(
@@ -80,7 +84,13 @@ class _FinalizePage extends State<FinalizePage> {
                             showDialog(
                               context: context,
                               builder: (BuildContext context) {
-                                return TermsAndConditionsPage();
+                                return PaymentPlanPage(
+                                  firstname: widget.firstname.toString(),
+                                  lastname: widget.lastname.toString(),
+                                  mobile: widget.mobile.toString(),
+                                  address: widget.address.toString(),
+                                  total: widget.total,
+                                );
                               },
                             );
                           },
@@ -104,11 +114,15 @@ class _Row {
     this.valueA,
     this.valueB,
     this.valueC,
+    this.valueD,
+    this.valueE,
   );
 
   final String valueA;
   final String valueB;
   final Widget valueC;
+  String valueD;
+  final Widget valueE;
 
   bool selected = false;
 }
@@ -131,19 +145,31 @@ class _DataSource extends DataTableSource {
     return DataRow.byIndex(
       index: index,
       selected: row.selected,
-      onSelectChanged: (value) {
-        if (row.selected != value) {
-          var value = false;
-          _selectedCount += value ? 1 : -1;
-          assert(_selectedCount >= 0);
-          row.selected = value;
-          notifyListeners();
-        }
-      },
       cells: [
         DataCell(Text(row.valueA)),
         DataCell(Text(row.valueB)),
-        DataCell((row.valueC)),
+        //add quantity
+        DataCell((row.valueC), onTap: () {
+          int qty = int.parse(row.valueD);
+          if (qty >= 1) {
+            qty++;
+            row.valueD = qty.toString();
+            Mapping.selectedProducts[index].setProductQty = qty;
+            notifyListeners();
+          }
+        }),
+        DataCell(Text(row.valueD)),
+        //deduct quantity
+        DataCell((row.valueE), onTap: () {
+          int qty = int.parse(row.valueD);
+          if (qty == 1) return;
+          if (qty >= 1) {
+            qty--;
+            row.valueD = qty.toString();
+            Mapping.selectedProducts[index].setProductQty = qty;
+            notifyListeners();
+          }
+        }),
       ],
     );
   }
@@ -158,36 +184,15 @@ class _DataSource extends DataTableSource {
   int get selectedRowCount => _selectedCount;
 
   List<_Row> _finalizeProducts() {
-    final _productsWithoutDuplicates =
-        Mapping.selectedProducts.map((e) => e.getName).toSet();
-    Mapping.selectedProducts
-        .retainWhere((x) => _productsWithoutDuplicates.remove(x.getName));
-
     return List.generate(
       Mapping.selectedProducts.length,
       (index) {
         return new _Row(
-          Mapping.selectedProducts[index].getName.toString(),
+          Mapping.selectedProducts[index].getProductName.toString(),
           Mapping.selectedProducts[index].getPrice.toString(),
-          Row(
-            children: [
-              IconButton(
-                icon: Icon(
-                  Icons.add_circle,
-                  color: Colors.blue.shade400,
-                ),
-                onPressed: () {},
-              ),
-              Text('3'),
-              IconButton(
-                icon: Icon(
-                  Icons.remove_circle,
-                  color: Colors.red.shade400,
-                ),
-                onPressed: () {},
-              )
-            ],
-          ),
+          Icon(Icons.add_circle, color: Colors.blue.shade400),
+          Mapping.selectedProducts[index].getProductQty.toString(),
+          Icon(Icons.remove_circle, color: Colors.red.shade400),
         );
       },
     );

@@ -2,8 +2,9 @@ class ProductModel {
   String? productCode;
   String? productName;
   double? productPrice;
-  int? productQty;
+  int? productQty = 1;
   String? productUnit;
+  double? price;
 
   get getProductUnit => this.productUnit;
 
@@ -25,7 +26,24 @@ class ProductModel {
 
   set setProductQty(productQty) => this.productQty = productQty;
 
+  get getPrice => this.price;
+
+  set setPrice(double price) => this.price = price;
+
   ProductModel.empty();
+
+  ProductModel.selectedProduct(String barcode, String name, double price) {
+    this.productCode = barcode;
+    this.productName = name;
+    this.price = price;
+  }
+
+  ProductModel.withQty(String barcode, String name, int qty, double price) {
+    this.productCode = barcode;
+    this.productName = name;
+    this.productQty = qty;
+    this.price = price;
+  }
 
   ProductModel.full(String productCode, String productName, double productPrice,
       int productQty, String productUnit) {

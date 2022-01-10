@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:web_store_management/Models/SelectedProducts_model.dart';
+import 'package:web_store_management/Models/Product_model.dart';
 import '../../Helpers/FilePicker_helper.dart';
 import 'FinalizePage.dart';
 import '../../Backend/Utility/Mapping.dart';
@@ -43,6 +43,13 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                Text(
+                  "Step 1",
+                  style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.normal,
+                  ),
+                ),
                 Text(
                   "Borrower Details",
                   style: TextStyle(
@@ -186,8 +193,15 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              Text(
+                "Step 2",
+                style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.normal,
+                ),
+              ),
               Padding(
-                padding: EdgeInsets.all(5),
+                padding: EdgeInsets.only(bottom: 5),
                 child: Text(
                   "SELECT PRODUCTS",
                   textAlign: TextAlign.center,
@@ -301,7 +315,13 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
                                   width:
                                       (MediaQuery.of(context).size.width) / 2,
                                   height: 500,
-                                  child: FinalizePage(),
+                                  child: FinalizePage(
+                                    firstname: firstname.text,
+                                    lastname: lastname.text,
+                                    mobile: mobileNumber.text,
+                                    address: homeAddress.text,
+                                    total: _getTotal(),
+                                  ),
                                 ),
                               ],
                             );
@@ -318,6 +338,17 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
         ),
       ],
     );
+  }
+
+  num _getTotal() {
+    num balance = 0;
+    num temp = 0;
+    Mapping.selectedProducts.forEach((e) {
+      temp = e.getPrice * e.getProductQty;
+      balance += temp;
+    });
+
+    return balance;
   }
 }
 
@@ -370,7 +401,7 @@ class _SelectionOfProducts extends DataTableSource {
           //add the checked product to the list
           //we will remove the duplicate products afterward
           Mapping.selectedProducts.add(
-            SelectedProductsModel.full(
+            ProductModel.selectedProduct(
               row.valueA.toString(),
               row.valueB.toString(),
               double.parse(
@@ -382,7 +413,7 @@ class _SelectionOfProducts extends DataTableSource {
           //delete the uncheck product to the list
           if (value == false) {
             Mapping.selectedProducts.removeWhere(
-                (element) => element.barcode == row.valueA.toString());
+                (element) => element.productCode == row.valueA.toString());
           }
 
           notifyListeners();

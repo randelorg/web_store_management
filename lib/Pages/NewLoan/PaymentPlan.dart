@@ -1,28 +1,47 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:web_store_management/Backend/Borrower_operation.dart';
+import 'package:web_store_management/Notification/Snack_notification.dart';
 
-class TermsAndConditionsPage extends StatefulWidget {
+class PaymentPlanPage extends StatefulWidget {
+  final String? firstname, lastname, mobile, address;
+  final num total;
+  PaymentPlanPage({
+    required this.firstname,
+    required this.lastname,
+    required this.mobile,
+    required this.address,
+    required this.total,
+  });
+
   @override
-  _TermsAndConditionsPage createState() => _TermsAndConditionsPage();
+  _PaymentPlanPage createState() => _PaymentPlanPage();
 }
 
-class _TermsAndConditionsPage extends State<TermsAndConditionsPage> {
-  TextEditingController dateinput = TextEditingController();
-  String terms = 'Daily';
+class _PaymentPlanPage extends State<PaymentPlanPage> {
+  var borrower = BorrowerOperation();
+  TextEditingController borrowerName = TextEditingController();
+  TextEditingController totalAmount = TextEditingController();
+  TextEditingController duedate = TextEditingController();
+
+  String plan = 'Daily';
   double _currenSliderValue = 3;
 
   @override
   void initState() {
-    dateinput.text = "";
+    duedate.text = "";
     super.initState();
+    borrowerName.text =
+        widget.firstname.toString() + " " + widget.lastname.toString();
+    totalAmount.text = widget.total.toString();
   }
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      actionsPadding: EdgeInsets.all(40),
+      actionsPadding: EdgeInsets.all(20),
       title: Text(
-        'Terms And Conditions',
+        'Payment Plan',
         softWrap: true,
         textAlign: TextAlign.center,
         style: TextStyle(
@@ -39,8 +58,29 @@ class _TermsAndConditionsPage extends State<TermsAndConditionsPage> {
             Padding(
               padding: const EdgeInsets.all(6.0),
               child: TextField(
+                controller: borrowerName,
+                enabled: false,
                 decoration: InputDecoration(
                   hintText: 'Borrower Name',
+                  //enabled: false,
+                  filled: true,
+                  fillColor: Colors.blueGrey[50],
+                  labelStyle: TextStyle(fontSize: 12),
+                  contentPadding: EdgeInsets.only(left: 30),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey.shade500),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(6.0),
+              child: TextField(
+                controller: totalAmount,
+                enabled: false,
+                decoration: InputDecoration(
+                  hintText: 'Total Amount',
                   //enabled: false,
                   filled: true,
                   fillColor: Colors.blueGrey[50],
@@ -78,14 +118,14 @@ class _TermsAndConditionsPage extends State<TermsAndConditionsPage> {
                 child: DropdownButtonHideUnderline(
                   child: DropdownButton<String>(
                     isExpanded: true,
-                    value: terms,
+                    value: plan,
                     icon: const Icon(Icons.arrow_downward),
                     iconSize: 24,
                     elevation: 16,
                     style: TextStyle(color: Colors.blue.shade700),
                     onChanged: (String? value) {
                       setState(() {
-                        terms = value!;
+                        plan = value!;
                       });
                     },
                     items: <String>['Daily', 'Every 15 days', 'Monthly']
@@ -130,7 +170,7 @@ class _TermsAndConditionsPage extends State<TermsAndConditionsPage> {
             Padding(
               padding: const EdgeInsets.all(6.0),
               child: TextField(
-                controller: dateinput,
+                controller: duedate,
                 decoration: InputDecoration(
                   labelStyle: TextStyle(fontSize: 12),
                   contentPadding: EdgeInsets.only(left: 30),
@@ -149,12 +189,10 @@ class _TermsAndConditionsPage extends State<TermsAndConditionsPage> {
                       firstDate: DateTime(1999),
                       lastDate: DateTime(2031));
                   if (pickedDate != null) {
-                    print(pickedDate);
                     String formattedDate =
                         DateFormat('dd-MM-yyyy').format(pickedDate);
-                    print(formattedDate);
                     setState(() {
-                      dateinput.text = formattedDate;
+                      duedate.text = formattedDate;
                     });
                   } else {
                     print("Date is not selected");
@@ -165,13 +203,13 @@ class _TermsAndConditionsPage extends State<TermsAndConditionsPage> {
             Padding(
               padding: const EdgeInsets.only(top: 20),
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(20),
+                borderRadius: BorderRadius.circular(10),
                 child: Stack(
                   children: <Widget>[
                     Positioned.fill(
                       child: Container(
-                        decoration: const BoxDecoration(
-                          color: Colors.blue,
+                        decoration: BoxDecoration(
+                          color: Colors.blue.shade900,
                         ),
                       ),
                     ),
@@ -182,8 +220,44 @@ class _TermsAndConditionsPage extends State<TermsAndConditionsPage> {
                         primary: Colors.white,
                         textStyle: TextStyle(fontSize: 20),
                       ),
-                      onPressed: () {},
-                      child: const Text('SEND TO CREDIT APPROVAL'),
+                      child: const Text('SEND TO REVIEW'),
+                      onPressed: () {
+                        borrower
+                            .addBorrower(
+                          widget.firstname.toString(),
+                          widget.lastname.toString(),
+                          widget.mobile.toString(),
+                          widget.address.toString(),
+                          widget.total,
+                        )
+                            .then(
+                          (value) {
+                            if (value) {
+                              borrower
+                                  .addNewLoan(
+                                    widget.firstname.toString(),
+                                    widget.lastname.toString(),
+                                    plan,
+                                    _currenSliderValue.toString(),
+                                    duedate.text,
+                                  )
+                                  .then(
+                                    (value) => {
+                                      if (value)
+                                        {
+                                          Navigator.pop(context),
+                                          SnackNotification.notif(
+                                            'Success',
+                                            'New loan is sent to credit approval',
+                                            Colors.green.shade900,
+                                          )
+                                        }
+                                    },
+                                  );
+                            }
+                          },
+                        );
+                      },
                     ),
                   ],
                 ),
