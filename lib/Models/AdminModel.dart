@@ -34,7 +34,7 @@ class AdminModel extends PersonModel {
       String mobileNumber,
       String homeAddress,
       List<dynamic> userImage)
-      : super.partial(firstname, lastname, mobileNumber, homeAddress) {
+      : super.withOutId(firstname, lastname, mobileNumber, homeAddress) {
     this.adminId = adminId;
     this.username = username;
     this.password = password;

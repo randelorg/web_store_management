@@ -1,5 +1,3 @@
-import 'dart:typed_data';
-
 import 'PersonModel.dart';
 
 class EmployeeModel extends PersonModel {
@@ -7,7 +5,7 @@ class EmployeeModel extends PersonModel {
   String? role;
   String? username;
   String? password;
-  Uint8List? userImage;
+  List<dynamic>? userImage;
 
   //for payroll
   String? payrollID;
@@ -59,49 +57,53 @@ class EmployeeModel extends PersonModel {
   EmployeeModel.empty() : super.empty();
 
   EmployeeModel.full(
-      {this.employeeID,
-      this.role,
-      this.username,
-      //this.password,
-      //this.userImage,
-      personId,
-      firstname,
-      lastname,
-      mobileNumber,
-      homeAddress})
-      : super.full(personId, firstname, lastname, mobileNumber, homeAddress) {
+    String employeeID,
+    String role,
+    String username,
+    String firstname,
+    String lastname,
+    String mobileNumber,
+    String homeAddress,
+    List<dynamic> userImage,
+  ) : super.withOutId(firstname, lastname, mobileNumber, homeAddress) {
     this.employeeID = employeeID;
     this.role = role;
     this.username = username;
-    //this.password = password;
-    //this.userImage = userImage;
+    this.userImage = userImage;
   }
 
-  EmployeeModel.withoutImage(
-      String role,
-      String username,
-      String password,
-      int personId,
-      String firstname,
-      String lastname,
-      String mobileNumber,
-      String homeAddress)
-      : super.full(personId, firstname, lastname, mobileNumber, homeAddress) {
-    this.role = role;
-    this.username = username;
-    this.password = password;
-  }
-
-  EmployeeModel.emplyeeOnly({
+  EmployeeModel.fullJson({
     this.employeeID,
+    this.role,
     this.username,
-    this.password,
-  }) : super.empty() {
+    personId,
+    firstname,
+    lastname,
+    mobileNumber,
+    homeAddress,
+  }) : super.full(personId, firstname, lastname, mobileNumber, homeAddress) {
     this.employeeID = employeeID;
+    this.role = role;
     this.username = username;
-    this.password = password;
   }
 
+  EmployeeModel.loginJson({
+    this.employeeID,
+    this.role,
+    this.username,
+    firstname,
+    lastname,
+    mobileNumber,
+    homeAddress,
+    this.userImage,
+  }) : super.withOutId(firstname, lastname, mobileNumber, homeAddress) {
+    this.employeeID = employeeID;
+    this.role = role;
+    this.username = username;
+    this.userImage = userImage;
+  }
+
+  //for payroll
   EmployeeModel.payroll({this.payrollID, this.checkin, this.checkout})
       : super.empty();
 
@@ -113,12 +115,24 @@ class EmployeeModel extends PersonModel {
     );
   }
 
-  factory EmployeeModel.fromJson(Map<String, dynamic> json) {
-    return EmployeeModel.full(
+  factory EmployeeModel.fromloginJson(Map<String, dynamic> json) {
+    return EmployeeModel.loginJson(
       employeeID: json["EmployeeID"] as String,
       role: json["Role"] as String,
       username: json["Username"] as String,
-      //userImage: json["UserImage"] as Uint8List,
+      firstname: json["Firstname"] as String,
+      lastname: json["Lastname"] as String,
+      mobileNumber: json["MobileNumber"] as String,
+      homeAddress: json["HomeAddress"] as String,
+      userImage: json["UserImage"]["data"] as List<dynamic>,
+    );
+  }
+
+  factory EmployeeModel.fromJson(Map<String, dynamic> json) {
+    return EmployeeModel.fullJson(
+      employeeID: json["EmployeeID"] as String,
+      role: json["Role"] as String,
+      username: json["Username"] as String,
       personId: json["PersonID"] as int,
       firstname: json["Firstname"] as String,
       lastname: json["Lastname"] as String,

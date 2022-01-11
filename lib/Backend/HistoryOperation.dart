@@ -9,7 +9,7 @@ import '../Backend/Utility/Mapping.dart';
 
 class HistoryOperation implements IHistory {
   @override
-  Future<int> viewLoanHistory(String borrowerId) async {
+  Future<bool> viewLoanHistory(String borrowerId) async {
     try {
       final response = await http.get(
           Uri.parse('http://localhost:8090/api/loanedproducts/' + borrowerId));
@@ -23,21 +23,26 @@ class HistoryOperation implements IHistory {
 
       if (response.statusCode == 404) {
         SnackNotification.notif(
-            'Error', 'Cant fetch loaned product history', Colors.red.shade600);
-        return -1;
+          'Error',
+          'Cant fetch loaned product history',
+          Colors.red.shade600,
+        );
+        return false;
       }
-
-      return 1;
     } catch (e) {
       print(e.toString());
       SnackNotification.notif(
-          'Error', 'Cant fetch loaned product history', Colors.red.shade600);
-      return -1;
+        'Error',
+        'Cant fetch loaned product history',
+        Colors.red.shade600,
+      );
+      return false;
     }
+    return true;
   }
 
   @override
-  Future<int> viewPaymentHistory(String borrowerId) async {
+  Future<bool> viewPaymentHistory(String borrowerId) async {
     try {
       final response = await http
           .get(Uri.parse('http://localhost:8090/api/payment/' + borrowerId));
@@ -51,16 +56,22 @@ class HistoryOperation implements IHistory {
 
       if (response.statusCode == 404) {
         SnackNotification.notif(
-            'Error', 'There is history of this borrower', Colors.red.shade600);
-        return -1;
+          'Error',
+          'There is history of this borrower',
+          Colors.red.shade600,
+        );
+        return false;
       }
-
-      return 1;
     } catch (e) {
       print(e.toString());
       SnackNotification.notif(
-          'Error', 'Cant fetch payment history', Colors.red.shade600);
-      return -1;
+        'Error',
+        'Cant fetch payment history',
+        Colors.red.shade600,
+      );
+      return false;
     }
+
+    return true;
   }
 }

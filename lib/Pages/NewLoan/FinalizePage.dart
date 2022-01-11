@@ -79,6 +79,33 @@ class _FinalizePage extends State<FinalizePage> {
                             primary: Colors.white,
                             textStyle: const TextStyle(fontSize: 18),
                           ),
+                          child: const Text('CLEAR'),
+                          onPressed: () {
+                            Mapping.selectedProducts.clear();
+                            Navigator.pop(context);
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(12),
+                    child: Stack(
+                      children: <Widget>[
+                        Positioned.fill(
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: Colors.blue.shade900,
+                            ),
+                          ),
+                        ),
+                        TextButton(
+                          style: TextButton.styleFrom(
+                            padding: const EdgeInsets.all(20.0),
+                            primary: Colors.white,
+                            textStyle: const TextStyle(fontSize: 18),
+                          ),
+                          child: const Text('NEXT'),
                           onPressed: () {
                             Navigator.pop(context, true);
                             showDialog(
@@ -94,7 +121,6 @@ class _FinalizePage extends State<FinalizePage> {
                               },
                             );
                           },
-                          child: const Text('NEXT'),
                         ),
                       ],
                     ),

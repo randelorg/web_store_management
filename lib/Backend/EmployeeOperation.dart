@@ -1,4 +1,7 @@
 import 'dart:typed_data';
+import 'package:flutter/material.dart';
+import 'package:web_store_management/Notification/Snack_notification.dart';
+
 import 'Interfaces/IEmployee.dart';
 import '../Helpers/Hashing_helper.dart';
 import 'package:http/http.dart' as http;
@@ -17,7 +20,7 @@ class EmployeeOperation implements IEmployee {
       String? username,
       String? password,
       Uint8List? image) async {
-    var id = 'emp-007';
+    var id = 'emp-008';
 
     var addEmployee = json.encode(
       {
@@ -45,6 +48,11 @@ class EmployeeOperation implements IEmployee {
 
       if (response.statusCode == 404) return false;
     } catch (e) {
+      SnackNotification.notif(
+        'Error',
+        'Something went wrong',
+        Colors.red.shade600,
+      );
       e.toString();
     }
 

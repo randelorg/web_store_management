@@ -20,8 +20,10 @@ class Login extends GlobalController implements ILogin {
 
     switch (role.replaceAll(' ', '')) {
       case 'Administrator':
-        entity = json
-            .encode({"Username": username, "Password": hash.encrypt(password)});
+        entity = json.encode({
+          "Username": username,
+          "Password": hash.encrypt(password),
+        });
         break;
       case 'StoreAttendant':
         entity = json.encode({
@@ -56,14 +58,13 @@ class Login extends GlobalController implements ILogin {
       print(e.toString());
     }
 
-    //loadAllList(response, role);
-
     return true;
   }
 
   Future<bool> _users(http.Response response, String role) async {
     //for identifying the user role
     Mapping.userRole = role;
+
     try {
       switch (role.replaceAll(' ', '')) {
         case 'Administrator':
@@ -72,7 +73,7 @@ class Login extends GlobalController implements ILogin {
 
           var admin = AdminModel.fromJson(adminMap);
 
-          Mapping.adminList.add(
+          Mapping.adminLogin.add(
             AdminModel.full(
               admin.getAdminId,
               admin.getUsername,
@@ -92,8 +93,18 @@ class Login extends GlobalController implements ILogin {
           Map<String, dynamic> empMap =
               jsonDecode(response.body)[0] as Map<String, dynamic>;
 
-          var emp = EmployeeModel.fromJson(empMap);
-          Mapping.employeeList.add(emp);
+          var emp = EmployeeModel.fromloginJson(empMap);
+
+          Mapping.employeeLogin.add(EmployeeModel.full(
+            emp.getEmployeeID,
+            emp.getRole,
+            emp.getUsername,
+            emp.getFirstname,
+            emp.getLastname,
+            emp.getMobileNumber,
+            emp.getHomeAddress,
+            emp.getUserImage,
+          ));
 
           await setSession(emp.toString(), true, role);
           break;
@@ -116,6 +127,7 @@ class Login extends GlobalController implements ILogin {
     Session.removeValues(); //remove the values from the session
     //clear the lists
     Mapping.employeeList.clear();
+    Mapping.adminLogin.clear();
     Mapping.productList.clear();
     Mapping.borrowerList.clear();
     Mapping.paymentList.clear();

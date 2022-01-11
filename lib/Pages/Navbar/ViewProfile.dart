@@ -11,16 +11,19 @@ class ViewProfile extends StatefulWidget {
 
 class _ViewProfileState extends State<ViewProfile> {
   List<int> picture = [];
+  String? name;
 
   @override
   void initState() {
     super.initState();
     try {
-      if (Mapping.userRole == 'StoreAttendant') {
-        picture = Mapping.employeeList[0].getUserImage.cast<int>();
+      if (Mapping.userRole == "StoreAttendant") {
+        name = Mapping.employeeLogin[0].toString();
+        picture = Mapping.employeeLogin[0].getUserImage.cast<int>();
       } else {
         //if user is admin
-        picture = Mapping.adminList[0].getUserImage.cast<int>();
+        name = Mapping.adminLogin[0].toString();
+        picture = Mapping.adminLogin[0].getUserImage.cast<int>();
       }
     } catch (e) {
       print(e);
@@ -48,11 +51,16 @@ class _ViewProfileState extends State<ViewProfile> {
                 },
               ),
             ),
-            Image.memory(
-              Uint8List.fromList(picture),
-              height: 200,
-              width: 200,
-              fit: BoxFit.fitWidth,
+            CircleAvatar(
+              radius: 80,
+              child: ClipOval(
+                child: Image.memory(
+                  Uint8List.fromList(picture),
+                  height: 200,
+                  width: 200,
+                  fit: BoxFit.fitWidth,
+                ),
+              ),
             ),
             Card(
               margin: EdgeInsets.only(left: 5, top: 20, bottom: 5, right: 5),
@@ -73,9 +81,11 @@ class _ViewProfileState extends State<ViewProfile> {
                     ),
                   ),
                   Text(
-                    Mapping.adminList[0].toString(),
-                    style:
-                        TextStyle(fontFamily: 'Cairo_SemiBold', fontSize: 15),
+                    name.toString(),
+                    style: TextStyle(
+                      fontFamily: 'Cairo_SemiBold',
+                      fontSize: 15,
+                    ),
                   ),
                 ],
               ),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:web_store_management/Backend/Session.dart';
-import 'package:web_store_management/Pages/Navbar/TopBar.dart';
+import 'package:web_store_management/Backend/Utility/Mapping.dart';
 import '../DashBoard/TimeCollection.dart';
 import '../NewLoan/SelectionOfProductsPage.dart';
 import '../Borrowers/BorrowersPage.dart';
@@ -23,6 +23,7 @@ class _NavDrawer extends State<NavDrawer> {
   @override
   void initState() {
     super.initState();
+
     Session.getid().then((id) {
       setState(() {
         if (id.compareTo('') == 0) {
@@ -30,11 +31,20 @@ class _NavDrawer extends State<NavDrawer> {
         }
       });
     });
+    if (Mapping.userRole == 'Administrator') {
+      setState(() {
+        pages.add(EmployeePage());
+      });
+    } else {
+      setState(() {
+        pages.remove(EmployeePage());
+      });
+    }
   }
 
   int _selectedIndex = 1;
 
-  var pages = [
+  List<Widget> pages = [
     TimeCollection(),
     SelectionOfProductsPage(),
     BorrowersPage(),
@@ -44,7 +54,6 @@ class _NavDrawer extends State<NavDrawer> {
     RepairsPage(),
     InventoryPage(),
     ViewReport(),
-    EmployeePage(),
   ];
 
   @override

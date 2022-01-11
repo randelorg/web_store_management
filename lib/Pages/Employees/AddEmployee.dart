@@ -1,7 +1,4 @@
-import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:web_store_management/Notification/Snack_notification.dart';
 import '../../Helpers/FilePicker_helper.dart';
 import '../../Helpers/Hashing_helper.dart';
@@ -299,7 +296,6 @@ class _AddEmployee extends State<AddEmployee> {
                           onPressed: () {
                             if (username.text.isEmpty) {
                               SnackNotification.notif(
-                        
                                   'Error',
                                   'Please supply all fields.',
                                   Colors.red.shade600);
@@ -317,17 +313,12 @@ class _AddEmployee extends State<AddEmployee> {
                                       pick.getImageBytes())
                                   .then((value) {
                                 if (value) {
+                                  Navigator.pop(context);
                                   SnackNotification.notif(
-                                
-                                      'Success',
-                                      'Employee account is created',
-                                      Colors.green.shade600);
-                                } else {
-                                  SnackNotification.notif(
-                                 
-                                      'Error',
-                                      'Something went wrong',
-                                      Colors.red.shade600);
+                                    'Success',
+                                    'Employee account is created',
+                                    Colors.green.shade600,
+                                  );
                                 }
                               });
                             }

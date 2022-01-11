@@ -28,14 +28,6 @@ class PersonModel {
 
   PersonModel.empty();
 
-  PersonModel.partial(String firstname, String lastname, String mobileNumber,
-      String homeAddress) {
-    this.firstname = firstname;
-    this.lastname = lastname;
-    this.mobileNumber = mobileNumber;
-    this.homeAddress = homeAddress;
-  }
-
   PersonModel.full(int persondId, String firstname, String lastname,
       String mobileNumber, String homeAddress) {
     this.personId = personId;

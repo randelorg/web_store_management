@@ -1,15 +1,4 @@
 class IBorrower {
-  Future<bool> addBorrower(
-    String firstname,
-    String lastname,
-    String mobile,
-    String homeaddress,
-    num balance,
-  ) {
-    var a;
-    return a;
-  }
-
   Future<bool> updateBorrower(
     int id,
     String firstname,

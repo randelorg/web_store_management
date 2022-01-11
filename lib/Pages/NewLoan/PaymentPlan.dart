@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:web_store_management/Backend/BorrowerOperation.dart';
-import 'package:web_store_management/Backend/NewLoanOperation.dart';
+import 'package:web_store_management/Backend/LoanOperation.dart';
+import 'package:web_store_management/Backend/Utility/Mapping.dart';
 import 'package:web_store_management/Notification/Snack_notification.dart';
 
 class PaymentPlanPage extends StatefulWidget {
@@ -20,8 +20,7 @@ class PaymentPlanPage extends StatefulWidget {
 }
 
 class _PaymentPlanPage extends State<PaymentPlanPage> {
-  var borrower = BorrowerOperation();
-  var newloan = NewLoanOperation();
+  var newloan = LoanOperation();
   TextEditingController borrowerName = TextEditingController();
   TextEditingController totalAmount = TextEditingController();
   TextEditingController duedate = TextEditingController();
@@ -224,7 +223,7 @@ class _PaymentPlanPage extends State<PaymentPlanPage> {
                       ),
                       child: const Text('SEND TO REVIEW'),
                       onPressed: () {
-                        borrower
+                        newloan
                             .addBorrower(
                           widget.firstname.toString(),
                           widget.lastname.toString(),
@@ -248,6 +247,8 @@ class _PaymentPlanPage extends State<PaymentPlanPage> {
                                       if (value)
                                         {
                                           Navigator.pop(context),
+                                          //clear all the previous addition in this list
+                                          Mapping.selectedProducts.clear(),
                                           SnackNotification.notif(
                                             'Success',
                                             'New loan is sent to credit approval',

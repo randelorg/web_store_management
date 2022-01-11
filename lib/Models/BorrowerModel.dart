@@ -10,9 +10,9 @@ class BorrowerModel extends PersonModel {
 
   set setBorrowerId(borrowerId) => this.borrowerId = borrowerId;
 
-  get getCreditApprovalID => this.investigationID;
+  get getinvestigationID => this.investigationID;
 
-  set setCreditApprovalID(int investigationID) =>
+  set setinvestigationID(int investigationID) =>
       this.investigationID = investigationID;
 
   get getBalance => this.balance;

@@ -1,5 +1,6 @@
 import 'package:hexcolor/hexcolor.dart';
 import 'package:flutter/material.dart';
+import 'package:web_store_management/Backend/Utility/Mapping.dart';
 
 import '../ViewProfile.dart';
 import '../AddAccount.dart';
@@ -11,6 +12,17 @@ class ProfileDrawer extends StatefulWidget {
 }
 
 class _ProfileDrawer extends State<ProfileDrawer> {
+  bool _isAuthorized = false;
+  @override
+  void initState() {
+    super.initState();
+    if (Mapping.userRole == "Administrator") {
+      setState(() {
+        _isAuthorized = true;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return PopupMenuButton(
@@ -51,60 +63,72 @@ class _ProfileDrawer extends State<ProfileDrawer> {
                   ),
                 ),
               ),
-              Card(
-                elevation: 5,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30),
-                ),
-                child: Padding(
-                  padding:
-                      EdgeInsets.only(top: 10, bottom: 10, right: 10, left: 10),
-                  child: TextButton.icon(
-                    icon:
-                        Icon(Icons.create_rounded, color: HexColor("#155293")),
-                    label: Text(
-                      'Update Profile',
-                      style: TextStyle(
-                          fontFamily: 'Cairo_SemiBold',
+              Visibility(
+                maintainSize: false,
+                maintainAnimation: true,
+                maintainState: true,
+                visible: this._isAuthorized,
+                child: Card(
+                  elevation: 5,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                        top: 10, bottom: 10, right: 10, left: 10),
+                    child: TextButton.icon(
+                      icon: Icon(Icons.create_rounded,
                           color: HexColor("#155293")),
-                      softWrap: true,
+                      label: Text(
+                        'Update Profile',
+                        style: TextStyle(
+                            fontFamily: 'Cairo_SemiBold',
+                            color: HexColor("#155293")),
+                        softWrap: true,
+                      ),
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return UpdateProfile();
+                          },
+                        );
+                      },
                     ),
-                    onPressed: () {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return UpdateProfile();
-                        },
-                      );
-                    },
                   ),
                 ),
               ),
-              Card(
-                elevation: 5,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30),
-                ),
-                child: Padding(
-                  padding:
-                      EdgeInsets.only(top: 10, bottom: 10, right: 10, left: 10),
-                  child: TextButton.icon(
-                    icon: Icon(Icons.person_add, color: HexColor("#155293")),
-                    label: Text(
-                      'Add new admin',
-                      style: TextStyle(
-                          fontFamily: 'Cairo_SemiBold',
-                          color: HexColor("#155293")),
-                      softWrap: true,
+              Visibility(
+                maintainSize: false,
+                maintainAnimation: true,
+                maintainState: true,
+                visible: this._isAuthorized,
+                child: Card(
+                  elevation: 5,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                        top: 10, bottom: 10, right: 10, left: 10),
+                    child: TextButton.icon(
+                      icon: Icon(Icons.person_add, color: HexColor("#155293")),
+                      label: Text(
+                        'Add new admin',
+                        style: TextStyle(
+                            fontFamily: 'Cairo_SemiBold',
+                            color: HexColor("#155293")),
+                        softWrap: true,
+                      ),
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AddAccount();
+                          },
+                        );
+                      },
                     ),
-                    onPressed: () {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return AddAccount();
-                        },
-                      );
-                    },
                   ),
                 ),
               ),

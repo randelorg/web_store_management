@@ -1,9 +1,9 @@
 class IHistory {
-  Future<int> viewPaymentHistory(String userId) async {
+  Future<bool> viewPaymentHistory(String userId) async {
     throw UnimplementedError();
   }
 
-  Future<int> viewLoanHistory(String userId) {
+  Future<bool> viewLoanHistory(String userId) {
     throw UnimplementedError();
   }
 }

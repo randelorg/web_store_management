@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:web_store_management/Backend/GlobalController.dart';
+import 'package:web_store_management/Backend/LoanOperation.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
+import 'package:web_store_management/Notification/Snack_notification.dart';
 
 class CreditScreen extends StatefulWidget {
   @override
@@ -9,7 +11,9 @@ class CreditScreen extends StatefulWidget {
 
 class _CreditPage extends State<CreditScreen> {
   var controller = GlobalController();
-
+  var loan = LoanOperation();
+  int vid = 0, bid = 0;
+  final String approved = "APPROVED";
   double textSize = 15;
   double titleSize = 30;
   late Future _creditapproval;
@@ -259,7 +263,28 @@ class _CreditPage extends State<CreditScreen> {
                             textStyle: TextStyle(fontSize: 20),
                           ),
                           child: const Text('APPROVE'),
-                          onPressed: () {},
+                          onPressed: () {
+                            vid = Mapping
+                                .creditApprovals[index].getinvestigationID;
+                            bid = Mapping.creditApprovals[index].getBorrowerId;
+
+                            loan
+                                .approvedCredit(vid, bid, approved)
+                                .then((value) {
+                              if (!value) {
+                                SnackNotification.notif(
+                                  'Error',
+                                  'Something went wrong while approving the loan',
+                                  Colors.redAccent.shade200,
+                                );
+                              } else {
+                                setState(() {
+                                  _creditapproval =
+                                      controller.fetchCreditApprovals();
+                                });
+                              }
+                            });
+                          },
                         ),
                       ],
                     ),
@@ -268,7 +293,9 @@ class _CreditPage extends State<CreditScreen> {
                     icon: Icon(Icons.cancel),
                     color: Colors.redAccent.shade400,
                     tooltip: 'DENY CREDIT',
-                    onPressed: () {},
+                    onPressed: () {
+                      print(Mapping.creditApprovals[index].toString());
+                    },
                   ),
                 ],
               ),
