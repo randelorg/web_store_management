@@ -14,6 +14,7 @@ class _AddAccount extends State<AddAccount> {
   var hash = Hashing();
   //dipslay the image name
   String fileName = 'Select account image';
+  String error = '';
   //getting the text in the field
   final username = TextEditingController();
   final firstname = TextEditingController();
@@ -21,6 +22,7 @@ class _AddAccount extends State<AddAccount> {
   final mobileNumber = TextEditingController();
   final homeAddress = TextEditingController();
   final password = TextEditingController();
+  final confirmPassword = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +48,7 @@ class _AddAccount extends State<AddAccount> {
               child: Container(
                 child: Container(
                   alignment: Alignment.topLeft,
-                  child: Text('Add new admin account'),
+                  child: Text('New Admin'),
                 ),
               ),
             ),
@@ -205,6 +207,43 @@ class _AddAccount extends State<AddAccount> {
                   ),
                 ),
               ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(bottom: 0),
+              child: TextField(
+                controller: confirmPassword,
+                obscureText: true,
+                onChanged: (value) {
+                  setState(() {
+                    if (value.length > 0) {
+                      if (value == password.text) {
+                        error = 'Password match';
+                      } else {
+                        error = 'Password did not match';
+                      }
+                    }
+                  });
+                },
+                decoration: InputDecoration(
+                  hintText: 'Confirm password',
+                  filled: true,
+                  fillColor: Colors.blueGrey[50],
+                  labelStyle: TextStyle(fontSize: 10),
+                  contentPadding: EdgeInsets.only(left: 10),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                ),
+              ),
+            ),
+            Text(
+              error,
+              style: TextStyle(fontSize: 10),
             ),
             Container(
               alignment: Alignment.topLeft,

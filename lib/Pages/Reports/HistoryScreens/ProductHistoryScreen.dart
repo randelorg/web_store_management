@@ -12,6 +12,8 @@ class ProductHistory extends StatefulWidget {
 
 class _ProductHistory extends State<ProductHistory> {
   var history = HistoryOperation();
+
+  @override
   Widget build(BuildContext context) {
     return Container(
       width: (MediaQuery.of(context).size.width),
