@@ -31,29 +31,35 @@ class _ProductHistory extends State<ProductHistory> {
                 );
               }
               if (snapshot.hasData) {
-                return PaginatedDataTable(
-                  header: Text(
-                    widget.borrowerName.toString(),
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
+                if (snapshot.data == true) {
+                  return PaginatedDataTable(
+                    header: Text(
+                      widget.borrowerName.toString(),
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  ),
-                  showCheckboxColumn: false,
-                  showFirstLastButtons: true,
-                  rowsPerPage: 15,
-                  columns: [
-                    DataColumn(label: Text('LOANID')),
-                    DataColumn(label: Text('PRODUCT \n NAME')),
-                    DataColumn(label: Text('PRICE')),
-                    DataColumn(label: Text('QTY')),
-                    DataColumn(label: Text('PAYMENT \n PLAN')),
-                    DataColumn(label: Text('DATE \n ADDED')),
-                    DataColumn(label: Text('DUE \n DATE')),
-                    DataColumn(label: Text('TERM')),
-                  ],
-                  source: _DataSource(context),
-                );
+                    showCheckboxColumn: false,
+                    showFirstLastButtons: true,
+                    rowsPerPage: 15,
+                    columns: [
+                      DataColumn(label: Text('LOANID')),
+                      DataColumn(label: Text('PRODUCT \n NAME')),
+                      DataColumn(label: Text('PRICE')),
+                      DataColumn(label: Text('QTY')),
+                      DataColumn(label: Text('PAYMENT \n PLAN')),
+                      DataColumn(label: Text('DATE \n ADDED')),
+                      DataColumn(label: Text('DUE \n DATE')),
+                      DataColumn(label: Text('TERM')),
+                    ],
+                    source: _DataSource(context),
+                  );
+                } else {
+                  return Center(
+                    child: Text('No Loan History'),
+                  );
+                }
               }
               return Center(
                 child: Text(

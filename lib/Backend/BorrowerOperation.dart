@@ -7,8 +7,6 @@ import 'package:web_store_management/Notification/Snack_notification.dart';
 import 'LoginOperation.dart';
 
 class BorrowerOperation extends Login implements IBorrower, IPay {
- 
-
   @override
   Future<bool> updateBorrower(int id, String firstname, String lastname,
       String mobile, String address) async {
@@ -78,5 +76,34 @@ class BorrowerOperation extends Login implements IBorrower, IPay {
   @override
   bool removeBorrower() {
     throw UnimplementedError();
+  }
+
+  @override
+  Future<bool> getBorrowerName(String requested_product, String id) async {
+    var requested = json.encode({
+      'requested': requested_product,
+      'borrowerId': id,
+    });
+
+    try {
+      final response = await http.post(
+        Uri.parse('http://localhost:8090/api/borrower'),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: requested,
+      );
+
+      //if response is empty return false
+      if (response.statusCode == 404) {
+        return false;
+      }
+    } catch (e) {
+      print(e);
+      return false;
+    }
+    //if status code is 202
+    return true;
   }
 }

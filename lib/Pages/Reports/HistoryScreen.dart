@@ -110,6 +110,14 @@ class _HistoryScreen extends State<HistoryScreen> {
       ),
     );
   }
+
+  void showHistory(final String id) {
+    var history = HistoryOperation();
+    setState(() {
+      history.viewLoanHistory(id);
+      this.context;
+    });
+  }
 }
 
 class _Row {
@@ -130,7 +138,7 @@ class _DataSource extends DataTableSource {
   var history = HistoryOperation();
 
   _DataSource(this.context) {
-    _borrowersList(context);
+    _borrowersList();
   }
 
   final BuildContext context;
@@ -140,8 +148,8 @@ class _DataSource extends DataTableSource {
   @override
   DataRow? getRow(int index) {
     assert(index >= 0);
-    if (index >= _borrowersList(context).length) return null;
-    final row = _borrowersList(context)[index];
+    if (index >= _borrowersList().length) return null;
+    final row = _borrowersList()[index];
     return DataRow.byIndex(
       index: index,
       selected: row.selected,
@@ -159,43 +167,42 @@ class _DataSource extends DataTableSource {
   }
 
   @override
-  int get rowCount => _borrowersList(context).length;
+  int get rowCount => _borrowersList().length;
 
   @override
   bool get isRowCountApproximate => false;
 
   @override
   int get selectedRowCount => _selectedCount;
-}
 
-List _borrowersList(BuildContext context) {
-  List<_Row> _borrowers;
-  try {
-    return _borrowers = List.generate(
-      Mapping.borrowerList.length,
-      (index) {
-        return _Row(
-          Mapping.borrowerList[index].getBorrowerId.toString(),
-          Mapping.borrowerList[index].toString(),
-          Icon(
-            Icons.history,
-            color: Colors.blue,
-            size: 30,
-          ),
-        );
-      },
-    );
-  } catch (e) {
-    //if list borrowers is empty
-    return _borrowers = List.generate(
-      0,
-      (index) {
-        return new _Row(
-          "",
-          "",
-          Text(''),
-        );
-      },
-    );
+  List _borrowersList() {
+    try {
+      return List.generate(
+        Mapping.borrowerList.length,
+        (index) {
+          return _Row(
+            Mapping.borrowerList[index].getBorrowerId.toString(),
+            Mapping.borrowerList[index].toString(),
+            Icon(
+              Icons.history,
+              color: Colors.blue,
+              size: 30,
+            ),
+          );
+        },
+      );
+    } catch (e) {
+      //if list borrowers is empty
+      return List.generate(
+        0,
+        (index) {
+          return new _Row(
+            "",
+            "",
+            Text(''),
+          );
+        },
+      );
+    }
   }
 }

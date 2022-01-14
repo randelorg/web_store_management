@@ -10,6 +10,7 @@ import '../Backend/Utility/Mapping.dart';
 class HistoryOperation implements IHistory {
   @override
   Future<bool> viewLoanHistory(String borrowerId) async {
+    if (borrowerId == '') return false;
     try {
       final response = await http.get(
           Uri.parse('http://localhost:8090/api/loanedproducts/' + borrowerId));

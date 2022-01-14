@@ -10,6 +10,11 @@ class IBorrower {
     return a;
   }
 
+  Future<bool> getBorrowerName(String firstname, String lastname) {
+    var a;
+    return a;
+  }
+
   bool removeBorrower() {
     return false;
   }
