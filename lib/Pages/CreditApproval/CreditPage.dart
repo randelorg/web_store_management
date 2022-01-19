@@ -89,10 +89,13 @@ class _CreditPage extends State<CreditScreen> {
                   ),
                 ),
               );
+            } else {
+              return Center(
+                child: Text(
+                  'No credits to show',
+                ),
+              );
             }
-            return Center(
-              child: Text('No data for credit approval availble'),
-            );
           },
         ),
       ],
