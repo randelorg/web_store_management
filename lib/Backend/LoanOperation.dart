@@ -7,6 +7,8 @@ import 'dart:convert';
 
 import 'package:web_store_management/Notification/Snack_notification.dart';
 
+import 'Utility/ApiUrl.dart';
+
 class LoanOperation extends BorrowerOperation implements INewLoan {
   @override
   Future<bool> addBorrower(String firstname, String lastname, String mobile,
@@ -23,7 +25,7 @@ class LoanOperation extends BorrowerOperation implements INewLoan {
 
     try {
       final response = await http.post(
-        Uri.parse("http://localhost:8090/api/addborrower"),
+        Uri.parse(Url.url + "api/addborrower"),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json'
@@ -52,7 +54,7 @@ class LoanOperation extends BorrowerOperation implements INewLoan {
     for (var item in Mapping.selectedProducts) {
       try {
         await http.post(
-          Uri.parse("http://localhost:8090/api/addloan"),
+          Uri.parse(Url.url + "api/addloan"),
           headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json'
@@ -88,11 +90,12 @@ class LoanOperation extends BorrowerOperation implements INewLoan {
     try {
       final response = await http.get(
         Uri.parse(
-          'http://localhost:8090/api/approved/' +
+          Url.url +
+              "api/approved/" +
               investigationId.toString() +
-              '/' +
+              "/" +
               borrowerId.toString() +
-              '/' +
+              "/" +
               status,
         ),
       );

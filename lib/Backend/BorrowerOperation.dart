@@ -5,6 +5,7 @@ import 'package:web_store_management/Backend/Interfaces/IBorrower.dart';
 import 'package:web_store_management/Backend/Interfaces/IPay.dart';
 import 'package:web_store_management/Notification/Snack_notification.dart';
 import 'LoginOperation.dart';
+import 'Utility/ApiUrl.dart';
 
 class BorrowerOperation extends Login implements IBorrower, IPay {
   @override
@@ -20,7 +21,7 @@ class BorrowerOperation extends Login implements IBorrower, IPay {
 
     try {
       final response = await http.post(
-        Uri.parse("http://localhost:8090/api/borrower"),
+        Uri.parse(Url.url + "api/updatebrw"),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json'
@@ -50,7 +51,7 @@ class BorrowerOperation extends Login implements IBorrower, IPay {
 
     try {
       final response = await http.post(
-        Uri.parse("http://localhost:8090/api/payment"),
+        Uri.parse(Url.url + "api/payment"),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json'
@@ -87,7 +88,7 @@ class BorrowerOperation extends Login implements IBorrower, IPay {
 
     try {
       final response = await http.post(
-        Uri.parse('http://localhost:8090/api/borrower'),
+        Uri.parse(Url.url + "api/borrower"),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json'

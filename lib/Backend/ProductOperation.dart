@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:web_store_management/Notification/Snack_notification.dart';
 import 'package:http/http.dart' as http;
 import 'Interfaces/IProduct.dart';
+import 'Utility/ApiUrl.dart';
 
 class ProductOperation implements IProduct {
   @override
@@ -20,7 +21,7 @@ class ProductOperation implements IProduct {
 
     try {
       final response = await http.post(
-        Uri.parse("http://localhost:8090/api/product"),
+        Uri.parse(Url.url + "api/product"),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json'
@@ -59,7 +60,7 @@ class ProductOperation implements IProduct {
 
     try {
       final response = await http.post(
-        Uri.parse("http://localhost:8090/api/addproduct"),
+        Uri.parse(Url.url + "api/addproduct"),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json'

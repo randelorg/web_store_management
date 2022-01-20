@@ -7,6 +7,8 @@ import '../Helpers/Hashing_helper.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+import 'Utility/ApiUrl.dart';
+
 class EmployeeOperation implements IEmployee {
   final hash = Hashing();
 
@@ -38,7 +40,7 @@ class EmployeeOperation implements IEmployee {
 
     try {
       final response = await http.post(
-        Uri.parse("http://localhost:8090/api/employee"),
+        Uri.parse(Url.url + "api/employee"),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json'

@@ -5,6 +5,7 @@ import '../Helpers/Hashing_helper.dart';
 import 'GlobalController.dart';
 import 'Interfaces/ILogin.dart';
 import '../Models/AdminModel.dart';
+import 'Utility/ApiUrl.dart';
 import 'Utility/Mapping.dart';
 import 'Session.dart';
 
@@ -36,7 +37,7 @@ class Login extends GlobalController implements ILogin {
     }
 
     final response = await http.post(
-      Uri.parse('http://localhost:8090/api/login'),
+      Uri.parse(Url.url + "api/login"),
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json'

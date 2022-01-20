@@ -2,6 +2,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:web_store_management/Notification/Snack_notification.dart';
 import 'Interfaces/IAdmin.dart';
+import 'Utility/ApiUrl.dart';
 import 'Utility/Mapping.dart';
 import '../Helpers/Hashing_helper.dart';
 import 'package:http/http.dart' as http;
@@ -34,7 +35,7 @@ class AdminOperation implements IAdmin {
 
     try {
       final response = await http.post(
-        Uri.parse("http://localhost:8090/api/admin"),
+        Uri.parse(Url.url + "api/admin"),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json'
@@ -44,16 +45,26 @@ class AdminOperation implements IAdmin {
 
       if (response.statusCode == 404)
         SnackNotification.notif(
-            'Error', 'Unexpected error occured', Colors.red);
+          'Error',
+          'Unexpected error occured',
+          Colors.red,
+        );
     } catch (e) {
       e.toString();
       //return false;
-      SnackNotification.notif('Error', 'Unexpected error occured', Colors.red);
+      SnackNotification.notif(
+        'Error',
+        'Unexpected error occured',
+        Colors.red,
+      );
     }
 
     //if status code is 202
     SnackNotification.notif(
-        'Success', 'Successfully added $firstname', Colors.green);
+      'Success',
+      'Successfully added $firstname',
+      Colors.green,
+    );
     //return true;
   }
 

@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'Utility/ApiUrl.dart';
 import 'Utility/Mapping.dart';
 import '../Models/ProductModel.dart';
 import '../Models/BorrowerModel.dart';
@@ -21,8 +22,7 @@ class GlobalController {
 
   //fetch all the employees from the database
   Future<List<EmployeeModel>> fetchAllEmployees() async {
-    final response =
-        await http.get(Uri.parse('http://localhost:8090/api/employees'));
+    final response = await http.get(Uri.parse(Url.url + "api/employees"));
 
     // Use the compute function to run parseAdmin in a separate isolate.
     return compute(parseAllEmployees, response.body);
@@ -38,8 +38,7 @@ class GlobalController {
 
   //fetch all the products from the database
   Future<List<ProductModel>> fetchProducts() async {
-    final response =
-        await http.get(Uri.parse('http://localhost:8090/api/products'));
+    final response = await http.get(Uri.parse(Url.url + "api/products"));
 
     // Use the compute function to run parseAdmin in a separate isolate.
     return compute(parseProducts, response.body);
@@ -55,8 +54,7 @@ class GlobalController {
 
   //fetch all the borrowers from the database
   Future<List<BorrowerModel>> fetchBorrowers() async {
-    final response =
-        await http.get(Uri.parse('http://localhost:8090/api/borrowers'));
+    final response = await http.get(Uri.parse(Url.url + "api/borrowers"));
 
     // Use the compute function to run parseAdmin in a separate isolate.
     return compute(parseBorrowers, response.body);
@@ -72,8 +70,7 @@ class GlobalController {
 
   //fetch all the credit approvals from the database
   Future<List<BorrowerModel>> fetchCreditApprovals() async {
-    final response =
-        await http.get(Uri.parse('http://localhost:8090/api/credit'));
+    final response = await http.get(Uri.parse(Url.url + "api/credit"));
 
     // Use the compute function to run parseAdmin in a separate isolate.
     return compute(parseCreditApprovals, response.body);

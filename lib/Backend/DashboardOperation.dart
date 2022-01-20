@@ -6,6 +6,8 @@ import 'package:web_store_management/Backend/Interfaces/IDashboard.dart';
 import 'package:web_store_management/Models/CollectionModel.dart';
 import 'package:web_store_management/Notification/Snack_notification.dart';
 
+import 'Utility/ApiUrl.dart';
+
 class DashboardOperation implements IDashboard {
   late final BuildContext context;
   var _formatter = new DateFormat('yyyy-MM-dd');
@@ -38,8 +40,8 @@ class DashboardOperation implements IDashboard {
   @override
   Future<double> getTodayCollection() async {
     try {
-      final response = await http
-          .get(Uri.parse('http://localhost:8090/api/today/' + getTodayDate()));
+      final response =
+          await http.get(Uri.parse(Url.url + "api/today/" + getTodayDate()));
 
       var todayTotalCollection = jsonDecode(response.body)[0];
 
@@ -47,7 +49,6 @@ class DashboardOperation implements IDashboard {
 
       if (response.statusCode == 404) {
         SnackNotification.notif(
- 
           'Error',
           'Cant fetch loaned product history',
           Colors.red.shade600,
@@ -59,7 +60,6 @@ class DashboardOperation implements IDashboard {
     } catch (e) {
       print(e.toString());
       SnackNotification.notif(
-
         'Error',
         'There is an error in fetching today collection',
         Colors.red.shade600,
@@ -72,8 +72,8 @@ class DashboardOperation implements IDashboard {
   Future<double> getWeekCollection() async {
     List<String> dates = getWeekDates();
     try {
-      final response = await http.get(Uri.parse(
-          'http://localhost:8090/api/week/' + dates[0] + '/' + dates[1]));
+      final response = await http
+          .get(Uri.parse(Url.url + "api/week/" + dates[0] + "/" + dates[1]));
 
       var weekTotalCollection = jsonDecode(response.body)[0];
 
@@ -81,7 +81,6 @@ class DashboardOperation implements IDashboard {
 
       if (response.statusCode == 404) {
         SnackNotification.notif(
-
           'Error',
           'Cant fetch loaned product history',
           Colors.red.shade600,
@@ -93,7 +92,6 @@ class DashboardOperation implements IDashboard {
     } catch (e) {
       print(e.toString());
       SnackNotification.notif(
-
         'Error',
         'There is an error in fetching today collection',
         Colors.red.shade600,
@@ -104,7 +102,6 @@ class DashboardOperation implements IDashboard {
 
   @override
   Future<double> getMonthCollection() {
-    // TODO: implement getMonthCollection
     throw UnimplementedError();
   }
 }
