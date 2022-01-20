@@ -13,10 +13,6 @@ class QrCode {
       embeddedImageStyle: QrEmbeddedImageStyle(
         size: Size(80, 80),
       ),
-      // errorStateBuilder: (cxt, err) {
-      //   return Container(
-      //       child: SnackNotification.notif('Error', "Cannot genearete qr"));
-      // },
     );
   }
 }

@@ -4,7 +4,7 @@ import 'package:web_store_management/Backend/Utility/Mapping.dart';
 import 'package:web_store_management/Pages/Borrowers/UpdateBorrowerPage.dart';
 import '../Reports/HistoryScreens/PaymentHistoryScreen.dart';
 import '../Reports/HistoryScreens/ProductHistoryScreen.dart';
-import '../../Helpers/CreateQR_helper.dart';
+import '../../Helpers/CreateQRHelper.dart';
 
 class ViewBorrowerProfile extends StatefulWidget {
   final String? id, name, number;

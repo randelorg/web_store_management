@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../../Helpers/Hashing_helper.dart';
+import '../../Helpers/HashingHelper.dart';
 import 'ConfirmNewAccount.dart';
-import '../../Helpers/FilePicker_helper.dart';
+import '../../Helpers/FilePickerHelper.dart';
 
 class AddAccount extends StatefulWidget {
   @override

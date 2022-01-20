@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:web_store_management/Models/EmployeeModel.dart';
-import '../Helpers/Hashing_helper.dart';
+import '../Helpers/HashingHelper.dart';
 import 'GlobalController.dart';
 import 'Interfaces/ILogin.dart';
 import '../Models/AdminModel.dart';

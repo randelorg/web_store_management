@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../Helpers/CreateQR_helper.dart';
+import '../../Helpers/CreateQRHelper.dart';
 
 class ViewEmpProfile extends StatefulWidget {
   final String? id, name, number, role;

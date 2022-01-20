@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:web_store_management/Notification/Snack_notification.dart';
-import '../../Helpers/FilePicker_helper.dart';
-import '../../Helpers/Hashing_helper.dart';
+import '../../Helpers/FilePickerHelper.dart';
+import '../../Helpers/HashingHelper.dart';
 import '../../Backend/EmployeeOperation.dart';
 
 class AddEmployee extends StatefulWidget {

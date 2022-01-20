@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:web_store_management/Notification/Snack_notification.dart';
 
 import 'Interfaces/IEmployee.dart';
-import '../Helpers/Hashing_helper.dart';
+import '../Helpers/HashingHelper.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 

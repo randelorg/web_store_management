@@ -4,7 +4,7 @@ import 'package:web_store_management/Notification/Snack_notification.dart';
 import 'Interfaces/IAdmin.dart';
 import 'Utility/ApiUrl.dart';
 import 'Utility/Mapping.dart';
-import '../Helpers/Hashing_helper.dart';
+import '../Helpers/HashingHelper.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
