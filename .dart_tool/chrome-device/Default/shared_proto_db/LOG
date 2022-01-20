@@ -1,8 +1,0 @@
-<<<<<<< HEAD
-2021/09/07-12:02:22.309 5d5c Reusing MANIFEST C:\Users\RANDEL~1\AppData\Local\Temp\flutter_tools.e4c76dc4\flutter_tools_chrome_device.78261030\Default\shared_proto_db/MANIFEST-000001
-2021/09/07-12:02:22.309 5d5c Recovering log #3
-2021/09/07-12:02:22.310 5d5c Reusing old log C:\Users\RANDEL~1\AppData\Local\Temp\flutter_tools.e4c76dc4\flutter_tools_chrome_device.78261030\Default\shared_proto_db/000003.log 
-=======
-2021/09/17-18:34:41.238 185c Creating DB C:\Users\rende\AppData\Local\Temp\flutter_tools.b0cad6c\flutter_tools_chrome_device.1ceb6ff6\Default\shared_proto_db since it was missing.
-2021/09/17-18:34:41.592 185c Reusing MANIFEST C:\Users\rende\AppData\Local\Temp\flutter_tools.b0cad6c\flutter_tools_chrome_device.1ceb6ff6\Default\shared_proto_db/MANIFEST-000001
->>>>>>> feature-b

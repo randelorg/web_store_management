@@ -1,8 +1,0 @@
-<<<<<<< HEAD
-2021/09/07-00:27:00.711 5dbc Creating DB C:\Users\RANDEL~1\AppData\Local\Temp\flutter_tools.b4705909\flutter_tools_chrome_device.58574d6a\Default\EdgePushStorageWithWinRt since it was missing.
-2021/09/07-00:27:00.729 5dbc Reusing MANIFEST C:\Users\RANDEL~1\AppData\Local\Temp\flutter_tools.b4705909\flutter_tools_chrome_device.58574d6a\Default\EdgePushStorageWithWinRt/MANIFEST-000001
-=======
-2021/09/20-16:29:32.721 38d4 Reusing MANIFEST C:\Users\rende\AppData\Local\Temp\flutter_tools.66c00f22\flutter_tools_chrome_device.35978d07\Default\EdgePushStorageWithWinRt/MANIFEST-000001
-2021/09/20-16:29:32.722 38d4 Recovering log #3
-2021/09/20-16:29:32.723 38d4 Reusing old log C:\Users\rende\AppData\Local\Temp\flutter_tools.66c00f22\flutter_tools_chrome_device.35978d07\Default\EdgePushStorageWithWinRt/000003.log 
->>>>>>> feature-b
