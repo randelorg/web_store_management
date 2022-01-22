@@ -9,6 +9,11 @@ class Mapping {
   //for login purposes
   //for identifying user role
   static String userRole = '';
+
+  //for reports purpose
+  //payment and loan history
+  static String borrowerId = '';
+
   static List<AdminModel> adminLogin = [];
   static List<EmployeeModel> employeeLogin = [];
 

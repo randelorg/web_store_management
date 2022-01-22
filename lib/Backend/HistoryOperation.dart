@@ -11,7 +11,7 @@ import 'Utility/ApiUrl.dart';
 class HistoryOperation implements IHistory {
   @override
   Future<bool> viewLoanHistory(String borrowerId) async {
-    if (borrowerId == '') return false;
+    if (borrowerId == "") return false;
     try {
       final response = await http
           .get(Uri.parse(Url.url + "api/loanedproducts/" + borrowerId));
@@ -45,6 +45,7 @@ class HistoryOperation implements IHistory {
 
   @override
   Future<bool> viewPaymentHistory(String borrowerId) async {
+    if (borrowerId == "") return false;
     try {
       final response =
           await http.get(Uri.parse(Url.url + "api/payment/" + borrowerId));
