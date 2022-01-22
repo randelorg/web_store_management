@@ -110,14 +110,6 @@ class _HistoryScreen extends State<HistoryScreen> {
       ),
     );
   }
-
-  void showHistory(final String id) {
-    var history = HistoryOperation();
-    setState(() {
-      history.viewLoanHistory(id);
-      this.context;
-    });
-  }
 }
 
 class _Row {
@@ -157,10 +149,7 @@ class _DataSource extends DataTableSource {
         DataCell(Text(row.valueA)),
         DataCell(Text(row.valueB)),
         DataCell((row.valueC), onTap: () {
-          PaymentHistory(
-            id: row.valueA,
-            borrowerName: row.valueB,
-          );
+          Mapping.borrowerId = row.valueA;
         }),
       ],
     );

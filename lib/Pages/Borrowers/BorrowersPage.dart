@@ -1,6 +1,7 @@
+import 'dart:js';
+
 import 'package:hexcolor/hexcolor.dart';
 import 'package:flutter/material.dart';
-import 'package:async/async.dart';
 import 'ViewBorrowerProfile.dart';
 import '../../Backend/Utility/Mapping.dart';
 import '../../Backend/GlobalController.dart';
@@ -12,13 +13,21 @@ class BorrowersPage extends StatefulWidget {
 
 class _BorrowersPage extends State<BorrowersPage> {
   var controller = GlobalController();
-  final AsyncMemoizer _memoizer = AsyncMemoizer();
+  List<_Row> _borrowers = [];
   late Future borrowers;
+  var _sortAscending = true;
 
   @override
   void initState() {
     super.initState();
-    borrowers = _getBorrowers();
+    borrowers = controller.fetchBorrowers();
+    checkLength();
+  }
+
+  void checkLength() {
+    if (Mapping.borrowerList.length > 0) {
+      _borrowers = _borrowerProfile();
+    }
   }
 
   @override
@@ -73,6 +82,7 @@ class _BorrowersPage extends State<BorrowersPage> {
                   );
                 }
                 if (snapshot.hasData) {
+                  //checkLength();
                   return ListView(
                     scrollDirection: Axis.vertical,
                     padding: const EdgeInsets.only(right: 100, left: 100),
@@ -80,15 +90,31 @@ class _BorrowersPage extends State<BorrowersPage> {
                       PaginatedDataTable(
                         showCheckboxColumn: false,
                         showFirstLastButtons: true,
+                        sortAscending: _sortAscending,
+                        sortColumnIndex: 1,
                         rowsPerPage: 15,
                         columns: [
                           DataColumn(label: Text('BID')),
-                          DataColumn(label: Text('Name')),
+                          DataColumn(
+                            label: Text('Name'),
+                            onSort: (index, sortAscending) {
+                              setState(() {
+                                _sortAscending = sortAscending;
+                                if (sortAscending) {
+                                  _borrowers.sort((a, b) =>
+                                      a.getValueB.compareTo(b.getValueB));
+                                } else {
+                                  _borrowers.sort((a, b) =>
+                                      b.getValueB.compareTo(a.getValueB));
+                                }
+                              });
+                            },
+                          ),
                           DataColumn(label: Text('Number')),
                           DataColumn(label: Text('Balance')),
                           DataColumn(label: Text('Action')),
                         ],
-                        source: _DataSource(context),
+                        source: _DataSource(context, _borrowers),
                       )
                     ],
                   );
@@ -104,12 +130,6 @@ class _BorrowersPage extends State<BorrowersPage> {
         ),
       ],
     );
-  }
-
-  _getBorrowers() async {
-    return this._memoizer.runOnce(() {
-      return controller.fetchBorrowers();
-    });
   }
 }
 
@@ -128,18 +148,74 @@ class _Row {
   final String valueD;
   final Widget valueE;
 
+  get getValueA => this.valueA;
+  get getValueB => this.valueB;
+
   bool selected = false;
 }
 
-class _DataSource extends DataTableSource {
-  _DataSource(this.context) {
-    _borrowers = _borrowerProfile();
+List<_Row> _borrowerProfile() {
+  try {
+    return List.generate(
+      Mapping.borrowerList.length,
+      (index) {
+        return new _Row(
+          Mapping.borrowerList[index].getBorrowerId.toString(),
+          Mapping.borrowerList[index].toString(),
+          Mapping.borrowerList[index].getMobileNumber.toString(),
+          Mapping.borrowerList[index].getBalance.toStringAsFixed(2).toString(),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(18),
+            child: Stack(
+              children: <Widget>[
+                Positioned.fill(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: HexColor("#155293"),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding:
+                      EdgeInsets.only(top: 8, bottom: 8, left: 10, right: 10),
+                  child: Text(
+                    'VIEW',
+                    style: TextStyle(
+                      fontFamily: 'Cairo_SemiBold',
+                      fontSize: 14,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  } catch (e) {
+    //if list borrowers is empty
+    return List.generate(
+      0,
+      (index) {
+        return new _Row(
+          "",
+          "",
+          "",
+          "",
+          Text(''),
+        );
+      },
+    );
   }
+}
+
+class _DataSource extends DataTableSource {
+  _DataSource(this.context, this._borrowers);
 
   final BuildContext context;
-
-  int _selectedCount = 0;
   List<_Row> _borrowers = [];
+  int _selectedCount = 0;
 
   @override
   DataRow? getRow(int index) {
@@ -188,62 +264,4 @@ class _DataSource extends DataTableSource {
 
   @override
   int get selectedRowCount => _selectedCount;
-
-  List<_Row> _borrowerProfile() {
-    try {
-      return List.generate(
-        Mapping.borrowerList.length,
-        (index) {
-          return new _Row(
-            Mapping.borrowerList[index].getBorrowerId.toString(),
-            Mapping.borrowerList[index].toString(),
-            Mapping.borrowerList[index].getMobileNumber.toString(),
-            Mapping.borrowerList[index].getBalance
-                .toStringAsFixed(2)
-                .toString(),
-            ClipRRect(
-              borderRadius: BorderRadius.circular(18),
-              child: Stack(
-                children: <Widget>[
-                  Positioned.fill(
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: HexColor("#155293"),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding:
-                        EdgeInsets.only(top: 8, bottom: 8, left: 10, right: 10),
-                    child: Text(
-                      'VIEW',
-                      style: TextStyle(
-                        fontFamily: 'Cairo_SemiBold',
-                        fontSize: 14,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          );
-        },
-      );
-    } catch (e) {
-      //if list borrowers is empty
-      return List.generate(
-        0,
-        (index) {
-          return new _Row(
-            "",
-            "",
-            "",
-            "",
-            Text(''),
-          );
-        },
-      );
-    }
-  }
 }
