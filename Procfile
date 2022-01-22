@@ -1,1 +1,1 @@
-web: flutter run
+web: index.html
