@@ -1,20 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/widgets.dart';
+import 'package:web_store_management/Backend/BorrowerOperation.dart';
+import 'package:web_store_management/Notification/Snack_notification.dart';
 
 class AddRepair extends StatefulWidget {
+  final String? id, name, address, number;
+  AddRepair({required this.id, this.name, this.address, this.number});
   @override
   _AddRepair createState() => _AddRepair();
 }
 
 class _AddRepair extends State<AddRepair> {
-  TextEditingController dateinput = TextEditingController();
+  var borrower = BorrowerOperation();
+  final TextEditingController dateinput = TextEditingController();
+  final TextEditingController productname = TextEditingController();
+  final TextEditingController brwname = TextEditingController();
+  final TextEditingController address = TextEditingController();
+  final TextEditingController mobile = TextEditingController();
 
   @override
   void initState() {
-    dateinput.text = "";
     super.initState();
+    dateinput.text = "";
+    brwname.text = widget.name.toString();
+    address.text = widget.address.toString();
+    mobile.text = widget.number.toString();
   }
 
   @override
@@ -38,6 +48,7 @@ class _AddRepair extends State<AddRepair> {
             Padding(
               padding: const EdgeInsets.all(6.0),
               child: TextField(
+                controller: productname,
                 decoration: InputDecoration(
                   hintText: 'Product name',
                   filled: true,
@@ -58,6 +69,7 @@ class _AddRepair extends State<AddRepair> {
             Padding(
               padding: const EdgeInsets.all(6.0),
               child: TextField(
+                controller: brwname,
                 decoration: InputDecoration(
                   hintText: 'Customer Name',
                   suffixIcon: InkWell(
@@ -86,6 +98,7 @@ class _AddRepair extends State<AddRepair> {
             Padding(
               padding: const EdgeInsets.all(6.0),
               child: TextField(
+                controller: address,
                 decoration: InputDecoration(
                   hintText: 'Address',
                   filled: true,
@@ -106,6 +119,7 @@ class _AddRepair extends State<AddRepair> {
             Padding(
               padding: const EdgeInsets.all(6.0),
               child: TextField(
+                controller: mobile,
                 decoration: InputDecoration(
                   hintText: 'Mobile Number',
                   filled: true,
@@ -151,7 +165,7 @@ class _AddRepair extends State<AddRepair> {
                   if (pickedDate != null) {
                     print(pickedDate);
                     String formattedDate =
-                        DateFormat('dd-MM-yyyy').format(pickedDate);
+                        DateFormat('yyyy-MM-dd').format(pickedDate);
                     print(formattedDate);
                     setState(() {
                       dateinput.text = formattedDate;
@@ -182,8 +196,25 @@ class _AddRepair extends State<AddRepair> {
                         primary: Colors.white,
                         textStyle: TextStyle(fontSize: 20),
                       ),
-                      onPressed: () {},
                       child: const Text('ADD REPAIR'),
+                      onPressed: () {
+                        Navigator.pop(context);
+                        borrower
+                            .addRepair(
+                          int.parse(widget.id.toString()),
+                          productname.text,
+                          dateinput.text,
+                        )
+                            .then((value) {
+                          if (!value) {
+                            SnackNotification.notif(
+                              'Error',
+                              'Failed to add new repair',
+                              Colors.red.shade500,
+                            );
+                          }
+                        });
+                      },
                     ),
                   ],
                 ),

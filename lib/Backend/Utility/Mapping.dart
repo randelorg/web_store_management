@@ -25,4 +25,5 @@ class Mapping {
   static List<BorrowerModel> creditApprovals = [];
   static List<PaymentHistoryModel> paymentList = [];
   static List<LoanedProductHistory> productHistoryList = [];
+  static List<BorrowerModel> repairs = [];
 }

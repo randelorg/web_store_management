@@ -83,4 +83,20 @@ class GlobalController {
         .toList();
     return Mapping.creditApprovals;
   }
+
+  //fetch all the credit approvals from the database
+  Future<List<BorrowerModel>> fetchRepairs() async {
+    final response = await http.get(Uri.parse(Url.url + "api/repairs"));
+
+    // Use the compute function to run parseAdmin in a separate isolate.
+    return compute(parseRepairs, response.body);
+  }
+
+  List<BorrowerModel> parseRepairs(String responseBody) {
+    final parsed = jsonDecode(responseBody).cast<Map<String, dynamic>>();
+    Mapping.repairs = parsed
+        .map<BorrowerModel>((json) => BorrowerModel.fromJsonRepair(json))
+        .toList();
+    return Mapping.repairs;
+  }
 }

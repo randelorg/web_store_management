@@ -75,36 +75,48 @@ class BorrowerOperation extends Login implements IBorrower, IPay {
   }
 
   @override
-  bool removeBorrower() {
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<bool> getBorrowerName(String requested_product, String id) async {
-    var requested = json.encode({
-      'requested': requested_product,
-      'borrowerId': id,
+  Future<bool> addRepair(int borrowerid, String product, String date) async {
+    final String status = 'PENDING';
+    var repairLoad = json.encode({
+      'id': borrowerid,
+      'status': status,
+      'productname': product.trim(),
+      'turnover': date.trim(),
     });
 
     try {
       final response = await http.post(
-        Uri.parse(Url.url + "api/borrower"),
+        Uri.parse(Url.url + "api/addrepair"),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json'
         },
-        body: requested,
+        body: repairLoad,
       );
 
       //if response is empty return false
       if (response.statusCode == 404) {
         return false;
       }
+
+      if (response.statusCode == 202) {
+        SnackNotification.notif(
+          'Success',
+          'New repair added successfully',
+          Colors.green.shade900,
+        );
+        return true;
+      }
     } catch (e) {
-      print(e);
+      print(e.toString());
       return false;
     }
-    //if status code is 202
+
     return true;
+  }
+
+  @override
+  bool removeBorrower() {
+    throw UnimplementedError();
   }
 }

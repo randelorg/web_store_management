@@ -2,7 +2,9 @@ import 'PersonModel.dart';
 
 class BorrowerModel extends PersonModel {
   int? borrowerId;
+  int? repairId;
   int? investigationID;
+  String? repairProductName;
   double? balance;
   List<dynamic>? contractImage;
 
@@ -10,10 +12,19 @@ class BorrowerModel extends PersonModel {
 
   set setBorrowerId(borrowerId) => this.borrowerId = borrowerId;
 
+  get getRepairId => this.repairId;
+
+  set setRepairId(repairId) => this.repairId = repairId;
+
   get getinvestigationID => this.investigationID;
 
   set setinvestigationID(int investigationID) =>
       this.investigationID = investigationID;
+
+  get getRepairProductName => this.repairProductName;
+
+  set setRepairProductName(String? repairProductName) =>
+      this.repairProductName = repairProductName;
 
   get getBalance => this.balance;
 
@@ -64,6 +75,16 @@ class BorrowerModel extends PersonModel {
       homeAddress})
       : super.withOutId(firstname, lastname, mobileNumber, homeAddress);
 
+  BorrowerModel.repairs(
+      {this.repairId,
+      this.borrowerId,
+      this.repairProductName,
+      firstname,
+      lastname,
+      mobileNumber,
+      homeAddress})
+      : super.withOutId(firstname, lastname, mobileNumber, homeAddress);
+
   BorrowerModel.fullJsonPartial({
     this.borrowerId,
     firstname,
@@ -77,6 +98,18 @@ class BorrowerModel extends PersonModel {
     return BorrowerModel.creditApproval(
       investigationID: json['InvestigationID'] as int,
       borrowerId: json['BorrowerID'] as int,
+      firstname: json['Firstname'] as String,
+      lastname: json['Lastname'] as String,
+      mobileNumber: json['MobileNumber'] as String,
+      homeAddress: json['HomeAddress'] as String,
+    );
+  }
+
+  factory BorrowerModel.fromJsonRepair(Map<String, dynamic> json) {
+    return BorrowerModel.repairs(
+      repairId: json['RepairID'] as int,
+      borrowerId: json['BorrowerID'] as int,
+      repairProductName: json['Product'] as String,
       firstname: json['Firstname'] as String,
       lastname: json['Lastname'] as String,
       mobileNumber: json['MobileNumber'] as String,
