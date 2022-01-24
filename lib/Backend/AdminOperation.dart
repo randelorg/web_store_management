@@ -72,14 +72,45 @@ class AdminOperation implements IAdmin {
   void deleteAdminAccount() {}
 
   @override
-  void updateAdminAccount() {}
-
-  @override
   bool verifyAdmin(String password) {
     print(Mapping.adminLogin[0].getPassword.toString());
     if (Mapping.adminLogin[0].getPassword.toString() == hash.encrypt(password))
       return true;
 
     return false;
+  }
+
+  @override
+  Future<bool> updateAdminAccount(
+      final String id, String username, final String password) async {
+    var adminUpdateLoad = json.encode({
+      'id': id,
+      'Username': username.trim(),
+      'Password': hash.encrypt(password),
+    });
+
+    try {
+      final response = await http.post(
+        Uri.parse(Url.url + "api/updateadmin"),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: adminUpdateLoad,
+      );
+
+      if (response.statusCode == 404) return false;
+    } catch (e) {
+      e.toString();
+      SnackNotification.notif(
+        'Error',
+        'Something went wrong while updating the admin',
+        Colors.redAccent.shade200,
+      );
+      return false;
+    }
+
+    //if status code is 202
+    return true;
   }
 }

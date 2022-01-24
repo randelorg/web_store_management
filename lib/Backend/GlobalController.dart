@@ -99,4 +99,22 @@ class GlobalController {
         .toList();
     return Mapping.repairs;
   }
+
+  //fetch all the credit approvals from the database
+  Future<List<BorrowerModel>> fetchRequestedProducts() async {
+    final response =
+        await http.get(Uri.parse(Url.url + "api/requestedproducts"));
+
+    // Use the compute function to run parseAdmin in a separate isolate.
+    return compute(parseRequestedProducts, response.body);
+  }
+
+  List<BorrowerModel> parseRequestedProducts(String responseBody) {
+    final parsed = jsonDecode(responseBody).cast<Map<String, dynamic>>();
+    Mapping.requested = parsed
+        .map<BorrowerModel>(
+            (json) => BorrowerModel.fromJsonRequestedProduct(json))
+        .toList();
+    return Mapping.requested;
+  }
 }

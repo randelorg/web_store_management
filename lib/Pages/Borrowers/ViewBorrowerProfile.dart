@@ -63,7 +63,6 @@ class _ViewBorrowerProfile extends State<ViewBorrowerProfile> {
                 style: TextStyle(color: Colors.black),
               ),
               onPressed: () async {
-                print('button' + address);
                 String fullname = widget.name.toString().trim();
                 List name = fullname.split(" ");
                 await showDialog(

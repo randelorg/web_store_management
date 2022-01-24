@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:web_store_management/Backend/Utility/Mapping.dart';
+import 'package:web_store_management/Pages/Employees/UpdateEmployee.dart';
 import '../../Helpers/CreateQRHelper.dart';
 
 class ViewEmpProfile extends StatefulWidget {
@@ -43,7 +45,22 @@ class _ViewEmpProfile extends State<ViewEmpProfile> {
                 'Update Profile',
                 style: TextStyle(color: Colors.black),
               ),
-              onPressed: () {},
+              onPressed: () async {
+                String fullname = widget.name.toString().trim();
+                List name = fullname.split(" ");
+                await showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return UpdateEmployee(
+                      eid: widget.id.toString(),
+                      firstname: name[0],
+                      lastname: name[1],
+                      number: widget.number.toString(),
+                      address: _findAddress(widget.id.toString()),
+                    );
+                  },
+                );
+              },
             ),
             Card(
               margin: EdgeInsets.all(10),
@@ -159,6 +176,16 @@ class _ViewEmpProfile extends State<ViewEmpProfile> {
         ),
       ],
     );
+  }
+
+  String _findAddress(String eid) {
+    String address = '';
+    Mapping.employeeList
+        .where((element) => element.getEmployeeID.toString() == eid)
+        .forEach((element) {
+      address = element.getHomeAddress;
+    });
+    return address;
   }
 
   String qrContent() {

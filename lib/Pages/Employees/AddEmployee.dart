@@ -27,7 +27,7 @@ class _AddEmployee extends State<AddEmployee> {
   final password = TextEditingController();
   final confirmPassword = TextEditingController();
 
-//for dropdown list
+  //for dropdown list
   String collector = 'Collector';
   String storeAttendant = 'Store Attendant';
   String error = '';

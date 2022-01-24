@@ -14,5 +14,9 @@ class IEmployee {
   }
 
   void deleteEmployeeAccount() {}
-  void updateEmployeeAccount() {}
+
+  Future<bool> updateEmployeeAccount(String id, String role, String mobile, String address) {
+    var a;
+    return a;
+  }
 }

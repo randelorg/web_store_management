@@ -3,8 +3,10 @@ import 'PersonModel.dart';
 class BorrowerModel extends PersonModel {
   int? borrowerId;
   int? repairId;
+  int? requestId;
   int? investigationID;
   String? repairProductName;
+  String? requestedProductName;
   double? balance;
   List<dynamic>? contractImage;
 
@@ -16,6 +18,10 @@ class BorrowerModel extends PersonModel {
 
   set setRepairId(repairId) => this.repairId = repairId;
 
+  get getRequestId => this.requestId;
+
+  set setRequestId(int requestId) => this.requestId = requestId;
+
   get getinvestigationID => this.investigationID;
 
   set setinvestigationID(int investigationID) =>
@@ -23,8 +29,13 @@ class BorrowerModel extends PersonModel {
 
   get getRepairProductName => this.repairProductName;
 
-  set setRepairProductName(String? repairProductName) =>
+  set setRepairProductName(String repairProductName) =>
       this.repairProductName = repairProductName;
+
+  get getRequestedProductName => this.requestedProductName;
+
+  set setRequestedProductName(String requestedProductName) =>
+      this.requestedProductName = requestedProductName;
 
   get getBalance => this.balance;
 
@@ -85,6 +96,16 @@ class BorrowerModel extends PersonModel {
       homeAddress})
       : super.withOutId(firstname, lastname, mobileNumber, homeAddress);
 
+  BorrowerModel.requestProduct(
+      {this.requestId,
+      this.borrowerId,
+      this.requestedProductName,
+      firstname,
+      lastname,
+      mobileNumber,
+      homeAddress})
+      : super.withOutId(firstname, lastname, mobileNumber, homeAddress);
+
   BorrowerModel.fullJsonPartial({
     this.borrowerId,
     firstname,
@@ -110,6 +131,18 @@ class BorrowerModel extends PersonModel {
       repairId: json['RepairID'] as int,
       borrowerId: json['BorrowerID'] as int,
       repairProductName: json['Product'] as String,
+      firstname: json['Firstname'] as String,
+      lastname: json['Lastname'] as String,
+      mobileNumber: json['MobileNumber'] as String,
+      homeAddress: json['HomeAddress'] as String,
+    );
+  }
+
+  factory BorrowerModel.fromJsonRequestedProduct(Map<String, dynamic> json) {
+    return BorrowerModel.requestProduct(
+      requestId: json['RequestID'] as int,
+      borrowerId: json['BorrowerID'] as int,
+      requestedProductName: json['Product'] as String,
       firstname: json['Firstname'] as String,
       lastname: json['Lastname'] as String,
       mobileNumber: json['MobileNumber'] as String,

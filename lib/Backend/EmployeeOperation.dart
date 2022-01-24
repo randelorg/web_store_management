@@ -66,5 +66,37 @@ class EmployeeOperation implements IEmployee {
   void deleteEmployeeAccount() {}
 
   @override
-  void updateEmployeeAccount() {}
+  Future<bool> updateEmployeeAccount(
+      String id, String role, String mobile, String address) async {
+    var adminUpdateLoad = json.encode({
+      'id': id,
+      'Role': role.trim(),
+      'mobile': mobile,
+      'address': address,
+    });
+
+    try {
+      final response = await http.post(
+        Uri.parse(Url.url + "api/updateemp"),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: adminUpdateLoad,
+      );
+
+      if (response.statusCode == 404) return false;
+    } catch (e) {
+      e.toString();
+      SnackNotification.notif(
+        'Error',
+        'Something went wrong while updating the employee',
+        Colors.redAccent.shade200,
+      );
+      return false;
+    }
+
+    //if status code is 202
+    return true;
+  }
 }

@@ -75,8 +75,44 @@ class BorrowerOperation extends Login implements IBorrower, IPay {
   }
 
   @override
-  Future<bool> addRequest(int borrowerid, String product, String date) {
-    throw UnimplementedError();
+  Future<bool> addRequest(int borrowerid, String product, String date) async {
+    final String status = 'PENDING';
+    var requestLoad = json.encode({
+      'id': borrowerid,
+      'status': status,
+      'productname': product.trim(),
+      'reqDate': date.trim(),
+    });
+
+    try {
+      final response = await http.post(
+        Uri.parse(Url.url + "api/addrequest"),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: requestLoad,
+      );
+
+      //if response is empty return false
+      if (response.statusCode == 404) {
+        return false;
+      }
+
+      if (response.statusCode == 202) {
+        SnackNotification.notif(
+          'Success',
+          'New request added successfully',
+          Colors.green.shade900,
+        );
+        return true;
+      }
+    } catch (e) {
+      print(e.toString());
+      return false;
+    }
+
+    return true;
   }
 
   @override

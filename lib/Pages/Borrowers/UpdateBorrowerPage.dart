@@ -4,12 +4,13 @@ import 'package:web_store_management/Notification/Snack_notification.dart';
 
 class UpdateBorrowerPage extends StatefulWidget {
   final String? bid, firstname, lastname, number, address;
-  UpdateBorrowerPage(
-      {required this.bid,
-      this.firstname,
-      this.lastname,
-      this.number,
-      this.address});
+  UpdateBorrowerPage({
+    required this.bid,
+    this.firstname,
+    this.lastname,
+    this.number,
+    this.address,
+  });
 
   @override
   _UpdateBorrowerPage createState() => _UpdateBorrowerPage();

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:web_store_management/Backend/AdminOperation.dart';
+import 'package:web_store_management/Backend/Utility/Mapping.dart';
 import 'package:web_store_management/Models/AdminModel.dart';
 import 'package:web_store_management/Models/EmployeeModel.dart';
-import '../../Backend/Session.dart';
+import 'package:web_store_management/Notification/Snack_notification.dart';
 
 class UpdateProfile extends StatefulWidget {
   @override
@@ -18,23 +20,23 @@ class _EditProfile extends State<UpdateProfile> {
 
   AdminModel admin = AdminModel.empty();
   EmployeeModel emp = EmployeeModel.empty();
+  var adminOperation = AdminOperation();
+
+  String error = '';
 
   @override
   void initState() {
     super.initState();
-    Session.getrole().then((value) {
-      switch (value) {
-        case 'Administrator':
-          firstname.text = admin.getFirstname;
-          lastname.text = admin.getLastname;
-          break;
-        case 'StoreAttendant':
-          firstname.text = emp.getFirstname;
-          lastname.text = emp.getLastname;
-          break;
-        default:
-      }
-    });
+    switch (Mapping.userRole) {
+      case 'Administrator':
+        username.text = Mapping.adminLogin[0].getUsername;
+        firstname.text = Mapping.adminLogin[0].getFirstname;
+        lastname.text = Mapping.adminLogin[0].getLastname;
+        break;
+      case 'StoreAttedant':
+        break;
+      default:
+    }
   }
 
   @override
@@ -105,6 +107,7 @@ class _EditProfile extends State<UpdateProfile> {
                         padding: EdgeInsets.only(bottom: 20),
                         child: TextField(
                           controller: firstname,
+                          enabled: false,
                           decoration: InputDecoration(
                             enabled: false,
                             hintText: 'Firstname',
@@ -139,6 +142,7 @@ class _EditProfile extends State<UpdateProfile> {
                         padding: EdgeInsets.only(bottom: 20),
                         child: TextField(
                           controller: lastname,
+                          enabled: false,
                           decoration: InputDecoration(
                             enabled: false,
                             hintText: 'Lastname',
@@ -187,10 +191,21 @@ class _EditProfile extends State<UpdateProfile> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(bottom: 20),
+              padding: EdgeInsets.only(bottom: 5),
               child: TextField(
                 controller: confPassword,
                 obscureText: true,
+                onChanged: (value) {
+                  setState(() {
+                    if (value.length > 0) {
+                      if (value == password.text) {
+                        error = 'Password match';
+                      } else {
+                        error = 'Password did not match';
+                      }
+                    }
+                  });
+                },
                 decoration: InputDecoration(
                   hintText: 'Confirm Password',
                   filled: true,
@@ -207,6 +222,10 @@ class _EditProfile extends State<UpdateProfile> {
                   ),
                 ),
               ),
+            ),
+            Text(
+              error,
+              style: TextStyle(fontSize: 10),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
@@ -236,7 +255,24 @@ class _EditProfile extends State<UpdateProfile> {
                             textStyle: TextStyle(fontSize: 20),
                           ),
                           child: const Text('UPDATE'),
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.pop(context);
+                            adminOperation
+                                .updateAdminAccount(
+                              Mapping.adminLogin[0].getAdminId,
+                              username.text,
+                              password.text,
+                            )
+                                .then((value) {
+                              if (value) {
+                                SnackNotification.notif(
+                                  "Success",
+                                  "Successfully updated admin",
+                                  Colors.green.shade500,
+                                );
+                              }
+                            });
+                          },
                         ),
                       ],
                     ),
