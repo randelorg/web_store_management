@@ -75,6 +75,11 @@ class BorrowerOperation extends Login implements IBorrower, IPay {
   }
 
   @override
+  Future<bool> addRequest(int borrowerid, String product, String date) {
+    throw UnimplementedError();
+  }
+
+  @override
   Future<bool> addRepair(int borrowerid, String product, String date) async {
     final String status = 'PENDING';
     var repairLoad = json.encode({

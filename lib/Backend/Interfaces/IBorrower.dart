@@ -5,15 +5,15 @@ class IBorrower {
     return a;
   }
 
-  Future<bool> addRepair(int borrowerid, String product, String date) {
+  Future<bool> addRequest(int borrowerid, String product, String date) {
     var a;
     return a;
   }
 
-  // Future<List<String>> getBorrowerName(String firstname, String lastname) {
-  //   var a;
-  //   return a;
-  // }
+  Future<bool> addRepair(int borrowerid, String product, String date) {
+    var a;
+    return a;
+  }
 
   bool removeBorrower() {
     return false;

@@ -70,6 +70,7 @@ class _AddRepair extends State<AddRepair> {
               padding: const EdgeInsets.all(6.0),
               child: TextField(
                 controller: brwname,
+                enabled: false,
                 decoration: InputDecoration(
                   hintText: 'Customer Name',
                   suffixIcon: InkWell(
@@ -99,6 +100,7 @@ class _AddRepair extends State<AddRepair> {
               padding: const EdgeInsets.all(6.0),
               child: TextField(
                 controller: address,
+                enabled: false,
                 decoration: InputDecoration(
                   hintText: 'Address',
                   filled: true,
@@ -120,6 +122,7 @@ class _AddRepair extends State<AddRepair> {
               padding: const EdgeInsets.all(6.0),
               child: TextField(
                 controller: mobile,
+                enabled: false,
                 decoration: InputDecoration(
                   hintText: 'Mobile Number',
                   filled: true,

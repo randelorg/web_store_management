@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:web_store_management/Models/AdminModel.dart';
 import 'package:web_store_management/Models/EmployeeModel.dart';
@@ -228,7 +227,11 @@ class _EditProfile extends State<UpdateProfile> {
                         TextButton(
                           style: TextButton.styleFrom(
                             padding: const EdgeInsets.only(
-                                left: 20, right: 20, top: 15, bottom: 15),
+                              left: 20,
+                              right: 20,
+                              top: 15,
+                              bottom: 15,
+                            ),
                             primary: Colors.white,
                             textStyle: TextStyle(fontSize: 20),
                           ),
