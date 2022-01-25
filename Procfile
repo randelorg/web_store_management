@@ -1,0 +1,1 @@
+web: ./dark-sdk/bin/dart lib/main.dart
