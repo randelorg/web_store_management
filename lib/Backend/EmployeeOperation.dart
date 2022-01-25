@@ -67,9 +67,10 @@ class EmployeeOperation implements IEmployee {
 
   @override
   Future<bool> updateEmployeeAccount(
-      String id, String role, String mobile, String address) async {
+      int pid, String eid, String role, String mobile, String address) async {
     var adminUpdateLoad = json.encode({
-      'id': id,
+      'pid': pid,
+      'eid': eid,
       'Role': role.trim(),
       'mobile': mobile,
       'address': address,

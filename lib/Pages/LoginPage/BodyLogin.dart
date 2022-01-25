@@ -11,18 +11,16 @@ class BodyLogin extends StatefulWidget {
 class _BodyLogin extends State<BodyLogin> {
   var login = Login();
   var controller = GlobalController();
+  final username = TextEditingController();
+  final password = TextEditingController();
 
   String administrator = 'Administrator';
   String storeAttendant = 'Store Attendant';
   String? loginRole;
-  final username = TextEditingController();
-  final password = TextEditingController();
-  late Future _loginStatus;
+
   @override
   void initState() {
     super.initState();
-    this._loginStatus =
-        login.mainLogin(administrator.toString(), username.text, password.text);
   }
 
   @override
@@ -166,14 +164,20 @@ class _BodyLogin extends State<BodyLogin> {
               } else {
                 login
                     .mainLogin(
-                        administrator.toString(), username.text, password.text)
+                  administrator.toString(),
+                  username.text,
+                  password.text,
+                )
                     .then((value) {
                   setState(() {
                     if (value) {
                       Navigator.pushNamed(context, '/home');
                     } else {
-                      SnackNotification.notif("Error",
-                          "Wrong username or password", Colors.red.shade600);
+                      SnackNotification.notif(
+                        "Error",
+                        "Wrong username or password",
+                        Colors.red.shade600,
+                      );
                     }
                   });
                 });

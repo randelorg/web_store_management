@@ -12,13 +12,16 @@ class EmployeePage extends StatefulWidget {
 }
 
 class _Employeepage extends State<EmployeePage> {
+  var controller = GlobalController();
   String collector = 'Collector';
   String storeAttendant = 'Store Attendant';
-  var controller = GlobalController();
+
+  late Future employees;
 
   @override
   void initState() {
     super.initState();
+    employees = controller.fetchAllEmployees();
   }
 
   @override
@@ -153,7 +156,7 @@ class _Employeepage extends State<EmployeePage> {
             width: (MediaQuery.of(context).size.width),
             height: (MediaQuery.of(context).size.height),
             child: FutureBuilder(
-              future: controller.fetchAllEmployees(),
+              future: employees,
               builder: (context, snapshot) {
                 if (!snapshot.hasData) {
                   return Center(
@@ -254,7 +257,7 @@ class _DataSource extends DataTableSource {
             context: context,
             builder: (BuildContext context) {
               return ViewEmpProfile(
-                id: row.valueA,
+                eid: row.valueA,
                 role: row.valueB,
                 name: row.valueC,
                 number: row.valueD,
@@ -295,7 +298,7 @@ class _DataSource extends DataTableSource {
     try {
       return List.generate(Mapping.employeeList.length, (index) {
         return new _Row(
-          Mapping.employeeList[index].getEmployeeID.toString(),
+          Mapping.employeeList[index].getPersonId.toString(),
           Mapping.employeeList[index].getRole.toString(),
           Mapping.employeeList[index].toString(),
           Mapping.employeeList[index].getMobileNumber.toString(),

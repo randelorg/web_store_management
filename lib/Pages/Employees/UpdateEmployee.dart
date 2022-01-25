@@ -3,8 +3,10 @@ import 'package:web_store_management/Backend/EmployeeOperation.dart';
 import 'package:web_store_management/Notification/Snack_notification.dart';
 
 class UpdateEmployee extends StatefulWidget {
+  final int? pid;
   final String? eid, firstname, lastname, number, address;
   UpdateEmployee({
+    required this.pid,
     required this.eid,
     this.firstname,
     this.lastname,
@@ -28,6 +30,7 @@ class _UpdateEmployee extends State<UpdateEmployee> {
 
   @override
   void initState() {
+    print(widget.pid?.toInt());
     super.initState();
     firstname.text = widget.firstname.toString();
     lastname.text = widget.lastname.toString();
@@ -250,6 +253,7 @@ class _UpdateEmployee extends State<UpdateEmployee> {
                       onPressed: () {
                         employee
                             .updateEmployeeAccount(
+                                widget.pid!.toInt(),
                                 widget.eid.toString(),
                                 collector.replaceAll(' ', '').toString(),
                                 number.text,

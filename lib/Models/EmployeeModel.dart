@@ -85,6 +85,11 @@ class EmployeeModel extends PersonModel {
     this.employeeID = employeeID;
     this.role = role;
     this.username = username;
+    this.personId = personId;
+    this.firstname = firstname;
+    this.lastname = lastname;
+    this.mobileNumber = mobileNumber;
+    this.homeAddress = homeAddress;
   }
 
   EmployeeModel.loginJson({
@@ -140,16 +145,4 @@ class EmployeeModel extends PersonModel {
       homeAddress: json["HomeAddress"] as String,
     );
   }
-
-  Map<String, dynamic> toJson() => {
-        "EmployeeID": employeeID,
-        "Role": role,
-        "Username": username,
-        "Password": password,
-        "UserImage": userImage,
-        "Firstname": firstname,
-        "Lastname": lastname,
-        "MobileNumber": mobileNumber,
-        "HomeAddress": homeAddress,
-      };
 }
