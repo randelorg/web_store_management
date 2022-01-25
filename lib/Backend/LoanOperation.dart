@@ -13,9 +13,7 @@ class LoanOperation extends BorrowerOperation implements INewLoan {
   @override
   Future<bool> addBorrower(String firstname, String lastname, String mobile,
       String homeaddress, num balance) async {
-    String id = '8';
-    var borrower = json.encode({
-      'id': id,
+    var brwDetail1 = json.encode({
       'firstname': firstname.trim(),
       'lastname': lastname.trim(),
       'mobile': mobile.trim(),
@@ -23,17 +21,32 @@ class LoanOperation extends BorrowerOperation implements INewLoan {
       'balance': balance,
     });
 
+    var brwDetail2 = json.encode({
+      'firstname': firstname.trim(),
+      'lastname': lastname.trim(),
+    });
+
     try {
-      final response = await http.post(
-        Uri.parse(Url.url + "api/addborrower"),
+      final response1 = await http.post(
+        Uri.parse("http://localhost:8090/api/addborrower"),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json'
         },
-        body: borrower,
+        body: brwDetail1,
       );
 
-      if (response.statusCode == 404) return false;
+      final response2 = await http.post(
+        Uri.parse("http://localhost:8090/api/addinvestigation"),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: brwDetail2,
+      );
+
+      if (response1.statusCode == 404 || response2.statusCode == 404)
+        return false;
     } catch (e) {
       e.toString();
       SnackNotification.notif(
@@ -54,7 +67,7 @@ class LoanOperation extends BorrowerOperation implements INewLoan {
     for (var item in Mapping.selectedProducts) {
       try {
         await http.post(
-          Uri.parse(Url.url + "api/addloan"),
+          Uri.parse("http://localhost:8090/api/addloan"),
           headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json'

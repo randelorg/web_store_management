@@ -47,12 +47,6 @@ class _NavDrawer extends State<NavDrawer> {
         }
       });
     });
-    // if (Mapping.userRole == 'Administrator')
-    //   pages.add(EmployeePage());
-    // else
-    //   pages.remove(EmployeePage());
-
-    print('pages' + pages.length.toString());
   }
 
   @override
@@ -68,7 +62,6 @@ class _NavDrawer extends State<NavDrawer> {
             backgroundColor: Colors.grey.shade900,
             selectedIndex: _selectedIndex,
             onDestinationSelected: (int index) {
-              print('index' + index.toString());
               if (Mapping.userRole == 'Store Attendant') {
                 if (index == 9) {
                   SnackNotification.notif(

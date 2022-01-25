@@ -191,7 +191,7 @@ class _PaymentPlanPage extends State<PaymentPlanPage> {
                       lastDate: DateTime(2031));
                   if (pickedDate != null) {
                     String formattedDate =
-                        DateFormat('dd-MM-yyyy').format(pickedDate);
+                        DateFormat('yyyy-MM-dd').format(pickedDate);
                     setState(() {
                       duedate.text = formattedDate;
                     });
