@@ -62,7 +62,7 @@ class Login extends GlobalController implements ILogin {
     return true;
   }
 
-  Future<bool> _users(http.Response response, String role) async {
+  Future<bool> _users(http.Response response, final String role) async {
     //for identifying the user role
     Mapping.userRole = role;
 

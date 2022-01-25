@@ -17,7 +17,7 @@ class _ViewProfileState extends State<ViewProfile> {
   void initState() {
     super.initState();
     try {
-      if (Mapping.userRole == "StoreAttendant") {
+      if (Mapping.userRole == "Store Attendant") {
         name = Mapping.employeeLogin[0].toString();
         picture = Mapping.employeeLogin[0].getUserImage.cast<int>();
       } else {

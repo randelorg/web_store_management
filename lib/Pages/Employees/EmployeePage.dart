@@ -298,7 +298,7 @@ class _DataSource extends DataTableSource {
     try {
       return List.generate(Mapping.employeeList.length, (index) {
         return new _Row(
-          Mapping.employeeList[index].getPersonId.toString(),
+          Mapping.employeeList[index].getEmployeeID.toString(),
           Mapping.employeeList[index].getRole.toString(),
           Mapping.employeeList[index].toString(),
           Mapping.employeeList[index].getMobileNumber.toString(),

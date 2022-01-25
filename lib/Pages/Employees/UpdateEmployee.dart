@@ -259,12 +259,12 @@ class _UpdateEmployee extends State<UpdateEmployee> {
                                 number.text,
                                 address.text)
                             .then((value) {
-                          if (!value) {
+                          if (value) {
                             Navigator.pop(context);
                             SnackNotification.notif(
-                              'Error',
-                              'Something went wrong while updating the employee',
-                              Colors.redAccent.shade200,
+                              'Success',
+                              'Successfully updated employee account',
+                              Colors.green.shade500,
                             );
                           }
                         });

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:web_store_management/Backend/Session.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
+import 'package:web_store_management/Notification/Snack_notification.dart';
 import '../DashBoard/TimeCollection.dart';
 import '../NewLoan/SelectionOfProductsPage.dart';
 import '../Borrowers/BorrowersPage.dart';
@@ -20,29 +21,7 @@ class NavDrawer extends StatefulWidget {
 }
 
 class _NavDrawer extends State<NavDrawer> {
-  @override
-  void initState() {
-    super.initState();
-
-    Session.getid().then((id) {
-      setState(() {
-        if (id.compareTo('') == 0) {
-          Navigator.pushNamed(context, '/logout');
-        }
-      });
-    });
-    if (Mapping.userRole == 'Administrator') {
-      setState(() {
-        pages.add(EmployeePage());
-      });
-    } else {
-      setState(() {
-        pages.remove(EmployeePage());
-      });
-    }
-  }
-
-  int _selectedIndex = 1;
+  int _selectedIndex = 0;
 
   List<Widget> pages = [
     TimeCollection(),
@@ -54,7 +33,27 @@ class _NavDrawer extends State<NavDrawer> {
     RepairsPage(),
     InventoryPage(),
     ViewReport(),
+    EmployeePage(),
   ];
+
+  @override
+  void initState() {
+    super.initState();
+
+    Session.getid().then((id) {
+      setState(() {
+        if (id.compareTo('') == 0) {
+          Navigator.pushNamed(context, '/logout');
+        }
+      });
+    });
+    // if (Mapping.userRole == 'Administrator')
+    //   pages.add(EmployeePage());
+    // else
+    //   pages.remove(EmployeePage());
+
+    print('pages' + pages.length.toString());
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -69,6 +68,17 @@ class _NavDrawer extends State<NavDrawer> {
             backgroundColor: Colors.grey.shade900,
             selectedIndex: _selectedIndex,
             onDestinationSelected: (int index) {
+              print('index' + index.toString());
+              if (Mapping.userRole == 'Store Attendant') {
+                if (index == 9) {
+                  SnackNotification.notif(
+                    "No Access",
+                    "You don't have right to access this tab",
+                    Colors.red.shade500,
+                  );
+                }
+                return;
+              }
               setState(() {
                 _selectedIndex = index;
               });

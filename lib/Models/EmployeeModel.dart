@@ -70,6 +70,10 @@ class EmployeeModel extends PersonModel {
     this.role = role;
     this.username = username;
     this.userImage = userImage;
+    this.firstname = firstname;
+    this.lastname = lastname;
+    this.mobileNumber = mobileNumber;
+    this.homeAddress = homeAddress;
   }
 
   EmployeeModel.fullJson({
@@ -106,6 +110,10 @@ class EmployeeModel extends PersonModel {
     this.role = role;
     this.username = username;
     this.userImage = userImage;
+    this.firstname = firstname;
+    this.lastname = lastname;
+    this.mobileNumber = mobileNumber;
+    this.homeAddress = homeAddress;
   }
 
   //for payroll

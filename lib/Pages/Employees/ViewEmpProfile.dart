@@ -193,7 +193,6 @@ class _ViewEmpProfile extends State<ViewEmpProfile> {
       });
       return pid;
     } catch (e) {
-      print(e);
       return 0;
     }
   }
