@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:printing/printing.dart';
 import 'package:web_store_management/Backend/GlobalController.dart';
 import 'package:web_store_management/Backend/LoanOperation.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
+import 'package:web_store_management/Helpers/PrintHelper.dart';
 import 'package:web_store_management/Notification/Snack_notification.dart';
 
 class CreditScreen extends StatefulWidget {
@@ -297,6 +299,22 @@ class _CreditPage extends State<CreditScreen> {
                     color: Colors.redAccent.shade400,
                     tooltip: 'DENY CREDIT',
                     onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return Container(
+                            child: PdfPreview(
+                              padding: EdgeInsets.all(100),
+                              build: (format) => PrintHelper.generatePdf(
+                                format,
+                                Mapping.creditApprovals[index].getBorrowerId
+                                    .toString(),
+                                Mapping.creditApprovals[index].toString(),
+                              ),
+                            ),
+                          );
+                        },
+                      );
                       print(Mapping.creditApprovals[index].toString());
                     },
                   ),
