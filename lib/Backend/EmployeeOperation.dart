@@ -20,11 +20,8 @@ class EmployeeOperation implements IEmployee {
       String? username,
       String? password,
       Uint8List? image) async {
-    var id = 'emp-009';
-
     var addEmployee = json.encode(
       {
-        'EmployeeID': id,
         'Role': role,
         'Username': username,
         'Password': password,
@@ -38,7 +35,7 @@ class EmployeeOperation implements IEmployee {
 
     try {
       final response = await http.post(
-        Uri.parse(Url.url + "api/employee"),
+        Uri.parse("http://localhost:8090/api/employee"),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json'
