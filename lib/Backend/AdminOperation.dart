@@ -21,9 +21,7 @@ class AdminOperation implements IAdmin {
       String? password,
       Uint8List? image) async {
     //json body
-    var id = 'admin-015';
     var addAdmin = json.encode({
-      'AdminID': id,
       'Username': username,
       'Password': password,
       'Firstname': firstname,
@@ -35,7 +33,7 @@ class AdminOperation implements IAdmin {
 
     try {
       final response = await http.post(
-        Uri.parse(Url.url + "api/admin"),
+        Uri.parse("http://localhost:8090/api/admin"),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json'
