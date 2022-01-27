@@ -101,45 +101,20 @@ class _Row {
   bool selected = false;
 }
 
-List _borrowerProfile(BuildContext context) {
-  List<_Row> _employees;
-
-  try {
-    return _employees = List.generate(Mapping.employeeList.length, (index) {
-      return new _Row(
-        Mapping.employeeList[index].getEmployeeID.toString(),
-        Mapping.employeeList[index].getRole.toString(),
-        Mapping.employeeList[index].toString(),
-        Mapping.employeeList[index].getMobileNumber.toString(),
-      );
-    });
-  } catch (e) {
-    //if employees list is empty
-    return _employees = List.generate(0, (index) {
-      return _Row(
-        '',
-        '',
-        '',
-        '',
-      );
-    });
-  }
-}
-
 class _DataSource extends DataTableSource {
   _DataSource(this.context) {
-    _borrowerProfile(context);
+    payroll = _borrowerProfile();
   }
 
   final BuildContext context;
-
+  List<_Row> payroll = [];
   int _selectedCount = 0;
 
   @override
   DataRow? getRow(int index) {
     assert(index >= 0);
-    if (index >= _borrowerProfile(context).length) return null;
-    final row = _borrowerProfile(context)[index];
+    if (index >= _borrowerProfile().length) return null;
+    final row = _borrowerProfile()[index];
     return DataRow.byIndex(
       index: index,
       selected: row.selected,
@@ -162,11 +137,34 @@ class _DataSource extends DataTableSource {
   }
 
   @override
-  int get rowCount => _borrowerProfile(context).length;
+  int get rowCount => _borrowerProfile().length;
 
   @override
   bool get isRowCountApproximate => false;
 
   @override
   int get selectedRowCount => _selectedCount;
+}
+
+List<_Row> _borrowerProfile() {
+  try {
+    return List.generate(Mapping.employeeList.length, (index) {
+      return new _Row(
+        Mapping.employeeList[index].getEmployeeID.toString(),
+        Mapping.employeeList[index].getRole.toString(),
+        Mapping.employeeList[index].toString(),
+        Mapping.employeeList[index].getMobileNumber.toString(),
+      );
+    });
+  } catch (e) {
+    //if employees list is empty
+    return List.generate(0, (index) {
+      return _Row(
+        '',
+        '',
+        '',
+        '',
+      );
+    });
+  }
 }

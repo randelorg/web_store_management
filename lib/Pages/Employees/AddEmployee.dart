@@ -24,6 +24,7 @@ class _AddEmployee extends State<AddEmployee> {
   final lastname = TextEditingController();
   final mobileNumber = TextEditingController();
   final homeAddress = TextEditingController();
+  final basicWage = TextEditingController();
   final password = TextEditingController();
   final confirmPassword = TextEditingController();
 
@@ -218,6 +219,27 @@ class _AddEmployee extends State<AddEmployee> {
             Padding(
               padding: EdgeInsets.only(bottom: 20),
               child: TextField(
+                controller: basicWage,
+                decoration: InputDecoration(
+                  hintText: 'Basic wage',
+                  filled: true,
+                  fillColor: Colors.blueGrey[50],
+                  labelStyle: TextStyle(fontSize: 10),
+                  contentPadding: EdgeInsets.only(left: 10),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(bottom: 20),
+              child: TextField(
                 controller: homeAddress,
                 decoration: InputDecoration(
                   hintText: 'Home address',
@@ -348,6 +370,7 @@ class _AddEmployee extends State<AddEmployee> {
                                       lastname.text,
                                       mobileNumber.text,
                                       homeAddress.text,
+                                      double.parse(basicWage.text),
                                       username.text,
                                       hash.encrypt(password.text),
                                       pick.getImageBytes())

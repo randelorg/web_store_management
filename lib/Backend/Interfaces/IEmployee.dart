@@ -7,6 +7,7 @@ class IEmployee {
       String? lastname,
       String? mobileNumber,
       String? homeAddress,
+      double? basicWage,
       String? username,
       String? password,
       Uint8List? image) async {

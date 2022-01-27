@@ -5,7 +5,6 @@ import 'Interfaces/IEmployee.dart';
 import '../Helpers/HashingHelper.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'Utility/ApiUrl.dart';
 
 class EmployeeOperation implements IEmployee {
   final hash = Hashing();
@@ -17,6 +16,7 @@ class EmployeeOperation implements IEmployee {
       String? lastname,
       String? mobileNumber,
       String? homeAddress,
+      double? basicWage,
       String? username,
       String? password,
       Uint8List? image) async {
@@ -29,6 +29,7 @@ class EmployeeOperation implements IEmployee {
         'Lastname': lastname,
         'MobileNumber': mobileNumber,
         'HomeAddress': homeAddress,
+        'Wage': basicWage,
         'UserImage': image
       },
     );
