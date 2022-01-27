@@ -19,22 +19,37 @@ class PrintHelper {
                 width: double.infinity,
                 child: pw.FittedBox(
                   // child: pw.Text(title, style: pw.TextStyle(font: font)),
-                  child: pw.Text(
-                    pw.Barcode.qrCode().toSvg(
-                      content,
-                      width: 40,
-                      height: 40,
-                    ),
+                  // child: pw.Text(
+                  //   pw.Barcode.qrCode().toSvg(
+                  //     content,
+                  //     width: 40,
+                  //     height: 40,
+                  //   ),
+                  // ),
+                  child: pw.BarcodeWidget(
+                    barcode: pw.Barcode.qrCode(),
+                    data: content,
+                    width: 10,
+                    height: 10,
                   ),
                 ),
               ),
-              pw.SizedBox(height: 20),
+              pw.SizedBox(height: 10),
               pw.Flexible(
                 child: pw.Text(
                   name,
                   style: pw.TextStyle(
                     font: font,
                     fontSize: 30,
+                  ),
+                ),
+              ),
+              pw.Flexible(
+                child: pw.Text(
+                  "Dellrain's Store Borrower",
+                  style: pw.TextStyle(
+                    font: font,
+                    fontSize: 10,
                   ),
                 ),
               )

@@ -315,7 +315,7 @@ class _CreditPage extends State<CreditScreen> {
                           );
                         },
                       );
-                      print(Mapping.creditApprovals[index].toString());
+                      //print(Mapping.creditApprovals[index].toString());
                     },
                   ),
                 ],
