@@ -75,7 +75,7 @@ class EmployeeOperation implements IEmployee {
 
     try {
       final response = await http.post(
-        Uri.parse("http://localhost:8090/api/updateemp"),
+        Uri.parse(Url.url + "api/updateemp"),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json'
