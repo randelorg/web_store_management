@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
+import 'package:web_store_management/Backend/Utility/ApiUrl.dart';
 import 'package:web_store_management/Notification/Snack_notification.dart';
 import 'Interfaces/IEmployee.dart';
 import '../Helpers/HashingHelper.dart';
@@ -36,7 +37,7 @@ class EmployeeOperation implements IEmployee {
 
     try {
       final response = await http.post(
-        Uri.parse("http://localhost:8090/api/employee"),
+        Uri.parse(Url.url + "api/employee"),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json'

@@ -15,18 +15,6 @@ class _TimeCollection extends State<TimeCollection> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        Padding(
-          padding: EdgeInsets.only(top: 20),
-          child: Row(
-            children: [
-              Icon(
-                Icons.account_balance_wallet,
-                size: 40.0,
-                color: Colors.black,
-              ),
-            ],
-          ),
-        ),
         Row(
           children: [
             Card(
