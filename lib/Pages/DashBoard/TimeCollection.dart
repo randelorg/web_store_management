@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:web_store_management/Backend/DashboardOperation.dart';
 import 'CollectionGraph.dart';
 
@@ -51,8 +52,8 @@ class _TimeCollection extends State<TimeCollection> {
                               softWrap: true,
                               style: TextStyle(
                                 fontSize: 25,
-                                color: Colors.blue,
-                                fontWeight: FontWeight.bold,
+                                color: HexColor("#155293"),
+                                fontFamily: 'Cairo_Bold',
                               ),
                             ),
                             onPressed: () {}, //pwdeng refresh button
@@ -64,8 +65,8 @@ class _TimeCollection extends State<TimeCollection> {
                             softWrap: true,
                             style: TextStyle(
                               fontSize: 30,
-                              color: Colors.blue,
-                              fontWeight: FontWeight.bold,
+                              color: HexColor("#155293"),
+                              fontFamily: 'Cairo_Bold',
                             ),
                           ),
                         );
@@ -114,8 +115,8 @@ class _TimeCollection extends State<TimeCollection> {
                               softWrap: true,
                               style: TextStyle(
                                 fontSize: 25,
-                                color: Colors.blue,
-                                fontWeight: FontWeight.bold,
+                                color: HexColor("#155293"),
+                                fontFamily: 'Cairo_Bold',
                               ),
                             ),
                             onPressed: () {}, //pwdeng refresh button
@@ -127,8 +128,8 @@ class _TimeCollection extends State<TimeCollection> {
                             softWrap: true,
                             style: TextStyle(
                               fontSize: 30,
-                              color: Colors.blue,
-                              fontWeight: FontWeight.bold,
+                              color: HexColor("#155293"),
+                              fontFamily: 'Cairo_Bold',
                             ),
                           ),
                         );
@@ -177,8 +178,8 @@ class _TimeCollection extends State<TimeCollection> {
                               softWrap: true,
                               style: TextStyle(
                                 fontSize: 25,
-                                color: Colors.blue,
-                                fontWeight: FontWeight.bold,
+                                color: HexColor("#155293"),
+                                fontFamily: 'Cairo_Bold',
                               ),
                             ),
                             onPressed: () {}, //pwdeng refresh button
@@ -190,8 +191,8 @@ class _TimeCollection extends State<TimeCollection> {
                             softWrap: true,
                             style: TextStyle(
                               fontSize: 30,
-                              color: Colors.blue,
-                              fontWeight: FontWeight.bold,
+                              color: HexColor("#155293"),
+                              fontFamily: 'Cairo_Bold',
                             ),
                           ),
                         );

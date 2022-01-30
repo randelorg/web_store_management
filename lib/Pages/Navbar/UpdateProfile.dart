@@ -42,28 +42,47 @@ class _EditProfile extends State<UpdateProfile> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      actionsPadding: EdgeInsets.all(20),
-      title: Text(
-        'Update Profile',
-        softWrap: true,
-        textAlign: TextAlign.center,
-        style: TextStyle(
-          color: HexColor("#155293"),
-          fontFamily: 'Cairo_Bold',
-          fontSize: 30,
-          overflow: TextOverflow.fade,
-        ),
-      ),
+      actionsPadding: EdgeInsets.only(bottom: 5, left: 5, right: 5),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       actions: <Widget>[
         Column(
           children: [
+            Align(
+              alignment: Alignment.topRight,
+              child: IconButton(
+                icon: Icon(
+                  Icons.cancel,
+                  color: Colors.black,
+                  size: 30,
+                ),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ),
+
+            Text(
+             'Update Profile',
+              softWrap: true,
+              textAlign: TextAlign.center,
+              style: TextStyle(             
+                color: HexColor("#155293"),
+                fontFamily: 'Cairo_Bold',
+                fontSize: 30,
+              ),
+            ),
+         
             Padding(
-              padding: EdgeInsets.only(bottom: 10),
+              padding: EdgeInsets.only(top: 25, bottom: 10),
               child: Container(
                 child: Container(
                   alignment: Alignment.topLeft,
-                  child: Text('Update your profile'),
+                  child: Text('Update your Profile',
+                  style: TextStyle(
+                    fontFamily: 'Cairo_SemiBold',
+                    fontSize: 16,
+                    color: HexColor("#155293"),
+                  )),         
                 ),
               ),
             ),
@@ -238,22 +257,20 @@ class _EditProfile extends State<UpdateProfile> {
                       children: <Widget>[
                         Positioned.fill(
                           child: Container(
-                            decoration: const BoxDecoration(
-                              color: Colors.blue,
+                            decoration: BoxDecoration(
+                              color: HexColor("#155293"),
                             ),
                           ),
                         ),
                         TextButton(
                           style: TextButton.styleFrom(
-                            padding: const EdgeInsets.only(
-                              left: 20,
-                              right: 20,
-                              top: 15,
-                              bottom: 15,
-                            ),
+                            padding: const EdgeInsets.only(left: 20, right: 20, top: 15,bottom: 15),
                             primary: Colors.white,
-                            textStyle: TextStyle(fontSize: 20),
-                          ),
+                            textStyle: TextStyle(                                         
+                              fontFamily: 'Cairo_SemiBold',
+                              fontSize: 14,
+                              color: Colors.white),
+                          ),              
                           child: const Text('UPDATE'),
                           onPressed: () {
                             Navigator.pop(context);

@@ -32,28 +32,27 @@ class _Employeepage extends State<EmployeePage> {
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: EdgeInsets.only(top: 15, bottom: 15, left: 100),
+                  padding: EdgeInsets.only(top: 10, bottom: 10, left: 20),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(5),
                     child: Stack(
                       children: <Widget>[
                         Positioned.fill(
                           child: Container(
-                            decoration: const BoxDecoration(
-                              color: Colors.blue,
+                            decoration: BoxDecoration(
+                              color: HexColor("#155293"),
                             ),
                           ),
                         ),
                         TextButton.icon(
-                          icon:
-                              Icon(Icons.add_box_rounded, color: Colors.white),
+                          icon:Icon(Icons.add_box_rounded, color: Colors.white),
                           style: TextButton.styleFrom(
-                            padding: const EdgeInsets.only(
-                                left: 5, right: 20, top: 15, bottom: 15),
+                            padding: const EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 10),
                             primary: Colors.white,
-                            textStyle: TextStyle(fontSize: 20),
+                            textStyle: TextStyle(fontSize: 18, fontFamily: 'Cairo_SemiBold'),
                           ),
                           label: Text('NEW EMPLOYEE'),
                           onPressed: () {
@@ -303,7 +302,7 @@ class _DataSource extends DataTableSource {
           Mapping.employeeList[index].toString(),
           Mapping.employeeList[index].getMobileNumber.toString(),
           ClipRRect(
-            borderRadius: BorderRadius.circular(18),
+            borderRadius: BorderRadius.circular(20),
             child: Stack(
               children: <Widget>[
                 Positioned.fill(
@@ -314,8 +313,7 @@ class _DataSource extends DataTableSource {
                   ),
                 ),
                 Padding(
-                  padding:
-                      EdgeInsets.only(top: 8, bottom: 8, left: 15, right: 15),
+                  padding: EdgeInsets.only(top: 8, bottom: 8, left: 14, right: 14),
                   child: Text(
                     'PROFILE',
                     style: TextStyle(
@@ -329,7 +327,7 @@ class _DataSource extends DataTableSource {
             ),
           ),
           ClipRRect(
-            borderRadius: BorderRadius.circular(18),
+            borderRadius: BorderRadius.circular(20),
             child: Stack(
               children: <Widget>[
                 Positioned.fill(
@@ -340,8 +338,7 @@ class _DataSource extends DataTableSource {
                   ),
                 ),
                 Padding(
-                  padding:
-                      EdgeInsets.only(top: 8, bottom: 8, left: 15, right: 15),
+                  padding:EdgeInsets.only(top: 8, bottom: 8, left: 14, right: 14),
                   child: Text(
                     'PAYROLL',
                     style: TextStyle(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:web_store_management/Models/ProductModel.dart';
 import '../../Helpers/FilePickerHelper.dart';
 import 'FinalizePage.dart';
@@ -148,18 +149,15 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
                 Padding(
                   padding: EdgeInsets.all(20.0),
                   child: TextButton.icon(
-                    style: TextButton.styleFrom(
-                      textStyle: const TextStyle(
-                        color: Colors.white,
-                      ),
-                      backgroundColor: Colors.blue.shade400,
+                    style: TextButton.styleFrom(                 
+                      backgroundColor: HexColor("#155293"),
                     ),
                     label: Text(
                       fileName,
                       style: TextStyle(
                         color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
+                        fontSize: 18,
+                        fontFamily: 'Cairo_SemiBold',
                       ),
                     ),
                     icon: Icon(
@@ -284,7 +282,7 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             Container(
-              width: 120,
+              width: 95,
               height: 60,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(12),
@@ -293,16 +291,19 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
                     Positioned.fill(
                       child: Container(
                         decoration: BoxDecoration(
-                          color: Colors.blue.shade900,
+                          color: HexColor("#155293"),
                         ),
                       ),
                     ),
                     TextButton(
                       style: TextButton.styleFrom(
-                        padding: const EdgeInsets.all(25.0),
-                        primary: Colors.white,
-                        textStyle: const TextStyle(fontSize: 25),
+                        padding: const EdgeInsets.all(22.0),
+                        primary: Colors.white,             
+                        textStyle: TextStyle(                 
+                        fontSize: 22,
+                        fontFamily: 'Cairo_SemiBold'),
                       ),
+                      
                       onPressed: () {
                         //push to second page
                         //which is the finalize order page

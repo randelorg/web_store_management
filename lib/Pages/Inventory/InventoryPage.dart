@@ -165,9 +165,9 @@ class _InventoryPage extends State<InventoryPage> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(10.0),
                 child: ClipRRect(
-                  borderRadius: BorderRadius.circular(18),
+                  borderRadius: BorderRadius.circular(20),
                   child: Stack(
                     children: <Widget>[
                       Positioned.fill(
@@ -179,7 +179,7 @@ class _InventoryPage extends State<InventoryPage> {
                       ),
                       TextButton(
                         style: TextButton.styleFrom(
-                          padding: const EdgeInsets.all(13.0),
+                          padding: const EdgeInsets.only(top: 15, bottom: 15, left: 30, right: 30),
                           primary: Colors.white,
                           textStyle: TextStyle(
                               fontFamily: 'Cairo_SemiBold', fontSize: 14),
@@ -219,10 +219,10 @@ class _InventoryPage extends State<InventoryPage> {
           children: [
             Stack(
               children: [
-                Row(
+                Row( 
                   children: [
                     Container(
-                      padding: EdgeInsets.only(top: 10),
+                      padding: EdgeInsets.only(top: 10, left:750),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(10),
                         child: Stack(
@@ -230,7 +230,7 @@ class _InventoryPage extends State<InventoryPage> {
                             Positioned.fill(
                               child: Container(
                                 decoration: BoxDecoration(
-                                  color: Colors.blueGrey.shade50,
+                                  color: HexColor("#155293"),
                                 ),
                               ),
                             ),
@@ -239,7 +239,7 @@ class _InventoryPage extends State<InventoryPage> {
                               child: TextButton(
                                 style: TextButton.styleFrom(
                                   padding: const EdgeInsets.all(20),
-                                  primary: Colors.black,
+                                  primary: Colors.white,
                                   textStyle: TextStyle(fontSize: 18),
                                 ),
                                 onPressed: () {
@@ -262,6 +262,7 @@ class _InventoryPage extends State<InventoryPage> {
                 Row(
                   children: [
                     Container(
+                      margin: EdgeInsets.only(left: 750),
                       padding: EdgeInsets.only(top: 10, left: 150),
                       width: 500,
                       child: TextField(
@@ -435,7 +436,7 @@ class _DataSource extends DataTableSource {
               .toStringAsFixed(2)
               .toString(),
           ClipRRect(
-            borderRadius: BorderRadius.circular(18),
+            borderRadius: BorderRadius.circular(20),
             child: Stack(
               children: <Widget>[
                 Positioned.fill(
@@ -446,8 +447,7 @@ class _DataSource extends DataTableSource {
                   ),
                 ),
                 Padding(
-                  padding:
-                      EdgeInsets.only(top: 8, bottom: 8, left: 10, right: 10),
+                  padding: EdgeInsets.only(top: 8, bottom: 8, left: 10, right: 10),
                   child: Text(
                     'UPDATE',
                     style: TextStyle(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:web_store_management/Backend/GlobalController.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
 import 'package:web_store_management/Pages/RequestedProducts/ReqManualSearchBorrower.dart';
@@ -40,19 +41,17 @@ class _RequestedProdScreen extends State<RequestedProdScreen> {
                       children: <Widget>[
                         Positioned.fill(
                           child: Container(
-                            decoration: const BoxDecoration(
-                              color: Colors.blue,
+                            decoration: BoxDecoration(
+                              color: HexColor("#155293"),
                             ),
                           ),
                         ),
                         TextButton.icon(
-                          icon:
-                              Icon(Icons.add_box_rounded, color: Colors.white),
+                          icon: Icon(Icons.add_box_rounded, color: Colors.white),
                           style: TextButton.styleFrom(
-                            padding: const EdgeInsets.only(
-                                left: 5, right: 20, top: 15, bottom: 15),
+                            padding: const EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 10),
                             primary: Colors.white,
-                            textStyle: TextStyle(fontSize: 20),
+                            textStyle: TextStyle(fontSize: 18, fontFamily: 'Cairo_SemiBold'),
                           ),
                           label: Text('NEW REQUEST'),
                           onPressed: () {

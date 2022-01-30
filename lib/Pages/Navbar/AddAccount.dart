@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hexcolor/hexcolor.dart';
 import '../../Helpers/HashingHelper.dart';
 import 'ConfirmNewAccount.dart';
 import '../../Helpers/FilePickerHelper.dart';
@@ -27,51 +28,73 @@ class _AddAccount extends State<AddAccount> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      actionsPadding: EdgeInsets.all(20),
-      title: Text(
-        'New Admin Account',
-        softWrap: true,
-        textAlign: TextAlign.center,
-        style: TextStyle(
-          fontWeight: FontWeight.bold,
-          fontSize: 35,
-          color: Colors.blue,
-          overflow: TextOverflow.fade,
-        ),
-      ),
+      actionsPadding: EdgeInsets.only(bottom: 5, left: 5, right: 5),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       actions: <Widget>[
         Column(
           children: [
-            Padding(
-              padding: EdgeInsets.only(bottom: 10),
-              child: Container(
-                child: Container(
-                  alignment: Alignment.topLeft,
-                  child: Text('New Admin'),
+            Align(
+              alignment: Alignment.topRight,
+              child: IconButton(
+                icon: Icon(
+                  Icons.cancel,
+                  color: Colors.black,
+                  size: 30,
                 ),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
               ),
             ),
+
+            Text(
+              'New Admin Account',
+               softWrap: true,
+               textAlign: TextAlign.center,
+               style: TextStyle(
+                fontFamily: 'Cairo_Bold',
+                fontSize: 27,
+                color: HexColor("#155293"),
+                overflow: TextOverflow.fade,
+               ),
+            ),
+     
+            Padding(          
+              padding: EdgeInsets.only(top: 25, bottom: 10),
+                child: Container(
+                  alignment: Alignment.topLeft,         
+                  child: Text('New Admin',      
+                  style: TextStyle(
+                    fontFamily: 'Cairo_SemiBold',
+                    fontSize: 16,
+                    color: HexColor("#155293"),
+                  )),
+                ),
+            ),
+            
             Divider(
               thickness: 3,
             ),
-            Padding(
-              padding: EdgeInsets.only(bottom: 20),
-              child: TextField(
-                controller: username,
-                decoration: InputDecoration(
-                  hintText: 'Username',
-                  filled: true,
-                  fillColor: Colors.blueGrey[50],
-                  labelStyle: TextStyle(fontSize: 10),
-                  contentPadding: EdgeInsets.only(left: 10),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                    borderRadius: BorderRadius.circular(5),
+            Container(
+              width: 320,
+              child: Padding(
+                padding: EdgeInsets.only(bottom: 20),
+                child: TextField(
+                  controller: username,
+                  decoration: InputDecoration(
+                    hintText: 'Username',
+                    filled: true,
+                    fillColor: Colors.blueGrey[50],
+                    labelStyle: TextStyle(fontSize: 10),
+                    contentPadding: EdgeInsets.only(left: 10),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                      borderRadius: BorderRadius.circular(5),
+                    ),
                   ),
                 ),
               ),
@@ -250,13 +273,14 @@ class _AddAccount extends State<AddAccount> {
               child: TextButton.icon(
                 onPressed: () {
                   pick.pickFile().then((value) {
-                    setState(() {
+                    setState(() { 
                       fileName = value;
                     });
                   });
                 },
-                icon: Icon(Icons.file_upload),
-                label: Text(fileName),
+                icon: Icon(Icons.file_upload, color: HexColor("#155293")),
+                label: Text(fileName, style: TextStyle(color: HexColor("#155293")),
+                ),
               ),
             ),
             Row(
@@ -270,15 +294,14 @@ class _AddAccount extends State<AddAccount> {
                       children: <Widget>[
                         Positioned.fill(
                           child: Container(
-                            decoration: const BoxDecoration(
-                              color: Colors.blue,
+                            decoration: BoxDecoration(
+                              color: HexColor("#155293"),
                             ),
                           ),
                         ),
                         TextButton(
                           style: TextButton.styleFrom(
-                            padding: const EdgeInsets.only(
-                                left: 20, right: 20, top: 15, bottom: 15),
+                            padding: const EdgeInsets.only(left: 20, right: 20, top: 15, bottom: 15),
                             primary: Colors.white,
                             textStyle: TextStyle(fontSize: 20),
                           ),
@@ -301,7 +324,12 @@ class _AddAccount extends State<AddAccount> {
                               );
                             }
                           },
-                          child: const Text('CONFIRM'),
+                          child: Text('CONFIRM',          
+                          style: TextStyle(                       
+                            fontFamily: 'Cairo_SemiBold',
+                            fontSize: 14,
+                            color: Colors.white),
+                          ),              
                         ),
                       ],
                     ),

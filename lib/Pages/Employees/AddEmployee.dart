@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:web_store_management/Notification/Snack_notification.dart';
 import '../../Helpers/FilePickerHelper.dart';
 import '../../Helpers/HashingHelper.dart';
@@ -36,31 +37,51 @@ class _AddEmployee extends State<AddEmployee> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      actionsPadding: EdgeInsets.all(20),
-      title: Text(
-        'Add Employee',
-        softWrap: true,
-        textAlign: TextAlign.center,
-        style: TextStyle(
-          fontWeight: FontWeight.bold,
-          fontSize: 35,
-          color: Colors.blue,
-          overflow: TextOverflow.fade,
-        ),
-      ),
+      actionsPadding: EdgeInsets.only(bottom: 5, left: 5, right: 5),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       actions: <Widget>[
         Column(
           children: [
+            Align(
+              alignment: Alignment.topRight,
+              child: IconButton(
+                icon: Icon(
+                  Icons.cancel,
+                  color: Colors.black,
+                  size: 30,
+                ),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ),
+
+            Text(
+             'Add Employee',
+              softWrap: true,
+              textAlign: TextAlign.center,
+              style: TextStyle(             
+                color: HexColor("#155293"),
+                fontFamily: 'Cairo_Bold',
+                fontSize: 30,
+              ),
+            ),
+
             Padding(
-              padding: EdgeInsets.only(bottom: 10),
+              padding: EdgeInsets.only(top: 25, bottom: 10),
               child: Container(
                 child: Container(
                   alignment: Alignment.topLeft,
-                  child: Text('Select roll for the employee account'),
+                  child: Text('Select Role for the Employee Account',
+                  style: TextStyle(
+                    fontFamily: 'Cairo_SemiBold',
+                    fontSize: 16,
+                    color: HexColor("#155293"),
+                  )),    
                 ),
               ),
             ),
+
             Padding(
               padding: EdgeInsets.only(bottom: 15),
               child: Container(
@@ -327,8 +348,9 @@ class _AddEmployee extends State<AddEmployee> {
                     });
                   });
                 },
-                icon: Icon(Icons.file_upload),
-                label: Text(fileName),
+                icon: Icon(Icons.file_upload,color: HexColor("#155293")),
+                label: Text(fileName,style: TextStyle(color: HexColor("#155293")),
+                ),
               ),
             ),
             Row(
@@ -342,17 +364,19 @@ class _AddEmployee extends State<AddEmployee> {
                       children: <Widget>[
                         Positioned.fill(
                           child: Container(
-                            decoration: const BoxDecoration(
-                              color: Colors.blue,
+                            decoration: BoxDecoration(
+                              color: HexColor("#155293")
                             ),
                           ),
                         ),
                         TextButton(
                           style: TextButton.styleFrom(
-                            padding: const EdgeInsets.only(
-                                left: 20, right: 20, top: 15, bottom: 15),
+                            padding: const EdgeInsets.only(left: 20, right: 20, top: 15, bottom: 15),
                             primary: Colors.white,
-                            textStyle: TextStyle(fontSize: 20),
+                            textStyle: TextStyle(
+                              fontFamily: 'Cairo_SemiBold',
+                              fontSize: 14,
+                              color: Colors.white),
                           ),
                           onPressed: () {
                             if (username.text.isEmpty) {

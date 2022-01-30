@@ -54,7 +54,7 @@ class _ConfirmAccount extends State<ConfirmAccount> {
               child: Container(
                 child: Container(
                   alignment: Alignment.topLeft,
-                  child: Text('Enter your password to verify'),
+                  child: Text('Enter your Password to Verify'),
                 ),
               ),
             ),

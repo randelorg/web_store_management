@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:web_store_management/Notification/Snack_notification.dart';
 import 'package:web_store_management/Pages/Inventory/InventoryPage.dart';
 import '../../Backend/ProductOperation.dart';
@@ -33,32 +34,47 @@ class _UpdateProduct extends State<UpdateProduct> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      actionsPadding: EdgeInsets.all(15),
-      title: Text(
-        'Update Product',
-        softWrap: true,
-        textAlign: TextAlign.center,
-        style: TextStyle(
-          fontWeight: FontWeight.bold,
-          fontSize: 35,
-          color: Colors.blue,
-          overflow: TextOverflow.fade,
-        ),
-      ),
+      actionsPadding: EdgeInsets.only(bottom: 5, left: 5, right: 5),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       actions: <Widget>[
         Column(
           children: [
-            Padding(
-              padding: EdgeInsets.only(left: 7),
+            Align(
+              alignment: Alignment.topRight,
+              child: IconButton(
+                icon: Icon(
+                  Icons.cancel,
+                  color: Colors.black,
+                  size: 30,
+                ),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ),
+
+            Text(
+             'Update Product',
+              softWrap: true,
+              textAlign: TextAlign.center,
+              style: TextStyle(             
+                color: HexColor("#155293"),
+                fontFamily: 'Cairo_Bold',
+                fontSize: 30,
+              ),
+            ),
+
+             Padding(
+              padding: EdgeInsets.only(top: 25, left: 7),
               child: Container(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  'Product name',
+                  'Product Name',
                   style: TextStyle(fontSize: 10),
                 ),
               ),
             ),
+
             Padding(
               padding: const EdgeInsets.only(
                   left: 6.0, right: 6.0, bottom: 6.0, top: 1.0),
@@ -85,13 +101,12 @@ class _UpdateProduct extends State<UpdateProduct> {
               padding: EdgeInsets.only(left: 7),
               child: Container(
                 alignment: Alignment.centerLeft,
-                child: Text("Quantity AVL: " + _findQty(),
-                    style: TextStyle(fontSize: 12, color: Colors.blue)),
+                child: Text("Quantity Available: " + _findQty(),
+                    style: TextStyle(fontSize: 11, color: HexColor("#155293"))),
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(
-                  left: 6.0, right: 6.0, bottom: 6.0, top: 1.0),
+              padding: const EdgeInsets.only(left: 6.0, right: 6.0, bottom: 6.0, top: 1.0),
               child: TextField(
                 controller: prodQuantity,
                 // onChanged: (value) {
@@ -151,6 +166,7 @@ class _UpdateProduct extends State<UpdateProduct> {
                 ),
               ),
             ),
+
             Padding(
               padding: EdgeInsets.only(left: 7),
               child: Container(
@@ -161,6 +177,7 @@ class _UpdateProduct extends State<UpdateProduct> {
                 ),
               ),
             ),
+
             Padding(
               padding: const EdgeInsets.only(
                   left: 6.0, right: 6.0, bottom: 6.0, top: 1.0),
@@ -183,6 +200,7 @@ class _UpdateProduct extends State<UpdateProduct> {
                 ),
               ),
             ),
+
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: ClipRRect(
@@ -191,18 +209,22 @@ class _UpdateProduct extends State<UpdateProduct> {
                   children: <Widget>[
                     Positioned.fill(
                       child: Container(
-                        decoration: const BoxDecoration(
-                          color: Colors.blue,
+                        decoration: BoxDecoration(
+                          color: HexColor("#155293"),
                         ),
                       ),
                     ),
+                    
                     TextButton(
                       style: TextButton.styleFrom(
-                        padding: const EdgeInsets.only(
-                            left: 30, right: 30, top: 15, bottom: 15),
+                        padding: const EdgeInsets.only(left: 20, right: 20, top: 15, bottom: 15),
                         primary: Colors.white,
-                        textStyle: TextStyle(fontSize: 20),
+                        textStyle: TextStyle(
+                          fontFamily: 'Cairo_SemiBold',
+                              fontSize: 14,
+                              color: Colors.white),
                       ),
+
                       child: const Text('UPDATE'),
                       onPressed: () {
                         operation

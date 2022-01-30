@@ -134,7 +134,7 @@ class _ProfileDrawer extends State<ProfileDrawer> {
                           color: HexColor("#155293"),
                         ),
                         label: Text(
-                          'Add new admin',
+                          'Add New Admin',
                           style: TextStyle(
                             fontFamily: 'Cairo_SemiBold',
                             color: HexColor("#155293"),

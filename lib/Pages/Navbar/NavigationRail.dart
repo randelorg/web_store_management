@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:web_store_management/Backend/Session.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
 import 'package:web_store_management/Notification/Snack_notification.dart';
@@ -237,6 +238,7 @@ class _NavDrawer extends State<NavDrawer> {
                     fit: BoxFit.fill,
                     //refresh button
                     child: FloatingActionButton(
+                      backgroundColor: HexColor("#155293"),
                       mouseCursor: MaterialStateMouseCursor.clickable,
                       child: Icon(
                         Icons.refresh,
