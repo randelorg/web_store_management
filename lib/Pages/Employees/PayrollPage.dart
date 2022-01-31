@@ -22,6 +22,24 @@ class _Payrollpage extends State<PayrollPage> {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
+        
+        Padding(
+          padding: EdgeInsets.only(bottom: 5, left: 5, right: 5),
+          child: Align(
+                alignment: Alignment.topRight,
+                child: IconButton(
+                  icon: Icon(
+                    Icons.cancel,
+                    color: Colors.black,
+                    size: 30,
+                  ),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ),
+        ),
+            
         Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [

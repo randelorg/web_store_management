@@ -147,7 +147,7 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.all(20.0),
+                  padding: EdgeInsets.all(8),
                   child: TextButton.icon(
                     style: TextButton.styleFrom(                 
                       backgroundColor: HexColor("#155293"),

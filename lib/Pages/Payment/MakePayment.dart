@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:intl/intl.dart';
 import 'package:web_store_management/Notification/Snack_notification.dart';
 import '../../Backend/BorrowerOperation.dart';
@@ -30,23 +31,48 @@ class _MakePayment extends State<MakePayment> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text(
-        'Make Payment',
-        softWrap: true,
-        textAlign: TextAlign.center,
-        style: TextStyle(
-          fontWeight: FontWeight.bold,
-          fontSize: 35,
-          color: Colors.blue,
-          overflow: TextOverflow.fade,
-        ),
-      ),
+      actionsPadding: EdgeInsets.only(bottom: 5, left: 5, right: 5),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       actions: <Widget>[
         Column(
           children: [
+             Align(
+              alignment: Alignment.topRight,
+              child: IconButton(
+                icon: Icon(
+                  Icons.cancel,
+                  color: Colors.black,
+                  size: 30,
+                ),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ),
+
+            Text(
+             'Make Payment',
+              softWrap: true,
+              textAlign: TextAlign.center,
+              style: TextStyle(             
+                color: HexColor("#155293"),
+                fontFamily: 'Cairo_Bold',
+                fontSize: 30,
+              ),
+            ),
+
             Padding(
-              padding: const EdgeInsets.all(6.0),
+              padding: EdgeInsets.only(left: 7),
+              child: Container(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Borrower Name',
+                  style: TextStyle(fontSize: 10),
+                ),
+              ),
+            ), 
+            Padding(
+              padding: const EdgeInsets.all(5),
               child: TextField(
                 controller: name,
                 enabled: false,
@@ -55,7 +81,7 @@ class _MakePayment extends State<MakePayment> {
                   filled: true,
                   fillColor: Colors.blueGrey[50],
                   labelStyle: TextStyle(fontSize: 12),
-                  contentPadding: EdgeInsets.only(left: 30),
+                  contentPadding: EdgeInsets.only(left: 15),
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.blueGrey.shade50),
                     borderRadius: BorderRadius.circular(10),
@@ -68,16 +94,26 @@ class _MakePayment extends State<MakePayment> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(6.0),
+              padding: EdgeInsets.only(left: 7),
+              child: Container(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Remaining Balance',
+                  style: TextStyle(fontSize: 10),
+                ),
+              ),
+            ), 
+            Padding(
+              padding: const EdgeInsets.all(5),
               child: TextField(
                 controller: debt,
                 enabled: false,
                 decoration: InputDecoration(
-                  hintText: 'Remaining Balaance',
+                  hintText: 'Remaining Balance',
                   filled: true,
                   fillColor: Colors.blueGrey[50],
                   labelStyle: TextStyle(fontSize: 12),
-                  contentPadding: EdgeInsets.only(left: 30),
+                  contentPadding: EdgeInsets.only(left: 15),
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.blueGrey.shade50),
                     borderRadius: BorderRadius.circular(10),
@@ -89,16 +125,26 @@ class _MakePayment extends State<MakePayment> {
                 ),
               ),
             ),
+             Padding(
+              padding: EdgeInsets.only(left: 7),
+              child: Container(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Amount',
+                  style: TextStyle(fontSize: 10),
+                ),
+              ),
+            ), 
             Padding(
-              padding: const EdgeInsets.all(6.0),
+              padding: const EdgeInsets.all(5),
               child: TextField(
                 controller: givenAmount,
                 decoration: InputDecoration(
-                  hintText: 'Amount',
+                  hintText: 'Amount to be Paid',
                   filled: true,
                   fillColor: Colors.blueGrey[50],
                   labelStyle: TextStyle(fontSize: 12),
-                  contentPadding: EdgeInsets.only(left: 30),
+                  contentPadding: EdgeInsets.only(left: 15),
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.blueGrey.shade50),
                     borderRadius: BorderRadius.circular(10),
@@ -110,13 +156,23 @@ class _MakePayment extends State<MakePayment> {
                 ),
               ),
             ),
+             Padding(
+              padding: EdgeInsets.only(left: 7),
+              child: Container(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Date',
+                  style: TextStyle(fontSize: 10),
+                ),
+              ),
+            ), 
             Padding(
-              padding: const EdgeInsets.all(6.0),
+              padding: const EdgeInsets.all(5),
               child: TextField(
                 controller: dateinput,
                 decoration: InputDecoration(
                   labelStyle: TextStyle(fontSize: 12),
-                  contentPadding: EdgeInsets.only(left: 30),
+                  contentPadding: EdgeInsets.only(left: 15),
                   hintText: 'Date Today',
                   fillColor: Colors.blueGrey[50],
                   enabledBorder: OutlineInputBorder(
@@ -158,17 +214,19 @@ class _MakePayment extends State<MakePayment> {
                   children: <Widget>[
                     Positioned.fill(
                       child: Container(
-                        decoration: const BoxDecoration(
-                          color: Colors.blue,
+                        decoration: BoxDecoration(
+                          color: HexColor("#155293"),
                         ),
                       ),
                     ),
                     TextButton(
                       style: TextButton.styleFrom(
-                        padding: const EdgeInsets.only(
-                            left: 40, right: 40, top: 15, bottom: 15),
+                        padding: const EdgeInsets.only(top: 18, bottom: 18, left: 36, right: 36),
                         primary: Colors.white,
-                        textStyle: TextStyle(fontSize: 30),
+                        textStyle: TextStyle(
+                          fontFamily: 'Cairo_SemiBold',
+                          fontSize: 14,
+                          color: Colors.white),
                       ),
                       onPressed: () {
                         borrower

@@ -3,7 +3,6 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:web_store_management/Backend/BorrowerOperation.dart';
 import 'package:web_store_management/Backend/GlobalController.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
-import 'package:web_store_management/Pages/Repairs/AddRepair.dart';
 import 'package:web_store_management/Pages/RequestedProducts/AddRequest.dart';
 
 class ReqManualBorrowerSearch extends StatefulWidget {
@@ -25,27 +24,40 @@ class _ReqManualBorrowerSearch extends State<ReqManualBorrowerSearch> {
   void initState() {
     super.initState();
     controller.fetchBorrowers();
-    confirmedname.text = 'No data, please enter name';
+    confirmedname.text = 'No data, Please Enter Name';
   }
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text(
-        'Search Borrower',
-        softWrap: true,
-        textAlign: TextAlign.center,
-        style: TextStyle(
-          fontWeight: FontWeight.bold,
-          fontSize: 25,
-          color: Colors.blue,
-          overflow: TextOverflow.fade,
-        ),
-      ),
+      actionsPadding: EdgeInsets.only(bottom: 5, left: 5, right: 5),   
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-      actions: <Widget>[
+      actions: <Widget>[         
         Column(
           children: [
+            Align(          
+              alignment: Alignment.topRight,
+              child: IconButton(
+              icon: Icon(
+                Icons.cancel,
+                color: Colors.black,
+                size: 30,
+              ),
+              onPressed: () {    
+                Navigator.of(context).pop();
+              }),
+            ), 
+            Text(
+              'Search Borrower',
+              softWrap: true,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: HexColor("#155293"),
+                fontFamily: 'Cairo_Bold',
+                fontSize: 30,
+              ),
+            ),
+        
             Form(
               key: _formKey,
               child: Center(
@@ -53,17 +65,19 @@ class _ReqManualBorrowerSearch extends State<ReqManualBorrowerSearch> {
                   children: <Widget>[
                     // Input Borrowers Name
                     Container(
-                      padding: EdgeInsets.only(left: 35, right: 35, top: 50),
+                      padding: EdgeInsets.only(left: 5, right: 5, top: 10),
                       child: TextFormField(
                         controller: borrowername,
                         keyboardType: TextInputType.name,
                         decoration: InputDecoration(
                           hintText: 'Borrowers Name',
-                          prefixIcon:
-                              Icon(Icons.person_rounded, color: Colors.red),
+                          filled: true,
+                          fillColor: Colors.blueGrey[50],
+                          labelStyle: TextStyle(fontSize: 12),
+                          contentPadding: EdgeInsets.only(left: 15),                        
                           suffixIcon: IconButton(
                             iconSize: 25,
-                            icon: Icon(Icons.search, color: Colors.grey),
+                            icon: Icon(Icons.search, color: Colors.grey),                  
                             onPressed: () {
                               String fullname = borrowername.text.trim();
                               List<String> name = fullname.split(" ");
@@ -78,13 +92,12 @@ class _ReqManualBorrowerSearch extends State<ReqManualBorrowerSearch> {
                             },
                           ),
                           enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(8)),
-                            borderSide: BorderSide(color: Colors.red, width: 2),
-                          ),
+                            borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                            borderRadius: BorderRadius.circular(10),
+                          ),           
                           focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(8)),
-                            borderSide:
-                                BorderSide(color: Colors.black, width: 2),
+                            borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                            borderRadius: BorderRadius.circular(10),
                           ),
                         ),
                         validator: (value) {
@@ -98,19 +111,19 @@ class _ReqManualBorrowerSearch extends State<ReqManualBorrowerSearch> {
                     getName(),
 
                     Container(
-                      margin: const EdgeInsets.only(top: 50),
-                      height: 60,
-                      width: 140,
+                      margin: const EdgeInsets.only(top: 20),
+                      height: 40,
+                      width: 110,
                       decoration: BoxDecoration(
                           color: HexColor("#155293"),
                           borderRadius: BorderRadius.circular(80)),
                       child: TextButton(
                         child: Text(
                           'Confirm',
-                          style: TextStyle(
-                            fontFamily: 'Cairo_Bold',
-                            color: Colors.white,
-                            fontSize: 20,
+                          style: TextStyle(           
+                          fontFamily: 'Cairo_SemiBold',
+                          fontSize: 20,
+                          color: Colors.white
                           ),
                         ),
                         onPressed: () {
@@ -146,8 +159,7 @@ class _ReqManualBorrowerSearch extends State<ReqManualBorrowerSearch> {
       children: [
         // Display Borrowers Name
         Container(
-          height: 45,
-          width: 350,
+          height: 45, width: 350,
           child: Card(
             elevation: 3,
             shadowColor: Colors.black,

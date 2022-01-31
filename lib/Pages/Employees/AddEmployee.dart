@@ -98,10 +98,10 @@ class _AddEmployee extends State<AddEmployee> {
                   child: DropdownButton<String>(
                     isExpanded: true,
                     value: collector,
-                    icon: const Icon(Icons.arrow_downward),
+                    icon: const Icon(Icons.arrow_drop_down),
                     iconSize: 24,
                     elevation: 16,
-                    style: TextStyle(color: Colors.blue.shade700),
+                    style: TextStyle(color: HexColor("#155293"),),
                     onChanged: (value) {
                       setState(() {
                         collector = value!;
@@ -221,7 +221,7 @@ class _AddEmployee extends State<AddEmployee> {
               child: TextField(
                 controller: mobileNumber,
                 decoration: InputDecoration(
-                  hintText: 'Mobile number',
+                  hintText: 'Mobile Number',
                   filled: true,
                   fillColor: Colors.blueGrey[50],
                   labelStyle: TextStyle(fontSize: 10),
@@ -242,7 +242,7 @@ class _AddEmployee extends State<AddEmployee> {
               child: TextField(
                 controller: basicWage,
                 decoration: InputDecoration(
-                  hintText: 'Basic wage',
+                  hintText: 'Basic Wage',
                   filled: true,
                   fillColor: Colors.blueGrey[50],
                   labelStyle: TextStyle(fontSize: 10),
@@ -263,7 +263,7 @@ class _AddEmployee extends State<AddEmployee> {
               child: TextField(
                 controller: homeAddress,
                 decoration: InputDecoration(
-                  hintText: 'Home address',
+                  hintText: 'Home Address',
                   filled: true,
                   fillColor: Colors.blueGrey[50],
                   labelStyle: TextStyle(fontSize: 10),

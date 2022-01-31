@@ -37,7 +37,7 @@ class _Employeepage extends State<EmployeePage> {
                 Padding(
                   padding: EdgeInsets.only(top: 10, bottom: 10, left: 20),
                   child: ClipRRect(
-                    borderRadius: BorderRadius.circular(5),
+                    borderRadius: BorderRadius.circular(10),
                     child: Stack(
                       children: <Widget>[
                         Positioned.fill(
@@ -93,10 +93,10 @@ class _Employeepage extends State<EmployeePage> {
                       child: DropdownButton<String>(
                         isExpanded: true,
                         value: collector,
-                        icon: const Icon(Icons.arrow_downward),
+                        icon: const Icon(Icons.arrow_drop_down),
                         iconSize: 24,
                         elevation: 16,
-                        style: TextStyle(color: Colors.blue.shade700),
+                        style: TextStyle(color: HexColor("#155293")),
                         onChanged: (String? newValue) {
                           setState(() {
                             collector = newValue!;
@@ -313,7 +313,7 @@ class _DataSource extends DataTableSource {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(top: 8, bottom: 8, left: 14, right: 14),
+                 padding:EdgeInsets.only(top: 8, bottom: 8, left: 16, right: 16),
                   child: Text(
                     'PROFILE',
                     style: TextStyle(
@@ -338,7 +338,7 @@ class _DataSource extends DataTableSource {
                   ),
                 ),
                 Padding(
-                  padding:EdgeInsets.only(top: 8, bottom: 8, left: 14, right: 14),
+                  padding:EdgeInsets.only(top: 8, bottom: 8, left: 16, right: 16),
                   child: Text(
                     'PAYROLL',
                     style: TextStyle(

@@ -89,6 +89,16 @@ class _EditProfile extends State<UpdateProfile> {
             Divider(
               thickness: 3,
             ),
+            Padding(
+              padding: EdgeInsets.only(left: 2),
+              child: Container(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Username',
+                  style: TextStyle(fontSize: 10),
+                ),
+              ),
+            ),
             Container(
               width: 320,
               child: Padding(
@@ -100,7 +110,7 @@ class _EditProfile extends State<UpdateProfile> {
                     filled: true,
                     fillColor: Colors.blueGrey[50],
                     labelStyle: TextStyle(fontSize: 10),
-                    contentPadding: EdgeInsets.only(left: 10),
+                    contentPadding: EdgeInsets.only(left: 15),
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.blueGrey.shade50),
                       borderRadius: BorderRadius.circular(5),
@@ -113,9 +123,19 @@ class _EditProfile extends State<UpdateProfile> {
                 ),
               ),
             ),
+            Padding(
+              padding: EdgeInsets.only(left: 2),
+              child: Container(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Fullname',
+                  style: TextStyle(fontSize: 10),
+                ),
+              ),
+            ),   
             Stack(
               children: [
-                //this will be disabled because we will display the name here
+                //this will be disabled because we will display the name here          
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
@@ -133,7 +153,7 @@ class _EditProfile extends State<UpdateProfile> {
                             filled: true,
                             fillColor: Colors.blueGrey[50],
                             labelStyle: TextStyle(fontSize: 10),
-                            contentPadding: EdgeInsets.only(left: 10),
+                            contentPadding: EdgeInsets.only(left: 15),
                             enabledBorder: OutlineInputBorder(
                               borderSide:
                                   BorderSide(color: Colors.blueGrey.shade50),
@@ -168,7 +188,7 @@ class _EditProfile extends State<UpdateProfile> {
                             filled: true,
                             fillColor: Colors.blueGrey[50],
                             labelStyle: TextStyle(fontSize: 10),
-                            contentPadding: EdgeInsets.only(left: 10),
+                            contentPadding: EdgeInsets.only(left: 15),
                             enabledBorder: OutlineInputBorder(
                               borderSide:
                                   BorderSide(color: Colors.blueGrey.shade50),
@@ -188,6 +208,16 @@ class _EditProfile extends State<UpdateProfile> {
               ],
             ),
             Padding(
+              padding: EdgeInsets.only(left: 2),
+              child: Container(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Password',
+                  style: TextStyle(fontSize: 10),
+                ),
+              ),
+            ),
+            Padding(
               padding: EdgeInsets.only(bottom: 20),
               child: TextField(
                 controller: password,
@@ -197,7 +227,7 @@ class _EditProfile extends State<UpdateProfile> {
                   filled: true,
                   fillColor: Colors.blueGrey[50],
                   labelStyle: TextStyle(fontSize: 10),
-                  contentPadding: EdgeInsets.only(left: 10),
+                  contentPadding: EdgeInsets.only(left: 15),
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.blueGrey.shade50),
                     borderRadius: BorderRadius.circular(5),
@@ -206,6 +236,16 @@ class _EditProfile extends State<UpdateProfile> {
                     borderSide: BorderSide(color: Colors.blueGrey.shade50),
                     borderRadius: BorderRadius.circular(5),
                   ),
+                ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(left: 2),
+              child: Container(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Confirm Password',
+                  style: TextStyle(fontSize: 10),
                 ),
               ),
             ),
@@ -230,7 +270,7 @@ class _EditProfile extends State<UpdateProfile> {
                   filled: true,
                   fillColor: Colors.blueGrey[50],
                   labelStyle: TextStyle(fontSize: 10),
-                  contentPadding: EdgeInsets.only(left: 10),
+                  contentPadding: EdgeInsets.only(left: 15),
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.blueGrey.shade50),
                     borderRadius: BorderRadius.circular(5),

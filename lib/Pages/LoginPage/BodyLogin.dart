@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:web_store_management/Notification/Snack_notification.dart';
 import '../../Backend/LoginOperation.dart';
 import '../../Backend/GlobalController.dart';
@@ -67,10 +68,10 @@ class _BodyLogin extends State<BodyLogin> {
               child: DropdownButton<String>(
                 isExpanded: true,
                 value: administrator,
-                icon: const Icon(Icons.arrow_downward),
+                icon: const Icon(Icons.arrow_drop_down),
                 iconSize: 24,
                 elevation: 16,
-                style: TextStyle(color: Colors.blue.shade700),
+                style: TextStyle(color: HexColor("#155293")),
                 onChanged: (role) {
                   setState(() {
                     administrator = role!;
@@ -150,7 +151,9 @@ class _BodyLogin extends State<BodyLogin> {
               width: double.infinity,
               height: 50,
               child: Center(
-                child: Text("Sign In"),
+                child: Text("Sign In",
+                style: TextStyle(fontFamily: 'Cairo_Bold', fontSize: 18),
+                ),
               ),
             ),
             style: ElevatedButton.styleFrom(
