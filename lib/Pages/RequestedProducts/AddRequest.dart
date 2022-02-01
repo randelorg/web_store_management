@@ -32,7 +32,7 @@ class _AddRequest extends State<AddRequest> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      actionsPadding: EdgeInsets.only(bottom: 5, left: 5, right: 5),   
+      actionsPadding: EdgeInsets.only(bottom: 5, left: 5, right: 5),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       actions: <Widget>[
         Column(
@@ -50,18 +50,16 @@ class _AddRequest extends State<AddRequest> {
                 },
               ),
             ),
-
             Text(
-             'New Request',
+              'New Request',
               softWrap: true,
               textAlign: TextAlign.center,
-              style: TextStyle(             
+              style: TextStyle(
                 color: HexColor("#155293"),
                 fontFamily: 'Cairo_Bold',
                 fontSize: 30,
               ),
             ),
-            
             Container(
               width: 320,
               child: Padding(
@@ -211,10 +209,27 @@ class _AddRequest extends State<AddRequest> {
                 //readOnly: true,
                 onTap: () async {
                   DateTime? pickedDate = await showDatePicker(
-                      context: context,
-                      initialDate: DateTime.now(),
-                      firstDate: DateTime(1999),
-                      lastDate: DateTime(2031));
+                    context: context,
+                    initialDate: DateTime.now(),
+                    firstDate: DateTime(2022),
+                    lastDate: DateTime(2032),
+                    builder: (context, child) {                   
+                      return Theme(               
+                        data: Theme.of(context).copyWith(                
+                          colorScheme: ColorScheme.light(                           
+                            primary: Colors.red, //Background Color
+                            onPrimary: Colors.white, //Text Color
+                          ),
+                          textButtonTheme: TextButtonThemeData(                        
+                            style: TextButton.styleFrom(
+                            primary: Colors.black, //Button Text Color
+                            ),
+                          ),
+                        ),
+                        child: child!,
+                      );
+                    },
+                  );
                   if (pickedDate != null) {
                     print(pickedDate);
                     String formattedDate =
@@ -244,13 +259,12 @@ class _AddRequest extends State<AddRequest> {
                     ),
                     TextButton(
                       style: TextButton.styleFrom(
-                        padding: const EdgeInsets.only(left: 20, right: 20, top: 15,bottom: 15),
+                        padding: const EdgeInsets.only(left: 20, right: 20, top: 15, bottom: 15),
                         primary: Colors.white,
                         textStyle: TextStyle(
-                          fontFamily: 'Cairo_SemiBold',
-                          fontSize: 14,
-                          color: Colors.white
-                        ),
+                            fontFamily: 'Cairo_SemiBold',
+                            fontSize: 14,
+                            color: Colors.white),
                       ),
                       child: const Text('ADD REQUEST'),
                       onPressed: () {

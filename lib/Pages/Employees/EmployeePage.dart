@@ -171,7 +171,7 @@ class _Employeepage extends State<EmployeePage> {
                     children: [
                       PaginatedDataTable(
                         showCheckboxColumn: false,
-                        rowsPerPage: 10,
+                        rowsPerPage: 12,
                         columns: [
                           DataColumn(label: Text('EID')),
                           DataColumn(label: Text('ROLE')),

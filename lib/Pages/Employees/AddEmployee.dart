@@ -115,7 +115,7 @@ class _AddEmployee extends State<AddEmployee> {
                           padding: EdgeInsets.only(left: 25),
                           child: Text(
                             value,
-                            style: TextStyle(fontSize: 15),
+                            style: TextStyle(fontSize: 14),
                           ),
                         ),
                       );
