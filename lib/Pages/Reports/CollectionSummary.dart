@@ -54,8 +54,25 @@ class _CollectionSummary extends State<CollectionSummary> {
                     DateTime? pickedDate = await showDatePicker(
                         context: context,
                         initialDate: DateTime.now(),
-                        firstDate: DateTime(1999),
-                        lastDate: DateTime(2031));
+                        firstDate: DateTime(2022),
+                        lastDate: DateTime(2032),
+                        builder: (context, child) { 
+                        return Theme( 
+                          data: Theme.of(context).copyWith(
+                            colorScheme: ColorScheme.light(                           
+                            primary: Colors.red, //Background Color
+                            onPrimary: Colors.white, //Text Color
+                          ),
+                          textButtonTheme: TextButtonThemeData(                        
+                            style: TextButton.styleFrom(
+                            primary: Colors.black, //Button Text Color
+                            ),
+                          ),
+                        ),
+                        child: child!,
+                      );
+                    },
+                  );
                     if (pickedDate != null) {
                       print(pickedDate);
                       String formattedDate =
@@ -104,8 +121,25 @@ class _CollectionSummary extends State<CollectionSummary> {
                     DateTime? pickedDate = await showDatePicker(
                         context: context,
                         initialDate: DateTime.now(),
-                        firstDate: DateTime(1999),
-                        lastDate: DateTime(2031));
+                        firstDate: DateTime(2022),
+                        lastDate: DateTime(2032),
+                        builder: (context, child) {
+                        return Theme(                    
+                          data: Theme.of(context).copyWith(                      
+                            colorScheme: ColorScheme.light(                           
+                            primary: Colors.red, //Background Color
+                            onPrimary: Colors.white, //Text Color
+                          ),
+                          textButtonTheme: TextButtonThemeData(                                                   
+                            style: TextButton.styleFrom(
+                            primary: Colors.black, //Button Text Color
+                            ),
+                          ),
+                        ),
+                        child: child!,
+                      );
+                    },
+                  );
                     if (pickedDate != null) {
                       print(pickedDate);
                       String formattedDate =

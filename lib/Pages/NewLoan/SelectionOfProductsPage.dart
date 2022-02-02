@@ -52,11 +52,8 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
                   ),
                 ),
                 Text(
-                  "Borrower Details",
-                  style: TextStyle(
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  "BORROWER DETAILS",
+                  style: TextStyle(fontFamily: 'Cairo_Bold', fontSize: 30),
                 ),
                 Padding(
                   padding: EdgeInsets.only(
@@ -109,7 +106,7 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
                   child: TextField(
                     controller: mobileNumber,
                     decoration: InputDecoration(
-                      hintText: 'Mobile number',
+                      hintText: 'Mobile Number',
                       filled: true,
                       fillColor: Colors.blueGrey[50],
                       labelStyle: TextStyle(fontSize: 18),
@@ -130,7 +127,7 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
                   child: TextField(
                     controller: homeAddress,
                     decoration: InputDecoration(
-                      hintText: 'Home address',
+                      hintText: 'Home Address',
                       filled: true,
                       fillColor: Colors.blueGrey[50],
                       labelStyle: TextStyle(fontSize: 18),
@@ -147,31 +144,36 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.all(20.0),
-                  child: TextButton.icon(
-                    style: TextButton.styleFrom(                 
-                      backgroundColor: HexColor("#155293"),
+                  padding: EdgeInsets.only(top:3),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(8),
+                    child: Stack(
+                      children: <Widget>[
+                        Positioned.fill(
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: HexColor("#155293"),
+                            ),
+                          ),
+                        ),
+                        TextButton.icon(
+                          icon:Icon(Icons.attach_file, color: Colors.white),
+                          style: TextButton.styleFrom(
+                            primary: Colors.white,
+                            textStyle: TextStyle(fontSize: 18, fontFamily: 'Cairo_SemiBold'),
+                          ),
+                          label: Text(fileName),
+                          onPressed: () {
+                            //get the filename and display it
+                            pick.pickFile().then((value) {
+                              setState(() {
+                                fileName = value;
+                              });
+                            });
+                          },
+                        ),
+                      ],
                     ),
-                    label: Text(
-                      fileName,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                        fontFamily: 'Cairo_SemiBold',
-                      ),
-                    ),
-                    icon: Icon(
-                      Icons.attach_file,
-                      color: Colors.white,
-                    ),
-                    onPressed: () {
-                      //get the filename and display it
-                      pick.pickFile().then((value) {
-                        setState(() {
-                          fileName = value;
-                        });
-                      });
-                    },
                   ),
                 ),
               ],
@@ -203,10 +205,7 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
                 child: Text(
                   "SELECT PRODUCTS",
                   textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: TextStyle(fontFamily: 'Cairo_Bold', fontSize: 30),
                 ),
               ),
               Row(
@@ -257,7 +256,7 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
                       child: PaginatedDataTable(
                         sortAscending: true,
                         showFirstLastButtons: true,
-                        rowsPerPage: 9,
+                        rowsPerPage: 10,
                         columns: [
                           DataColumn(label: Text('BARCODE')),
                           DataColumn(label: Text('PRODUCT NAME')),
@@ -282,7 +281,8 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             Container(
-              width: 95,
+              alignment: Alignment.center,
+              width: 120,
               height: 60,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(12),
@@ -297,13 +297,10 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
                     ),
                     TextButton(
                       style: TextButton.styleFrom(
-                        padding: const EdgeInsets.all(22.0),
-                        primary: Colors.white,             
-                        textStyle: TextStyle(                 
-                        fontSize: 22,
-                        fontFamily: 'Cairo_SemiBold'),
+                        padding: const EdgeInsets.all(15),
+                        primary: Colors.white,
+                        textStyle: TextStyle(fontSize: 25, fontFamily: 'Cairo_SemiBold'),
                       ),
-                      
                       onPressed: () {
                         //push to second page
                         //which is the finalize order page
@@ -315,7 +312,7 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
                                 Container(
                                   width:
                                       (MediaQuery.of(context).size.width) / 2,
-                                  height: 500,
+                                  height: 555,
                                   child: FinalizePage(
                                     firstname: firstname.text,
                                     lastname: lastname.text,

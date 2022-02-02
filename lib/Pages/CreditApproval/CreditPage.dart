@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:printing/printing.dart';
 import 'package:web_store_management/Backend/GlobalController.dart';
 import 'package:web_store_management/Backend/LoanOperation.dart';
@@ -123,7 +124,7 @@ class _CreditPage extends State<CreditScreen> {
                 child: ListTile(
                   title: Text(
                     'PENDING',
-                    style: TextStyle(fontSize: 30),
+                     style: TextStyle(fontSize: 30, fontFamily: 'Cairo_SemiBold')
                   ),
                   subtitle: Text(
                     'status',
@@ -139,13 +140,14 @@ class _CreditPage extends State<CreditScreen> {
                 child: Row(
                   children: [
                     Padding(
-                      padding: EdgeInsets.only(
-                          left: 30, right: 10, top: 10, bottom: 10),
+                      padding: EdgeInsets.only(left: 10, top: 10, bottom: 10, right: 50),
                       child: Text(
                         'Name',
                         softWrap: true,
                         style: TextStyle(
-                          fontSize: 10,
+                          color: Colors.grey[700],
+                          fontFamily: 'Cairo_SemiBold',
+                          fontSize: 12,
                         ),
                       ),
                     ),
@@ -156,8 +158,8 @@ class _CreditPage extends State<CreditScreen> {
                         maxLines: 2,
                         softWrap: true,
                         style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18,
+                          fontFamily: 'Cairo_SemiBold',
+                          fontSize: 14
                         ),
                       ),
                     ),
@@ -172,13 +174,14 @@ class _CreditPage extends State<CreditScreen> {
                 child: Row(
                   children: [
                     Padding(
-                      padding: EdgeInsets.only(
-                          left: 30, right: 10, top: 10, bottom: 10),
+                      padding: EdgeInsets.only(left: 10, top: 10, bottom: 10, right: 40),
                       child: Text(
                         'Address',
                         softWrap: true,
                         style: TextStyle(
-                          fontSize: 10,
+                          color: Colors.grey[700],
+                          fontFamily: 'Cairo_SemiBold',
+                          fontSize: 12,
                         ),
                       ),
                     ),
@@ -190,8 +193,8 @@ class _CreditPage extends State<CreditScreen> {
                         softWrap: true,
                         maxLines: 3,
                         style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18,
+                          fontFamily: 'Cairo_SemiBold',
+                          fontSize: 14
                         ),
                       ),
                     ),
@@ -206,14 +209,14 @@ class _CreditPage extends State<CreditScreen> {
                 child: Row(
                   children: [
                     Padding(
-                      padding: EdgeInsets.only(
-                          left: 30, right: 10, top: 10, bottom: 10),
+                      padding: EdgeInsets.only(left: 10, top: 10, bottom: 10, right: 40),
                       child: Text(
                         'Number',
                         softWrap: true,
                         style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 10,
+                          color: Colors.grey[700],
+                          fontFamily: 'Cairo_SemiBold',
+                          fontSize: 12,
                         ),
                       ),
                     ),
@@ -225,47 +228,48 @@ class _CreditPage extends State<CreditScreen> {
                         softWrap: true,
                         maxLines: 2,
                         style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18,
+                          fontFamily: 'Cairo_SemiBold',
+                          fontSize: 14
                         ),
                       ),
                     ),
                   ],
                 ),
               ),
+
               TextButton(
-                child: const Text('Show application'),
-                style: TextButton.styleFrom(
-                  textStyle: TextStyle(
-                    fontWeight: FontWeight.bold,
+                style: TextButton.styleFrom(               
+                  textStyle: TextStyle(              
                     fontSize: 10,
                     decoration: TextDecoration.underline,
                   ),
+                ),            
+                child: Text(
+                  'Show Application',
+                   style: TextStyle(color: Colors.blue),
                 ),
                 onPressed: () {},
               ),
+
               ButtonBar(
                 alignment: MainAxisAlignment.center,
                 children: [
                   ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
+                    borderRadius: BorderRadius.circular(20),
                     child: Stack(
                       children: <Widget>[
                         Positioned.fill(
                           child: Container(
-                            decoration: const BoxDecoration(
-                              color: Colors.blue,
+                            decoration: BoxDecoration(
+                              color: HexColor("#155293"),
                             ),
                           ),
                         ),
                         TextButton(
                           style: TextButton.styleFrom(
-                            padding: const EdgeInsets.only(
-                              left: 20,
-                              right: 20,
-                            ),
+                            padding: const EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
                             primary: Colors.white,
-                            textStyle: TextStyle(fontSize: 20),
+                            textStyle: TextStyle(fontSize: 18, fontFamily: 'Cairo_SemiBold')
                           ),
                           child: const Text('APPROVE'),
                           onPressed: () {

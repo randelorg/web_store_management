@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:web_store_management/Backend/HistoryOperation.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
 import 'package:web_store_management/Pages/Borrowers/UpdateBorrowerPage.dart';
@@ -32,20 +33,37 @@ class _ViewBorrowerProfile extends State<ViewBorrowerProfile> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      actionsPadding: EdgeInsets.all(20),
-      title: Text(
-        'Borrower Profile',
-        softWrap: true,
-        textAlign: TextAlign.center,
-        style: TextStyle(
-            fontSize: 25, fontWeight: FontWeight.bold, color: Colors.blue),
-      ),
+      actionsPadding: EdgeInsets.only(bottom: 5, left: 5, right: 5),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       actions: <Widget>[
         Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            Align(
+              alignment: Alignment.topRight,
+              child: IconButton(
+                icon: Icon(
+                  Icons.cancel,
+                  color: Colors.black,
+                  size: 30,
+                ),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ),
+
+            Text(
+             'Borrower Profile',
+              softWrap: true,
+              textAlign: TextAlign.center,
+              style: TextStyle(             
+                color: HexColor("#155293"),
+                fontFamily: 'Cairo_Bold',
+                fontSize: 30,
+              ),
+            ),
             SizedBox(
               width: 200,
               height: 200,
@@ -63,6 +81,7 @@ class _ViewBorrowerProfile extends State<ViewBorrowerProfile> {
                 style: TextStyle(color: Colors.black),
               ),
               onPressed: () async {
+                Navigator.pop(context);
                 String fullname = widget.name.toString().trim();
                 List name = fullname.split(" ");
                 await showDialog(
@@ -80,7 +99,7 @@ class _ViewBorrowerProfile extends State<ViewBorrowerProfile> {
               },
             ),
             Card(
-              margin: EdgeInsets.all(10),
+              margin: EdgeInsets.only(left: 5, top: 5, bottom: 5, right: 5),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10.0),
               ),
@@ -89,25 +108,24 @@ class _ViewBorrowerProfile extends State<ViewBorrowerProfile> {
               child: Row(
                 children: [
                   Padding(
-                    padding: EdgeInsets.only(right: 50, top: 10, bottom: 5),
+                    padding: EdgeInsets.only(left: 10, top: 10, bottom: 10, right: 70),
                     child: Text(
                       'Name',
-                      style: TextStyle(color: Colors.grey),
+                      style: TextStyle(
+                        color: Colors.grey[700],
+                        fontFamily: 'Cairo_SemiBold',
+                        fontSize: 12),
                     ),
                   ),
-                  Padding(
-                    padding: EdgeInsets.only(top: 10, bottom: 5),
-                    child: Text(
-                      widget.name.toString(),
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                    ),
+                  Text(
+                    widget.name.toString(),
+                    style:TextStyle(fontSize: 14, fontFamily: 'Cairo_SemiBold'),
                   ),
                 ],
               ),
             ),
             Card(
-              margin: EdgeInsets.all(10),
+              margin: EdgeInsets.only(left: 5, top: 5, bottom: 5, right: 5),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10.0),
               ),
@@ -116,26 +134,25 @@ class _ViewBorrowerProfile extends State<ViewBorrowerProfile> {
               child: Row(
                 children: [
                   Padding(
-                    padding: EdgeInsets.only(right: 20, top: 10, bottom: 5),
+                     padding: EdgeInsets.only(left: 10, top: 10, bottom: 10, right: 25),
                     child: Text(
                       'Mobile Number',
-                      style: TextStyle(color: Colors.grey),
+                      style: TextStyle(
+                        color: Colors.grey[700],
+                        fontFamily: 'Cairo_SemiBold',
+                        fontSize: 12),
                     ),
                   ),
-                  Padding(
-                    padding: EdgeInsets.only(top: 10, bottom: 5),
-                    child: Text(
-                      widget.number.toString(),
-                      softWrap: true,
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                    ),
+                  Text(
+                    widget.number.toString(),
+                    softWrap: true,
+                    style:TextStyle(fontSize: 14, fontFamily: 'Cairo_SemiBold'),
                   ),
                 ],
               ),
             ),
             Card(
-              margin: EdgeInsets.all(10),
+              margin: EdgeInsets.only(left: 5, top: 5, bottom: 5, right: 5),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10.0),
               ),
@@ -144,25 +161,24 @@ class _ViewBorrowerProfile extends State<ViewBorrowerProfile> {
               child: Row(
                 children: [
                   Padding(
-                    padding: EdgeInsets.only(right: 40, top: 10, bottom: 5),
+                    padding: EdgeInsets.only(left: 10, top: 10, bottom: 10, right: 45),
                     child: Text(
                       'Total Debt',
-                      style: TextStyle(color: Colors.grey),
+                      style: TextStyle(
+                        color: Colors.grey[700],
+                        fontFamily: 'Cairo_SemiBold',
+                        fontSize: 12),
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(right: 5),
+                    padding: EdgeInsets.only(right: 3),
                     child: Icon(Icons.attach_money),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(top: 10, bottom: 5),
-                    child: Text(
-                      widget.balance.toString(),
-                      softWrap: true,
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                    ),
-                  ),
+                  ),                            
+                  Text(                 
+                    widget.balance.toString(),
+                    softWrap: true,
+                    style:TextStyle(fontSize: 14, fontFamily: 'Cairo_SemiBold'),
+                  ),                   
                 ],
               ),
             ),

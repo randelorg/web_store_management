@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:web_store_management/Backend/HistoryOperation.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
 
@@ -25,8 +26,33 @@ class _ProductHistory extends State<ProductHistory> {
       height: (MediaQuery.of(context).size.height),
       child: ListView(
         scrollDirection: Axis.vertical,
-        padding: const EdgeInsets.all(10),
         children: [
+          Padding(   
+            padding: EdgeInsets.only(bottom: 5, right: 8),
+            child: Align(
+              alignment: Alignment.topRight,
+              child: IconButton(
+                icon: Icon(
+                  Icons.cancel,
+                  color: Colors.black,
+                  size: 30,
+                ),             
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ),
+        ),
+        Text(
+         'Loaned Product History',
+          softWrap: true,
+          textAlign: TextAlign.center,
+          style: TextStyle( 
+            color: HexColor("#155293"),
+            fontFamily: 'Cairo_Bold',
+            fontSize: 30,
+          ),
+        ), 
           FutureBuilder(
             future: history.viewLoanHistory(widget.borrowerId.toString()),
             builder: (context, snapshot) {
@@ -39,10 +65,11 @@ class _ProductHistory extends State<ProductHistory> {
                 if (snapshot.data == true) {
                   return PaginatedDataTable(
                     header: Text(
-                      widget.borrowerName.toString(),
+                      widget.borrowerName.toString().toUpperCase(),
                       style: TextStyle(
+                        color: HexColor("#155293"),
+                        fontFamily: 'Cairo_Bold',
                         fontSize: 20,
-                        fontWeight: FontWeight.bold,
                       ),
                     ),
                     showCheckboxColumn: false,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
 import 'package:web_store_management/Pages/Employees/UpdateEmployee.dart';
 import '../../Helpers/CreateQRHelper.dart';
@@ -18,23 +19,40 @@ class _ViewEmpProfile extends State<ViewEmpProfile> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      actionsPadding: EdgeInsets.all(20),
-      title: Text(
-        'Employee Profile',
-        softWrap: true,
-        textAlign: TextAlign.center,
-        style: TextStyle(
-            fontSize: 25, fontWeight: FontWeight.bold, color: Colors.blue),
-      ),
+      actionsPadding: EdgeInsets.only(bottom: 5, left: 5, right: 5),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       actions: <Widget>[
         Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            Align(
+              alignment: Alignment.topRight,
+              child: IconButton(
+                icon: Icon(
+                  Icons.cancel,
+                  color: Colors.black,
+                  size: 30,
+                ),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ),
+
+            Text(
+             'Employee Profile',
+              softWrap: true,
+              textAlign: TextAlign.center,
+              style: TextStyle(             
+                color: HexColor("#155293"),
+                fontFamily: 'Cairo_Bold',
+                fontSize: 30,
+              ),
+            ),
+
             SizedBox(
-              width: 200,
-              height: 200,
+              width: 200, height: 200,
               child: CreateQrHelper.createQr(qrContent()),
             ),
             TextButton(
@@ -68,7 +86,7 @@ class _ViewEmpProfile extends State<ViewEmpProfile> {
               },
             ),
             Card(
-              margin: EdgeInsets.all(10),
+              margin: EdgeInsets.only(left: 5, top: 5, bottom: 5, right: 5),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10.0),
               ),
@@ -77,25 +95,24 @@ class _ViewEmpProfile extends State<ViewEmpProfile> {
               child: Row(
                 children: [
                   Padding(
-                    padding: EdgeInsets.only(right: 50, top: 10, bottom: 5),
+                    padding: EdgeInsets.only(left: 10, top: 10, bottom: 10, right: 34),
                     child: Text(
                       'Employee ID',
-                      style: TextStyle(color: Colors.grey),
+                      style: TextStyle(
+                        color: Colors.grey[700],
+                        fontFamily: 'Cairo_SemiBold',
+                        fontSize: 12),
                     ),
                   ),
-                  Padding(
-                    padding: EdgeInsets.only(top: 10, bottom: 5),
-                    child: Text(
-                      widget.eid.toString(),
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                    ),
+                  Text(
+                    widget.eid.toString(),
+                    style:TextStyle(fontSize: 14, fontFamily: 'Cairo_SemiBold'),
                   ),
                 ],
               ),
             ),
             Card(
-              margin: EdgeInsets.all(10),
+              margin: EdgeInsets.only(left: 5, top: 5, bottom: 5, right: 5),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10.0),
               ),
@@ -104,76 +121,73 @@ class _ViewEmpProfile extends State<ViewEmpProfile> {
               child: Row(
                 children: [
                   Padding(
-                    padding: EdgeInsets.only(right: 50, top: 10, bottom: 5),
-                    child: Text(
-                      'Name',
-                      style: TextStyle(color: Colors.grey),
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(top: 10, bottom: 5),
-                    child: Text(
-                      widget.name.toString(),
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Card(
-              margin: EdgeInsets.all(10),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.0),
-              ),
-              elevation: 5,
-              shadowColor: Colors.black,
-              child: Row(
-                children: [
-                  Padding(
-                    padding: EdgeInsets.only(right: 20, top: 10, bottom: 5),
-                    child: Text(
-                      'Mobile Number',
-                      style: TextStyle(color: Colors.grey),
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(top: 10, bottom: 5),
-                    child: Text(
-                      widget.number.toString(),
-                      softWrap: true,
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Card(
-              margin: EdgeInsets.all(10),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.0),
-              ),
-              elevation: 5,
-              shadowColor: Colors.black,
-              child: Row(
-                children: [
-                  Padding(
-                    padding: EdgeInsets.only(right: 20, top: 10, bottom: 5),
+                    padding: EdgeInsets.only(left: 10, top: 10, bottom: 10, right: 74),
                     child: Text(
                       'Role',
-                      style: TextStyle(color: Colors.grey),
+                      style: TextStyle(
+                        color: Colors.grey[700],
+                        fontFamily: 'Cairo_SemiBold',
+                        fontSize: 12),
                     ),
+                  ), 
+                  Text(
+                    widget.role.toString(),
+                    softWrap: true,
+                    style:TextStyle(fontSize: 14, fontFamily: 'Cairo_SemiBold'),
                   ),
+                ],
+              ),
+            ),
+            Card(
+              margin: EdgeInsets.only(left: 5, top: 5, bottom: 5, right: 5),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+              elevation: 5,
+              shadowColor: Colors.black,
+              child: Row(
+                children: [
                   Padding(
-                    padding: EdgeInsets.only(top: 10, bottom: 5),
+                    padding: EdgeInsets.only(left: 10, top: 10, bottom: 10, right: 65),
                     child: Text(
-                      widget.role.toString(),
-                      softWrap: true,
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      'Name',
+                      style: TextStyle(
+                        color: Colors.grey[700],
+                        fontFamily: 'Cairo_SemiBold',
+                        fontSize: 12),
                     ),
+                  ),        
+                  Text(                
+                    widget.name.toString(),
+                    style:TextStyle(fontSize: 14, fontFamily: 'Cairo_SemiBold'),
                   ),
+                ],
+              ),
+            ),
+            Card(
+              margin: EdgeInsets.only(left: 5, top: 5, bottom: 5, right: 5),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+              elevation: 3,
+              shadowColor: Colors.black,
+              child: Row(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(left: 10, top: 10, bottom: 10, right: 18),
+                    child: Text(
+                      'Mobile Number',
+                      style: TextStyle(
+                        color: Colors.grey[700],
+                        fontFamily: 'Cairo_SemiBold',
+                        fontSize: 12),
+                    ),
+                  ),    
+                  Text(      
+                    widget.number.toString(),
+                    softWrap: true,
+                    style:TextStyle(fontSize: 14, fontFamily: 'Cairo_SemiBold'),
+                  ),                
                 ],
               ),
             ),

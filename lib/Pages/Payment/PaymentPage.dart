@@ -194,7 +194,6 @@ class _DataSource extends DataTableSource {
 
 List _paymentsList(BuildContext context) {
   List<_Row> _payments;
-
   try {
     return _payments = List.generate(Mapping.borrowerList.length, (index) {
       return _Row(
@@ -202,7 +201,7 @@ List _paymentsList(BuildContext context) {
         Mapping.borrowerList[index].toString(),
         Mapping.borrowerList[index].getBalance.toStringAsFixed(2).toString(),
         ClipRRect(
-          borderRadius: BorderRadius.circular(18),
+          borderRadius: BorderRadius.circular(20),
           child: Stack(
             children: <Widget>[
               Positioned.fill(
@@ -213,8 +212,7 @@ List _paymentsList(BuildContext context) {
                 ),
               ),
               Padding(
-                padding:
-                    EdgeInsets.only(top: 8, bottom: 8, left: 15, right: 15),
+                padding:EdgeInsets.only(top: 8, bottom: 8, left: 20, right: 20),
                 child: Text(
                   'PAY',
                   style: TextStyle(
@@ -228,7 +226,7 @@ List _paymentsList(BuildContext context) {
           ),
         ),
         ClipRRect(
-          borderRadius: BorderRadius.circular(18),
+          borderRadius: BorderRadius.circular(20),
           child: Stack(
             children: <Widget>[
               Positioned.fill(
@@ -239,8 +237,7 @@ List _paymentsList(BuildContext context) {
                 ),
               ),
               Padding(
-                padding:
-                    EdgeInsets.only(top: 8, bottom: 8, left: 10, right: 10),
+               padding:EdgeInsets.only(top: 8, bottom: 8, left: 16, right: 16),
                 child: Text(
                   'VIEW',
                   style: TextStyle(

@@ -51,15 +51,12 @@ class _ViewProfileState extends State<ViewProfile> {
                 },
               ),
             ),
-            CircleAvatar(
-              radius: 80,
-              child: ClipOval(
-                child: Image.memory(
-                  Uint8List.fromList(picture),
-                  height: 200,
-                  width: 200,
-                  fit: BoxFit.fitWidth,
-                ),
+            CircleAvatar(     
+              radius: 75,
+              child: ClipOval(     
+                child: Image.memory(             
+                  Uint8List.fromList(picture),         
+                  fit: BoxFit.fill, height: 250, width: 250)
               ),
             ),
             Card(
@@ -69,8 +66,7 @@ class _ViewProfileState extends State<ViewProfile> {
               child: Row(
                 children: [
                   Padding(
-                    padding: EdgeInsets.only(
-                        left: 10, top: 10, bottom: 10, right: 50),
+                    padding: EdgeInsets.only(left: 10, top: 10, bottom: 10, right: 50),
                     child: Text(
                       'Name',
                       style: TextStyle(
@@ -84,7 +80,7 @@ class _ViewProfileState extends State<ViewProfile> {
                     name.toString(),
                     style: TextStyle(
                       fontFamily: 'Cairo_SemiBold',
-                      fontSize: 15,
+                      fontSize: 14,
                     ),
                   ),
                 ],
@@ -97,8 +93,7 @@ class _ViewProfileState extends State<ViewProfile> {
               child: Row(
                 children: [
                   Padding(
-                    padding: EdgeInsets.only(
-                        left: 10, top: 10, bottom: 15, right: 33),
+                    padding: EdgeInsets.only(left: 10, top: 10, bottom: 10, right: 30),
                     child: Text(
                       'User Level',
                       style: TextStyle(
@@ -112,7 +107,7 @@ class _ViewProfileState extends State<ViewProfile> {
                     Mapping.userRole.toUpperCase(),
                     style: TextStyle(
                       fontFamily: 'Cairo_SemiBold',
-                      fontSize: 15,
+                      fontSize: 14,                
                     ),
                   ),
                 ],

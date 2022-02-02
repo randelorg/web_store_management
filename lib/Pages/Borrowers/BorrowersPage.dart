@@ -165,7 +165,7 @@ List<_Row> _borrowerProfile() {
           Mapping.borrowerList[index].getMobileNumber.toString(),
           Mapping.borrowerList[index].getBalance.toStringAsFixed(2).toString(),
           ClipRRect(
-            borderRadius: BorderRadius.circular(18),
+            borderRadius: BorderRadius.circular(20),
             child: Stack(
               children: <Widget>[
                 Positioned.fill(
@@ -176,8 +176,7 @@ List<_Row> _borrowerProfile() {
                   ),
                 ),
                 Padding(
-                  padding:
-                      EdgeInsets.only(top: 8, bottom: 8, left: 10, right: 10),
+                  padding:EdgeInsets.only(top: 8, bottom: 8, left: 16, right: 16),
                   child: Text(
                     'VIEW',
                     style: TextStyle(

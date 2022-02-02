@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
+import 'package:hexcolor/hexcolor.dart';
 import '../../Backend/AdminOperation.dart';
 import '../../Notification/Snack_notification.dart';
 
@@ -33,36 +34,52 @@ class _ConfirmAccount extends State<ConfirmAccount> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      actionsPadding: EdgeInsets.all(20),
-      title: Text(
-        'Verification',
-        softWrap: true,
-        textAlign: TextAlign.left,
-        style: TextStyle(
-          fontWeight: FontWeight.bold,
-          fontSize: 35,
-          color: Colors.blue,
-          overflow: TextOverflow.fade,
-        ),
-      ),
+      actionsPadding: EdgeInsets.only(bottom: 5, left: 5, right: 5),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       actions: <Widget>[
         Column(
           children: [
-            Padding(
-              padding: EdgeInsets.only(bottom: 10),
-              child: Container(
-                child: Container(
-                  alignment: Alignment.topLeft,
-                  child: Text('Enter your Password to Verify'),
+            Align(
+              alignment: Alignment.topRight,
+              child: IconButton(
+                icon: Icon(
+                  Icons.cancel,
+                  color: Colors.black,
+                  size: 30,
                 ),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
               ),
             ),
+            Text(
+              'Verification',
+              softWrap: true,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: HexColor("#155293"),
+                fontFamily: 'Cairo_Bold',
+                fontSize: 30,
+              ),
+            ),
+              Padding(          
+              padding: EdgeInsets.only(top: 25, bottom: 5),
+                child: Container(
+                  alignment: Alignment.topLeft,         
+                  child: Text('Enter your Admin Password to Verify',      
+                  style: TextStyle(
+                    fontFamily: 'Cairo_SemiBold',
+                    fontSize: 16,
+                    color: HexColor("#155293"),
+                  )),
+                ),
+            ),       
             Divider(
               thickness: 3,
             ),
+
             Container(
-              width: 300,
+              width: 320,
               child: Padding(
                 padding: EdgeInsets.only(bottom: 20),
                 child: TextField(
@@ -97,15 +114,14 @@ class _ConfirmAccount extends State<ConfirmAccount> {
                       children: <Widget>[
                         Positioned.fill(
                           child: Container(
-                            decoration: const BoxDecoration(
-                              color: Colors.blue,
+                            decoration: BoxDecoration(
+                              color: HexColor("#155293"),
                             ),
                           ),
                         ),
                         TextButton(
                           style: TextButton.styleFrom(
-                            padding: const EdgeInsets.only(
-                                left: 20, right: 20, top: 15, bottom: 15),
+                            padding: const EdgeInsets.only(left: 20, right: 20, top: 15, bottom: 15),
                             primary: Colors.white,
                             textStyle: TextStyle(fontSize: 20),
                           ),
@@ -127,7 +143,12 @@ class _ConfirmAccount extends State<ConfirmAccount> {
                                   'Wrong Password', Colors.red.shade600);
                             }
                           },
-                          child: const Text('VERIFY'),
+                          child: Text('VERIFY',
+                          style: TextStyle(                       
+                            fontFamily: 'Cairo_SemiBold',
+                            fontSize: 14,
+                            color: Colors.white),
+                          ), 
                         ),
                       ],
                     ),

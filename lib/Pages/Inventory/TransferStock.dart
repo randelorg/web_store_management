@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hexcolor/hexcolor.dart';
 
 class TransferStock extends StatefulWidget {
   @override
@@ -12,34 +13,62 @@ class _TransferStock extends State<TransferStock> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      actionsPadding: EdgeInsets.all(20),
-      title: Text(
-        'Transfer Stock',
-        softWrap: true,
-        textAlign: TextAlign.center,
-        style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 35,
-            color: Colors.blue,
-            overflow: TextOverflow.fade),
-      ),
+      actionsPadding: EdgeInsets.only(bottom: 5, left: 5, right: 5),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       actions: <Widget>[
         Column(
           children: [
+            Align(
+              alignment: Alignment.topRight,
+              child: IconButton(
+                icon: Icon(
+                  Icons.cancel,
+                  color: Colors.black,
+                  size: 30,
+                ),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ),
+
+            Text(
+             'Transfer Stock',
+              softWrap: true,
+              textAlign: TextAlign.center,
+              style: TextStyle(             
+                color: HexColor("#155293"),
+                fontFamily: 'Cairo_Bold',
+                fontSize: 30,
+              ),
+            ),
+
             Padding(
-              padding: EdgeInsets.only(bottom: 20),
+              padding: EdgeInsets.only(top: 25, bottom: 10),
               child: Container(
                 child: Container(
                   alignment: Alignment.topLeft,
-                  child: Text('Transfer products to another branch.'),
+                  child: Text('Transfer Products to Another Branch.',
+                  style: TextStyle(
+                    fontFamily: 'Cairo_SemiBold',
+                    fontSize: 16,
+                    color: HexColor("#155293"),
+                  )),    
                 ),
               ),
             ),
-            Container(
-              alignment: Alignment.topLeft,
-              child: Text('From'),
+             
+            Padding(
+              padding: EdgeInsets.only(left: 3),
+              child: Container(
+                alignment: Alignment.topLeft,
+                child: Text(
+                  'From',
+                  style: TextStyle(fontSize: 10),
+                ),
+              ),
             ),
+ 
             Row(
               children: [
                 Padding(
@@ -59,10 +88,10 @@ class _TransferStock extends State<TransferStock> {
                       child: DropdownButton<String>(
                         isExpanded: true,
                         value: originStore,
-                        icon: const Icon(Icons.arrow_downward),
+                        icon: const Icon(Icons.arrow_drop_down),
                         iconSize: 24,
                         elevation: 16,
-                        style: TextStyle(color: Colors.blue.shade700),
+                        style: TextStyle(color: HexColor("#155293")),
                         onChanged: (String? newValue) {
                           setState(() {
                             originStore = newValue!;
@@ -81,10 +110,18 @@ class _TransferStock extends State<TransferStock> {
                 ),
               ],
             ),
-            Container(
-              alignment: Alignment.topLeft,
-              child: Text('To'),
+
+            Padding(
+              padding: EdgeInsets.only(left: 3),
+              child: Container(
+                alignment: Alignment.topLeft,
+                child: Text(
+                  'To',
+                  style: TextStyle(fontSize: 10),
+                ),
+              ),
             ),
+
             Row(
               children: [
                 Padding(
@@ -103,10 +140,10 @@ class _TransferStock extends State<TransferStock> {
                       child: DropdownButton<String>(
                         isExpanded: true,
                         value: anotherBranch,
-                        icon: const Icon(Icons.arrow_downward),
+                        icon: const Icon(Icons.arrow_drop_down),
                         iconSize: 24,
                         elevation: 16,
-                        style: TextStyle(color: Colors.blue.shade700),
+                        style: TextStyle(color:HexColor("#155293")),
                         onChanged: (String? newValue) {
                           setState(() {
                             anotherBranch = newValue!;
@@ -129,10 +166,13 @@ class _TransferStock extends State<TransferStock> {
               thickness: 3,
             ),
             Padding(
-              padding: EdgeInsets.only(top: 20),
+              padding: EdgeInsets.only(left: 3),
               child: Container(
                 alignment: Alignment.topLeft,
-                child: Text('Product'),
+                child: Text(
+                  'Product',
+                  style: TextStyle(fontSize: 10),
+                ),
               ),
             ),
             Padding(
@@ -161,10 +201,16 @@ class _TransferStock extends State<TransferStock> {
             ),
             Stack(
               children: [
-                Container(
-                  alignment: Alignment.topLeft,
-                  child: Text('Quantity'),
+                Padding(
+              padding: EdgeInsets.only(left: 3),
+              child: Container(
+                alignment: Alignment.topLeft,
+                child: Text(
+                  'Quantity',
+                  style: TextStyle(fontSize: 10),
                 ),
+              ),
+            ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
@@ -187,10 +233,11 @@ class _TransferStock extends State<TransferStock> {
               decoration: InputDecoration(
                 suffixIcon: TextButton(
                   style: TextButton.styleFrom(
-                    textStyle: const TextStyle(fontSize: 15),
+                    textStyle:TextStyle(fontSize: 15),
                   ),
                   onPressed: () {},
-                  child: const Text('MAX'),
+                  child: Text('MAX', style:TextStyle(fontSize: 15, color:HexColor("#155293")),
+                  ),
                 ),
                 filled: true,
                 fillColor: Colors.blueGrey[50],
@@ -217,17 +264,19 @@ class _TransferStock extends State<TransferStock> {
                       children: <Widget>[
                         Positioned.fill(
                           child: Container(
-                            decoration: const BoxDecoration(
-                              color: Colors.blue,
+                            decoration: BoxDecoration(
+                              color: HexColor("#155293"),
                             ),
                           ),
                         ),
                         TextButton(
                           style: TextButton.styleFrom(
-                            padding: const EdgeInsets.only(
-                                left: 20, right: 20, top: 15, bottom: 15),
+                            padding: const EdgeInsets.only(left: 20, right: 20, top: 15, bottom: 15),
                             primary: Colors.white,
-                            textStyle: TextStyle(fontSize: 20),
+                            textStyle: TextStyle(
+                              fontFamily: 'Cairo_SemiBold',
+                              fontSize: 14,
+                              color: Colors.white),    
                           ),
                           onPressed: () {},
                           child: const Text('CONFIRM'),

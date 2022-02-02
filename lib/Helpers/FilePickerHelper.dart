@@ -21,7 +21,7 @@ class Picker {
       return result.files.single.name.toString();
     }
 
-    return 'No file is selected';
+    return 'No File is Selected';
   }
 
   Uint8List getImageBytes() {
