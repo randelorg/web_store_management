@@ -51,15 +51,12 @@ class _ViewProfileState extends State<ViewProfile> {
                 },
               ),
             ),
-            CircleAvatar(
-              radius: 80,
-              child: ClipOval(
-                child: Image.memory(
-                  Uint8List.fromList(picture),
-                  height: 200,
-                  width: 200,
-                  fit: BoxFit.fitWidth,
-                ),
+            CircleAvatar(     
+              radius: 75,
+              child: ClipOval(     
+                child: Image.memory(             
+                  Uint8List.fromList(picture),         
+                  fit: BoxFit.fill, height: 250, width: 250)
               ),
             ),
             Card(

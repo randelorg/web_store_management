@@ -60,7 +60,7 @@ class _AddAccount extends State<AddAccount> {
             ),
      
             Padding(          
-              padding: EdgeInsets.only(top: 25, bottom: 10),
+              padding: EdgeInsets.only(top: 25, bottom: 5),
                 child: Container(
                   alignment: Alignment.topLeft,         
                   child: Text('New Admin',      

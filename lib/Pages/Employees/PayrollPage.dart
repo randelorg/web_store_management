@@ -22,23 +22,32 @@ class _Payrollpage extends State<PayrollPage> {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        
-        Padding(
-          padding: EdgeInsets.only(bottom: 5, left: 5, right: 5),
+        Padding(            
+          padding: EdgeInsets.only(bottom: 5, right: 8),
           child: Align(
-                alignment: Alignment.topRight,
-                child: IconButton(
-                  icon: Icon(
-                    Icons.cancel,
-                    color: Colors.black,
-                    size: 30,
-                  ),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                ),
-              ),
+            alignment: Alignment.topRight,
+            child: IconButton(
+              icon: Icon(
+                Icons.cancel,
+                color: Colors.black,
+                size: 30,
+              ),    
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ),
         ),
+        Text(
+             'Payroll',
+              softWrap: true,
+              textAlign: TextAlign.center,
+              style: TextStyle(             
+                color: HexColor("#155293"),
+                fontFamily: 'Cairo_Bold',
+                fontSize: 30,
+              ),
+            ),
             
         Row(
           mainAxisAlignment: MainAxisAlignment.start,

@@ -157,7 +157,7 @@ class _BodyLogin extends State<BodyLogin> {
               ),
             ),
             style: ElevatedButton.styleFrom(
-              primary: Colors.redAccent.shade200,
+              primary:HexColor("#EA1C24"),
               onPrimary: Colors.white,
             ),
             onPressed: () {

@@ -73,7 +73,7 @@ class _EditProfile extends State<UpdateProfile> {
             ),
          
             Padding(
-              padding: EdgeInsets.only(top: 25, bottom: 10),
+              padding: EdgeInsets.only(top: 25, bottom: 5),
               child: Container(
                 child: Container(
                   alignment: Alignment.topLeft,
@@ -304,7 +304,7 @@ class _EditProfile extends State<UpdateProfile> {
                         ),
                         TextButton(
                           style: TextButton.styleFrom(
-                            padding: const EdgeInsets.only(left: 20, right: 20, top: 15,bottom: 15),
+                            padding: const EdgeInsets.only(left: 20, right: 20, top: 15, bottom: 15),
                             primary: Colors.white,
                             textStyle: TextStyle(                                         
                               fontFamily: 'Cairo_SemiBold',
