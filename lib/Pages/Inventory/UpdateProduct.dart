@@ -213,16 +213,15 @@ class _UpdateProduct extends State<UpdateProduct> {
                           color: HexColor("#155293"),
                         ),
                       ),
-                    ),
-                    
+                    ),               
                     TextButton(
                       style: TextButton.styleFrom(
-                        padding: const EdgeInsets.only(left: 20, right: 20, top: 15, bottom: 15),
+                        padding: const EdgeInsets.only(top: 18, bottom: 18, left: 36, right: 36),
                         primary: Colors.white,
                         textStyle: TextStyle(
                           fontFamily: 'Cairo_SemiBold',
-                              fontSize: 14,
-                              color: Colors.white),
+                          fontSize: 14,
+                          color: Colors.white),
                       ),
 
                       child: const Text('UPDATE'),

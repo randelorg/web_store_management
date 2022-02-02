@@ -31,12 +31,11 @@ class _RequestedProdScreen extends State<RequestedProdScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Icon(Icons.add_circle, color: Colors.white),
+              children: [          
                 Padding(
                   padding: EdgeInsets.only(top: 10, bottom: 10, left: 20),
                   child: ClipRRect(
-                    borderRadius: BorderRadius.circular(5),
+                    borderRadius: BorderRadius.circular(8),
                     child: Stack(
                       children: <Widget>[
                         Positioned.fill(
@@ -126,8 +125,7 @@ class _RequestedProdScreen extends State<RequestedProdScreen> {
                     mainAxisSpacing: 10,
                     shrinkWrap: true,
                     childAspectRatio: (MediaQuery.of(context).size.width) /
-                        (MediaQuery.of(context).size.height) /
-                        2.5,
+                        (MediaQuery.of(context).size.height) / 2.5,
                     children: _cards(),
                   ),
                 ),
@@ -163,7 +161,7 @@ class _RequestedProdScreen extends State<RequestedProdScreen> {
                 child: ListTile(
                   title: Text(
                     'PENDING',
-                    style: TextStyle(fontSize: 30),
+                    style: TextStyle(fontSize: 30, fontFamily: 'Cairo_SemiBold')
                   ),
                   subtitle: Text(
                     'status',
@@ -179,13 +177,14 @@ class _RequestedProdScreen extends State<RequestedProdScreen> {
                 child: Row(
                   children: [
                     Padding(
-                      padding: EdgeInsets.only(
-                          left: 30, right: 10, top: 10, bottom: 10),
+                      padding: EdgeInsets.only(left: 10, top: 10, bottom: 10, right: 30),
                       child: Text(
-                        'Requested \n products',
+                        'Requested \n Product',
                         softWrap: true,
                         style: TextStyle(
-                          fontSize: 10,
+                          color: Colors.grey[700],
+                          fontFamily: 'Cairo_SemiBold',
+                          fontSize: 12,
                         ),
                       ),
                     ),
@@ -196,8 +195,8 @@ class _RequestedProdScreen extends State<RequestedProdScreen> {
                         maxLines: 2,
                         softWrap: true,
                         style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18,
+                          fontFamily: 'Cairo_SemiBold',
+                          fontSize: 14
                         ),
                       ),
                     ),
@@ -211,13 +210,14 @@ class _RequestedProdScreen extends State<RequestedProdScreen> {
                 child: Row(
                   children: [
                     Padding(
-                      padding: EdgeInsets.only(
-                          left: 30, right: 10, top: 10, bottom: 10),
+                      padding: EdgeInsets.only(left: 10, top: 10, bottom: 10, right: 56),                        
                       child: Text(
                         'Name',
                         softWrap: true,
                         style: TextStyle(
-                          fontSize: 10,
+                          color: Colors.grey[700],
+                          fontFamily: 'Cairo_SemiBold',
+                          fontSize: 12,
                         ),
                       ),
                     ),
@@ -228,8 +228,8 @@ class _RequestedProdScreen extends State<RequestedProdScreen> {
                         softWrap: true,
                         maxLines: 2,
                         style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18,
+                          fontFamily: 'Cairo_SemiBold',
+                          fontSize: 14
                         ),
                       ),
                     ),
@@ -243,13 +243,14 @@ class _RequestedProdScreen extends State<RequestedProdScreen> {
                 child: Row(
                   children: [
                     Padding(
-                      padding: EdgeInsets.only(
-                          left: 30, right: 10, top: 10, bottom: 10),
+                     padding: EdgeInsets.only(left: 10, top: 10, bottom: 10, right: 46),
                       child: Text(
                         'Address',
                         softWrap: true,
                         style: TextStyle(
-                          fontSize: 10,
+                          color: Colors.grey[700],
+                          fontFamily: 'Cairo_SemiBold',
+                          fontSize: 12,
                         ),
                       ),
                     ),
@@ -260,8 +261,8 @@ class _RequestedProdScreen extends State<RequestedProdScreen> {
                         softWrap: true,
                         maxLines: 3,
                         style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18,
+                          fontFamily: 'Cairo_SemiBold',
+                          fontSize: 14
                         ),
                       ),
                     ),
@@ -275,14 +276,14 @@ class _RequestedProdScreen extends State<RequestedProdScreen> {
                 child: Row(
                   children: [
                     Padding(
-                      padding: EdgeInsets.only(
-                          left: 30, right: 10, top: 10, bottom: 10),
+                     padding: EdgeInsets.only(left: 10, top: 10, bottom: 10, right: 48),
                       child: Text(
                         'Number',
                         softWrap: true,
                         style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 10,
+                          color: Colors.grey[700],
+                          fontFamily: 'Cairo_SemiBold',
+                          fontSize: 12,
                         ),
                       ),
                     ),
@@ -293,8 +294,8 @@ class _RequestedProdScreen extends State<RequestedProdScreen> {
                         softWrap: true,
                         maxLines: 2,
                         style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18,
+                          fontFamily: 'Cairo_SemiBold',
+                          fontSize: 14
                         ),
                       ),
                     ),
@@ -305,22 +306,21 @@ class _RequestedProdScreen extends State<RequestedProdScreen> {
                 alignment: MainAxisAlignment.center,
                 children: [
                   ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
+                    borderRadius: BorderRadius.circular(20),
                     child: Stack(
                       children: <Widget>[
                         Positioned.fill(
                           child: Container(
-                            decoration: const BoxDecoration(
-                              color: Colors.blue,
+                            decoration: BoxDecoration(
+                              color: HexColor("#155293"),
                             ),
                           ),
                         ),
                         TextButton(
                           style: TextButton.styleFrom(
-                            padding: const EdgeInsets.only(
-                                left: 20, right: 20, top: 5, bottom: 5),
+                            padding: const EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
                             primary: Colors.white,
-                            textStyle: TextStyle(fontSize: 20),
+                            textStyle: TextStyle(fontSize: 18, fontFamily: 'Cairo_SemiBold')
                           ),
                           child: const Text('IN-STORE'),
                           onPressed: () {},

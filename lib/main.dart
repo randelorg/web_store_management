@@ -9,13 +9,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      title: 'Dellrains Store Management System',
+      title: 'Dellrains Store Management System',   
       debugShowCheckedModeBanner: false,
       routes: {
         '/': (context) => LoginPage(),
         '/home': (context) => Home(),
         '/logout': (context) => LoginPage(),
-      },
+      },   
     );
   }
 }

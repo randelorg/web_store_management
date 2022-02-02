@@ -31,12 +31,11 @@ class _RepairsPage extends State<RepairsPage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Icon(Icons.add_circle, color: Colors.white),
+              children: [           
                 Padding(
                   padding: EdgeInsets.only(top: 10, bottom: 10, left: 20),
                   child: ClipRRect(
-                    borderRadius: BorderRadius.circular(5),
+                    borderRadius: BorderRadius.circular(8),
                     child: Stack(
                       children: <Widget>[
                         Positioned.fill(
@@ -79,7 +78,7 @@ class _RepairsPage extends State<RepairsPage> {
                   width: 400,
                   child: TextField(
                     decoration: InputDecoration(
-                      hintText: 'Search borrower',
+                      hintText: 'Search Repair',
                       suffixIcon: InkWell(
                         child: IconButton(
                           icon: Icon(Icons.qr_code_scanner_outlined),
@@ -164,7 +163,7 @@ class _RepairsPage extends State<RepairsPage> {
                 child: ListTile(
                   title: Text(
                     'PENDING',
-                    style: TextStyle(fontSize: 30),
+                    style: TextStyle(fontSize: 30, fontFamily: 'Cairo_SemiBold')
                   ),
                   subtitle: Text(
                     'status',
@@ -180,13 +179,14 @@ class _RepairsPage extends State<RepairsPage> {
                 child: Row(
                   children: [
                     Padding(
-                      padding: EdgeInsets.only(
-                          left: 30, right: 10, top: 10, bottom: 10),
+                      padding: EdgeInsets.only(left: 10, top: 10, bottom: 10, right: 40),
                       child: Text(
                         'Product \n Name',
                         softWrap: true,
-                        style: TextStyle(
-                          fontSize: 10,
+                        style: TextStyle(                  
+                          color: Colors.grey[700],
+                          fontFamily: 'Cairo_SemiBold',
+                          fontSize: 12,
                         ),
                       ),
                     ),
@@ -197,8 +197,8 @@ class _RepairsPage extends State<RepairsPage> {
                         softWrap: true,
                         maxLines: 2,
                         style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18,
+                          fontFamily: 'Cairo_SemiBold',
+                          fontSize: 14
                         ),
                       ),
                     ),
@@ -213,13 +213,14 @@ class _RepairsPage extends State<RepairsPage> {
                 child: Row(
                   children: [
                     Padding(
-                      padding: EdgeInsets.only(
-                          left: 30, right: 10, top: 10, bottom: 10),
+                      padding: EdgeInsets.only(left: 10, top: 10, bottom: 10, right: 53),
                       child: Text(
                         'Name',
                         softWrap: true,
                         style: TextStyle(
-                          fontSize: 10,
+                          color: Colors.grey[700],
+                          fontFamily: 'Cairo_SemiBold',
+                          fontSize: 12,
                         ),
                       ),
                     ),
@@ -230,8 +231,8 @@ class _RepairsPage extends State<RepairsPage> {
                         softWrap: true,
                         maxLines: 2,
                         style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18,
+                          fontFamily: 'Cairo_SemiBold',
+                          fontSize: 14
                         ),
                       ),
                     ),
@@ -246,13 +247,14 @@ class _RepairsPage extends State<RepairsPage> {
                 child: Row(
                   children: [
                     Padding(
-                      padding: EdgeInsets.only(
-                          left: 30, right: 10, top: 10, bottom: 10),
+                     padding: EdgeInsets.only(left: 10, top: 10, bottom: 10, right: 43),
                       child: Text(
                         'Address',
                         softWrap: true,
                         style: TextStyle(
-                          fontSize: 10,
+                          color: Colors.grey[700],
+                          fontFamily: 'Cairo_SemiBold',
+                          fontSize: 12,
                         ),
                       ),
                     ),
@@ -263,8 +265,8 @@ class _RepairsPage extends State<RepairsPage> {
                         softWrap: true,
                         maxLines: 3,
                         style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18,
+                          fontFamily: 'Cairo_SemiBold',
+                          fontSize: 14
                         ),
                       ),
                     ),
@@ -279,14 +281,14 @@ class _RepairsPage extends State<RepairsPage> {
                 child: Row(
                   children: [
                     Padding(
-                      padding: EdgeInsets.only(
-                          left: 30, right: 10, top: 10, bottom: 10),
+                      padding: EdgeInsets.only(left: 10, top: 10, bottom: 10, right: 44),
                       child: Text(
                         'Number',
                         softWrap: true,
                         style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 10,
+                          color: Colors.grey[700],
+                          fontFamily: 'Cairo_SemiBold',
+                          fontSize: 12,
                         ),
                       ),
                     ),
@@ -297,8 +299,8 @@ class _RepairsPage extends State<RepairsPage> {
                         softWrap: true,
                         maxLines: 2,
                         style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18,
+                          fontFamily: 'Cairo_SemiBold',
+                          fontSize: 14
                         ),
                       ),
                     ),
@@ -309,22 +311,21 @@ class _RepairsPage extends State<RepairsPage> {
                 alignment: MainAxisAlignment.center,
                 children: [
                   ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
+                    borderRadius: BorderRadius.circular(20),
                     child: Stack(
                       children: <Widget>[
                         Positioned.fill(
                           child: Container(
-                            decoration: const BoxDecoration(
-                              color: Colors.blue,
+                            decoration: BoxDecoration(
+                              color: HexColor("#155293"),
                             ),
                           ),
                         ),
                         TextButton(
                           style: TextButton.styleFrom(
-                            padding: const EdgeInsets.only(
-                                left: 20, right: 20, top: 5, bottom: 5),
+                            padding: const EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
                             primary: Colors.white,
-                            textStyle: TextStyle(fontSize: 20),
+                            textStyle: TextStyle(fontSize: 18, fontFamily: 'Cairo_SemiBold')
                           ),
                           child: const Text('REPAIRED'),
                           onPressed: () {},
