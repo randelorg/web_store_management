@@ -1,6 +1,8 @@
 import 'package:hexcolor/hexcolor.dart';
 import 'package:flutter/material.dart';
+import 'package:web_store_management/Backend/GlobalController.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
+import 'package:web_store_management/Pages/Navbar/AddBranch.dart';
 
 import '../ViewProfile.dart';
 import '../AddAccount.dart';
@@ -12,6 +14,7 @@ class ProfileDrawer extends StatefulWidget {
 }
 
 class _ProfileDrawer extends State<ProfileDrawer> {
+  var controller = GlobalController();
   bool _isAuthorized = false;
   bool _isEmployee = true;
   bool _timein = false;
@@ -20,6 +23,7 @@ class _ProfileDrawer extends State<ProfileDrawer> {
   @override
   void initState() {
     super.initState();
+    controller.fetchAllEmployees();
     if (Mapping.userRole == "Administrator") {
       setState(() {
         _isAuthorized = true;
@@ -34,7 +38,8 @@ class _ProfileDrawer extends State<ProfileDrawer> {
   Widget build(BuildContext context) {
     return PopupMenuButton(
       tooltip: "My Profile",
-      elevation: 5,
+      offset: const Offset(0.0, 45.0),
+      elevation: 2,
       child: Icon(Icons.person, color: HexColor("#155293")),
       itemBuilder: (context) => [
         PopupMenuItem(
@@ -44,6 +49,15 @@ class _ProfileDrawer extends State<ProfileDrawer> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
+                Padding(
+                  padding: EdgeInsets.only(top: 10),
+                  child: Container(
+                    child: Text(
+                      'Profile Management',
+                      style: TextStyle(fontSize: 10),
+                    ),
+                  ),
+                ),
                 Card(
                   elevation: 5,
                   shape: RoundedRectangleBorder(
@@ -53,7 +67,10 @@ class _ProfileDrawer extends State<ProfileDrawer> {
                     padding: EdgeInsets.only(
                         top: 10, bottom: 10, right: 10, left: 10),
                     child: TextButton.icon(
-                      icon: Icon(Icons.visibility, color: HexColor("#155293")),
+                      icon: Icon(
+                        Icons.visibility,
+                        color: HexColor("#155293"),
+                      ),
                       label: Text(
                         'View Profile',
                         style: TextStyle(
@@ -78,79 +95,122 @@ class _ProfileDrawer extends State<ProfileDrawer> {
                   maintainAnimation: true,
                   maintainState: true,
                   visible: this._isAuthorized,
-                  child: Card(
-                    elevation: 5,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.only(
-                        top: 10,
-                        bottom: 10,
-                        right: 10,
-                        left: 10,
-                      ),
-                      child: TextButton.icon(
-                        icon: Icon(
-                          Icons.create_rounded,
-                          color: HexColor("#155293"),
+                  child: Column(
+                    children: [
+                      Card(
+                        elevation: 5,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
                         ),
-                        label: Text(
-                          'Update Profile',
-                          style: TextStyle(
-                            fontFamily: 'Cairo_SemiBold',
-                            color: HexColor("#155293"),
+                        child: Padding(
+                          padding: EdgeInsets.only(
+                            top: 10,
+                            bottom: 10,
+                            right: 10,
+                            left: 10,
                           ),
-                          softWrap: true,
-                        ),
-                        onPressed: () {
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return UpdateProfile();
+                          child: TextButton.icon(
+                            icon: Icon(
+                              Icons.create_rounded,
+                              color: HexColor("#155293"),
+                            ),
+                            label: Text(
+                              'Update Profile',
+                              style: TextStyle(
+                                fontFamily: 'Cairo_SemiBold',
+                                color: HexColor("#155293"),
+                              ),
+                              softWrap: true,
+                            ),
+                            onPressed: () {
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return UpdateProfile();
+                                },
+                              );
                             },
-                          );
-                        },
-                      ),
-                    ),
-                  ),
-                ),
-                Visibility(
-                  maintainSize: false,
-                  maintainAnimation: true,
-                  maintainState: true,
-                  visible: this._isAuthorized,
-                  child: Card(
-                    elevation: 5,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.only(
-                          top: 10, bottom: 10, right: 10, left: 10),
-                      child: TextButton.icon(
-                        icon: Icon(
-                          Icons.person_add,
-                          color: HexColor("#155293"),
-                        ),
-                        label: Text(
-                          'Add New Admin',
-                          style: TextStyle(
-                            fontFamily: 'Cairo_SemiBold',
-                            color: HexColor("#155293"),
                           ),
-                          softWrap: true,
                         ),
-                        onPressed: () {
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return AddAccount();
-                            },
-                          );
-                        },
                       ),
-                    ),
+                      Card(
+                        elevation: 5,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        child: Padding(
+                          padding: EdgeInsets.only(
+                              top: 10, bottom: 10, right: 10, left: 10),
+                          child: TextButton.icon(
+                            icon: Icon(
+                              Icons.person_add,
+                              color: HexColor("#155293"),
+                            ),
+                            label: Text(
+                              'Add Admin',
+                              style: TextStyle(
+                                fontFamily: 'Cairo_SemiBold',
+                                color: HexColor("#155293"),
+                              ),
+                              softWrap: true,
+                            ),
+                            onPressed: () {
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AddAccount();
+                                },
+                              );
+                            },
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(top: 10),
+                        child: Container(
+                          child: Text(
+                            'Branch Management',
+                            style: TextStyle(fontSize: 10),
+                          ),
+                        ),
+                      ),
+                      Card(
+                        elevation: 5,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        child: Padding(
+                          padding: EdgeInsets.only(
+                            top: 10,
+                            bottom: 10,
+                            right: 10,
+                            left: 10,
+                          ),
+                          child: TextButton.icon(
+                            icon: Icon(
+                              Icons.store,
+                              color: HexColor("#155293"),
+                            ),
+                            label: Text(
+                              'Add Branch',
+                              style: TextStyle(
+                                fontFamily: 'Cairo_SemiBold',
+                                color: HexColor("#155293"),
+                              ),
+                              softWrap: true,
+                            ),
+                            onPressed: () {
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AddBranch();
+                                },
+                              );
+                            },
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
                 Visibility(
