@@ -379,13 +379,17 @@ class _AddEmployee extends State<AddEmployee> {
                               color: Colors.white),
                           ),
                           onPressed: () {
-                            if (username.text.isEmpty) {
+                            if (username.text.isEmpty || firstname.text.isEmpty || lastname.text.isEmpty || mobileNumber.text.isEmpty || 
+                                homeAddress.text.isEmpty || basicWage.text.isEmpty || password.text.isEmpty || confirmPassword.text.isEmpty || pick.image == null) {
                               SnackNotification.notif(
                                 'Error',
-                                'Please supply all fields.',
+                                'Please supply all fields',
                                 Colors.red.shade600,
                               );
-                            } else {
+                            } else if(password.text != confirmPassword.text){
+                              SnackNotification.notif(
+                                  "Error","Password did not match", Colors.red.shade600);
+                            } else {   
                               //creation of employee method
                               emp
                                   .createEmployeeAccount(

@@ -68,7 +68,7 @@ class _InventoryPage extends State<InventoryPage> {
                     filled: true,
                     fillColor: Colors.blueGrey[50],
                     labelStyle: TextStyle(fontSize: 10),
-                    contentPadding: EdgeInsets.only(left: 30),
+                    contentPadding: EdgeInsets.only(left: 15),
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.blueGrey.shade50),
                       borderRadius: BorderRadius.circular(5),
@@ -89,7 +89,7 @@ class _InventoryPage extends State<InventoryPage> {
                     filled: true,
                     fillColor: Colors.blueGrey[50],
                     labelStyle: TextStyle(fontSize: 12),
-                    contentPadding: EdgeInsets.only(left: 30),
+                    contentPadding: EdgeInsets.only(left: 15),
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.blueGrey.shade50),
                       borderRadius: BorderRadius.circular(10),
@@ -110,7 +110,7 @@ class _InventoryPage extends State<InventoryPage> {
                     filled: true,
                     fillColor: Colors.blueGrey[50],
                     labelStyle: TextStyle(fontSize: 12),
-                    contentPadding: EdgeInsets.only(left: 30),
+                    contentPadding: EdgeInsets.only(left: 15),
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.blueGrey.shade50),
                       borderRadius: BorderRadius.circular(10),
@@ -131,7 +131,7 @@ class _InventoryPage extends State<InventoryPage> {
                     filled: true,
                     fillColor: Colors.blueGrey[50],
                     labelStyle: TextStyle(fontSize: 12),
-                    contentPadding: EdgeInsets.only(left: 30),
+                    contentPadding: EdgeInsets.only(left: 15),
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.blueGrey.shade50),
                       borderRadius: BorderRadius.circular(10),
@@ -152,7 +152,7 @@ class _InventoryPage extends State<InventoryPage> {
                     filled: true,
                     fillColor: Colors.blueGrey[50],
                     labelStyle: TextStyle(fontSize: 12),
-                    contentPadding: EdgeInsets.only(left: 30),
+                    contentPadding: EdgeInsets.only(left: 15),
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.blueGrey.shade50),
                       borderRadius: BorderRadius.circular(10),
@@ -179,33 +179,41 @@ class _InventoryPage extends State<InventoryPage> {
                       ),
                       TextButton(
                         style: TextButton.styleFrom(
-                          padding: const EdgeInsets.only(top: 18, bottom: 18, left: 36, right: 36),
+                          padding: const EdgeInsets.only(
+                              top: 18, bottom: 18, left: 36, right: 36),
                           primary: Colors.white,
                           textStyle: TextStyle(
                               fontFamily: 'Cairo_SemiBold', fontSize: 14),
                         ),
                         child: const Text('ADD'),
                         onPressed: () {
-                          product
-                              .addProduct(
-                            barcode.text,
-                            prodName.text,
-                            quantity.text,
-                            unit.text,
-                            double.parse(price.text),
-                          )
-                              .then((value) {
-                            if (value) {
-                              SnackNotification.notif(
-                                'Error',
-                                "Product " + prodName.text + " is now added",
-                                Colors.green.shade600,
-                              );
-                              setState(() {
-                                this._products = controller.fetchProducts();
-                              });
-                            }
-                          });
+                          if (barcode.text.isEmpty || prodName.text.isEmpty || quantity.text.isEmpty || 
+                              unit.text.isEmpty || price.text.isEmpty) {
+                                SnackNotification.notif(
+                                   "Error",
+                                   "Please fill all the fields",Colors.red.shade600);
+                          } else {
+                            product
+                                .addProduct(
+                              barcode.text,
+                              prodName.text,
+                              quantity.text,
+                              unit.text,
+                              double.parse(price.text),
+                            )
+                                .then((value) {
+                              if (value) {
+                                SnackNotification.notif(
+                                  'Error',
+                                  "Product " + prodName.text + " is now added",
+                                  Colors.green.shade600,
+                                );
+                                setState(() {
+                                  this._products = controller.fetchProducts();
+                                });
+                              }
+                            });
+                          }
                         },
                       ),
                     ],
@@ -219,7 +227,7 @@ class _InventoryPage extends State<InventoryPage> {
           children: [
             Stack(
               children: [
-                Row(        
+                Row(
                   children: [
                     Container(
                       padding: EdgeInsets.only(top: 10),
@@ -237,13 +245,16 @@ class _InventoryPage extends State<InventoryPage> {
                             Tooltip(
                               message: 'Transfer Stocks',
                               child: TextButton.icon(
-                                icon: Icon(Icons.transfer_within_a_station, color: Colors.white),
+                                icon: Icon(Icons.transfer_within_a_station,
+                                    color: Colors.white),
                                 style: TextButton.styleFrom(
                                   padding: const EdgeInsets.all(14),
                                   primary: Colors.white,
-                                  textStyle: TextStyle(fontSize: 18, fontFamily: 'Cairo_SemiBold'),
+                                  textStyle: TextStyle(
+                                      fontSize: 18,
+                                      fontFamily: 'Cairo_SemiBold'),
                                 ),
-                                label:Text('TRANSFER') ,
+                                label: Text('TRANSFER'),
                                 onPressed: () {
                                   showDialog(
                                     context: context,
@@ -251,7 +262,7 @@ class _InventoryPage extends State<InventoryPage> {
                                       return TransferStock();
                                     },
                                   );
-                                },                  
+                                },
                               ),
                             ),
                           ],
@@ -260,10 +271,12 @@ class _InventoryPage extends State<InventoryPage> {
                     ),
                   ],
                 ),
-                Row(             
+                Padding(
+                  padding: EdgeInsets.only(top: 10, right: 1000),
+                ),
+                Row(
                   children: [
-                    Container( 
-                      margin: EdgeInsets.only(left: 850),
+                    Container(
                       padding: EdgeInsets.only(top: 10, left: 150),
                       width: 400,
                       child: TextField(
@@ -448,7 +461,8 @@ class _DataSource extends DataTableSource {
                   ),
                 ),
                 Padding(
-                  padding:EdgeInsets.only(top: 8, bottom: 8, left: 16, right: 16),
+                  padding:
+                      EdgeInsets.only(top: 8, bottom: 8, left: 16, right: 16),
                   child: Text(
                     'UPDATE',
                     style: TextStyle(

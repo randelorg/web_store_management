@@ -36,7 +36,7 @@ class _MakePayment extends State<MakePayment> {
       actions: <Widget>[
         Column(
           children: [
-             Align(
+            Align(
               alignment: Alignment.topRight,
               child: IconButton(
                 icon: Icon(
@@ -49,18 +49,16 @@ class _MakePayment extends State<MakePayment> {
                 },
               ),
             ),
-
             Text(
-             'Make Payment',
+              'Make Payment',
               softWrap: true,
               textAlign: TextAlign.center,
-              style: TextStyle(             
+              style: TextStyle(
                 color: HexColor("#155293"),
                 fontFamily: 'Cairo_Bold',
                 fontSize: 30,
               ),
             ),
-
             Padding(
               padding: EdgeInsets.only(left: 7),
               child: Container(
@@ -70,7 +68,7 @@ class _MakePayment extends State<MakePayment> {
                   style: TextStyle(fontSize: 10),
                 ),
               ),
-            ), 
+            ),
             Padding(
               padding: const EdgeInsets.all(5),
               child: TextField(
@@ -102,7 +100,7 @@ class _MakePayment extends State<MakePayment> {
                   style: TextStyle(fontSize: 10),
                 ),
               ),
-            ), 
+            ),
             Padding(
               padding: const EdgeInsets.all(5),
               child: TextField(
@@ -125,7 +123,7 @@ class _MakePayment extends State<MakePayment> {
                 ),
               ),
             ),
-             Padding(
+            Padding(
               padding: EdgeInsets.only(left: 7),
               child: Container(
                 alignment: Alignment.centerLeft,
@@ -134,13 +132,13 @@ class _MakePayment extends State<MakePayment> {
                   style: TextStyle(fontSize: 10),
                 ),
               ),
-            ), 
+            ),
             Padding(
               padding: const EdgeInsets.all(5),
               child: TextField(
                 controller: givenAmount,
                 decoration: InputDecoration(
-                  hintText: 'Amount to be Paid',
+                  hintText: 'Amount to be Paid',       
                   filled: true,
                   fillColor: Colors.blueGrey[50],
                   labelStyle: TextStyle(fontSize: 12),
@@ -156,7 +154,7 @@ class _MakePayment extends State<MakePayment> {
                 ),
               ),
             ),
-             Padding(
+            Padding(
               padding: EdgeInsets.only(left: 7),
               child: Container(
                 alignment: Alignment.centerLeft,
@@ -165,7 +163,7 @@ class _MakePayment extends State<MakePayment> {
                   style: TextStyle(fontSize: 10),
                 ),
               ),
-            ), 
+            ),
             Padding(
               padding: const EdgeInsets.all(5),
               child: TextField(
@@ -192,22 +190,22 @@ class _MakePayment extends State<MakePayment> {
                     firstDate: DateTime(2022),
                     lastDate: DateTime(2032),
                     builder: (context, child) {
-                          return Theme(
-                            data: Theme.of(context).copyWith(
-                              colorScheme: ColorScheme.light(
-                                primary: Colors.red, //Background Color
-                                onPrimary: Colors.white, //Text Color
-                              ),
-                              textButtonTheme: TextButtonThemeData(
-                                style: TextButton.styleFrom(
-                                  primary: Colors.black, //Button Text Color
-                                ),
-                              ),
+                      return Theme(
+                        data: Theme.of(context).copyWith(
+                          colorScheme: ColorScheme.light(
+                            primary: Colors.red, //Background Color
+                            onPrimary: Colors.white, //Text Color
+                          ),
+                          textButtonTheme: TextButtonThemeData(
+                            style: TextButton.styleFrom(
+                              primary: Colors.black, //Button Text Color
                             ),
-                            child: child!,
-                          );
-                        },
-                      );                  
+                          ),
+                        ),
+                        child: child!,
+                      );
+                    },
+                  );
                   if (pickedDate != null) {
                     print(pickedDate);
                     String formattedDate =
@@ -237,29 +235,37 @@ class _MakePayment extends State<MakePayment> {
                     ),
                     TextButton(
                       style: TextButton.styleFrom(
-                        padding: const EdgeInsets.only(top: 18, bottom: 18, left: 36, right: 36),
+                        padding: const EdgeInsets.only(
+                            top: 18, bottom: 18, left: 36, right: 36),
                         primary: Colors.white,
                         textStyle: TextStyle(
-                          fontFamily: 'Cairo_SemiBold',
-                          fontSize: 14,
-                          color: Colors.white),
+                            fontFamily: 'Cairo_SemiBold',
+                            fontSize: 14,
+                            color: Colors.white),
                       ),
                       onPressed: () {
-                        borrower
-                            .makePayment(
-                                int.parse(widget.id.toString()),
-                                double.parse(givenAmount.text),
-                                dateinput.text.toString())
-                            .then((value) {
-                          if (value) {
-                            SnackNotification.notif(
-                              'Success',
-                              'Payment has been recorded',
-                              Colors.green.shade600,
-                            );
-                          }
-                        });
-                        Navigator.pop(context);
+                        if (givenAmount.text.isEmpty || dateinput.text.isEmpty) {
+                          SnackNotification.notif(
+                              "Error",
+                              "Please fill all the fields",
+                              Colors.red.shade600);
+                        } else {
+                          borrower
+                              .makePayment(
+                                  int.parse(widget.id.toString()),
+                                  double.parse(givenAmount.text),
+                                  dateinput.text.toString())
+                              .then((value) {
+                            if (value) {
+                              SnackNotification.notif(
+                                'Success',
+                                'Payment has been recorded',
+                                Colors.green.shade600,
+                              );
+                            }
+                          });
+                          Navigator.pop(context);
+                        }
                       },
                       child: const Text('PAY'),
                     ),

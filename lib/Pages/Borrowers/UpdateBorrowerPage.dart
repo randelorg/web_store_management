@@ -54,33 +54,31 @@ class _UpdateBorrowerPage extends State<UpdateBorrowerPage> {
                 },
               ),
             ),
-      
             Text(
-             'Update Borrower',
+              'Update Borrower',
               softWrap: true,
               textAlign: TextAlign.center,
-              style: TextStyle(             
+              style: TextStyle(
                 color: HexColor("#155293"),
                 fontFamily: 'Cairo_Bold',
                 fontSize: 30,
               ),
             ),
-        
             Padding(
-              padding: EdgeInsets.only(top: 25, bottom: 10),
+              padding: EdgeInsets.only(top: 25, bottom: 5),
               child: Container(
                 child: Container(
                   alignment: Alignment.topLeft,
                   child: Text('Update Borrower',
-                  style: TextStyle(
-                    fontFamily: 'Cairo_SemiBold',
-                    fontSize: 16,
-                    color: HexColor("#155293"),
-                  )),         
+                      style: TextStyle(
+                        fontFamily: 'Cairo_SemiBold',
+                        fontSize: 16,
+                        color: HexColor("#155293"),
+                      )),
                 ),
               ),
             ),
-             Divider(
+            Divider(
               thickness: 3,
             ),
             Padding(
@@ -94,7 +92,8 @@ class _UpdateBorrowerPage extends State<UpdateBorrowerPage> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 6.0, right: 6.0, bottom: 6.0, top: 1.0),
+              padding: const EdgeInsets.only(
+                  left: 6.0, right: 6.0, bottom: 6.0, top: 1.0),
               child: TextField(
                 controller: firstname,
                 decoration: InputDecoration(
@@ -125,7 +124,8 @@ class _UpdateBorrowerPage extends State<UpdateBorrowerPage> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 6.0, right: 6.0, bottom: 6.0, top: 1.0),
+              padding: const EdgeInsets.only(
+                  left: 6.0, right: 6.0, bottom: 6.0, top: 1.0),
               child: TextField(
                 controller: lastname,
                 decoration: InputDecoration(
@@ -156,10 +156,13 @@ class _UpdateBorrowerPage extends State<UpdateBorrowerPage> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 6.0, right: 6.0, bottom: 6.0, top: 1.0),
+              padding: const EdgeInsets.only(
+                  left: 6.0, right: 6.0, bottom: 6.0, top: 1.0),
               child: TextField(
+                maxLength: 12,
                 controller: number,
                 decoration: InputDecoration(
+                  counterText: '',
                   hintText: 'Number',
                   filled: true,
                   fillColor: Colors.blueGrey[50],
@@ -187,7 +190,8 @@ class _UpdateBorrowerPage extends State<UpdateBorrowerPage> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 6.0, right: 6.0, bottom: 6.0, top: 1.0),
+              padding: const EdgeInsets.only(
+                  left: 6.0, right: 6.0, bottom: 6.0, top: 1.0),
               child: TextField(
                 controller: address,
                 decoration: InputDecoration(
@@ -222,37 +226,45 @@ class _UpdateBorrowerPage extends State<UpdateBorrowerPage> {
                     ),
                     TextButton(
                       style: TextButton.styleFrom(
-                        padding: const EdgeInsets.only(top: 18, bottom: 18, left: 36, right: 36),
+                        padding: const EdgeInsets.only(
+                            top: 18, bottom: 18, left: 36, right: 36),
                         primary: Colors.white,
                         textStyle: TextStyle(
-                          fontFamily: 'Cairo_SemiBold',
-                          fontSize: 14,
-                          color: Colors.white),
+                            fontFamily: 'Cairo_SemiBold',
+                            fontSize: 14,
+                            color: Colors.white),
                       ),
                       child: const Text('UPDATE'),
                       onPressed: () {
-                        borrower
-                            .updateBorrower(
-                          int.parse(widget.bid.toString()),
-                          firstname.text,
-                          lastname.text,
-                          number.text,
-                          address.text,
-                        )
-                            .then((value) {
-                          if (value) {
-                            Navigator.pop(context);
-                            SnackNotification.notif(
-                              'Success',
-                              'Borrower ' +
-                                  widget.firstname.toString() +
-                                  ' ' +
-                                  widget.lastname.toString() +
-                                  ' has been updated',
-                              Colors.greenAccent.shade200,
-                            );
-                          }
-                        });
+                        if (firstname.text.isEmpty || lastname.text.isEmpty ||
+                            number.text.isEmpty || address.text.isEmpty) {
+                              SnackNotification.notif(
+                               "Error",
+                               "Please fill all the fields",Colors.red.shade600);
+                        } else {                   
+                          borrower
+                              .updateBorrower(
+                                int.parse(widget.bid.toString()),
+                                firstname.text,
+                                lastname.text,
+                                number.text,
+                                address.text,
+                              )
+                              .then((value) {
+                            if (value) {
+                              Navigator.pop(context);
+                              SnackNotification.notif(
+                                'Success',
+                                'Borrower ' +
+                                    widget.firstname.toString() +
+                                    ' ' +
+                                    widget.lastname.toString() +
+                                    ' has been updated',
+                                Colors.green.shade500,
+                              );
+                            }
+                          });
+                        }
                       },
                     ),
                   ],

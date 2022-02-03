@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:web_store_management/Backend/BorrowerOperation.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
+import 'package:web_store_management/Notification/Snack_notification.dart';
 import 'package:web_store_management/Pages/Repairs/AddRepair.dart';
 
 class ManualBorrowerSearch extends StatefulWidget {
@@ -10,7 +11,6 @@ class ManualBorrowerSearch extends StatefulWidget {
 }
 
 class _ManualBorrowerSearch extends State<ManualBorrowerSearch> {
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController borrowername = TextEditingController();
   final TextEditingController confirmedname = TextEditingController();
   var controller = BorrowerOperation();
@@ -25,23 +25,23 @@ class _ManualBorrowerSearch extends State<ManualBorrowerSearch> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      actionsPadding: EdgeInsets.only(bottom: 5, left: 5, right: 5), 
+      actionsPadding: EdgeInsets.only(bottom: 5, left: 5, right: 5),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       actions: <Widget>[
         Column(
           children: [
-            Align(          
+            Align(
               alignment: Alignment.topRight,
               child: IconButton(
-              icon: Icon(
-                Icons.cancel,
-                color: Colors.black,
-                size: 30,
-              ),
-              onPressed: () {    
-                Navigator.of(context).pop();
-              }),
-            ), 
+                  icon: Icon(
+                    Icons.cancel,
+                    color: Colors.black,
+                    size: 30,
+                  ),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  }),
+            ),
             Text(
               'Search Borrower',
               softWrap: true,
@@ -52,9 +52,7 @@ class _ManualBorrowerSearch extends State<ManualBorrowerSearch> {
                 fontSize: 30,
               ),
             ),
-        
             Form(
-              key: _formKey,
               child: Center(
                 child: Column(
                   children: <Widget>[
@@ -69,7 +67,7 @@ class _ManualBorrowerSearch extends State<ManualBorrowerSearch> {
                           filled: true,
                           fillColor: Colors.blueGrey[50],
                           labelStyle: TextStyle(fontSize: 12),
-                          contentPadding: EdgeInsets.only(left: 15),                         
+                          contentPadding: EdgeInsets.only(left: 15),
                           suffixIcon: IconButton(
                             iconSize: 25,
                             icon: Icon(Icons.search, color: Colors.grey),
@@ -87,19 +85,16 @@ class _ManualBorrowerSearch extends State<ManualBorrowerSearch> {
                             },
                           ),
                           enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                            borderSide:
+                                BorderSide(color: Colors.blueGrey.shade50),
                             borderRadius: BorderRadius.circular(10),
-                          ),           
+                          ),
                           focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                            borderSide:
+                                BorderSide(color: Colors.blueGrey.shade50),
                             borderRadius: BorderRadius.circular(10),
                           ),
                         ),
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return "* Required Borrowers Name";
-                          }
-                        },
                       ),
                     ),
 
@@ -117,13 +112,16 @@ class _ManualBorrowerSearch extends State<ManualBorrowerSearch> {
                         child: Text(
                           'Confirm',
                           style: TextStyle(
-                           fontFamily: 'Cairo_SemiBold',
-                           fontSize: 20,
-                           color: Colors.white
-                          ),
+                              fontFamily: 'Cairo_SemiBold',
+                              fontSize: 20,
+                              color: Colors.white),
                         ),
                         onPressed: () {
-                          if (_formKey.currentState!.validate()) {
+                          if (borrowername.text.isEmpty) {                         
+                            SnackNotification.notif(
+                              "Error",
+                              "Please fill the borrower name field",Colors.red.shade600);
+                          } else {
                             Navigator.pop(context);
                             showDialog(
                               context: context,

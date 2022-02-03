@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:web_store_management/Models/ProductModel.dart';
+import 'package:web_store_management/Notification/Snack_notification.dart';
 import '../../Helpers/FilePickerHelper.dart';
 import 'FinalizePage.dart';
 import '../../Backend/Utility/Mapping.dart';
@@ -144,7 +145,7 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(top:3),
+                  padding: EdgeInsets.only(top: 3),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(8),
                     child: Stack(
@@ -157,10 +158,11 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
                           ),
                         ),
                         TextButton.icon(
-                          icon:Icon(Icons.attach_file, color: Colors.white),
+                          icon: Icon(Icons.attach_file, color: Colors.white),
                           style: TextButton.styleFrom(
                             primary: Colors.white,
-                            textStyle: TextStyle(fontSize: 18, fontFamily: 'Cairo_SemiBold'),
+                            textStyle: TextStyle(
+                                fontSize: 18, fontFamily: 'Cairo_SemiBold'),
                           ),
                           label: Text(fileName),
                           onPressed: () {
@@ -299,32 +301,39 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
                       style: TextButton.styleFrom(
                         padding: const EdgeInsets.all(15),
                         primary: Colors.white,
-                        textStyle: TextStyle(fontSize: 25, fontFamily: 'Cairo_SemiBold'),
+                        textStyle: TextStyle(
+                            fontSize: 25, fontFamily: 'Cairo_SemiBold'),
                       ),
                       onPressed: () {
                         //push to second page
                         //which is the finalize order page
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return SimpleDialog(
-                              children: [
-                                Container(
-                                  width:
-                                      (MediaQuery.of(context).size.width) / 2,
-                                  height: 555,
-                                  child: FinalizePage(
-                                    firstname: firstname.text,
-                                    lastname: lastname.text,
-                                    mobile: mobileNumber.text,
-                                    address: homeAddress.text,
-                                    total: _getTotal(),
+                        if (firstname.text.isEmpty) {            
+                          SnackNotification.notif(
+                                "Error",
+                                "Please fill all the fields",Colors.red.shade600);
+                        } else {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return SimpleDialog(
+                                children: [
+                                  Container(
+                                    width:
+                                        (MediaQuery.of(context).size.width) / 2,
+                                    height: 555,
+                                    child: FinalizePage(
+                                      firstname: firstname.text,
+                                      lastname: lastname.text,
+                                      mobile: mobileNumber.text,
+                                      address: homeAddress.text,
+                                      total: _getTotal(),
+                                    ),
                                   ),
-                                ),
-                              ],
-                            );
-                          },
-                        );
+                                ],
+                              );
+                            },
+                          );
+                        }
                       },
                       child: const Text('NEXT'),
                     ),

@@ -41,7 +41,7 @@ class _UpdateEmployee extends State<UpdateEmployee> {
 
   @override
   Widget build(BuildContext context) {
-    return AlertDialog(  
+    return AlertDialog(
       actionsPadding: EdgeInsets.only(bottom: 5, left: 5, right: 5),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       actions: <Widget>[
@@ -60,36 +60,33 @@ class _UpdateEmployee extends State<UpdateEmployee> {
                 },
               ),
             ),
-      
             Text(
-             'Update Employee',
+              'Update Employee',
               softWrap: true,
               textAlign: TextAlign.center,
-              style: TextStyle(             
+              style: TextStyle(
                 color: HexColor("#155293"),
                 fontFamily: 'Cairo_Bold',
                 fontSize: 30,
               ),
             ),
-        
             Padding(
               padding: EdgeInsets.only(top: 25, bottom: 10),
               child: Container(
                 child: Container(
                   alignment: Alignment.topLeft,
                   child: Text('Update your Profile',
-                  style: TextStyle(
-                    fontFamily: 'Cairo_SemiBold',
-                    fontSize: 16,
-                    color: HexColor("#155293"),
-                  )),         
+                      style: TextStyle(
+                        fontFamily: 'Cairo_SemiBold',
+                        fontSize: 16,
+                        color: HexColor("#155293"),
+                      )),
                 ),
               ),
             ),
-             Divider(
+            Divider(
               thickness: 3,
             ),
-
             Padding(
               padding: EdgeInsets.only(left: 7),
               child: Container(
@@ -99,9 +96,10 @@ class _UpdateEmployee extends State<UpdateEmployee> {
                   style: TextStyle(fontSize: 10),
                 ),
               ),
-            ),            
+            ),
             Padding(
-              padding: const EdgeInsets.only(left: 6.0, right: 6.0, bottom: 6.0, top: 1.0),
+              padding: const EdgeInsets.only(
+                  left: 6.0, right: 6.0, bottom: 6.0, top: 1.0),
               child: TextField(
                 controller: firstname,
                 enabled: false,
@@ -133,7 +131,8 @@ class _UpdateEmployee extends State<UpdateEmployee> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 6.0, right: 6.0, bottom: 6.0, top: 1.0),
+              padding: const EdgeInsets.only(
+                  left: 6.0, right: 6.0, bottom: 6.0, top: 1.0),
               child: TextField(
                 controller: lastname,
                 enabled: false,
@@ -165,7 +164,8 @@ class _UpdateEmployee extends State<UpdateEmployee> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 6.0, right: 6.0, bottom: 6.0, top: 1.0),
+              padding: const EdgeInsets.only(
+                  left: 6.0, right: 6.0, bottom: 6.0, top: 1.0),
               child: Container(
                 width: 320,
                 alignment: Alignment.topLeft,
@@ -221,7 +221,9 @@ class _UpdateEmployee extends State<UpdateEmployee> {
                   left: 6.0, right: 6.0, bottom: 6.0, top: 1.0),
               child: TextField(
                 controller: number,
+                maxLength: 12,
                 decoration: InputDecoration(
+                  counterText: '',
                   hintText: 'Mobile Number',
                   filled: true,
                   fillColor: Colors.blueGrey[50],
@@ -285,32 +287,39 @@ class _UpdateEmployee extends State<UpdateEmployee> {
                     ),
                     TextButton(
                       style: TextButton.styleFrom(
-                        padding: const EdgeInsets.only(left: 20, right: 20, top: 15, bottom: 15),
+                        padding: const EdgeInsets.only(
+                            left: 20, right: 20, top: 15, bottom: 15),
                         primary: Colors.white,
                         textStyle: TextStyle(
-                          fontFamily: 'Cairo_SemiBold',
-                          fontSize: 14,
-                          color: Colors.white),
+                            fontFamily: 'Cairo_SemiBold',
+                            fontSize: 14,
+                            color: Colors.white),
                       ),
                       child: const Text('UPDATE'),
                       onPressed: () {
-                        employee
-                            .updateEmployeeAccount(
-                                widget.pid!.toInt(),
-                                widget.eid.toString(),
-                                collector.replaceAll(' ', '').toString(),
-                                number.text,
-                                address.text)
-                            .then((value) {
-                          if (value) {
-                            Navigator.pop(context);
-                            SnackNotification.notif(
-                              'Success',
-                              'Successfully updated employee account',
-                              Colors.green.shade500,
-                            );
-                          }
-                        });
+                        if (number.text.isEmpty || address.text.isEmpty) {
+                          SnackNotification.notif(
+                              "Error",
+                              "Please fill all the fields", Colors.red.shade600);
+                        } else {
+                          employee
+                              .updateEmployeeAccount(
+                                  widget.pid!.toInt(),
+                                  widget.eid.toString(),
+                                  collector.replaceAll(' ', '').toString(),
+                                  number.text,
+                                  address.text)
+                              .then((value) {
+                            if (value) {
+                              Navigator.pop(context);
+                              SnackNotification.notif(
+                                'Success',
+                                'Successfully updated employee account',
+                                Colors.green.shade500,
+                              );
+                            }
+                          });
+                        }
                       },
                     ),
                   ],

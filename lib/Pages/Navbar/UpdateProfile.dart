@@ -16,7 +16,7 @@ class _EditProfile extends State<UpdateProfile> {
   final firstname = TextEditingController();
   final lastname = TextEditingController();
   final password = TextEditingController();
-  final confPassword = TextEditingController();
+  final confirmPassword = TextEditingController();
 
   AdminModel admin = AdminModel.empty();
   EmployeeModel emp = EmployeeModel.empty();
@@ -60,29 +60,27 @@ class _EditProfile extends State<UpdateProfile> {
                 },
               ),
             ),
-
             Text(
-             'Update Profile',
+              'Update Profile',
               softWrap: true,
               textAlign: TextAlign.center,
-              style: TextStyle(             
+              style: TextStyle(
                 color: HexColor("#155293"),
                 fontFamily: 'Cairo_Bold',
                 fontSize: 30,
               ),
             ),
-         
             Padding(
               padding: EdgeInsets.only(top: 25, bottom: 5),
               child: Container(
                 child: Container(
                   alignment: Alignment.topLeft,
                   child: Text('Update your Profile',
-                  style: TextStyle(
-                    fontFamily: 'Cairo_SemiBold',
-                    fontSize: 16,
-                    color: HexColor("#155293"),
-                  )),         
+                      style: TextStyle(
+                        fontFamily: 'Cairo_SemiBold',
+                        fontSize: 16,
+                        color: HexColor("#155293"),
+                      )),
                 ),
               ),
             ),
@@ -132,10 +130,10 @@ class _EditProfile extends State<UpdateProfile> {
                   style: TextStyle(fontSize: 10),
                 ),
               ),
-            ),   
+            ),
             Stack(
               children: [
-                //this will be disabled because we will display the name here          
+                //this will be disabled because we will display the name here
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
@@ -252,7 +250,7 @@ class _EditProfile extends State<UpdateProfile> {
             Padding(
               padding: EdgeInsets.only(bottom: 5),
               child: TextField(
-                controller: confPassword,
+                controller: confirmPassword,
                 obscureText: true,
                 onChanged: (value) {
                   setState(() {
@@ -304,31 +302,40 @@ class _EditProfile extends State<UpdateProfile> {
                         ),
                         TextButton(
                           style: TextButton.styleFrom(
-                            padding: const EdgeInsets.only(left: 20, right: 20, top: 15, bottom: 15),
+                            padding: const EdgeInsets.only(
+                                left: 20, right: 20, top: 15, bottom: 15),
                             primary: Colors.white,
-                            textStyle: TextStyle(                                         
-                              fontFamily: 'Cairo_SemiBold',
-                              fontSize: 14,
-                              color: Colors.white),
-                          ),              
+                            textStyle: TextStyle(
+                                fontFamily: 'Cairo_SemiBold',
+                                fontSize: 14,
+                                color: Colors.white),
+                          ),
                           child: const Text('UPDATE'),
                           onPressed: () {
-                            Navigator.pop(context);
-                            adminOperation
-                                .updateAdminAccount(
-                              Mapping.adminLogin[0].getAdminId,
-                              username.text,
-                              password.text,
-                            )
-                                .then((value) {
-                              if (value) {
-                                SnackNotification.notif(
-                                  "Success",
-                                  "Successfully updated admin",
-                                  Colors.green.shade500,
-                                );
-                              }
-                            });
+                            if (username.text.isEmpty || password.text.isEmpty || confirmPassword.text.isEmpty) {
+                              SnackNotification.notif(
+                                "Error", "Please fill all the fields", Colors.red.shade600);
+                            } else if(password.text != confirmPassword.text){
+                              SnackNotification.notif(
+                                "Error","Password did not match", Colors.red.shade600);                       
+                              }else {
+                              Navigator.pop(context);
+                              adminOperation
+                                  .updateAdminAccount(                             
+                                Mapping.adminLogin[0].getAdminId,
+                                username.text,
+                                password.text,
+                              )
+                                  .then((value) {
+                                if (value) {
+                                  SnackNotification.notif(
+                                    "Success",
+                                    "Successfully updated admin",
+                                    Colors.green.shade500,
+                                  );
+                                }
+                              });
+                            }
                           },
                         ),
                       ],

@@ -52,19 +52,17 @@ class _UpdateProduct extends State<UpdateProduct> {
                 },
               ),
             ),
-
             Text(
-             'Update Product',
+              'Update Product',
               softWrap: true,
               textAlign: TextAlign.center,
-              style: TextStyle(             
+              style: TextStyle(
                 color: HexColor("#155293"),
                 fontFamily: 'Cairo_Bold',
                 fontSize: 30,
               ),
             ),
-
-             Padding(
+            Padding(
               padding: EdgeInsets.only(top: 25, left: 7),
               child: Container(
                 alignment: Alignment.centerLeft,
@@ -74,7 +72,6 @@ class _UpdateProduct extends State<UpdateProduct> {
                 ),
               ),
             ),
-
             Padding(
               padding: const EdgeInsets.only(
                   left: 6.0, right: 6.0, bottom: 6.0, top: 1.0),
@@ -106,7 +103,8 @@ class _UpdateProduct extends State<UpdateProduct> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 6.0, right: 6.0, bottom: 6.0, top: 1.0),
+              padding: const EdgeInsets.only(
+                  left: 6.0, right: 6.0, bottom: 6.0, top: 1.0),
               child: TextField(
                 controller: prodQuantity,
                 // onChanged: (value) {
@@ -166,7 +164,6 @@ class _UpdateProduct extends State<UpdateProduct> {
                 ),
               ),
             ),
-
             Padding(
               padding: EdgeInsets.only(left: 7),
               child: Container(
@@ -177,7 +174,6 @@ class _UpdateProduct extends State<UpdateProduct> {
                 ),
               ),
             ),
-
             Padding(
               padding: const EdgeInsets.only(
                   left: 6.0, right: 6.0, bottom: 6.0, top: 1.0),
@@ -200,7 +196,6 @@ class _UpdateProduct extends State<UpdateProduct> {
                 ),
               ),
             ),
-
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: ClipRRect(
@@ -213,37 +208,44 @@ class _UpdateProduct extends State<UpdateProduct> {
                           color: HexColor("#155293"),
                         ),
                       ),
-                    ),               
+                    ),
                     TextButton(
                       style: TextButton.styleFrom(
-                        padding: const EdgeInsets.only(top: 18, bottom: 18, left: 36, right: 36),
+                        padding: const EdgeInsets.only(
+                            top: 18, bottom: 18, left: 36, right: 36),
                         primary: Colors.white,
                         textStyle: TextStyle(
-                          fontFamily: 'Cairo_SemiBold',
-                          fontSize: 14,
-                          color: Colors.white),
+                            fontFamily: 'Cairo_SemiBold',
+                            fontSize: 14,
+                            color: Colors.white),
                       ),
-
                       child: const Text('UPDATE'),
                       onPressed: () {
-                        operation
-                            .updateProductDetails(
-                          _findBarName(),
-                          prodName.text,
-                          _qtyIsEmpty(),
-                          prodUnit.text,
-                          double.parse(prodPrice.text),
-                        )
-                            .then((value) {
-                          if (value) {
-                            Navigator.pop(context);
-                            SnackNotification.notif(
-                              'Success',
-                              "Product " + prodName.text + " is updated",
-                              Colors.green.shade600,
-                            );
-                          }
-                        });
+                        if (prodName.text.isEmpty || prodQuantity.text.isEmpty ||
+                            prodUnit.text.isEmpty || prodPrice.text.isEmpty) {
+                              SnackNotification.notif(
+                                "Error",
+                                "Please fill all the fields",Colors.red.shade600);
+                        } else {
+                          operation
+                              .updateProductDetails(
+                            _findBarName(),
+                            prodName.text,
+                            _qtyIsEmpty(),
+                            prodUnit.text,
+                            double.parse(prodPrice.text),
+                          )
+                              .then((value) {
+                            if (value) {
+                              Navigator.pop(context);
+                              SnackNotification.notif(
+                                'Success',
+                                "Product " + prodName.text + " is updated",
+                                Colors.green.shade600,
+                              );
+                            }
+                          });
+                        }
                       },
                     ),
                   ],

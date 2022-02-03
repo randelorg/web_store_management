@@ -64,8 +64,7 @@ class _ProfileDrawer extends State<ProfileDrawer> {
                     borderRadius: BorderRadius.circular(30),
                   ),
                   child: Padding(
-                    padding: EdgeInsets.only(
-                        top: 10, bottom: 10, right: 10, left: 10),
+                    padding: EdgeInsets.only(top: 10, bottom: 10, right: 10, left: 10),
                     child: TextButton.icon(
                       icon: Icon(
                         Icons.visibility,
@@ -103,12 +102,7 @@ class _ProfileDrawer extends State<ProfileDrawer> {
                           borderRadius: BorderRadius.circular(30),
                         ),
                         child: Padding(
-                          padding: EdgeInsets.only(
-                            top: 10,
-                            bottom: 10,
-                            right: 10,
-                            left: 10,
-                          ),
+                          padding: EdgeInsets.only(top: 10, bottom: 10, right: 10, left: 10),                  
                           child: TextButton.icon(
                             icon: Icon(
                               Icons.create_rounded,

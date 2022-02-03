@@ -62,22 +62,21 @@ class _ConfirmAccount extends State<ConfirmAccount> {
                 fontSize: 30,
               ),
             ),
-              Padding(          
+            Padding(
               padding: EdgeInsets.only(top: 25, bottom: 5),
-                child: Container(
-                  alignment: Alignment.topLeft,         
-                  child: Text('Enter your Admin Password to Verify',      
-                  style: TextStyle(
-                    fontFamily: 'Cairo_SemiBold',
-                    fontSize: 16,
-                    color: HexColor("#155293"),
-                  )),
-                ),
-            ),       
+              child: Container(
+                alignment: Alignment.topLeft,
+                child: Text('Enter your Admin Password to Verify',
+                    style: TextStyle(
+                      fontFamily: 'Cairo_SemiBold',
+                      fontSize: 16,
+                      color: HexColor("#155293"),
+                    )),
+              ),
+            ),
             Divider(
               thickness: 3,
             ),
-
             Container(
               width: 320,
               child: Padding(
@@ -121,34 +120,41 @@ class _ConfirmAccount extends State<ConfirmAccount> {
                         ),
                         TextButton(
                           style: TextButton.styleFrom(
-                            padding: const EdgeInsets.only(left: 20, right: 20, top: 15, bottom: 15),
+                            padding: const EdgeInsets.only(
+                                left: 20, right: 20, top: 15, bottom: 15),
                             primary: Colors.white,
                             textStyle: TextStyle(fontSize: 20),
                           ),
                           onPressed: () {
-                            bool status = admin.verifyAdmin(password.text);
-                            if (status) {
-                              admin.createAdminAccount(
-                                widget.firstname,
-                                widget.lastname,
-                                widget.mobileNumber,
-                                widget.homeAddress,
-                                widget.username,
-                                widget.password,
-                                widget.image,
-                              );
-                              Navigator.pop(context);
+                            if (password.text.isEmpty) {
+                              SnackNotification.notif(
+                                  "Error", "Please fill the password field", Colors.red.shade600);
                             } else {
-                              SnackNotification.notif('Try again',
-                                  'Wrong Password', Colors.red.shade600);
+                              bool status = admin.verifyAdmin(password.text);
+                              if (status) {
+                                admin.createAdminAccount(
+                                  widget.firstname,
+                                  widget.lastname,
+                                  widget.mobileNumber,
+                                  widget.homeAddress,
+                                  widget.username,
+                                  widget.password,
+                                  widget.image,
+                                );                        
+                                Navigator.pop(context);                           
+                              } else {                           
+                                SnackNotification.notif('Try again',
+                                    'Wrong Password', Colors.red.shade600);
+                              }
                             }
                           },
-                          child: Text('VERIFY',
-                          style: TextStyle(                       
-                            fontFamily: 'Cairo_SemiBold',
-                            fontSize: 14,
-                            color: Colors.white),
-                          ), 
+                          child: Text(
+                            'VERIFY',
+                            style: TextStyle(
+                                fontFamily: 'Cairo_SemiBold',
+                                fontSize: 14,
+                                color: Colors.white),
+                          ),
                         ),
                       ],
                     ),

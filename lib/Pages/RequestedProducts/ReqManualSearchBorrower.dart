@@ -3,6 +3,7 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:web_store_management/Backend/BorrowerOperation.dart';
 import 'package:web_store_management/Backend/GlobalController.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
+import 'package:web_store_management/Notification/Snack_notification.dart';
 import 'package:web_store_management/Pages/RequestedProducts/AddRequest.dart';
 
 class ReqManualBorrowerSearch extends StatefulWidget {
@@ -11,10 +12,10 @@ class ReqManualBorrowerSearch extends StatefulWidget {
 }
 
 class _ReqManualBorrowerSearch extends State<ReqManualBorrowerSearch> {
+  
   var borrower = BorrowerOperation();
   var controller = GlobalController();
 
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController borrowername = TextEditingController();
   final TextEditingController confirmedname = TextEditingController();
 
@@ -59,7 +60,6 @@ class _ReqManualBorrowerSearch extends State<ReqManualBorrowerSearch> {
             ),
         
             Form(
-              key: _formKey,
               child: Center(
                 child: Column(
                   children: <Widget>[
@@ -99,12 +99,7 @@ class _ReqManualBorrowerSearch extends State<ReqManualBorrowerSearch> {
                             borderSide: BorderSide(color: Colors.blueGrey.shade50),
                             borderRadius: BorderRadius.circular(10),
                           ),
-                        ),
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return "* Required Borrowers Name";
-                          }
-                        },
+                        ),                    
                       ),
                     ),
 
@@ -127,7 +122,11 @@ class _ReqManualBorrowerSearch extends State<ReqManualBorrowerSearch> {
                           ),
                         ),
                         onPressed: () {
-                          if (_formKey.currentState!.validate()) {
+                          if(borrowername.text.isEmpty){
+                             SnackNotification.notif(
+                              "Error",
+                              "Please fill the borrower name field",Colors.red.shade600);                        
+                          } else {             
                             Navigator.pop(context);
                             showDialog(
                               context: context,
@@ -140,8 +139,8 @@ class _ReqManualBorrowerSearch extends State<ReqManualBorrowerSearch> {
                                 );
                               },
                             );
-                          }
-                        },
+                          }       
+                        }                       
                       ),
                     ),
                   ],

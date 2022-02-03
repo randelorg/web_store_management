@@ -213,16 +213,16 @@ class _AddRequest extends State<AddRequest> {
                     initialDate: DateTime.now(),
                     firstDate: DateTime(2022),
                     lastDate: DateTime(2032),
-                    builder: (context, child) {                   
-                      return Theme(               
-                        data: Theme.of(context).copyWith(                
-                          colorScheme: ColorScheme.light(                           
+                    builder: (context, child) {
+                      return Theme(
+                        data: Theme.of(context).copyWith(
+                          colorScheme: ColorScheme.light(
                             primary: Colors.red, //Background Color
                             onPrimary: Colors.white, //Text Color
                           ),
-                          textButtonTheme: TextButtonThemeData(                        
+                          textButtonTheme: TextButtonThemeData(
                             style: TextButton.styleFrom(
-                            primary: Colors.black, //Button Text Color
+                              primary: Colors.black, //Button Text Color
                             ),
                           ),
                         ),
@@ -259,7 +259,8 @@ class _AddRequest extends State<AddRequest> {
                     ),
                     TextButton(
                       style: TextButton.styleFrom(
-                        padding: const EdgeInsets.only(left: 20, right: 20, top: 15, bottom: 15),
+                        padding: const EdgeInsets.only(
+                            left: 20, right: 20, top: 15, bottom: 15),
                         primary: Colors.white,
                         textStyle: TextStyle(
                             fontFamily: 'Cairo_SemiBold',
@@ -268,22 +269,28 @@ class _AddRequest extends State<AddRequest> {
                       ),
                       child: const Text('ADD REQUEST'),
                       onPressed: () {
-                        Navigator.pop(context);
-                        borrower
-                            .addRequest(
-                          int.parse(widget.id.toString()),
-                          requestedProduct.text,
-                          dateinput.text,
-                        )
-                            .then((value) {
-                          if (!value) {
-                            SnackNotification.notif(
-                              'Error',
-                              'Failed to add new request',
-                              Colors.red.shade500,
-                            );
-                          }
-                        });
+                        if (requestedProduct.text.isEmpty || dateinput.text.isEmpty) {
+                          SnackNotification.notif(
+                            "Error",
+                             "Please fill all the fields",Colors.red.shade600);
+                        } else {
+                          Navigator.pop(context);
+                          borrower
+                              .addRequest(
+                            int.parse(widget.id.toString()),
+                            requestedProduct.text,
+                            dateinput.text,
+                          )
+                              .then((value) {
+                            if (value) {
+                              SnackNotification.notif(
+                                "Success",
+                                "Successfully added request",
+                                Colors.green.shade600,
+                              );
+                            }
+                          });
+                        }
                       },
                     ),
                   ],

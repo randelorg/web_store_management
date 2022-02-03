@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:web_store_management/Notification/Snack_notification.dart';
 import '../../Helpers/HashingHelper.dart';
 import 'ConfirmNewAccount.dart';
 import '../../Helpers/FilePickerHelper.dart';
@@ -46,32 +47,29 @@ class _AddAccount extends State<AddAccount> {
                 },
               ),
             ),
-
             Text(
               'New Admin Account',
-               softWrap: true,
-               textAlign: TextAlign.center,
-               style: TextStyle(
+              softWrap: true,
+              textAlign: TextAlign.center,
+              style: TextStyle(
                 fontFamily: 'Cairo_Bold',
                 fontSize: 27,
                 color: HexColor("#155293"),
                 overflow: TextOverflow.fade,
-               ),
+              ),
             ),
-     
-            Padding(          
+            Padding(
               padding: EdgeInsets.only(top: 25, bottom: 5),
-                child: Container(
-                  alignment: Alignment.topLeft,         
-                  child: Text('New Admin',      
-                  style: TextStyle(
-                    fontFamily: 'Cairo_SemiBold',
-                    fontSize: 16,
-                    color: HexColor("#155293"),
-                  )),
-                ),
+              child: Container(
+                alignment: Alignment.topLeft,
+                child: Text('New Admin',
+                    style: TextStyle(
+                      fontFamily: 'Cairo_SemiBold',
+                      fontSize: 16,
+                      color: HexColor("#155293"),
+                    )),
+              ),
             ),
-            
             Divider(
               thickness: 3,
             ),
@@ -171,8 +169,10 @@ class _AddAccount extends State<AddAccount> {
               padding: EdgeInsets.only(bottom: 20),
               child: TextField(
                 controller: mobileNumber,
+                maxLength: 12,
                 decoration: InputDecoration(
-                  hintText: 'Mobile number',
+                  counterText: '',
+                  hintText: 'Mobile Number',
                   filled: true,
                   fillColor: Colors.blueGrey[50],
                   labelStyle: TextStyle(fontSize: 10),
@@ -193,7 +193,7 @@ class _AddAccount extends State<AddAccount> {
               child: TextField(
                 controller: homeAddress,
                 decoration: InputDecoration(
-                  hintText: 'Home address',
+                  hintText: 'Home Address',
                   filled: true,
                   fillColor: Colors.blueGrey[50],
                   labelStyle: TextStyle(fontSize: 10),
@@ -248,7 +248,7 @@ class _AddAccount extends State<AddAccount> {
                   });
                 },
                 decoration: InputDecoration(
-                  hintText: 'Confirm password',
+                  hintText: 'Confirm Password',
                   filled: true,
                   fillColor: Colors.blueGrey[50],
                   labelStyle: TextStyle(fontSize: 10),
@@ -271,15 +271,17 @@ class _AddAccount extends State<AddAccount> {
             Container(
               alignment: Alignment.topLeft,
               child: TextButton.icon(
-                onPressed: () {
+                onPressed: () {           
                   pick.pickFile().then((value) {
-                    setState(() { 
+                    setState(() {
                       fileName = value;
                     });
                   });
                 },
                 icon: Icon(Icons.file_upload, color: HexColor("#155293")),
-                label: Text(fileName, style: TextStyle(color: HexColor("#155293")),
+                label: Text(
+                  fileName,
+                  style: TextStyle(color: HexColor("#155293")),
                 ),
               ),
             ),
@@ -306,9 +308,16 @@ class _AddAccount extends State<AddAccount> {
                             textStyle: TextStyle(fontSize: 20),
                           ),
                           onPressed: () {
-                            Navigator.pop(context);
-                            if (username.text.isNotEmpty) {
-                              showDialog(
+                            if(username.text.isEmpty || firstname.text.isEmpty || lastname.text.isEmpty || mobileNumber.text.isEmpty || 
+                               homeAddress.text.isEmpty || password.text.isEmpty || confirmPassword.text.isEmpty || pick.image == null ){                         
+                              SnackNotification.notif(
+                                  "Error","Please fill all the fields", Colors.red.shade600);
+                            } else if(password.text != confirmPassword.text){
+                              SnackNotification.notif(
+                                  "Error","Password did not match", Colors.red.shade600);
+                            } else{                  
+                              Navigator.pop(context);
+                              showDialog(                              
                                 context: context,
                                 builder: (BuildContext context) {
                                   return ConfirmAccount(
@@ -321,15 +330,16 @@ class _AddAccount extends State<AddAccount> {
                                     image: pick.getImageBytes(),
                                   );
                                 },
-                              );
+                              );               
                             }
-                          },
-                          child: Text('CONFIRM',          
-                          style: TextStyle(                       
-                            fontFamily: 'Cairo_SemiBold',
-                            fontSize: 14,
-                            color: Colors.white),
-                          ),              
+                          },                       
+                          child: Text(
+                            'CONFIRM',
+                            style: TextStyle(
+                                fontFamily: 'Cairo_SemiBold',
+                                fontSize: 14,
+                                color: Colors.white),
+                          ),
                         ),
                       ],
                     ),

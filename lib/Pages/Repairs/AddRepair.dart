@@ -268,22 +268,28 @@ class _AddRepair extends State<AddRepair> {
                       ),
                       child: const Text('ADD REPAIR'),
                       onPressed: () {
-                        Navigator.pop(context);
-                        borrower
-                            .addRepair(
-                          int.parse(widget.id.toString()),
-                          productname.text,
-                          dateinput.text,
-                        )
-                            .then((value) {
-                          if (!value) {
-                            SnackNotification.notif(
-                              'Error',
-                              'Failed to add new repair',
-                              Colors.red.shade500,
-                            );
-                          }
-                        });
+                        if (productname.text.isEmpty || dateinput.text.isEmpty) {
+                          SnackNotification.notif(
+                            "Error",
+                             "Please fill all the fields",Colors.red.shade600);
+                        } else {
+                          Navigator.pop(context);
+                          borrower
+                              .addRepair(
+                            int.parse(widget.id.toString()),
+                            productname.text,
+                            dateinput.text,
+                          )
+                              .then((value) {
+                            if (value) {
+                              SnackNotification.notif(
+                                "Success",
+                                "Successfully added repair",
+                                Colors.green.shade600,
+                              );
+                            }
+                          });
+                        }
                       },
                     ),
                   ],
