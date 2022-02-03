@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:web_store_management/Models/BranchModel.dart';
 import 'Utility/ApiUrl.dart';
 import 'Utility/Mapping.dart';
 import '../Models/ProductModel.dart';
@@ -116,5 +117,22 @@ class GlobalController {
             (json) => BorrowerModel.fromJsonRequestedProduct(json))
         .toList();
     return Mapping.requested;
+  }
+
+  //fetch all the branches from the database
+  Future<List<BranchModel>> fetchBranches() async {
+    final response =
+        await http.get(Uri.parse("http://localhost:8090/api/branches"));
+
+    // Use the compute function to run parseBranches in a separate isolate.
+    return compute(parseBranches, response.body);
+  }
+
+  List<BranchModel> parseBranches(String responseBody) {
+    final parsed = jsonDecode(responseBody).cast<Map<String, dynamic>>();
+    Mapping.branchList = parsed
+        .map<BranchModel>((json) => BranchModel.fromJsonPartial(json))
+        .toList();
+    return Mapping.branchList;
   }
 }

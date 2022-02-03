@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:web_store_management/Backend/Interfaces/IDashboard.dart';
 import 'package:web_store_management/Models/CollectionModel.dart';
-import 'package:web_store_management/Notification/Snack_notification.dart';
 
 import 'Utility/ApiUrl.dart';
 
@@ -26,8 +25,6 @@ class DashboardOperation implements IDashboard {
         _formatter.format(_now.subtract(Duration(days: weekDay - 1)));
     var lastDayOfWeek =
         _formatter.format(_now.add(Duration(days: 7 - weekDay)));
-    print(firstDayOfWeek);
-    print(lastDayOfWeek);
 
     return [firstDayOfWeek, lastDayOfWeek];
   }
@@ -48,22 +45,11 @@ class DashboardOperation implements IDashboard {
       var collection = CollectionModel.fromJsonToday(todayTotalCollection);
 
       if (response.statusCode == 404) {
-        SnackNotification.notif(
-          'Error',
-          'Cant fetch loaned product history',
-          Colors.red.shade600,
-        );
         return 0;
       }
 
       return collection.getToday;
     } catch (e) {
-      print(e.toString());
-      SnackNotification.notif(
-        'Error',
-        'There is an error in fetching today collection',
-        Colors.red.shade600,
-      );
       return 0;
     }
   }
@@ -80,22 +66,11 @@ class DashboardOperation implements IDashboard {
       var collection = CollectionModel.fromJsonWeek(weekTotalCollection);
 
       if (response.statusCode == 404) {
-        SnackNotification.notif(
-          'Error',
-          'Cant fetch loaned product history',
-          Colors.red.shade600,
-        );
         return 0;
       }
 
       return collection.getWeek;
     } catch (e) {
-      print(e.toString());
-      SnackNotification.notif(
-        'Error',
-        'There is an error in fetching today collection',
-        Colors.red.shade600,
-      );
       return 0;
     }
   }

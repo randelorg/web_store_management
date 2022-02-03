@@ -28,6 +28,7 @@ class _InventoryPage extends State<InventoryPage> {
     super.initState();
     //fetches the products from the database
     this._products = controller.fetchProducts();
+    controller.fetchBranches();
   }
 
   @override
@@ -179,7 +180,8 @@ class _InventoryPage extends State<InventoryPage> {
                       ),
                       TextButton(
                         style: TextButton.styleFrom(
-                          padding: const EdgeInsets.only(top: 18, bottom: 18, left: 36, right: 36),
+                          padding: const EdgeInsets.only(
+                              top: 18, bottom: 18, left: 36, right: 36),
                           primary: Colors.white,
                           textStyle: TextStyle(
                               fontFamily: 'Cairo_SemiBold', fontSize: 14),
@@ -219,7 +221,7 @@ class _InventoryPage extends State<InventoryPage> {
           children: [
             Stack(
               children: [
-                Row(        
+                Row(
                   children: [
                     Container(
                       padding: EdgeInsets.only(top: 10),
@@ -237,13 +239,19 @@ class _InventoryPage extends State<InventoryPage> {
                             Tooltip(
                               message: 'Transfer Stocks',
                               child: TextButton.icon(
-                                icon: Icon(Icons.transfer_within_a_station, color: Colors.white),
+                                icon: Icon(
+                                  Icons.transfer_within_a_station,
+                                  color: Colors.white,
+                                ),
                                 style: TextButton.styleFrom(
                                   padding: const EdgeInsets.all(14),
                                   primary: Colors.white,
-                                  textStyle: TextStyle(fontSize: 18, fontFamily: 'Cairo_SemiBold'),
+                                  textStyle: TextStyle(
+                                    fontSize: 18,
+                                    fontFamily: 'Cairo_SemiBold',
+                                  ),
                                 ),
-                                label:Text('TRANSFER') ,
+                                label: Text('TRANSFER'),
                                 onPressed: () {
                                   showDialog(
                                     context: context,
@@ -251,7 +259,7 @@ class _InventoryPage extends State<InventoryPage> {
                                       return TransferStock();
                                     },
                                   );
-                                },                  
+                                },
                               ),
                             ),
                           ],
@@ -260,10 +268,10 @@ class _InventoryPage extends State<InventoryPage> {
                     ),
                   ],
                 ),
-                Row(             
+                Row(
                   children: [
-                    Container( 
-                      margin: EdgeInsets.only(left: 850),
+                    Container(
+                      //margin: EdgeInsets.only(left: 850),
                       padding: EdgeInsets.only(top: 10, left: 150),
                       width: 400,
                       child: TextField(
@@ -448,7 +456,8 @@ class _DataSource extends DataTableSource {
                   ),
                 ),
                 Padding(
-                  padding:EdgeInsets.only(top: 8, bottom: 8, left: 16, right: 16),
+                  padding:
+                      EdgeInsets.only(top: 8, bottom: 8, left: 16, right: 16),
                   child: Text(
                     'UPDATE',
                     style: TextStyle(

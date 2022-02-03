@@ -10,6 +10,16 @@ class TimeCollection extends StatefulWidget {
 
 class _TimeCollection extends State<TimeCollection> {
   var dashboard = DashboardOperation();
+  late Future day;
+  late Future week;
+  late Future month;
+  @override
+  void initState() {
+    super.initState();
+    day = dashboard.getTodayCollection();
+    week = dashboard.getWeekCollection();
+    month = week;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +39,7 @@ class _TimeCollection extends State<TimeCollection> {
                 child: Column(
                   children: [
                     FutureBuilder(
-                      future: dashboard.getTodayCollection(),
+                      future: day,
                       builder: (context, snapshot) {
                         if (!snapshot.hasData) {
                           return Center(
@@ -92,7 +102,7 @@ class _TimeCollection extends State<TimeCollection> {
                 child: Column(
                   children: [
                     FutureBuilder(
-                      future: dashboard.getWeekCollection(),
+                      future: week,
                       builder: (context, snapshot) {
                         if (!snapshot.hasData) {
                           return Center(
@@ -155,7 +165,7 @@ class _TimeCollection extends State<TimeCollection> {
                 child: Column(
                   children: [
                     FutureBuilder(
-                      future: dashboard.getWeekCollection(),
+                      future: month,
                       builder: (context, snapshot) {
                         if (!snapshot.hasData) {
                           return Center(

@@ -1,31 +1,26 @@
+import 'package:ai_barcode/ai_barcode.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:jsqr/scanner.dart';
 
 class ScannerHelper {
   static String? qrContent;
-
-  static String getContent() {
-    return qrContent.toString();
-  }
-
-  static Widget scanQr(BuildContext context) {
+  static dynamic qrCodeResult;
+  static Widget scanBarcode() {
     return AlertDialog(
-      insetPadding: EdgeInsets.all(5),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(
-          Radius.circular(10.0),
-        ),
-      ),
-      title: const Text('Scan QR Code'),
-      content: Container(
-        width: (MediaQuery.of(context).size.width),
-        height: (MediaQuery.of(context).size.height),
-        child: Center(
-          child: Scanner(
-            key: qrContent,
+      actionsPadding: EdgeInsets.only(bottom: 5, left: 5, right: 5),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      actions: [
+        Container(
+          color: Colors.black26,
+          width: 200,
+          height: 200,
+          child: PlatformAiBarcodeScannerWidget(
+            platformScannerController:
+                ScannerController(scannerResult: (result) {})
+                    .startCameraPreview(),
           ),
         ),
-      ),
+      ],
     );
   }
 }

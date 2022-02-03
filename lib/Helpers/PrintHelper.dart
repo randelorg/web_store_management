@@ -18,14 +18,6 @@ class PrintHelper {
               pw.SizedBox(
                 width: double.infinity,
                 child: pw.FittedBox(
-                  // child: pw.Text(title, style: pw.TextStyle(font: font)),
-                  // child: pw.Text(
-                  //   pw.Barcode.qrCode().toSvg(
-                  //     content,
-                  //     width: 40,
-                  //     height: 40,
-                  //   ),
-                  // ),
                   child: pw.BarcodeWidget(
                     barcode: pw.Barcode.qrCode(),
                     data: content,
