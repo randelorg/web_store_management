@@ -39,9 +39,8 @@ dependencies:
   shared_preferences: ^2.0.8 #for session
   file_picker: ^4.2.3 #file picker
   qr_flutter: ^4.0.0
-  
   printing: ^5.6.5
-  ai_barcode: ^3.0.1
+  camcode: ^2.2.0
 
 dev_dependencies:
   flutter_test:

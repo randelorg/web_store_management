@@ -6,10 +6,10 @@
 
 #import "GeneratedPluginRegistrant.h"
 
-#if __has_include(<ai_barcode/AiBarcodePlugin.h>)
-#import <ai_barcode/AiBarcodePlugin.h>
+#if __has_include(<camcode/CamcodePlugin.h>)
+#import <camcode/CamcodePlugin.h>
 #else
-@import ai_barcode;
+@import camcode;
 #endif
 
 #if __has_include(<file_picker/FilePickerPlugin.h>)
@@ -39,7 +39,7 @@
 @implementation GeneratedPluginRegistrant
 
 + (void)registerWithRegistry:(NSObject<FlutterPluginRegistry>*)registry {
-  [AiBarcodePlugin registerWithRegistrar:[registry registrarForPlugin:@"AiBarcodePlugin"]];
+  [CamcodePlugin registerWithRegistrar:[registry registrarForPlugin:@"CamcodePlugin"]];
   [FilePickerPlugin registerWithRegistrar:[registry registrarForPlugin:@"FilePickerPlugin"]];
   [HexcolorPlugin registerWithRegistrar:[registry registrarForPlugin:@"HexcolorPlugin"]];
   [PrintingPlugin registerWithRegistrar:[registry registrarForPlugin:@"PrintingPlugin"]];

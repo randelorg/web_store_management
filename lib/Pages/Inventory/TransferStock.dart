@@ -1,7 +1,7 @@
+import 'package:camcode/cam_code_scanner.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
-import 'package:web_store_management/Helpers/ScannerHelper.dart';
 
 class TransferStock extends StatefulWidget {
   @override
@@ -203,17 +203,14 @@ class _TransferStock extends State<TransferStock> {
                     onPressed: () {
                       showDialog(
                         context: context,
-                        builder: (BuildContext context) {
-                          return SimpleDialog(
-                            children: [
-                              Container(
-                                width: (MediaQuery.of(context).size.width) / 2,
-                                height: (MediaQuery.of(context).size.height),
-                                child: ScannerHelper.scanBarcode(),
-                              ),
-                            ],
-                          );
-                        },
+                        builder: (context) => CamCodeScanner(
+                          width: MediaQuery.of(context).size.width,
+                          height: MediaQuery.of(context).size.height,
+                          refreshDelayMillis: 200,
+                          onBarcodeResult: (barcode) {
+                            print('object ' + barcode.toString());
+                          },
+                        ),
                       );
                     },
                   ),
