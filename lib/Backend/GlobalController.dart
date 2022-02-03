@@ -122,7 +122,7 @@ class GlobalController {
   //fetch all the branches from the database
   Future<List<BranchModel>> fetchBranches() async {
     final response =
-        await http.get(Uri.parse("http://localhost:8090/api/branches"));
+        await http.get(Uri.parse("http://localhost:8080/api/branches"));
 
     // Use the compute function to run parseBranches in a separate isolate.
     return compute(parseBranches, response.body);
