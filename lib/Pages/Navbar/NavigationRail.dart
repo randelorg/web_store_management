@@ -71,11 +71,11 @@ class _NavDrawer extends State<NavDrawer> {
                     Colors.red.shade500,
                   );
                   return;
-                } else {
-                  setState(() {
-                    _selectedIndex = index;
-                  });
                 }
+              } else {
+                setState(() {
+                  _selectedIndex = index;
+                });
               }
             },
             labelType: NavigationRailLabelType.all,

@@ -13,12 +13,12 @@ class PaymentHistory extends StatefulWidget {
 
 class _PaymentHistory extends State<PaymentHistory> {
   var history = HistoryOperation();
-  late Future _history;
+  late Future paymentHistory;
 
   @override
   void initState() {
     super.initState();
-    this._history = history.viewPaymentHistory(widget.id.toString());
+    this.paymentHistory = history.viewPaymentHistory(widget.id.toString());
   }
 
   Widget build(BuildContext context) {
@@ -55,7 +55,7 @@ class _PaymentHistory extends State<PaymentHistory> {
           ),
         ),
           FutureBuilder(
-            future: this._history,
+            future: this.paymentHistory,
             builder: (context, snapshot) {
               if (!snapshot.hasData) {
                 return Center(child: CircularProgressIndicator());

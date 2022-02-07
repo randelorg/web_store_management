@@ -1,5 +1,3 @@
-import 'dart:js';
-
 import 'package:hexcolor/hexcolor.dart';
 import 'package:flutter/material.dart';
 import 'ViewBorrowerProfile.dart';
@@ -176,7 +174,8 @@ List<_Row> _borrowerProfile() {
                   ),
                 ),
                 Padding(
-                  padding:EdgeInsets.only(top: 8, bottom: 8, left: 16, right: 16),
+                  padding:
+                      EdgeInsets.only(top: 8, bottom: 8, left: 16, right: 16),
                   child: Text(
                     'VIEW',
                     style: TextStyle(

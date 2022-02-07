@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:async/async.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
+import 'package:web_store_management/Pages/Reports/GlobalHistoryScreens/PaymentHistoryScreen.dart';
 import 'MakePayment.dart';
 import '../../Backend/GlobalController.dart';
 
@@ -90,7 +91,7 @@ class _PaymentPage extends State<PaymentPage> {
                           DataColumn(label: Text('NAME')),
                           DataColumn(label: Text('TOTAL DEBT')),
                           DataColumn(label: Text('PAYMENT')),
-                          DataColumn(label: Text('VIEW')),
+                          DataColumn(label: Text('PAYMENT HISTORY')),
                         ],
                         source: _DataSource(context),
                       ),
@@ -177,7 +178,25 @@ class _DataSource extends DataTableSource {
             },
           );
         }),
-        DataCell((row.valueE)),
+        DataCell((row.valueE), onTap: () {
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return SimpleDialog(
+                children: [
+                  Container(
+                    width: (MediaQuery.of(context).size.width) / 2,
+                    height: (MediaQuery.of(context).size.height),
+                    child: LocalPaymentHistory(
+                      id: row.valueA,
+                      borrowerName: row.valueB,
+                    ),
+                  ),
+                ],
+              );
+            },
+          );
+        }),
       ],
     );
   }
@@ -212,7 +231,8 @@ List _paymentsList(BuildContext context) {
                 ),
               ),
               Padding(
-                padding:EdgeInsets.only(top: 8, bottom: 8, left: 20, right: 20),
+                padding:
+                    EdgeInsets.only(top: 8, bottom: 8, left: 20, right: 20),
                 child: Text(
                   'PAY',
                   style: TextStyle(
@@ -237,7 +257,8 @@ List _paymentsList(BuildContext context) {
                 ),
               ),
               Padding(
-               padding:EdgeInsets.only(top: 8, bottom: 8, left: 16, right: 16),
+                padding:
+                    EdgeInsets.only(top: 8, bottom: 8, left: 16, right: 16),
                 child: Text(
                   'VIEW',
                   style: TextStyle(

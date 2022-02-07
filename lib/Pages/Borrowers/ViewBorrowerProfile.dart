@@ -3,8 +3,8 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:web_store_management/Backend/HistoryOperation.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
 import 'package:web_store_management/Pages/Borrowers/UpdateBorrowerPage.dart';
-import '../Reports/HistoryScreens/PaymentHistoryScreen.dart';
-import '../Reports/HistoryScreens/ProductHistoryScreen.dart';
+import '../Reports/GlobalHistoryScreens/PaymentHistoryScreen.dart';
+import '../Reports/GlobalHistoryScreens/ProductHistoryScreen.dart';
 import '../../Helpers/CreateQRHelper.dart';
 
 class ViewBorrowerProfile extends StatefulWidget {
@@ -53,12 +53,11 @@ class _ViewBorrowerProfile extends State<ViewBorrowerProfile> {
                 },
               ),
             ),
-
             Text(
-             'Borrower Profile',
+              'Borrower Profile',
               softWrap: true,
               textAlign: TextAlign.center,
-              style: TextStyle(             
+              style: TextStyle(
                 color: HexColor("#155293"),
                 fontFamily: 'Cairo_Bold',
                 fontSize: 30,
@@ -108,18 +107,20 @@ class _ViewBorrowerProfile extends State<ViewBorrowerProfile> {
               child: Row(
                 children: [
                   Padding(
-                    padding: EdgeInsets.only(left: 10, top: 10, bottom: 10, right: 70),
+                    padding: EdgeInsets.only(
+                        left: 10, top: 10, bottom: 10, right: 70),
                     child: Text(
                       'Name',
                       style: TextStyle(
-                        color: Colors.grey[700],
-                        fontFamily: 'Cairo_SemiBold',
-                        fontSize: 12),
+                          color: Colors.grey[700],
+                          fontFamily: 'Cairo_SemiBold',
+                          fontSize: 12),
                     ),
                   ),
                   Text(
                     widget.name.toString(),
-                    style:TextStyle(fontSize: 14, fontFamily: 'Cairo_SemiBold'),
+                    style:
+                        TextStyle(fontSize: 14, fontFamily: 'Cairo_SemiBold'),
                   ),
                 ],
               ),
@@ -134,19 +135,21 @@ class _ViewBorrowerProfile extends State<ViewBorrowerProfile> {
               child: Row(
                 children: [
                   Padding(
-                     padding: EdgeInsets.only(left: 10, top: 10, bottom: 10, right: 25),
+                    padding: EdgeInsets.only(
+                        left: 10, top: 10, bottom: 10, right: 25),
                     child: Text(
                       'Mobile Number',
                       style: TextStyle(
-                        color: Colors.grey[700],
-                        fontFamily: 'Cairo_SemiBold',
-                        fontSize: 12),
+                          color: Colors.grey[700],
+                          fontFamily: 'Cairo_SemiBold',
+                          fontSize: 12),
                     ),
                   ),
                   Text(
                     widget.number.toString(),
                     softWrap: true,
-                    style:TextStyle(fontSize: 14, fontFamily: 'Cairo_SemiBold'),
+                    style:
+                        TextStyle(fontSize: 14, fontFamily: 'Cairo_SemiBold'),
                   ),
                 ],
               ),
@@ -161,24 +164,26 @@ class _ViewBorrowerProfile extends State<ViewBorrowerProfile> {
               child: Row(
                 children: [
                   Padding(
-                    padding: EdgeInsets.only(left: 10, top: 10, bottom: 10, right: 45),
+                    padding: EdgeInsets.only(
+                        left: 10, top: 10, bottom: 10, right: 45),
                     child: Text(
                       'Total Debt',
                       style: TextStyle(
-                        color: Colors.grey[700],
-                        fontFamily: 'Cairo_SemiBold',
-                        fontSize: 12),
+                          color: Colors.grey[700],
+                          fontFamily: 'Cairo_SemiBold',
+                          fontSize: 12),
                     ),
                   ),
                   Padding(
                     padding: EdgeInsets.only(right: 3),
                     child: Icon(Icons.attach_money),
-                  ),                            
-                  Text(                 
+                  ),
+                  Text(
                     widget.balance.toString(),
                     softWrap: true,
-                    style:TextStyle(fontSize: 14, fontFamily: 'Cairo_SemiBold'),
-                  ),                   
+                    style:
+                        TextStyle(fontSize: 14, fontFamily: 'Cairo_SemiBold'),
+                  ),
                 ],
               ),
             ),
@@ -205,7 +210,7 @@ class _ViewBorrowerProfile extends State<ViewBorrowerProfile> {
                                   width:
                                       (MediaQuery.of(context).size.width) / 2,
                                   height: (MediaQuery.of(context).size.height),
-                                  child: PaymentHistory(
+                                  child: LocalPaymentHistory(
                                     id: widget.id.toString(),
                                     borrowerName: widget.name.toString(),
                                   ),
