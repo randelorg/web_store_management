@@ -45,19 +45,19 @@ class _PaymentPlanPage extends State<PaymentPlanPage> {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       actions: <Widget>[
         Column(
-          children: [       
-            Align(          
+          children: [
+            Align(
               alignment: Alignment.topRight,
               child: IconButton(
-              icon: Icon(
-                Icons.cancel,
-                color: Colors.black,
-                size: 30,
-              ),
-              onPressed: () {    
-                Navigator.of(context).pop();
-              }),
-            ), 
+                  icon: Icon(
+                    Icons.cancel,
+                    color: Colors.black,
+                    size: 30,
+                  ),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  }),
+            ),
             Text(
               'Payment Plan',
               softWrap: true,
@@ -68,7 +68,7 @@ class _PaymentPlanPage extends State<PaymentPlanPage> {
                 fontSize: 30,
               ),
             ),
-             Padding(
+            Padding(
               padding: EdgeInsets.only(left: 5),
               child: Container(
                 alignment: Alignment.centerLeft,
@@ -97,7 +97,7 @@ class _PaymentPlanPage extends State<PaymentPlanPage> {
                 ),
               ),
             ),
-             Padding(
+            Padding(
               padding: EdgeInsets.only(left: 5),
               child: Container(
                 alignment: Alignment.centerLeft,
@@ -135,11 +135,11 @@ class _PaymentPlanPage extends State<PaymentPlanPage> {
                   style: TextStyle(fontSize: 10),
                 ),
               ),
-            ),        
+            ),
             Padding(
               padding: EdgeInsets.only(bottom: 15),
               child: Container(
-                width: 320,      
+                width: 320,
                 alignment: Alignment.topLeft,
                 decoration: BoxDecoration(
                   border: Border.all(
@@ -180,8 +180,8 @@ class _PaymentPlanPage extends State<PaymentPlanPage> {
             ),
             Slider(
               value: _currenSliderValue,
-              inactiveColor:HexColor("#155293"),
-              activeColor:HexColor("#155293"),
+              inactiveColor: HexColor("#155293"),
+              activeColor: HexColor("#155293"),
               min: 3,
               max: 12,
               divisions: 3,
@@ -192,7 +192,7 @@ class _PaymentPlanPage extends State<PaymentPlanPage> {
                 });
               },
             ),
-             Padding(
+            Padding(
               padding: EdgeInsets.only(left: 5),
               child: Container(
                 alignment: Alignment.centerLeft,
@@ -201,8 +201,7 @@ class _PaymentPlanPage extends State<PaymentPlanPage> {
                   style: TextStyle(fontSize: 10),
                 ),
               ),
-            ),  
-          
+            ),
             Padding(
               padding: const EdgeInsets.all(6.0),
               child: TextField(
@@ -220,20 +219,20 @@ class _PaymentPlanPage extends State<PaymentPlanPage> {
                 //readOnly: true,
                 onTap: () async {
                   DateTime? pickedDate = await showDatePicker(
-                      context: context,
-                      initialDate: DateTime.now(),
-                      firstDate: DateTime(2022),
-                      lastDate: DateTime(2032),
-                      builder: (context, child) {                   
-                      return Theme(               
-                        data: Theme.of(context).copyWith(                
-                          colorScheme: ColorScheme.light(                           
+                    context: context,
+                    initialDate: DateTime.now(),
+                    firstDate: DateTime(2022),
+                    lastDate: DateTime(2032),
+                    builder: (context, child) {
+                      return Theme(
+                        data: Theme.of(context).copyWith(
+                          colorScheme: ColorScheme.light(
                             primary: Colors.red, //Background Color
                             onPrimary: Colors.white, //Text Color
                           ),
-                          textButtonTheme: TextButtonThemeData(                        
+                          textButtonTheme: TextButtonThemeData(
                             style: TextButton.styleFrom(
-                            primary: Colors.black, //Button Text Color
+                              primary: Colors.black, //Button Text Color
                             ),
                           ),
                         ),
@@ -261,55 +260,58 @@ class _PaymentPlanPage extends State<PaymentPlanPage> {
                   children: <Widget>[
                     Positioned.fill(
                       child: Container(
-                        decoration: BoxDecoration(
-                          color: HexColor("#155293")
-                        ),
+                        decoration: BoxDecoration(color: HexColor("#155293")),
                       ),
                     ),
                     TextButton(
-                      style: TextButton.styleFrom(padding: const EdgeInsets.only(left: 15, right: 15, top: 20, bottom: 20),
-                        primary: Colors.white,
-                        textStyle: TextStyle(fontSize: 14, fontFamily: 'Cairo_SemiBold')
-                      ),
+                      style: TextButton.styleFrom(
+                          padding: const EdgeInsets.only(left: 15, right: 15, top: 20, bottom: 20),
+                          primary: Colors.white,
+                          textStyle: TextStyle(fontSize: 14, fontFamily: 'Cairo_SemiBold')),
                       child: const Text('SEND TO REVIEW'),
                       onPressed: () {
-                        newloan
-                            .addBorrower(
-                          widget.firstname.toString(),
-                          widget.lastname.toString(),
-                          widget.mobile.toString(),
-                          widget.address.toString(),
-                          widget.total,
-                        )
-                            .then(
-                          (value) {
-                            if (value) {
-                              newloan
-                                  .addNewLoan(
-                                    widget.firstname.toString(),
-                                    widget.lastname.toString(),
-                                    plan,
-                                    _currenSliderValue.toString(),
-                                    duedate.text,
-                                  )
-                                  .then(
-                                    (value) => {
-                                      if (value)
-                                        {
-                                          Navigator.pop(context),
-                                          //clear all the previous addition in this list
-                                          Mapping.selectedProducts.clear(),
-                                          SnackNotification.notif(
-                                            'Success',
-                                            'New loan is sent to credit approval',
-                                            Colors.green.shade900,
-                                          )
-                                        }
-                                    },
-                                  );
-                            }
-                          },
-                        );
+                        if (duedate.text.isEmpty) {                   
+                          SnackNotification.notif(
+                              "Error",
+                              "Please fill all the fields",
+                              Colors.red.shade600);
+                        } else {
+                          newloan
+                              .addBorrower(
+                            widget.firstname.toString(),
+                            widget.lastname.toString(),
+                            widget.mobile.toString(),
+                            widget.address.toString(),
+                            widget.total,
+                          )
+                          .then(
+                            (value) {
+                              if (value) {
+                                newloan
+                                    .addNewLoan(
+                                      widget.firstname.toString(),
+                                      widget.lastname.toString(),
+                                      plan,
+                                      _currenSliderValue.toString(),
+                                      duedate.text,
+                                    )
+                                    .then((value) => {
+                                          if (value)
+                                            {
+                                              Navigator.pop(context),
+                                              //clear all the previous addition in this list
+                                              Mapping.selectedProducts.clear(),
+                                              SnackNotification.notif(
+                                                'Success',
+                                                'New loan is sent to credit approval',
+                                                Colors.green.shade600,
+                                              )
+                                            }
+                                        });                        
+                              }
+                            },
+                          );
+                        }
                       },
                     ),
                   ],

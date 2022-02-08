@@ -36,11 +36,11 @@ class _CreditPage extends State<CreditScreen> {
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             Container(
-              padding: EdgeInsets.only(top: 10, bottom: 10, right: 20),
+              padding: EdgeInsets.only(top: 15, bottom: 15, right: 20),
               width: 400,
               child: TextField(
                 decoration: InputDecoration(
-                  hintText: 'Search borrower',
+                  hintText: 'Search Borrower',
                   suffixIcon: InkWell(
                     child: IconButton(
                       icon: Icon(Icons.qr_code_scanner_outlined),
@@ -114,7 +114,6 @@ class _CreditPage extends State<CreditScreen> {
             borderRadius: BorderRadius.circular(35.0),
           ),
           shadowColor: Colors.black,
-          elevation: 5,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,

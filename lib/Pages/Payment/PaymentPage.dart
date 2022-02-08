@@ -36,7 +36,7 @@ class _PaymentPage extends State<PaymentPage> {
               width: 400,
               child: TextField(
                 decoration: InputDecoration(
-                  hintText: 'Search borrower',
+                  hintText: 'Search Borrower',
                   suffixIcon: InkWell(
                     child: IconButton(
                       icon: Icon(Icons.qr_code_scanner_outlined),

@@ -33,7 +33,7 @@ class _RequestedProdScreen extends State<RequestedProdScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [          
                 Padding(
-                  padding: EdgeInsets.only(top: 10, bottom: 10, left: 20),
+                  padding: EdgeInsets.only(top: 15, bottom: 15, left: 20),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(8),
                     child: Stack(
@@ -73,7 +73,7 @@ class _RequestedProdScreen extends State<RequestedProdScreen> {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Container(
-                  padding: EdgeInsets.only(top: 10, bottom: 10, right: 20),
+                  padding: EdgeInsets.only(top: 15, bottom: 15, right: 20),
                   width: 400,
                   child: TextField(
                     decoration: InputDecoration(

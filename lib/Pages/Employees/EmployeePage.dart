@@ -35,7 +35,7 @@ class _Employeepage extends State<EmployeePage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: EdgeInsets.only(top: 10, bottom: 10, left: 20),
+                  padding: EdgeInsets.only(top: 15, bottom: 15, left: 20),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(10),
                     child: Stack(
@@ -121,10 +121,10 @@ class _Employeepage extends State<EmployeePage> {
                 ),
                 Container(
                   padding: EdgeInsets.only(top: 15, bottom: 15, right: 100),
-                  width: 350,
+                  width: 400,
                   child: TextField(
                     decoration: InputDecoration(
-                      hintText: 'Search borrower',
+                      hintText: 'Search Employee',
                       suffixIcon: InkWell(
                         child: IconButton(
                           icon: Icon(Icons.qr_code_scanner_outlined),

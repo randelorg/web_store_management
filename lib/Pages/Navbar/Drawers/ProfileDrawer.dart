@@ -38,7 +38,7 @@ class _ProfileDrawer extends State<ProfileDrawer> {
   Widget build(BuildContext context) {
     return PopupMenuButton(
       tooltip: "My Profile",
-      offset: const Offset(0.0, 45.0),
+      offset: const Offset(0, 45.0),
       elevation: 2,
       child: Icon(Icons.person, color: HexColor("#155293")),
       itemBuilder: (context) => [
@@ -59,12 +59,12 @@ class _ProfileDrawer extends State<ProfileDrawer> {
                   ),
                 ),
                 Card(
-                  elevation: 5,
+                  elevation: 3,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30),
                   ),
                   child: Padding(
-                    padding: EdgeInsets.only(top: 10, bottom: 10, right: 10, left: 10),
+                    padding: EdgeInsets.only(top: 10, bottom: 10, left: 10, right: 20),
                     child: TextButton.icon(
                       icon: Icon(
                         Icons.visibility,
@@ -94,15 +94,17 @@ class _ProfileDrawer extends State<ProfileDrawer> {
                   maintainAnimation: true,
                   maintainState: true,
                   visible: this._isAuthorized,
-                  child: Column(
+                  child: Column(         
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Card(
-                        elevation: 5,
+                        elevation: 3,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30),
                         ),
                         child: Padding(
-                          padding: EdgeInsets.only(top: 10, bottom: 10, right: 10, left: 10),                  
+                          padding: EdgeInsets.only(top: 10, bottom: 10, left: 10, right: 6),                  
                           child: TextButton.icon(
                             icon: Icon(
                               Icons.create_rounded,
@@ -128,20 +130,19 @@ class _ProfileDrawer extends State<ProfileDrawer> {
                         ),
                       ),
                       Card(
-                        elevation: 5,
+                        elevation: 3,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30),
                         ),
                         child: Padding(
-                          padding: EdgeInsets.only(
-                              top: 10, bottom: 10, right: 10, left: 10),
+                          padding: EdgeInsets.only(top: 10, bottom: 10, left: 10, right: 24),
                           child: TextButton.icon(
                             icon: Icon(
                               Icons.person_add,
                               color: HexColor("#155293"),
                             ),
                             label: Text(
-                              'Add Admin',
+                              ' Add Admin',                           
                               style: TextStyle(
                                 fontFamily: 'Cairo_SemiBold',
                                 color: HexColor("#155293"),
@@ -159,7 +160,7 @@ class _ProfileDrawer extends State<ProfileDrawer> {
                           ),
                         ),
                       ),
-                      Padding(
+                      Padding(   
                         padding: EdgeInsets.only(top: 10),
                         child: Container(
                           child: Text(
@@ -169,24 +170,19 @@ class _ProfileDrawer extends State<ProfileDrawer> {
                         ),
                       ),
                       Card(
-                        elevation: 5,
+                        elevation: 3,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30),
                         ),
                         child: Padding(
-                          padding: EdgeInsets.only(
-                            top: 10,
-                            bottom: 10,
-                            right: 10,
-                            left: 10,
-                          ),
+                          padding: EdgeInsets.only(top: 10, bottom: 10, left: 10, right: 22),
                           child: TextButton.icon(
                             icon: Icon(
                               Icons.store,
                               color: HexColor("#155293"),
                             ),
                             label: Text(
-                              'Add Branch',
+                              ' Add Branch',
                               style: TextStyle(
                                 fontFamily: 'Cairo_SemiBold',
                                 color: HexColor("#155293"),
@@ -213,35 +209,32 @@ class _ProfileDrawer extends State<ProfileDrawer> {
                   maintainState: true,
                   visible: this._isEmployee,
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Padding(
                         padding: EdgeInsets.only(top: 10),
                         child: Container(
                           child: Text(
-                            'DTR',
-                            style: TextStyle(fontSize: 15),
+                            'Attendance',
+                            style: TextStyle(fontSize: 10),
                           ),
                         ),
                       ),
                       Card(
-                        elevation: 5,
+                        elevation: 3,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30),
                         ),
                         child: Padding(
-                          padding: EdgeInsets.only(
-                            top: 5,
-                            bottom: 10,
-                            right: 10,
-                            left: 10,
-                          ),
+                          padding: EdgeInsets.only(top: 10, bottom: 10, left: 10, right: 20),
                           child: TextButton.icon(
                             icon: Icon(
                               Icons.check_circle,
-                              color: HexColor("#155293"),
+                              color: Colors.green,
                             ),
                             label: Text(
-                              'Time in',
+                              'Time-in',
                               style: TextStyle(
                                 fontFamily: 'Cairo_SemiBold',
                                 color: HexColor("#155293"),
@@ -253,24 +246,20 @@ class _ProfileDrawer extends State<ProfileDrawer> {
                         ),
                       ),
                       Card(
-                        elevation: 5,
+                        elevation: 3,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30),
                         ),
                         child: Padding(
-                          padding: EdgeInsets.only(
-                            top: 5,
-                            bottom: 10,
-                            right: 10,
-                            left: 10,
-                          ),
+                          padding: EdgeInsets.only(top: 10, bottom: 10, left: 10, right: 13),
                           child: TextButton.icon(
                             icon: Icon(
                               Icons.cancel,
-                              color: HexColor("#155293"),
+                              color: Colors.red,
                             ),
                             label: Text(
-                              'Time out',
+                              'Time-out',
+                              textAlign: TextAlign.left,
                               style: TextStyle(
                                 fontFamily: 'Cairo_SemiBold',
                                 color: HexColor("#155293"),

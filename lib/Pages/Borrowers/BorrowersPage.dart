@@ -1,5 +1,3 @@
-import 'dart:js';
-
 import 'package:hexcolor/hexcolor.dart';
 import 'package:flutter/material.dart';
 import 'ViewBorrowerProfile.dart';
@@ -43,7 +41,7 @@ class _BorrowersPage extends State<BorrowersPage> {
               width: 400,
               child: TextField(
                 decoration: InputDecoration(
-                  hintText: 'Search borrower',
+                  hintText: 'Search Borrower',
                   suffixIcon: InkWell(
                     child: IconButton(
                       icon: Icon(Icons.qr_code_scanner_outlined),

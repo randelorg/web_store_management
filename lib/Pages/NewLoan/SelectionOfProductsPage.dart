@@ -213,29 +213,32 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Container(
-                    width: 300,
-                    child: TextField(
-                      decoration: InputDecoration(
-                        hintText: 'Search Product',
-                        suffixIcon: IconButton(
-                          onPressed: () {},
-                          icon: Icon(Icons.scanner_sharp),
-                          tooltip: 'Scan product barcode',
-                        ),
-                        filled: true,
-                        fillColor: Colors.blueGrey[50],
-                        labelStyle: TextStyle(fontSize: 10),
-                        contentPadding: EdgeInsets.only(left: 10),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide:
-                              BorderSide(color: Colors.blueGrey.shade50),
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide:
-                              BorderSide(color: Colors.blueGrey.shade50),
-                          borderRadius: BorderRadius.circular(5),
+                  Padding(
+                    padding: EdgeInsets.only(left: 5, right: 20),
+                    child: Container(
+                      width: 300,
+                      child: TextField(
+                        decoration: InputDecoration(
+                          hintText: 'Search Product',
+                          suffixIcon: IconButton(
+                            onPressed: () {},
+                            icon: Icon(Icons.scanner_sharp),
+                            tooltip: 'Scan product barcode',
+                          ),
+                          filled: true,
+                          fillColor: Colors.blueGrey[50],
+                          labelStyle: TextStyle(fontSize: 10),
+                          contentPadding: EdgeInsets.only(left: 10),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide:
+                                BorderSide(color: Colors.blueGrey.shade50),
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide:
+                                BorderSide(color: Colors.blueGrey.shade50),
+                            borderRadius: BorderRadius.circular(5),
+                          ),
                         ),
                       ),
                     ),
@@ -307,8 +310,9 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
                       onPressed: () {
                         //push to second page
                         //which is the finalize order page
-                        if (firstname.text.isEmpty) {            
-                          SnackNotification.notif(
+                        if (firstname.text.isEmpty || lastname.text.isEmpty ||
+                            mobileNumber.text.isEmpty || homeAddress.text.isEmpty) {
+                              SnackNotification.notif(                     
                                 "Error",
                                 "Please fill all the fields",Colors.red.shade600);
                         } else {
@@ -318,8 +322,7 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
                               return SimpleDialog(
                                 children: [
                                   Container(
-                                    width:
-                                        (MediaQuery.of(context).size.width) / 2,
+                                    width:(MediaQuery.of(context).size.width) / 2,
                                     height: 555,
                                     child: FinalizePage(
                                       firstname: firstname.text,
@@ -354,7 +357,6 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
       temp = e.getPrice * e.getProductQty;
       balance += temp;
     });
-
     return balance;
   }
 }

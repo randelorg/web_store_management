@@ -76,7 +76,7 @@ class _AddBranch extends State<AddBranch> {
               child: TextField(
                 controller: branchName,
                 decoration: InputDecoration(
-                  hintText: 'Branch name',
+                  hintText: 'Branch Name',
                   filled: true,
                   fillColor: Colors.blueGrey[50],
                   labelStyle: TextStyle(fontSize: 10),
@@ -97,7 +97,7 @@ class _AddBranch extends State<AddBranch> {
               child: TextField(
                 controller: branchAddress,
                 decoration: InputDecoration(
-                  hintText: 'Branch address',
+                  hintText: 'Branch Address',
                   filled: true,
                   fillColor: Colors.blueGrey[50],
                   labelStyle: TextStyle(fontSize: 10),
@@ -119,7 +119,7 @@ class _AddBranch extends State<AddBranch> {
                 child: Container(
                   alignment: Alignment.topLeft,
                   child: Text(
-                    'Select employee assigned',
+                    'Select Employee Assigned',
                     style: TextStyle(
                       fontFamily: 'Cairo_SemiBold',
                       fontSize: 14,
@@ -145,10 +145,10 @@ class _AddBranch extends State<AddBranch> {
                   child: DropdownButton<String>(
                     isExpanded: true,
                     value: employeeAssigned,
-                    icon: const Icon(Icons.arrow_downward),
+                    icon: const Icon(Icons.arrow_drop_down),
                     iconSize: 24,
                     elevation: 16,
-                    style: TextStyle(color: Colors.blue.shade700),
+                    style: TextStyle(color: HexColor("#155293")),
                     onChanged: (value) {
                       setState(() {
                         employeeAssigned = value!;
@@ -204,16 +204,22 @@ class _AddBranch extends State<AddBranch> {
                           ),
                           child: const Text('CONFIRM'),
                           onPressed: () {
-                            branch
-                                .addBranch(branchName.text, branchAddress.text,
-                                    getEmpId())
-                                .then(
-                                  (value) => SnackNotification.notif(
-                                    'Success',
-                                    'New branch added successfully',
-                                    Colors.green.shade900,
-                                  ),
-                                );
+                            if (branchName.text.isEmpty || branchAddress.text.isEmpty) {                     
+                              SnackNotification.notif(
+                                   "Error",
+                                   "Please fill all the fields",Colors.red.shade600);
+                            } else {
+                              branch
+                                  .addBranch(branchName.text,
+                                      branchAddress.text, getEmpId())
+                                  .then(
+                                    (value) => SnackNotification.notif(
+                                      'Success',
+                                      'New branch added successfully',
+                                      Colors.green.shade900,
+                                    ),
+                                  );
+                            }
                           },
                         ),
                       ],

@@ -41,7 +41,7 @@ class _InventoryPage extends State<InventoryPage> {
           child: Column(
             children: [
               Padding(
-                padding: const EdgeInsets.all(10.0),
+                padding: const EdgeInsets.only(top: 120),
                 child: Text(
                   'Add Product',
                   textAlign: TextAlign.center,
@@ -187,11 +187,15 @@ class _InventoryPage extends State<InventoryPage> {
                         ),
                         child: const Text('ADD'),
                         onPressed: () {
-                          if (barcode.text.isEmpty || prodName.text.isEmpty || quantity.text.isEmpty || 
-                              unit.text.isEmpty || price.text.isEmpty) {
-                                SnackNotification.notif(
-                                   "Error",
-                                   "Please fill all the fields",Colors.red.shade600);
+                          if (barcode.text.isEmpty ||
+                              prodName.text.isEmpty ||
+                              quantity.text.isEmpty ||
+                              unit.text.isEmpty ||
+                              price.text.isEmpty) {
+                            SnackNotification.notif(
+                                "Error",
+                                "Please fill all the fields",
+                                Colors.red.shade600);
                           } else {
                             product
                                 .addProduct(
@@ -223,89 +227,95 @@ class _InventoryPage extends State<InventoryPage> {
             ],
           ),
         ),
-        Column(
+
+        Container(
+          child: Row(
           children: [
-            Stack(
+            Padding(
+              padding: const EdgeInsets.only(left: 25, right: 25),
+              child: const VerticalDivider(
+                color: Colors.grey,
+                thickness: 1,
+                indent: 80,
+                endIndent: 80,
+                width: 10,
+              ),
+            ),
+          ],
+        )),
+        
+        Column( 
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.end,              
+          children: [     
+            Row(   
               children: [
-                Row(
-                  children: [
-                    Container(
-                      padding: EdgeInsets.only(top: 10),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(8),
-                        child: Stack(
-                          children: <Widget>[
-                            Positioned.fill(
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  color: HexColor("#155293"),
-                                ),
-                              ),
+                Container(
+                  padding: const EdgeInsets.only(top: 15, bottom: 15),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(8),
+                    child: Stack(
+                      children: <Widget>[
+                        Positioned.fill(
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: HexColor("#155293"),
                             ),
-                            Tooltip(
-                              message: 'Transfer Stocks',
-                              child: TextButton.icon(
-                                icon: Icon(Icons.transfer_within_a_station,
-                                    color: Colors.white),
-                                style: TextButton.styleFrom(
-                                  padding: const EdgeInsets.all(14),
-                                  primary: Colors.white,
-                                  textStyle: TextStyle(
-                                      fontSize: 18,
-                                      fontFamily: 'Cairo_SemiBold'),
-                                ),
-                                label: Text('TRANSFER'),
-                                onPressed: () {
-                                  showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return TransferStock();
-                                    },
-                                  );
+                          ),
+                        ),
+                        Tooltip(
+                          message: 'Transfer Stocks',
+                          child: TextButton.icon(
+                            icon: Icon(Icons.transfer_within_a_station,
+                                color: Colors.white),
+                            style: TextButton.styleFrom(
+                              padding: const EdgeInsets.all(14),
+                              primary: Colors.white,
+                              textStyle: TextStyle(
+                                  fontSize: 18, fontFamily: 'Cairo_SemiBold'),
+                            ),
+                            label: Text('TRANSFER'),
+                            onPressed: () {
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return TransferStock();
                                 },
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                Padding(
-                  padding: EdgeInsets.only(top: 10, right: 1000),
-                ),
-                Row(
-                  children: [
-                    Container(
-                      padding: EdgeInsets.only(top: 10, left: 150),
-                      width: 400,
-                      child: TextField(
-                        decoration: InputDecoration(
-                          hintText: 'Search product',
-                          suffixIcon: InkWell(
-                            child: IconButton(
-                              icon: Icon(Icons.search_sharp),
-                              color: Colors.grey,
-                              tooltip: 'Search by Name',
-                              onPressed: () {},
-                            ),
-                          ),
-                          filled: true,
-                          fillColor: Colors.blueGrey[50],
-                          labelStyle: TextStyle(fontSize: 12),
-                          contentPadding: EdgeInsets.only(left: 30),
-                          enabledBorder: OutlineInputBorder(
-                            borderSide:
-                                BorderSide(color: Colors.blueGrey.shade50),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide:
-                                BorderSide(color: Colors.blueGrey.shade50),
+                              );
+                            },
                           ),
                         ),
+                      ],
+                    ),
+                  ),
+                ),
+                
+                Container(
+                  padding: const EdgeInsets.only(top: 15, bottom: 15, left: 20, right: 5),
+                  width: 350,
+                  child: TextField(
+                    decoration: InputDecoration(
+                      hintText: 'Search Product',
+                      suffixIcon: InkWell(
+                        child: IconButton(
+                          icon: Icon(Icons.search_sharp),
+                          color: Colors.grey,
+                          tooltip: 'Search by Name',
+                          onPressed: () {},
+                        ),
+                      ),
+                      filled: true,
+                      fillColor: Colors.blueGrey[50],
+                      labelStyle: TextStyle(fontSize: 12),
+                      contentPadding: EdgeInsets.only(left: 30),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.blueGrey.shade50),
                       ),
                     ),
-                  ],
+                  ),
                 ),
               ],
             ),
@@ -322,8 +332,7 @@ class _InventoryPage extends State<InventoryPage> {
       child: Container(
         width: (MediaQuery.of(context).size.width) / 1.5,
         height: (MediaQuery.of(context).size.height),
-        child: ListView(
-          padding: const EdgeInsets.all(10),
+        child: ListView(    
           children: [
             FutureBuilder(
               future: this._products,
@@ -339,7 +348,7 @@ class _InventoryPage extends State<InventoryPage> {
                   return PaginatedDataTable(
                     showCheckboxColumn: false,
                     showFirstLastButtons: true,
-                    rowsPerPage: 15,
+                    rowsPerPage: 13,
                     columns: [
                       DataColumn(label: Text('PRODUCT NAME')),
                       DataColumn(label: Text('QTY')),
