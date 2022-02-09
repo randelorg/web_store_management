@@ -28,6 +28,7 @@ class _InventoryPage extends State<InventoryPage> {
     super.initState();
     //fetches the products from the database
     this._products = controller.fetchProducts();
+    controller.fetchBranches();
   }
 
   @override

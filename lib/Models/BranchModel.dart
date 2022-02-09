@@ -32,6 +32,16 @@ class BranchModel {
 
   BranchModel.empty();
 
+  BranchModel.partial({
+    String? branchCode,
+    String? branchName,
+    String? branchAddress,
+  }) {
+    this._branchCode = branchCode;
+    this._branchName = branchName;
+    this._branchAddress = branchAddress;
+  }
+
   //for fetching the data from the database JSON format
   BranchModel.noEmployee(
       {String? branchCode,
@@ -59,6 +69,14 @@ class BranchModel {
     this._branchAddress = branchAddress;
     this._productCodeCopy = productCodeCopy;
     this._prodQty = prodQty;
+  }
+
+  factory BranchModel.fromJsonPartial(Map<String, dynamic> json) {
+    return BranchModel.partial(
+      branchCode: json['BranchCode'] as String,
+      branchName: json['BranchName'] as String,
+      branchAddress: json['BranchAddress'] as String,
+    );
   }
 
   factory BranchModel.fromJsonNoEmp(Map<String, dynamic> json) {

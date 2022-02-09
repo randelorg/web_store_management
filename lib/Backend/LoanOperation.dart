@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:web_store_management/Backend/BorrowerOperation.dart';
 import 'package:web_store_management/Backend/Interfaces/ILoan.dart';
@@ -12,13 +14,14 @@ import 'Utility/ApiUrl.dart';
 class LoanOperation extends BorrowerOperation implements INewLoan {
   @override
   Future<bool> addBorrower(String firstname, String lastname, String mobile,
-      String homeaddress, num balance) async {
+      String homeaddress, num balance, Uint8List? contract) async {
     var brwDetail1 = json.encode({
       'firstname': firstname.trim(),
       'lastname': lastname.trim(),
       'mobile': mobile.trim(),
       'address': homeaddress.trim(),
       'balance': balance,
+      'contract': contract
     });
 
     var brwDetail2 = json.encode({

@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:web_store_management/Backend/GlobalController.dart';
 import 'package:web_store_management/Backend/HistoryOperation.dart';
 
-import 'HistoryScreens/PaymentHistoryScreen.dart';
-import 'HistoryScreens/ProductHistoryScreen.dart';
+import 'GlobalHistoryScreens/PaymentHistoryScreen.dart';
+import 'GlobalHistoryScreens/ProductHistoryScreen.dart';
 import '../../Backend/Utility/Mapping.dart';
 
 class HistoryScreen extends StatefulWidget {
   final Function? onUpdate;
-  HistoryScreen({this.onUpdate});
+  final String? id, name;
+  HistoryScreen({this.onUpdate, this.id, this.name});
 
   @override
   _HistoryScreen createState() => _HistoryScreen();
@@ -16,12 +18,16 @@ class HistoryScreen extends StatefulWidget {
 
 class _HistoryScreen extends State<HistoryScreen> {
   var controller = GlobalController();
+  var history = HistoryOperation();
+  late Future borrowers;
+  late Future payment;
+  late Future product;
 
   @override
   void initState() {
     super.initState();
     //fetches the borrowers from the database
-    controller.fetchBorrowers();
+    borrowers = controller.fetchBorrowers();
   }
 
   final List<Tab> myTabs = <Tab>[
@@ -68,15 +74,18 @@ class _HistoryScreen extends State<HistoryScreen> {
                     ),
                   ),
                 ),
-                PaginatedDataTable(
-                  showCheckboxColumn: false,
-                  rowsPerPage: 10,
-                  columns: [
-                    DataColumn(label: Text('BID')),
-                    DataColumn(label: Text('Name')),
-                    DataColumn(label: Icon(Icons.visibility)),
-                  ],
-                  source: _DataSource(context),
+                FutureBuilder(
+                  future: borrowers,
+                  builder: ((context, snapshot) {
+                    if (!snapshot.hasData) {
+                      return Center(child: CircularProgressIndicator());
+                    }
+                    if (snapshot.hasData) {
+                      return tableBorrowers();
+                    } else {
+                      return Center(child: Text('No Borrowers'));
+                    }
+                  }),
                 ),
               ],
             ),
@@ -98,8 +107,16 @@ class _HistoryScreen extends State<HistoryScreen> {
                   ),
                   body: TabBarView(
                     children: [
-                      Center(child: PaymentHistory()),
-                      Center(child: ProductHistory()),
+                      // FutureBuilder(future:  builder: (context, snapshot){
+                      //   if(snapshot.hasData){
+                      //     return PaymentHistoryScreen(
+                      //       onUpdate: widget.onUpdate,
+                      //     );
+                      //   }
+                      //   return Center(
+                      //     child: CircularProgressIndicator(),
+                      //   );
+                      // },),
                     ],
                   ),
                 ),
@@ -109,6 +126,27 @@ class _HistoryScreen extends State<HistoryScreen> {
         ],
       ),
     );
+  }
+
+  Widget tableBorrowers() {
+    return PaginatedDataTable(
+      showCheckboxColumn: false,
+      rowsPerPage: 10,
+      columns: [
+        DataColumn(label: Text('BID')),
+        DataColumn(label: Text('Name')),
+        DataColumn(label: Icon(Icons.visibility)),
+      ],
+      source: _DataSource(context),
+    );
+  }
+
+  Widget paymentHistory() {
+    return Center(child: LocalPaymentHistory());
+  }
+
+  Widget productHistory() {
+    return Center(child: ProductHistory());
   }
 }
 

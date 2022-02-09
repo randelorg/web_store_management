@@ -92,8 +92,7 @@ class _UpdateBorrowerPage extends State<UpdateBorrowerPage> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(
-                  left: 6.0, right: 6.0, bottom: 6.0, top: 1.0),
+              padding: const EdgeInsets.only(left: 6.0, right: 6.0, bottom: 6.0, top: 1.0),
               child: TextField(
                 controller: firstname,
                 decoration: InputDecoration(
@@ -124,8 +123,7 @@ class _UpdateBorrowerPage extends State<UpdateBorrowerPage> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(
-                  left: 6.0, right: 6.0, bottom: 6.0, top: 1.0),
+              padding: const EdgeInsets.only(left: 6.0, right: 6.0, bottom: 6.0, top: 1.0),
               child: TextField(
                 controller: lastname,
                 decoration: InputDecoration(
@@ -156,8 +154,7 @@ class _UpdateBorrowerPage extends State<UpdateBorrowerPage> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(
-                  left: 6.0, right: 6.0, bottom: 6.0, top: 1.0),
+              padding: const EdgeInsets.only(left: 6.0, right: 6.0, bottom: 6.0, top: 1.0),
               child: TextField(
                 maxLength: 12,
                 controller: number,
@@ -190,8 +187,7 @@ class _UpdateBorrowerPage extends State<UpdateBorrowerPage> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(
-                  left: 6.0, right: 6.0, bottom: 6.0, top: 1.0),
+              padding: const EdgeInsets.only(left: 6.0, right: 6.0, bottom: 6.0, top: 1.0),
               child: TextField(
                 controller: address,
                 decoration: InputDecoration(

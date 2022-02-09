@@ -8,7 +8,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class EmployeeOperation implements IEmployee {
-  final hash = Hashing();
+  final _hash = Hashing();
 
   @override
   Future<bool> createEmployeeAccount(
@@ -25,7 +25,7 @@ class EmployeeOperation implements IEmployee {
       {
         'Role': role,
         'Username': username,
-        'Password': password,
+        'Password': _hash.encrypt(password.toString()),
         'Firstname': firstname,
         'Lastname': lastname,
         'MobileNumber': mobileNumber,
@@ -95,6 +95,72 @@ class EmployeeOperation implements IEmployee {
     }
 
     //if status code is 202
+    return true;
+  }
+
+  @override
+  Future<bool> timeIn(String id, final String date) async {
+    var updateRequestLoad = json.encode({
+      'id': id,
+      'date': date,
+    });
+
+    try {
+      final response = await http.post(
+        Uri.parse("http://localhost:8090/api/clockin"),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: updateRequestLoad,
+      );
+
+      //if response is empty return false
+      if (response.statusCode == 404) {
+        return false;
+      }
+
+      if (response.statusCode == 202) {
+        return true;
+      }
+    } catch (e) {
+      print(e.toString());
+      return false;
+    }
+
+    return true;
+  }
+
+  @override
+  Future<bool> timeOut(String id, final String date) async {
+    var updateRequestLoad = json.encode({
+      'id': id,
+      'date': date,
+    });
+
+    try {
+      final response = await http.post(
+        Uri.parse("http://localhost:8090/api/clockout"),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: updateRequestLoad,
+      );
+
+      //if response is empty return false
+      if (response.statusCode == 404) {
+        return false;
+      }
+
+      if (response.statusCode == 202) {
+        return true;
+      }
+    } catch (e) {
+      print(e.toString());
+      return false;
+    }
+
     return true;
   }
 }

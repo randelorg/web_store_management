@@ -123,6 +123,16 @@ class _MakePayment extends State<MakePayment> {
                 ),
               ),
             ),
+             Padding(
+              padding: EdgeInsets.only(left: 7),
+              child: Container(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Amount',
+                  style: TextStyle(fontSize: 10),
+                ),
+              ),
+            ), 
             Padding(
               padding: EdgeInsets.only(left: 7),
               child: Container(
@@ -154,6 +164,16 @@ class _MakePayment extends State<MakePayment> {
                 ),
               ),
             ),
+             Padding(
+              padding: EdgeInsets.only(left: 7),
+              child: Container(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Date',
+                  style: TextStyle(fontSize: 10),
+                ),
+              ),
+            ), 
             Padding(
               padding: EdgeInsets.only(left: 7),
               child: Container(

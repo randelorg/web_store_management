@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:printing/printing.dart';
+import 'package:web_store_management/Backend/BorrowerOperation.dart';
 import 'package:web_store_management/Backend/HistoryOperation.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
+import 'package:web_store_management/Helpers/PrintHelper.dart';
 import 'package:web_store_management/Pages/Borrowers/UpdateBorrowerPage.dart';
-import '../Reports/HistoryScreens/PaymentHistoryScreen.dart';
-import '../Reports/HistoryScreens/ProductHistoryScreen.dart';
+import '../Reports/GlobalHistoryScreens/PaymentHistoryScreen.dart';
+import '../Reports/GlobalHistoryScreens/ProductHistoryScreen.dart';
 import '../../Helpers/CreateQRHelper.dart';
 
 class ViewBorrowerProfile extends StatefulWidget {
@@ -23,6 +26,7 @@ class ViewBorrowerProfile extends StatefulWidget {
 
 class _ViewBorrowerProfile extends State<ViewBorrowerProfile> {
   var history = HistoryOperation();
+  var brw = BorrowerOperation();
   String address = "";
 
   @override
@@ -205,7 +209,7 @@ class _ViewBorrowerProfile extends State<ViewBorrowerProfile> {
                                   width:
                                       (MediaQuery.of(context).size.width) / 2,
                                   height: (MediaQuery.of(context).size.height),
-                                  child: PaymentHistory(
+                                  child: LocalPaymentHistory(
                                     id: widget.id.toString(),
                                     borrowerName: widget.name.toString(),
                                   ),
@@ -265,7 +269,23 @@ class _ViewBorrowerProfile extends State<ViewBorrowerProfile> {
                         size: 30,
                       ),
                       tooltip: 'View Contract',
-                      onPressed: () {},
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return Container(
+                              child: PdfPreview(
+                                padding: EdgeInsets.all(100),
+                                build: (format) =>
+                                    PrintHelper.generatePdfContract(
+                                  widget.id.toString(),
+                                  format,
+                                ),
+                              ),
+                            );
+                          },
+                        );
+                      },
                     ),
                     Text(
                       'View Contract',

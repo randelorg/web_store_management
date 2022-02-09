@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:web_store_management/Backend/BorrowerOperation.dart';
 import 'package:web_store_management/Backend/GlobalController.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
+import 'package:web_store_management/Notification/Snack_notification.dart';
 import 'package:web_store_management/Pages/Repairs/ManualBorrowerSearch.dart';
 
 class RepairsPage extends StatefulWidget {
@@ -11,6 +13,7 @@ class RepairsPage extends StatefulWidget {
 
 class _RepairsPage extends State<RepairsPage> {
   var controller = GlobalController();
+  var borrower = BorrowerOperation();
   late Future _repairs;
   double textSize = 15;
   double titleSize = 30;
@@ -46,11 +49,14 @@ class _RepairsPage extends State<RepairsPage> {
                           ),
                         ),
                         TextButton.icon(
-                          icon: Icon(Icons.add_box_rounded, color: Colors.white),
+                          icon:
+                              Icon(Icons.add_box_rounded, color: Colors.white),
                           style: TextButton.styleFrom(
-                            padding: const EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 10),
+                            padding: const EdgeInsets.only(
+                                left: 10, right: 10, top: 10, bottom: 10),
                             primary: Colors.white,
-                            textStyle: TextStyle(fontSize: 18, fontFamily: 'Cairo_SemiBold'),
+                            textStyle: TextStyle(
+                                fontSize: 18, fontFamily: 'Cairo_SemiBold'),
                           ),
                           label: Text('NEW REPAIRS'),
                           onPressed: () {
@@ -167,7 +173,9 @@ class _RepairsPage extends State<RepairsPage> {
                   ),
                   subtitle: Text(
                     'status',
-                    style: TextStyle(color: Colors.black.withOpacity(0.6)),
+                    style: TextStyle(
+                      color: Colors.black.withOpacity(0.6),
+                    ),
                   ),
                 ),
               ),
@@ -328,7 +336,12 @@ class _RepairsPage extends State<RepairsPage> {
                             textStyle: TextStyle(fontSize: 18, fontFamily: 'Cairo_SemiBold')
                           ),
                           child: const Text('REPAIRED'),
-                          onPressed: () {},
+                          onPressed: () {
+                            updateRepair(
+                              Mapping.repairs[index].getRepairId,
+                              'REPAIRED',
+                            );
+                          },
                         ),
                       ],
                     ),
@@ -340,5 +353,21 @@ class _RepairsPage extends State<RepairsPage> {
         );
       },
     );
+  }
+
+  void updateRepair(int id, final String status) {
+    borrower.updateRepair(id, status).then((value) {
+      if (!value) {
+        SnackNotification.notif(
+          'Error',
+          'Something went wrong while updating the repair',
+          Colors.redAccent.shade200,
+        );
+      } else {
+        setState(() {
+          _repairs = controller.fetchRepairs();
+        });
+      }
+    });
   }
 }

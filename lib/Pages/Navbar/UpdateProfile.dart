@@ -133,7 +133,7 @@ class _EditProfile extends State<UpdateProfile> {
             ),
             Stack(
               children: [
-                //this will be disabled because we will display the name here
+                //this will be disabled because we will display the name here          
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [

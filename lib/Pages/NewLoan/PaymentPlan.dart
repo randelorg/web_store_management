@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:intl/intl.dart';
@@ -8,13 +10,14 @@ import 'package:web_store_management/Notification/Snack_notification.dart';
 class PaymentPlanPage extends StatefulWidget {
   final String? firstname, lastname, mobile, address;
   final num total;
-  PaymentPlanPage({
-    required this.firstname,
-    required this.lastname,
-    required this.mobile,
-    required this.address,
-    required this.total,
-  });
+  final Uint8List contract;
+  PaymentPlanPage(
+      {required this.firstname,
+      required this.lastname,
+      required this.mobile,
+      required this.address,
+      required this.total,
+      required this.contract});
 
   @override
   _PaymentPlanPage createState() => _PaymentPlanPage();
@@ -22,6 +25,7 @@ class PaymentPlanPage extends StatefulWidget {
 
 class _PaymentPlanPage extends State<PaymentPlanPage> {
   var newloan = LoanOperation();
+  var image;
   TextEditingController borrowerName = TextEditingController();
   TextEditingController totalAmount = TextEditingController();
   TextEditingController duedate = TextEditingController();
@@ -265,53 +269,51 @@ class _PaymentPlanPage extends State<PaymentPlanPage> {
                     ),
                     TextButton(
                       style: TextButton.styleFrom(
-                          padding: const EdgeInsets.only(left: 15, right: 15, top: 20, bottom: 20),
+                          padding: const EdgeInsets.only(
+                              left: 15, right: 15, top: 20, bottom: 20),
                           primary: Colors.white,
-                          textStyle: TextStyle(fontSize: 14, fontFamily: 'Cairo_SemiBold')),
+                          textStyle: TextStyle(
+                              fontSize: 14, fontFamily: 'Cairo_SemiBold')),
                       child: const Text('SEND TO REVIEW'),
                       onPressed: () {
-                        if (duedate.text.isEmpty) {                   
-                          SnackNotification.notif(
-                              "Error",
-                              "Please fill all the fields",
-                              Colors.red.shade600);
-                        } else {
-                          newloan
-                              .addBorrower(
-                            widget.firstname.toString(),
-                            widget.lastname.toString(),
-                            widget.mobile.toString(),
-                            widget.address.toString(),
-                            widget.total,
-                          )
-                          .then(
-                            (value) {
-                              if (value) {
-                                newloan
-                                    .addNewLoan(
-                                      widget.firstname.toString(),
-                                      widget.lastname.toString(),
-                                      plan,
-                                      _currenSliderValue.toString(),
-                                      duedate.text,
-                                    )
-                                    .then((value) => {
-                                          if (value)
-                                            {
-                                              Navigator.pop(context),
-                                              //clear all the previous addition in this list
-                                              Mapping.selectedProducts.clear(),
-                                              SnackNotification.notif(
-                                                'Success',
-                                                'New loan is sent to credit approval',
-                                                Colors.green.shade600,
-                                              )
-                                            }
-                                        });                        
-                              }
-                            },
-                          );
-                        }
+                        newloan
+                            .addBorrower(
+                          widget.firstname.toString(),
+                          widget.lastname.toString(),
+                          widget.mobile.toString(),
+                          widget.address.toString(),
+                          widget.total,
+                          widget.contract,
+                        )
+                            .then(
+                          (value) {
+                            if (value) {
+                              newloan
+                                  .addNewLoan(
+                                    widget.firstname.toString(),
+                                    widget.lastname.toString(),
+                                    plan,
+                                    _currenSliderValue.toString(),
+                                    duedate.text,
+                                  )
+                                  .then(
+                                    (value) => {
+                                      if (value)
+                                        {
+                                          Navigator.pop(context),
+                                          //clear all the previous addition in this list
+                                          Mapping.selectedProducts.clear(),
+                                          SnackNotification.notif(
+                                            'Success',
+                                            'New loan is sent to credit approval',
+                                            Colors.green.shade900,
+                                          )
+                                        }
+                                    },
+                                  );
+                            }
+                          },
+                        );
                       },
                     ),
                   ],

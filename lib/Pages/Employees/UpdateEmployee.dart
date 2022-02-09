@@ -80,7 +80,7 @@ class _UpdateEmployee extends State<UpdateEmployee> {
                         fontFamily: 'Cairo_SemiBold',
                         fontSize: 16,
                         color: HexColor("#155293"),
-                      )),
+                      ),),
                 ),
               ),
             ),
@@ -96,10 +96,9 @@ class _UpdateEmployee extends State<UpdateEmployee> {
                   style: TextStyle(fontSize: 10),
                 ),
               ),
-            ),
+            ),            
             Padding(
-              padding: const EdgeInsets.only(
-                  left: 6.0, right: 6.0, bottom: 6.0, top: 1.0),
+              padding: const EdgeInsets.only(left: 6.0, right: 6.0, bottom: 6.0, top: 1.0),
               child: TextField(
                 controller: firstname,
                 enabled: false,
@@ -131,8 +130,7 @@ class _UpdateEmployee extends State<UpdateEmployee> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(
-                  left: 6.0, right: 6.0, bottom: 6.0, top: 1.0),
+              padding: const EdgeInsets.only(left: 6.0, right: 6.0, bottom: 6.0, top: 1.0),
               child: TextField(
                 controller: lastname,
                 enabled: false,

@@ -2,9 +2,10 @@ import 'dart:typed_data';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
+import 'package:web_store_management/Backend/BorrowerOperation.dart';
 
 class PrintHelper {
-  static Future<Uint8List> generatePdf(
+  static Future<Uint8List> generatePdfQr(
       PdfPageFormat format, String content, String name) async {
     final pdf = pw.Document(version: PdfVersion.pdf_1_5, compress: true);
     final font = await PdfGoogleFonts.nunitoExtraLight();
@@ -18,14 +19,6 @@ class PrintHelper {
               pw.SizedBox(
                 width: double.infinity,
                 child: pw.FittedBox(
-                  // child: pw.Text(title, style: pw.TextStyle(font: font)),
-                  // child: pw.Text(
-                  //   pw.Barcode.qrCode().toSvg(
-                  //     content,
-                  //     width: 40,
-                  //     height: 40,
-                  //   ),
-                  // ),
                   child: pw.BarcodeWidget(
                     barcode: pw.Barcode.qrCode(),
                     data: content,
@@ -53,6 +46,35 @@ class PrintHelper {
                   ),
                 ),
               )
+            ],
+          );
+        },
+      ),
+    );
+
+    return pdf.save();
+  }
+
+  static Future<Uint8List> generatePdfContract(
+      String id, PdfPageFormat format) async {
+    var brw = BorrowerOperation();
+    Uint8List imageData = await brw.getContract(int.parse(id));
+
+    final pdf = pw.Document(version: PdfVersion.pdf_1_5, compress: true);
+
+    pdf.addPage(
+      pw.Page(
+        pageFormat: format,
+        build: (context) {
+          return pw.Column(
+            children: [
+              pw.FittedBox(
+                child: pw.Image(
+                  pw.MemoryImage(imageData),
+                  width: 40,
+                  height: 40,
+                ),
+              ),
             ],
           );
         },

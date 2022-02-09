@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'PersonModel.dart';
 
 class BorrowerModel extends PersonModel {
@@ -60,10 +62,18 @@ class BorrowerModel extends PersonModel {
       String mobileNumber,
       String homeAddress,
       double balance,
-      List<dynamic> contractImage)
+      List<dynamic>? contractImage)
       : super.withOutId(firstname, lastname, mobileNumber, homeAddress) {
     this.borrowerId = borrowerId;
     this.balance = balance;
+    this.contractImage = contractImage;
+  }
+
+  BorrowerModel.contractOnly(List<dynamic> contractImage) : super.empty() {
+    this.contractImage = contractImage;
+  }
+
+  BorrowerModel.jsonContractOnly({this.contractImage}) : super.empty() {
     this.contractImage = contractImage;
   }
 
@@ -115,6 +125,12 @@ class BorrowerModel extends PersonModel {
     this.balance,
   }) : super.withOutId(firstname, lastname, mobileNumber, homeAddress);
 
+  factory BorrowerModel.fromJsonContract(Map<String, dynamic> json) {
+    return BorrowerModel.jsonContractOnly(
+      contractImage: json['ContractImage']["data"] as List<dynamic>,
+    );
+  }
+
   factory BorrowerModel.fromJsonApproval(Map<String, dynamic> json) {
     return BorrowerModel.creditApproval(
       investigationID: json['InvestigationID'] as int,
@@ -158,7 +174,7 @@ class BorrowerModel extends PersonModel {
       mobileNumber: json['MobileNumber'] as String,
       homeAddress: json['HomeAddress'] as String,
       balance: json['Balance'] as double,
-      contractImage: json['ContractImage'] as List<dynamic>,
+      contractImage: json['ContractImage']["data"] as List<dynamic>,
     );
   }
 

@@ -1,5 +1,7 @@
+import 'package:camcode/cam_code_scanner.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:web_store_management/Backend/Utility/Mapping.dart';
 
 class TransferStock extends StatefulWidget {
   @override
@@ -7,9 +9,29 @@ class TransferStock extends StatefulWidget {
 }
 
 class _TransferStock extends State<TransferStock> {
+  List<String> fromLocation = [];
+  List<String> toLocation = [];
+
   String originStore = 'One';
-  String anotherBranch = 'One';
-  String productName = 'One';
+  String destinationBranch = 'One';
+
+  @override
+  void initState() {
+    super.initState();
+    //fill the locations
+    getLocations();
+  }
+
+  void getLocations() {
+    Mapping.branchList.forEach((element) {
+      fromLocation.add(element.branchName);
+    });
+    toLocation.addAll(fromLocation);
+
+    originStore = fromLocation[0];
+    destinationBranch = toLocation[0];
+  }
+
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -31,33 +53,30 @@ class _TransferStock extends State<TransferStock> {
                 },
               ),
             ),
-
             Text(
-             'Transfer Stock',
+              'Transfer Stock',
               softWrap: true,
               textAlign: TextAlign.center,
-              style: TextStyle(             
+              style: TextStyle(
                 color: HexColor("#155293"),
                 fontFamily: 'Cairo_Bold',
                 fontSize: 30,
               ),
             ),
-
             Padding(
               padding: EdgeInsets.only(top: 25, bottom: 10),
               child: Container(
                 child: Container(
                   alignment: Alignment.topLeft,
                   child: Text('Transfer Products to Another Branch.',
-                  style: TextStyle(
-                    fontFamily: 'Cairo_SemiBold',
-                    fontSize: 16,
-                    color: HexColor("#155293"),
-                  )),    
+                      style: TextStyle(
+                        fontFamily: 'Cairo_SemiBold',
+                        fontSize: 16,
+                        color: HexColor("#155293"),
+                      )),
                 ),
               ),
             ),
-             
             Padding(
               padding: EdgeInsets.only(left: 3),
               child: Container(
@@ -68,7 +87,6 @@ class _TransferStock extends State<TransferStock> {
                 ),
               ),
             ),
- 
             Row(
               children: [
                 Padding(
@@ -97,7 +115,7 @@ class _TransferStock extends State<TransferStock> {
                             originStore = newValue!;
                           });
                         },
-                        items: <String>['One', 'Two', 'Free', 'Four']
+                        items: fromLocation
                             .map<DropdownMenuItem<String>>((String value) {
                           return DropdownMenuItem<String>(
                             value: value,
@@ -110,7 +128,6 @@ class _TransferStock extends State<TransferStock> {
                 ),
               ],
             ),
-
             Padding(
               padding: EdgeInsets.only(left: 3),
               child: Container(
@@ -121,7 +138,6 @@ class _TransferStock extends State<TransferStock> {
                 ),
               ),
             ),
-
             Row(
               children: [
                 Padding(
@@ -139,17 +155,17 @@ class _TransferStock extends State<TransferStock> {
                     child: DropdownButtonHideUnderline(
                       child: DropdownButton<String>(
                         isExpanded: true,
-                        value: anotherBranch,
+                        value: destinationBranch,
                         icon: const Icon(Icons.arrow_drop_down),
                         iconSize: 24,
                         elevation: 16,
-                        style: TextStyle(color:HexColor("#155293")),
+                        style: TextStyle(color: HexColor("#155293")),
                         onChanged: (String? newValue) {
                           setState(() {
-                            anotherBranch = newValue!;
+                            destinationBranch = newValue!;
                           });
                         },
-                        items: <String>['One', 'Two', 'Free', 'Four']
+                        items: toLocation
                             .map<DropdownMenuItem<String>>((String value) {
                           return DropdownMenuItem<String>(
                             value: value,
@@ -180,9 +196,21 @@ class _TransferStock extends State<TransferStock> {
               child: TextField(
                 decoration: InputDecoration(
                   suffixIcon: IconButton(
-                    onPressed: () {},
                     icon: Icon(Icons.scanner_sharp),
                     tooltip: 'Scan product barcode',
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (context) => CamCodeScanner(
+                          width: MediaQuery.of(context).size.width,
+                          height: MediaQuery.of(context).size.height,
+                          refreshDelayMillis: 200,
+                          onBarcodeResult: (barcode) {
+                            print('object ' + barcode.toString());
+                          },
+                        ),
+                      );
+                    },
                   ),
                   filled: true,
                   fillColor: Colors.blueGrey[50],
@@ -202,15 +230,15 @@ class _TransferStock extends State<TransferStock> {
             Stack(
               children: [
                 Padding(
-              padding: EdgeInsets.only(left: 3),
-              child: Container(
-                alignment: Alignment.topLeft,
-                child: Text(
-                  'Quantity',
-                  style: TextStyle(fontSize: 10),
+                  padding: EdgeInsets.only(left: 3),
+                  child: Container(
+                    alignment: Alignment.topLeft,
+                    child: Text(
+                      'Quantity',
+                      style: TextStyle(fontSize: 10),
+                    ),
+                  ),
                 ),
-              ),
-            ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
@@ -233,10 +261,12 @@ class _TransferStock extends State<TransferStock> {
               decoration: InputDecoration(
                 suffixIcon: TextButton(
                   style: TextButton.styleFrom(
-                    textStyle:TextStyle(fontSize: 15),
+                    textStyle: TextStyle(fontSize: 15),
                   ),
                   onPressed: () {},
-                  child: Text('MAX', style:TextStyle(fontSize: 15, color:HexColor("#155293")),
+                  child: Text(
+                    'MAX',
+                    style: TextStyle(fontSize: 15, color: HexColor("#155293")),
                   ),
                 ),
                 filled: true,
@@ -271,12 +301,13 @@ class _TransferStock extends State<TransferStock> {
                         ),
                         TextButton(
                           style: TextButton.styleFrom(
-                            padding: const EdgeInsets.only(left: 20, right: 20, top: 15, bottom: 15),
+                            padding: const EdgeInsets.only(
+                                left: 20, right: 20, top: 15, bottom: 15),
                             primary: Colors.white,
                             textStyle: TextStyle(
-                              fontFamily: 'Cairo_SemiBold',
-                              fontSize: 14,
-                              color: Colors.white),    
+                                fontFamily: 'Cairo_SemiBold',
+                                fontSize: 14,
+                                color: Colors.white),
                           ),
                           onPressed: () {},
                           child: const Text('CONFIRM'),

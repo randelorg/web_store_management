@@ -74,9 +74,32 @@ class _ConfirmAccount extends State<ConfirmAccount> {
                     )),
               ),
             ),
+            Text(
+              'Verification',
+              softWrap: true,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: HexColor("#155293"),
+                fontFamily: 'Cairo_Bold',
+                fontSize: 30,
+              ),
+            ),
+              Padding(          
+              padding: EdgeInsets.only(top: 25, bottom: 5),
+                child: Container(
+                  alignment: Alignment.topLeft,         
+                  child: Text('Enter your Admin Password to Verify',      
+                  style: TextStyle(
+                    fontFamily: 'Cairo_SemiBold',
+                    fontSize: 16,
+                    color: HexColor("#155293"),
+                  )),
+                ),
+            ),       
             Divider(
               thickness: 3,
             ),
+
             Container(
               width: 320,
               child: Padding(
@@ -120,8 +143,7 @@ class _ConfirmAccount extends State<ConfirmAccount> {
                         ),
                         TextButton(
                           style: TextButton.styleFrom(
-                            padding: const EdgeInsets.only(
-                                left: 20, right: 20, top: 15, bottom: 15),
+                            padding: const EdgeInsets.only(left: 20, right: 20, top: 15, bottom: 15),
                             primary: Colors.white,
                             textStyle: TextStyle(fontSize: 20),
                           ),

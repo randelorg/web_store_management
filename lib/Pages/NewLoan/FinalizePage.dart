@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
@@ -6,12 +8,14 @@ import 'PaymentPlan.dart';
 class FinalizePage extends StatefulWidget {
   final String? firstname, lastname, mobile, address;
   final num total;
+  final Uint8List contract;
   FinalizePage({
     required this.firstname,
     required this.lastname,
     required this.mobile,
     required this.address,
     required this.total,
+    required this.contract,
   });
 
   @override
@@ -19,6 +23,11 @@ class FinalizePage extends StatefulWidget {
 }
 
 class _FinalizePage extends State<FinalizePage> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -138,6 +147,7 @@ class _FinalizePage extends State<FinalizePage> {
                                     mobile: widget.mobile.toString(),
                                     address: widget.address.toString(),
                                     total: widget.total,
+                                    contract: widget.contract,
                                   );
                                 },
                               );

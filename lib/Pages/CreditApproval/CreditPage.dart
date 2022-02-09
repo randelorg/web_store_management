@@ -247,6 +247,7 @@ class _CreditPage extends State<CreditScreen> {
                   'Show Application',
                    style: TextStyle(color: Colors.blue),
                 ),
+               
                 onPressed: () {},
               ),
 
@@ -308,7 +309,7 @@ class _CreditPage extends State<CreditScreen> {
                           return Container(
                             child: PdfPreview(
                               padding: EdgeInsets.all(100),
-                              build: (format) => PrintHelper.generatePdf(
+                              build: (format) => PrintHelper.generatePdfQr(
                                 format,
                                 Mapping.creditApprovals[index].getBorrowerId
                                     .toString(),
@@ -318,7 +319,6 @@ class _CreditPage extends State<CreditScreen> {
                           );
                         },
                       );
-                      //print(Mapping.creditApprovals[index].toString());
                     },
                   ),
                 ],
