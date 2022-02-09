@@ -1,9 +1,11 @@
 import 'package:hexcolor/hexcolor.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:web_store_management/Backend/EmployeeOperation.dart';
 import 'package:web_store_management/Backend/GlobalController.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
+import 'package:web_store_management/Notification/Snack_notification.dart';
 import 'package:web_store_management/Pages/Navbar/AddBranch.dart';
-
 import '../ViewProfile.dart';
 import '../AddAccount.dart';
 import '../UpdateProfile.dart';
@@ -15,10 +17,20 @@ class ProfileDrawer extends StatefulWidget {
 
 class _ProfileDrawer extends State<ProfileDrawer> {
   var controller = GlobalController();
+  var emp = EmployeeOperation();
+  var _formatter = new DateFormat('yyyy-MM-dd/hh:mm:ss a');
+  var _now = new DateTime.now();
+
   bool _isAuthorized = false;
   bool _isEmployee = true;
+
   bool _timein = false;
   bool _timeout = false;
+
+  String _getTodayDate() {
+    String formattedDate = _formatter.format(_now);
+    return formattedDate;
+  }
 
   @override
   void initState() {
@@ -32,7 +44,25 @@ class _ProfileDrawer extends State<ProfileDrawer> {
     }
   }
 
-  void checkTimeState(bool state) {}
+  void timeIn(String id, String date) {
+    emp.timeIn(id, date).then(
+          (value) => SnackNotification.notif(
+            'Success',
+            'Time in $date',
+            Colors.green.shade900,
+          ),
+        );
+  }
+
+  void timeOut(String id, String date) {
+    emp.timeOut(id, date).then(
+          (value) => SnackNotification.notif(
+            'Success',
+            'Time out $date',
+            Colors.green.shade900,
+          ),
+        );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -254,7 +284,12 @@ class _ProfileDrawer extends State<ProfileDrawer> {
                               ),
                               softWrap: true,
                             ),
-                            onPressed: () {},
+                            onPressed: () {
+                              timeIn(
+                                Mapping.employeeLogin[0].getEmployeeID,
+                                _getTodayDate(),
+                              );
+                            },
                           ),
                         ),
                       ),
@@ -283,7 +318,12 @@ class _ProfileDrawer extends State<ProfileDrawer> {
                               ),
                               softWrap: true,
                             ),
-                            onPressed: () {},
+                            onPressed: () {
+                              timeOut(
+                                Mapping.employeeLogin[0].getEmployeeID,
+                                _getTodayDate(),
+                              );
+                            },
                           ),
                         ),
                       ),

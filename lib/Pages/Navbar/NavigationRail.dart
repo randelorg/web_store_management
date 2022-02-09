@@ -70,7 +70,10 @@ class _NavDrawer extends State<NavDrawer> {
                     "You don't have right to access this tab",
                     Colors.red.shade500,
                   );
-                  return;
+                } else {
+                  setState(() {
+                    _selectedIndex = index;
+                  });
                 }
               } else {
                 setState(() {

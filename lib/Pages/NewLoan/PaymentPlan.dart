@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:intl/intl.dart';
@@ -8,13 +10,14 @@ import 'package:web_store_management/Notification/Snack_notification.dart';
 class PaymentPlanPage extends StatefulWidget {
   final String? firstname, lastname, mobile, address;
   final num total;
-  PaymentPlanPage({
-    required this.firstname,
-    required this.lastname,
-    required this.mobile,
-    required this.address,
-    required this.total,
-  });
+  final Uint8List contract;
+  PaymentPlanPage(
+      {required this.firstname,
+      required this.lastname,
+      required this.mobile,
+      required this.address,
+      required this.total,
+      required this.contract});
 
   @override
   _PaymentPlanPage createState() => _PaymentPlanPage();
@@ -22,6 +25,7 @@ class PaymentPlanPage extends StatefulWidget {
 
 class _PaymentPlanPage extends State<PaymentPlanPage> {
   var newloan = LoanOperation();
+  var image;
   TextEditingController borrowerName = TextEditingController();
   TextEditingController totalAmount = TextEditingController();
   TextEditingController duedate = TextEditingController();
@@ -45,19 +49,19 @@ class _PaymentPlanPage extends State<PaymentPlanPage> {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       actions: <Widget>[
         Column(
-          children: [       
-            Align(          
+          children: [
+            Align(
               alignment: Alignment.topRight,
               child: IconButton(
-              icon: Icon(
-                Icons.cancel,
-                color: Colors.black,
-                size: 30,
-              ),
-              onPressed: () {    
-                Navigator.of(context).pop();
-              }),
-            ), 
+                  icon: Icon(
+                    Icons.cancel,
+                    color: Colors.black,
+                    size: 30,
+                  ),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  }),
+            ),
             Text(
               'Payment Plan',
               softWrap: true,
@@ -68,7 +72,7 @@ class _PaymentPlanPage extends State<PaymentPlanPage> {
                 fontSize: 30,
               ),
             ),
-             Padding(
+            Padding(
               padding: EdgeInsets.only(left: 5),
               child: Container(
                 alignment: Alignment.centerLeft,
@@ -97,7 +101,7 @@ class _PaymentPlanPage extends State<PaymentPlanPage> {
                 ),
               ),
             ),
-             Padding(
+            Padding(
               padding: EdgeInsets.only(left: 5),
               child: Container(
                 alignment: Alignment.centerLeft,
@@ -135,11 +139,11 @@ class _PaymentPlanPage extends State<PaymentPlanPage> {
                   style: TextStyle(fontSize: 10),
                 ),
               ),
-            ),        
+            ),
             Padding(
               padding: EdgeInsets.only(bottom: 15),
               child: Container(
-                width: 320,      
+                width: 320,
                 alignment: Alignment.topLeft,
                 decoration: BoxDecoration(
                   border: Border.all(
@@ -180,8 +184,8 @@ class _PaymentPlanPage extends State<PaymentPlanPage> {
             ),
             Slider(
               value: _currenSliderValue,
-              inactiveColor:HexColor("#155293"),
-              activeColor:HexColor("#155293"),
+              inactiveColor: HexColor("#155293"),
+              activeColor: HexColor("#155293"),
               min: 3,
               max: 12,
               divisions: 3,
@@ -192,7 +196,7 @@ class _PaymentPlanPage extends State<PaymentPlanPage> {
                 });
               },
             ),
-             Padding(
+            Padding(
               padding: EdgeInsets.only(left: 5),
               child: Container(
                 alignment: Alignment.centerLeft,
@@ -201,8 +205,7 @@ class _PaymentPlanPage extends State<PaymentPlanPage> {
                   style: TextStyle(fontSize: 10),
                 ),
               ),
-            ),  
-          
+            ),
             Padding(
               padding: const EdgeInsets.all(6.0),
               child: TextField(
@@ -220,20 +223,20 @@ class _PaymentPlanPage extends State<PaymentPlanPage> {
                 //readOnly: true,
                 onTap: () async {
                   DateTime? pickedDate = await showDatePicker(
-                      context: context,
-                      initialDate: DateTime.now(),
-                      firstDate: DateTime(2022),
-                      lastDate: DateTime(2032),
-                      builder: (context, child) {                   
-                      return Theme(               
-                        data: Theme.of(context).copyWith(                
-                          colorScheme: ColorScheme.light(                           
+                    context: context,
+                    initialDate: DateTime.now(),
+                    firstDate: DateTime(2022),
+                    lastDate: DateTime(2032),
+                    builder: (context, child) {
+                      return Theme(
+                        data: Theme.of(context).copyWith(
+                          colorScheme: ColorScheme.light(
                             primary: Colors.red, //Background Color
                             onPrimary: Colors.white, //Text Color
                           ),
-                          textButtonTheme: TextButtonThemeData(                        
+                          textButtonTheme: TextButtonThemeData(
                             style: TextButton.styleFrom(
-                            primary: Colors.black, //Button Text Color
+                              primary: Colors.black, //Button Text Color
                             ),
                           ),
                         ),
@@ -261,16 +264,16 @@ class _PaymentPlanPage extends State<PaymentPlanPage> {
                   children: <Widget>[
                     Positioned.fill(
                       child: Container(
-                        decoration: BoxDecoration(
-                          color: HexColor("#155293")
-                        ),
+                        decoration: BoxDecoration(color: HexColor("#155293")),
                       ),
                     ),
                     TextButton(
-                      style: TextButton.styleFrom(padding: const EdgeInsets.only(left: 15, right: 15, top: 20, bottom: 20),
-                        primary: Colors.white,
-                        textStyle: TextStyle(fontSize: 14, fontFamily: 'Cairo_SemiBold')
-                      ),
+                      style: TextButton.styleFrom(
+                          padding: const EdgeInsets.only(
+                              left: 15, right: 15, top: 20, bottom: 20),
+                          primary: Colors.white,
+                          textStyle: TextStyle(
+                              fontSize: 14, fontFamily: 'Cairo_SemiBold')),
                       child: const Text('SEND TO REVIEW'),
                       onPressed: () {
                         newloan
@@ -280,6 +283,7 @@ class _PaymentPlanPage extends State<PaymentPlanPage> {
                           widget.mobile.toString(),
                           widget.address.toString(),
                           widget.total,
+                          widget.contract,
                         )
                             .then(
                           (value) {

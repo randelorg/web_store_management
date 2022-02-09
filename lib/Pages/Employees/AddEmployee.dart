@@ -55,33 +55,30 @@ class _AddEmployee extends State<AddEmployee> {
                 },
               ),
             ),
-
             Text(
-             'Add Employee',
+              'Add Employee',
               softWrap: true,
               textAlign: TextAlign.center,
-              style: TextStyle(             
+              style: TextStyle(
                 color: HexColor("#155293"),
                 fontFamily: 'Cairo_Bold',
                 fontSize: 30,
               ),
             ),
-
             Padding(
               padding: EdgeInsets.only(top: 25, bottom: 10),
               child: Container(
                 child: Container(
                   alignment: Alignment.topLeft,
                   child: Text('Select Role for the Employee Account',
-                  style: TextStyle(
-                    fontFamily: 'Cairo_SemiBold',
-                    fontSize: 16,
-                    color: HexColor("#155293"),
-                  )),    
+                      style: TextStyle(
+                        fontFamily: 'Cairo_SemiBold',
+                        fontSize: 16,
+                        color: HexColor("#155293"),
+                      )),
                 ),
               ),
             ),
-
             Padding(
               padding: EdgeInsets.only(bottom: 15),
               child: Container(
@@ -101,7 +98,9 @@ class _AddEmployee extends State<AddEmployee> {
                     icon: const Icon(Icons.arrow_drop_down),
                     iconSize: 24,
                     elevation: 16,
-                    style: TextStyle(color: HexColor("#155293"),),
+                    style: TextStyle(
+                      color: HexColor("#155293"),
+                    ),
                     onChanged: (value) {
                       setState(() {
                         collector = value!;
@@ -348,8 +347,10 @@ class _AddEmployee extends State<AddEmployee> {
                     });
                   });
                 },
-                icon: Icon(Icons.file_upload,color: HexColor("#155293")),
-                label: Text(fileName,style: TextStyle(color: HexColor("#155293")),
+                icon: Icon(Icons.file_upload, color: HexColor("#155293")),
+                label: Text(
+                  fileName,
+                  style: TextStyle(color: HexColor("#155293")),
                 ),
               ),
             ),
@@ -364,19 +365,19 @@ class _AddEmployee extends State<AddEmployee> {
                       children: <Widget>[
                         Positioned.fill(
                           child: Container(
-                            decoration: BoxDecoration(
-                              color: HexColor("#155293")
-                            ),
+                            decoration:
+                                BoxDecoration(color: HexColor("#155293")),
                           ),
                         ),
                         TextButton(
                           style: TextButton.styleFrom(
-                            padding: const EdgeInsets.only(left: 20, right: 20, top: 15, bottom: 15),
+                            padding: const EdgeInsets.only(
+                                left: 20, right: 20, top: 15, bottom: 15),
                             primary: Colors.white,
                             textStyle: TextStyle(
-                              fontFamily: 'Cairo_SemiBold',
-                              fontSize: 14,
-                              color: Colors.white),
+                                fontFamily: 'Cairo_SemiBold',
+                                fontSize: 14,
+                                color: Colors.white),
                           ),
                           onPressed: () {
                             if (username.text.isEmpty) {

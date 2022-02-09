@@ -122,10 +122,9 @@ class _CreditPage extends State<CreditScreen> {
               Padding(
                 padding: EdgeInsets.all(10),
                 child: ListTile(
-                  title: Text(
-                    'PENDING',
-                     style: TextStyle(fontSize: 30, fontFamily: 'Cairo_SemiBold')
-                  ),
+                  title: Text('PENDING',
+                      style: TextStyle(
+                          fontSize: 30, fontFamily: 'Cairo_SemiBold')),
                   subtitle: Text(
                     'status',
                     style: TextStyle(color: Colors.black.withOpacity(0.6)),
@@ -140,7 +139,8 @@ class _CreditPage extends State<CreditScreen> {
                 child: Row(
                   children: [
                     Padding(
-                      padding: EdgeInsets.only(left: 10, top: 10, bottom: 10, right: 50),
+                      padding: EdgeInsets.only(
+                          left: 10, top: 10, bottom: 10, right: 50),
                       child: Text(
                         'Name',
                         softWrap: true,
@@ -158,9 +158,7 @@ class _CreditPage extends State<CreditScreen> {
                         maxLines: 2,
                         softWrap: true,
                         style: TextStyle(
-                          fontFamily: 'Cairo_SemiBold',
-                          fontSize: 14
-                        ),
+                            fontFamily: 'Cairo_SemiBold', fontSize: 14),
                       ),
                     ),
                   ],
@@ -174,7 +172,8 @@ class _CreditPage extends State<CreditScreen> {
                 child: Row(
                   children: [
                     Padding(
-                      padding: EdgeInsets.only(left: 10, top: 10, bottom: 10, right: 40),
+                      padding: EdgeInsets.only(
+                          left: 10, top: 10, bottom: 10, right: 40),
                       child: Text(
                         'Address',
                         softWrap: true,
@@ -193,9 +192,7 @@ class _CreditPage extends State<CreditScreen> {
                         softWrap: true,
                         maxLines: 3,
                         style: TextStyle(
-                          fontFamily: 'Cairo_SemiBold',
-                          fontSize: 14
-                        ),
+                            fontFamily: 'Cairo_SemiBold', fontSize: 14),
                       ),
                     ),
                   ],
@@ -209,7 +206,8 @@ class _CreditPage extends State<CreditScreen> {
                 child: Row(
                   children: [
                     Padding(
-                      padding: EdgeInsets.only(left: 10, top: 10, bottom: 10, right: 40),
+                      padding: EdgeInsets.only(
+                          left: 10, top: 10, bottom: 10, right: 40),
                       child: Text(
                         'Number',
                         softWrap: true,
@@ -228,29 +226,25 @@ class _CreditPage extends State<CreditScreen> {
                         softWrap: true,
                         maxLines: 2,
                         style: TextStyle(
-                          fontFamily: 'Cairo_SemiBold',
-                          fontSize: 14
-                        ),
+                            fontFamily: 'Cairo_SemiBold', fontSize: 14),
                       ),
                     ),
                   ],
                 ),
               ),
-
               TextButton(
-                style: TextButton.styleFrom(               
-                  textStyle: TextStyle(              
+                style: TextButton.styleFrom(
+                  textStyle: TextStyle(
                     fontSize: 10,
                     decoration: TextDecoration.underline,
                   ),
-                ),            
+                ),
                 child: Text(
                   'Show Application',
-                   style: TextStyle(color: Colors.blue),
+                  style: TextStyle(color: Colors.blue),
                 ),
                 onPressed: () {},
               ),
-
               ButtonBar(
                 alignment: MainAxisAlignment.center,
                 children: [
@@ -267,10 +261,11 @@ class _CreditPage extends State<CreditScreen> {
                         ),
                         TextButton(
                           style: TextButton.styleFrom(
-                            padding: const EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
-                            primary: Colors.white,
-                            textStyle: TextStyle(fontSize: 18, fontFamily: 'Cairo_SemiBold')
-                          ),
+                              padding: const EdgeInsets.only(
+                                  left: 20, right: 20, top: 10, bottom: 10),
+                              primary: Colors.white,
+                              textStyle: TextStyle(
+                                  fontSize: 18, fontFamily: 'Cairo_SemiBold')),
                           child: const Text('APPROVE'),
                           onPressed: () {
                             vid = Mapping
@@ -309,7 +304,7 @@ class _CreditPage extends State<CreditScreen> {
                           return Container(
                             child: PdfPreview(
                               padding: EdgeInsets.all(100),
-                              build: (format) => PrintHelper.generatePdf(
+                              build: (format) => PrintHelper.generatePdfQr(
                                 format,
                                 Mapping.creditApprovals[index].getBorrowerId
                                     .toString(),
@@ -319,7 +314,6 @@ class _CreditPage extends State<CreditScreen> {
                           );
                         },
                       );
-                      //print(Mapping.creditApprovals[index].toString());
                     },
                   ),
                 ],

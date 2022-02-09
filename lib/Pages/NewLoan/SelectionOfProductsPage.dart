@@ -20,6 +20,7 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
   final homeAddress = TextEditingController();
   //classess
   var pick = Picker();
+  var image;
   //display selected file name
   String fileName = 'UPLOAD CONTRACT';
 
@@ -144,7 +145,7 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(top:3),
+                  padding: EdgeInsets.only(top: 3),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(8),
                     child: Stack(
@@ -157,10 +158,11 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
                           ),
                         ),
                         TextButton.icon(
-                          icon:Icon(Icons.attach_file, color: Colors.white),
+                          icon: Icon(Icons.attach_file, color: Colors.white),
                           style: TextButton.styleFrom(
                             primary: Colors.white,
-                            textStyle: TextStyle(fontSize: 18, fontFamily: 'Cairo_SemiBold'),
+                            textStyle: TextStyle(
+                                fontSize: 18, fontFamily: 'Cairo_SemiBold'),
                           ),
                           label: Text(fileName),
                           onPressed: () {
@@ -299,7 +301,8 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
                       style: TextButton.styleFrom(
                         padding: const EdgeInsets.all(15),
                         primary: Colors.white,
-                        textStyle: TextStyle(fontSize: 25, fontFamily: 'Cairo_SemiBold'),
+                        textStyle: TextStyle(
+                            fontSize: 25, fontFamily: 'Cairo_SemiBold'),
                       ),
                       onPressed: () {
                         //push to second page
@@ -319,6 +322,7 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
                                     mobile: mobileNumber.text,
                                     address: homeAddress.text,
                                     total: _getTotal(),
+                                    contract: pick.getImageBytes(),
                                   ),
                                 ),
                               ],

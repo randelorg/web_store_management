@@ -1,5 +1,4 @@
 import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
 import '../../Backend/Session.dart';
 import '../../Backend/Utility/Mapping.dart';
@@ -51,12 +50,15 @@ class _ViewProfileState extends State<ViewProfile> {
                 },
               ),
             ),
-            CircleAvatar(     
+            CircleAvatar(
               radius: 75,
-              child: ClipOval(     
-                child: Image.memory(             
-                  Uint8List.fromList(picture),         
-                  fit: BoxFit.fill, height: 250, width: 250)
+              child: ClipOval(
+                child: Image.memory(
+                  Uint8List.fromList(picture),
+                  fit: BoxFit.fill,
+                  height: 250,
+                  width: 250,
+                ),
               ),
             ),
             Card(
@@ -66,7 +68,8 @@ class _ViewProfileState extends State<ViewProfile> {
               child: Row(
                 children: [
                   Padding(
-                    padding: EdgeInsets.only(left: 10, top: 10, bottom: 10, right: 50),
+                    padding: EdgeInsets.only(
+                        left: 10, top: 10, bottom: 10, right: 50),
                     child: Text(
                       'Name',
                       style: TextStyle(
@@ -93,7 +96,8 @@ class _ViewProfileState extends State<ViewProfile> {
               child: Row(
                 children: [
                   Padding(
-                    padding: EdgeInsets.only(left: 10, top: 10, bottom: 10, right: 30),
+                    padding: EdgeInsets.only(
+                        left: 10, top: 10, bottom: 10, right: 30),
                     child: Text(
                       'User Level',
                       style: TextStyle(
@@ -107,7 +111,7 @@ class _ViewProfileState extends State<ViewProfile> {
                     Mapping.userRole.toUpperCase(),
                     style: TextStyle(
                       fontFamily: 'Cairo_SemiBold',
-                      fontSize: 14,                
+                      fontSize: 14,
                     ),
                   ),
                 ],

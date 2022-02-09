@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:printing/printing.dart';
+import 'package:web_store_management/Backend/BorrowerOperation.dart';
 import 'package:web_store_management/Backend/HistoryOperation.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
+import 'package:web_store_management/Helpers/PrintHelper.dart';
 import 'package:web_store_management/Pages/Borrowers/UpdateBorrowerPage.dart';
 import '../Reports/GlobalHistoryScreens/PaymentHistoryScreen.dart';
 import '../Reports/GlobalHistoryScreens/ProductHistoryScreen.dart';
@@ -23,6 +26,7 @@ class ViewBorrowerProfile extends StatefulWidget {
 
 class _ViewBorrowerProfile extends State<ViewBorrowerProfile> {
   var history = HistoryOperation();
+  var brw = BorrowerOperation();
   String address = "";
 
   @override
@@ -112,9 +116,10 @@ class _ViewBorrowerProfile extends State<ViewBorrowerProfile> {
                     child: Text(
                       'Name',
                       style: TextStyle(
-                          color: Colors.grey[700],
-                          fontFamily: 'Cairo_SemiBold',
-                          fontSize: 12),
+                        color: Colors.grey[700],
+                        fontFamily: 'Cairo_SemiBold',
+                        fontSize: 12,
+                      ),
                     ),
                   ),
                   Text(
@@ -270,7 +275,23 @@ class _ViewBorrowerProfile extends State<ViewBorrowerProfile> {
                         size: 30,
                       ),
                       tooltip: 'View Contract',
-                      onPressed: () {},
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return Container(
+                              child: PdfPreview(
+                                padding: EdgeInsets.all(100),
+                                build: (format) =>
+                                    PrintHelper.generatePdfContract(
+                                  widget.id.toString(),
+                                  format,
+                                ),
+                              ),
+                            );
+                          },
+                        );
+                      },
                     ),
                     Text(
                       'View Contract',
