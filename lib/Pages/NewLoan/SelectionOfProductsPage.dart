@@ -311,28 +311,41 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
                       onPressed: () {
                         //push to second page
                         //which is the finalize order page
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return SimpleDialog(
-                              children: [
-                                Container(
-                                  width:
-                                      (MediaQuery.of(context).size.width) / 2,
-                                  height: 555,
-                                  child: FinalizePage(
-                                    firstname: firstname.text,
-                                    lastname: lastname.text,
-                                    mobile: mobileNumber.text,
-                                    address: homeAddress.text,
-                                    total: _getTotal(),
-                                    contract: pick.getImageBytes(),
+                        if (firstname.text.isEmpty || lastname.text.isEmpty ||
+                            mobileNumber.text.isEmpty || homeAddress.text.isEmpty) {                        
+                              SnackNotification.notif(                                                                                  
+                                "Error",
+                                "Please fill all the fields",
+                               Colors.red.shade600);
+                        } else if (pick.image == null) {                                                           
+                          SnackNotification.notif(                        
+                            "Error",
+                            "Please upload a file (jpg, png, jpeg, or pdf)",
+                            Colors.red.shade600);                                                                                                                                      
+                        } else {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return SimpleDialog(
+                                children: [
+                                  Container(
+                                    width:
+                                        (MediaQuery.of(context).size.width) / 2,
+                                    height: 555,
+                                    child: FinalizePage(
+                                      firstname: firstname.text,
+                                      lastname: lastname.text,
+                                      mobile: mobileNumber.text,
+                                      address: homeAddress.text,
+                                      total: _getTotal(),
+                                      contract: pick.getImageBytes(),
+                                    ),
                                   ),
-                                ),
-                              ],
-                            );
-                          },
-                        );
+                                ],
+                              );
+                            },
+                          );
+                        }
                       },
                       child: const Text('NEXT'),
                     ),

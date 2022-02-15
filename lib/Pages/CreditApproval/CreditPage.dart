@@ -86,8 +86,7 @@ class _CreditPage extends State<CreditScreen> {
                     mainAxisSpacing: 10,
                     shrinkWrap: true,
                     childAspectRatio: (MediaQuery.of(context).size.width) /
-                        (MediaQuery.of(context).size.height) /
-                        2.5,
+                        (MediaQuery.of(context).size.height) / 2.5,
                     children: _cards(),
                   ),
                 ),
@@ -267,7 +266,7 @@ class _CreditPage extends State<CreditScreen> {
                         ),
                         TextButton(
                           style: TextButton.styleFrom(
-                            padding: const EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
+                            padding: const EdgeInsets.only(left: 20, right: 20, top: 12, bottom: 12),
                             primary: Colors.white,
                             textStyle: TextStyle(fontSize: 18, fontFamily: 'Cairo_SemiBold')
                           ),

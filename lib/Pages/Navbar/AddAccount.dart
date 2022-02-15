@@ -271,7 +271,7 @@ class _AddAccount extends State<AddAccount> {
             Container(
               alignment: Alignment.topLeft,
               child: TextButton.icon(
-                onPressed: () {           
+                onPressed: () {
                   pick.pickFile().then((value) {
                     setState(() {
                       fileName = value;
@@ -303,21 +303,31 @@ class _AddAccount extends State<AddAccount> {
                         ),
                         TextButton(
                           style: TextButton.styleFrom(
-                            padding: const EdgeInsets.only(left: 20, right: 20, top: 15, bottom: 15),
+                            padding: const EdgeInsets.only(
+                                left: 20, right: 20, top: 15, bottom: 15),
                             primary: Colors.white,
                             textStyle: TextStyle(fontSize: 20),
                           ),
                           onPressed: () {
-                            if(username.text.isEmpty || firstname.text.isEmpty || lastname.text.isEmpty || mobileNumber.text.isEmpty || 
-                               homeAddress.text.isEmpty || password.text.isEmpty || confirmPassword.text.isEmpty || pick.image == null ){                         
+                            if (username.text.isEmpty || firstname.text.isEmpty || lastname.text.isEmpty || mobileNumber.text.isEmpty ||  
+                                homeAddress.text.isEmpty || password.text.isEmpty ||confirmPassword.text.isEmpty) {                         
+                                  SnackNotification.notif(                                
+                                    "Error",
+                                    "Please fill all the fields",
+                                   Colors.red.shade600);
+                            } else if (pick.image == null) {                                                   
                               SnackNotification.notif(
-                                  "Error","Please fill all the fields", Colors.red.shade600);
-                            } else if(password.text != confirmPassword.text){
+                                "Error",
+                                "Please upload an account image (jpg, png, or jpeg)",
+                                Colors.red.shade600);
+                            } else if (password.text != confirmPassword.text) {
                               SnackNotification.notif(
-                                  "Error","Password did not match", Colors.red.shade600);
-                            } else{                  
+                                  "Error",
+                                  "Password did not match",
+                                  Colors.red.shade600);
+                            } else {
                               Navigator.pop(context);
-                              showDialog(                              
+                              showDialog(
                                 context: context,
                                 builder: (BuildContext context) {
                                   return ConfirmAccount(
@@ -330,9 +340,9 @@ class _AddAccount extends State<AddAccount> {
                                     image: pick.getImageBytes(),
                                   );
                                 },
-                              );               
+                              );
                             }
-                          },                       
+                          },
                           child: Text(
                             'CONFIRM',
                             style: TextStyle(

@@ -132,16 +132,6 @@ class _MakePayment extends State<MakePayment> {
                   style: TextStyle(fontSize: 10),
                 ),
               ),
-            ), 
-            Padding(
-              padding: EdgeInsets.only(left: 7),
-              child: Container(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  'Amount',
-                  style: TextStyle(fontSize: 10),
-                ),
-              ),
             ),
             Padding(
               padding: const EdgeInsets.all(5),
@@ -173,17 +163,7 @@ class _MakePayment extends State<MakePayment> {
                   style: TextStyle(fontSize: 10),
                 ),
               ),
-            ), 
-            Padding(
-              padding: EdgeInsets.only(left: 7),
-              child: Container(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  'Date',
-                  style: TextStyle(fontSize: 10),
-                ),
-              ),
-            ),
+            ),       
             Padding(
               padding: const EdgeInsets.all(5),
               child: TextField(
@@ -191,6 +171,7 @@ class _MakePayment extends State<MakePayment> {
                 decoration: InputDecoration(
                   labelStyle: TextStyle(fontSize: 12),
                   contentPadding: EdgeInsets.only(left: 15),
+                  filled: true,
                   hintText: 'Date Today',
                   fillColor: Colors.blueGrey[50],
                   enabledBorder: OutlineInputBorder(
