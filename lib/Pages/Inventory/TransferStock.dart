@@ -1,35 +1,38 @@
 import 'package:camcode/cam_code_scanner.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:web_store_management/Backend/BranchOperation.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
+import 'package:web_store_management/Notification/Snack_notification.dart';
 
 class TransferStock extends StatefulWidget {
+  final List<String>? branches;
+  final String? productName;
+  final Widget? qty;
+  TransferStock({required this.branches, this.productName, this.qty});
   @override
   _TransferStock createState() => _TransferStock();
 }
 
 class _TransferStock extends State<TransferStock> {
-  List<String> fromLocation = [];
-  List<String> toLocation = [];
-
   String originStore = 'One';
   String destinationBranch = 'One';
 
+  final TextEditingController productName = TextEditingController();
+  final TextEditingController maxqty = TextEditingController();
+  final TextEditingController qty = TextEditingController();
+
+  var transfer = BranchOperation();
+
   @override
   void initState() {
-    super.initState();
-    //fill the locations
-    getLocations();
-  }
-
-  void getLocations() {
-    Mapping.branchList.forEach((element) {
-      fromLocation.add(element.branchName);
+    setState(() {
+      originStore = widget.branches![0].toString();
+      destinationBranch = originStore;
     });
-    toLocation.addAll(fromLocation);
-
-    originStore = fromLocation[0];
-    destinationBranch = toLocation[0];
+    productName.text = widget.productName.toString();
+    maxqty.text = widget.qty.toString();
+    super.initState();
   }
 
   @override
@@ -115,7 +118,7 @@ class _TransferStock extends State<TransferStock> {
                             originStore = newValue!;
                           });
                         },
-                        items: fromLocation
+                        items: widget.branches!
                             .map<DropdownMenuItem<String>>((String value) {
                           return DropdownMenuItem<String>(
                             value: value,
@@ -165,7 +168,7 @@ class _TransferStock extends State<TransferStock> {
                             destinationBranch = newValue!;
                           });
                         },
-                        items: toLocation
+                        items: widget.branches!
                             .map<DropdownMenuItem<String>>((String value) {
                           return DropdownMenuItem<String>(
                             value: value,
@@ -194,22 +197,27 @@ class _TransferStock extends State<TransferStock> {
             Padding(
               padding: EdgeInsets.only(bottom: 20),
               child: TextField(
+                controller: productName,
                 decoration: InputDecoration(
                   suffixIcon: IconButton(
                     icon: Icon(Icons.scanner_sharp),
                     tooltip: 'Scan product barcode',
                     onPressed: () {
-                      showDialog(
-                        context: context,
-                        builder: (context) => CamCodeScanner(
-                          width: MediaQuery.of(context).size.width,
-                          height: MediaQuery.of(context).size.height,
-                          refreshDelayMillis: 200,
-                          onBarcodeResult: (barcode) {
-                            print('object ' + barcode.toString());
-                          },
-                        ),
-                      );
+                      try {
+                        showDialog(
+                          context: context,
+                          builder: (context) => CamCodeScanner(
+                            width: MediaQuery.of(context).size.width,
+                            height: MediaQuery.of(context).size.height,
+                            refreshDelayMillis: 200,
+                            onBarcodeResult: (barcode) {
+                              print('object ' + barcode.toString());
+                            },
+                          ),
+                        );
+                      } catch (e) {
+                        print('Error');
+                      }
                     },
                   ),
                   filled: true,
@@ -244,13 +252,12 @@ class _TransferStock extends State<TransferStock> {
                   children: [
                     Container(
                       alignment: Alignment.topRight,
-                      child: Text('238'), //make this a bold font and
+                      child: Text(maxqty.text), //make this a bold font and
                       //change size to a smaller size
                     ),
                     Container(
                       alignment: Alignment.topRight,
-                      child:
-                          Text('  available'), //make this a lighther font and
+                      child: Text(' available'), //make this a lighther font and
                       //change size to a smaller size
                     ),
                   ],
@@ -258,16 +265,21 @@ class _TransferStock extends State<TransferStock> {
               ],
             ),
             TextField(
+              controller: qty,
               decoration: InputDecoration(
                 suffixIcon: TextButton(
                   style: TextButton.styleFrom(
                     textStyle: TextStyle(fontSize: 15),
                   ),
-                  onPressed: () {},
                   child: Text(
                     'MAX',
                     style: TextStyle(fontSize: 15, color: HexColor("#155293")),
                   ),
+                  onPressed: () {
+                    setState(() {
+                      qty.text = maxqty.text;
+                    });
+                  },
                 ),
                 filled: true,
                 fillColor: Colors.blueGrey[50],
@@ -309,8 +321,27 @@ class _TransferStock extends State<TransferStock> {
                                 fontSize: 14,
                                 color: Colors.white),
                           ),
-                          onPressed: () {},
                           child: const Text('CONFIRM'),
+                          onPressed: () {
+                            transfer
+                                .transferStock(
+                              _findProdBarcode(productName.text),
+                              int.parse(qty.text),
+                              _findBranchCode(destinationBranch),
+                            )
+                                .then((value) {
+                              if (value) {
+                                Navigator.pop(context);
+                                SnackNotification.notif(
+                                  'Success',
+                                  "Product" +
+                                      productName.text +
+                                      "is transfferd",
+                                  Colors.green.shade600,
+                                );
+                              }
+                            });
+                          },
                         ),
                       ],
                     ),
@@ -322,5 +353,27 @@ class _TransferStock extends State<TransferStock> {
         )
       ],
     );
+  }
+
+  String _findBranchCode(String destination) {
+    String code = '';
+    Mapping.branchList
+        .where((element) =>
+            element.branchName?.toLowerCase() == destination.toLowerCase())
+        .forEach((element) {
+      code = element.branchCode;
+    });
+    return code;
+  }
+
+  String _findProdBarcode(String productName) {
+    String name = '';
+    Mapping.productList
+        .where((element) =>
+            element.productName?.toLowerCase() == productName.toLowerCase())
+        .forEach((element) {
+      name = element.getProductCode;
+    });
+    return name;
   }
 }

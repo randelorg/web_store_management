@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -92,7 +91,7 @@ class GlobalController {
   //fetch all the branches from the database
   Future<List<BranchModel>> fetchBranches() async {
     final response =
-        await http.get(Uri.parse("http://localhost:8080/api/branches"));
+        await http.get(Uri.parse("http://localhost:8090/api/branches"));
 
     final parsed = jsonDecode(response.body).cast<Map<String, dynamic>>();
     Mapping.branchList = parsed

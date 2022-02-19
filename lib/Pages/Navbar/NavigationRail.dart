@@ -52,7 +52,7 @@ class _NavDrawer extends State<NavDrawer> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(  
+    return Scaffold(
       body: Row(
         children: <Widget>[
           //list[_selectedIndex],
