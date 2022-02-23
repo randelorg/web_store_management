@@ -118,7 +118,6 @@ class _BodyLogin extends State<BodyLogin> {
           obscureText: true,
           decoration: InputDecoration(
             hintText: 'Password',
-            counterText: 'Forgot password?',
             filled: true,
             fillColor: Colors.blueGrey[50],
             labelStyle: TextStyle(fontSize: 12),
@@ -132,6 +131,15 @@ class _BodyLogin extends State<BodyLogin> {
               borderRadius: BorderRadius.circular(15),
             ),
           ),
+        ),
+        TextButton(
+          child: Text(
+            'Forgot password?',
+            style: TextStyle(
+              fontSize: 11,
+            ),
+          ),
+          onPressed: () {},
         ),
         SizedBox(height: 20),
         Container(
@@ -151,19 +159,23 @@ class _BodyLogin extends State<BodyLogin> {
               width: double.infinity,
               height: 50,
               child: Center(
-                child: Text("Sign In",
-                style: TextStyle(fontFamily: 'Cairo_Bold', fontSize: 18),
+                child: Text(
+                  "Sign In",
+                  style: TextStyle(fontFamily: 'Cairo_Bold', fontSize: 18),
                 ),
               ),
             ),
             style: ElevatedButton.styleFrom(
-              primary:HexColor("#EA1C24"),
+              primary: HexColor("#EA1C24"),
               onPrimary: Colors.white,
             ),
             onPressed: () {
               if (username.text.isEmpty || password.text.isEmpty) {
                 SnackNotification.notif(
-                    "Error", "Please fill all the fields", Colors.red.shade600);
+                  "Error",
+                  "Please fill all the fields",
+                  Colors.red.shade600,
+                );
               } else {
                 login
                     .mainLogin(

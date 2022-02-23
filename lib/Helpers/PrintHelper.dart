@@ -8,7 +8,6 @@ class PrintHelper {
   static Future<Uint8List> generatePdfQr(
       PdfPageFormat format, String content, String name) async {
     final pdf = pw.Document(version: PdfVersion.pdf_1_5, compress: true);
-    final font = await PdfGoogleFonts.nunitoExtraLight();
 
     pdf.addPage(
       pw.Page(
@@ -32,7 +31,6 @@ class PrintHelper {
                 child: pw.Text(
                   name,
                   style: pw.TextStyle(
-                    font: font,
                     fontSize: 30,
                   ),
                 ),
@@ -41,7 +39,6 @@ class PrintHelper {
                 child: pw.Text(
                   "Dellrain's Store Borrower",
                   style: pw.TextStyle(
-                    font: font,
                     fontSize: 10,
                   ),
                 ),

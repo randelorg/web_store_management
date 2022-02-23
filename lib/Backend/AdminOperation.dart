@@ -35,18 +35,19 @@ class AdminOperation implements IAdmin {
       final response = await http.post(
         Uri.parse("http://localhost:8090/api/admin"),
         headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
+          "Content-Type": "application/json",
+          "Accept": "application/json"
         },
         body: addAdmin,
       );
 
-      if (response.statusCode == 404)
+      if (response.statusCode == 404) {
         SnackNotification.notif(
           'Error',
           'Unexpected error occured',
           Colors.red,
         );
+      }
     } catch (e) {
       e.toString();
       //return false;
@@ -91,8 +92,8 @@ class AdminOperation implements IAdmin {
       final response = await http.post(
         Uri.parse(Url.url + "api/updateadmin"),
         headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
+          "Content-Type": "application/json",
+          "Accept": "application/json"
         },
         body: adminUpdateLoad,
       );

@@ -1,11 +1,8 @@
 import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:intl/intl.dart';
 import 'package:web_store_management/Backend/LoanOperation.dart';
-import 'package:web_store_management/Backend/Utility/Mapping.dart';
-import 'package:web_store_management/Notification/Snack_notification.dart';
 
 class PaymentPlanPage extends StatefulWidget {
   final String? firstname, lastname, mobile, address;
@@ -276,43 +273,16 @@ class _PaymentPlanPage extends State<PaymentPlanPage> {
                               fontSize: 14, fontFamily: 'Cairo_SemiBold')),
                       child: const Text('SEND TO REVIEW'),
                       onPressed: () {
-                        newloan
-                            .addBorrower(
+                        newloan.addBorrower(
                           widget.firstname.toString(),
                           widget.lastname.toString(),
                           widget.mobile.toString(),
                           widget.address.toString(),
                           widget.total,
                           widget.contract,
-                        )
-                            .then(
-                          (value) {
-                            if (value) {
-                              newloan
-                                  .addNewLoan(
-                                    widget.firstname.toString(),
-                                    widget.lastname.toString(),
-                                    plan,
-                                    _currenSliderValue.toString(),
-                                    duedate.text,
-                                  )
-                                  .then(
-                                    (value) => {
-                                      if (value)
-                                        {
-                                          Navigator.pop(context),
-                                          //clear all the previous addition in this list
-                                          Mapping.selectedProducts.clear(),
-                                          SnackNotification.notif(
-                                            'Success',
-                                            'New loan is sent to credit approval',
-                                            Colors.green.shade900,
-                                          )
-                                        }
-                                    },
-                                  );
-                            }
-                          },
+                          plan,
+                          _currenSliderValue.toString(),
+                          duedate.text,
                         );
                       },
                     ),
