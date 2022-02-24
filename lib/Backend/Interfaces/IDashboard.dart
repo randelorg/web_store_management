@@ -3,7 +3,9 @@ class IDashboard {
     return [];
   }
 
-  void getMonthDates() {}
+  List<String> getMonthDates() {
+    return [];
+  }
 
   String getTodayDate() {
     return '';
