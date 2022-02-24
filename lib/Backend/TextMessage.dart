@@ -7,6 +7,7 @@ import 'package:web_store_management/Backend/Interfaces/ITextMessage.dart';
 class TextMessage implements ITextMessage {
   //ignore: non_constant_identifier_names
   final String _APIKEY = "a9eca54684a3d81ace2d45da8472cc0f";
+  final String _singleMessageUrl = "http://api.semaphore.co/api/v4/messages";
 
   @override
   Future<bool> sendApprovedCredit(String name, String number) async {
@@ -19,18 +20,24 @@ class TextMessage implements ITextMessage {
         "sendername": "SEMAPHORE"
       });
 
+      print('1 ' + payload);
+
       final response = await http.post(
-        Uri.parse("https://api.semaphore.co/api/v4/messages"),
+        Uri.parse(_singleMessageUrl),
         headers: {
           "Content-Type": "application/json",
           "Accept": "application/json",
-          "Access-Control-Allow-Headers": "*"
         },
         body: payload,
       );
 
+      print('2 ' + payload);
+
       if (response.statusCode == 200) {
+        print('response $response');
         return true;
+      } else {
+        print('wow response ' + response.statusCode.toString());
       }
     } catch (e) {
       print('amazing ' + e.toString());
@@ -67,7 +74,7 @@ class TextMessage implements ITextMessage {
       );
 
       final response = await http.post(
-        Uri.parse("https://api.semaphore.co/api/v4/messages"),
+        Uri.parse(_singleMessageUrl),
         headers: {
           "Content-Type": "application/json",
           "Accept": "application/json",
@@ -108,7 +115,7 @@ class TextMessage implements ITextMessage {
       );
 
       final response = await http.post(
-        Uri.parse("https://api.semaphore.co/api/v4/messages"),
+        Uri.parse(_singleMessageUrl),
         headers: {
           "Content-Type": "application/json",
           "Accept": "application/json"
