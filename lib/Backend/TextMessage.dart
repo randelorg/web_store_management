@@ -6,35 +6,31 @@ import 'package:web_store_management/Backend/Interfaces/ITextMessage.dart';
 
 class TextMessage implements ITextMessage {
   //ignore: non_constant_identifier_names
-  final String _APIKEY = "a9eca54684a3d81ace2d45da8472cc0f";
-  final String _singleMessageUrl = "http://api.semaphore.co/api/v4/messages";
+  final String _apikey = "a9eca54684a3d81ace2d45da8472cc0f";
+  final String _singleMessageUrl = "https://api.semaphore.co/api/v4/messages";
 
   @override
   Future<bool> sendApprovedCredit(String name, String number) async {
+    var payload = json.encode({
+      "apikey": _apikey,
+      "number": number,
+      "message":
+          "Good day $name , \n\nYour credit has been approved. You can now visit the store. \n\nDellrain Store",
+      "sendername": "DELLRAINS"
+    });
+
     try {
-      var payload = json.encode({
-        "apikey": _APIKEY,
-        "number": number,
-        "message":
-            "Good day $name , \n\nYour credit has been approved. You can now visit the store. \n\nDellrain Store",
-        "sendername": "SEMAPHORE"
-      });
-
-      print('1 ' + payload);
-
       final response = await http.post(
         Uri.parse(_singleMessageUrl),
         headers: {
-          "Content-Type": "application/json",
-          "Accept": "application/json",
+          'Content-Type': 'application/json',
+          "Access-Control-Allow-Origin": "*"
         },
         body: payload,
       );
 
-      print('2 ' + payload);
-
       if (response.statusCode == 200) {
-        print('response $response');
+        print(response.body);
         return true;
       } else {
         print('wow response ' + response.statusCode.toString());
@@ -65,7 +61,7 @@ class TextMessage implements ITextMessage {
     try {
       var payload = json.encode(
         {
-          "apikey": _APIKEY,
+          "apikey": _apikey,
           "number": number,
           "message":
               "Dear $name,\n\nYour $product has been repaired.\n\nThank you for using our service.\n\nRegards,\n\nTeam Dellrain Repair",
@@ -106,7 +102,7 @@ class TextMessage implements ITextMessage {
     try {
       var payload = json.encode(
         {
-          "apikey": _APIKEY,
+          "apikey": _apikey,
           "number": number,
           "message":
               "Good day $name, \n\nYour requested product which is $product is now at the store. Visit the store and get your requested product and for further arrangements. \n\nDellrain Store",
