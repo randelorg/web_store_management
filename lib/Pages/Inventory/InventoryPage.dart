@@ -3,9 +3,12 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:web_store_management/Backend/GlobalController.dart';
 import 'package:web_store_management/Backend/ProductOperation.dart';
 import 'package:web_store_management/Notification/Snack_notification.dart';
+import 'package:web_store_management/Backend/Utility/Mapping.dart';
 import 'TransferStock.dart';
 import 'UpdateProduct.dart';
 import '../../Backend/Utility/Mapping.dart';
+
+List<String> _branches = [];
 
 class InventoryPage extends StatefulWidget {
   @override
@@ -25,10 +28,17 @@ class _InventoryPage extends State<InventoryPage> {
 
   @override
   void initState() {
-    super.initState();
+    getLocations(); //get all the branches available
     //fetches the products from the database
     this._products = controller.fetchProducts();
     controller.fetchBranches();
+    super.initState();
+  }
+
+  void getLocations() {
+    Mapping.branchList.forEach((element) {
+      _branches.add(element.branchName);
+    });
   }
 
   @override
@@ -226,9 +236,8 @@ class _InventoryPage extends State<InventoryPage> {
             ],
           ),
         ),
-
         Container(
-          child: Row(
+            child: Row(
           children: [
             Padding(
               padding: const EdgeInsets.only(left: 25, right: 25),
@@ -242,12 +251,11 @@ class _InventoryPage extends State<InventoryPage> {
             ),
           ],
         )),
-        
-        Column( 
+        Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.end,              
-          children: [     
-            Row(   
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            Row(
               children: [
                 Container(
                   padding: const EdgeInsets.only(top: 15, bottom: 15),
@@ -265,8 +273,10 @@ class _InventoryPage extends State<InventoryPage> {
                         Tooltip(
                           message: 'Transfer Stocks',
                           child: TextButton.icon(
-                            icon: Icon(Icons.transfer_within_a_station,
-                                color: Colors.white),
+                            icon: Icon(
+                              Icons.transfer_within_a_station,
+                              color: Colors.white,
+                            ),
                             style: TextButton.styleFrom(
                               padding: const EdgeInsets.all(14),
                               primary: Colors.white,
@@ -278,7 +288,9 @@ class _InventoryPage extends State<InventoryPage> {
                               showDialog(
                                 context: context,
                                 builder: (BuildContext context) {
-                                  return TransferStock();
+                                  return TransferStock(
+                                    branches: _branches,
+                                  );
                                 },
                               );
                             },
@@ -288,9 +300,9 @@ class _InventoryPage extends State<InventoryPage> {
                     ),
                   ),
                 ),
-                
                 Container(
-                  padding: const EdgeInsets.only(top: 15, bottom: 15, left: 20, right: 5),
+                  padding: const EdgeInsets.only(
+                      top: 15, bottom: 15, left: 20, right: 5),
                   width: 350,
                   child: TextField(
                     decoration: InputDecoration(
@@ -331,7 +343,7 @@ class _InventoryPage extends State<InventoryPage> {
       child: Container(
         width: (MediaQuery.of(context).size.width) / 1.5,
         height: (MediaQuery.of(context).size.height),
-        child: ListView(    
+        child: ListView(
           children: [
             FutureBuilder(
               future: this._products,
@@ -354,6 +366,7 @@ class _InventoryPage extends State<InventoryPage> {
                       DataColumn(label: Text('UNIT')),
                       DataColumn(label: Text('PRICE')),
                       DataColumn(label: Text('ACTION')),
+                      DataColumn(label: Text('TRANSFER \n STOCKS')),
                     ],
                     source: _DataSource(context),
                   );
@@ -379,6 +392,7 @@ class _Row {
     this.valueC,
     this.valueD,
     this.valueE,
+    this.valueF,
   );
 
   final String valueA;
@@ -386,6 +400,7 @@ class _Row {
   final String valueC;
   final String valueD;
   final Widget valueE;
+  final Widget valueF;
 
   bool selected = false;
 }
@@ -427,9 +442,21 @@ class _DataSource extends DataTableSource {
             builder: (BuildContext context) {
               return UpdateProduct(
                 name: row.valueA,
-                //quantity: row.valueB,
+                quantity: row.valueB,
                 unit: row.valueC,
                 price: row.valueD,
+              );
+            },
+          );
+        }),
+        DataCell((row.valueF), onTap: () {
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return TransferStock(
+                branches: _branches,
+                productName: row.valueA,
+                qty: row.valueB,
               );
             },
           );
@@ -469,8 +496,12 @@ class _DataSource extends DataTableSource {
                   ),
                 ),
                 Padding(
-                  padding:
-                      EdgeInsets.only(top: 8, bottom: 8, left: 16, right: 16),
+                  padding: EdgeInsets.only(
+                    top: 8,
+                    bottom: 8,
+                    left: 16,
+                    right: 16,
+                  ),
                   child: Text(
                     'UPDATE',
                     style: TextStyle(
@@ -483,6 +514,10 @@ class _DataSource extends DataTableSource {
               ],
             ),
           ),
+          Icon(
+            Icons.transfer_within_a_station,
+            color: HexColor("#155293"),
+          ),
         );
       });
     } catch (e) {
@@ -493,6 +528,7 @@ class _DataSource extends DataTableSource {
           Text(''),
           '',
           '',
+          Text(''),
           Text(''),
         );
       });

@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:hexcolor/hexcolor.dart';
 import 'package:web_store_management/Backend/GlobalController.dart';
 import 'package:web_store_management/Backend/HistoryOperation.dart';
-
-import 'GlobalHistoryScreens/PaymentHistoryScreen.dart';
-import 'GlobalHistoryScreens/ProductHistoryScreen.dart';
+import 'package:web_store_management/Pages/Reports/GlobalHistoryScreens/PaymentHistoryScreen.dart';
+import 'package:web_store_management/Pages/Reports/GlobalHistoryScreens/ProductHistoryScreen.dart';
 import '../../Backend/Utility/Mapping.dart';
 
 class HistoryScreen extends StatefulWidget {
@@ -20,8 +18,6 @@ class _HistoryScreen extends State<HistoryScreen> {
   var controller = GlobalController();
   var history = HistoryOperation();
   late Future borrowers;
-  late Future payment;
-  late Future product;
 
   @override
   void initState() {
@@ -30,26 +26,21 @@ class _HistoryScreen extends State<HistoryScreen> {
     borrowers = controller.fetchBorrowers();
   }
 
-  final List<Tab> myTabs = <Tab>[
-    Tab(text: 'Payment History'),
-    Tab(text: 'Product Loaned History'),
-  ];
-
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(20),
+      padding: EdgeInsets.all(10),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Container(
-            width: (MediaQuery.of(context).size.width) / 4,
+            width: (MediaQuery.of(context).size.width) / 1.5,
             height: (MediaQuery.of(context).size.height),
             child: ListView(
               scrollDirection: Axis.vertical,
-              padding: const EdgeInsets.only(bottom: 15),
+              padding: EdgeInsets.only(bottom: 15),
               children: [
                 Container(
                   padding: EdgeInsets.all(15),
-                  width: (MediaQuery.of(context).size.width) / 4,
                   child: TextField(
                     decoration: InputDecoration(
                       hintText: 'Search borrower',
@@ -90,39 +81,6 @@ class _HistoryScreen extends State<HistoryScreen> {
               ],
             ),
           ),
-          Expanded(
-            child: Container(
-              width: (MediaQuery.of(context).size.width),
-              height: (MediaQuery.of(context).size.height),
-              child: DefaultTabController(
-                length: myTabs.length,
-                child: Scaffold(
-                  appBar: PreferredSize(
-                    preferredSize: Size.fromHeight(50),
-                    child: AppBar(
-                      bottom: TabBar(
-                        tabs: myTabs,
-                      ),
-                    ),
-                  ),
-                  body: TabBarView(
-                    children: [
-                      // FutureBuilder(future:  builder: (context, snapshot){
-                      //   if(snapshot.hasData){
-                      //     return PaymentHistoryScreen(
-                      //       onUpdate: widget.onUpdate,
-                      //     );
-                      //   }
-                      //   return Center(
-                      //     child: CircularProgressIndicator(),
-                      //   );
-                      // },),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ),
         ],
       ),
     );
@@ -134,19 +92,12 @@ class _HistoryScreen extends State<HistoryScreen> {
       rowsPerPage: 10,
       columns: [
         DataColumn(label: Text('BID')),
-        DataColumn(label: Text('Name')),
-        DataColumn(label: Icon(Icons.visibility)),
+        DataColumn(label: Text('Borrower Name')),
+        DataColumn(label: Text('Payment History')),
+        DataColumn(label: Text('Product History')),
       ],
       source: _DataSource(context),
     );
-  }
-
-  Widget paymentHistory() {
-    return Center(child: LocalPaymentHistory());
-  }
-
-  Widget productHistory() {
-    return Center(child: ProductHistory());
   }
 }
 
@@ -155,11 +106,13 @@ class _Row {
     this.valueA,
     this.valueB,
     this.valueC,
+    this.valueD,
   );
 
   final String valueA;
   final String valueB;
   final Widget valueC;
+  final Widget valueD;
 
   bool selected = false;
 }
@@ -187,7 +140,42 @@ class _DataSource extends DataTableSource {
         DataCell(Text(row.valueA)),
         DataCell(Text(row.valueB)),
         DataCell((row.valueC), onTap: () {
-          Mapping.borrowerId = row.valueA;
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return SimpleDialog(
+                children: [
+                  Container(
+                    width: (MediaQuery.of(context).size.width) / 2,
+                    height: (MediaQuery.of(context).size.height),
+                    child: LocalPaymentHistory(
+                      id: row.valueA,
+                      borrowerName: row.valueB,
+                    ),
+                  ),
+                ],
+              );
+            },
+          );
+        }),
+        DataCell((row.valueD), onTap: () {
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return SimpleDialog(
+                children: [
+                  Container(
+                    width: (MediaQuery.of(context).size.width) / 2,
+                    height: (MediaQuery.of(context).size.height),
+                    child: ProductHistory(
+                      borrowerId: row.valueA,
+                      borrowerName: row.valueB,
+                    ),
+                  ),
+                ],
+              );
+            },
+          );
         }),
       ],
     );
@@ -211,7 +199,12 @@ class _DataSource extends DataTableSource {
             Mapping.borrowerList[index].getBorrowerId.toString(),
             Mapping.borrowerList[index].toString(),
             Icon(
-              Icons.history,
+              Icons.payments,
+              color: Colors.blue,
+              size: 30,
+            ),
+            Icon(
+              Icons.inventory,
               color: Colors.blue,
               size: 30,
             ),
@@ -226,6 +219,7 @@ class _DataSource extends DataTableSource {
           return new _Row(
             "",
             "",
+            Text(''),
             Text(''),
           );
         },

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:web_store_management/Backend/BorrowerOperation.dart';
 import 'package:web_store_management/Backend/GlobalController.dart';
+import 'package:web_store_management/Backend/TextMessage.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
 import 'package:web_store_management/Notification/Snack_notification.dart';
 import 'package:web_store_management/Pages/Repairs/ManualBorrowerSearch.dart';
@@ -14,6 +15,7 @@ class RepairsPage extends StatefulWidget {
 class _RepairsPage extends State<RepairsPage> {
   var controller = GlobalController();
   var borrower = BorrowerOperation();
+  var message = TextMessage();
   late Future _repairs;
   double textSize = 15;
   double titleSize = 30;
@@ -34,7 +36,7 @@ class _RepairsPage extends State<RepairsPage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: [           
+              children: [
                 Padding(
                   padding: EdgeInsets.only(top: 15, bottom: 15, left: 20),
                   child: ClipRRect(
@@ -166,10 +168,9 @@ class _RepairsPage extends State<RepairsPage> {
               Padding(
                 padding: EdgeInsets.all(10),
                 child: ListTile(
-                  title: Text(
-                    'PENDING',
-                    style: TextStyle(fontSize: 30, fontFamily: 'Cairo_SemiBold')
-                  ),
+                  title: Text('PENDING',
+                      style: TextStyle(
+                          fontSize: 30, fontFamily: 'Cairo_SemiBold')),
                   subtitle: Text(
                     'status',
                     style: TextStyle(
@@ -186,11 +187,12 @@ class _RepairsPage extends State<RepairsPage> {
                 child: Row(
                   children: [
                     Padding(
-                      padding: EdgeInsets.only(left: 10, top: 10, bottom: 10, right: 40),
+                      padding: EdgeInsets.only(
+                          left: 10, top: 10, bottom: 10, right: 40),
                       child: Text(
                         'Product \n Name',
                         softWrap: true,
-                        style: TextStyle(                  
+                        style: TextStyle(
                           color: Colors.grey[700],
                           fontFamily: 'Cairo_SemiBold',
                           fontSize: 12,
@@ -204,9 +206,7 @@ class _RepairsPage extends State<RepairsPage> {
                         softWrap: true,
                         maxLines: 2,
                         style: TextStyle(
-                          fontFamily: 'Cairo_SemiBold',
-                          fontSize: 14
-                        ),
+                            fontFamily: 'Cairo_SemiBold', fontSize: 14),
                       ),
                     ),
                   ],
@@ -220,7 +220,8 @@ class _RepairsPage extends State<RepairsPage> {
                 child: Row(
                   children: [
                     Padding(
-                      padding: EdgeInsets.only(left: 10, top: 10, bottom: 10, right: 53),
+                      padding: EdgeInsets.only(
+                          left: 10, top: 10, bottom: 10, right: 53),
                       child: Text(
                         'Name',
                         softWrap: true,
@@ -238,9 +239,7 @@ class _RepairsPage extends State<RepairsPage> {
                         softWrap: true,
                         maxLines: 2,
                         style: TextStyle(
-                          fontFamily: 'Cairo_SemiBold',
-                          fontSize: 14
-                        ),
+                            fontFamily: 'Cairo_SemiBold', fontSize: 14),
                       ),
                     ),
                   ],
@@ -254,7 +253,8 @@ class _RepairsPage extends State<RepairsPage> {
                 child: Row(
                   children: [
                     Padding(
-                     padding: EdgeInsets.only(left: 10, top: 10, bottom: 10, right: 43),
+                      padding: EdgeInsets.only(
+                          left: 10, top: 10, bottom: 10, right: 43),
                       child: Text(
                         'Address',
                         softWrap: true,
@@ -272,9 +272,7 @@ class _RepairsPage extends State<RepairsPage> {
                         softWrap: true,
                         maxLines: 3,
                         style: TextStyle(
-                          fontFamily: 'Cairo_SemiBold',
-                          fontSize: 14
-                        ),
+                            fontFamily: 'Cairo_SemiBold', fontSize: 14),
                       ),
                     ),
                   ],
@@ -288,7 +286,8 @@ class _RepairsPage extends State<RepairsPage> {
                 child: Row(
                   children: [
                     Padding(
-                      padding: EdgeInsets.only(left: 10, top: 10, bottom: 10, right: 44),
+                      padding: EdgeInsets.only(
+                          left: 10, top: 10, bottom: 10, right: 44),
                       child: Text(
                         'Number',
                         softWrap: true,
@@ -306,9 +305,7 @@ class _RepairsPage extends State<RepairsPage> {
                         softWrap: true,
                         maxLines: 2,
                         style: TextStyle(
-                          fontFamily: 'Cairo_SemiBold',
-                          fontSize: 14
-                        ),
+                            fontFamily: 'Cairo_SemiBold', fontSize: 14),
                       ),
                     ),
                   ],
@@ -339,6 +336,9 @@ class _RepairsPage extends State<RepairsPage> {
                             updateRepair(
                               Mapping.repairs[index].getRepairId,
                               'REPAIRED',
+                              Mapping.repairs[index].getRepairProductName,
+                              Mapping.repairs[index].toString(),
+                              Mapping.repairs[index].getMobileNumber,
                             );
                           },
                         ),
@@ -354,7 +354,21 @@ class _RepairsPage extends State<RepairsPage> {
     );
   }
 
-  void updateRepair(int id, final String status) {
+  void sendRepairedMessage(String name, String number, String product) {
+    message.sendRepairedProduct(name, number, product).then((value) => {
+          if (value)
+            {
+              SnackNotification.notif(
+                'PENDING',
+                'The message is in transit to the network',
+                Colors.orange.shade500,
+              )
+            }
+        });
+  }
+
+  void updateRepair(
+      int id, final String status, String product, String name, String number) {
     borrower.updateRepair(id, status).then((value) {
       if (!value) {
         SnackNotification.notif(
@@ -363,9 +377,12 @@ class _RepairsPage extends State<RepairsPage> {
           Colors.redAccent.shade200,
         );
       } else {
+        //refresh the future and the widget
         setState(() {
           _repairs = controller.fetchRepairs();
         });
+        //send message to the receiver
+        sendRepairedMessage(name, number, product);
       }
     });
   }

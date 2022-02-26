@@ -13,8 +13,17 @@ import 'Utility/ApiUrl.dart';
 
 class LoanOperation extends BorrowerOperation implements INewLoan {
   @override
-  Future<bool> addBorrower(String firstname, String lastname, String mobile,
-      String homeaddress, num balance, Uint8List? contract) async {
+  Future<bool> addBorrower(
+    String firstname,
+    String lastname,
+    String mobile,
+    String homeaddress,
+    num balance,
+    Uint8List? contract,
+    String plan,
+    String term,
+    String duedate,
+  ) async {
     var brwDetail1 = json.encode({
       'firstname': firstname.trim(),
       'lastname': lastname.trim(),
@@ -48,8 +57,12 @@ class LoanOperation extends BorrowerOperation implements INewLoan {
         body: brwDetail2,
       );
 
-      if (response1.statusCode == 404 || response2.statusCode == 404)
+      //add the loan
+      addNewLoan(firstname, lastname, plan, term, duedate);
+
+      if (response1.statusCode == 404 || response2.statusCode == 404) {
         return false;
+      }
     } catch (e) {
       e.toString();
       SnackNotification.notif(
@@ -69,16 +82,16 @@ class LoanOperation extends BorrowerOperation implements INewLoan {
       String term, String duedate) async {
     for (var item in Mapping.selectedProducts) {
       try {
-        await http.post(
+        final response = await http.post(
           Uri.parse("http://localhost:8090/api/addloan"),
           headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json'
           },
           body: json.encode({
-            'firstname': firstname,
-            'lastname': lastname,
-            'productCode': item.getProductCode,
+            "firstname": firstname,
+            "lastname": lastname,
+            "productCode": item.getProductCode,
             'plan': plan,
             'duedate': duedate,
             'term': term,
@@ -86,6 +99,10 @@ class LoanOperation extends BorrowerOperation implements INewLoan {
             'status': 'UNPAID',
           }),
         );
+
+        if (response.statusCode == 202) {
+          return true;
+        }
       } catch (e) {
         e.toString();
         SnackNotification.notif(

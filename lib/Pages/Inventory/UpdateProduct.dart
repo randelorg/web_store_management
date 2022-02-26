@@ -6,7 +6,8 @@ import '../../Backend/ProductOperation.dart';
 import '../../Backend/Utility/Mapping.dart';
 
 class UpdateProduct extends StatefulWidget {
-  final String? name, quantity, price, unit;
+  final String? name, price, unit;
+  final Widget? quantity;
   UpdateProduct({this.name, this.quantity, this.price, this.unit});
 
   @override
@@ -25,8 +26,9 @@ class _UpdateProduct extends State<UpdateProduct> {
   @override
   void initState() {
     super.initState();
+
     prodName.text = widget.name.toString();
-    prodQtySuffix.text = _findQty();
+    prodQtySuffix.text = widget.quantity.toString();
     prodPrice.text = widget.price.toString();
     prodUnit.text = widget.unit.toString();
   }
@@ -98,8 +100,13 @@ class _UpdateProduct extends State<UpdateProduct> {
               padding: EdgeInsets.only(left: 7),
               child: Container(
                 alignment: Alignment.centerLeft,
-                child: Text("Quantity Available: " + _findQty(),
-                    style: TextStyle(fontSize: 11, color: HexColor("#155293"))),
+                child: Text(
+                  "Quantity Available: " + prodQtySuffix.text,
+                  style: TextStyle(
+                    fontSize: 11,
+                    color: HexColor("#155293"),
+                  ),
+                ),
               ),
             ),
             Padding(
@@ -107,14 +114,14 @@ class _UpdateProduct extends State<UpdateProduct> {
                   left: 6.0, right: 6.0, bottom: 6.0, top: 1.0),
               child: TextField(
                 controller: prodQuantity,
-                // onChanged: (value) {
-                //   //if value is empty then set the qty suffix to empty or 0
-                //   if (value.isEmpty) {
-                //     setState(() {
-                //       prodQuantity.text = '0';
-                //     });
-                //   }
-                // },
+                onChanged: (value) {
+                  //if value is empty then set the qty suffix to empty or 0
+                  if (value.isEmpty) {
+                    setState(() {
+                      prodQuantity.text = '0';
+                    });
+                  }
+                },
                 decoration: InputDecoration(
                   hintText: 'Quantity',
                   filled: true,
@@ -221,11 +228,14 @@ class _UpdateProduct extends State<UpdateProduct> {
                       ),
                       child: const Text('UPDATE'),
                       onPressed: () {
-                        if (prodName.text.isEmpty || prodQuantity.text.isEmpty ||
-                            prodUnit.text.isEmpty || prodPrice.text.isEmpty) {
-                              SnackNotification.notif(
-                                "Error",
-                                "Please fill all the fields",Colors.red.shade600);
+                        if (prodName.text.isEmpty ||
+                            prodQuantity.text.isEmpty ||
+                            prodUnit.text.isEmpty ||
+                            prodPrice.text.isEmpty) {
+                          SnackNotification.notif(
+                              "Error",
+                              "Please fill all the fields",
+                              Colors.red.shade600);
                         } else {
                           operation
                               .updateProductDetails(
@@ -275,16 +285,5 @@ class _UpdateProduct extends State<UpdateProduct> {
       barcode = element.getProductCode;
     });
     return barcode;
-  }
-
-  String _findQty() {
-    int qty = 0;
-    Mapping.productList
-        .where((element) =>
-            element.productName?.toLowerCase() == prodName.text.toLowerCase())
-        .forEach((element) {
-      qty = element.getProductQty;
-    });
-    return qty.toString();
   }
 }

@@ -18,6 +18,12 @@
 @import file_picker;
 #endif
 
+#if __has_include(<flutter_sms/FlutterSmsPlugin.h>)
+#import <flutter_sms/FlutterSmsPlugin.h>
+#else
+@import flutter_sms;
+#endif
+
 #if __has_include(<hexcolor/HexcolorPlugin.h>)
 #import <hexcolor/HexcolorPlugin.h>
 #else
@@ -36,14 +42,22 @@
 @import shared_preferences_ios;
 #endif
 
+#if __has_include(<url_launcher_ios/FLTURLLauncherPlugin.h>)
+#import <url_launcher_ios/FLTURLLauncherPlugin.h>
+#else
+@import url_launcher_ios;
+#endif
+
 @implementation GeneratedPluginRegistrant
 
 + (void)registerWithRegistry:(NSObject<FlutterPluginRegistry>*)registry {
   [CamcodePlugin registerWithRegistrar:[registry registrarForPlugin:@"CamcodePlugin"]];
   [FilePickerPlugin registerWithRegistrar:[registry registrarForPlugin:@"FilePickerPlugin"]];
+  [FlutterSmsPlugin registerWithRegistrar:[registry registrarForPlugin:@"FlutterSmsPlugin"]];
   [HexcolorPlugin registerWithRegistrar:[registry registrarForPlugin:@"HexcolorPlugin"]];
   [PrintingPlugin registerWithRegistrar:[registry registrarForPlugin:@"PrintingPlugin"]];
   [FLTSharedPreferencesPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTSharedPreferencesPlugin"]];
+  [FLTURLLauncherPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTURLLauncherPlugin"]];
 }
 
 @end

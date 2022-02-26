@@ -2,10 +2,11 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:web_store_management/Backend/Interfaces/IBranch.dart';
+import 'package:web_store_management/Backend/Interfaces/IInventory.dart';
 import 'package:web_store_management/Notification/Snack_notification.dart';
 import 'Utility/ApiUrl.dart';
 
-class BranchOperation implements IBranch {
+class BranchOperation implements IBranch, IIventory {
   @override
   Future<bool> addBranch(final String branchName, final String branchAddress,
       final String empId) async {
@@ -54,7 +55,52 @@ class BranchOperation implements IBranch {
 
   @override
   Future<bool> updateBranch() {
-    // TODO: implement updateBranch
-    throw UnimplementedError();
+    var a;
+    return a;
+  }
+
+  //inventory
+  @override
+  Future<bool> transferStock(
+      String productCode, int qty, String branchCode) async {
+    //concatonate product code and branch code as the product code copy for this branch
+    productCode = branchCode.trim() + '_' + productCode.trim();
+
+    var stockLoad = json.encode({
+      'prodCode': productCode,
+      'qty': qty,
+      'branchCode': branchCode,
+    });
+
+    try {
+      final response = await http.post(
+        Uri.parse("http://localhost:8090/api/transfer"),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: stockLoad,
+      );
+
+      //if response is empty return false
+      if (response.statusCode == 404) {
+        return false;
+      }
+
+      if (response.statusCode == 202) {
+        return true;
+      }
+    } catch (e) {
+      e.toString();
+      //if there is an error in the method
+      SnackNotification.notif(
+        'Error',
+        "Product failed to be transferred",
+        Colors.red.shade600,
+      );
+      return false;
+    }
+
+    return true;
   }
 }
