@@ -45,6 +45,8 @@ dependencies:
   dio: ^4.0.4
   twilio_flutter: ^0.0.9
   flutter_sms: ^2.3.2
+  draw_graph: ^1.0.0
+  syncfusion_flutter_charts: ^19.4.53
 
 dev_dependencies:
   flutter_test:

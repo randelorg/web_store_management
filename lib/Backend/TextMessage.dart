@@ -12,7 +12,7 @@ class TextMessage implements ITextMessage {
   @override
   Future<bool> sendApprovedCredit(String name, String number) async {
     final String message =
-        "Good day $name, \n\nYour credit has been approved. You can now visit the store. \n\nDellrain Store";
+        "Dear $name, \n\nYour credit has been approved. You can now visit the store. \n\nDellrain Store";
 
     try {
       var response = await http.post(
@@ -30,9 +30,8 @@ class TextMessage implements ITextMessage {
       } else {
         print('wow response ' + response.statusCode.toString());
       }
-    } catch (e, s) {
+    } catch (e) {
       print('amazing $e');
-      print('amazing $s');
       //if there is an error in the method
       SnackNotification.notif(
         "Error",
@@ -52,12 +51,12 @@ class TextMessage implements ITextMessage {
   }
 
   @override
-  Future<bool> sendRepairedProduct(
+  Future<bool> sendRequestedProduct(
       String name, String number, String product) async {
-    final String message =
-        "Dear $name,\n\nYour $product has been repaired.\n\nThank you for using our service. Visit the store anytime within 8:00AM to 5:00PM \n\nRegards,\n\nTeam Dellrain Repair";
-
     try {
+      final String message =
+          "Dear $name, \n\nThe $product you requested is now at the store. \n\nThank you for using our service. Visit the store anytime within 8:00AM to 5:00PM.\n\nRegards,\n\nTeam Dellrain Repair";
+
       var response = await http.post(
         Uri.parse(_singleMessageUrl).replace(queryParameters: {
           "apikey": _apikey,
@@ -85,12 +84,12 @@ class TextMessage implements ITextMessage {
   }
 
   @override
-  Future<bool> sendRequestedProduct(
+  Future<bool> sendRepairedProduct(
       String name, String number, String product) async {
-    try {
-      final String message =
-          "Good day $name, \n\nYour requested product which is $product is now at the store. Visit the store and get your requested product and for further arrangements. \n\nDellrain Store";
+    final String message =
+        "Dear $name,\n\nYour $product has been repaired.\n\nThank you for using our service. Visit the store anytime within 8:00AM to 5:00PM \n\nRegards,\n\nTeam Dellrain Repair";
 
+    try {
       var response = await http.post(
         Uri.parse(_singleMessageUrl).replace(queryParameters: {
           "apikey": _apikey,
