@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:web_store_management/Notification/Snack_notification.dart';
@@ -16,13 +15,14 @@ class TextMessage implements ITextMessage {
         "Good day $name, \n\nYour credit has been approved. You can now visit the store. \n\nDellrain Store";
 
     try {
-      var response = await http
-          .post(Uri.parse(_singleMessageUrl).replace(queryParameters: {
-        "apikey": _apikey,
-        "number": number,
-        "message": message,
-        "sendername": "DELLRAINS"
-      }));
+      var response = await http.post(
+        Uri.parse(_singleMessageUrl).replace(queryParameters: {
+          "apikey": _apikey,
+          "number": number,
+          "message": message,
+          "sendername": "DELLRAINS"
+        }),
+      );
 
       if (response.statusCode == 200) {
         print(response.body);
@@ -54,25 +54,17 @@ class TextMessage implements ITextMessage {
   @override
   Future<bool> sendRepairedProduct(
       String name, String number, String product) async {
+    final String message =
+        "Dear $name,\n\nYour $product has been repaired.\n\nThank you for using our service. Visit the store anytime within 8:00AM to 5:00PM \n\nRegards,\n\nTeam Dellrain Repair";
+
     try {
-      var payload = json.encode(
-        {
+      var response = await http.post(
+        Uri.parse(_singleMessageUrl).replace(queryParameters: {
           "apikey": _apikey,
           "number": number,
-          "message":
-              "Dear $name,\n\nYour $product has been repaired.\n\nThank you for using our service.\n\nRegards,\n\nTeam Dellrain Repair",
-          "sendername": "SEMAPHORE"
-        },
-      );
-
-      final response = await http.post(
-        Uri.parse(_singleMessageUrl),
-        headers: {
-          "Content-Type": "application/json",
-          "Accept": "application/json",
-          "Access-Control-Allow-Origin": "*"
-        },
-        body: payload,
+          "message": message,
+          "sendername": "DELLRAINS"
+        }),
       );
 
       if (response.statusCode == 200) {
@@ -96,23 +88,16 @@ class TextMessage implements ITextMessage {
   Future<bool> sendRequestedProduct(
       String name, String number, String product) async {
     try {
-      var payload = json.encode(
-        {
+      final String message =
+          "Good day $name, \n\nYour requested product which is $product is now at the store. Visit the store and get your requested product and for further arrangements. \n\nDellrain Store";
+
+      var response = await http.post(
+        Uri.parse(_singleMessageUrl).replace(queryParameters: {
           "apikey": _apikey,
           "number": number,
-          "message":
-              "Good day $name, \n\nYour requested product which is $product is now at the store. Visit the store and get your requested product and for further arrangements. \n\nDellrain Store",
-          "sendername": "SEMAPHORE"
-        },
-      );
-
-      final response = await http.post(
-        Uri.parse(_singleMessageUrl),
-        headers: {
-          "Content-Type": "application/json",
-          "Accept": "application/json"
-        },
-        body: payload,
+          "message": message,
+          "sendername": "DELLRAINS"
+        }),
       );
 
       if (response.statusCode == 200) {
