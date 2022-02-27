@@ -107,7 +107,9 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
                   padding: EdgeInsets.all(10.0),
                   child: TextField(
                     controller: mobileNumber,
+                    maxLength: 12,
                     decoration: InputDecoration(
+                      counterText: '',
                       hintText: 'Mobile Number',
                       filled: true,
                       fillColor: Colors.blueGrey[50],
@@ -224,7 +226,7 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
                           suffixIcon: IconButton(
                             onPressed: () {},
                             icon: Icon(Icons.scanner_sharp),
-                            tooltip: 'Scan product barcode',
+                            tooltip: 'Scan Product Barcode',
                           ),
                           filled: true,
                           fillColor: Colors.blueGrey[50],

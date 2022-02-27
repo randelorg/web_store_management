@@ -217,7 +217,9 @@ class _AddEmployee extends State<AddEmployee> {
               padding: EdgeInsets.only(bottom: 20),
               child: TextField(
                 controller: mobileNumber,
+                maxLength: 12,
                 decoration: InputDecoration(
+                  counterText: '',
                   hintText: 'Mobile Number',
                   filled: true,
                   fillColor: Colors.blueGrey[50],
@@ -315,7 +317,7 @@ class _AddEmployee extends State<AddEmployee> {
                   });
                 },
                 decoration: InputDecoration(
-                  hintText: 'Confirm password',
+                  hintText: 'Confirm Password',
                   filled: true,
                   fillColor: Colors.blueGrey[50],
                   labelStyle: TextStyle(fontSize: 10),

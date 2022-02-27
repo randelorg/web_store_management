@@ -37,15 +37,16 @@ class _CollectionSummary extends State<CollectionSummary> {
                   controller: dateinput,
                   decoration: InputDecoration(
                     labelStyle: TextStyle(fontSize: 12),
-                    contentPadding: EdgeInsets.only(left: 30),
-                    hintText: 'Date Today',
+                    contentPadding: EdgeInsets.only(left: 15),
+                    filled: true,
+                    hintText: 'Date Start',
                     fillColor: Colors.blueGrey[50],
                     enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.grey),
+                     borderSide: BorderSide(color: Colors.blueGrey.shade50),
                       borderRadius: BorderRadius.circular(10),
                     ),
                     focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.blue.shade400),
+                      borderSide: BorderSide(color: Colors.blueGrey.shade50),
                       borderRadius: BorderRadius.circular(10),
                     ),
                   ),
@@ -104,15 +105,16 @@ class _CollectionSummary extends State<CollectionSummary> {
                   controller: dateinput,
                   decoration: InputDecoration(
                     labelStyle: TextStyle(fontSize: 12),
-                    contentPadding: EdgeInsets.only(left: 30),
-                    hintText: 'Date Today',
+                    contentPadding: EdgeInsets.only(left: 15),
+                    filled: true,
+                    hintText: 'Date End',
                     fillColor: Colors.blueGrey[50],
                     enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.grey),
+                      borderSide: BorderSide(color: Colors.blueGrey.shade50),
                       borderRadius: BorderRadius.circular(10),
                     ),
                     focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.blue.shade400),
+                      borderSide: BorderSide(color: Colors.blueGrey.shade50),
                       borderRadius: BorderRadius.circular(10),
                     ),
                   ),

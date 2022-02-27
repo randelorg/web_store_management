@@ -148,7 +148,7 @@ class _UpdateBorrowerPage extends State<UpdateBorrowerPage> {
               child: Container(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  'Mobile number',
+                  'Mobile Number',
                   style: TextStyle(fontSize: 10),
                 ),
               ),

@@ -103,7 +103,7 @@ class _BorrowersPage extends State<BorrowersPage> {
                         columns: [
                           DataColumn(label: Text('BID')),
                           DataColumn(
-                            label: Text('Name'),
+                            label: Text('NAME'),
                             onSort: (index, sortAscending) {
                               setState(() {
                                 _sortAscending = sortAscending;
@@ -117,9 +117,9 @@ class _BorrowersPage extends State<BorrowersPage> {
                               });
                             },
                           ),
-                          DataColumn(label: Text('Number')),
-                          DataColumn(label: Text('Balance')),
-                          DataColumn(label: Text('Action')),
+                          DataColumn(label: Text('NUMBER')),
+                          DataColumn(label: Text('BALANCE')),
+                          DataColumn(label: Text('ACTION')),
                         ],
                         source: _DataSource(context, _borrowers),
                       )
