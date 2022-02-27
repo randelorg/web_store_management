@@ -194,6 +194,7 @@ class _AddRepair extends State<AddRepair> {
                 decoration: InputDecoration(
                   labelStyle: TextStyle(fontSize: 12),
                   hintText: 'Date of turn over',
+                  filled: true,
                   fillColor: Colors.blueGrey[50],
                   contentPadding: EdgeInsets.only(left: 15),
                   enabledBorder: OutlineInputBorder(

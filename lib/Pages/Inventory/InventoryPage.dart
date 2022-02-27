@@ -190,17 +190,9 @@ class _InventoryPage extends State<InventoryPage> {
                       ),
                       TextButton(
                         style: TextButton.styleFrom(
-                          padding: const EdgeInsets.only(
-                            top: 18,
-                            bottom: 18,
-                            left: 36,
-                            right: 36,
-                          ),
+                          padding: const EdgeInsets.only(top: 18, bottom: 18, left: 36, right: 36),
                           primary: Colors.white,
-                          textStyle: TextStyle(
-                            fontFamily: 'Cairo_SemiBold',
-                            fontSize: 14,
-                          ),
+                          textStyle: TextStyle(fontFamily: 'Cairo_SemiBold', fontSize: 14),
                         ),
                         child: const Text('ADD'),
                         onPressed: () {

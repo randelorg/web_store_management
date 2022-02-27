@@ -369,45 +369,48 @@ class _AddEmployee extends State<AddEmployee> {
                         ),
                         TextButton(
                           style: TextButton.styleFrom(
-                            padding: const EdgeInsets.only(
-                                left: 20, right: 20, top: 15, bottom: 15),
+                            padding: const EdgeInsets.only(left: 20, right: 20, top: 15, bottom: 15),
                             primary: Colors.white,
                             textStyle: TextStyle(
-                                fontFamily: 'Cairo_SemiBold',
-                                fontSize: 14,
-                                color: Colors.white),
+                              fontFamily: 'Cairo_SemiBold',
+                              fontSize: 14,
+                              color: Colors.white),
                           ),
                           onPressed: () {
                             if (username.text.isEmpty || firstname.text.isEmpty || lastname.text.isEmpty || mobileNumber.text.isEmpty || 
-                                homeAddress.text.isEmpty || basicWage.text.isEmpty || password.text.isEmpty || confirmPassword.text.isEmpty || pick.image == null) {
+                                homeAddress.text.isEmpty || basicWage.text.isEmpty || password.text.isEmpty || confirmPassword.text.isEmpty) {
                               SnackNotification.notif(
                                 'Error',
                                 'Please supply all fields',
-                                Colors.red.shade600,
-                              );
-                            } else if(password.text != confirmPassword.text){
+                                Colors.red.shade600);
+                            } else if (pick.image == null) {                                                                             
                               SnackNotification.notif(
-                                  "Error","Password did not match", Colors.red.shade600);
-                            } else {   
+                                "Error",
+                                "Please upload an account image (jpg, png, or jpeg)",
+                                Colors.red.shade600);
+                            } else if(password.text != confirmPassword.text){                        
+                              SnackNotification.notif(
+                                "Error","Password did not match", Colors.red.shade600);
+                            } else {                               
                               //creation of employee method
-                              emp
-                                  .createEmployeeAccount(
-                                      collector.replaceAll(' ', '').toString(),
-                                      firstname.text,
-                                      lastname.text,
-                                      mobileNumber.text,
-                                      homeAddress.text,
-                                      double.parse(basicWage.text),
-                                      username.text,
-                                      hash.encrypt(password.text),
-                                      pick.getImageBytes())
-                                  .then((value) {
-                                if (value) {
-                                  Navigator.pop(context);
-                                  SnackNotification.notif(
-                                    'Success',
-                                    'Employee account is created',
-                                    Colors.green.shade600,
+                              emp            
+                              .createEmployeeAccount(                     
+                                collector.replaceAll(' ', '').toString(),
+                                firstname.text,
+                                lastname.text,
+                                mobileNumber.text,
+                                homeAddress.text,
+                                double.parse(basicWage.text),
+                                username.text,
+                                hash.encrypt(password.text),
+                                pick.getImageBytes())
+                                .then((value) {
+                                 if (value) {
+                                   Navigator.pop(context);
+                                   SnackNotification.notif(
+                                     'Success',
+                                     'Employee account is created',
+                                     Colors.green.shade600,
                                   );
                                 }
                               });

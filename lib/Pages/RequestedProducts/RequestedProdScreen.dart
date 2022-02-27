@@ -322,11 +322,10 @@ class _RequestedProdScreen extends State<RequestedProdScreen> {
                         ),
                         TextButton(
                           style: TextButton.styleFrom(
-                              padding: const EdgeInsets.only(
-                                  left: 20, right: 20, top: 10, bottom: 10),
-                              primary: Colors.white,
-                              textStyle: TextStyle(
-                                  fontSize: 18, fontFamily: 'Cairo_SemiBold')),
+                            padding: const EdgeInsets.only(left: 20, right: 20, top: 12, bottom: 12),
+                            primary: Colors.white,
+                            textStyle: TextStyle(fontSize: 18, fontFamily: 'Cairo_SemiBold')
+                          ),
                           child: const Text('IN-STORE'),
                           onPressed: () {
                             approveRequest(

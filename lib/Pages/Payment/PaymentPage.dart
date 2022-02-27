@@ -78,14 +78,14 @@ class _PaymentPage extends State<PaymentPage> {
                 if (snapshot.hasData) {
                   return ListView(
                     scrollDirection: Axis.vertical,
-                    padding: const EdgeInsets.only(
-                        bottom: 15, right: 100, left: 100),
+                    padding: const EdgeInsets.only(bottom: 15, right: 100, left: 100),
                     children: [
                       PaginatedDataTable(
                         sortColumnIndex: _currentSortColumn,
                         sortAscending: _isAscending,
                         showCheckboxColumn: false,
-                        rowsPerPage: 15,
+                        showFirstLastButtons: true,
+                        rowsPerPage: 14,
                         columns: [
                           DataColumn(label: Text('BID')),
                           DataColumn(label: Text('NAME')),

@@ -195,6 +195,7 @@ class _AddRequest extends State<AddRequest> {
                 decoration: InputDecoration(
                   labelStyle: TextStyle(fontSize: 12),
                   hintText: 'Date Requested',
+                  filled: true,
                   fillColor: Colors.blueGrey[50],
                   contentPadding: EdgeInsets.only(left: 15),
                   enabledBorder: OutlineInputBorder(

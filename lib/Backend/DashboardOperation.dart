@@ -30,8 +30,14 @@ class DashboardOperation implements IDashboard {
   }
 
   @override
-  void getMonthDates() {
-    // TODO: implement getMonthDates
+  List<String> getMonthDates() {
+    var monthDay = _now;
+    var firstDayOfMonth =
+        _formatter.format(DateTime.utc(monthDay.year, monthDay.month, 1));
+    var lastDayOfMonth = 
+        _formatter.format(DateTime.utc(monthDay.year, monthDay.month + 1).subtract(Duration(days: 1)));
+        
+    return [firstDayOfMonth, lastDayOfMonth];
   }
 
   @override
@@ -76,7 +82,23 @@ class DashboardOperation implements IDashboard {
   }
 
   @override
-  Future<double> getMonthCollection() {
-    throw UnimplementedError();
+  Future<double> getMonthCollection() async {
+    List<String> dates = getMonthDates();
+    try {
+      final response = await http
+          .get(Uri.parse(Url.url + "api/month/" + dates[0] + "/" + dates[1]));
+
+      var monthTotalCollection = jsonDecode(response.body)[0];
+
+      var collection = CollectionModel.fromJsonMonth(monthTotalCollection);
+
+      if (response.statusCode == 404) {
+        return 0;
+      }
+
+      return collection.getMonth;
+    } catch (e) {
+      return 0;
+    }
   }
 }

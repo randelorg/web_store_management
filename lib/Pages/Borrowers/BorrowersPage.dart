@@ -99,7 +99,7 @@ class _BorrowersPage extends State<BorrowersPage> {
                         showFirstLastButtons: true,
                         sortAscending: _sortAscending,
                         sortColumnIndex: 1,
-                        rowsPerPage: 15,
+                        rowsPerPage: 14,
                         columns: [
                           DataColumn(label: Text('BID')),
                           DataColumn(

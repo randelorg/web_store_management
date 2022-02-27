@@ -211,6 +211,7 @@ class _PaymentPlanPage extends State<PaymentPlanPage> {
                   labelStyle: TextStyle(fontSize: 12),
                   contentPadding: EdgeInsets.only(left: 15),
                   hintText: 'Due Date',
+                  filled: true,
                   fillColor: Colors.blueGrey[50],
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.grey.shade500),

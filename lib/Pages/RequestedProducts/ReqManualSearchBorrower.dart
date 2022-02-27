@@ -86,9 +86,9 @@ class _ReqManualBorrowerSearch extends State<ReqManualBorrowerSearch> {
                                 setState(() {
                                   confirmedname.text =
                                       borrowerDetail[1].toString();
-                                  getName();
+                                  getName();      
                                 });
-                              }
+                              }    
                             },
                           ),
                           enabledBorder: OutlineInputBorder(
@@ -107,11 +107,10 @@ class _ReqManualBorrowerSearch extends State<ReqManualBorrowerSearch> {
 
                     Container(
                       margin: const EdgeInsets.only(top: 20),
-                      height: 40,
-                      width: 110,
+                      height: 45, width: 110,
                       decoration: BoxDecoration(
                           color: HexColor("#155293"),
-                          borderRadius: BorderRadius.circular(80)),
+                          borderRadius: BorderRadius.circular(20)),
                       child: TextButton(
                         child: Text(
                           'Confirm',

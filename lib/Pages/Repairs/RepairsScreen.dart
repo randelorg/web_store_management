@@ -54,8 +54,7 @@ class _RepairsPage extends State<RepairsPage> {
                           icon:
                               Icon(Icons.add_box_rounded, color: Colors.white),
                           style: TextButton.styleFrom(
-                            padding: const EdgeInsets.only(
-                                left: 10, right: 10, top: 10, bottom: 10),
+                            padding: const EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 10),
                             primary: Colors.white,
                             textStyle: TextStyle(
                                 fontSize: 18, fontFamily: 'Cairo_SemiBold'),
@@ -328,11 +327,10 @@ class _RepairsPage extends State<RepairsPage> {
                         ),
                         TextButton(
                           style: TextButton.styleFrom(
-                              padding: const EdgeInsets.only(
-                                  left: 20, right: 20, top: 10, bottom: 10),
-                              primary: Colors.white,
-                              textStyle: TextStyle(
-                                  fontSize: 18, fontFamily: 'Cairo_SemiBold')),
+                            padding: const EdgeInsets.only(left: 20, right: 20, top: 12, bottom: 12),
+                            primary: Colors.white,
+                            textStyle: TextStyle(fontSize: 18, fontFamily: 'Cairo_SemiBold')
+                          ),
                           child: const Text('REPAIRED'),
                           onPressed: () {
                             updateRepair(
