@@ -242,7 +242,9 @@ class _CreditPage extends State<CreditScreen> {
                 ),
                 child: Text(
                   'Show Application',
-                  style: TextStyle(color: Colors.blue),
+                  style: TextStyle(     
+                    color: HexColor("#155293"),
+                    ),
                 ),
                 onPressed: () {},
               ),

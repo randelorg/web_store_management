@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:web_store_management/Backend/GlobalController.dart';
 import 'package:web_store_management/Backend/HistoryOperation.dart';
 import 'package:web_store_management/Pages/Reports/GlobalHistoryScreens/PaymentHistoryScreen.dart';
@@ -28,22 +29,21 @@ class _HistoryScreen extends State<HistoryScreen> {
 
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(10),
+      padding: EdgeInsets.all(50),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Container(
-            width: (MediaQuery.of(context).size.width) / 1.5,
+            width: (MediaQuery.of(context).size.width) / 1.2,
             height: (MediaQuery.of(context).size.height),
             child: ListView(
               scrollDirection: Axis.vertical,
-              padding: EdgeInsets.only(bottom: 15),
               children: [
                 Container(
-                  padding: EdgeInsets.all(15),
+                  padding: EdgeInsets.only(top: 15, bottom: 5, left: 5, right: 5),
                   child: TextField(
                     decoration: InputDecoration(
-                      hintText: 'Search borrower',
+                      hintText: 'Search Borrower',
                       suffixIcon: InkWell(
                         child: IconButton(
                           icon: Icon(Icons.qr_code_scanner_outlined),
@@ -92,9 +92,9 @@ class _HistoryScreen extends State<HistoryScreen> {
       rowsPerPage: 10,
       columns: [
         DataColumn(label: Text('BID')),
-        DataColumn(label: Text('Borrower Name')),
-        DataColumn(label: Text('Payment History')),
-        DataColumn(label: Text('Product History')),
+        DataColumn(label: Text('BORROWER NAME')),
+        DataColumn(label: Text('PAYMENT HISTORY')),
+        DataColumn(label: Text('LOANED PRODUCT HISTORY')),
       ],
       source: _DataSource(context),
     );
@@ -200,13 +200,13 @@ class _DataSource extends DataTableSource {
             Mapping.borrowerList[index].toString(),
             Icon(
               Icons.payments,
-              color: Colors.blue,
-              size: 30,
+              color: HexColor("#155293"),
+              size: 25,
             ),
             Icon(
               Icons.inventory,
-              color: Colors.blue,
-              size: 30,
+              color: HexColor("#155293"),
+              size: 25,
             ),
           );
         },

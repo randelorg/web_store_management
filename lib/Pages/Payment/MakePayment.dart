@@ -75,7 +75,7 @@ class _MakePayment extends State<MakePayment> {
                 controller: name,
                 enabled: false,
                 decoration: InputDecoration(
-                  hintText: 'Borrower name',
+                  hintText: 'Borrower Name',
                   filled: true,
                   fillColor: Colors.blueGrey[50],
                   labelStyle: TextStyle(fontSize: 12),

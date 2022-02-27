@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:web_store_management/Notification/Snack_notification.dart';
+import 'package:web_store_management/Pages/LoginPage/ForgotPasswordScreens/ForgotPassword.dart';
 import '../../Backend/LoginOperation.dart';
 import '../../Backend/GlobalController.dart';
 
@@ -132,14 +133,26 @@ class _BodyLogin extends State<BodyLogin> {
             ),
           ),
         ),
-        TextButton(
-          child: Text(
-            'Forgot password?',
-            style: TextStyle(
-              fontSize: 11,
+        Padding(
+          padding: const EdgeInsets.only(left: 180),
+          child: TextButton(
+            child: Text(
+              'Forgot password?',
+              style: TextStyle(
+                fontSize: 12,
+                fontFamily: 'Cairo_SemiBold',
+                color: HexColor("#155293"),
+              ),
             ),
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return ForgotPassword();
+                },
+              );
+            },
           ),
-          onPressed: () {},
         ),
         SizedBox(height: 20),
         Container(

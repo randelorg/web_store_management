@@ -74,7 +74,7 @@ class _InventoryPage extends State<InventoryPage> {
                     suffixIcon: IconButton(
                       onPressed: () {},
                       icon: Icon(Icons.scanner_sharp),
-                      tooltip: 'Scan product barcode',
+                      tooltip: 'Scan Product Barcode',
                     ),
                     filled: true,
                     fillColor: Colors.blueGrey[50],
@@ -217,7 +217,7 @@ class _InventoryPage extends State<InventoryPage> {
                                 .then((value) {
                               if (value) {
                                 SnackNotification.notif(
-                                  'Error',
+                                  'Success',
                                   "Product " + prodName.text + " is now added",
                                   Colors.green.shade600,
                                 );
@@ -301,8 +301,7 @@ class _InventoryPage extends State<InventoryPage> {
                   ),
                 ),
                 Container(
-                  padding: const EdgeInsets.only(
-                      top: 15, bottom: 15, left: 20, right: 5),
+                  padding: const EdgeInsets.only(top: 15, bottom: 15, left: 20, right: 5),
                   width: 350,
                   child: TextField(
                     decoration: InputDecoration(
@@ -366,7 +365,7 @@ class _InventoryPage extends State<InventoryPage> {
                       DataColumn(label: Text('UNIT')),
                       DataColumn(label: Text('PRICE')),
                       DataColumn(label: Text('ACTION')),
-                      DataColumn(label: Text('TRANSFER \n STOCKS')),
+                      DataColumn(label: Text('TRANSFER \n STOCKS',textAlign: TextAlign.center)),
                     ],
                     source: _DataSource(context),
                   );
@@ -496,12 +495,7 @@ class _DataSource extends DataTableSource {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(
-                    top: 8,
-                    bottom: 8,
-                    left: 16,
-                    right: 16,
-                  ),
+                  padding: EdgeInsets.only(top: 8, bottom: 8, left: 16, right: 16),
                   child: Text(
                     'UPDATE',
                     style: TextStyle(
@@ -513,10 +507,11 @@ class _DataSource extends DataTableSource {
                 ),
               ],
             ),
-          ),
+          ),   
           Icon(
             Icons.transfer_within_a_station,
             color: HexColor("#155293"),
+            size: 25,
           ),
         );
       });
