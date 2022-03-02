@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:web_store_management/Backend/AdminOperation.dart';
+import 'package:web_store_management/Notification/Snack_notification.dart';
+
+import '../../../Backend/Utility/Mapping.dart';
 
 class ChangePass extends StatefulWidget {
   @override
@@ -7,9 +11,18 @@ class ChangePass extends StatefulWidget {
 }
 
 class _ChangePass extends State<ChangePass> {
+  var admin = AdminOperation();
   final newPassword = TextEditingController();
   final confirmPassword = TextEditingController();
   String error = '';
+  String? name;
+  @override
+  void initState() {
+    setState(() {
+      name = Mapping.forgetPassword.last.toString();
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +44,10 @@ class _ChangePass extends State<ChangePass> {
                   Navigator.of(context).pop();
                 },
               ),
+            ),
+            Text('Hello $name you will be changing your password'),
+            SizedBox(
+              height: 10,
             ),
             Text(
               'Change Password',
@@ -143,7 +160,22 @@ class _ChangePass extends State<ChangePass> {
                             color: Colors.white),
                       ),
                       child: const Text('CONFIRM'),
-                      onPressed: () {},
+                      onPressed: () {
+                        admin
+                            .changePassword(
+                                Mapping.forgetPassword.last.getAdminID,
+                                newPassword.text)
+                            .then((value) {
+                          if (value) {
+                            Navigator.pop(context);
+                            SnackNotification.notif(
+                              'Success',
+                              'Password changed, please now log in',
+                              Colors.green.shade900,
+                            );
+                          }
+                        });
+                      },
                     ),
                   ],
                 ),

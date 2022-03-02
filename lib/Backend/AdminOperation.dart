@@ -11,6 +11,41 @@ import 'dart:convert';
 class AdminOperation implements IAdmin {
   final hash = Hashing();
 
+  Future<bool> changePassword(final String id, final String password) async {
+    var payload = json.encode({
+      "id": id,
+      "password": hash.encrypt(password),
+    });
+
+    try {
+      final response = await http.post(
+        Uri.parse("http://localhost:8090/api/checkpoinchangepass"),
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        body: payload,
+      );
+
+      if (response.statusCode == 404) {
+        SnackNotification.notif(
+          'Error',
+          'Unexpected error occured',
+          Colors.red,
+        );
+      }
+    } catch (e) {
+      e.toString();
+      //return false;
+      SnackNotification.notif(
+        'Error',
+        'Unexpected error occured',
+        Colors.red,
+      );
+    }
+    return true;
+  }
+
   @override
   Future<void> createAdminAccount(
       String? firstname,
@@ -23,7 +58,7 @@ class AdminOperation implements IAdmin {
     //json body
     var addAdmin = json.encode({
       'Username': username,
-      'Password': password,
+      'Password': hash.encrypt(password.toString()),
       'Firstname': firstname,
       'Lastname': lastname,
       'MobileNumber': mobileNumber,

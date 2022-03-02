@@ -1,4 +1,5 @@
 import 'package:web_store_management/Models/BranchModel.dart';
+import 'package:web_store_management/Models/ForgetPasswordModel.dart';
 import 'package:web_store_management/Models/LoanedProductHistoryModel.dart';
 import '../../Models/PaymentHistoryModel.dart';
 import '../../Models/AdminModel.dart';
@@ -29,4 +30,7 @@ class Mapping {
   static List<BorrowerModel> repairs = [];
   static List<BorrowerModel> requested = [];
   static List<BranchModel> branchList = [];
+
+  //forget password
+  static List<ForgetPasswordModel> forgetPassword = [];
 }

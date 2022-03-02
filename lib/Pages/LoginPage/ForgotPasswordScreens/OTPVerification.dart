@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:web_store_management/Pages/LoginPage/ForgotPasswordScreens/ChangePass.dart';
+
+import '../../../Notification/Snack_notification.dart';
 
 class OTPVerification extends StatefulWidget {
-  final String? code;
-  OTPVerification({this.code});
+  final int? code;
+  OTPVerification({required this.code});
   @override
   _OTPVerification createState() => _OTPVerification();
 }
@@ -11,6 +14,13 @@ class OTPVerification extends StatefulWidget {
 class _OTPVerification extends State<OTPVerification> {
   final verifyOTP = TextEditingController();
   String continueTimer = "Continue";
+
+  bool checkOtp(int code) {
+    if (code == widget.code)
+      return true;
+    else
+      return false;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -97,7 +107,21 @@ class _OTPVerification extends State<OTPVerification> {
                       ),
                       child: Text(continueTimer),
                       onPressed: () {
-                        print(widget.code.toString());
+                        if (checkOtp(int.parse(verifyOTP.text))) {
+                          Navigator.of(context).pop();
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return ChangePass();
+                            },
+                          );
+                        } else {
+                          SnackNotification.notif(
+                            'Try again',
+                            'Wrong OTP',
+                            Colors.red.shade600,
+                          );
+                        }
                       },
                     ),
                   ],

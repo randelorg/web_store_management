@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:web_store_management/Backend/TextMessage.dart';
+import 'package:web_store_management/Notification/Snack_notification.dart';
 import 'package:web_store_management/Pages/LoginPage/ForgotPasswordScreens/OTPVerification.dart';
 
 class ForgotPassword extends StatefulWidget {
@@ -100,16 +101,22 @@ class _ForgotPassword extends State<ForgotPassword> {
                       ),
                       child: const Text('GET OTP'),
                       onPressed: () {
-                        Navigator.pop(context);
                         message
-                            .getOtp(mobileNumber.text)
-                            .then((value) => otpCode = value);
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return OTPVerification();
-                          },
-                        );
+                            .checkNumberIfExisting(mobileNumber.text)
+                            .then((value) {
+                          if (value == 0) {
+                            SnackNotification.notif('Not found',
+                                'Number does not exit', Colors.red.shade600);
+                          } else {
+                            Navigator.pop(context);
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return OTPVerification(code: value);
+                              },
+                            );
+                          }
+                        });
                       },
                     ),
                   ],

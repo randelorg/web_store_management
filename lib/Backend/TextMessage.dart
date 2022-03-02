@@ -1,8 +1,11 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
+import 'package:web_store_management/Models/ForgetPasswordModel.dart';
 import 'package:web_store_management/Notification/Snack_notification.dart';
 import 'package:web_store_management/Backend/Interfaces/ITextMessage.dart';
+
+import 'Utility/Mapping.dart';
 
 class TextMessage implements ITextMessage {
   //ignore: non_constant_identifier_names
@@ -137,6 +140,51 @@ class TextMessage implements ITextMessage {
     return true;
   }
 
+  Future<int> checkNumberIfExisting(String mobile) async {
+    int otp = 0;
+
+    try {
+      final response = await http.get(
+        Uri.parse("http://localhost:8090/api/otpcheckpoint/" + mobile),
+        headers: {'Accept': 'application/json'},
+      );
+
+      if (response.statusCode == 404) {
+        return 0;
+      } else if (response.statusCode == 202) {
+        Map<String, dynamic> details =
+            jsonDecode(response.body) as Map<String, dynamic>;
+
+        var detail = ForgetPasswordModel.fromJson(details);
+
+        Mapping.forgetPassword.add(ForgetPasswordModel(
+          detail.getPersonID,
+          detail.getAdminID,
+          detail.getMobilenumber,
+          detail.getFirstname,
+          detail.getLastname,
+        ));
+
+        await getOtp(Mapping.forgetPassword.last.getMobilenumber)
+            .then((value) => otp = value);
+
+        return otp;
+      }
+    } catch (e, s) {
+      print(s.toString());
+      print(e.toString());
+      //if there is an error in the method
+      SnackNotification.notif(
+        "Error",
+        "Something went wrong while finding the mobile number",
+        Colors.red.shade600,
+      );
+      return 0;
+    }
+
+    return otp;
+  }
+
   @override
   Future<int> getOtp(String number) async {
     final String message =
@@ -166,9 +214,7 @@ class TextMessage implements ITextMessage {
       if (response.statusCode == 200) {
         return otpCode["code"];
       }
-    } catch (e, s) {
-      print(s.toString());
-      print(e.toString());
+    } catch (e) {
       //if there is an error in the method
       SnackNotification.notif(
         "Error",
