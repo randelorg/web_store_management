@@ -173,7 +173,7 @@ class BorrowerOperation extends Login implements IBorrower, IPay, IServices {
 
     try {
       final response = await http.post(
-        Uri.parse("http://localhost:8090/api/updaterepair"),
+        Uri.parse(Url.url + "api/updaterepair"),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json'
@@ -211,7 +211,7 @@ class BorrowerOperation extends Login implements IBorrower, IPay, IServices {
 
     try {
       final response = await http.post(
-        Uri.parse("http://localhost:8090/api/updaterequest"),
+        Uri.parse(Url.url + "api/updaterequest"),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json'
@@ -247,7 +247,7 @@ class BorrowerOperation extends Login implements IBorrower, IPay, IServices {
       print('id is $id');
       final response = await http.get(
         Uri.parse(
-          "http://localhost:8090/api/contract/" + id.toString(),
+          Url.url + "api/contract/" + id.toString(),
         ),
       );
 

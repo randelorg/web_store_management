@@ -2,13 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 class ChangePass extends StatefulWidget {
-
   @override
   _ChangePass createState() => _ChangePass();
 }
 
 class _ChangePass extends State<ChangePass> {
-
   final newPassword = TextEditingController();
   final confirmPassword = TextEditingController();
   String error = '';
@@ -85,7 +83,7 @@ class _ChangePass extends State<ChangePass> {
                   style: TextStyle(fontSize: 10),
                 ),
               ),
-            ),       
+            ),
             Padding(
               padding: EdgeInsets.only(bottom: 0),
               child: TextField(
@@ -101,7 +99,7 @@ class _ChangePass extends State<ChangePass> {
                       }
                     }
                   });
-                },      
+                },
                 decoration: InputDecoration(
                   hintText: 'Confirm Password',
                   filled: true,
@@ -119,32 +117,33 @@ class _ChangePass extends State<ChangePass> {
                 ),
               ),
             ),
-            Text(         
+            Text(
               error,
               style: TextStyle(fontSize: 10),
             ),
             Padding(
-               padding: const EdgeInsets.only(top: 20),
+              padding: const EdgeInsets.only(top: 20),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(5),
                 child: Stack(
                   children: <Widget>[
                     Positioned.fill(
-                      child: Container(                     
-                        decoration:BoxDecoration(color: HexColor("#155293")),
+                      child: Container(
+                        decoration: BoxDecoration(color: HexColor("#155293")),
                       ),
                     ),
                     TextButton(
                       style: TextButton.styleFrom(
-                        padding: const EdgeInsets.only(left: 20, right: 20, top: 15, bottom: 15),
+                        padding: const EdgeInsets.only(
+                            left: 20, right: 20, top: 15, bottom: 15),
                         primary: Colors.white,
                         textStyle: TextStyle(
-                          fontFamily: 'Cairo_SemiBold',
-                          fontSize: 14,
-                          color: Colors.white),
-                      ),                      
-                      onPressed: () { },
+                            fontFamily: 'Cairo_SemiBold',
+                            fontSize: 14,
+                            color: Colors.white),
+                      ),
                       child: const Text('CONFIRM'),
+                      onPressed: () {},
                     ),
                   ],
                 ),
@@ -156,5 +155,3 @@ class _ChangePass extends State<ChangePass> {
     );
   }
 }
-    
-     

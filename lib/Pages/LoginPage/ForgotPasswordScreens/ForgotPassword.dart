@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:web_store_management/Backend/TextMessage.dart';
+import 'package:web_store_management/Pages/LoginPage/ForgotPasswordScreens/OTPVerification.dart';
 
 class ForgotPassword extends StatefulWidget {
-
   @override
   _ForgotPassword createState() => _ForgotPassword();
 }
 
 class _ForgotPassword extends State<ForgotPassword> {
-
   final mobileNumber = TextEditingController();
-  
+  var message = TextMessage();
+  var otpCode;
+
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -56,7 +58,7 @@ class _ForgotPassword extends State<ForgotPassword> {
               padding: EdgeInsets.only(bottom: 20),
               child: TextField(
                 controller: mobileNumber,
-                maxLength: 4,
+                maxLength: 12,
                 decoration: InputDecoration(
                   counterText: '',
                   hintText: 'Mobile Number',
@@ -75,28 +77,40 @@ class _ForgotPassword extends State<ForgotPassword> {
                 ),
               ),
             ),
-            Padding(            
+            Padding(
               padding: const EdgeInsets.only(top: 20),
-              child: ClipRRect(            
+              child: ClipRRect(
                 borderRadius: BorderRadius.circular(5),
                 child: Stack(
                   children: <Widget>[
                     Positioned.fill(
                       child: Container(
-                        decoration:BoxDecoration(color: HexColor("#155293")),
+                        decoration: BoxDecoration(color: HexColor("#155293")),
                       ),
-                    ),                                             
+                    ),
                     TextButton(
                       style: TextButton.styleFrom(
-                        padding: const EdgeInsets.only(left: 20, right: 20, top: 15, bottom: 15),
+                        padding: const EdgeInsets.only(
+                            left: 20, right: 20, top: 15, bottom: 15),
                         primary: Colors.white,
-                        textStyle: TextStyle(                 
-                          fontFamily: 'Cairo_SemiBold',
-                          fontSize: 14,
-                          color: Colors.white),
-                        ),
-                        onPressed: () { },
-                        child: const Text('GET OTP'),
+                        textStyle: TextStyle(
+                            fontFamily: 'Cairo_SemiBold',
+                            fontSize: 14,
+                            color: Colors.white),
+                      ),
+                      child: const Text('GET OTP'),
+                      onPressed: () {
+                        Navigator.pop(context);
+                        message
+                            .getOtp(mobileNumber.text)
+                            .then((value) => otpCode = value);
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return OTPVerification();
+                          },
+                        );
+                      },
                     ),
                   ],
                 ),
@@ -108,5 +122,3 @@ class _ForgotPassword extends State<ForgotPassword> {
     );
   }
 }
-    
-     

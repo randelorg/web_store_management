@@ -20,7 +20,7 @@ class ITextMessage {
     return Future.value(a);
   }
 
-  Future<bool> getOtp(String number) {
+  Future<int> getOtp(String number) {
     var a;
     return Future.value(a);
   }

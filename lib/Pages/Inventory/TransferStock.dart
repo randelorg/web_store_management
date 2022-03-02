@@ -29,9 +29,9 @@ class _TransferStock extends State<TransferStock> {
     setState(() {
       originStore = widget.branches![0].toString();
       destinationBranch = originStore;
+      productName.text = widget.productName.toString();
+      maxqty.text = widget.qty.toString();
     });
-    productName.text = widget.productName.toString();
-    maxqty.text = widget.qty.toString();
     super.initState();
   }
 

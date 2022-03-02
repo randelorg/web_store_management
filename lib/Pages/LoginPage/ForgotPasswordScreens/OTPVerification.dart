@@ -2,15 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 class OTPVerification extends StatefulWidget {
-
+  final String? code;
+  OTPVerification({this.code});
   @override
   _OTPVerification createState() => _OTPVerification();
 }
 
 class _OTPVerification extends State<OTPVerification> {
-
   final verifyOTP = TextEditingController();
-  
+  String continueTimer = "Continue";
+
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -73,28 +74,31 @@ class _OTPVerification extends State<OTPVerification> {
                 ),
               ),
             ),
-            Padding(            
+            Padding(
               padding: const EdgeInsets.only(top: 20),
-              child: ClipRRect(            
+              child: ClipRRect(
                 borderRadius: BorderRadius.circular(5),
                 child: Stack(
                   children: <Widget>[
                     Positioned.fill(
                       child: Container(
-                        decoration:BoxDecoration(color: HexColor("#155293")),
+                        decoration: BoxDecoration(color: HexColor("#155293")),
                       ),
-                    ),                                             
+                    ),
                     TextButton(
                       style: TextButton.styleFrom(
-                        padding: const EdgeInsets.only(left: 20, right: 20, top: 15, bottom: 15),
+                        padding: const EdgeInsets.only(
+                            left: 20, right: 20, top: 15, bottom: 15),
                         primary: Colors.white,
-                        textStyle: TextStyle(                 
-                          fontFamily: 'Cairo_SemiBold',
-                          fontSize: 14,
-                          color: Colors.white),
-                        ),
-                        onPressed: () { },
-                        child: const Text('CONTINUE'),
+                        textStyle: TextStyle(
+                            fontFamily: 'Cairo_SemiBold',
+                            fontSize: 14,
+                            color: Colors.white),
+                      ),
+                      child: Text(continueTimer),
+                      onPressed: () {
+                        print(widget.code.toString());
+                      },
                     ),
                   ],
                 ),
@@ -106,5 +110,3 @@ class _OTPVerification extends State<OTPVerification> {
     );
   }
 }
-    
-     

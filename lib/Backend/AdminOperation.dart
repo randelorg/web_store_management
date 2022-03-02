@@ -33,7 +33,7 @@ class AdminOperation implements IAdmin {
 
     try {
       final response = await http.post(
-        Uri.parse("http://localhost:8090/api/admin"),
+        Uri.parse(Url.url + "api/admin"),
         headers: {
           "Content-Type": "application/json",
           "Accept": "application/json"

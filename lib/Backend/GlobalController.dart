@@ -42,8 +42,7 @@ class GlobalController {
   }
 
   Future<List<BorrowerModel>> fetchBorrowers() async {
-    final response =
-        await http.get(Uri.parse("http://localhost:8090/api/borrowers"));
+    final response = await http.get(Uri.parse(Url.url + "api/borrowers"));
     final parsed = jsonDecode(response.body).cast<Map<String, dynamic>>();
     Mapping.borrowerList = parsed
         .map<BorrowerModel>((json) => BorrowerModel.fromJsonPartial(json))
@@ -90,8 +89,7 @@ class GlobalController {
 
   //fetch all the branches from the database
   Future<List<BranchModel>> fetchBranches() async {
-    final response =
-        await http.get(Uri.parse("http://localhost:8090/api/branches"));
+    final response = await http.get(Uri.parse(Url.url + "api/branches"));
 
     final parsed = jsonDecode(response.body).cast<Map<String, dynamic>>();
     Mapping.branchList = parsed

@@ -28,10 +28,13 @@ class _InventoryPage extends State<InventoryPage> {
 
   @override
   void initState() {
-    getLocations(); //get all the branches available
     //fetches the products from the database
     this._products = controller.fetchProducts();
-    controller.fetchBranches();
+    setState(() {
+      controller.fetchBranches();
+      //get all the branches available
+      getLocations();
+    });
     super.initState();
   }
 
@@ -190,9 +193,11 @@ class _InventoryPage extends State<InventoryPage> {
                       ),
                       TextButton(
                         style: TextButton.styleFrom(
-                          padding: const EdgeInsets.only(top: 18, bottom: 18, left: 36, right: 36),
+                          padding: const EdgeInsets.only(
+                              top: 18, bottom: 18, left: 36, right: 36),
                           primary: Colors.white,
-                          textStyle: TextStyle(fontFamily: 'Cairo_SemiBold', fontSize: 14),
+                          textStyle: TextStyle(
+                              fontFamily: 'Cairo_SemiBold', fontSize: 14),
                         ),
                         child: const Text('ADD'),
                         onPressed: () {
@@ -301,7 +306,8 @@ class _InventoryPage extends State<InventoryPage> {
                   ),
                 ),
                 Container(
-                  padding: const EdgeInsets.only(top: 15, bottom: 15, left: 20, right: 5),
+                  padding: const EdgeInsets.only(
+                      top: 15, bottom: 15, left: 20, right: 5),
                   width: 350,
                   child: TextField(
                     decoration: InputDecoration(
@@ -365,7 +371,9 @@ class _InventoryPage extends State<InventoryPage> {
                       DataColumn(label: Text('UNIT')),
                       DataColumn(label: Text('PRICE')),
                       DataColumn(label: Text('ACTION')),
-                      DataColumn(label: Text('TRANSFER \n STOCKS',textAlign: TextAlign.center)),
+                      DataColumn(
+                          label: Text('TRANSFER \n STOCKS',
+                              textAlign: TextAlign.center)),
                     ],
                     source: _DataSource(context),
                   );
@@ -495,7 +503,8 @@ class _DataSource extends DataTableSource {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(top: 8, bottom: 8, left: 16, right: 16),
+                  padding:
+                      EdgeInsets.only(top: 8, bottom: 8, left: 16, right: 16),
                   child: Text(
                     'UPDATE',
                     style: TextStyle(
@@ -507,7 +516,7 @@ class _DataSource extends DataTableSource {
                 ),
               ],
             ),
-          ),   
+          ),
           Icon(
             Icons.transfer_within_a_station,
             color: HexColor("#155293"),

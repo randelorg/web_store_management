@@ -40,7 +40,7 @@ class LoanOperation extends BorrowerOperation implements INewLoan {
 
     try {
       final response1 = await http.post(
-        Uri.parse("http://localhost:8090/api/addborrower"),
+        Uri.parse(Url.url + "api/addborrower"),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json'
@@ -49,7 +49,7 @@ class LoanOperation extends BorrowerOperation implements INewLoan {
       );
 
       final response2 = await http.post(
-        Uri.parse("http://localhost:8090/api/addinvestigation"),
+        Uri.parse(Url.url + "api/addinvestigation"),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json'
@@ -83,7 +83,7 @@ class LoanOperation extends BorrowerOperation implements INewLoan {
     for (var item in Mapping.selectedProducts) {
       try {
         final response = await http.post(
-          Uri.parse("http://localhost:8090/api/addloan"),
+          Uri.parse(Url.url + "api/addloan"),
           headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json'
