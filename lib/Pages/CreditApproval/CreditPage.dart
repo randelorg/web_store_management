@@ -339,18 +339,7 @@ class _CreditPage extends State<CreditScreen> {
                             Mapping.creditApprovals[index].getMobileNumber,
                             Mapping.creditApprovals[index].toString(),
                             denied,
-                          );
-                          //show the print screen
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return showPrint(
-                                Mapping.creditApprovals[index].getBorrowerId
-                                    .toString(),
-                                Mapping.creditApprovals[index].toString(),
-                              );
-                            },
-                          );
+                          );                  
                         }
                       });
                     },

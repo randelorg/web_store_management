@@ -25,7 +25,7 @@ class _ReqManualBorrowerSearch extends State<ReqManualBorrowerSearch> {
   void initState() {
     super.initState();
     controller.fetchBorrowers();
-    confirmedname.text = 'No data, Please Enter Name';
+    confirmedname.text = 'No data, Please Enter Name.';
   }
 
   @override

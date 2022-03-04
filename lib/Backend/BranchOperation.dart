@@ -54,9 +54,39 @@ class BranchOperation implements IBranch, IIventory {
   }
 
   @override
-  Future<bool> updateBranch() {
-    var a;
-    return a;
+  Future<bool> updateBranch(String branchCode, String branchName, String branchAddress) async {
+    var updateBranch = json.encode(
+      {
+        "branchCode": branchCode,
+        "branchName": branchName,
+        "branchAddress": branchAddress,
+      },
+    );
+
+    try {
+      final response = await http.post(
+        Uri.parse(Url.url + "api/updateBranch"),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: updateBranch,
+      );
+
+      if (response.statusCode == 202) {
+        return true;
+      }
+    } catch (e) {
+      e.toString();
+      //if there is an error in the method
+      SnackNotification.notif(
+        'Error',
+        "Branch failed to  update",
+        Colors.red.shade600,
+      );
+    }
+
+    return true;
   }
 
   //inventory

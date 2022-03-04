@@ -347,10 +347,10 @@ class _RequestedProdScreen extends State<RequestedProdScreen> {
                     onPressed: () {
                       requestStatus(
                         Mapping.requested[index].getRequestId,
-                         'DENIED',
-                          Mapping.requested[index].toString(),
-                          Mapping.requested[index].getMobileNumber,
-                          Mapping.requested[index].getRequestedProductName,
+                        'DENIED',
+                        Mapping.requested[index].toString(),
+                        Mapping.requested[index].getMobileNumber,
+                        Mapping.requested[index].getRequestedProductName,
                        );
                     },
                   ),

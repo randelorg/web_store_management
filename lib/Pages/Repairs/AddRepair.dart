@@ -207,7 +207,7 @@ class _AddRepair extends State<AddRepair> {
               child: Container(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  'Date of turn over',
+                  'Date of Turn Over',
                   style: TextStyle(fontSize: 10),
                 ),
               ),
@@ -218,7 +218,7 @@ class _AddRepair extends State<AddRepair> {
                 controller: dateinput,
                 decoration: InputDecoration(
                   labelStyle: TextStyle(fontSize: 12),
-                  hintText: 'Date of turn over',
+                  hintText: 'Date of Turn Over',
                   filled: true,
                   fillColor: Colors.blueGrey[50],
                   contentPadding: EdgeInsets.only(left: 15),

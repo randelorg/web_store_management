@@ -331,11 +331,11 @@ class _RepairsPage extends State<RepairsPage> {
                             primary: Colors.white,
                             textStyle: TextStyle(fontSize: 18, fontFamily: 'Cairo_SemiBold')
                           ),
-                          child: const Text('REPAIRED'),
+                          child: const Text('REPAIR'),
                           onPressed: () {
-                            updateRepair(
+                            repairStatus(
                               Mapping.repairs[index].getRepairId,
-                              'REPAIRED',
+                              'REPAIR',
                               Mapping.repairs[index].getRepairProductName,
                               Mapping.repairs[index].toString(),
                               Mapping.repairs[index].getMobileNumber,
@@ -344,6 +344,20 @@ class _RepairsPage extends State<RepairsPage> {
                         ),
                       ],
                     ),
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.delete_forever),
+                    color: Colors.redAccent.shade400,
+                    tooltip: 'UNREPAIRABLE',
+                    onPressed: () {
+                      repairStatus(            
+                        Mapping.repairs[index].getRepairId,
+                        'UNREPAIRABLE',
+                        Mapping.repairs[index].getRepairProductName,
+                        Mapping.repairs[index].toString(),
+                        Mapping.repairs[index].getMobileNumber,
+                       );
+                    },
                   ),
                 ],
               )
@@ -367,7 +381,7 @@ class _RepairsPage extends State<RepairsPage> {
         });
   }
 
-  void updateRepair(
+  void repairStatus(
       int id, final String status, String product, String name, String number) {
     borrower.updateRepair(id, status).then((value) {
       if (!value) {

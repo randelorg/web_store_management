@@ -12,12 +12,20 @@ class TextMessage implements ITextMessage {
   final String _apikey = "a9eca54684a3d81ace2d45da8472cc0f";
   final String _singleMessageUrl = "https://api.semaphore.co/api/v4/messages";
 
+  final String status = "";
+  String message = "";
+
   ///api/v4/messages
   @override
   Future<bool> sendApprovedCredit(
       String name, String number, String status) async {
-    final String message =
-        "Dear $name, \n\nYour credit has been $status. You can now visit the store. \n\nDellrain Store";
+    if (status == "APPROVED") {
+      message =
+          "Dear $name, \n\nYour credit has been $status. You can now visit the store. \n\nDellrain Store";
+    } else {
+      message =
+          "Dear $name, \n\n Sorry your credit has been $status. \n\nDellrain Store";
+    }
 
     var payload = json.encode({
       "apikey": _apikey,
@@ -39,8 +47,6 @@ class TextMessage implements ITextMessage {
       if (response.statusCode == 200) {
         print(response.body);
         return true;
-      } else {
-        print('wow response ' + response.statusCode.toString());
       }
     } catch (e) {
       //if there is an error in the method
@@ -63,9 +69,17 @@ class TextMessage implements ITextMessage {
 
   @override
   Future<bool> sendRequestedProduct(
-      String name, String number, String product) async {
-    final String message =
-        "Dear $name, \n\nThe $product you requested is now at the store. \n\nThank you for using our service. Visit the store anytime within 8:00AM to 5:00PM.\n\nRegards,\n\nTeam Dellrain Repair";
+    String name,
+    String number,
+    String product,
+  ) async {
+    if (status == 'IN-STORE') {
+      message =
+          "Dear $name, \n\nThe $product you requested is now at the store. \n\nThank you for using our service. Visit the store anytime within 8:00AM to 5:00PM. \n\nRegards,\n\nTeam Dellrain Repair";
+    } else {
+      message =
+          "Dear $name, \n\nThe $product you requested is denied. \n\nThank you for using our service. \n\nRegards,\n\nTeam Dellrain Repair";
+    }
 
     var payload = json.encode({
       "apikey": _apikey,
@@ -104,8 +118,12 @@ class TextMessage implements ITextMessage {
   @override
   Future<bool> sendRepairedProduct(
       String name, String number, String product) async {
-    final String message =
+    //if (status == 'REPAIRED') {
+    message =
         "Dear $name,\n\nYour $product has been repaired.\n\nThank you for using our service. Visit the store anytime within 8:00AM to 5:00PM \n\nRegards,\n\nTeam Dellrain Repair";
+    //} else {
+
+    //}
 
     var payload = json.encode({
       "apikey": _apikey,

@@ -19,7 +19,7 @@ class _ManualBorrowerSearch extends State<ManualBorrowerSearch> {
   @override
   void initState() {
     super.initState();
-    confirmedname.text = 'No data, please enter name';
+    confirmedname.text = 'No data, Please Enter Name.';
   }
 
   @override

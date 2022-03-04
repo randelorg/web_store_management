@@ -8,7 +8,11 @@ class IBranch {
     return a;
   }
 
-  Future<bool> updateBranch() {
+  Future<bool> updateBranch(
+    String branchCode,
+    String branchName,
+    String branchAddress,
+  ) {
     var a;
     return a;
   }

@@ -46,7 +46,7 @@ class _ForgotPassword extends State<ForgotPassword> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(top: 25, left: 7),
+              padding: EdgeInsets.only(top: 20, left: 7),
               child: Container(
                 alignment: Alignment.centerLeft,
                 child: Text(
