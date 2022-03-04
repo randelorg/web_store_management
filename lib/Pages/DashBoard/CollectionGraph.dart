@@ -7,6 +7,11 @@ class CollectionGraph extends StatefulWidget {
 }
 
 class _CollectionGraph extends State<CollectionGraph> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
   List<_SalesData> month = [
     _SalesData('Jan', 1000),
     _SalesData('Feb', 8000),
