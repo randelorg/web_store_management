@@ -103,16 +103,16 @@ class _ManualBorrowerSearch extends State<ManualBorrowerSearch> {
                     // Pay Button
                     Container(
                       margin: const EdgeInsets.only(top: 20),
-                      height: 45, width: 110,
+                      height: 40, width: 110,
                       decoration: BoxDecoration(
                           color: HexColor("#155293"),
                           borderRadius: BorderRadius.circular(20)),
                       child: TextButton(
                         child: Text(
-                          'Confirm',
+                          'CONFIRM',
                           style: TextStyle(
                               fontFamily: 'Cairo_SemiBold',
-                              fontSize: 20,
+                              fontSize: 16,
                               color: Colors.white),
                         ),
                         onPressed: () {

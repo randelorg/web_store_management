@@ -141,7 +141,7 @@ class LoanOperation extends BorrowerOperation implements INewLoan {
       if (response.statusCode == 202) {
         SnackNotification.notif(
           'Success',
-          'Loan is now approved - Go now to borrowers',
+          'Loan is now approved - Go now to Borrowers',
           Colors.green.shade900,
         );
         return true;

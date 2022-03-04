@@ -64,8 +64,9 @@ class _UpdateProduct extends State<UpdateProduct> {
                 fontSize: 30,
               ),
             ),
+
             Padding(
-              padding: EdgeInsets.only(top: 25, left: 7),
+              padding: EdgeInsets.only(top: 20, left: 2),
               child: Container(
                 alignment: Alignment.centerLeft,
                 child: Text(
@@ -73,10 +74,9 @@ class _UpdateProduct extends State<UpdateProduct> {
                   style: TextStyle(fontSize: 10),
                 ),
               ),
-            ),
+            ),  
             Padding(
-              padding: const EdgeInsets.only(
-                  left: 6.0, right: 6.0, bottom: 6.0, top: 1.0),
+              padding: EdgeInsets.only(bottom: 15),
               child: TextField(
                 controller: prodName,
                 decoration: InputDecoration(
@@ -96,22 +96,19 @@ class _UpdateProduct extends State<UpdateProduct> {
                 ),
               ),
             ),
+
             Padding(
-              padding: EdgeInsets.only(left: 7),
+              padding: EdgeInsets.only(left: 2),
               child: Container(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  "Quantity Available: " + prodQtySuffix.text,
-                  style: TextStyle(
-                    fontSize: 11,
-                    color: HexColor("#155293"),
-                  ),
+                  'Quantity Available: ' + prodQtySuffix.text,
+                  style: TextStyle(fontSize: 10),
                 ),
               ),
-            ),
+            ),  
             Padding(
-              padding: const EdgeInsets.only(
-                  left: 6.0, right: 6.0, bottom: 6.0, top: 1.0),
+              padding: EdgeInsets.only(bottom: 15),   
               child: TextField(
                 controller: prodQuantity,
                 onChanged: (value) {
@@ -139,8 +136,9 @@ class _UpdateProduct extends State<UpdateProduct> {
                 ),
               ),
             ),
+       
             Padding(
-              padding: EdgeInsets.only(left: 7),
+              padding: EdgeInsets.only(left: 2),
               child: Container(
                 alignment: Alignment.centerLeft,
                 child: Text(
@@ -148,10 +146,9 @@ class _UpdateProduct extends State<UpdateProduct> {
                   style: TextStyle(fontSize: 10),
                 ),
               ),
-            ),
+            ), 
             Padding(
-              padding: const EdgeInsets.only(
-                  left: 6.0, right: 6.0, bottom: 6.0, top: 1.0),
+              padding: EdgeInsets.only(bottom: 15),
               child: TextField(
                 controller: prodUnit,
                 decoration: InputDecoration(
@@ -171,8 +168,9 @@ class _UpdateProduct extends State<UpdateProduct> {
                 ),
               ),
             ),
+
             Padding(
-              padding: EdgeInsets.only(left: 7),
+              padding: EdgeInsets.only(left: 2),
               child: Container(
                 alignment: Alignment.centerLeft,
                 child: Text(
@@ -182,8 +180,7 @@ class _UpdateProduct extends State<UpdateProduct> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(
-                  left: 6.0, right: 6.0, bottom: 6.0, top: 1.0),
+              padding: EdgeInsets.only(bottom: 15),
               child: TextField(
                 controller: prodPrice,
                 decoration: InputDecoration(
@@ -204,7 +201,7 @@ class _UpdateProduct extends State<UpdateProduct> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.only(top: 20),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(20),
                 child: Stack(
@@ -218,8 +215,7 @@ class _UpdateProduct extends State<UpdateProduct> {
                     ),
                     TextButton(
                       style: TextButton.styleFrom(
-                        padding: const EdgeInsets.only(
-                            top: 18, bottom: 18, left: 36, right: 36),
+                        padding: const EdgeInsets.only(left: 36, right: 36, top: 18, bottom: 18),
                         primary: Colors.white,
                         textStyle: TextStyle(
                             fontFamily: 'Cairo_SemiBold',

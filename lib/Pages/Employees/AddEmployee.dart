@@ -65,20 +65,17 @@ class _AddEmployee extends State<AddEmployee> {
                 fontSize: 30,
               ),
             ),
+
             Padding(
-              padding: EdgeInsets.only(top: 25, bottom: 10),
+              padding: EdgeInsets.only(top: 20, left: 2),
               child: Container(
-                child: Container(
-                  alignment: Alignment.topLeft,
-                  child: Text('Select Role for the Employee Account',
-                      style: TextStyle(
-                        fontFamily: 'Cairo_SemiBold',
-                        fontSize: 16,
-                        color: HexColor("#155293"),
-                      )),
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Select Role for the Employee Account',
+                  style: TextStyle(fontSize: 10),
                 ),
               ),
-            ),
+            ),  
             Padding(
               padding: EdgeInsets.only(bottom: 15),
               child: Container(
@@ -121,11 +118,19 @@ class _AddEmployee extends State<AddEmployee> {
                 ),
               ),
             ),
-            Divider(
-              thickness: 3,
+
+            Padding(       
+              padding: EdgeInsets.only(left: 2),
+              child: Container(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Username',
+                  style: TextStyle(fontSize: 10),
+                ),
+              ),
             ),
             Padding(
-              padding: EdgeInsets.only(bottom: 20),
+              padding: EdgeInsets.only(bottom: 15),
               child: TextField(
                 controller: username,
                 decoration: InputDecoration(
@@ -145,6 +150,16 @@ class _AddEmployee extends State<AddEmployee> {
                 ),
               ),
             ),
+            Padding(       
+              padding: EdgeInsets.only(left: 2),
+              child: Container(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Fullname',
+                  style: TextStyle(fontSize: 10),
+                ),
+              ),
+            ),
             Stack(
               children: [
                 Row(
@@ -154,7 +169,7 @@ class _AddEmployee extends State<AddEmployee> {
                       alignment: Alignment.topLeft,
                       width: 155,
                       child: Padding(
-                        padding: EdgeInsets.only(bottom: 20),
+                        padding: EdgeInsets.only(bottom: 15),
                         child: TextField(
                           controller: firstname,
                           decoration: InputDecoration(
@@ -186,7 +201,7 @@ class _AddEmployee extends State<AddEmployee> {
                       alignment: Alignment.topRight,
                       width: 155,
                       child: Padding(
-                        padding: EdgeInsets.only(bottom: 20),
+                        padding: EdgeInsets.only(bottom: 15),
                         child: TextField(
                           controller: lastname,
                           decoration: InputDecoration(
@@ -213,8 +228,19 @@ class _AddEmployee extends State<AddEmployee> {
                 ),
               ],
             ),
+
+            Padding(       
+              padding: EdgeInsets.only(left: 2),
+              child: Container(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Mobile Number',
+                  style: TextStyle(fontSize: 10),
+                ),
+              ),
+            ),
             Padding(
-              padding: EdgeInsets.only(bottom: 20),
+              padding: EdgeInsets.only(bottom: 15),
               child: TextField(
                 controller: mobileNumber,
                 maxLength: 12,
@@ -236,8 +262,19 @@ class _AddEmployee extends State<AddEmployee> {
                 ),
               ),
             ),
+
+            Padding(       
+              padding: EdgeInsets.only(left: 2),
+              child: Container(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Basic Wage',
+                  style: TextStyle(fontSize: 10),
+                ),
+              ),
+            ),
             Padding(
-              padding: EdgeInsets.only(bottom: 20),
+              padding: EdgeInsets.only(bottom: 15),
               child: TextField(
                 controller: basicWage,
                 decoration: InputDecoration(
@@ -257,8 +294,19 @@ class _AddEmployee extends State<AddEmployee> {
                 ),
               ),
             ),
+
+            Padding(       
+              padding: EdgeInsets.only(left: 2),
+              child: Container(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Home Address',
+                  style: TextStyle(fontSize: 10),
+                ),
+              ),
+            ),
             Padding(
-              padding: EdgeInsets.only(bottom: 20),
+              padding: EdgeInsets.only(bottom: 15),
               child: TextField(
                 controller: homeAddress,
                 decoration: InputDecoration(
@@ -278,8 +326,19 @@ class _AddEmployee extends State<AddEmployee> {
                 ),
               ),
             ),
+
+            Padding(       
+              padding: EdgeInsets.only(left: 2),
+              child: Container(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Password',
+                  style: TextStyle(fontSize: 10),
+                ),
+              ),
+            ),
             Padding(
-              padding: EdgeInsets.only(bottom: 20),
+              padding: EdgeInsets.only(bottom: 15),
               child: TextField(
                 controller: password,
                 obscureText: true,
@@ -297,6 +356,17 @@ class _AddEmployee extends State<AddEmployee> {
                     borderSide: BorderSide(color: Colors.blueGrey.shade50),
                     borderRadius: BorderRadius.circular(5),
                   ),
+                ),
+              ),
+            ),
+
+            Padding(       
+              padding: EdgeInsets.only(left: 2),
+              child: Container(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Confirm Password',
+                  style: TextStyle(fontSize: 10),
                 ),
               ),
             ),

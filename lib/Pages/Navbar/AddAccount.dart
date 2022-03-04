@@ -58,25 +58,21 @@ class _AddAccount extends State<AddAccount> {
                 overflow: TextOverflow.fade,
               ),
             ),
+
             Padding(
-              padding: EdgeInsets.only(top: 25, bottom: 5),
+              padding: EdgeInsets.only(top: 20, left: 2),
               child: Container(
-                alignment: Alignment.topLeft,
-                child: Text('New Admin',
-                    style: TextStyle(
-                      fontFamily: 'Cairo_SemiBold',
-                      fontSize: 16,
-                      color: HexColor("#155293"),
-                    )),
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Username',
+                  style: TextStyle(fontSize: 10),
+                ),
               ),
-            ),
-            Divider(
-              thickness: 3,
             ),
             Container(
               width: 320,
               child: Padding(
-                padding: EdgeInsets.only(bottom: 20),
+                padding: EdgeInsets.only(bottom: 15),
                 child: TextField(
                   controller: username,
                   decoration: InputDecoration(
@@ -97,6 +93,17 @@ class _AddAccount extends State<AddAccount> {
                 ),
               ),
             ),
+
+            Padding(
+              padding: EdgeInsets.only(left: 2),
+              child: Container(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Fullname',
+                  style: TextStyle(fontSize: 10),
+                ),
+              ),
+            ),   
             Stack(
               children: [
                 Row(
@@ -138,7 +145,7 @@ class _AddAccount extends State<AddAccount> {
                       alignment: Alignment.topRight,
                       width: 155,
                       child: Padding(
-                        padding: EdgeInsets.only(bottom: 20),
+                        padding: EdgeInsets.only(bottom: 15),
                         child: TextField(
                           controller: lastname,
                           decoration: InputDecoration(
@@ -165,8 +172,19 @@ class _AddAccount extends State<AddAccount> {
                 ),
               ],
             ),
+
+             Padding(
+              padding: EdgeInsets.only(left: 2),
+              child: Container(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Mobile Number',
+                  style: TextStyle(fontSize: 10),
+                ),
+              ),
+            ), 
             Padding(
-              padding: EdgeInsets.only(bottom: 20),
+             padding: EdgeInsets.only(bottom: 15),
               child: TextField(
                 controller: mobileNumber,
                 maxLength: 12,
@@ -188,8 +206,19 @@ class _AddAccount extends State<AddAccount> {
                 ),
               ),
             ),
+
+             Padding(
+              padding: EdgeInsets.only(left: 2),
+              child: Container(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Home Address',
+                  style: TextStyle(fontSize: 10),
+                ),
+              ),
+            ), 
             Padding(
-              padding: EdgeInsets.only(bottom: 20),
+               padding: EdgeInsets.only(bottom: 15),
               child: TextField(
                 controller: homeAddress,
                 decoration: InputDecoration(
@@ -209,8 +238,19 @@ class _AddAccount extends State<AddAccount> {
                 ),
               ),
             ),
+
             Padding(
-              padding: EdgeInsets.only(bottom: 20),
+              padding: EdgeInsets.only(left: 2),
+              child: Container(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Password',
+                  style: TextStyle(fontSize: 10),
+                ),
+              ),
+            ), 
+            Padding(
+              padding: EdgeInsets.only(bottom: 15),
               child: TextField(
                 controller: password,
                 obscureText: true,
@@ -228,6 +268,17 @@ class _AddAccount extends State<AddAccount> {
                     borderSide: BorderSide(color: Colors.blueGrey.shade50),
                     borderRadius: BorderRadius.circular(5),
                   ),
+                ),
+              ),
+            ),
+
+            Padding(
+              padding: EdgeInsets.only(left: 2),
+              child: Container(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Confirm Password',
+                  style: TextStyle(fontSize: 10),
                 ),
               ),
             ),

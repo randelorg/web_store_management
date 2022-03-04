@@ -70,25 +70,9 @@ class _EditProfile extends State<UpdateProfile> {
                 fontSize: 30,
               ),
             ),
+
             Padding(
-              padding: EdgeInsets.only(top: 25, bottom: 5),
-              child: Container(
-                child: Container(
-                  alignment: Alignment.topLeft,
-                  child: Text('Update your Profile',
-                      style: TextStyle(
-                        fontFamily: 'Cairo_SemiBold',
-                        fontSize: 16,
-                        color: HexColor("#155293"),
-                      )),
-                ),
-              ),
-            ),
-            Divider(
-              thickness: 3,
-            ),
-            Padding(
-              padding: EdgeInsets.only(left: 2),
+              padding: EdgeInsets.only(top: 20, left: 2),
               child: Container(
                 alignment: Alignment.centerLeft,
                 child: Text(
@@ -100,7 +84,7 @@ class _EditProfile extends State<UpdateProfile> {
             Container(
               width: 320,
               child: Padding(
-                padding: EdgeInsets.only(bottom: 20),
+                padding: EdgeInsets.only(bottom: 15),
                 child: TextField(
                   controller: username,
                   decoration: InputDecoration(
@@ -121,6 +105,7 @@ class _EditProfile extends State<UpdateProfile> {
                 ),
               ),
             ),
+
             Padding(
               padding: EdgeInsets.only(left: 2),
               child: Container(
@@ -141,7 +126,7 @@ class _EditProfile extends State<UpdateProfile> {
                       alignment: Alignment.topLeft,
                       width: 155,
                       child: Padding(
-                        padding: EdgeInsets.only(bottom: 20),
+                        padding: EdgeInsets.only(bottom: 15),
                         child: TextField(
                           controller: firstname,
                           enabled: false,
@@ -176,7 +161,7 @@ class _EditProfile extends State<UpdateProfile> {
                       alignment: Alignment.topRight,
                       width: 155,
                       child: Padding(
-                        padding: EdgeInsets.only(bottom: 20),
+                        padding: EdgeInsets.only(bottom: 15),
                         child: TextField(
                           controller: lastname,
                           enabled: false,
@@ -205,6 +190,7 @@ class _EditProfile extends State<UpdateProfile> {
                 ),
               ],
             ),
+
             Padding(
               padding: EdgeInsets.only(left: 2),
               child: Container(
@@ -216,7 +202,7 @@ class _EditProfile extends State<UpdateProfile> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(bottom: 20),
+              padding: EdgeInsets.only(bottom: 15),
               child: TextField(
                 controller: password,
                 obscureText: true,
@@ -237,6 +223,7 @@ class _EditProfile extends State<UpdateProfile> {
                 ),
               ),
             ),
+            
             Padding(
               padding: EdgeInsets.only(left: 2),
               child: Container(
@@ -302,8 +289,7 @@ class _EditProfile extends State<UpdateProfile> {
                         ),
                         TextButton(
                           style: TextButton.styleFrom(
-                            padding: const EdgeInsets.only(
-                                left: 20, right: 20, top: 15, bottom: 15),
+                          padding: const EdgeInsets.only(left: 20, right: 20, top: 15, bottom: 15),
                             primary: Colors.white,
                             textStyle: TextStyle(
                                 fontFamily: 'Cairo_SemiBold',

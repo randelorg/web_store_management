@@ -59,10 +59,21 @@ class _AddRepair extends State<AddRepair> {
                 fontSize: 30,
               ),
             ),
+
+            Padding(
+              padding: EdgeInsets.only(top: 20, left: 2),
+              child: Container(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Product Name',
+                  style: TextStyle(fontSize: 10),
+                ),
+              ),
+            ),
             Container(
               width: 320,
               child: Padding(
-                padding: const EdgeInsets.all(6.0),
+                padding: EdgeInsets.only(bottom: 15),
                 child: TextField(
                   controller: productname,
                   decoration: InputDecoration(
@@ -83,8 +94,9 @@ class _AddRepair extends State<AddRepair> {
                 ),
               ),
             ),
+          
             Padding(
-              padding: EdgeInsets.only(left: 5),
+              padding: EdgeInsets.only(left: 2),
               child: Container(
                 alignment: Alignment.centerLeft,
                 child: Text(
@@ -94,12 +106,12 @@ class _AddRepair extends State<AddRepair> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(6.0),
+              padding: EdgeInsets.only(bottom: 15),
               child: TextField(
                 controller: brwname,
                 enabled: false,
                 decoration: InputDecoration(
-                  hintText: 'Customer Name',
+                  hintText: 'Borrower Name',
                   suffixIcon: InkWell(
                     child: IconButton(
                       icon: Icon(Icons.qr_code_scanner_outlined),
@@ -123,8 +135,9 @@ class _AddRepair extends State<AddRepair> {
                 ),
               ),
             ),
+
             Padding(
-              padding: EdgeInsets.only(left: 5),
+              padding: EdgeInsets.only(left: 2),
               child: Container(
                 alignment: Alignment.centerLeft,
                 child: Text(
@@ -134,12 +147,12 @@ class _AddRepair extends State<AddRepair> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(6.0),
+              padding: EdgeInsets.only(bottom: 15),
               child: TextField(
                 controller: address,
                 enabled: false,
                 decoration: InputDecoration(
-                  hintText: 'Address',
+                  hintText: 'Home Address',
                   filled: true,
                   fillColor: Colors.blueGrey[50],
                   labelStyle: TextStyle(fontSize: 12),
@@ -155,8 +168,9 @@ class _AddRepair extends State<AddRepair> {
                 ),
               ),
             ),
+          
             Padding(
-              padding: EdgeInsets.only(left: 5),
+              padding: EdgeInsets.only(left: 2),
               child: Container(
                 alignment: Alignment.centerLeft,
                 child: Text(
@@ -166,7 +180,7 @@ class _AddRepair extends State<AddRepair> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(6.0),
+              padding: EdgeInsets.only(bottom: 15),
               child: TextField(
                 controller: mobile,
                 enabled: false,
@@ -187,8 +201,19 @@ class _AddRepair extends State<AddRepair> {
                 ),
               ),
             ),
+
             Padding(
-              padding: const EdgeInsets.all(6.0),
+              padding: EdgeInsets.only(left: 2),
+              child: Container(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Date of turn over',
+                  style: TextStyle(fontSize: 10),
+                ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(bottom: 15),
               child: TextField(
                 controller: dateinput,
                 decoration: InputDecoration(
@@ -259,12 +284,11 @@ class _AddRepair extends State<AddRepair> {
                     ),
                     TextButton(
                       style: TextButton.styleFrom(
-                        padding: const EdgeInsets.only(
-                            left: 20, right: 20, top: 15, bottom: 15),
+                        padding: const EdgeInsets.only(left: 20, right: 20, top: 18, bottom: 18),
                         primary: Colors.white,
                         textStyle: TextStyle(
                             fontFamily: 'Cairo_SemiBold',
-                            fontSize: 14,
+                            fontSize: 16,
                             color: Colors.white),
                       ),
                       child: const Text('ADD REPAIR'),

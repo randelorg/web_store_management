@@ -62,48 +62,22 @@ class _ConfirmAccount extends State<ConfirmAccount> {
                 fontSize: 30,
               ),
             ),
-            Padding(
-              padding: EdgeInsets.only(top: 25, bottom: 5),
-              child: Container(
-                alignment: Alignment.topLeft,
-                child: Text('Enter your Admin Password to Verify',
-                    style: TextStyle(
-                      fontFamily: 'Cairo_SemiBold',
-                      fontSize: 16,
-                      color: HexColor("#155293"),
-                    )),
-              ),
-            ),
-            Text(
-              'Verification',
-              softWrap: true,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: HexColor("#155293"),
-                fontFamily: 'Cairo_Bold',
-                fontSize: 30,
-              ),
-            ),
-              Padding(          
-              padding: EdgeInsets.only(top: 25, bottom: 5),
-                child: Container(
-                  alignment: Alignment.topLeft,         
-                  child: Text('Enter your Admin Password to Verify',      
-                  style: TextStyle(
-                    fontFamily: 'Cairo_SemiBold',
-                    fontSize: 16,
-                    color: HexColor("#155293"),
-                  )),
-                ),
-            ),       
-            Divider(
-              thickness: 3,
-            ),
 
+            Padding(
+              padding: EdgeInsets.only(top: 20, left: 2),
+              child: Container(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Enter your Admin Password to Verify',
+                  style: TextStyle(fontSize: 10),
+                ),
+              ),
+            ),   
+            
             Container(
               width: 320,
               child: Padding(
-                padding: EdgeInsets.only(bottom: 20),
+                padding: EdgeInsets.only(bottom: 15),
                 child: TextField(
                   controller: password,
                   obscureText: true,
@@ -129,7 +103,7 @@ class _ConfirmAccount extends State<ConfirmAccount> {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(top: 20),
+                  padding: const EdgeInsets.only(top: 15),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(5),
                     child: Stack(

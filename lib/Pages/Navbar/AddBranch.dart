@@ -68,11 +68,19 @@ class _AddBranch extends State<AddBranch> {
                 fontSize: 30,
               ),
             ),
-            Divider(
-              thickness: 3,
+
+            Padding(
+              padding: EdgeInsets.only(top: 20, left: 2),
+              child: Container(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Branch Name',
+                  style: TextStyle(fontSize: 10),
+                ),
+              ),
             ),
             Padding(
-              padding: EdgeInsets.only(bottom: 20),
+              padding: EdgeInsets.only(bottom: 15),
               child: TextField(
                 controller: branchName,
                 decoration: InputDecoration(
@@ -92,8 +100,19 @@ class _AddBranch extends State<AddBranch> {
                 ),
               ),
             ),
+
             Padding(
-              padding: EdgeInsets.only(bottom: 20),
+              padding: EdgeInsets.only(left: 2),
+              child: Container(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Branch Address',
+                  style: TextStyle(fontSize: 10),
+                ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(bottom: 15),
               child: TextField(
                 controller: branchAddress,
                 decoration: InputDecoration(
@@ -113,19 +132,14 @@ class _AddBranch extends State<AddBranch> {
                 ),
               ),
             ),
+
             Padding(
-              padding: EdgeInsets.only(top: 15, bottom: 10),
+              padding: EdgeInsets.only(left: 2),
               child: Container(
-                child: Container(
-                  alignment: Alignment.topLeft,
-                  child: Text(
-                    'Select Employee Assigned',
-                    style: TextStyle(
-                      fontFamily: 'Cairo_SemiBold',
-                      fontSize: 14,
-                      color: HexColor("#155293"),
-                    ),
-                  ),
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Select Employee Assigned',
+                  style: TextStyle(fontSize: 10),
                 ),
               ),
             ),
@@ -159,7 +173,7 @@ class _AddBranch extends State<AddBranch> {
                       return DropdownMenuItem<String>(
                         value: value,
                         child: Padding(
-                          padding: EdgeInsets.only(left: 25),
+                          padding: EdgeInsets.only(left: 10),
                           child: Text(
                             value,
                             style: TextStyle(fontSize: 15),
@@ -189,12 +203,7 @@ class _AddBranch extends State<AddBranch> {
                         ),
                         TextButton(
                           style: TextButton.styleFrom(
-                            padding: const EdgeInsets.only(
-                              left: 20,
-                              right: 20,
-                              top: 15,
-                              bottom: 15,
-                            ),
+                            padding: const EdgeInsets.only(left: 20, right: 20, top: 15, bottom: 15),
                             primary: Colors.white,
                             textStyle: TextStyle(
                               fontFamily: 'Cairo_SemiBold',

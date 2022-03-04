@@ -59,8 +59,9 @@ class _MakePayment extends State<MakePayment> {
                 fontSize: 30,
               ),
             ),
+         
             Padding(
-              padding: EdgeInsets.only(left: 7),
+              padding: EdgeInsets.only(top: 20, left: 2),
               child: Container(
                 alignment: Alignment.centerLeft,
                 child: Text(
@@ -68,9 +69,9 @@ class _MakePayment extends State<MakePayment> {
                   style: TextStyle(fontSize: 10),
                 ),
               ),
-            ),
+            ),       
             Padding(
-              padding: const EdgeInsets.all(5),
+              padding: EdgeInsets.only(bottom: 15),
               child: TextField(
                 controller: name,
                 enabled: false,
@@ -91,8 +92,9 @@ class _MakePayment extends State<MakePayment> {
                 ),
               ),
             ),
+         
             Padding(
-              padding: EdgeInsets.only(left: 7),
+              padding: EdgeInsets.only(left: 2),
               child: Container(
                 alignment: Alignment.centerLeft,
                 child: Text(
@@ -100,9 +102,9 @@ class _MakePayment extends State<MakePayment> {
                   style: TextStyle(fontSize: 10),
                 ),
               ),
-            ),
+            ), 
             Padding(
-              padding: const EdgeInsets.all(5),
+              padding: EdgeInsets.only(bottom: 15),
               child: TextField(
                 controller: debt,
                 enabled: false,
@@ -123,18 +125,19 @@ class _MakePayment extends State<MakePayment> {
                 ),
               ),
             ),
+           
              Padding(
-              padding: EdgeInsets.only(left: 7),
+              padding: EdgeInsets.only(left: 2),
               child: Container(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  'Amount',
+                  'Amount to be Paid',
                   style: TextStyle(fontSize: 10),
                 ),
               ),
-            ),
+            ), 
             Padding(
-              padding: const EdgeInsets.all(5),
+              padding: EdgeInsets.only(bottom: 15),
               child: TextField(
                 controller: givenAmount,
                 decoration: InputDecoration(
@@ -154,18 +157,19 @@ class _MakePayment extends State<MakePayment> {
                 ),
               ),
             ),
-             Padding(
-              padding: EdgeInsets.only(left: 7),
+             
+            Padding(
+              padding: EdgeInsets.only(left: 2),
               child: Container(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  'Date',
+                  'Date Today',
                   style: TextStyle(fontSize: 10),
                 ),
               ),
-            ),       
+            ),                
             Padding(
-              padding: const EdgeInsets.all(5),
+              padding: EdgeInsets.only(bottom: 15),
               child: TextField(
                 controller: dateinput,
                 decoration: InputDecoration(
@@ -222,7 +226,7 @@ class _MakePayment extends State<MakePayment> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.only(top: 20),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(20),
                 child: Stack(
@@ -236,8 +240,7 @@ class _MakePayment extends State<MakePayment> {
                     ),
                     TextButton(
                       style: TextButton.styleFrom(
-                        padding: const EdgeInsets.only(
-                            top: 18, bottom: 18, left: 36, right: 36),
+                        padding: const EdgeInsets.only(left: 36, right: 36, top: 18, bottom: 18),
                         primary: Colors.white,
                         textStyle: TextStyle(
                             fontFamily: 'Cairo_SemiBold',

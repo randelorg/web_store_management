@@ -328,7 +328,7 @@ class _RequestedProdScreen extends State<RequestedProdScreen> {
                           ),
                           child: const Text('IN-STORE'),
                           onPressed: () {
-                            approveRequest(
+                            requestStatus(
                               Mapping.requested[index].getRequestId,
                               'IN-STORE',
                               Mapping.requested[index].toString(),
@@ -345,10 +345,13 @@ class _RequestedProdScreen extends State<RequestedProdScreen> {
                     color: Colors.redAccent.shade400,
                     tooltip: 'DENY REQUEST',
                     onPressed: () {
-                      // updatRequest(
-                      //   Mapping.requested[index].getRequestId,
-                      //   'DENIED',
-                      // );
+                      requestStatus(
+                        Mapping.requested[index].getRequestId,
+                         'DENIED',
+                          Mapping.requested[index].toString(),
+                          Mapping.requested[index].getMobileNumber,
+                          Mapping.requested[index].getRequestedProductName,
+                       );
                     },
                   ),
                 ],
@@ -373,7 +376,7 @@ class _RequestedProdScreen extends State<RequestedProdScreen> {
         });
   }
 
-  void approveRequest(
+  void requestStatus(
       int id, final String status, String product, String name, String number) {
     borrower.updateRequest(id, status).then((value) {
       if (!value) {

@@ -69,8 +69,9 @@ class _PaymentPlanPage extends State<PaymentPlanPage> {
                 fontSize: 30,
               ),
             ),
+
             Padding(
-              padding: EdgeInsets.only(left: 5),
+              padding: EdgeInsets.only(top: 20, left: 2),
               child: Container(
                 alignment: Alignment.centerLeft,
                 child: Text(
@@ -80,7 +81,7 @@ class _PaymentPlanPage extends State<PaymentPlanPage> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(6.0),
+              padding: EdgeInsets.only(bottom: 15),
               child: TextField(
                 controller: borrowerName,
                 enabled: false,
@@ -99,7 +100,7 @@ class _PaymentPlanPage extends State<PaymentPlanPage> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(left: 5),
+              padding: EdgeInsets.only(left: 2),
               child: Container(
                 alignment: Alignment.centerLeft,
                 child: Text(
@@ -109,7 +110,7 @@ class _PaymentPlanPage extends State<PaymentPlanPage> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(6.0),
+              padding: EdgeInsets.only(bottom: 15),
               child: TextField(
                 controller: totalAmount,
                 enabled: false,
@@ -127,8 +128,8 @@ class _PaymentPlanPage extends State<PaymentPlanPage> {
                 ),
               ),
             ),
-            Padding(
-              padding: EdgeInsets.only(left: 5),
+             Padding(
+              padding: EdgeInsets.only(left: 2),
               child: Container(
                 alignment: Alignment.centerLeft,
                 child: Text(
@@ -204,17 +205,21 @@ class _PaymentPlanPage extends State<PaymentPlanPage> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(6.0),
+              padding: EdgeInsets.only(bottom: 15),
               child: TextField(
                 controller: duedate,
                 decoration: InputDecoration(
                   labelStyle: TextStyle(fontSize: 12),
                   contentPadding: EdgeInsets.only(left: 15),
-                  hintText: 'Due Date',
                   filled: true,
+                  hintText: 'Due Date',
                   fillColor: Colors.blueGrey[50],
                   enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey.shade500),
+                    borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.blueGrey.shade50),
                     borderRadius: BorderRadius.circular(10),
                   ),
                 ),
@@ -255,7 +260,7 @@ class _PaymentPlanPage extends State<PaymentPlanPage> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 10),
+              padding: const EdgeInsets.only(top: 20),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(12),
                 child: Stack(
@@ -267,8 +272,7 @@ class _PaymentPlanPage extends State<PaymentPlanPage> {
                     ),
                     TextButton(
                       style: TextButton.styleFrom(
-                          padding: const EdgeInsets.only(
-                              left: 15, right: 15, top: 20, bottom: 20),
+                          padding: const EdgeInsets.only(left: 15, right: 15, top: 20, bottom: 20),
                           primary: Colors.white,
                           textStyle: TextStyle(
                               fontSize: 14, fontFamily: 'Cairo_SemiBold')),

@@ -173,7 +173,7 @@ class _BodyLogin extends State<BodyLogin> {
               height: 50,
               child: Center(
                 child: Text(
-                  "Sign In",
+                  "Log In",
                   style: TextStyle(fontFamily: 'Cairo_Bold', fontSize: 18),
                 ),
               ),
