@@ -14,9 +14,10 @@ class TextMessage implements ITextMessage {
 
   ///api/v4/messages
   @override
-  Future<bool> sendApprovedCredit(String name, String number) async {
+  Future<bool> sendApprovedCredit(
+      String name, String number, String status) async {
     final String message =
-        "Dear $name, \n\nYour credit has been approved. You can now visit the store. \n\nDellrain Store";
+        "Dear $name, \n\nYour credit has been $status. You can now visit the store. \n\nDellrain Store";
 
     var payload = json.encode({
       "apikey": _apikey,
