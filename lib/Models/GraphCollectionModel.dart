@@ -2,7 +2,7 @@ import 'package:intl/intl.dart';
 
 class GraphCollectionModel {
   String? givenDate;
-  num? collection;
+  double? collection;
 
   get getGivenDate => convertDateTimeDisplay(this.givenDate.toString());
 
@@ -17,10 +17,12 @@ class GraphCollectionModel {
     final DateFormat serverFormater = DateFormat('dd-MM-yyyy');
     final DateTime displayDate = displayFormater.parse(date);
     final String formatted = serverFormater.format(displayDate);
+
+    print(formatted);
     return formatted;
   }
 
-  GraphCollectionModel(String givenDate, num collection) {
+  GraphCollectionModel(String givenDate, double collection) {
     this.givenDate = givenDate;
     this.collection = collection;
   }
@@ -33,7 +35,7 @@ class GraphCollectionModel {
   factory GraphCollectionModel.fromJson(Map<String, dynamic> json) {
     return GraphCollectionModel.full(
       givenDate: json["GivenDate"] as String,
-      collection: json["Collection"] as num,
+      collection: json["Collection"] as double,
     );
   }
 }

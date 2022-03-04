@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:web_store_management/Backend/DashboardOperation.dart';
+import 'package:web_store_management/Models/GraphCollectionModel.dart';
 import 'CollectionGraph.dart';
 
 class TimeCollection extends StatefulWidget {
@@ -13,12 +14,17 @@ class _TimeCollection extends State<TimeCollection> {
   late Future day;
   late Future week;
   late Future month;
+  late Future<List<GraphCollectionModel>> monthGraph;
+
   @override
   void initState() {
     super.initState();
+    //graph
+    monthGraph = dashboard.getGraphWeek();
+    //collection summary total
     day = dashboard.getTodayCollection();
     week = dashboard.getWeekCollection();
-    month = week;
+    month = dashboard.getMonthCollection();
   }
 
   @override
@@ -224,10 +230,45 @@ class _TimeCollection extends State<TimeCollection> {
             //the actual graph
             width: (MediaQuery.of(context).size.width),
             height: (MediaQuery.of(context).size.height),
-            child: CollectionGraph(),
+            child: collectionGraph('Month'),
           ),
         ),
       ],
+    );
+  }
+
+  Widget collectionGraph(String caption) {
+    return FutureBuilder<List<GraphCollectionModel>>(
+      future: monthGraph,
+      builder: (context, snapshot) {
+        if (!snapshot.hasData) {
+          return Center(
+            child: CircularProgressIndicator(
+              semanticsLabel: 'Fetching collections',
+            ),
+          );
+        }
+        if (snapshot.hasData) {
+          //checkLength();
+          return CollectionGraph(caption: caption, graphData: snapshot.data);
+        } else if (snapshot.data == []) {
+          return Center(
+            child: Text(
+              'No data to display',
+              style: TextStyle(
+                fontSize: 20,
+                color: HexColor("#155293"),
+                fontFamily: 'Cairo_Bold',
+              ),
+            ),
+          );
+        }
+        return Center(
+          child: CircularProgressIndicator(
+            semanticsLabel: 'Fetching borrowers',
+          ),
+        );
+      },
     );
   }
 }
