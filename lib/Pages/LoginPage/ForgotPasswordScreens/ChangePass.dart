@@ -45,10 +45,7 @@ class _ChangePass extends State<ChangePass> {
                 },
               ),
             ),
-            Text('Hello $name you will be changing your password'),
-            SizedBox(
-              height: 10,
-            ),
+        
             Text(
               'Change Password',
               softWrap: true,
@@ -59,8 +56,18 @@ class _ChangePass extends State<ChangePass> {
                 fontSize: 30,
               ),
             ),
+
+            Text(      
+              'Hello $name! you will be changing your password',
+              softWrap: true,
+              textAlign: TextAlign.center,
+              style: TextStyle(        
+                fontSize: 12,
+              ),
+            ),
+
             Padding(
-              padding: EdgeInsets.only(top: 25, left: 7),
+              padding: EdgeInsets.only(top: 20, left: 7),
               child: Container(
                 alignment: Alignment.centerLeft,
                 child: Text(
@@ -139,7 +146,7 @@ class _ChangePass extends State<ChangePass> {
               style: TextStyle(fontSize: 10),
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 20),
+              padding: const EdgeInsets.only(top: 10),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(5),
                 child: Stack(
@@ -161,20 +168,32 @@ class _ChangePass extends State<ChangePass> {
                       ),
                       child: const Text('CONFIRM'),
                       onPressed: () {
-                        admin
-                            .changePassword(
-                                Mapping.forgetPassword.last.getAdminID,
-                                newPassword.text)
-                            .then((value) {
-                          if (value) {
-                            Navigator.pop(context);
-                            SnackNotification.notif(
-                              'Success',
-                              'Password changed, please now log in',
-                              Colors.green.shade900,
-                            );
-                          }
-                        });
+                        if (newPassword.text.isEmpty || confirmPassword.text.isEmpty) {
+                          SnackNotification.notif(
+                            "Error",
+                            "Please fill all the fields",
+                            Colors.red.shade600);
+                        } else if (newPassword.text != confirmPassword.text){
+                          SnackNotification.notif(
+                            "Error",
+                            "Password did not match",
+                            Colors.red.shade600);                   
+                        } else {
+                          admin
+                              .changePassword(
+                                  Mapping.forgetPassword.last.getAdminID,
+                                  newPassword.text)
+                              .then((value) {
+                            if (value) {
+                              Navigator.pop(context);
+                              SnackNotification.notif(
+                                'Success',
+                                'Password changed, please now log in',
+                                Colors.green.shade900,
+                              );
+                            }
+                          });
+                        }
                       },
                     ),
                   ],

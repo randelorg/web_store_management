@@ -67,7 +67,9 @@ class _OTPVerification extends State<OTPVerification> {
               padding: EdgeInsets.only(bottom: 20),
               child: TextField(
                 controller: verifyOTP,
+                maxLength: 6,
                 decoration: InputDecoration(
+                  counterText: '',
                   hintText: 'Enter OTP',
                   filled: true,
                   fillColor: Colors.blueGrey[50],
@@ -85,7 +87,7 @@ class _OTPVerification extends State<OTPVerification> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 20),
+              padding: const EdgeInsets.only(top: 10),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(5),
                 child: Stack(
@@ -97,8 +99,7 @@ class _OTPVerification extends State<OTPVerification> {
                     ),
                     TextButton(
                       style: TextButton.styleFrom(
-                        padding: const EdgeInsets.only(
-                            left: 20, right: 20, top: 15, bottom: 15),
+                        padding: const EdgeInsets.only(left: 20, right: 20, top: 15, bottom: 15),
                         primary: Colors.white,
                         textStyle: TextStyle(
                             fontFamily: 'Cairo_SemiBold',
@@ -107,20 +108,28 @@ class _OTPVerification extends State<OTPVerification> {
                       ),
                       child: Text(continueTimer),
                       onPressed: () {
-                        if (checkOtp(int.parse(verifyOTP.text))) {
-                          Navigator.of(context).pop();
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return ChangePass();
-                            },
-                          );
-                        } else {
+                        if (verifyOTP.text.isEmpty) {
                           SnackNotification.notif(
-                            'Try again',
-                            'Wrong OTP',
+                            "Error",
+                            "Please fill the OTP field",
                             Colors.red.shade600,
                           );
+                        } else {
+                          if (checkOtp(int.parse(verifyOTP.text))) {
+                            Navigator.of(context).pop();
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return ChangePass();
+                              },
+                            );
+                          } else {
+                            SnackNotification.notif(
+                              'Try again',
+                              'Wrong OTP',
+                              Colors.red.shade600,
+                            );
+                          }
                         }
                       },
                     ),

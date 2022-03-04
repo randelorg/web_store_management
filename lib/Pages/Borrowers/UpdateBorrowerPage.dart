@@ -64,25 +64,9 @@ class _UpdateBorrowerPage extends State<UpdateBorrowerPage> {
                 fontSize: 30,
               ),
             ),
-            Padding(
-              padding: EdgeInsets.only(top: 25, bottom: 5),
-              child: Container(
-                child: Container(
-                  alignment: Alignment.topLeft,
-                  child: Text('Update Borrower',
-                      style: TextStyle(
-                        fontFamily: 'Cairo_SemiBold',
-                        fontSize: 16,
-                        color: HexColor("#155293"),
-                      )),
-                ),
-              ),
-            ),
-            Divider(
-              thickness: 3,
-            ),
-            Padding(
-              padding: EdgeInsets.only(left: 7),
+
+             Padding(
+              padding: EdgeInsets.only(top: 20, left: 2),
               child: Container(
                 alignment: Alignment.centerLeft,
                 child: Text(
@@ -90,9 +74,9 @@ class _UpdateBorrowerPage extends State<UpdateBorrowerPage> {
                   style: TextStyle(fontSize: 10),
                 ),
               ),
-            ),
+            ),  
             Padding(
-              padding: const EdgeInsets.only(left: 6.0, right: 6.0, bottom: 6.0, top: 1.0),
+              padding: EdgeInsets.only(bottom: 15),
               child: TextField(
                 controller: firstname,
                 decoration: InputDecoration(
@@ -112,8 +96,9 @@ class _UpdateBorrowerPage extends State<UpdateBorrowerPage> {
                 ),
               ),
             ),
+
             Padding(
-              padding: EdgeInsets.only(left: 7),
+              padding: EdgeInsets.only(left: 2),
               child: Container(
                 alignment: Alignment.centerLeft,
                 child: Text(
@@ -123,7 +108,7 @@ class _UpdateBorrowerPage extends State<UpdateBorrowerPage> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 6.0, right: 6.0, bottom: 6.0, top: 1.0),
+              padding: EdgeInsets.only(bottom: 15),
               child: TextField(
                 controller: lastname,
                 decoration: InputDecoration(
@@ -143,8 +128,9 @@ class _UpdateBorrowerPage extends State<UpdateBorrowerPage> {
                 ),
               ),
             ),
+
             Padding(
-              padding: EdgeInsets.only(left: 7),
+              padding: EdgeInsets.only(left: 2),
               child: Container(
                 alignment: Alignment.centerLeft,
                 child: Text(
@@ -154,13 +140,13 @@ class _UpdateBorrowerPage extends State<UpdateBorrowerPage> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 6.0, right: 6.0, bottom: 6.0, top: 1.0),
+              padding: EdgeInsets.only(bottom: 15),
               child: TextField(
                 maxLength: 12,
                 controller: number,
                 decoration: InputDecoration(
                   counterText: '',
-                  hintText: 'Number',
+                  hintText: 'Mobile Number',
                   filled: true,
                   fillColor: Colors.blueGrey[50],
                   labelStyle: TextStyle(fontSize: 12),
@@ -176,22 +162,23 @@ class _UpdateBorrowerPage extends State<UpdateBorrowerPage> {
                 ),
               ),
             ),
+            
             Padding(
-              padding: EdgeInsets.only(left: 7),
+              padding: EdgeInsets.only(left: 2),
               child: Container(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  'Address',
+                  'Home Address',
                   style: TextStyle(fontSize: 10),
                 ),
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 6.0, right: 6.0, bottom: 6.0, top: 1.0),
+              padding: EdgeInsets.only(bottom: 15),
               child: TextField(
                 controller: address,
                 decoration: InputDecoration(
-                  hintText: 'Address',
+                  hintText: 'Home Address',
                   filled: true,
                   fillColor: Colors.blueGrey[50],
                   labelStyle: TextStyle(fontSize: 12),
@@ -208,7 +195,7 @@ class _UpdateBorrowerPage extends State<UpdateBorrowerPage> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: EdgeInsets.only(top: 20),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(20),
                 child: Stack(
@@ -222,8 +209,7 @@ class _UpdateBorrowerPage extends State<UpdateBorrowerPage> {
                     ),
                     TextButton(
                       style: TextButton.styleFrom(
-                        padding: const EdgeInsets.only(
-                            top: 18, bottom: 18, left: 36, right: 36),
+                        padding: const EdgeInsets.only(left: 36, right: 36, top: 18, bottom: 18),
                         primary: Colors.white,
                         textStyle: TextStyle(
                             fontFamily: 'Cairo_SemiBold',

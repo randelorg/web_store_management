@@ -59,7 +59,7 @@ class _ForgotPassword extends State<ForgotPassword> {
               padding: EdgeInsets.only(bottom: 20),
               child: TextField(
                 controller: mobileNumber,
-                maxLength: 12,
+                maxLength: 4,
                 decoration: InputDecoration(
                   counterText: '',
                   hintText: 'Mobile Number',
@@ -79,7 +79,7 @@ class _ForgotPassword extends State<ForgotPassword> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 20),
+              padding: const EdgeInsets.only(top: 10),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(5),
                 child: Stack(
@@ -91,8 +91,7 @@ class _ForgotPassword extends State<ForgotPassword> {
                     ),
                     TextButton(
                       style: TextButton.styleFrom(
-                        padding: const EdgeInsets.only(
-                            left: 20, right: 20, top: 15, bottom: 15),
+                        padding: const EdgeInsets.only(left: 20, right: 20, top: 15, bottom: 15),
                         primary: Colors.white,
                         textStyle: TextStyle(
                             fontFamily: 'Cairo_SemiBold',
@@ -101,22 +100,32 @@ class _ForgotPassword extends State<ForgotPassword> {
                       ),
                       child: const Text('GET OTP'),
                       onPressed: () {
-                        message
-                            .checkNumberIfExisting(mobileNumber.text)
-                            .then((value) {
-                          if (value == 0) {
-                            SnackNotification.notif('Not found',
-                                'Number does not exit', Colors.red.shade600);
-                          } else {
-                            Navigator.pop(context);
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return OTPVerification(code: value);
-                              },
-                            );
-                          }
-                        });
+                        if (mobileNumber.text.isEmpty) {
+                          SnackNotification.notif(
+                            "Error",
+                            "Please fill the mobile number field",
+                            Colors.red.shade600,
+                          );
+                        } else {
+                          message
+                              .checkNumberIfExisting(mobileNumber.text)
+                              .then((value) {
+                            if (value == 0) {
+                              SnackNotification.notif(
+                                  'Not found',
+                                  'Mobile number does not exist',
+                                  Colors.red.shade600);
+                            } else {
+                              Navigator.pop(context);
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return OTPVerification(code: value);
+                                },
+                              );
+                            }
+                          });
+                        }
                       },
                     ),
                   ],

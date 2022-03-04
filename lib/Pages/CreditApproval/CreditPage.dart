@@ -18,7 +18,7 @@ class _CreditPage extends State<CreditScreen> {
   var loan = LoanOperation();
   var message = TextMessage();
   int vid = 0, bid = 0;
-  final String approved = "APPROVED";
+  final String approved = "APPROVED", denied = "DENIED";
   double textSize = 15;
   double titleSize = 30;
   late Future _creditapproval;
@@ -242,9 +242,9 @@ class _CreditPage extends State<CreditScreen> {
                 ),
                 child: Text(
                   'Show Application',
-                  style: TextStyle(     
+                  style: TextStyle(
                     color: HexColor("#155293"),
-                    ),
+                  ),
                 ),
                 onPressed: () {},
               ),
@@ -274,7 +274,6 @@ class _CreditPage extends State<CreditScreen> {
                             vid = Mapping
                                 .creditApprovals[index].getinvestigationID;
                             bid = Mapping.creditApprovals[index].getBorrowerId;
-
                             loan
                                 .approvedCredit(vid, bid, approved)
                                 .then((value) {
@@ -295,6 +294,7 @@ class _CreditPage extends State<CreditScreen> {
                                   Mapping
                                       .creditApprovals[index].getMobileNumber,
                                   Mapping.creditApprovals[index].toString(),
+                                  approved,
                                 );
                                 //show the print screen
                                 showDialog(
@@ -319,7 +319,41 @@ class _CreditPage extends State<CreditScreen> {
                     icon: Icon(Icons.cancel),
                     color: Colors.redAccent.shade400,
                     tooltip: 'DENY CREDIT',
-                    onPressed: () {},
+                    onPressed: () {
+                      vid = Mapping.creditApprovals[index].getinvestigationID;
+                      bid = Mapping.creditApprovals[index].getBorrowerId;
+                      loan.approvedCredit(vid, bid, denied).then((value) {
+                        if (!value) {
+                          SnackNotification.notif(
+                            'Error',
+                            'Something went wrong while approving the loan',
+                            Colors.redAccent.shade200,
+                          );
+                        } else {
+                          //refresh the data in the window
+                          setState(() {
+                            _creditapproval = controller.fetchCreditApprovals();
+                          });
+                          //send message to the borrower that the credit has been approved
+                          sendMessageApproved(
+                            Mapping.creditApprovals[index].getMobileNumber,
+                            Mapping.creditApprovals[index].toString(),
+                            denied,
+                          );
+                          //show the print screen
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return showPrint(
+                                Mapping.creditApprovals[index].getBorrowerId
+                                    .toString(),
+                                Mapping.creditApprovals[index].toString(),
+                              );
+                            },
+                          );
+                        }
+                      });
+                    },
                   ),
                 ],
               ),
@@ -330,8 +364,8 @@ class _CreditPage extends State<CreditScreen> {
     );
   }
 
-  void sendMessageApproved(String number, String name) {
-    message.sendApprovedCredit(name, number).then((value) => {
+  void sendMessageApproved(String number, String name, String status) {
+    message.sendApprovedCredit(name, number, status).then((value) => {
           if (value)
             {
               SnackNotification.notif(

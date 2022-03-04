@@ -96,7 +96,7 @@ class AdminOperation implements IAdmin {
     //if status code is 202
     SnackNotification.notif(
       'Success',
-      'Successfully added $firstname',
+      'Successfully added $firstname' + ' $lastname',
       Colors.green,
     );
     //return true;
