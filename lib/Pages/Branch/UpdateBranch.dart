@@ -21,8 +21,7 @@ class _UpdateBranch extends State<UpdateBranch> {
   @override
   void initState() {
     super.initState();
-
-   
+  
     branchName.text = widget.branchName.toString();
     branchAddress.text = widget.branchAddress.toString();
   }

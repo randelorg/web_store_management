@@ -3,6 +3,7 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:web_store_management/Backend/Session.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
 import 'package:web_store_management/Notification/Snack_notification.dart';
+import 'package:web_store_management/Pages/Branch/BranchPage.dart';
 import '../DashBoard/TimeCollection.dart';
 import '../NewLoan/SelectionOfProductsPage.dart';
 import '../Borrowers/BorrowersPage.dart';
@@ -34,6 +35,7 @@ class _NavDrawer extends State<NavDrawer> {
     RepairsPage(),
     InventoryPage(),
     ViewReport(),
+    BranchPage(),
     EmployeePage(),
   ];
 
@@ -64,7 +66,7 @@ class _NavDrawer extends State<NavDrawer> {
             selectedIndex: _selectedIndex,
             onDestinationSelected: (int index) {
               if (Mapping.userRole == 'Store Attendant') {
-                if (index == 9) {
+                if (index == 9 || index == 10) {
                   SnackNotification.notif(
                     "No Access",
                     "You don't have right to access this tab",
@@ -201,6 +203,20 @@ class _NavDrawer extends State<NavDrawer> {
                 ),
                 label: Text(
                   'Reports',
+                  softWrap: true,
+                  style: TextStyle(
+                    fontSize: 8,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+               NavigationRailDestination(
+                icon: Icon(
+                  Icons.store,
+                  color: Colors.white,
+                ),
+                label: Text(
+                  'Branch',
                   softWrap: true,
                   style: TextStyle(
                     fontSize: 8,

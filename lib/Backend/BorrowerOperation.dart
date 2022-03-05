@@ -189,7 +189,7 @@ class BorrowerOperation extends Login implements IBorrower, IPay, IServices {
       if (response.statusCode == 202) {
         SnackNotification.notif(
           'Success',
-          'Product Repair is updated - $status',
+          'Product Repair is updated',
           Colors.green.shade600,
         );
         return true;
@@ -227,7 +227,7 @@ class BorrowerOperation extends Login implements IBorrower, IPay, IServices {
       if (response.statusCode == 202) {
         SnackNotification.notif(
           'Success',
-          'Product Request is updated - $status',
+          'Product Request is updated',
           Colors.green.shade600,
         );
         return true;

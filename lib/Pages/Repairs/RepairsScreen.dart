@@ -331,11 +331,11 @@ class _RepairsPage extends State<RepairsPage> {
                             primary: Colors.white,
                             textStyle: TextStyle(fontSize: 18, fontFamily: 'Cairo_SemiBold')
                           ),
-                          child: const Text('REPAIR'),
+                          child: const Text('REPAIRED'),
                           onPressed: () {
                             repairStatus(
                               Mapping.repairs[index].getRepairId,
-                              'REPAIR',
+                              'REPAIRED',
                               Mapping.repairs[index].getRepairProductName,
                               Mapping.repairs[index].toString(),
                               Mapping.repairs[index].getMobileNumber,
@@ -396,7 +396,7 @@ class _RepairsPage extends State<RepairsPage> {
           _repairs = controller.fetchRepairs();
         });
         //send message to the receiver
-        sendRepairedMessage(name, number, product,status);
+        sendRepairedMessage(name, number, product, status);
       }
     });
   }

@@ -331,9 +331,9 @@ class _RequestedProdScreen extends State<RequestedProdScreen> {
                             requestStatus(
                               Mapping.requested[index].getRequestId,
                               'IN-STORE',
+                              Mapping.requested[index].getRequestedProductName,
                               Mapping.requested[index].toString(),
                               Mapping.requested[index].getMobileNumber,
-                              Mapping.requested[index].getRequestedProductName,
                             );
                           },
                         ),
@@ -348,9 +348,9 @@ class _RequestedProdScreen extends State<RequestedProdScreen> {
                       requestStatus(
                         Mapping.requested[index].getRequestId,
                         'DENIED',
+                        Mapping.requested[index].getRequestedProductName,
                         Mapping.requested[index].toString(),
                         Mapping.requested[index].getMobileNumber,
-                        Mapping.requested[index].getRequestedProductName,
                        );
                     },
                   ),

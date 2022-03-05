@@ -72,10 +72,10 @@ class TextMessage implements ITextMessage {
     if (status == "IN-STORE") {
       message =
           "Dear $name,\n\nThe $product you requested is now at the store.\n\nThank you for using our service. Visit the store anytime within 8:00AM to 5:00PM.\n\nRegards,\n\n- Team Dellrains Store";
-           print("a");
+      print("a");
     } else {
       message =
-          "Dear $name,\n\nThe $product you requested is denied.\n\nThank you for using our service. \n\nRegards,\n\n- Team Dellrains Store";
+          "Dear $name,\n\nThe $product you requested is $status.\n\nThank you for using our service. \n\nRegards,\n\n- Team Dellrains Store";
       print("b");
     }
 
@@ -97,10 +97,10 @@ class TextMessage implements ITextMessage {
       );
 
       if (response.statusCode == 200) {
-        print(response.body);
         return true;
       }
     } catch (e) {
+      print(e.toString());
       //if there is an error in the method
       SnackNotification.notif(
         "Error",
@@ -112,21 +112,18 @@ class TextMessage implements ITextMessage {
 
     return true;
   }
-  
 
   @override
   Future<bool> sendRepairedProduct(
       String name, String number, String product, String status) async {
-    if (status == 'REPAIRED') {
-    message =
-        "Dear $name,\n\nYour $product has been repaired.\n\nThank you for using our service. Visit the store anytime within 8:00AM to 5:00PM \n\nRegards,\n\n- Team Dellrains Store";
+    if (status == "REPAIRED") {
+      message =
+          "Dear $name,\n\nYour $product has been $status.\n\nThank you for using our service. Visit the store anytime within 8:00AM to 5:00PM \n\nRegards,\n\n- Team Dellrains Store";
     } else {
-       message =
-        "Dear $name,\n\nYour $product has been repaired.\n\nThank you for using our service. Visit the store anytime within 8:00AM to 5:00PM \n\nRegards,\n\n- Team Dellrains Store";
-
-
+      message =
+          "Dear $name,\n\nYour $product has been $status.\n\nThank you for using our service. Visit the store anytime within 8:00AM to 5:00PM \n\nRegards,\n\n- Team Dellrains Store";
     }
-    
+
     var payload = json.encode({
       "apikey": _apikey,
       "number": number,
@@ -215,7 +212,7 @@ class TextMessage implements ITextMessage {
       "apikey": _apikey,
       "number": number,
       "message": message,
-      "sendername": "DELLRAINS STORE"
+      "sendername": "DELLRAINS"
     });
 
     Map<String, dynamic> otpCode;

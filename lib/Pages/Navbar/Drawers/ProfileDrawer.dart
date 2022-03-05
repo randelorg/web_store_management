@@ -5,8 +5,6 @@ import 'package:web_store_management/Backend/EmployeeOperation.dart';
 import 'package:web_store_management/Backend/GlobalController.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
 import 'package:web_store_management/Notification/Snack_notification.dart';
-import 'package:web_store_management/Pages/Navbar/AddBranch.dart';
-import 'package:web_store_management/Pages/Navbar/UpdateBranch.dart';
 import '../ViewProfile.dart';
 import '../AddAccount.dart';
 import '../UpdateProfile.dart';
@@ -185,77 +183,6 @@ class _ProfileDrawer extends State<ProfileDrawer> {
                                 context: context,
                                 builder: (BuildContext context) {
                                   return AddAccount();
-                                },
-                              );
-                            },
-                          ),
-                        ),
-                      ),
-                      Padding(   
-                        padding: EdgeInsets.only(top: 10),
-                        child: Container(
-                          child: Text(
-                            'Branch Management',
-                            style: TextStyle(fontSize: 10),
-                          ),
-                        ),
-                      ),
-                      Card(
-                        elevation: 3,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                        child: Padding(
-                          padding: EdgeInsets.only(top: 10, bottom: 10, left: 10, right: 22),
-                          child: TextButton.icon(
-                            icon: Icon(
-                              Icons.store,
-                              color: HexColor("#155293"),
-                            ),
-                            label: Text(
-                              ' Add Branch',
-                              style: TextStyle(
-                                fontFamily: 'Cairo_SemiBold',
-                                color: HexColor("#155293"),
-                              ),
-                              softWrap: true,
-                            ),
-                            onPressed: () {
-                              showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return AddBranch();
-                                },
-                              );
-                            },
-                          ),
-                        ),
-                      ),
-                      Card(
-                        elevation: 3,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                        child: Padding(
-                          padding: EdgeInsets.only(top: 10, bottom: 10, left: 10, right: 6),
-                          child: TextButton.icon(
-                            icon: Icon(
-                              Icons.store,
-                              color: HexColor("#155293"),
-                            ),
-                            label: Text(
-                              'Update Branch',
-                              style: TextStyle(
-                                fontFamily: 'Cairo_SemiBold',
-                                color: HexColor("#155293"),
-                              ),
-                              softWrap: true,
-                            ),
-                            onPressed: () {
-                              showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return UpdateBranch();
                                 },
                               );
                             },
