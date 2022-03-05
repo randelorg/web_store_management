@@ -368,8 +368,8 @@ class _RepairsPage extends State<RepairsPage> {
     );
   }
 
-  void sendRepairedMessage(String name, String number, String product) {
-    message.sendRepairedProduct(name, number, product).then((value) => {
+  void sendRepairedMessage(String name, String number, String product, String status) {
+    message.sendRepairedProduct(name, number, product, status).then((value) => {
           if (value)
             {
               SnackNotification.notif(
@@ -396,7 +396,7 @@ class _RepairsPage extends State<RepairsPage> {
           _repairs = controller.fetchRepairs();
         });
         //send message to the receiver
-        sendRepairedMessage(name, number, product);
+        sendRepairedMessage(name, number, product,status);
       }
     });
   }

@@ -363,8 +363,8 @@ class _RequestedProdScreen extends State<RequestedProdScreen> {
     );
   }
 
-  void sendRepairedMessage(String name, String number, String product) {
-    message.sendRequestedProduct(name, number, product).then((value) => {
+  void sendRequestedMessage(String name, String number, String product, String status) {
+    message.sendRequestedProduct(name, number, product, status).then((value) => {
           if (value)
             {
               SnackNotification.notif(
@@ -390,7 +390,7 @@ class _RequestedProdScreen extends State<RequestedProdScreen> {
           _requested = controller.fetchRequestedProducts();
         });
         //send message to the receiver
-        sendRepairedMessage(name, number, product);
+        sendRequestedMessage(name, number, product, status);
       }
     });
   }

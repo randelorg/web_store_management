@@ -1,19 +1,17 @@
 class ITextMessage {
-  Future<bool> sendApprovedCredit(
-      String name, String number, String status) async {
+  Future<bool> sendApprovedCredit(String name, String number, String status) async {
     var a;
     return a;
   }
 
-  Future<bool> sendRepairedProduct(String name, String number, String product) {
+  Future<bool> sendRepairedProduct(String name, String number, String product, String status) {
     var a;
-    return Future.value(a);
+    return a;
   }
 
-  Future<bool> sendRequestedProduct(
-      String name, String number, String product) {
+  Future<bool> sendRequestedProduct(String name, String number, String product, String status) {
     var a;
-    return Future.value(a);
+    return a;
   }
 
   Future<bool> sendPromotions() {

@@ -106,7 +106,7 @@ class BorrowerOperation extends Login implements IBorrower, IPay, IServices {
         SnackNotification.notif(
           'Success',
           'New request added successfully',
-          Colors.green.shade900,
+          Colors.green.shade600,
         );
         return true;
       }
@@ -147,7 +147,7 @@ class BorrowerOperation extends Login implements IBorrower, IPay, IServices {
         SnackNotification.notif(
           'Success',
           'New repair added successfully',
-          Colors.green.shade900,
+          Colors.green.shade600,
         );
         return true;
       }
@@ -190,7 +190,7 @@ class BorrowerOperation extends Login implements IBorrower, IPay, IServices {
         SnackNotification.notif(
           'Success',
           'Product Repair is updated - $status',
-          Colors.green.shade900,
+          Colors.green.shade600,
         );
         return true;
       }
@@ -228,7 +228,7 @@ class BorrowerOperation extends Login implements IBorrower, IPay, IServices {
         SnackNotification.notif(
           'Success',
           'Product Request is updated - $status',
-          Colors.green.shade900,
+          Colors.green.shade600,
         );
         return true;
       }
