@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
+import 'package:web_store_management/Models/GraphCollectionModel.dart';
 
 class CollectionGraph extends StatefulWidget {
+  final String? caption;
+  final List<GraphCollectionModel>? graphData;
+  CollectionGraph({this.caption, this.graphData});
   @override
   _CollectionGraph createState() => _CollectionGraph();
 }
 
 class _CollectionGraph extends State<CollectionGraph> {
-  List<_SalesData> month = [
-    _SalesData('Jan', 1000),
-    _SalesData('Feb', 8000),
-    _SalesData('Mar', 190000),
-    _SalesData('Apr', 70000),
-    _SalesData('May', 40000)
-  ];
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,18 +26,18 @@ class _CollectionGraph extends State<CollectionGraph> {
             height: MediaQuery.of(context).size.height,
             child: SfCartesianChart(
               primaryXAxis: CategoryAxis(),
-              // Chart title
-              title: ChartTitle(text: 'Collection'),
               // Enable legend
               legend: Legend(isVisible: true),
               // Enable tooltip
               tooltipBehavior: TooltipBehavior(enable: true),
-              series: <ChartSeries<_SalesData, String>>[
-                LineSeries<_SalesData, String>(
-                  name: 'Month',
-                  dataSource: month,
-                  xValueMapper: (_SalesData sales, _) => sales.year,
-                  yValueMapper: (_SalesData sales, _) => sales.sales,
+              series: <ChartSeries<GraphCollectionModel, String>>[
+                LineSeries<GraphCollectionModel, String>(
+                  //name: widget.caption.toString(),
+                  dataSource: widget.graphData!.toList(),
+                  xValueMapper: (GraphCollectionModel sales, _) =>
+                      sales.getGivenDate,
+                  yValueMapper: (GraphCollectionModel sales, _) =>
+                      sales.getCollection,
 
                   // Enable data label
                   dataLabelSettings: DataLabelSettings(isVisible: true),
@@ -48,11 +49,4 @@ class _CollectionGraph extends State<CollectionGraph> {
       ],
     );
   }
-}
-
-class _SalesData {
-  _SalesData(this.year, this.sales);
-
-  final String year;
-  final double sales;
 }

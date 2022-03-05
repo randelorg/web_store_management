@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:hexcolor/hexcolor.dart';
-
+import 'package:web_store_management/Backend/DashboardOperation.dart';
+import '../../Models/GraphCollectionModel.dart';
 import '../DashBoard/CollectionGraph.dart';
 
 class CollectionSummary extends StatefulWidget {
@@ -10,11 +11,16 @@ class CollectionSummary extends StatefulWidget {
 }
 
 class _CollectionSummary extends State<CollectionSummary> {
-  TextEditingController dateinput = TextEditingController();
+  TextEditingController startDate = TextEditingController();
+  TextEditingController endDate = TextEditingController();
+  late Future<List<GraphCollectionModel>> report;
+  var dashboard = DashboardOperation();
 
   @override
   void initState() {
-    dateinput.text = "";
+    startDate.text = "";
+    endDate.text = "";
+    report = dashboard.getGraphReport('', '');
     super.initState();
   }
 
@@ -34,7 +40,7 @@ class _CollectionSummary extends State<CollectionSummary> {
               child: Container(
                 width: (MediaQuery.of(context).size.width) / 6,
                 child: TextField(
-                  controller: dateinput,
+                  controller: startDate,
                   decoration: InputDecoration(
                     labelStyle: TextStyle(fontSize: 12),
                     contentPadding: EdgeInsets.only(left: 15),
@@ -42,7 +48,7 @@ class _CollectionSummary extends State<CollectionSummary> {
                     hintText: 'Date Start',
                     fillColor: Colors.blueGrey[50],
                     enabledBorder: OutlineInputBorder(
-                     borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                      borderSide: BorderSide(color: Colors.blueGrey.shade50),
                       borderRadius: BorderRadius.circular(10),
                     ),
                     focusedBorder: OutlineInputBorder(
@@ -53,34 +59,32 @@ class _CollectionSummary extends State<CollectionSummary> {
                   //readOnly: true,
                   onTap: () async {
                     DateTime? pickedDate = await showDatePicker(
-                        context: context,
-                        initialDate: DateTime.now(),
-                        firstDate: DateTime(2022),
-                        lastDate: DateTime(2032),
-                        builder: (context, child) { 
-                        return Theme( 
+                      context: context,
+                      initialDate: DateTime.now(),
+                      firstDate: DateTime(2000),
+                      lastDate: DateTime(2032),
+                      builder: (context, child) {
+                        return Theme(
                           data: Theme.of(context).copyWith(
-                            colorScheme: ColorScheme.light(                           
-                            primary: Colors.red, //Background Color
-                            onPrimary: Colors.white, //Text Color
-                          ),
-                          textButtonTheme: TextButtonThemeData(                        
-                            style: TextButton.styleFrom(
-                            primary: Colors.black, //Button Text Color
+                            colorScheme: ColorScheme.light(
+                              primary: Colors.red, //Background Color
+                              onPrimary: Colors.white, //Text Color
+                            ),
+                            textButtonTheme: TextButtonThemeData(
+                              style: TextButton.styleFrom(
+                                primary: Colors.black, //Button Text Color
+                              ),
                             ),
                           ),
-                        ),
-                        child: child!,
-                      );
-                    },
-                  );
+                          child: child!,
+                        );
+                      },
+                    );
                     if (pickedDate != null) {
-                      print(pickedDate);
                       String formattedDate =
                           DateFormat('dd-MM-yyyy').format(pickedDate);
-                      print(formattedDate);
                       setState(() {
-                        dateinput.text = formattedDate;
+                        startDate.text = formattedDate;
                       });
                     } else {
                       print("Date is not selected");
@@ -102,7 +106,7 @@ class _CollectionSummary extends State<CollectionSummary> {
               child: Container(
                 width: (MediaQuery.of(context).size.width) / 6,
                 child: TextField(
-                  controller: dateinput,
+                  controller: endDate,
                   decoration: InputDecoration(
                     labelStyle: TextStyle(fontSize: 12),
                     contentPadding: EdgeInsets.only(left: 15),
@@ -121,34 +125,32 @@ class _CollectionSummary extends State<CollectionSummary> {
                   //readOnly: true,
                   onTap: () async {
                     DateTime? pickedDate = await showDatePicker(
-                        context: context,
-                        initialDate: DateTime.now(),
-                        firstDate: DateTime(2022),
-                        lastDate: DateTime(2032),
-                        builder: (context, child) {
-                        return Theme(                    
-                          data: Theme.of(context).copyWith(                      
-                            colorScheme: ColorScheme.light(                           
-                            primary: Colors.red, //Background Color
-                            onPrimary: Colors.white, //Text Color
-                          ),
-                          textButtonTheme: TextButtonThemeData(                                                   
-                            style: TextButton.styleFrom(
-                            primary: Colors.black, //Button Text Color
+                      context: context,
+                      initialDate: DateTime.now(),
+                      firstDate: DateTime(2000),
+                      lastDate: DateTime(2032),
+                      builder: (context, child) {
+                        return Theme(
+                          data: Theme.of(context).copyWith(
+                            colorScheme: ColorScheme.light(
+                              primary: Colors.red, //Background Color
+                              onPrimary: Colors.white, //Text Color
+                            ),
+                            textButtonTheme: TextButtonThemeData(
+                              style: TextButton.styleFrom(
+                                primary: Colors.black, //Button Text Color
+                              ),
                             ),
                           ),
-                        ),
-                        child: child!,
-                      );
-                    },
-                  );
+                          child: child!,
+                        );
+                      },
+                    );
                     if (pickedDate != null) {
-                      print(pickedDate);
                       String formattedDate =
                           DateFormat('dd-MM-yyyy').format(pickedDate);
-                      print(formattedDate);
                       setState(() {
-                        dateinput.text = formattedDate;
+                        endDate.text = formattedDate;
                       });
                     } else {
                       print("Date is not selected");
@@ -172,12 +174,21 @@ class _CollectionSummary extends State<CollectionSummary> {
                     ),
                     TextButton(
                       style: TextButton.styleFrom(
-                        padding: const EdgeInsets.only(left: 20, right: 20, top: 15, bottom: 15),
+                        padding: const EdgeInsets.only(
+                            left: 20, right: 20, top: 15, bottom: 15),
                         primary: Colors.white,
-                        textStyle: TextStyle(fontFamily: 'Cairo_SemiBold', fontSize: 14),
+                        textStyle: TextStyle(
+                            fontFamily: 'Cairo_SemiBold', fontSize: 14),
                       ),
-                      onPressed: () {},
                       child: const Text('VIEW'),
+                      onPressed: () {
+                        setState(() {
+                          report = dashboard.getGraphReport(
+                            startDate.text,
+                            endDate.text,
+                          );
+                        });
+                      },
                     ),
                   ],
                 ),
@@ -194,7 +205,38 @@ class _CollectionSummary extends State<CollectionSummary> {
         ),
         Expanded(
           child: Center(
-            child: CollectionGraph(),
+            child: FutureBuilder<List<GraphCollectionModel>>(
+              future: report,
+              builder: (context, snapshot) {
+                if (!snapshot.hasData) {
+                  return Center(
+                    child: CircularProgressIndicator(
+                      semanticsLabel: 'Fetching collections',
+                    ),
+                  );
+                }
+                if (snapshot.hasData) {
+                  //checkLength();
+                  return CollectionGraph(graphData: snapshot.data);
+                } else if (snapshot.data == []) {
+                  return Center(
+                    child: Text(
+                      'No data to display',
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: HexColor("#155293"),
+                        fontFamily: 'Cairo_Bold',
+                      ),
+                    ),
+                  );
+                }
+                return Center(
+                  child: CircularProgressIndicator(
+                    semanticsLabel: 'Fetching collections',
+                  ),
+                );
+              },
+            ),
           ),
         )
       ],

@@ -14,6 +14,7 @@ class OTPVerification extends StatefulWidget {
 class _OTPVerification extends State<OTPVerification> {
   final verifyOTP = TextEditingController();
   String continueTimer = "Continue";
+  int counter = 0;
 
   bool checkOtp(int code) {
     if (code == widget.code)
@@ -99,7 +100,8 @@ class _OTPVerification extends State<OTPVerification> {
                     ),
                     TextButton(
                       style: TextButton.styleFrom(
-                        padding: const EdgeInsets.only(left: 20, right: 20, top: 15, bottom: 15),
+                        padding: const EdgeInsets.only(
+                            left: 20, right: 20, top: 15, bottom: 15),
                         primary: Colors.white,
                         textStyle: TextStyle(
                             fontFamily: 'Cairo_SemiBold',
@@ -124,6 +126,20 @@ class _OTPVerification extends State<OTPVerification> {
                               },
                             );
                           } else {
+                            setState(() {
+                              counter++;
+                            });
+
+                            if (counter >= 3) {
+                              Navigator.pop(context);
+                              //attempted to enter wrong OTP 3 times
+                              SnackNotification.notif(
+                                'WRONG OTP',
+                                'You enter wrong OTP for 3 times, try again in few minutes or contact your IT administrator',
+                                Colors.red.shade600,
+                              );
+                            }
+                            //show snackbar that the otp is wrong
                             SnackNotification.notif(
                               'Try again',
                               'Wrong OTP',
