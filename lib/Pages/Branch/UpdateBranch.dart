@@ -4,16 +4,14 @@ import 'package:hexcolor/hexcolor.dart';
 import '../../Backend/BranchOperation.dart';
 
 class UpdateBranch extends StatefulWidget {
-
-  final String? branchName, branchAddress;
-  UpdateBranch({this.branchName,  this.branchAddress});
+  final String? branchCode, branchName, branchAddress;
+  UpdateBranch({required this.branchCode, this.branchName, this.branchAddress});
 
   @override
   _UpdateBranch createState() => _UpdateBranch();
 }
 
 class _UpdateBranch extends State<UpdateBranch> {
-
   var branch = BranchOperation();
   final TextEditingController branchName = new TextEditingController();
   final TextEditingController branchAddress = new TextEditingController();
@@ -21,11 +19,10 @@ class _UpdateBranch extends State<UpdateBranch> {
   @override
   void initState() {
     super.initState();
-  
+
     branchName.text = widget.branchName.toString();
     branchAddress.text = widget.branchAddress.toString();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +55,6 @@ class _UpdateBranch extends State<UpdateBranch> {
                 fontSize: 30,
               ),
             ),
-
             Padding(
               padding: EdgeInsets.only(top: 20, left: 2),
               child: Container(
@@ -90,7 +86,6 @@ class _UpdateBranch extends State<UpdateBranch> {
                 ),
               ),
             ),
-
             Padding(
               padding: EdgeInsets.only(left: 2),
               child: Container(
@@ -140,7 +135,8 @@ class _UpdateBranch extends State<UpdateBranch> {
                         ),
                         TextButton(
                           style: TextButton.styleFrom(
-                            padding: const EdgeInsets.only(left: 20, right: 20, top: 15, bottom: 15),
+                            padding: const EdgeInsets.only(
+                                left: 20, right: 20, top: 15, bottom: 15),
                             primary: Colors.white,
                             textStyle: TextStyle(
                               fontFamily: 'Cairo_SemiBold',
@@ -149,9 +145,7 @@ class _UpdateBranch extends State<UpdateBranch> {
                             ),
                           ),
                           child: const Text('UPDATE'),
-                          onPressed: () {
-                            
-                          },
+                          onPressed: () {},
                         ),
                       ],
                     ),

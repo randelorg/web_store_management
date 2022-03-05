@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:web_store_management/Backend/GlobalController.dart';
+import 'package:web_store_management/Backend/Utility/Mapping.dart';
 import 'package:web_store_management/Pages/Branch/AddBranch.dart';
 import 'package:web_store_management/Pages/Branch/UpdateBranch.dart';
 
@@ -9,11 +11,13 @@ class BranchPage extends StatefulWidget {
 }
 
 class _BranchPage extends State<BranchPage> {
+  var controller = GlobalController();
+  late Future branches;
 
   @override
   void initState() {
     super.initState();
-   
+    branches = controller.fetchBranches();
   }
 
   @override
@@ -40,11 +44,14 @@ class _BranchPage extends State<BranchPage> {
                           ),
                         ),
                         TextButton.icon(
-                          icon:Icon(Icons.add_box_rounded, color: Colors.white),
+                          icon:
+                              Icon(Icons.add_box_rounded, color: Colors.white),
                           style: TextButton.styleFrom(
-                            padding: const EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 10),
+                            padding: const EdgeInsets.only(
+                                left: 10, right: 10, top: 10, bottom: 10),
                             primary: Colors.white,
-                            textStyle: TextStyle(fontSize: 18, fontFamily: 'Cairo_SemiBold'),
+                            textStyle: TextStyle(
+                                fontSize: 18, fontFamily: 'Cairo_SemiBold'),
                           ),
                           label: Text('NEW BRANCH'),
                           onPressed: () {
@@ -65,7 +72,7 @@ class _BranchPage extends State<BranchPage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               crossAxisAlignment: CrossAxisAlignment.end,
-              children: [       
+              children: [
                 Container(
                   padding: EdgeInsets.only(top: 15, bottom: 15, right: 100),
                   width: 400,
@@ -102,7 +109,7 @@ class _BranchPage extends State<BranchPage> {
             width: (MediaQuery.of(context).size.width),
             height: (MediaQuery.of(context).size.height),
             child: FutureBuilder(
-              future: employees,
+              future: branches,
               builder: (context, snapshot) {
                 if (!snapshot.hasData) {
                   return Center(
@@ -121,12 +128,11 @@ class _BranchPage extends State<BranchPage> {
                         showFirstLastButtons: true,
                         rowsPerPage: 12,
                         columns: [
-                          DataColumn(label: Text('EID')),
-                          DataColumn(label: Text('ROLE')),
+                          DataColumn(label: Text('CODE')),
                           DataColumn(label: Text('NAME')),
-                          DataColumn(label: Text('NUMBER')),
-                          DataColumn(label: Text('PROFILE')),
-                          DataColumn(label: Text('PAYROLL')),
+                          DataColumn(label: Text('ADDRESS')),
+                          DataColumn(label: Text('ATTENDANT')),
+                          DataColumn(label: Text('UPDATE')),
                         ],
                         source: _DataSource(context),
                       )
@@ -154,7 +160,6 @@ class _Row {
     this.valueC,
     this.valueD,
     this.valueE,
-    this.valueF,
   );
 
   final String valueA;
@@ -162,26 +167,25 @@ class _Row {
   final String valueC;
   final String valueD;
   final Widget valueE;
-  final Widget valueF;
 
   bool selected = false;
 }
 
 class _DataSource extends DataTableSource {
   _DataSource(this.context) {
-    _employees = _borrowerProfile(context);
+    _branch = _borrowerProfile(context);
   }
 
   final BuildContext context;
 
   int _selectedCount = 0;
-  List<_Row> _employees = [];
+  List<_Row> _branch = [];
 
   @override
   DataRow? getRow(int index) {
     assert(index >= 0);
-    if (index >= _employees.length) return null;
-    final row = _employees[index];
+    if (index >= _branch.length) return null;
+    final row = _branch[index];
     return DataRow.byIndex(
       index: index,
       selected: row.selected,
@@ -203,27 +207,10 @@ class _DataSource extends DataTableSource {
           showDialog(
             context: context,
             builder: (BuildContext context) {
-              return ViewEmpProfile(
-                eid: row.valueA,
-                role: row.valueB,
-                name: row.valueC,
-                number: row.valueD,
-              );
-            },
-          );
-        }),
-        DataCell((row.valueF), onTap: () {
-          showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return SimpleDialog(
-                children: [
-                  Container(
-                    width: (MediaQuery.of(context).size.width) / 2,
-                    height: (MediaQuery.of(context).size.height),
-                    child: PayrollPage(employeeName: row.valueC),
-                  ),
-                ],
+              return UpdateBranch(
+                branchCode: row.valueA,
+                branchName: row.valueB,
+                branchAddress: row.valueC,
               );
             },
           );
@@ -233,7 +220,7 @@ class _DataSource extends DataTableSource {
   }
 
   @override
-  int get rowCount => _employees.length;
+  int get rowCount => _branch.length;
 
   @override
   bool get isRowCountApproximate => false;
@@ -243,12 +230,12 @@ class _DataSource extends DataTableSource {
 
   List<_Row> _borrowerProfile(BuildContext context) {
     try {
-      return List.generate(Mapping.employeeList.length, (index) {
+      return List.generate(Mapping.branchList.length, (index) {
         return new _Row(
-          Mapping.employeeList[index].getEmployeeID.toString(),
-          Mapping.employeeList[index].getRole.toString(),
-          Mapping.employeeList[index].toString(),
-          Mapping.employeeList[index].getMobileNumber.toString(),
+          Mapping.branchList[index].branchCode.toString(),
+          Mapping.branchList[index].branchName.toString(),
+          Mapping.branchList[index].branchAddress.toString(),
+          Mapping.branchList[index].employeeAssigned.toString(),
           ClipRRect(
             borderRadius: BorderRadius.circular(20),
             child: Stack(
@@ -261,34 +248,10 @@ class _DataSource extends DataTableSource {
                   ),
                 ),
                 Padding(
-                 padding:EdgeInsets.only(top: 8, bottom: 8, left: 16, right: 16),
+                  padding:
+                      EdgeInsets.only(top: 8, bottom: 8, left: 16, right: 16),
                   child: Text(
                     'UPDATE',
-                    style: TextStyle(
-                      fontFamily: 'Cairo_SemiBold',
-                      fontSize: 14,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          ClipRRect(
-            borderRadius: BorderRadius.circular(20),
-            child: Stack(
-              children: <Widget>[
-                Positioned.fill(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: HexColor("#155293"),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding:EdgeInsets.only(top: 8, bottom: 8, left: 16, right: 16),
-                  child: Text(
-                    'VIEw',
                     style: TextStyle(
                       fontFamily: 'Cairo_SemiBold',
                       fontSize: 14,
@@ -309,7 +272,6 @@ class _DataSource extends DataTableSource {
           '',
           '',
           '',
-          Text(''),
           Text(''),
         );
       });
