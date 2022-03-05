@@ -82,7 +82,7 @@ class _CollectionSummary extends State<CollectionSummary> {
                     );
                     if (pickedDate != null) {
                       String formattedDate =
-                          DateFormat('dd-MM-yyyy').format(pickedDate);
+                          DateFormat('yyyy-dd-MM').format(pickedDate);
                       setState(() {
                         startDate.text = formattedDate;
                       });
@@ -148,7 +148,7 @@ class _CollectionSummary extends State<CollectionSummary> {
                     );
                     if (pickedDate != null) {
                       String formattedDate =
-                          DateFormat('dd-MM-yyyy').format(pickedDate);
+                          DateFormat('yyyy-dd-MM').format(pickedDate);
                       setState(() {
                         endDate.text = formattedDate;
                       });
