@@ -93,7 +93,8 @@ class _ProfileDrawer extends State<ProfileDrawer> {
                     borderRadius: BorderRadius.circular(30),
                   ),
                   child: Padding(
-                    padding: EdgeInsets.only(top: 10, bottom: 10, left: 10, right: 20),
+                    padding: EdgeInsets.only(
+                        top: 10, bottom: 10, left: 10, right: 20),
                     child: TextButton.icon(
                       icon: Icon(
                         Icons.visibility,
@@ -123,7 +124,7 @@ class _ProfileDrawer extends State<ProfileDrawer> {
                   maintainAnimation: true,
                   maintainState: true,
                   visible: this._isAuthorized,
-                  child: Column(         
+                  child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
@@ -133,7 +134,8 @@ class _ProfileDrawer extends State<ProfileDrawer> {
                           borderRadius: BorderRadius.circular(30),
                         ),
                         child: Padding(
-                          padding: EdgeInsets.only(top: 10, bottom: 10, left: 10, right: 6),                  
+                          padding: EdgeInsets.only(
+                              top: 10, bottom: 10, left: 10, right: 6),
                           child: TextButton.icon(
                             icon: Icon(
                               Icons.create_rounded,
@@ -164,14 +166,15 @@ class _ProfileDrawer extends State<ProfileDrawer> {
                           borderRadius: BorderRadius.circular(30),
                         ),
                         child: Padding(
-                          padding: EdgeInsets.only(top: 10, bottom: 10, left: 10, right: 24),
+                          padding: EdgeInsets.only(
+                              top: 10, bottom: 10, left: 10, right: 24),
                           child: TextButton.icon(
                             icon: Icon(
                               Icons.person_add,
                               color: HexColor("#155293"),
                             ),
                             label: Text(
-                              ' Add Admin',                           
+                              ' Add Admin',
                               style: TextStyle(
                                 fontFamily: 'Cairo_SemiBold',
                                 color: HexColor("#155293"),
@@ -216,7 +219,8 @@ class _ProfileDrawer extends State<ProfileDrawer> {
                           borderRadius: BorderRadius.circular(30),
                         ),
                         child: Padding(
-                          padding: EdgeInsets.only(top: 10, bottom: 10, left: 10, right: 20),
+                          padding: EdgeInsets.only(
+                              top: 10, bottom: 10, left: 10, right: 20),
                           child: TextButton.icon(
                             icon: Icon(
                               Icons.check_circle,
@@ -231,6 +235,7 @@ class _ProfileDrawer extends State<ProfileDrawer> {
                               softWrap: true,
                             ),
                             onPressed: () {
+                              print("timeIn: " + _getTodayDate());
                               timeIn(
                                 Mapping.employeeLogin[0].getEmployeeID,
                                 _getTodayDate(),
@@ -245,7 +250,8 @@ class _ProfileDrawer extends State<ProfileDrawer> {
                           borderRadius: BorderRadius.circular(30),
                         ),
                         child: Padding(
-                          padding: EdgeInsets.only(top: 10, bottom: 10, left: 10, right: 13),
+                          padding: EdgeInsets.only(
+                              top: 10, bottom: 10, left: 10, right: 13),
                           child: TextButton.icon(
                             icon: Icon(
                               Icons.cancel,
@@ -261,6 +267,7 @@ class _ProfileDrawer extends State<ProfileDrawer> {
                               softWrap: true,
                             ),
                             onPressed: () {
+                              print("timeOut: " + _getTodayDate());
                               timeOut(
                                 Mapping.employeeLogin[0].getEmployeeID,
                                 _getTodayDate(),

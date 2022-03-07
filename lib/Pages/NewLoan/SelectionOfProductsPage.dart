@@ -58,11 +58,7 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
                   style: TextStyle(fontFamily: 'Cairo_Bold', fontSize: 30),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(
-                      top: 20.0,
-                      bottom: 10,
-                      right: 10,
-                      left: 10), //add padding to the textfields
+                  padding: EdgeInsets.only(top: 20, bottom: 10, right: 10, left: 10), //add padding to the textfields
                   child: TextField(
                     controller: firstname,
                     decoration: InputDecoration(

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:async/async.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
+import 'package:web_store_management/Pages/Payment/CashPaymentPage.dart';
 import 'package:web_store_management/Pages/Reports/GlobalHistoryScreens/PaymentHistoryScreen.dart';
 import 'MakePayment.dart';
 import '../../Backend/GlobalController.dart';
@@ -47,15 +48,30 @@ class _PaymentPage extends State<PaymentPage> {
                           ),
                         ),
                         TextButton.icon(
-                          icon:Icon(Icons.payments, color: Colors.white),
+                          icon: Icon(Icons.payments, color: Colors.white),
                           style: TextButton.styleFrom(
-                            padding: const EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 10),
+                            padding: const EdgeInsets.only(
+                                left: 10, right: 10, top: 10, bottom: 10),
                             primary: Colors.white,
-                            textStyle: TextStyle(fontSize: 18, fontFamily: 'Cairo_SemiBold'),
+                            textStyle: TextStyle(
+                                fontSize: 18, fontFamily: 'Cairo_SemiBold'),
                           ),
                           label: Text('CASH PAYMENT'),
                           onPressed: () {
-                         
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return SimpleDialog(
+                                  children: [                                
+                                    Container(
+                                      width:(MediaQuery.of(context).size.width)/1.1,
+                                      height:(MediaQuery.of(context).size.height/1.2),
+                                      child: CashPaymentPage(),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
                           },
                         ),
                       ],
@@ -116,7 +132,8 @@ class _PaymentPage extends State<PaymentPage> {
                 if (snapshot.hasData) {
                   return ListView(
                     scrollDirection: Axis.vertical,
-                    padding: const EdgeInsets.only(bottom: 15, right: 100, left: 100),
+                    padding: const EdgeInsets.only(
+                        bottom: 15, right: 100, left: 100),
                     children: [
                       PaginatedDataTable(
                         sortColumnIndex: _currentSortColumn,
@@ -269,7 +286,8 @@ List _paymentsList(BuildContext context) {
                 ),
               ),
               Padding(
-                padding:EdgeInsets.only(top: 8, bottom: 8, left: 20, right: 20),
+                padding:
+                    EdgeInsets.only(top: 8, bottom: 8, left: 20, right: 20),
                 child: Text(
                   'PAY',
                   style: TextStyle(
@@ -294,7 +312,8 @@ List _paymentsList(BuildContext context) {
                 ),
               ),
               Padding(
-               padding:EdgeInsets.only(top: 8, bottom: 8, left: 16, right: 16),
+                padding:
+                    EdgeInsets.only(top: 8, bottom: 8, left: 16, right: 16),
                 child: Text(
                   'VIEW',
                   style: TextStyle(

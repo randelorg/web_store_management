@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
+import 'package:web_store_management/Backend/DashboardOperation.dart';
 import 'package:web_store_management/Backend/Utility/ApiUrl.dart';
 import 'package:web_store_management/Notification/Snack_notification.dart';
 import 'Interfaces/IEmployee.dart';
@@ -9,6 +10,7 @@ import 'dart:convert';
 
 class EmployeeOperation implements IEmployee {
   final _hash = Hashing();
+  var dashboard = DashboardOperation();
 
   @override
   Future<bool> createEmployeeAccount(
@@ -102,7 +104,7 @@ class EmployeeOperation implements IEmployee {
   Future<bool> timeIn(String id, final String date) async {
     var updateRequestLoad = json.encode({
       'id': id,
-      'date': date,
+      'timeIn': date,
     });
 
     try {
@@ -135,7 +137,8 @@ class EmployeeOperation implements IEmployee {
   Future<bool> timeOut(String id, final String date) async {
     var adminUpdateLoad = json.encode({
       'id': id,
-      'date': date,
+      'dateToday': dashboard.getTodayDate().toString(), 
+      'timeOut': date,
     });
 
     try {
