@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:hexcolor/hexcolor.dart';
+import 'package:printing/printing.dart';
 import 'package:web_store_management/Backend/GlobalController.dart';
 import 'package:web_store_management/Backend/LoanOperation.dart';
+import 'package:web_store_management/Backend/TextMessage.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
+import 'package:web_store_management/Helpers/PrintHelper.dart';
 import 'package:web_store_management/Notification/Snack_notification.dart';
 
 class CreditScreen extends StatefulWidget {
@@ -12,8 +16,9 @@ class CreditScreen extends StatefulWidget {
 class _CreditPage extends State<CreditScreen> {
   var controller = GlobalController();
   var loan = LoanOperation();
+  var message = TextMessage();
   int vid = 0, bid = 0;
-  final String approved = "APPROVED";
+  final String approved = "APPROVED", denied = "DENIED";
   double textSize = 15;
   double titleSize = 30;
   late Future _creditapproval;
@@ -33,11 +38,11 @@ class _CreditPage extends State<CreditScreen> {
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             Container(
-              padding: EdgeInsets.only(top: 10, bottom: 10, right: 20),
+              padding: EdgeInsets.only(top: 15, bottom: 15, right: 20),
               width: 400,
               child: TextField(
                 decoration: InputDecoration(
-                  hintText: 'Search borrower',
+                  hintText: 'Search Borrower',
                   suffixIcon: InkWell(
                     child: IconButton(
                       icon: Icon(Icons.qr_code_scanner_outlined),
@@ -111,7 +116,6 @@ class _CreditPage extends State<CreditScreen> {
             borderRadius: BorderRadius.circular(35.0),
           ),
           shadowColor: Colors.black,
-          elevation: 5,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -119,10 +123,9 @@ class _CreditPage extends State<CreditScreen> {
               Padding(
                 padding: EdgeInsets.all(10),
                 child: ListTile(
-                  title: Text(
-                    'PENDING',
-                    style: TextStyle(fontSize: 30),
-                  ),
+                  title: Text('PENDING',
+                      style: TextStyle(
+                          fontSize: 30, fontFamily: 'Cairo_SemiBold')),
                   subtitle: Text(
                     'status',
                     style: TextStyle(color: Colors.black.withOpacity(0.6)),
@@ -138,12 +141,14 @@ class _CreditPage extends State<CreditScreen> {
                   children: [
                     Padding(
                       padding: EdgeInsets.only(
-                          left: 30, right: 10, top: 10, bottom: 10),
+                          left: 10, top: 10, bottom: 10, right: 50),
                       child: Text(
                         'Name',
                         softWrap: true,
                         style: TextStyle(
-                          fontSize: 10,
+                          color: Colors.grey[700],
+                          fontFamily: 'Cairo_SemiBold',
+                          fontSize: 12,
                         ),
                       ),
                     ),
@@ -154,9 +159,7 @@ class _CreditPage extends State<CreditScreen> {
                         maxLines: 2,
                         softWrap: true,
                         style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18,
-                        ),
+                            fontFamily: 'Cairo_SemiBold', fontSize: 14),
                       ),
                     ),
                   ],
@@ -171,12 +174,14 @@ class _CreditPage extends State<CreditScreen> {
                   children: [
                     Padding(
                       padding: EdgeInsets.only(
-                          left: 30, right: 10, top: 10, bottom: 10),
+                          left: 10, top: 10, bottom: 10, right: 40),
                       child: Text(
                         'Address',
                         softWrap: true,
                         style: TextStyle(
-                          fontSize: 10,
+                          color: Colors.grey[700],
+                          fontFamily: 'Cairo_SemiBold',
+                          fontSize: 12,
                         ),
                       ),
                     ),
@@ -188,9 +193,7 @@ class _CreditPage extends State<CreditScreen> {
                         softWrap: true,
                         maxLines: 3,
                         style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18,
-                        ),
+                            fontFamily: 'Cairo_SemiBold', fontSize: 14),
                       ),
                     ),
                   ],
@@ -205,13 +208,14 @@ class _CreditPage extends State<CreditScreen> {
                   children: [
                     Padding(
                       padding: EdgeInsets.only(
-                          left: 30, right: 10, top: 10, bottom: 10),
+                          left: 10, top: 10, bottom: 10, right: 40),
                       child: Text(
                         'Number',
                         softWrap: true,
                         style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 10,
+                          color: Colors.grey[700],
+                          fontFamily: 'Cairo_SemiBold',
+                          fontSize: 12,
                         ),
                       ),
                     ),
@@ -223,21 +227,23 @@ class _CreditPage extends State<CreditScreen> {
                         softWrap: true,
                         maxLines: 2,
                         style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18,
-                        ),
+                            fontFamily: 'Cairo_SemiBold', fontSize: 14),
                       ),
                     ),
                   ],
                 ),
               ),
               TextButton(
-                child: const Text('Show application'),
                 style: TextButton.styleFrom(
                   textStyle: TextStyle(
-                    fontWeight: FontWeight.bold,
                     fontSize: 10,
                     decoration: TextDecoration.underline,
+                  ),
+                ),
+                child: Text(
+                  'Show Application',
+                  style: TextStyle(
+                    color: HexColor("#155293"),
                   ),
                 ),
                 onPressed: () {},
@@ -246,31 +252,28 @@ class _CreditPage extends State<CreditScreen> {
                 alignment: MainAxisAlignment.center,
                 children: [
                   ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
+                    borderRadius: BorderRadius.circular(20),
                     child: Stack(
                       children: <Widget>[
                         Positioned.fill(
                           child: Container(
-                            decoration: const BoxDecoration(
-                              color: Colors.blue,
+                            decoration: BoxDecoration(
+                              color: HexColor("#155293"),
                             ),
                           ),
                         ),
                         TextButton(
                           style: TextButton.styleFrom(
-                            padding: const EdgeInsets.only(
-                              left: 20,
-                              right: 20,
-                            ),
-                            primary: Colors.white,
-                            textStyle: TextStyle(fontSize: 20),
-                          ),
+                              padding: const EdgeInsets.only(
+                                  left: 20, right: 20, top: 10, bottom: 10),
+                              primary: Colors.white,
+                              textStyle: TextStyle(
+                                  fontSize: 18, fontFamily: 'Cairo_SemiBold')),
                           child: const Text('APPROVE'),
                           onPressed: () {
                             vid = Mapping
                                 .creditApprovals[index].getinvestigationID;
                             bid = Mapping.creditApprovals[index].getBorrowerId;
-
                             loan
                                 .approvedCredit(vid, bid, approved)
                                 .then((value) {
@@ -281,10 +284,30 @@ class _CreditPage extends State<CreditScreen> {
                                   Colors.redAccent.shade200,
                                 );
                               } else {
+                                //refresh the data in the window
                                 setState(() {
                                   _creditapproval =
                                       controller.fetchCreditApprovals();
                                 });
+                                //send message to the borrower that the credit has been approved
+                                sendMessageApproved(
+                                  Mapping
+                                      .creditApprovals[index].getMobileNumber,
+                                  Mapping.creditApprovals[index].toString(),
+                                  approved,
+                                );
+                                //show the print screen
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return showPrint(
+                                      Mapping
+                                          .creditApprovals[index].getBorrowerId
+                                          .toString(),
+                                      Mapping.creditApprovals[index].toString(),
+                                    );
+                                  },
+                                );
                               }
                             });
                           },
@@ -297,7 +320,28 @@ class _CreditPage extends State<CreditScreen> {
                     color: Colors.redAccent.shade400,
                     tooltip: 'DENY CREDIT',
                     onPressed: () {
-                      print(Mapping.creditApprovals[index].toString());
+                      vid = Mapping.creditApprovals[index].getinvestigationID;
+                      bid = Mapping.creditApprovals[index].getBorrowerId;
+                      loan.approvedCredit(vid, bid, denied).then((value) {
+                        if (!value) {
+                          SnackNotification.notif(
+                            'Error',
+                            'Something went wrong while approving the loan',
+                            Colors.redAccent.shade200,
+                          );
+                        } else {
+                          //refresh the data in the window
+                          setState(() {
+                            _creditapproval = controller.fetchCreditApprovals();
+                          });
+                          //send message to the borrower that the credit has been approved
+                          sendMessageApproved(
+                            Mapping.creditApprovals[index].getMobileNumber,
+                            Mapping.creditApprovals[index].toString(),
+                            denied,
+                          );                  
+                        }
+                      });
                     },
                   ),
                 ],
@@ -306,6 +350,32 @@ class _CreditPage extends State<CreditScreen> {
           ),
         );
       },
+    );
+  }
+
+  void sendMessageApproved(String number, String name, String status) {
+    message.sendApprovedCredit(name, number, status).then((value) => {
+          if (value)
+            {
+              SnackNotification.notif(
+                'PENDING',
+                'The message is in transit to the network',
+                Colors.orange.shade500,
+              )
+            }
+        });
+  }
+
+  Widget showPrint(String id, String name) {
+    return Container(
+      child: PdfPreview(
+        padding: EdgeInsets.all(100),
+        build: (format) => PrintHelper.generatePdfQr(
+          format,
+          id,
+          name,
+        ),
+      ),
     );
   }
 }

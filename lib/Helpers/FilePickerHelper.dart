@@ -16,14 +16,12 @@ class Picker {
     );
 
     if (result != null) {
-      //set the image to the setter
-      print(result.files.single.bytes);
       image = result.files.single.bytes;
 
       return result.files.single.name.toString();
     }
 
-    return 'No file is selected';
+    return 'No File is Selected';
   }
 
   Uint8List getImageBytes() {

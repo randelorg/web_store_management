@@ -5,6 +5,10 @@ class PersonModel {
   String? mobileNumber;
   String? homeAddress;
 
+  get getPersonId => this.personId;
+
+  set setPersonId(personId) => this.personId = personId;
+
   get getFirstname => this.firstname;
 
   set setFirstname(firstname) => this.firstname = firstname;

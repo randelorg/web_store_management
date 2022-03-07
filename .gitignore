@@ -17,6 +17,7 @@
 .packages
 .pub-cache/
 .pub/
+build/
 
 
 # Visual Studio Code related
@@ -34,6 +35,8 @@
 **/android/**/GeneratedPluginRegistrant.java
 **/android/key.properties
 *.jks
+
+ios
 
 # Web related
 **/web/**/lib/generated_plugin_registrant.dart

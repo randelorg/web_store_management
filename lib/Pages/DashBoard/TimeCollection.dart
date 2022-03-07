@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:web_store_management/Backend/DashboardOperation.dart';
+import 'package:web_store_management/Models/GraphCollectionModel.dart';
 import 'CollectionGraph.dart';
 
 class TimeCollection extends StatefulWidget {
@@ -9,24 +11,27 @@ class TimeCollection extends StatefulWidget {
 
 class _TimeCollection extends State<TimeCollection> {
   var dashboard = DashboardOperation();
+  late Future day;
+  late Future week;
+  late Future month;
+  late Future<List<GraphCollectionModel>> monthGraph;
+
+  @override
+  void initState() {
+    super.initState();
+    //graph
+    monthGraph = dashboard.getGraphWeek();
+    //collection summary total
+    day = dashboard.getTodayCollection();
+    week = dashboard.getWeekCollection();
+    month = dashboard.getMonthCollection();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        Padding(
-          padding: EdgeInsets.only(top: 20),
-          child: Row(
-            children: [
-              Icon(
-                Icons.account_balance_wallet,
-                size: 40.0,
-                color: Colors.black,
-              ),
-            ],
-          ),
-        ),
         Row(
           children: [
             Card(
@@ -40,7 +45,7 @@ class _TimeCollection extends State<TimeCollection> {
                 child: Column(
                   children: [
                     FutureBuilder(
-                      future: dashboard.getTodayCollection(),
+                      future: day,
                       builder: (context, snapshot) {
                         if (!snapshot.hasData) {
                           return Center(
@@ -63,8 +68,8 @@ class _TimeCollection extends State<TimeCollection> {
                               softWrap: true,
                               style: TextStyle(
                                 fontSize: 25,
-                                color: Colors.blue,
-                                fontWeight: FontWeight.bold,
+                                color: HexColor("#155293"),
+                                fontFamily: 'Cairo_Bold',
                               ),
                             ),
                             onPressed: () {}, //pwdeng refresh button
@@ -76,8 +81,8 @@ class _TimeCollection extends State<TimeCollection> {
                             softWrap: true,
                             style: TextStyle(
                               fontSize: 30,
-                              color: Colors.blue,
-                              fontWeight: FontWeight.bold,
+                              color: HexColor("#155293"),
+                              fontFamily: 'Cairo_Bold',
                             ),
                           ),
                         );
@@ -103,7 +108,7 @@ class _TimeCollection extends State<TimeCollection> {
                 child: Column(
                   children: [
                     FutureBuilder(
-                      future: dashboard.getWeekCollection(),
+                      future: week,
                       builder: (context, snapshot) {
                         if (!snapshot.hasData) {
                           return Center(
@@ -126,8 +131,8 @@ class _TimeCollection extends State<TimeCollection> {
                               softWrap: true,
                               style: TextStyle(
                                 fontSize: 25,
-                                color: Colors.blue,
-                                fontWeight: FontWeight.bold,
+                                color: HexColor("#155293"),
+                                fontFamily: 'Cairo_Bold',
                               ),
                             ),
                             onPressed: () {}, //pwdeng refresh button
@@ -139,8 +144,8 @@ class _TimeCollection extends State<TimeCollection> {
                             softWrap: true,
                             style: TextStyle(
                               fontSize: 30,
-                              color: Colors.blue,
-                              fontWeight: FontWeight.bold,
+                              color: HexColor("#155293"),
+                              fontFamily: 'Cairo_Bold',
                             ),
                           ),
                         );
@@ -166,7 +171,7 @@ class _TimeCollection extends State<TimeCollection> {
                 child: Column(
                   children: [
                     FutureBuilder(
-                      future: dashboard.getWeekCollection(),
+                      future: month,
                       builder: (context, snapshot) {
                         if (!snapshot.hasData) {
                           return Center(
@@ -189,8 +194,8 @@ class _TimeCollection extends State<TimeCollection> {
                               softWrap: true,
                               style: TextStyle(
                                 fontSize: 25,
-                                color: Colors.blue,
-                                fontWeight: FontWeight.bold,
+                                color: HexColor("#155293"),
+                                fontFamily: 'Cairo_Bold',
                               ),
                             ),
                             onPressed: () {}, //pwdeng refresh button
@@ -202,8 +207,8 @@ class _TimeCollection extends State<TimeCollection> {
                             softWrap: true,
                             style: TextStyle(
                               fontSize: 30,
-                              color: Colors.blue,
-                              fontWeight: FontWeight.bold,
+                              color: HexColor("#155293"),
+                              fontFamily: 'Cairo_Bold',
                             ),
                           ),
                         );
@@ -225,10 +230,45 @@ class _TimeCollection extends State<TimeCollection> {
             //the actual graph
             width: (MediaQuery.of(context).size.width),
             height: (MediaQuery.of(context).size.height),
-            child: CollectionGraph(),
+            child: collectionGraph('Month'),
           ),
         ),
       ],
+    );
+  }
+
+  Widget collectionGraph(String caption) {
+    return FutureBuilder<List<GraphCollectionModel>>(
+      future: monthGraph,
+      builder: (context, snapshot) {
+        if (!snapshot.hasData) {
+          return Center(
+            child: CircularProgressIndicator(
+              semanticsLabel: 'Fetching collections',
+            ),
+          );
+        }
+        if (snapshot.hasData) {
+          //checkLength();
+          return CollectionGraph(caption: caption, graphData: snapshot.data);
+        } else if (snapshot.data == []) {
+          return Center(
+            child: Text(
+              'No data to display',
+              style: TextStyle(
+                fontSize: 20,
+                color: HexColor("#155293"),
+                fontFamily: 'Cairo_Bold',
+              ),
+            ),
+          );
+        }
+        return Center(
+          child: CircularProgressIndicator(
+            semanticsLabel: 'Fetching borrowers',
+          ),
+        );
+      },
     );
   }
 }

@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:web_store_management/Backend/BorrowerOperation.dart';
 import 'package:web_store_management/Backend/Interfaces/ILoan.dart';
@@ -11,29 +13,56 @@ import 'Utility/ApiUrl.dart';
 
 class LoanOperation extends BorrowerOperation implements INewLoan {
   @override
-  Future<bool> addBorrower(String firstname, String lastname, String mobile,
-      String homeaddress, num balance) async {
-    String id = '8';
-    var borrower = json.encode({
-      'id': id,
+  Future<bool> addBorrower(
+    String firstname,
+    String lastname,
+    String mobile,
+    String homeaddress,
+    num balance,
+    Uint8List? contract,
+    String plan,
+    String term,
+    String duedate,
+  ) async {
+    var brwDetail1 = json.encode({
       'firstname': firstname.trim(),
       'lastname': lastname.trim(),
       'mobile': mobile.trim(),
       'address': homeaddress.trim(),
       'balance': balance,
+      'contract': contract
+    });
+
+    var brwDetail2 = json.encode({
+      'firstname': firstname.trim(),
+      'lastname': lastname.trim(),
     });
 
     try {
-      final response = await http.post(
+      final response1 = await http.post(
         Uri.parse(Url.url + "api/addborrower"),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json'
         },
-        body: borrower,
+        body: brwDetail1,
       );
 
-      if (response.statusCode == 404) return false;
+      final response2 = await http.post(
+        Uri.parse(Url.url + "api/addinvestigation"),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: brwDetail2,
+      );
+
+      //add the loan
+      addNewLoan(firstname, lastname, plan, term, duedate);
+
+      if (response1.statusCode == 404 || response2.statusCode == 404) {
+        return false;
+      }
     } catch (e) {
       e.toString();
       SnackNotification.notif(
@@ -53,16 +82,16 @@ class LoanOperation extends BorrowerOperation implements INewLoan {
       String term, String duedate) async {
     for (var item in Mapping.selectedProducts) {
       try {
-        await http.post(
+        final response = await http.post(
           Uri.parse(Url.url + "api/addloan"),
           headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json'
           },
           body: json.encode({
-            'firstname': firstname,
-            'lastname': lastname,
-            'productCode': item.getProductCode,
+            "firstname": firstname,
+            "lastname": lastname,
+            "productCode": item.getProductCode,
             'plan': plan,
             'duedate': duedate,
             'term': term,
@@ -70,6 +99,10 @@ class LoanOperation extends BorrowerOperation implements INewLoan {
             'status': 'UNPAID',
           }),
         );
+
+        if (response.statusCode == 202) {
+          return true;
+        }
       } catch (e) {
         e.toString();
         SnackNotification.notif(
@@ -108,7 +141,7 @@ class LoanOperation extends BorrowerOperation implements INewLoan {
       if (response.statusCode == 202) {
         SnackNotification.notif(
           'Success',
-          'Loan is now approved - Go now to borrowers',
+          'Loan is now $status - Go now to Borrowers',
           Colors.green.shade900,
         );
         return true;

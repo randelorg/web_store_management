@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:web_store_management/Backend/Session.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
+import 'package:web_store_management/Notification/Snack_notification.dart';
+import 'package:web_store_management/Pages/Branch/BranchPage.dart';
 import '../DashBoard/TimeCollection.dart';
 import '../NewLoan/SelectionOfProductsPage.dart';
 import '../Borrowers/BorrowersPage.dart';
@@ -20,29 +23,7 @@ class NavDrawer extends StatefulWidget {
 }
 
 class _NavDrawer extends State<NavDrawer> {
-  @override
-  void initState() {
-    super.initState();
-
-    Session.getid().then((id) {
-      setState(() {
-        if (id.compareTo('') == 0) {
-          Navigator.pushNamed(context, '/logout');
-        }
-      });
-    });
-    if (Mapping.userRole == 'Administrator') {
-      setState(() {
-        pages.add(EmployeePage());
-      });
-    } else {
-      setState(() {
-        pages.remove(EmployeePage());
-      });
-    }
-  }
-
-  int _selectedIndex = 1;
+  int _selectedIndex = 0;
 
   List<Widget> pages = [
     TimeCollection(),
@@ -54,7 +35,22 @@ class _NavDrawer extends State<NavDrawer> {
     RepairsPage(),
     InventoryPage(),
     ViewReport(),
+    BranchPage(),
+    EmployeePage(),
   ];
+
+  @override
+  void initState() {
+    super.initState();
+
+    Session.getid().then((id) {
+      setState(() {
+        if (id.compareTo('') == 0) {
+          Navigator.pushNamed(context, '/logout');
+        }
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -69,9 +65,23 @@ class _NavDrawer extends State<NavDrawer> {
             backgroundColor: Colors.grey.shade900,
             selectedIndex: _selectedIndex,
             onDestinationSelected: (int index) {
-              setState(() {
-                _selectedIndex = index;
-              });
+              if (Mapping.userRole == 'Store Attendant') {
+                if (index == 9 || index == 10) {
+                  SnackNotification.notif(
+                    "No Access",
+                    "You don't have right to access this tab",
+                    Colors.red.shade500,
+                  );
+                } else {
+                  setState(() {
+                    _selectedIndex = index;
+                  });
+                }
+              } else {
+                setState(() {
+                  _selectedIndex = index;
+                });
+              }
             },
             labelType: NavigationRailLabelType.all,
             destinations: <NavigationRailDestination>[
@@ -200,6 +210,20 @@ class _NavDrawer extends State<NavDrawer> {
                   ),
                 ),
               ),
+               NavigationRailDestination(
+                icon: Icon(
+                  Icons.store,
+                  color: Colors.white,
+                ),
+                label: Text(
+                  'Branch',
+                  softWrap: true,
+                  style: TextStyle(
+                    fontSize: 8,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
               NavigationRailDestination(
                 icon: Icon(
                   Icons.badge,
@@ -234,6 +258,7 @@ class _NavDrawer extends State<NavDrawer> {
                     fit: BoxFit.fill,
                     //refresh button
                     child: FloatingActionButton(
+                      backgroundColor: HexColor("#155293"),
                       mouseCursor: MaterialStateMouseCursor.clickable,
                       child: Icon(
                         Icons.refresh,

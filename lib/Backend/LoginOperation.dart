@@ -39,8 +39,8 @@ class Login extends GlobalController implements ILogin {
     final response = await http.post(
       Uri.parse(Url.url + "api/login"),
       headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
       },
       body: entity,
     );
@@ -62,7 +62,7 @@ class Login extends GlobalController implements ILogin {
     return true;
   }
 
-  Future<bool> _users(http.Response response, String role) async {
+  Future<bool> _users(http.Response response, final String role) async {
     //for identifying the user role
     Mapping.userRole = role;
 

@@ -1,19 +1,20 @@
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:intl/intl.dart';
 import 'package:web_store_management/Backend/LoanOperation.dart';
-import 'package:web_store_management/Backend/Utility/Mapping.dart';
-import 'package:web_store_management/Notification/Snack_notification.dart';
 
 class PaymentPlanPage extends StatefulWidget {
   final String? firstname, lastname, mobile, address;
   final num total;
-  PaymentPlanPage({
-    required this.firstname,
-    required this.lastname,
-    required this.mobile,
-    required this.address,
-    required this.total,
-  });
+  final Uint8List contract;
+  PaymentPlanPage(
+      {required this.firstname,
+      required this.lastname,
+      required this.mobile,
+      required this.address,
+      required this.total,
+      required this.contract});
 
   @override
   _PaymentPlanPage createState() => _PaymentPlanPage();
@@ -21,6 +22,7 @@ class PaymentPlanPage extends StatefulWidget {
 
 class _PaymentPlanPage extends State<PaymentPlanPage> {
   var newloan = LoanOperation();
+  var image;
   TextEditingController borrowerName = TextEditingController();
   TextEditingController totalAmount = TextEditingController();
   TextEditingController duedate = TextEditingController();
@@ -40,24 +42,46 @@ class _PaymentPlanPage extends State<PaymentPlanPage> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      actionsPadding: EdgeInsets.all(20),
-      title: Text(
-        'Payment Plan',
-        softWrap: true,
-        textAlign: TextAlign.center,
-        style: TextStyle(
-          fontWeight: FontWeight.bold,
-          fontSize: 25,
-          color: Colors.black,
-          overflow: TextOverflow.fade,
-        ),
-      ),
+      actionsPadding: EdgeInsets.only(bottom: 5, left: 5, right: 5),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       actions: <Widget>[
         Column(
           children: [
+            Align(
+              alignment: Alignment.topRight,
+              child: IconButton(
+                  icon: Icon(
+                    Icons.cancel,
+                    color: Colors.black,
+                    size: 30,
+                  ),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  }),
+            ),
+            Text(
+              'Payment Plan',
+              softWrap: true,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: HexColor("#155293"),
+                fontFamily: 'Cairo_Bold',
+                fontSize: 30,
+              ),
+            ),
+
             Padding(
-              padding: const EdgeInsets.all(6.0),
+              padding: EdgeInsets.only(top: 20, left: 2),
+              child: Container(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Borrower Name',
+                  style: TextStyle(fontSize: 10),
+                ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(bottom: 15),
               child: TextField(
                 controller: borrowerName,
                 enabled: false,
@@ -67,7 +91,7 @@ class _PaymentPlanPage extends State<PaymentPlanPage> {
                   filled: true,
                   fillColor: Colors.blueGrey[50],
                   labelStyle: TextStyle(fontSize: 12),
-                  contentPadding: EdgeInsets.only(left: 30),
+                  contentPadding: EdgeInsets.only(left: 15),
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.grey.shade500),
                     borderRadius: BorderRadius.circular(10),
@@ -76,7 +100,17 @@ class _PaymentPlanPage extends State<PaymentPlanPage> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(6.0),
+              padding: EdgeInsets.only(left: 2),
+              child: Container(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Total Amount',
+                  style: TextStyle(fontSize: 10),
+                ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(bottom: 15),
               child: TextField(
                 controller: totalAmount,
                 enabled: false,
@@ -86,7 +120,7 @@ class _PaymentPlanPage extends State<PaymentPlanPage> {
                   filled: true,
                   fillColor: Colors.blueGrey[50],
                   labelStyle: TextStyle(fontSize: 12),
-                  contentPadding: EdgeInsets.only(left: 30),
+                  contentPadding: EdgeInsets.only(left: 15),
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.grey.shade500),
                     borderRadius: BorderRadius.circular(10),
@@ -94,20 +128,20 @@ class _PaymentPlanPage extends State<PaymentPlanPage> {
                 ),
               ),
             ),
-            Padding(
-              padding: EdgeInsets.all(10),
+             Padding(
+              padding: EdgeInsets.only(left: 2),
               child: Container(
-                alignment: Alignment.topLeft,
+                alignment: Alignment.centerLeft,
                 child: Text(
                   'Terms (if months interact with the slider)',
-                  style: TextStyle(fontSize: 12),
+                  style: TextStyle(fontSize: 10),
                 ),
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(bottom: 20),
+              padding: EdgeInsets.only(bottom: 15),
               child: Container(
-                width: 380,
+                width: 320,
                 alignment: Alignment.topLeft,
                 decoration: BoxDecoration(
                   border: Border.all(
@@ -120,10 +154,10 @@ class _PaymentPlanPage extends State<PaymentPlanPage> {
                   child: DropdownButton<String>(
                     isExpanded: true,
                     value: plan,
-                    icon: const Icon(Icons.arrow_downward),
+                    icon: const Icon(Icons.arrow_drop_down),
                     iconSize: 24,
                     elevation: 16,
-                    style: TextStyle(color: Colors.blue.shade700),
+                    style: TextStyle(color: HexColor("#155293")),
                     onChanged: (String? value) {
                       setState(() {
                         plan = value!;
@@ -134,10 +168,10 @@ class _PaymentPlanPage extends State<PaymentPlanPage> {
                       return DropdownMenuItem<String>(
                         value: value,
                         child: Padding(
-                          padding: EdgeInsets.only(left: 25),
+                          padding: EdgeInsets.only(left: 15),
                           child: Text(
                             value,
-                            style: TextStyle(fontSize: 15),
+                            style: TextStyle(fontSize: 14),
                           ),
                         ),
                       );
@@ -148,6 +182,8 @@ class _PaymentPlanPage extends State<PaymentPlanPage> {
             ),
             Slider(
               value: _currenSliderValue,
+              inactiveColor: HexColor("#155293"),
+              activeColor: HexColor("#155293"),
               min: 3,
               max: 12,
               divisions: 3,
@@ -159,39 +195,61 @@ class _PaymentPlanPage extends State<PaymentPlanPage> {
               },
             ),
             Padding(
-              padding: EdgeInsets.all(10),
+              padding: EdgeInsets.only(left: 5),
               child: Container(
-                alignment: Alignment.topLeft,
+                alignment: Alignment.centerLeft,
                 child: Text(
                   'Choose due date if months is selected',
-                  style: TextStyle(fontSize: 12),
+                  style: TextStyle(fontSize: 10),
                 ),
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(6.0),
+              padding: EdgeInsets.only(bottom: 15),
               child: TextField(
                 controller: duedate,
                 decoration: InputDecoration(
                   labelStyle: TextStyle(fontSize: 12),
-                  contentPadding: EdgeInsets.only(left: 30),
+                  contentPadding: EdgeInsets.only(left: 15),
+                  filled: true,
                   hintText: 'Due Date',
                   fillColor: Colors.blueGrey[50],
                   enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey.shade500),
+                    borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.blueGrey.shade50),
                     borderRadius: BorderRadius.circular(10),
                   ),
                 ),
                 //readOnly: true,
                 onTap: () async {
                   DateTime? pickedDate = await showDatePicker(
-                      context: context,
-                      initialDate: DateTime.now(),
-                      firstDate: DateTime(1999),
-                      lastDate: DateTime(2031));
+                    context: context,
+                    initialDate: DateTime.now(),
+                    firstDate: DateTime(2022),
+                    lastDate: DateTime(2032),
+                    builder: (context, child) {
+                      return Theme(
+                        data: Theme.of(context).copyWith(
+                          colorScheme: ColorScheme.light(
+                            primary: Colors.red, //Background Color
+                            onPrimary: Colors.white, //Text Color
+                          ),
+                          textButtonTheme: TextButtonThemeData(
+                            style: TextButton.styleFrom(
+                              primary: Colors.black, //Button Text Color
+                            ),
+                          ),
+                        ),
+                        child: child!,
+                      );
+                    },
+                  );
                   if (pickedDate != null) {
                     String formattedDate =
-                        DateFormat('dd-MM-yyyy').format(pickedDate);
+                        DateFormat('yyyy-MM-dd').format(pickedDate);
                     setState(() {
                       duedate.text = formattedDate;
                     });
@@ -204,61 +262,32 @@ class _PaymentPlanPage extends State<PaymentPlanPage> {
             Padding(
               padding: const EdgeInsets.only(top: 20),
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(12),
                 child: Stack(
                   children: <Widget>[
                     Positioned.fill(
                       child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.blue.shade900,
-                        ),
+                        decoration: BoxDecoration(color: HexColor("#155293")),
                       ),
                     ),
                     TextButton(
                       style: TextButton.styleFrom(
-                        padding: const EdgeInsets.only(
-                            left: 20, right: 20, top: 15, bottom: 15),
-                        primary: Colors.white,
-                        textStyle: TextStyle(fontSize: 20),
-                      ),
+                          padding: const EdgeInsets.only(left: 15, right: 15, top: 20, bottom: 20),
+                          primary: Colors.white,
+                          textStyle: TextStyle(
+                              fontSize: 14, fontFamily: 'Cairo_SemiBold')),
                       child: const Text('SEND TO REVIEW'),
                       onPressed: () {
-                        newloan
-                            .addBorrower(
+                        newloan.addBorrower(
                           widget.firstname.toString(),
                           widget.lastname.toString(),
                           widget.mobile.toString(),
                           widget.address.toString(),
                           widget.total,
-                        )
-                            .then(
-                          (value) {
-                            if (value) {
-                              newloan
-                                  .addNewLoan(
-                                    widget.firstname.toString(),
-                                    widget.lastname.toString(),
-                                    plan,
-                                    _currenSliderValue.toString(),
-                                    duedate.text,
-                                  )
-                                  .then(
-                                    (value) => {
-                                      if (value)
-                                        {
-                                          Navigator.pop(context),
-                                          //clear all the previous addition in this list
-                                          Mapping.selectedProducts.clear(),
-                                          SnackNotification.notif(
-                                            'Success',
-                                            'New loan is sent to credit approval',
-                                            Colors.green.shade900,
-                                          )
-                                        }
-                                    },
-                                  );
-                            }
-                          },
+                          widget.contract,
+                          plan,
+                          _currenSliderValue.toString(),
+                          duedate.text,
                         );
                       },
                     ),

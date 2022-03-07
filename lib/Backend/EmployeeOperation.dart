@@ -1,16 +1,14 @@
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
+import 'package:web_store_management/Backend/Utility/ApiUrl.dart';
 import 'package:web_store_management/Notification/Snack_notification.dart';
-
 import 'Interfaces/IEmployee.dart';
 import '../Helpers/HashingHelper.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-import 'Utility/ApiUrl.dart';
-
 class EmployeeOperation implements IEmployee {
-  final hash = Hashing();
+  final _hash = Hashing();
 
   @override
   Future<bool> createEmployeeAccount(
@@ -19,21 +17,20 @@ class EmployeeOperation implements IEmployee {
       String? lastname,
       String? mobileNumber,
       String? homeAddress,
+      double? basicWage,
       String? username,
       String? password,
       Uint8List? image) async {
-    var id = 'emp-008';
-
     var addEmployee = json.encode(
       {
-        'EmployeeID': id,
         'Role': role,
         'Username': username,
-        'Password': password,
+        'Password': _hash.encrypt(password.toString()),
         'Firstname': firstname,
         'Lastname': lastname,
         'MobileNumber': mobileNumber,
         'HomeAddress': homeAddress,
+        'Wage': basicWage,
         'UserImage': image
       },
     );
@@ -66,5 +63,104 @@ class EmployeeOperation implements IEmployee {
   void deleteEmployeeAccount() {}
 
   @override
-  void updateEmployeeAccount() {}
+  Future<bool> updateEmployeeAccount(
+      int pid, String eid, String role, String mobile, String address) async {
+    var adminUpdateLoad = json.encode({
+      'pid': pid,
+      'eid': eid,
+      'Role': role.trim(),
+      'mobile': mobile,
+      'address': address,
+    });
+
+    try {
+      final response = await http.post(
+        Uri.parse(Url.url + "api/updateemp"),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: adminUpdateLoad,
+      );
+
+      if (response.statusCode == 404) return false;
+    } catch (e) {
+      e.toString();
+      SnackNotification.notif(
+        'Error',
+        'Something went wrong while updating the employee',
+        Colors.redAccent.shade200,
+      );
+      return false;
+    }
+
+    //if status code is 202
+    return true;
+  }
+
+  @override
+  Future<bool> timeIn(String id, final String date) async {
+    var updateRequestLoad = json.encode({
+      'id': id,
+      'date': date,
+    });
+
+    try {
+      final response = await http.post(
+        Uri.parse(Url.url + "api/clockin"),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: updateRequestLoad,
+      );
+
+      //if response is empty return false
+      if (response.statusCode == 404) {
+        return false;
+      }
+
+      if (response.statusCode == 202) {
+        return true;
+      }
+    } catch (e) {
+      print(e.toString());
+      return false;
+    }
+
+    return true;
+  }
+
+  @override
+  Future<bool> timeOut(String id, final String date) async {
+    var updateRequestLoad = json.encode({
+      'id': id,
+      'date': date,
+    });
+
+    try {
+      final response = await http.post(
+        Uri.parse(Url.url + "api/clockout"),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: updateRequestLoad,
+      );
+
+      //if response is empty return false
+      if (response.statusCode == 404) {
+        return false;
+      }
+
+      if (response.statusCode == 202) {
+        return true;
+      }
+    } catch (e) {
+      print(e.toString());
+      return false;
+    }
+
+    return true;
+  }
 }

@@ -5,7 +5,7 @@ import 'HistoryScreen.dart';
 
 class ViewReport extends StatelessWidget {
   final List<Tab> myTabs = <Tab>[
-    Tab(text: 'Revenue summary'),
+    Tab(text: 'Revenue Summary'),
     Tab(text: 'History'),
   ];
 
@@ -14,9 +14,12 @@ class ViewReport extends StatelessWidget {
     return DefaultTabController(
       length: myTabs.length,
       child: Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(50),
+        appBar: PreferredSize(         
+          preferredSize: Size.fromHeight(50),   
           child: AppBar(
+            automaticallyImplyLeading: false,
+            backgroundColor: Colors.blue[700],
+            elevation: 5,     
             bottom: TabBar(
               tabs: myTabs,
             ),

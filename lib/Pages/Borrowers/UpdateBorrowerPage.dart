@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:web_store_management/Backend/BorrowerOperation.dart';
 import 'package:web_store_management/Notification/Snack_notification.dart';
 
 class UpdateBorrowerPage extends StatefulWidget {
   final String? bid, firstname, lastname, number, address;
-  UpdateBorrowerPage(
-      {required this.bid,
-      this.firstname,
-      this.lastname,
-      this.number,
-      this.address});
+  UpdateBorrowerPage({
+    required this.bid,
+    this.firstname,
+    this.lastname,
+    this.number,
+    this.address,
+  });
 
   @override
   _UpdateBorrowerPage createState() => _UpdateBorrowerPage();
@@ -34,24 +36,37 @@ class _UpdateBorrowerPage extends State<UpdateBorrowerPage> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      actionsPadding: EdgeInsets.all(15),
-      title: Text(
-        'Update Borrower',
-        softWrap: true,
-        textAlign: TextAlign.center,
-        style: TextStyle(
-          fontWeight: FontWeight.bold,
-          fontSize: 25,
-          color: Colors.blue,
-          overflow: TextOverflow.fade,
-        ),
-      ),
+      actionsPadding: EdgeInsets.only(bottom: 5, left: 5, right: 5),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       actions: <Widget>[
         Column(
           children: [
-            Padding(
-              padding: EdgeInsets.only(left: 7),
+            Align(
+              alignment: Alignment.topRight,
+              child: IconButton(
+                icon: Icon(
+                  Icons.cancel,
+                  color: Colors.black,
+                  size: 30,
+                ),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ),
+            Text(
+              'Update Borrower',
+              softWrap: true,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: HexColor("#155293"),
+                fontFamily: 'Cairo_Bold',
+                fontSize: 30,
+              ),
+            ),
+
+             Padding(
+              padding: EdgeInsets.only(top: 20, left: 2),
               child: Container(
                 alignment: Alignment.centerLeft,
                 child: Text(
@@ -59,10 +74,9 @@ class _UpdateBorrowerPage extends State<UpdateBorrowerPage> {
                   style: TextStyle(fontSize: 10),
                 ),
               ),
-            ),
+            ),  
             Padding(
-              padding: const EdgeInsets.only(
-                  left: 6.0, right: 6.0, bottom: 6.0, top: 1.0),
+              padding: EdgeInsets.only(bottom: 15),
               child: TextField(
                 controller: firstname,
                 decoration: InputDecoration(
@@ -82,8 +96,9 @@ class _UpdateBorrowerPage extends State<UpdateBorrowerPage> {
                 ),
               ),
             ),
+
             Padding(
-              padding: EdgeInsets.only(left: 7),
+              padding: EdgeInsets.only(left: 2),
               child: Container(
                 alignment: Alignment.centerLeft,
                 child: Text(
@@ -93,8 +108,7 @@ class _UpdateBorrowerPage extends State<UpdateBorrowerPage> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(
-                  left: 6.0, right: 6.0, bottom: 6.0, top: 1.0),
+              padding: EdgeInsets.only(bottom: 15),
               child: TextField(
                 controller: lastname,
                 decoration: InputDecoration(
@@ -114,23 +128,25 @@ class _UpdateBorrowerPage extends State<UpdateBorrowerPage> {
                 ),
               ),
             ),
+
             Padding(
-              padding: EdgeInsets.only(left: 7),
+              padding: EdgeInsets.only(left: 2),
               child: Container(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  'Mobile number',
+                  'Mobile Number',
                   style: TextStyle(fontSize: 10),
                 ),
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(
-                  left: 6.0, right: 6.0, bottom: 6.0, top: 1.0),
+              padding: EdgeInsets.only(bottom: 15),
               child: TextField(
+                maxLength: 12,
                 controller: number,
                 decoration: InputDecoration(
-                  hintText: 'Number',
+                  counterText: '',
+                  hintText: 'Mobile Number',
                   filled: true,
                   fillColor: Colors.blueGrey[50],
                   labelStyle: TextStyle(fontSize: 12),
@@ -146,23 +162,23 @@ class _UpdateBorrowerPage extends State<UpdateBorrowerPage> {
                 ),
               ),
             ),
+            
             Padding(
-              padding: EdgeInsets.only(left: 7),
+              padding: EdgeInsets.only(left: 2),
               child: Container(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  'Address',
+                  'Home Address',
                   style: TextStyle(fontSize: 10),
                 ),
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(
-                  left: 6.0, right: 6.0, bottom: 6.0, top: 1.0),
+              padding: EdgeInsets.only(bottom: 15),
               child: TextField(
                 controller: address,
                 decoration: InputDecoration(
-                  hintText: 'Address',
+                  hintText: 'Home Address',
                   filled: true,
                   fillColor: Colors.blueGrey[50],
                   labelStyle: TextStyle(fontSize: 12),
@@ -179,49 +195,58 @@ class _UpdateBorrowerPage extends State<UpdateBorrowerPage> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: EdgeInsets.only(top: 20),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(20),
                 child: Stack(
                   children: <Widget>[
                     Positioned.fill(
                       child: Container(
-                        decoration: const BoxDecoration(
-                          color: Colors.blue,
+                        decoration: BoxDecoration(
+                          color: HexColor("#155293"),
                         ),
                       ),
                     ),
                     TextButton(
                       style: TextButton.styleFrom(
-                        padding: const EdgeInsets.only(
-                            left: 30, right: 30, top: 15, bottom: 15),
+                        padding: const EdgeInsets.only(left: 36, right: 36, top: 18, bottom: 18),
                         primary: Colors.white,
-                        textStyle: TextStyle(fontSize: 20),
+                        textStyle: TextStyle(
+                            fontFamily: 'Cairo_SemiBold',
+                            fontSize: 14,
+                            color: Colors.white),
                       ),
                       child: const Text('UPDATE'),
                       onPressed: () {
-                        borrower
-                            .updateBorrower(
-                          int.parse(widget.bid.toString()),
-                          firstname.text,
-                          lastname.text,
-                          number.text,
-                          address.text,
-                        )
-                            .then((value) {
-                          if (value) {
-                            Navigator.pop(context);
-                            SnackNotification.notif(
-                              'Success',
-                              'Borrower ' +
-                                  widget.firstname.toString() +
-                                  ' ' +
-                                  widget.lastname.toString() +
-                                  ' has been updated',
-                              Colors.greenAccent.shade200,
-                            );
-                          }
-                        });
+                        if (firstname.text.isEmpty || lastname.text.isEmpty ||
+                            number.text.isEmpty || address.text.isEmpty) {
+                              SnackNotification.notif(
+                               "Error",
+                               "Please fill all the fields",Colors.red.shade600);
+                        } else {                   
+                          borrower
+                              .updateBorrower(
+                                int.parse(widget.bid.toString()),
+                                firstname.text,
+                                lastname.text,
+                                number.text,
+                                address.text,
+                              )
+                              .then((value) {
+                            if (value) {
+                              Navigator.pop(context);
+                              SnackNotification.notif(
+                                'Success',
+                                'Borrower ' +
+                                    widget.firstname.toString() +
+                                    ' ' +
+                                    widget.lastname.toString() +
+                                    ' has been updated',
+                                Colors.green.shade500,
+                              );
+                            }
+                          });
+                        }
                       },
                     ),
                   ],

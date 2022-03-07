@@ -47,7 +47,6 @@ class ProductOperation implements IProduct {
 
   Future<bool> addProduct(String barcode, String productName, String quantity,
       String unit, double price) async {
-    print('ob ' + productName);
     var newProduct = json.encode(
       {
         "barcode": barcode,

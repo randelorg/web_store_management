@@ -1,5 +1,4 @@
 import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
 import '../../Backend/Session.dart';
 import '../../Backend/Utility/Mapping.dart';
@@ -17,7 +16,7 @@ class _ViewProfileState extends State<ViewProfile> {
   void initState() {
     super.initState();
     try {
-      if (Mapping.userRole == "StoreAttendant") {
+      if (Mapping.userRole == "Store Attendant") {
         name = Mapping.employeeLogin[0].toString();
         picture = Mapping.employeeLogin[0].getUserImage.cast<int>();
       } else {
@@ -33,7 +32,7 @@ class _ViewProfileState extends State<ViewProfile> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      insetPadding: EdgeInsets.only(left: 20, right: 20, top: 180, bottom: 200),
+      actionsPadding: EdgeInsets.only(bottom: 5, left: 5, right: 5),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       actions: <Widget>[
         Column(
@@ -52,13 +51,13 @@ class _ViewProfileState extends State<ViewProfile> {
               ),
             ),
             CircleAvatar(
-              radius: 80,
+              radius: 75,
               child: ClipOval(
                 child: Image.memory(
                   Uint8List.fromList(picture),
-                  height: 200,
-                  width: 200,
-                  fit: BoxFit.fitWidth,
+                  fit: BoxFit.fill,
+                  height: 250,
+                  width: 250,
                 ),
               ),
             ),
@@ -69,8 +68,7 @@ class _ViewProfileState extends State<ViewProfile> {
               child: Row(
                 children: [
                   Padding(
-                    padding: EdgeInsets.only(
-                        left: 10, top: 10, bottom: 10, right: 50),
+                    padding: EdgeInsets.only(left: 10, top: 10, bottom: 10, right: 50),
                     child: Text(
                       'Name',
                       style: TextStyle(
@@ -84,7 +82,7 @@ class _ViewProfileState extends State<ViewProfile> {
                     name.toString(),
                     style: TextStyle(
                       fontFamily: 'Cairo_SemiBold',
-                      fontSize: 15,
+                      fontSize: 14,
                     ),
                   ),
                 ],
@@ -97,8 +95,7 @@ class _ViewProfileState extends State<ViewProfile> {
               child: Row(
                 children: [
                   Padding(
-                    padding: EdgeInsets.only(
-                        left: 10, top: 10, bottom: 15, right: 33),
+                    padding: EdgeInsets.only(left: 10, top: 10, bottom: 10, right: 30),
                     child: Text(
                       'User Level',
                       style: TextStyle(
@@ -112,7 +109,7 @@ class _ViewProfileState extends State<ViewProfile> {
                     Mapping.userRole.toUpperCase(),
                     style: TextStyle(
                       fontFamily: 'Cairo_SemiBold',
-                      fontSize: 15,
+                      fontSize: 14,
                     ),
                   ),
                 ],

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:web_store_management/Notification/Snack_notification.dart';
+import 'package:web_store_management/Pages/LoginPage/ForgotPasswordScreens/ForgotPassword.dart';
 import '../../Backend/LoginOperation.dart';
 import '../../Backend/GlobalController.dart';
 
@@ -11,18 +13,16 @@ class BodyLogin extends StatefulWidget {
 class _BodyLogin extends State<BodyLogin> {
   var login = Login();
   var controller = GlobalController();
+  final username = TextEditingController();
+  final password = TextEditingController();
 
   String administrator = 'Administrator';
   String storeAttendant = 'Store Attendant';
   String? loginRole;
-  final username = TextEditingController();
-  final password = TextEditingController();
-  late Future _loginStatus;
+
   @override
   void initState() {
     super.initState();
-    this._loginStatus =
-        login.mainLogin(administrator.toString(), username.text, password.text);
   }
 
   @override
@@ -69,10 +69,10 @@ class _BodyLogin extends State<BodyLogin> {
               child: DropdownButton<String>(
                 isExpanded: true,
                 value: administrator,
-                icon: const Icon(Icons.arrow_downward),
+                icon: const Icon(Icons.arrow_drop_down),
                 iconSize: 24,
                 elevation: 16,
-                style: TextStyle(color: Colors.blue.shade700),
+                style: TextStyle(color: HexColor("#155293")),
                 onChanged: (role) {
                   setState(() {
                     administrator = role!;
@@ -119,7 +119,6 @@ class _BodyLogin extends State<BodyLogin> {
           obscureText: true,
           decoration: InputDecoration(
             hintText: 'Password',
-            counterText: 'Forgot password?',
             filled: true,
             fillColor: Colors.blueGrey[50],
             labelStyle: TextStyle(fontSize: 12),
@@ -132,6 +131,27 @@ class _BodyLogin extends State<BodyLogin> {
               borderSide: BorderSide(color: Colors.blueGrey.shade50),
               borderRadius: BorderRadius.circular(15),
             ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(left: 180),
+          child: TextButton(
+            child: Text(
+              'Forgot password?',
+              style: TextStyle(
+                fontSize: 12,
+                fontFamily: 'Cairo_SemiBold',
+                color: HexColor("#155293"),
+              ),
+            ),
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return ForgotPassword();
+                },
+              );
+            },
           ),
         ),
         SizedBox(height: 20),
@@ -152,28 +172,40 @@ class _BodyLogin extends State<BodyLogin> {
               width: double.infinity,
               height: 50,
               child: Center(
-                child: Text("Sign In"),
+                child: Text(
+                  "Log In",
+                  style: TextStyle(fontFamily: 'Cairo_Bold', fontSize: 18),
+                ),
               ),
             ),
             style: ElevatedButton.styleFrom(
-              primary: Colors.redAccent.shade200,
+              primary: HexColor("#EA1C24"),
               onPrimary: Colors.white,
             ),
             onPressed: () {
               if (username.text.isEmpty || password.text.isEmpty) {
                 SnackNotification.notif(
-                    "Error", "Please fill all the fields", Colors.red.shade600);
+                  "Error",
+                  "Please fill all the fields",
+                  Colors.red.shade600,
+                );
               } else {
                 login
                     .mainLogin(
-                        administrator.toString(), username.text, password.text)
+                  administrator.toString(),
+                  username.text,
+                  password.text,
+                )
                     .then((value) {
                   setState(() {
                     if (value) {
                       Navigator.pushNamed(context, '/home');
                     } else {
-                      SnackNotification.notif("Error",
-                          "Wrong username or password", Colors.red.shade600);
+                      SnackNotification.notif(
+                        "Error",
+                        "Wrong username or password",
+                        Colors.red.shade600,
+                      );
                     }
                   });
                 });

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:async/async.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
+import 'package:web_store_management/Pages/Reports/GlobalHistoryScreens/PaymentHistoryScreen.dart';
 import 'MakePayment.dart';
 import '../../Backend/GlobalController.dart';
 
@@ -36,7 +37,7 @@ class _PaymentPage extends State<PaymentPage> {
               width: 400,
               child: TextField(
                 decoration: InputDecoration(
-                  hintText: 'Search borrower',
+                  hintText: 'Search Borrower',
                   suffixIcon: InkWell(
                     child: IconButton(
                       icon: Icon(Icons.qr_code_scanner_outlined),
@@ -77,20 +78,20 @@ class _PaymentPage extends State<PaymentPage> {
                 if (snapshot.hasData) {
                   return ListView(
                     scrollDirection: Axis.vertical,
-                    padding: const EdgeInsets.only(
-                        bottom: 15, right: 100, left: 100),
+                    padding: const EdgeInsets.only(bottom: 15, right: 100, left: 100),
                     children: [
                       PaginatedDataTable(
                         sortColumnIndex: _currentSortColumn,
                         sortAscending: _isAscending,
                         showCheckboxColumn: false,
-                        rowsPerPage: 15,
+                        showFirstLastButtons: true,
+                        rowsPerPage: 14,
                         columns: [
                           DataColumn(label: Text('BID')),
                           DataColumn(label: Text('NAME')),
                           DataColumn(label: Text('TOTAL DEBT')),
                           DataColumn(label: Text('PAYMENT')),
-                          DataColumn(label: Text('VIEW')),
+                          DataColumn(label: Text('PAYMENT HISTORY')),
                         ],
                         source: _DataSource(context),
                       ),
@@ -177,7 +178,25 @@ class _DataSource extends DataTableSource {
             },
           );
         }),
-        DataCell((row.valueE)),
+        DataCell((row.valueE), onTap: () {
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return SimpleDialog(
+                children: [
+                  Container(
+                    width: (MediaQuery.of(context).size.width) / 2,
+                    height: (MediaQuery.of(context).size.height),
+                    child: LocalPaymentHistory(
+                      id: row.valueA,
+                      borrowerName: row.valueB,
+                    ),
+                  ),
+                ],
+              );
+            },
+          );
+        }),
       ],
     );
   }
@@ -194,7 +213,6 @@ class _DataSource extends DataTableSource {
 
 List _paymentsList(BuildContext context) {
   List<_Row> _payments;
-
   try {
     return _payments = List.generate(Mapping.borrowerList.length, (index) {
       return _Row(
@@ -202,7 +220,7 @@ List _paymentsList(BuildContext context) {
         Mapping.borrowerList[index].toString(),
         Mapping.borrowerList[index].getBalance.toStringAsFixed(2).toString(),
         ClipRRect(
-          borderRadius: BorderRadius.circular(18),
+          borderRadius: BorderRadius.circular(20),
           child: Stack(
             children: <Widget>[
               Positioned.fill(
@@ -213,8 +231,7 @@ List _paymentsList(BuildContext context) {
                 ),
               ),
               Padding(
-                padding:
-                    EdgeInsets.only(top: 8, bottom: 8, left: 15, right: 15),
+                padding:EdgeInsets.only(top: 8, bottom: 8, left: 20, right: 20),
                 child: Text(
                   'PAY',
                   style: TextStyle(
@@ -228,7 +245,7 @@ List _paymentsList(BuildContext context) {
           ),
         ),
         ClipRRect(
-          borderRadius: BorderRadius.circular(18),
+          borderRadius: BorderRadius.circular(20),
           child: Stack(
             children: <Widget>[
               Positioned.fill(
@@ -239,8 +256,7 @@ List _paymentsList(BuildContext context) {
                 ),
               ),
               Padding(
-                padding:
-                    EdgeInsets.only(top: 8, bottom: 8, left: 10, right: 10),
+               padding:EdgeInsets.only(top: 8, bottom: 8, left: 16, right: 16),
                 child: Text(
                   'VIEW',
                   style: TextStyle(

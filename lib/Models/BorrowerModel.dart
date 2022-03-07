@@ -1,8 +1,14 @@
+import 'dart:typed_data';
+
 import 'PersonModel.dart';
 
 class BorrowerModel extends PersonModel {
   int? borrowerId;
+  int? repairId;
+  int? requestId;
   int? investigationID;
+  String? repairProductName;
+  String? requestedProductName;
   double? balance;
   List<dynamic>? contractImage;
 
@@ -10,10 +16,28 @@ class BorrowerModel extends PersonModel {
 
   set setBorrowerId(borrowerId) => this.borrowerId = borrowerId;
 
+  get getRepairId => this.repairId;
+
+  set setRepairId(repairId) => this.repairId = repairId;
+
+  get getRequestId => this.requestId;
+
+  set setRequestId(int requestId) => this.requestId = requestId;
+
   get getinvestigationID => this.investigationID;
 
   set setinvestigationID(int investigationID) =>
       this.investigationID = investigationID;
+
+  get getRepairProductName => this.repairProductName;
+
+  set setRepairProductName(String repairProductName) =>
+      this.repairProductName = repairProductName;
+
+  get getRequestedProductName => this.requestedProductName;
+
+  set setRequestedProductName(String requestedProductName) =>
+      this.requestedProductName = requestedProductName;
 
   get getBalance => this.balance;
 
@@ -38,10 +62,18 @@ class BorrowerModel extends PersonModel {
       String mobileNumber,
       String homeAddress,
       double balance,
-      List<dynamic> contractImage)
+      List<dynamic>? contractImage)
       : super.withOutId(firstname, lastname, mobileNumber, homeAddress) {
     this.borrowerId = borrowerId;
     this.balance = balance;
+    this.contractImage = contractImage;
+  }
+
+  BorrowerModel.contractOnly(List<dynamic> contractImage) : super.empty() {
+    this.contractImage = contractImage;
+  }
+
+  BorrowerModel.jsonContractOnly({this.contractImage}) : super.empty() {
     this.contractImage = contractImage;
   }
 
@@ -64,6 +96,26 @@ class BorrowerModel extends PersonModel {
       homeAddress})
       : super.withOutId(firstname, lastname, mobileNumber, homeAddress);
 
+  BorrowerModel.repairs(
+      {this.repairId,
+      this.borrowerId,
+      this.repairProductName,
+      firstname,
+      lastname,
+      mobileNumber,
+      homeAddress})
+      : super.withOutId(firstname, lastname, mobileNumber, homeAddress);
+
+  BorrowerModel.requestProduct(
+      {this.requestId,
+      this.borrowerId,
+      this.requestedProductName,
+      firstname,
+      lastname,
+      mobileNumber,
+      homeAddress})
+      : super.withOutId(firstname, lastname, mobileNumber, homeAddress);
+
   BorrowerModel.fullJsonPartial({
     this.borrowerId,
     firstname,
@@ -73,10 +125,40 @@ class BorrowerModel extends PersonModel {
     this.balance,
   }) : super.withOutId(firstname, lastname, mobileNumber, homeAddress);
 
+  factory BorrowerModel.fromJsonContract(Map<String, dynamic> json) {
+    return BorrowerModel.jsonContractOnly(
+      contractImage: json['ContractImage']["data"] as List<dynamic>,
+    );
+  }
+
   factory BorrowerModel.fromJsonApproval(Map<String, dynamic> json) {
     return BorrowerModel.creditApproval(
       investigationID: json['InvestigationID'] as int,
       borrowerId: json['BorrowerID'] as int,
+      firstname: json['Firstname'] as String,
+      lastname: json['Lastname'] as String,
+      mobileNumber: json['MobileNumber'] as String,
+      homeAddress: json['HomeAddress'] as String,
+    );
+  }
+
+  factory BorrowerModel.fromJsonRepair(Map<String, dynamic> json) {
+    return BorrowerModel.repairs(
+      repairId: json['RepairID'] as int,
+      borrowerId: json['BorrowerID'] as int,
+      repairProductName: json['Product'] as String,
+      firstname: json['Firstname'] as String,
+      lastname: json['Lastname'] as String,
+      mobileNumber: json['MobileNumber'] as String,
+      homeAddress: json['HomeAddress'] as String,
+    );
+  }
+
+  factory BorrowerModel.fromJsonRequestedProduct(Map<String, dynamic> json) {
+    return BorrowerModel.requestProduct(
+      requestId: json['RequestID'] as int,
+      borrowerId: json['BorrowerID'] as int,
+      requestedProductName: json['Product'] as String,
       firstname: json['Firstname'] as String,
       lastname: json['Lastname'] as String,
       mobileNumber: json['MobileNumber'] as String,
@@ -92,7 +174,7 @@ class BorrowerModel extends PersonModel {
       mobileNumber: json['MobileNumber'] as String,
       homeAddress: json['HomeAddress'] as String,
       balance: json['Balance'] as double,
-      contractImage: json['ContractImage'] as List<dynamic>,
+      contractImage: json['ContractImage']["data"] as List<dynamic>,
     );
   }
 

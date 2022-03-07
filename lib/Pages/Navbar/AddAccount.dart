@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:hexcolor/hexcolor.dart';
+import 'package:web_store_management/Notification/Snack_notification.dart';
 import '../../Helpers/HashingHelper.dart';
 import 'ConfirmNewAccount.dart';
 import '../../Helpers/FilePickerHelper.dart';
@@ -27,55 +29,81 @@ class _AddAccount extends State<AddAccount> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      actionsPadding: EdgeInsets.all(20),
-      title: Text(
-        'New Admin Account',
-        softWrap: true,
-        textAlign: TextAlign.center,
-        style: TextStyle(
-          fontWeight: FontWeight.bold,
-          fontSize: 35,
-          color: Colors.blue,
-          overflow: TextOverflow.fade,
-        ),
-      ),
+      actionsPadding: EdgeInsets.only(bottom: 5, left: 5, right: 5),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       actions: <Widget>[
         Column(
           children: [
+            Align(
+              alignment: Alignment.topRight,
+              child: IconButton(
+                icon: Icon(
+                  Icons.cancel,
+                  color: Colors.black,
+                  size: 30,
+                ),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ),
+            Text(
+              'New Admin Account',
+              softWrap: true,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontFamily: 'Cairo_Bold',
+                fontSize: 27,
+                color: HexColor("#155293"),
+                overflow: TextOverflow.fade,
+              ),
+            ),
+
             Padding(
-              padding: EdgeInsets.only(bottom: 10),
+              padding: EdgeInsets.only(top: 20, left: 2),
               child: Container(
-                child: Container(
-                  alignment: Alignment.topLeft,
-                  child: Text('New Admin'),
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Username',
+                  style: TextStyle(fontSize: 10),
                 ),
               ),
             ),
-            Divider(
-              thickness: 3,
+            Container(
+              width: 320,
+              child: Padding(
+                padding: EdgeInsets.only(bottom: 15),
+                child: TextField(
+                  controller: username,
+                  decoration: InputDecoration(
+                    hintText: 'Username',
+                    filled: true,
+                    fillColor: Colors.blueGrey[50],
+                    labelStyle: TextStyle(fontSize: 10),
+                    contentPadding: EdgeInsets.only(left: 10),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                  ),
+                ),
+              ),
             ),
+
             Padding(
-              padding: EdgeInsets.only(bottom: 20),
-              child: TextField(
-                controller: username,
-                decoration: InputDecoration(
-                  hintText: 'Username',
-                  filled: true,
-                  fillColor: Colors.blueGrey[50],
-                  labelStyle: TextStyle(fontSize: 10),
-                  contentPadding: EdgeInsets.only(left: 10),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                    borderRadius: BorderRadius.circular(5),
-                  ),
+              padding: EdgeInsets.only(left: 2),
+              child: Container(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Fullname',
+                  style: TextStyle(fontSize: 10),
                 ),
               ),
-            ),
+            ),   
             Stack(
               children: [
                 Row(
@@ -117,7 +145,7 @@ class _AddAccount extends State<AddAccount> {
                       alignment: Alignment.topRight,
                       width: 155,
                       child: Padding(
-                        padding: EdgeInsets.only(bottom: 20),
+                        padding: EdgeInsets.only(bottom: 15),
                         child: TextField(
                           controller: lastname,
                           decoration: InputDecoration(
@@ -144,12 +172,25 @@ class _AddAccount extends State<AddAccount> {
                 ),
               ],
             ),
+
+             Padding(
+              padding: EdgeInsets.only(left: 2),
+              child: Container(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Mobile Number',
+                  style: TextStyle(fontSize: 10),
+                ),
+              ),
+            ), 
             Padding(
-              padding: EdgeInsets.only(bottom: 20),
+             padding: EdgeInsets.only(bottom: 15),
               child: TextField(
                 controller: mobileNumber,
+                maxLength: 12,
                 decoration: InputDecoration(
-                  hintText: 'Mobile number',
+                  counterText: '',
+                  hintText: 'Mobile Number',
                   filled: true,
                   fillColor: Colors.blueGrey[50],
                   labelStyle: TextStyle(fontSize: 10),
@@ -165,12 +206,23 @@ class _AddAccount extends State<AddAccount> {
                 ),
               ),
             ),
+
+             Padding(
+              padding: EdgeInsets.only(left: 2),
+              child: Container(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Home Address',
+                  style: TextStyle(fontSize: 10),
+                ),
+              ),
+            ), 
             Padding(
-              padding: EdgeInsets.only(bottom: 20),
+               padding: EdgeInsets.only(bottom: 15),
               child: TextField(
                 controller: homeAddress,
                 decoration: InputDecoration(
-                  hintText: 'Home address',
+                  hintText: 'Home Address',
                   filled: true,
                   fillColor: Colors.blueGrey[50],
                   labelStyle: TextStyle(fontSize: 10),
@@ -186,8 +238,19 @@ class _AddAccount extends State<AddAccount> {
                 ),
               ),
             ),
+
             Padding(
-              padding: EdgeInsets.only(bottom: 20),
+              padding: EdgeInsets.only(left: 2),
+              child: Container(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Password',
+                  style: TextStyle(fontSize: 10),
+                ),
+              ),
+            ), 
+            Padding(
+              padding: EdgeInsets.only(bottom: 15),
               child: TextField(
                 controller: password,
                 obscureText: true,
@@ -208,6 +271,17 @@ class _AddAccount extends State<AddAccount> {
                 ),
               ),
             ),
+
+            Padding(
+              padding: EdgeInsets.only(left: 2),
+              child: Container(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Confirm Password',
+                  style: TextStyle(fontSize: 10),
+                ),
+              ),
+            ),
             Padding(
               padding: EdgeInsets.only(bottom: 0),
               child: TextField(
@@ -225,7 +299,7 @@ class _AddAccount extends State<AddAccount> {
                   });
                 },
                 decoration: InputDecoration(
-                  hintText: 'Confirm password',
+                  hintText: 'Confirm Password',
                   filled: true,
                   fillColor: Colors.blueGrey[50],
                   labelStyle: TextStyle(fontSize: 10),
@@ -255,8 +329,11 @@ class _AddAccount extends State<AddAccount> {
                     });
                   });
                 },
-                icon: Icon(Icons.file_upload),
-                label: Text(fileName),
+                icon: Icon(Icons.file_upload, color: HexColor("#155293")),
+                label: Text(
+                  fileName,
+                  style: TextStyle(color: HexColor("#155293")),
+                ),
               ),
             ),
             Row(
@@ -270,8 +347,8 @@ class _AddAccount extends State<AddAccount> {
                       children: <Widget>[
                         Positioned.fill(
                           child: Container(
-                            decoration: const BoxDecoration(
-                              color: Colors.blue,
+                            decoration: BoxDecoration(
+                              color: HexColor("#155293"),
                             ),
                           ),
                         ),
@@ -283,8 +360,24 @@ class _AddAccount extends State<AddAccount> {
                             textStyle: TextStyle(fontSize: 20),
                           ),
                           onPressed: () {
-                            Navigator.pop(context);
-                            if (username.text.isNotEmpty) {
+                            if (username.text.isEmpty || firstname.text.isEmpty || lastname.text.isEmpty || mobileNumber.text.isEmpty ||  
+                                homeAddress.text.isEmpty || password.text.isEmpty ||confirmPassword.text.isEmpty) {                         
+                                  SnackNotification.notif(                                
+                                    "Error",
+                                    "Please fill all the fields",
+                                   Colors.red.shade600);
+                            } else if (pick.image == null) {                                                   
+                              SnackNotification.notif(
+                                "Error",
+                                "Please upload an account image (jpg, png, or jpeg)",
+                                Colors.red.shade600);
+                            } else if (password.text != confirmPassword.text) {
+                              SnackNotification.notif(
+                                  "Error",
+                                  "Password did not match",
+                                  Colors.red.shade600);
+                            } else {
+                              Navigator.pop(context);
                               showDialog(
                                 context: context,
                                 builder: (BuildContext context) {
@@ -301,7 +394,13 @@ class _AddAccount extends State<AddAccount> {
                               );
                             }
                           },
-                          child: const Text('CONFIRM'),
+                          child: Text(
+                            'CONFIRM',
+                            style: TextStyle(
+                                fontFamily: 'Cairo_SemiBold',
+                                fontSize: 14,
+                                color: Colors.white),
+                          ),
                         ),
                       ],
                     ),
