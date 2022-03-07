@@ -1,1 +1,1 @@
-web: web/index.php
+web: flutter run
