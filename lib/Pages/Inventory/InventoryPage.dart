@@ -263,41 +263,6 @@ class _InventoryPage extends State<InventoryPage> {
             Row(
               children: [
                 Container(
-                  padding: const EdgeInsets.only(top: 15, bottom: 15, right: 15),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(8),
-                    child: Stack(
-                      children: <Widget>[
-                        Positioned.fill(
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: HexColor("#155293"),
-                            ),
-                          ),
-                        ),
-                        Tooltip(
-                          message: 'Cash Payment',
-                          child: TextButton.icon(
-                            icon: Icon(
-                              Icons.payments,
-                              color: Colors.white,
-                            ),
-                            style: TextButton.styleFrom(
-                              padding: const EdgeInsets.all(14),
-                              primary: Colors.white,
-                              textStyle: TextStyle(fontSize: 18, fontFamily: 'Cairo_SemiBold'),
-                            ),
-                            label: Text('CASH PAYMENT'),
-                            onPressed: () {
-
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                Container(
                   padding: const EdgeInsets.only(top: 15, bottom: 15),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(8),

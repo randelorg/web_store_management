@@ -71,12 +71,10 @@ class TextMessage implements ITextMessage {
       String name, String number, String product, String status) async {
     if (status == "IN-STORE") {
       message =
-          "Dear $name,\n\nThe $product you requested is now at the store.\n\nThank you for using our service. Visit the store anytime within 8:00AM to 5:00PM.\n\nRegards,\n\n- Team Dellrains Store";
-      print("a");
+          "Dear $name,\n\nThe $product you requested is now at the store.\nThank you for using our service. Visit the store anytime within 8:00AM to 5:00PM.\n\nRegards,\n- Team Dellrains Store";
     } else {
       message =
-          "Dear $name,\n\nThe $product you requested is $status.\n\nThank you for using our service. \n\nRegards,\n\n- Team Dellrains Store";
-      print("b");
+          "Dear $name,\n\nThe $product you requested is $status.\nThank you for using our service. \n\nRegards,\n- Team Dellrains Store";
     }
 
     var payload = json.encode({
@@ -118,10 +116,10 @@ class TextMessage implements ITextMessage {
       String name, String number, String product, String status) async {
     if (status == "REPAIRED") {
       message =
-          "Dear $name,\n\nYour $product has been $status.\n\nThank you for using our service. Visit the store anytime within 8:00AM to 5:00PM \n\nRegards,\n\n- Team Dellrains Store";
+          "Dear $name,\n\nYour $product has been $status.\nThank you for using our service. Visit the store anytime within 8:00AM to 5:00PM. \n\nRegards,\n- Team Dellrains Store";
     } else {
       message =
-          "Dear $name,\n\nYour $product has been $status.\n\nThank you for using our service. Visit the store anytime within 8:00AM to 5:00PM \n\nRegards,\n\n- Team Dellrains Store";
+          "Dear $name,\n\nYour $product has been $status.\nThank you for using our service. Visit the store anytime within 8:00AM to 5:00PM. \n\nRegards,\n- Team Dellrains Store";
     }
 
     var payload = json.encode({

@@ -27,37 +27,75 @@ class _PaymentPage extends State<PaymentPage> {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          crossAxisAlignment: CrossAxisAlignment.end,
+        Stack(
           children: [
-            Container(
-              padding: EdgeInsets.only(top: 15, bottom: 15, right: 100),
-              alignment: Alignment.topLeft,
-              width: 400,
-              child: TextField(
-                decoration: InputDecoration(
-                  hintText: 'Search Borrower',
-                  suffixIcon: InkWell(
-                    child: IconButton(
-                      icon: Icon(Icons.qr_code_scanner_outlined),
-                      color: Colors.grey,
-                      tooltip: 'Search by QR',
-                      onPressed: () {},
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(top: 15, bottom: 15, left: 20),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: Stack(
+                      children: <Widget>[
+                        Positioned.fill(
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: HexColor("#155293"),
+                            ),
+                          ),
+                        ),
+                        TextButton.icon(
+                          icon:Icon(Icons.payments, color: Colors.white),
+                          style: TextButton.styleFrom(
+                            padding: const EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 10),
+                            primary: Colors.white,
+                            textStyle: TextStyle(fontSize: 18, fontFamily: 'Cairo_SemiBold'),
+                          ),
+                          label: Text('CASH PAYMENT'),
+                          onPressed: () {
+                         
+                          },
+                        ),
+                      ],
                     ),
                   ),
-                  filled: true,
-                  fillColor: Colors.blueGrey[50],
-                  labelStyle: TextStyle(fontSize: 10),
-                  contentPadding: EdgeInsets.only(left: 30),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Container(
+                  padding: EdgeInsets.only(top: 15, bottom: 15, right: 100),
+                  width: 400,
+                  child: TextField(
+                    decoration: InputDecoration(
+                      hintText: 'Search Borrower',
+                      suffixIcon: InkWell(
+                        child: IconButton(
+                          icon: Icon(Icons.qr_code_scanner_outlined),
+                          color: Colors.grey,
+                          tooltip: 'Search by QR',
+                          onPressed: () {},
+                        ),
+                      ),
+                      filled: true,
+                      fillColor: Colors.blueGrey[50],
+                      labelStyle: TextStyle(fontSize: 12),
+                      contentPadding: EdgeInsets.only(left: 30),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                      ),
+                    ),
                   ),
                 ),
-              ),
+              ],
             ),
           ],
         ),

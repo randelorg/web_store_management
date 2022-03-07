@@ -131,9 +131,9 @@ class EmployeeOperation implements IEmployee {
     return true;
   }
 
-  @override
+   @override
   Future<bool> timeOut(String id, final String date) async {
-    var updateRequestLoad = json.encode({
+    var adminUpdateLoad = json.encode({
       'id': id,
       'date': date,
     });
@@ -145,22 +145,21 @@ class EmployeeOperation implements IEmployee {
           'Content-Type': 'application/json',
           'Accept': 'application/json'
         },
-        body: updateRequestLoad,
+        body: adminUpdateLoad,
       );
 
-      //if response is empty return false
-      if (response.statusCode == 404) {
-        return false;
-      }
-
-      if (response.statusCode == 202) {
-        return true;
-      }
+      if (response.statusCode == 404) return false;
     } catch (e) {
-      print(e.toString());
+      e.toString();
+      SnackNotification.notif(
+        'Error',
+        'Something went wrong while updating time out',
+        Colors.redAccent.shade200,
+      );
       return false;
     }
 
+    //if status code is 202
     return true;
   }
 }
