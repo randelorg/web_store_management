@@ -8,6 +8,7 @@
 .buildlog/
 .history
 .svn/
+test
 
 # Flutter/Dart/Pub related
 **/doc/api/
@@ -19,13 +20,20 @@
 .pub/
 build/
 
+ios/
+windows/
+
 
 # Visual Studio Code related
 .vscode/
 .vscode-test/
 .vscode-test-workspace/
 
+.idea/
+test/
+
 # Android related
+android/
 **/android/**/gradle-wrapper.jar
 **/android/.gradle
 **/android/captures/
