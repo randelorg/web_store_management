@@ -89,7 +89,7 @@ class _HistoryScreen extends State<HistoryScreen> {
   Widget tableBorrowers() {
     return PaginatedDataTable(
       showCheckboxColumn: false,
-      rowsPerPage: 10,
+      rowsPerPage: 12,
       columns: [
         DataColumn(label: Text('BID')),
         DataColumn(label: Text('BORROWER NAME')),
