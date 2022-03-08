@@ -100,6 +100,7 @@ class EmployeeOperation implements IEmployee {
     return true;
   }
 
+  //for DTR
   @override
   Future<bool> timeIn(String id, final String date) async {
     var updateRequestLoad = json.encode({
@@ -109,7 +110,7 @@ class EmployeeOperation implements IEmployee {
 
     try {
       final response = await http.post(
-        Uri.parse(Url.url + "api/clockin"),
+        Uri.parse("http://localhost:8090/api/clockin"),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json'
@@ -133,17 +134,17 @@ class EmployeeOperation implements IEmployee {
     return true;
   }
 
-   @override
+  @override
   Future<bool> timeOut(String id, final String date) async {
     var adminUpdateLoad = json.encode({
       'id': id,
-      'dateToday': dashboard.getTodayDate().toString(), 
+      'dateToday': dashboard.getTodayDate().toString(),
       'timeOut': date,
     });
 
     try {
       final response = await http.post(
-        Uri.parse(Url.url + "api/clockout"),
+        Uri.parse("http://localhost:8090/api/clockout"),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json'
