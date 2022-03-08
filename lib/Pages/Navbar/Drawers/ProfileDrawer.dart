@@ -17,16 +17,15 @@ class ProfileDrawer extends StatefulWidget {
 class _ProfileDrawer extends State<ProfileDrawer> {
   var controller = GlobalController();
   var emp = EmployeeOperation();
-  var _formatter = new DateFormat('yyyy-MM-dd hh:mm:ss a');
-  var _now = new DateTime.now();
 
   bool _isAuthorized = false;
   bool _isEmployee = true;
-
   bool _timein = false;
   bool _timeout = false;
-
-  String _getTodayDate() {
+  
+  String _getTodayDate() {  
+    var _formatter = new DateFormat('yyyy-MM-dd hh:mm:ss a');
+    var _now = new DateTime.now();
     String formattedDate = _formatter.format(_now);
     return formattedDate;
   }
@@ -52,7 +51,7 @@ class _ProfileDrawer extends State<ProfileDrawer> {
     emp.timeIn(id, date).then(
           (value) => SnackNotification.notif(
             'Success',
-            'Time in $date',
+            'Time-in $date',
             Colors.green.shade900,
           ),
         );
@@ -62,7 +61,7 @@ class _ProfileDrawer extends State<ProfileDrawer> {
     emp.timeOut(id, date).then(
           (value) => SnackNotification.notif(
             'Success',
-            'Time out $date',
+            'Time-out $date',
             Colors.green.shade900,
           ),
         );
@@ -245,7 +244,6 @@ class _ProfileDrawer extends State<ProfileDrawer> {
                                 softWrap: true,
                               ),
                               onPressed: () {
-                                print("timeIn: " + _getTodayDate());
                                 timeIn(
                                   Mapping.employeeLogin[0].getEmployeeID,
                                   _getTodayDate(),
@@ -288,7 +286,6 @@ class _ProfileDrawer extends State<ProfileDrawer> {
                                 softWrap: true,
                               ),
                               onPressed: () {
-                                print("timeOut: " + _getTodayDate());
                                 timeOut(
                                   Mapping.employeeLogin[0].getEmployeeID,
                                   _getTodayDate(),

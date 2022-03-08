@@ -151,19 +151,20 @@ class EmployeeOperation implements IEmployee {
         },
         body: adminUpdateLoad,
       );
+      
+      //if response is empty return false
+      if (response.statusCode == 404) {
+        return false;
+      }
 
-      if (response.statusCode == 404) return false;
+      if (response.statusCode == 202) {
+        return true;
+      }
     } catch (e) {
-      e.toString();
-      SnackNotification.notif(
-        'Error',
-        'Something went wrong while updating time out',
-        Colors.redAccent.shade200,
-      );
+      print(e.toString());
       return false;
     }
 
-    //if status code is 202
     return true;
   }
 }
