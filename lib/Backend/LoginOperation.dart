@@ -39,8 +39,8 @@ class Login extends GlobalController implements ILogin {
     final response = await http.post(
       Uri.parse(Url.url + "api/login"),
       headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
       },
       body: entity,
     );
@@ -125,7 +125,8 @@ class Login extends GlobalController implements ILogin {
 
   @override
   void logout() {
-    Session.removeValues(); //remove the values from the session
+    //remove the values from the session
+    Session.removeValues();
     //clear the lists
     Mapping.employeeList.clear();
     Mapping.adminLogin.clear();
