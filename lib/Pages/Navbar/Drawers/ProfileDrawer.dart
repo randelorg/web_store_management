@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:web_store_management/Backend/EmployeeOperation.dart';
 import 'package:web_store_management/Backend/GlobalController.dart';
+import 'package:web_store_management/Backend/Session.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
 import 'package:web_store_management/Notification/Snack_notification.dart';
 import '../ViewProfile.dart';
@@ -20,10 +21,8 @@ class _ProfileDrawer extends State<ProfileDrawer> {
 
   bool _isAuthorized = false;
   bool _isEmployee = true;
-  bool _timein = false;
-  bool _timeout = false;
-  
-  String _getTodayDate() {  
+
+  String _getTodayDate() {
     var _formatter = new DateFormat('yyyy-MM-dd hh:mm:ss a');
     var _now = new DateTime.now();
     String formattedDate = _formatter.format(_now);
@@ -38,11 +37,6 @@ class _ProfileDrawer extends State<ProfileDrawer> {
       setState(() {
         _isAuthorized = true;
         _isEmployee = false;
-      });
-    } else {
-      setState(() {
-        _timein = true;
-        _timeout = false;
       });
     }
   }
@@ -217,84 +211,113 @@ class _ProfileDrawer extends State<ProfileDrawer> {
                           ),
                         ),
                       ),
-                      Visibility(
-                        maintainSize: false,
-                        maintainAnimation: true,
-                        maintainState: true,
-                        visible: this._timein,
-                        child: Card(
-                          elevation: 3,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30),
-                          ),
-                          child: Padding(
-                            padding: EdgeInsets.only(
-                                top: 10, bottom: 10, left: 10, right: 20),
-                            child: TextButton.icon(
-                              icon: Icon(
-                                Icons.check_circle,
-                                color: Colors.green,
-                              ),
-                              label: Text(
-                                'Time-in',
-                                style: TextStyle(
-                                  fontFamily: 'Cairo_SemiBold',
-                                  color: HexColor("#155293"),
+                      FutureBuilder(
+                        future: Session.getTimeIn(),
+                        builder: (context, snapshot) {
+                          if (snapshot.data == true) {
+                            return Visibility(
+                              maintainSize: false,
+                              maintainAnimation: true,
+                              maintainState: true,
+                              visible: snapshot.data == true,
+                              child: Card(
+                                elevation: 3,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(30),
                                 ),
-                                softWrap: true,
-                              ),
-                              onPressed: () {
-                                timeIn(
-                                  Mapping.employeeLogin[0].getEmployeeID,
-                                  _getTodayDate(),
-                                );
-                                //set the time in button to invisible
-                                setState(() {
-                                  _timein = false;
-                                  _timeout = true;
-                                });
-                              },
-                            ),
-                          ),
-                        ),
-                      ),
-                      Visibility(
-                        maintainSize: false,
-                        maintainAnimation: true,
-                        maintainState: true,
-                        visible: this._timeout,
-                        child: Card(
-                          elevation: 3,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30),
-                          ),
-                          child: Padding(
-                            padding: EdgeInsets.only(
-                                top: 10, bottom: 10, left: 10, right: 13),
-                            child: TextButton.icon(
-                              icon: Icon(
-                                Icons.cancel,
-                                color: Colors.red,
-                              ),
-                              label: Text(
-                                'Time-out',
-                                textAlign: TextAlign.left,
-                                style: TextStyle(
-                                  fontFamily: 'Cairo_SemiBold',
-                                  color: HexColor("#155293"),
+                                child: Padding(
+                                  padding: EdgeInsets.only(
+                                      top: 10, bottom: 10, left: 10, right: 20),
+                                  child: TextButton.icon(
+                                    icon: Icon(
+                                      Icons.check_circle,
+                                      color: Colors.green,
+                                    ),
+                                    label: Text(
+                                      'Time-in',
+                                      style: TextStyle(
+                                        fontFamily: 'Cairo_SemiBold',
+                                        color: HexColor("#155293"),
+                                      ),
+                                      softWrap: true,
+                                    ),
+                                    onPressed: () {
+                                      print("timeIn: " + _getTodayDate());
+                                      timeIn(
+                                        Mapping.employeeLogin[0].getEmployeeID,
+                                        _getTodayDate(),
+                                      );
+                                      //set the time in button to invisible
+                                      setState(() {
+                                        //set the visbility to false -> timeIn
+                                        Session.setTimeIn(false);
+                                        Session.setTimeOut(true);
+                                      });
+                                    },
+                                  ),
                                 ),
-                                softWrap: true,
                               ),
-                              onPressed: () {
-                                timeOut(
-                                  Mapping.employeeLogin[0].getEmployeeID,
-                                  _getTodayDate(),
-                                );
-                              },
-                            ),
-                          ),
-                        ),
+                            );
+                          } else {
+                            return Center(
+                              child: Text(
+                                ' ',
+                              ),
+                            );
+                          }
+                        },
                       ),
+                      FutureBuilder(
+                        future: Session.getTimeOut(),
+                        builder: (context, snapshot) {
+                          if (snapshot.data == true) {
+                            return Visibility(
+                              maintainSize: false,
+                              maintainAnimation: true,
+                              maintainState: true,
+                              visible: snapshot.data == true,
+                              child: Card(
+                                elevation: 3,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(30),
+                                ),
+                                child: Padding(
+                                  padding: EdgeInsets.only(
+                                      top: 10, bottom: 10, left: 10, right: 13),
+                                  child: TextButton.icon(
+                                    icon: Icon(
+                                      Icons.cancel,
+                                      color: Colors.red,
+                                    ),
+                                    label: Text(
+                                      'Time-out',
+                                      textAlign: TextAlign.left,
+                                      style: TextStyle(
+                                        fontFamily: 'Cairo_SemiBold',
+                                        color: HexColor("#155293"),
+                                      ),
+                                      softWrap: true,
+                                    ),
+                                    onPressed: () {
+                                      print("timeOut: " + _getTodayDate());
+                                      timeOut(
+                                        Mapping.employeeLogin[0].getEmployeeID,
+                                        _getTodayDate(),
+                                      );
+                                    },
+                                  ),
+                                ),
+                              ),
+                            );
+                          } else {
+                            return Center(
+                              child: Text(
+                                ' ',
+                              ),
+                            );
+                          }
+                        },
+                      )
                     ],
                   ),
                 ),

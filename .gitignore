@@ -18,6 +18,10 @@
 .pub-cache/
 .pub/
 /build/
+windows/
+android/
+ios/
+.idea/
 
 
 # Visual Studio Code related
