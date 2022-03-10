@@ -125,13 +125,14 @@ class Login extends GlobalController implements ILogin {
 
   @override
   void logout() {
-    //remove the values from the session
-    Session.removeValues();
     //clear the lists
     Mapping.employeeList.clear();
     Mapping.adminLogin.clear();
     Mapping.productList.clear();
     Mapping.borrowerList.clear();
     Mapping.paymentList.clear();
+
+    //remove the values from the session
+    Session.removeValues();
   }
 }

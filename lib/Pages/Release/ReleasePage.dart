@@ -1,30 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:printing/printing.dart';
 import 'package:web_store_management/Backend/GlobalController.dart';
 import 'package:web_store_management/Backend/LoanOperation.dart';
 import 'package:web_store_management/Backend/TextMessage.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
+import 'package:web_store_management/Helpers/PrintHelper.dart';
 import 'package:web_store_management/Notification/Snack_notification.dart';
 
-class CreditScreen extends StatefulWidget {
+class ReleasePage extends StatefulWidget {
   @override
-  _CreditPage createState() => _CreditPage();
+  _ReleasePage createState() => _ReleasePage();
 }
 
-class _CreditPage extends State<CreditScreen> {
+class _ReleasePage extends State<ReleasePage> {
   var controller = GlobalController();
   var loan = LoanOperation();
   var message = TextMessage();
+  final String released = "RELEASED";
+  late Future _releaseApproval;
+
   int vid = 0, bid = 0;
-  final String denied = "DENIED", tobeRelease = 'TO-BE-RELEASE';
   double textSize = 15;
   double titleSize = 30;
-  late Future _creditapproval;
 
   @override
   void initState() {
     super.initState();
-    _creditapproval = controller.fetchCreditApprovals();
+    _releaseApproval = controller.fetchReleaseApprovals();
   }
 
   @override
@@ -65,7 +68,7 @@ class _CreditPage extends State<CreditScreen> {
           ],
         ),
         FutureBuilder(
-          future: _creditapproval,
+          future: _releaseApproval,
           builder: (context, snapshot) {
             if (!snapshot.hasData) {
               return Center(
@@ -107,7 +110,7 @@ class _CreditPage extends State<CreditScreen> {
 
   List<Widget> _cards() {
     return List.generate(
-      Mapping.creditApprovals.length,
+      Mapping.releaseApproval.length,
       (index) {
         return new Card(
           shape: RoundedRectangleBorder(
@@ -122,7 +125,7 @@ class _CreditPage extends State<CreditScreen> {
                 padding: EdgeInsets.all(10),
                 child: ListTile(
                   title: Text(
-                    Mapping.creditApprovals[index].getStatus.toString(),
+                    Mapping.releaseApproval[index].getStatus.toString(),
                     style: TextStyle(
                       fontSize: 30,
                       fontFamily: 'Cairo_SemiBold',
@@ -158,7 +161,7 @@ class _CreditPage extends State<CreditScreen> {
                     ),
                     Expanded(
                       child: Text(
-                        Mapping.creditApprovals[index].toString(),
+                        Mapping.releaseApproval[index].toString(),
                         overflow: TextOverflow.visible,
                         maxLines: 2,
                         softWrap: true,
@@ -193,7 +196,7 @@ class _CreditPage extends State<CreditScreen> {
                     ),
                     Expanded(
                       child: Text(
-                        Mapping.creditApprovals[index].getHomeAddress
+                        Mapping.releaseApproval[index].getHomeAddress
                             .toString(),
                         overflow: TextOverflow.visible,
                         softWrap: true,
@@ -227,13 +230,15 @@ class _CreditPage extends State<CreditScreen> {
                     ),
                     Expanded(
                       child: Text(
-                        Mapping.creditApprovals[index].getMobileNumber
+                        Mapping.releaseApproval[index].getMobileNumber
                             .toString(),
                         overflow: TextOverflow.visible,
                         softWrap: true,
                         maxLines: 2,
                         style: TextStyle(
-                            fontFamily: 'Cairo_SemiBold', fontSize: 14),
+                          fontFamily: 'Cairo_SemiBold',
+                          fontSize: 14,
+                        ),
                       ),
                     ),
                   ],
@@ -275,13 +280,13 @@ class _CreditPage extends State<CreditScreen> {
                               primary: Colors.white,
                               textStyle: TextStyle(
                                   fontSize: 18, fontFamily: 'Cairo_SemiBold')),
-                          child: const Text('APPROVE'),
+                          child: const Text('RELEASE'),
                           onPressed: () {
                             vid = Mapping
-                                .creditApprovals[index].getinvestigationID;
-                            bid = Mapping.creditApprovals[index].getBorrowerId;
+                                .releaseApproval[index].getinvestigationID;
+                            bid = Mapping.releaseApproval[index].getBorrowerId;
                             loan
-                                .approvedCredit(vid, bid, tobeRelease)
+                                .approvedCredit(vid, bid, released)
                                 .then((value) {
                               if (!value) {
                                 SnackNotification.notif(
@@ -292,15 +297,21 @@ class _CreditPage extends State<CreditScreen> {
                               } else {
                                 //refresh the data in the window
                                 setState(() {
-                                  _creditapproval =
-                                      controller.fetchCreditApprovals();
+                                  _releaseApproval =
+                                      controller.fetchReleaseApprovals();
                                 });
-                                //send message to the borrower that the credit has been approved
-                                sendMessageApproved(
-                                  Mapping
-                                      .creditApprovals[index].getMobileNumber,
-                                  Mapping.creditApprovals[index].toString(),
-                                  'APPROVED',
+
+                                //show the print screen
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return showPrint(
+                                      Mapping
+                                          .releaseApproval[index].getBorrowerId
+                                          .toString(),
+                                      Mapping.releaseApproval[index].toString(),
+                                    );
+                                  },
                                 );
                               }
                             });
@@ -308,35 +319,6 @@ class _CreditPage extends State<CreditScreen> {
                         ),
                       ],
                     ),
-                  ),
-                  IconButton(
-                    icon: Icon(Icons.cancel),
-                    color: Colors.redAccent.shade400,
-                    tooltip: 'DENY CREDIT',
-                    onPressed: () {
-                      vid = Mapping.creditApprovals[index].getinvestigationID;
-                      bid = Mapping.creditApprovals[index].getBorrowerId;
-                      loan.approvedCredit(vid, bid, denied).then((value) {
-                        if (!value) {
-                          SnackNotification.notif(
-                            'Error',
-                            'Something went wrong while approving the loan',
-                            Colors.redAccent.shade200,
-                          );
-                        } else {
-                          //refresh the data in the window
-                          setState(() {
-                            _creditapproval = controller.fetchCreditApprovals();
-                          });
-                          //send message to the borrower that the credit has been approved
-                          sendMessageApproved(
-                            Mapping.creditApprovals[index].getMobileNumber,
-                            Mapping.creditApprovals[index].toString(),
-                            denied,
-                          );
-                        }
-                      });
-                    },
                   ),
                 ],
               ),
@@ -347,16 +329,16 @@ class _CreditPage extends State<CreditScreen> {
     );
   }
 
-  void sendMessageApproved(String number, String name, String status) {
-    message.sendApprovedCredit(name, number, status).then((value) => {
-          if (value)
-            {
-              SnackNotification.notif(
-                'PENDING',
-                'The message is in transit to the network',
-                Colors.orange.shade500,
-              )
-            }
-        });
+  Widget showPrint(String id, String name) {
+    return Container(
+      child: PdfPreview(
+        padding: EdgeInsets.all(100),
+        build: (format) => PrintHelper.generatePdfQr(
+          format,
+          id,
+          name,
+        ),
+      ),
+    );
   }
 }

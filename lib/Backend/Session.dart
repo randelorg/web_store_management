@@ -24,16 +24,18 @@ class Session {
     return prefs.getString('role').toString();
   }
 
-  static void removeValues() {
+  static Future<bool> removeValues() async {
     //set the default values clockin and clockout
-    Session.setTimeIn(true);
-    Session.setTimeOut(false);
+    await Session.setTimeIn(true);
+    await Session.setTimeOut(false);
 
     //remove the values for the login
-    SharedPreferences.getInstance().then((prefs) {
+    await SharedPreferences.getInstance().then((prefs) {
       prefs.remove('id');
       prefs.remove('isLoggedin');
     });
+
+    return true;
   }
 
   //for clockins
