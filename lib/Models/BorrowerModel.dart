@@ -52,6 +52,9 @@ class BorrowerModel extends PersonModel {
 
   BorrowerModel.empty() : super.empty();
 
+  BorrowerModel.invoice(String firstname, String lastname, String homeAddress)
+      : super.invoice(firstname, lastname, homeAddress);
+
   BorrowerModel.newLoan(String firstname, String lastname, String mobile,
       String homeAddress, List<dynamic> contract)
       : super.withOutId(firstname, lastname, mobile, homeAddress) {
