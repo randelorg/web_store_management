@@ -1,3 +1,4 @@
+import 'package:intl/intl.dart';
 import 'package:web_store_management/Models/BranchModel.dart';
 import 'package:web_store_management/Models/ForgetPasswordModel.dart';
 import 'package:web_store_management/Models/LoanedProductHistoryModel.dart';
@@ -8,6 +9,10 @@ import '../../Models/ProductModel.dart';
 import '../../Models/BorrowerModel.dart';
 
 class Mapping {
+  //formating currency and date
+  static formatPrice(double price) => '\$ ${price.toStringAsFixed(2)}';
+  static formatDate(DateTime date) => DateFormat.yMd().format(date);
+
   //for login purposes
   //for identifying user role
   static String userRole = '';

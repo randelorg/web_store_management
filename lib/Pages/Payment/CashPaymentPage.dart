@@ -4,6 +4,7 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:web_store_management/Backend/GlobalController.dart';
 import 'package:web_store_management/Backend/ProductOperation.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
+import 'package:web_store_management/Pages/Payment/Invoice/pdf_invoice_page.dart';
 
 class CashPaymentPage extends StatefulWidget {
   @override
@@ -121,7 +122,23 @@ class _CashPaymentPage extends State<CashPaymentPage> {
                   ),
                 ),
                 child: const Text('DONE'),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pop(context);
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return SimpleDialog(
+                        children: [
+                          Container(
+                            width: (MediaQuery.of(context).size.width) / 1.1,
+                            height: (MediaQuery.of(context).size.height / 1.2),
+                            child: PdfPage(),
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                },
               ),
             ],
           ),
