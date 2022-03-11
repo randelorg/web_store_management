@@ -287,7 +287,7 @@ class _CreditPage extends State<CreditScreen> {
                                 SnackNotification.notif(
                                   'Error',
                                   'Something went wrong while approving the loan',
-                                  Colors.redAccent.shade200,
+                                  Colors.red.shade600,
                                 );
                               } else {
                                 //refresh the data in the window
@@ -321,7 +321,7 @@ class _CreditPage extends State<CreditScreen> {
                           SnackNotification.notif(
                             'Error',
                             'Something went wrong while approving the loan',
-                            Colors.redAccent.shade200,
+                            Colors.red.shade600,
                           );
                         } else {
                           //refresh the data in the window
@@ -354,7 +354,7 @@ class _CreditPage extends State<CreditScreen> {
               SnackNotification.notif(
                 'PENDING',
                 'The message is in transit to the network',
-                Colors.orange.shade500,
+                Colors.orange.shade600,
               )
             }
         });

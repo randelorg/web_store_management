@@ -299,7 +299,7 @@ class _UpdateEmployee extends State<UpdateEmployee> {
                                     SnackNotification.notif(
                                       'Success',
                                       'Successfully updated employee account',
-                                      Colors.green.shade500,
+                                      Colors.green.shade600,
                                     );
                                   }
                                 });

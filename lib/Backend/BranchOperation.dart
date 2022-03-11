@@ -35,7 +35,7 @@ class BranchOperation implements IBranch, IIventory {
         SnackNotification.notif(
           'Success',
           'New branch added successfully',
-          Colors.green.shade900,
+          Colors.green.shade600,
         );
         return true;
       }

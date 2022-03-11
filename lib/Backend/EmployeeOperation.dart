@@ -91,7 +91,7 @@ class EmployeeOperation implements IEmployee {
       SnackNotification.notif(
         'Error',
         'Something went wrong while updating the employee',
-        Colors.redAccent.shade200,
+        Colors.red.shade600,
       );
       return false;
     }

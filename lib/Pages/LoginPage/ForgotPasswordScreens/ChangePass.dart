@@ -189,7 +189,7 @@ class _ChangePass extends State<ChangePass> {
                               SnackNotification.notif(
                                 'Success',
                                 'Password changed, please now log in',
-                                Colors.green.shade900,
+                                Colors.green.shade600,
                               );
                             }
                           });

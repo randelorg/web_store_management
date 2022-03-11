@@ -68,7 +68,7 @@ class LoanOperation extends BorrowerOperation implements INewLoan {
       SnackNotification.notif(
         'Error',
         'Something went wrong while adding the borrower',
-        Colors.redAccent.shade200,
+        Colors.red.shade600,
       );
       return false;
     }
@@ -108,7 +108,7 @@ class LoanOperation extends BorrowerOperation implements INewLoan {
         SnackNotification.notif(
           'Error',
           'Something went wrong while adding the loan',
-          Colors.redAccent.shade200,
+          Colors.red.shade600,
         );
         return false;
       }
@@ -142,7 +142,7 @@ class LoanOperation extends BorrowerOperation implements INewLoan {
         SnackNotification.notif(
           'Success',
           'Loan is now $status - Go now to Borrowers',
-          Colors.green.shade900,
+          Colors.green.shade600,
         );
         return true;
       }

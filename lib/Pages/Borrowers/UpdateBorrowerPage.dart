@@ -242,7 +242,7 @@ class _UpdateBorrowerPage extends State<UpdateBorrowerPage> {
                                     ' ' +
                                     widget.lastname.toString() +
                                     ' has been updated',
-                                Colors.green.shade500,
+                                Colors.green.shade600,
                               );
                             }
                           });
