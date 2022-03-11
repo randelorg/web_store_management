@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:web_store_management/Backend/GlobalController.dart';
 import 'package:web_store_management/Backend/ProductOperation.dart';
@@ -50,45 +51,80 @@ class _CashPaymentPage extends State<CashPaymentPage> {
             fontSize: 30,
           ),
         ),
-        Row(
-          children: [
-            Expanded(
-              child: Container(
-                width: (MediaQuery.of(context).size.width) / 2,
-                child: FutureBuilder(
-                    future: this._products,
-                    builder: (context, snapshot) {
-                      if (!snapshot.hasData) {
-                        return Center(child: CircularProgressIndicator());
-                      }
-                      if (snapshot.hasData) {
-                        return PaginatedDataTable(
-                          showCheckboxColumn: true,
-                          showFirstLastButtons: true,
-                          rowsPerPage: 5,
-                          columns: [
-                            DataColumn(label: Text('CODE')),
-                            DataColumn(label: Text('NAME')),
-                            DataColumn(label: Text('PRICE')),
-                          ],
-                          source: _DataSource(context),
-                        );
-                      }
-                      return Center(
-                        child: Center(
-                          child: Text(
-                            'No Data',
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                            ),
+        Align(
+          alignment: Alignment.center,
+          child: Expanded(
+            child: Container(
+              width: (MediaQuery.of(context).size.width) / 1.5,
+              child: FutureBuilder(
+                  future: this._products,
+                  builder: (context, snapshot) {
+                    if (!snapshot.hasData) {
+                      return Center(child: CircularProgressIndicator());
+                    }
+                    if (snapshot.hasData) {
+                      return PaginatedDataTable(
+                        showCheckboxColumn: true,
+                        showFirstLastButtons: true,
+                        rowsPerPage: 6,
+                        columns: [
+                          DataColumn(label: Text('CODE')),
+                          DataColumn(label: Text('NAME')),
+                          DataColumn(label: Text('PRICE')),
+                          DataColumn(label: Text('QTY')),
+                        ],
+                        source: _DataSource(context),
+                      );
+                    }
+                    return Center(
+                      child: Center(
+                        child: Text(
+                          'No Data',
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
-                      );
-                    }),
-              ),
+                      ),
+                    );
+                  }),
             ),
-          ],
+          ),
+        ),
+        SizedBox(
+          height: 5,
+        ),
+        ClipRRect(
+          borderRadius: BorderRadius.circular(20),
+          child: Stack(
+            children: <Widget>[
+              Positioned.fill(
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: HexColor("#155293"),
+                  ),
+                ),
+              ),
+              TextButton(
+                style: TextButton.styleFrom(
+                  padding: const EdgeInsets.only(
+                    left: 36,
+                    right: 36,
+                    top: 18,
+                    bottom: 18,
+                  ),
+                  primary: Colors.white,
+                  textStyle: TextStyle(
+                    fontFamily: 'Cairo_SemiBold',
+                    fontSize: 14,
+                    color: Colors.white,
+                  ),
+                ),
+                child: const Text('DONE'),
+                onPressed: () {},
+              ),
+            ],
+          ),
         ),
       ],
     );
@@ -100,11 +136,13 @@ class _Row {
     this.valueA,
     this.valueB,
     this.valueC,
+    this.valueD,
   );
 
   final String valueA;
   final String valueB;
   final String valueC;
+  final Widget valueD;
 
   bool selected = false;
 }
@@ -137,6 +175,7 @@ class _DataSource extends DataTableSource {
           if (value) {
             _selectedCount = 1;
           }
+          notifyListeners();
         }
 
         assert(_selectedCount >= 0);
@@ -146,6 +185,10 @@ class _DataSource extends DataTableSource {
         DataCell(Text(row.valueA)),
         DataCell(Text(row.valueB)),
         DataCell(Text(row.valueC)),
+        DataCell(
+          (row.valueD),
+          showEditIcon: true,
+        ),
       ],
     );
   }
@@ -168,6 +211,16 @@ class _DataSource extends DataTableSource {
           Mapping.productList[index].getProductPrice
               .toStringAsFixed(2)
               .toString(),
+          TextFormField(
+            initialValue: '0',
+            keyboardType: TextInputType.number,
+            inputFormatters: <TextInputFormatter>[
+              FilteringTextInputFormatter.digitsOnly
+            ],
+            onFieldSubmitted: (val) {
+              print('onSubmited $val');
+            },
+          ),
         );
       });
     } catch (e) {
@@ -177,6 +230,7 @@ class _DataSource extends DataTableSource {
           '',
           '',
           '',
+          Text('0'),
         );
       });
     }
