@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:printing/printing.dart';
 import 'package:web_store_management/Backend/GlobalController.dart';
 import 'package:web_store_management/Backend/ProductOperation.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
-import 'package:web_store_management/Pages/Payment/Invoice/pdf_invoice_page.dart';
+import 'package:web_store_management/Helpers/PrintHelper.dart';
+import 'package:web_store_management/Models/BorrowerModel.dart';
+import 'package:web_store_management/Models/InvoiceModel.dart';
 
 class CashPaymentPage extends StatefulWidget {
   @override
@@ -122,20 +125,81 @@ class _CashPaymentPage extends State<CashPaymentPage> {
                   ),
                 ),
                 child: const Text('DONE'),
-                onPressed: () {
+                onPressed: () async {
+                  final date = DateTime.now();
+                  final dueDate = date.add(Duration(days: 7));
+
+                  final invoice = Invoice(
+                    customer: BorrowerModel.invoice(
+                      'Randel',
+                      'Reyes',
+                      'Mabolo',
+                    ),
+                    info: InvoiceInfo(
+                      date: date,
+                      dueDate: dueDate,
+                      description: 'My description...',
+                      number: '${DateTime.now().year}-9999',
+                    ),
+                    items: [
+                      InvoiceItem(
+                        description: 'Coffee',
+                        date: DateTime.now(),
+                        quantity: 3,
+                        vat: 0.19,
+                        unitPrice: 5.99,
+                      ),
+                      InvoiceItem(
+                        description: 'Water',
+                        date: DateTime.now(),
+                        quantity: 8,
+                        vat: 0.19,
+                        unitPrice: 0.99,
+                      ),
+                      InvoiceItem(
+                        description: 'Orange',
+                        date: DateTime.now(),
+                        quantity: 3,
+                        vat: 0.19,
+                        unitPrice: 2.99,
+                      ),
+                      InvoiceItem(
+                        description: 'Apple',
+                        date: DateTime.now(),
+                        quantity: 8,
+                        vat: 0.19,
+                        unitPrice: 3.99,
+                      ),
+                      InvoiceItem(
+                        description: 'Mango',
+                        date: DateTime.now(),
+                        quantity: 1,
+                        vat: 0.19,
+                        unitPrice: 1.59,
+                      ),
+                      InvoiceItem(
+                        description: 'Blue Berries',
+                        date: DateTime.now(),
+                        quantity: 5,
+                        vat: 0.19,
+                        unitPrice: 0.99,
+                      ),
+                      InvoiceItem(
+                        description: 'Lemon',
+                        date: DateTime.now(),
+                        quantity: 4,
+                        vat: 0.19,
+                        unitPrice: 1.29,
+                      ),
+                    ],
+                  );
+
                   Navigator.pop(context);
+                  //show the print screen
                   showDialog(
                     context: context,
                     builder: (BuildContext context) {
-                      return SimpleDialog(
-                        children: [
-                          Container(
-                            width: (MediaQuery.of(context).size.width) / 1.1,
-                            height: (MediaQuery.of(context).size.height / 1.2),
-                            child: PdfPage(),
-                          ),
-                        ],
-                      );
+                      return showInvoice(invoice);
                     },
                   );
                 },
@@ -144,6 +208,18 @@ class _CashPaymentPage extends State<CashPaymentPage> {
           ),
         ),
       ],
+    );
+  }
+
+  Widget showInvoice(Invoice invoice) {
+    return Container(
+      child: PdfPreview(
+        padding: EdgeInsets.all(10),
+        build: (format) => PrintHelper.generateInvoice(
+          format,
+          invoice,
+        ),
+      ),
     );
   }
 }
