@@ -58,7 +58,11 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
                   style: TextStyle(fontFamily: 'Cairo_Bold', fontSize: 30),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(top: 20, bottom: 10, right: 10, left: 10), //add padding to the textfields
+                  padding: EdgeInsets.only(
+                      top: 20,
+                      bottom: 10,
+                      right: 10,
+                      left: 10), //add padding to the textfields
                   child: TextField(
                     controller: firstname,
                     decoration: InputDecoration(
@@ -309,17 +313,19 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
                       onPressed: () {
                         //push to second page
                         //which is the finalize order page
-                        if (firstname.text.isEmpty || lastname.text.isEmpty ||
-                            mobileNumber.text.isEmpty || homeAddress.text.isEmpty) {                        
-                              SnackNotification.notif(                                                                                  
-                                "Error",
-                                "Please fill all the fields",
-                               Colors.red.shade600);
-                        } else if (pick.image == null) {                                                           
-                          SnackNotification.notif(                        
-                            "Error",
-                            "Please upload a file (jpg, png, jpeg, or pdf)",
-                            Colors.red.shade600);                                                                                                                                      
+                        if (firstname.text.isEmpty ||
+                            lastname.text.isEmpty ||
+                            mobileNumber.text.isEmpty ||
+                            homeAddress.text.isEmpty) {
+                          SnackNotification.notif(
+                              "Error",
+                              "Please fill all the fields",
+                              Colors.red.shade600);
+                        } else if (pick.image == null) {
+                          SnackNotification.notif(
+                              "Error",
+                              "Please upload a file (jpg, png, jpeg, or pdf)",
+                              Colors.red.shade600);
                         } else {
                           showDialog(
                             context: context,
@@ -418,10 +424,10 @@ class _SelectionOfProducts extends DataTableSource {
           //we will remove the duplicate products afterward
           Mapping.selectedProducts.add(
             ProductModel.selectedProduct(
-              row.valueA.toString(),
-              row.valueB.toString(),
+              row.valueA.toString(), //code
+              row.valueB.toString(), //name
               double.parse(
-                row.valueC.toString(),
+                row.valueC.toString(), //price
               ),
             ),
           );
@@ -429,7 +435,8 @@ class _SelectionOfProducts extends DataTableSource {
           //delete the uncheck product to the list
           if (value == false) {
             Mapping.selectedProducts.removeWhere(
-                (element) => element.productCode == row.valueA.toString());
+              (element) => element.productCode == row.valueA.toString(),
+            );
           }
 
           notifyListeners();

@@ -2,7 +2,7 @@ class ProductModel {
   String? productCode;
   String? productName;
   double? productPrice;
-  int? productQty = 1;
+  int? productQty = 0;
   String? productUnit;
   double? price;
 
@@ -31,6 +31,13 @@ class ProductModel {
   set setPrice(double price) => this.price = price;
 
   ProductModel.empty();
+
+  ProductModel.cashPayment(String barcode, String name, double price, int qty) {
+    this.productCode = barcode;
+    this.productName = name;
+    this.price = price;
+    this.productQty = qty;
+  }
 
   ProductModel.selectedProduct(String barcode, String name, double price) {
     this.productCode = barcode;

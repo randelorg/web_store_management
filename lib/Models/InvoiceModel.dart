@@ -28,14 +28,12 @@ class InvoiceInfo {
 
 class InvoiceItem {
   final String description;
-  final DateTime date;
   final int quantity;
-  final double vat;
+  double vat = 0;
   final double unitPrice;
 
-  const InvoiceItem({
+  InvoiceItem({
     required this.description,
-    required this.date,
     required this.quantity,
     required this.vat,
     required this.unitPrice,
