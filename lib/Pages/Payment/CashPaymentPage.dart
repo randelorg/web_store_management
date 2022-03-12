@@ -8,6 +8,7 @@ import 'package:web_store_management/Backend/Utility/Mapping.dart';
 import 'package:web_store_management/Helpers/PrintHelper.dart';
 import 'package:web_store_management/Models/BorrowerModel.dart';
 import 'package:web_store_management/Models/InvoiceModel.dart';
+import 'package:web_store_management/Models/ProductModel.dart';
 
 class CashPaymentPage extends StatefulWidget {
   @override
@@ -17,6 +18,10 @@ class CashPaymentPage extends StatefulWidget {
 class _CashPaymentPage extends State<CashPaymentPage> {
   var controller = GlobalController();
   var product = ProductOperation();
+  final fname = TextEditingController();
+  final lname = TextEditingController();
+  final address = TextEditingController();
+  List<InvoiceItem> items = [];
   late Future _products;
 
   @override
@@ -27,185 +32,241 @@ class _CashPaymentPage extends State<CashPaymentPage> {
   }
 
   Widget build(BuildContext context) {
-    return Column(
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Padding(
-          padding: EdgeInsets.only(bottom: 5, right: 8),
-          child: Align(
-            alignment: Alignment.topRight,
-            child: IconButton(
-              icon: Icon(
-                Icons.cancel,
-                color: Colors.black,
-                size: 30,
-              ),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ),
-        ),
-        Text(
-          'Cash Payment',
-          softWrap: true,
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            color: HexColor("#155293"),
-            fontFamily: 'Cairo_Bold',
-            fontSize: 30,
-          ),
-        ),
-        Align(
-          alignment: Alignment.center,
-          child: Expanded(
-            child: Container(
-              width: (MediaQuery.of(context).size.width) / 1.5,
-              child: FutureBuilder(
-                  future: this._products,
-                  builder: (context, snapshot) {
-                    if (!snapshot.hasData) {
-                      return Center(child: CircularProgressIndicator());
-                    }
-                    if (snapshot.hasData) {
-                      return PaginatedDataTable(
-                        showCheckboxColumn: true,
-                        showFirstLastButtons: true,
-                        rowsPerPage: 6,
-                        columns: [
-                          DataColumn(label: Text('CODE')),
-                          DataColumn(label: Text('NAME')),
-                          DataColumn(label: Text('PRICE')),
-                          DataColumn(label: Text('QTY')),
-                        ],
-                        source: _DataSource(context),
-                      );
-                    }
-                    return Center(
-                      child: Center(
-                        child: Text(
-                          'No Data',
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    );
-                  }),
-            ),
-          ),
-        ),
-        SizedBox(
-          height: 5,
-        ),
-        ClipRRect(
-          borderRadius: BorderRadius.circular(20),
-          child: Stack(
-            children: <Widget>[
-              Positioned.fill(
-                child: Container(
-                  decoration: BoxDecoration(
+        Container(
+          width: (MediaQuery.of(context).size.width) / 5,
+          height: (MediaQuery.of(context).size.height) / 1.5,
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 120),
+                child: Text(
+                  'Customer Details',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
                     color: HexColor("#155293"),
+                    fontFamily: 'Cairo_Bold',
+                    fontSize: 30,
+                    overflow: TextOverflow.fade,
+                  ),
+                  maxLines: 2,
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.all(6.0),
+                child: TextField(
+                  controller: fname,
+                  decoration: InputDecoration(
+                    hintText: 'Firstname',
+                    filled: true,
+                    fillColor: Colors.blueGrey[50],
+                    labelStyle: TextStyle(fontSize: 10),
+                    contentPadding: EdgeInsets.only(left: 15),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                      borderRadius: BorderRadius.circular(5),
+                    ),
                   ),
                 ),
               ),
-              TextButton(
-                style: TextButton.styleFrom(
-                  padding: const EdgeInsets.only(
-                    left: 36,
-                    right: 36,
-                    top: 18,
-                    bottom: 18,
-                  ),
-                  primary: Colors.white,
-                  textStyle: TextStyle(
-                    fontFamily: 'Cairo_SemiBold',
-                    fontSize: 14,
-                    color: Colors.white,
+              Padding(
+                padding: EdgeInsets.all(6.0),
+                child: TextField(
+                  controller: lname,
+                  decoration: InputDecoration(
+                    hintText: 'Lastname',
+                    filled: true,
+                    fillColor: Colors.blueGrey[50],
+                    labelStyle: TextStyle(fontSize: 10),
+                    contentPadding: EdgeInsets.only(left: 15),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                      borderRadius: BorderRadius.circular(5),
+                    ),
                   ),
                 ),
-                child: const Text('DONE'),
-                onPressed: () async {
-                  final date = DateTime.now();
-                  final dueDate = date.add(Duration(days: 7));
-
-                  final invoice = Invoice(
-                    customer: BorrowerModel.invoice(
-                      'Randel',
-                      'Reyes',
-                      'Mabolo',
+              ),
+              Padding(
+                padding: const EdgeInsets.all(6.0),
+                child: TextField(
+                  controller: address,
+                  decoration: InputDecoration(
+                    hintText: 'Address',
+                    filled: true,
+                    fillColor: Colors.blueGrey[50],
+                    labelStyle: TextStyle(fontSize: 12),
+                    contentPadding: EdgeInsets.only(left: 15),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                      borderRadius: BorderRadius.circular(10),
                     ),
-                    info: InvoiceInfo(
-                      date: date,
-                      dueDate: dueDate,
-                      description: 'My description...',
-                      number: '${DateTime.now().year}-9999',
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                      borderRadius: BorderRadius.circular(10),
                     ),
-                    items: [
-                      InvoiceItem(
-                        description: 'Coffee',
-                        date: DateTime.now(),
-                        quantity: 3,
-                        vat: 0.19,
-                        unitPrice: 5.99,
-                      ),
-                      InvoiceItem(
-                        description: 'Water',
-                        date: DateTime.now(),
-                        quantity: 8,
-                        vat: 0.19,
-                        unitPrice: 0.99,
-                      ),
-                      InvoiceItem(
-                        description: 'Orange',
-                        date: DateTime.now(),
-                        quantity: 3,
-                        vat: 0.19,
-                        unitPrice: 2.99,
-                      ),
-                      InvoiceItem(
-                        description: 'Apple',
-                        date: DateTime.now(),
-                        quantity: 8,
-                        vat: 0.19,
-                        unitPrice: 3.99,
-                      ),
-                      InvoiceItem(
-                        description: 'Mango',
-                        date: DateTime.now(),
-                        quantity: 1,
-                        vat: 0.19,
-                        unitPrice: 1.59,
-                      ),
-                      InvoiceItem(
-                        description: 'Blue Berries',
-                        date: DateTime.now(),
-                        quantity: 5,
-                        vat: 0.19,
-                        unitPrice: 0.99,
-                      ),
-                      InvoiceItem(
-                        description: 'Lemon',
-                        date: DateTime.now(),
-                        quantity: 4,
-                        vat: 0.19,
-                        unitPrice: 1.29,
-                      ),
-                    ],
-                  );
-
-                  Navigator.pop(context);
-                  //show the print screen
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return showInvoice(invoice);
-                    },
-                  );
-                },
+                  ),
+                ),
               ),
             ],
           ),
+        ),
+        Container(
+          child: Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 25, right: 25),
+                child: const VerticalDivider(
+                  color: Colors.grey,
+                  thickness: 1,
+                  indent: 80,
+                  endIndent: 80,
+                  width: 10,
+                ),
+              ),
+            ],
+          ),
+        ),
+        Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            Row(
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(bottom: 20, right: 8),
+                  child: Align(
+                    alignment: Alignment.topRight,
+                    child: IconButton(
+                      icon: Icon(
+                        Icons.cancel,
+                        color: Colors.black,
+                        size: 30,
+                      ),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            Expanded(
+              child: Container(
+                width: (MediaQuery.of(context).size.width) / 1.5,
+                height: (MediaQuery.of(context).size.height),
+                child: ListView(
+                  children: [
+                    FutureBuilder(
+                      future: this._products,
+                      builder: (context, snapshot) {
+                        if (!snapshot.hasData) {
+                          return Center(child: CircularProgressIndicator());
+                        }
+                        if (snapshot.hasData) {
+                          return PaginatedDataTable(
+                            showCheckboxColumn: true,
+                            showFirstLastButtons: true,
+                            rowsPerPage: 10,
+                            columns: [
+                              DataColumn(label: Text('CODE')),
+                              DataColumn(label: Text('NAME')),
+                              DataColumn(label: Text('PRICE')),
+                              DataColumn(label: Text('QTY')),
+                            ],
+                            source: _DataSource(context),
+                          );
+                        }
+                        return Center(
+                          child: Center(
+                            child: Text(
+                              'No Data',
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 5,
+            ),
+            ClipRRect(
+              borderRadius: BorderRadius.circular(20),
+              child: Stack(
+                children: <Widget>[
+                  Positioned.fill(
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: HexColor("#155293"),
+                      ),
+                    ),
+                  ),
+                  TextButton(
+                    style: TextButton.styleFrom(
+                      padding: const EdgeInsets.only(
+                        left: 36,
+                        right: 36,
+                        top: 18,
+                        bottom: 18,
+                      ),
+                      primary: Colors.white,
+                      textStyle: TextStyle(
+                        fontFamily: 'Cairo_SemiBold',
+                        fontSize: 14,
+                        color: Colors.white,
+                      ),
+                    ),
+                    child: const Text('DONE'),
+                    onPressed: () async {
+                      final date = DateTime.now();
+                      final dueDate = date.add(Duration(days: 7));
+
+                      final invoice = Invoice(
+                        customer: BorrowerModel.invoice(
+                          fname.text.trim(),
+                          lname.text.trim(),
+                          address.text.trim(),
+                        ),
+                        info: InvoiceInfo(
+                          date: date,
+                          description:
+                              'This will serve as your Unofficial Receipt. Thank you.',
+                          number: '${DateTime.now().year}-9999',
+                          dueDate: dueDate,
+                        ),
+                        items: Mapping.invoice,
+                      );
+
+                      Navigator.pop(context);
+                      //show the print screen
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return showInvoice(invoice);
+                        },
+                      );
+                    },
+                  ),
+                ],
+              ),
+            ),
+          ],
         ),
       ],
     );
@@ -235,7 +296,7 @@ class _Row {
   final String valueA;
   final String valueB;
   final String valueC;
-  final Widget valueD;
+  final TextFormField valueD;
 
   bool selected = false;
 }
@@ -247,7 +308,12 @@ class _DataSource extends DataTableSource {
 
   final BuildContext context;
   int _selectedCount = 0;
-  List<_Row> _products = [];
+  static List<_Row> _products = [];
+
+  List<TextEditingController> qty = List<TextEditingController>.generate(
+    Mapping.productList.length,
+    (index) => TextEditingController(),
+  );
 
   @override
   DataRow? getRow(int index) {
@@ -268,6 +334,25 @@ class _DataSource extends DataTableSource {
           if (value) {
             _selectedCount = 1;
           }
+
+          //add the checked product to the list
+          //we will remove the duplicate products afterward
+          Mapping.invoice.add(
+            InvoiceItem(
+              description: row.valueB.toString(),
+              quantity: int.parse(qty[index].text),
+              vat: 0,
+              unitPrice: double.parse(row.valueC.toString()),
+            ),
+          );
+
+          //delete the uncheck product to the list
+          if (value == false) {
+            Mapping.invoice.removeWhere(
+              (element) => element.description == row.valueA.toString(),
+            );
+          }
+
           notifyListeners();
         }
 
@@ -278,10 +363,7 @@ class _DataSource extends DataTableSource {
         DataCell(Text(row.valueA)),
         DataCell(Text(row.valueB)),
         DataCell(Text(row.valueC)),
-        DataCell(
-          (row.valueD),
-          showEditIcon: true,
-        ),
+        DataCell((row.valueD), showEditIcon: true),
       ],
     );
   }
@@ -305,25 +387,25 @@ class _DataSource extends DataTableSource {
               .toStringAsFixed(2)
               .toString(),
           TextFormField(
-            initialValue: '0',
+            controller: qty[index],
             keyboardType: TextInputType.number,
             inputFormatters: <TextInputFormatter>[
               FilteringTextInputFormatter.digitsOnly
             ],
-            onFieldSubmitted: (val) {
-              print('onSubmited $val');
-            },
           ),
         );
       });
     } catch (e) {
+      print(e.toString());
       //if product list is empty
       return List.generate(0, (index) {
         return _Row(
           '',
           '',
           '',
-          Text('0'),
+          TextFormField(
+            initialValue: '0',
+          ),
         );
       });
     }

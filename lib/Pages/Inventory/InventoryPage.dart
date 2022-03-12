@@ -306,7 +306,8 @@ class _InventoryPage extends State<InventoryPage> {
                   ),
                 ),
                 Container(
-                  padding: const EdgeInsets.only(top: 15, bottom: 15, left: 20, right: 5),
+                  padding: const EdgeInsets.only(
+                      top: 15, bottom: 15, left: 20, right: 5),
                   width: 350,
                   child: TextField(
                     decoration: InputDecoration(
@@ -371,8 +372,9 @@ class _InventoryPage extends State<InventoryPage> {
                       DataColumn(label: Text('PRICE')),
                       DataColumn(label: Text('ACTION')),
                       DataColumn(
-                          label: Text('TRANSFER \n STOCKS',
-                              textAlign: TextAlign.center)),
+                        label: Text('TRANSFER \n STOCKS',
+                            textAlign: TextAlign.center),
+                      ),
                     ],
                     source: _DataSource(context),
                   );

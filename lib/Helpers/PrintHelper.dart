@@ -3,6 +3,7 @@ import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:pdf/widgets.dart';
 import 'package:web_store_management/Backend/BorrowerOperation.dart';
+import 'package:web_store_management/Backend/Utility/Mapping.dart';
 import 'package:web_store_management/Helpers/PdfInvoiceApi.dart';
 import 'package:web_store_management/Models/InvoiceModel.dart';
 
@@ -70,6 +71,9 @@ class PrintHelper {
       footer: (context) => PdfInvoiceApi.buildFooter(invoice),
     ));
 
+    //clear the selected products
+    Mapping.invoice.clear();
+
     return pdf.save();
   }
 
@@ -99,6 +103,7 @@ class PrintHelper {
       ),
     );
 
+    //returm the pdf invoice
     return pdf.save();
   }
 }
