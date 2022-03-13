@@ -6,9 +6,7 @@
 // ignore_for_file: lines_longer_than_80_chars
 
 import 'package:camcode/camcode_web.dart';
-import 'package:device_info_plus_web/device_info_plus_web.dart';
 import 'package:file_picker/_internal/file_picker_web.dart';
-import 'package:pdfx/src/renderer/web/pdfx_plugin.dart';
 import 'package:printing/printing_web.dart';
 import 'package:shared_preferences_web/shared_preferences_web.dart';
 
@@ -17,9 +15,7 @@ import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 // ignore: public_member_api_docs
 void registerPlugins(Registrar registrar) {
   CamcodeWeb.registerWith(registrar);
-  DeviceInfoPlusPlugin.registerWith(registrar);
   FilePickerWeb.registerWith(registrar);
-  PdfxPlugin.registerWith(registrar);
   PrintingPlugin.registerWith(registrar);
   SharedPreferencesPlugin.registerWith(registrar);
   registrar.registerMessageHandler();

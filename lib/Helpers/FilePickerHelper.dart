@@ -12,7 +12,7 @@ class Picker {
   Future<String> pickFile() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
       type: FileType.custom,
-      allowedExtensions: ['jpg', 'png', 'jpeg', 'pdf'],
+      allowedExtensions: ['jpg', 'png', 'jpeg'],
     );
 
     if (result != null) {

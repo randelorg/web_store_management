@@ -308,7 +308,9 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
                         padding: const EdgeInsets.all(15),
                         primary: Colors.white,
                         textStyle: TextStyle(
-                            fontSize: 25, fontFamily: 'Cairo_SemiBold'),
+                          fontSize: 25,
+                          fontFamily: 'Cairo_SemiBold',
+                        ),
                       ),
                       onPressed: () {
                         //push to second page
@@ -324,7 +326,7 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
                         } else if (pick.image == null) {
                           SnackNotification.notif(
                               "Error",
-                              "Please upload a file (jpg, png, jpeg, or pdf)",
+                              "Please upload a file (jpg, png, jpeg)",
                               Colors.red.shade600);
                         } else {
                           showDialog(
@@ -341,7 +343,6 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
                                       lastname: lastname.text,
                                       mobile: mobileNumber.text,
                                       address: homeAddress.text,
-                                      total: _getTotal(),
                                       contract: pick.getImageBytes(),
                                     ),
                                   ),
@@ -361,16 +362,6 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
         ),
       ],
     );
-  }
-
-  num _getTotal() {
-    num balance = 0;
-    num temp = 0;
-    Mapping.selectedProducts.forEach((e) {
-      temp = e.getPrice * e.getProductQty;
-      balance += temp;
-    });
-    return balance;
   }
 }
 
