@@ -24,7 +24,7 @@ class LoanOperation extends BorrowerOperation implements INewLoan {
     String term,
     String duedate,
   ) async {
-    var brwDetail1 = json.encode({
+    var brwDetail = json.encode({
       'firstname': firstname.trim(),
       'lastname': lastname.trim(),
       'mobile': mobile.trim(),
@@ -33,22 +33,47 @@ class LoanOperation extends BorrowerOperation implements INewLoan {
       'contract': contract
     });
 
+    try {
+      final response = await http.post(
+        Uri.parse(Url.url + "api/addborrower"),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: brwDetail,
+      );
+
+      //add investigation
+      await addInvestigation(firstname, lastname);
+
+      //add the loan
+      await addNewLoan(firstname, lastname, plan, term, duedate);
+
+      if (response.statusCode == 404) {
+        return false;
+      }
+    } catch (e) {
+      e.toString();
+      SnackNotification.notif(
+        'Error',
+        'Something went wrong while adding the borrower',
+        Colors.redAccent.shade200,
+      );
+      return false;
+    }
+
+    //if status code is 202
+    return true;
+  }
+
+  Future<bool> addInvestigation(String firstname, String lastname) async {
     var brwDetail2 = json.encode({
       'firstname': firstname.trim(),
       'lastname': lastname.trim(),
     });
 
     try {
-      final response1 = await http.post(
-        Uri.parse(Url.url + "api/addborrower"),
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: brwDetail1,
-      );
-
-      final response2 = await http.post(
+      final response = await http.post(
         Uri.parse(Url.url + "api/addinvestigation"),
         headers: {
           'Content-Type': 'application/json',
@@ -57,10 +82,7 @@ class LoanOperation extends BorrowerOperation implements INewLoan {
         body: brwDetail2,
       );
 
-      //add the loan
-      addNewLoan(firstname, lastname, plan, term, duedate);
-
-      if (response1.statusCode == 404 || response2.statusCode == 404) {
+      if (response.statusCode == 404) {
         return false;
       }
     } catch (e) {
@@ -124,14 +146,11 @@ class LoanOperation extends BorrowerOperation implements INewLoan {
       final response = await http.get(
         Uri.parse(
           Url.url +
-              "api/approved/" +
-              investigationId.toString() +
-              "/" +
-              borrowerId.toString() +
-              "/" +
-              status,
+              "api/approved/${investigationId.toString()}/${borrowerId.toString()}/$status",
         ),
       );
+
+      print("${response.statusCode}");
 
       //if response is empty return false
       if (response.statusCode == 404) {

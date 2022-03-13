@@ -3,18 +3,20 @@ import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:intl/intl.dart';
 import 'package:web_store_management/Backend/LoanOperation.dart';
+import 'package:web_store_management/Notification/Snack_notification.dart';
 
 class PaymentPlanPage extends StatefulWidget {
   final String? firstname, lastname, mobile, address;
   final num total;
   final Uint8List contract;
-  PaymentPlanPage(
-      {required this.firstname,
-      required this.lastname,
-      required this.mobile,
-      required this.address,
-      required this.total,
-      required this.contract});
+  PaymentPlanPage({
+    required this.firstname,
+    required this.lastname,
+    required this.mobile,
+    required this.address,
+    required this.total,
+    required this.contract,
+  });
 
   @override
   _PaymentPlanPage createState() => _PaymentPlanPage();
@@ -69,7 +71,6 @@ class _PaymentPlanPage extends State<PaymentPlanPage> {
                 fontSize: 30,
               ),
             ),
-
             Padding(
               padding: EdgeInsets.only(top: 20, left: 2),
               child: Container(
@@ -128,7 +129,7 @@ class _PaymentPlanPage extends State<PaymentPlanPage> {
                 ),
               ),
             ),
-             Padding(
+            Padding(
               padding: EdgeInsets.only(left: 2),
               child: Container(
                 alignment: Alignment.centerLeft,
@@ -272,13 +273,15 @@ class _PaymentPlanPage extends State<PaymentPlanPage> {
                     ),
                     TextButton(
                       style: TextButton.styleFrom(
-                          padding: const EdgeInsets.only(left: 15, right: 15, top: 20, bottom: 20),
+                          padding: const EdgeInsets.only(
+                              left: 15, right: 15, top: 20, bottom: 20),
                           primary: Colors.white,
                           textStyle: TextStyle(
                               fontSize: 14, fontFamily: 'Cairo_SemiBold')),
                       child: const Text('SEND TO REVIEW'),
                       onPressed: () {
-                        newloan.addBorrower(
+                        newloan
+                            .addBorrower(
                           widget.firstname.toString(),
                           widget.lastname.toString(),
                           widget.mobile.toString(),
@@ -288,7 +291,16 @@ class _PaymentPlanPage extends State<PaymentPlanPage> {
                           plan,
                           _currenSliderValue.toString(),
                           duedate.text,
-                        );
+                        )
+                            .then((value) {
+                          if (value) {
+                            SnackNotification.notif(
+                              'Success',
+                              'Potential Borrower sent to credit approval',
+                              Colors.green.shade800,
+                            );
+                          }
+                        });
                       },
                     ),
                   ],

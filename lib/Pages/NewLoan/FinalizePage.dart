@@ -7,14 +7,14 @@ import 'PaymentPlan.dart';
 
 class FinalizePage extends StatefulWidget {
   final String? firstname, lastname, mobile, address;
-  final num total;
+  final num? total;
   final Uint8List contract;
   FinalizePage({
     required this.firstname,
     required this.lastname,
     required this.mobile,
     required this.address,
-    required this.total,
+    this.total,
     required this.contract,
   });
 
@@ -32,7 +32,7 @@ class _FinalizePage extends State<FinalizePage> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Padding(      
+        Padding(
           padding: EdgeInsets.only(bottom: 5, left: 5, right: 5),
           child: Align(
             alignment: Alignment.topRight,
@@ -41,24 +41,22 @@ class _FinalizePage extends State<FinalizePage> {
                 Icons.cancel,
                 color: Colors.black,
                 size: 30,
-              ),    
+              ),
               onPressed: () {
                 Navigator.of(context).pop();
               },
             ),
           ),
         ),
-                
-          Center(
-            child: Text(
-              "Step 3",
-              style: TextStyle(
-                fontSize: 15,
-                fontWeight: FontWeight.normal,
-              ),
+        Center(
+          child: Text(
+            "Step 3",
+            style: TextStyle(
+              fontSize: 15,
+              fontWeight: FontWeight.normal,
             ),
           ),
-        
+        ),
         Padding(
           padding: EdgeInsets.only(bottom: 3),
           child: Center(
@@ -146,7 +144,7 @@ class _FinalizePage extends State<FinalizePage> {
                                     lastname: widget.lastname.toString(),
                                     mobile: widget.mobile.toString(),
                                     address: widget.address.toString(),
-                                    total: widget.total,
+                                    total: _getTotal(),
                                     contract: widget.contract,
                                   );
                                 },
@@ -164,6 +162,16 @@ class _FinalizePage extends State<FinalizePage> {
         ),
       ],
     );
+  }
+
+  num _getTotal() {
+    num balance = 0;
+    num temp = 0;
+    Mapping.selectedProducts.forEach((e) {
+      temp = e.getPrice * e.getProductQty;
+      balance += temp;
+    });
+    return balance;
   }
 }
 
@@ -191,7 +199,6 @@ class _DataSource extends DataTableSource {
   }
 
   final BuildContext context;
-
   int _selectedCount = 0;
   List<_Row> _selectedProducts = [];
 
@@ -209,7 +216,9 @@ class _DataSource extends DataTableSource {
         //add quantity
         DataCell((row.valueC), onTap: () {
           int qty = int.parse(row.valueD);
-          if (qty >= 1) {
+
+          //add to cart
+          if (qty >= 0) {
             qty++;
             row.valueD = qty.toString();
             Mapping.selectedProducts[index].setProductQty = qty;
@@ -220,13 +229,13 @@ class _DataSource extends DataTableSource {
         //deduct quantity
         DataCell((row.valueE), onTap: () {
           int qty = int.parse(row.valueD);
-          if (qty == 1) return;
-          if (qty >= 1) {
-            qty--;
-            row.valueD = qty.toString();
-            Mapping.selectedProducts[index].setProductQty = qty;
-            notifyListeners();
-          }
+          if (qty <= 1) return;
+
+          //deduct from cart
+          qty--;
+          row.valueD = qty.toString();
+          Mapping.selectedProducts[index].setProductQty = qty;
+          notifyListeners();
         }),
       ],
     );

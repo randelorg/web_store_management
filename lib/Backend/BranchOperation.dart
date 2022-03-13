@@ -54,7 +54,8 @@ class BranchOperation implements IBranch, IIventory {
   }
 
   @override
-  Future<bool> updateBranch(String branchCode, String branchName, String branchAddress) async {
+  Future<bool> updateBranch(
+      String branchCode, String branchName, String branchAddress) async {
     var updateBranch = json.encode(
       {
         "branchCode": branchCode,
@@ -94,17 +95,17 @@ class BranchOperation implements IBranch, IIventory {
   Future<bool> transferStock(
       String productCode, int qty, String branchCode) async {
     //concatonate product code and branch code as the product code copy for this branch
-    productCode = branchCode.trim() + '_' + productCode.trim();
+    final String code = branchCode.trim() + '-' + productCode.trim();
 
     var stockLoad = json.encode({
-      'prodCode': productCode,
+      'prodCode': code,
       'qty': qty,
       'branchCode': branchCode,
     });
 
     try {
       final response = await http.post(
-        Uri.parse(Url.url + "api/transfer"),
+        Uri.parse("http://localhost:8090/api/transfer"),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json'

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:pdf/pdf.dart';
 import 'package:printing/printing.dart';
 import 'package:web_store_management/Backend/BorrowerOperation.dart';
 import 'package:web_store_management/Backend/HistoryOperation.dart';
@@ -284,7 +285,6 @@ class _ViewBorrowerProfile extends State<ViewBorrowerProfile> {
                                 build: (format) =>
                                     PrintHelper.generatePdfContract(
                                   widget.id.toString(),
-                                  format,
                                 ),
                               ),
                             );
