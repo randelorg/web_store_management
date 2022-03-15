@@ -82,7 +82,7 @@ class _ConfirmAccount extends State<ConfirmAccount> {
                   controller: password,
                   obscureText: true,
                   decoration: InputDecoration(
-                    hintText: 'Password',
+                    hintText: 'Admin Password',
                     filled: true,
                     fillColor: Colors.blueGrey[50],
                     labelStyle: TextStyle(fontSize: 10),

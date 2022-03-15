@@ -69,7 +69,7 @@ class _InventoryPage extends State<InventoryPage> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.all(6.0),
+                padding: EdgeInsets.all(6),
                 child: TextField(
                   controller: barcode,
                   decoration: InputDecoration(
@@ -95,7 +95,7 @@ class _InventoryPage extends State<InventoryPage> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(6.0),
+                padding: const EdgeInsets.all(6),
                 child: TextField(
                   controller: prodName,
                   decoration: InputDecoration(
@@ -116,7 +116,7 @@ class _InventoryPage extends State<InventoryPage> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(6.0),
+                padding: const EdgeInsets.all(6),
                 child: TextField(
                   controller: quantity,
                   decoration: InputDecoration(
@@ -137,7 +137,7 @@ class _InventoryPage extends State<InventoryPage> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(6.0),
+                padding: const EdgeInsets.all(6),
                 child: TextField(
                   controller: unit,
                   decoration: InputDecoration(
@@ -158,7 +158,7 @@ class _InventoryPage extends State<InventoryPage> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(6.0),
+                padding: const EdgeInsets.all(6),
                 child: TextField(
                   controller: price,
                   decoration: InputDecoration(
@@ -179,7 +179,7 @@ class _InventoryPage extends State<InventoryPage> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(10.0),
+                padding: const EdgeInsets.all(10),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(20),
                   child: Stack(
@@ -276,7 +276,7 @@ class _InventoryPage extends State<InventoryPage> {
                           ),
                         ),
                         Tooltip(
-                          message: 'Transfer Stocks',
+                          message: 'not available',
                           child: TextButton.icon(
                             icon: Icon(
                               Icons.transfer_within_a_station,
@@ -285,20 +285,21 @@ class _InventoryPage extends State<InventoryPage> {
                             style: TextButton.styleFrom(
                               padding: const EdgeInsets.all(14),
                               primary: Colors.white,
+                              onSurface: Colors.white, //remove it if enable the button
                               textStyle: TextStyle(
-                                  fontSize: 18, fontFamily: 'Cairo_SemiBold'),
+                                fontSize: 18, fontFamily: 'Cairo_SemiBold'),
                             ),
                             label: Text('TRANSFER'),
-                            onPressed: () {
-                              showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return TransferStock(
-                                    branches: _branches,
-                                  );
-                                },
-                              );
-                            },
+                            onPressed: null, //() {
+                              //showDialog(
+                                //context: context,
+                                //builder: (BuildContext context) {
+                                  //return TransferStock(
+                                    //branches: _branches,
+                                  //);
+                                //},
+                              //);
+                            //},
                           ),
                         ),
                       ],

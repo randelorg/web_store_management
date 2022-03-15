@@ -26,7 +26,6 @@ class _UpdateProduct extends State<UpdateProduct> {
   @override
   void initState() {
     super.initState();
-
     prodName.text = widget.name.toString();
     prodQtySuffix.text = widget.quantity.toString();
     prodPrice.text = widget.price.toString();

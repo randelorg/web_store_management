@@ -174,7 +174,7 @@ class _UpdateEmployee extends State<UpdateEmployee> {
                       return DropdownMenuItem<String>(
                         value: value,
                         child: Padding(
-                          padding: EdgeInsets.only(left: 25),
+                          padding: EdgeInsets.only(left: 15),
                           child: Text(
                             value,
                             style: TextStyle(fontSize: 15),
