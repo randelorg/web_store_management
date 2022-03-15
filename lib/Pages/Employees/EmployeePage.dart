@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
+import 'package:web_store_management/Models/EmployeeModel.dart';
 import 'package:web_store_management/Pages/Employees/PayrollPage.dart';
 import 'AddEmployee.dart';
 import 'ViewEmpProfile.dart';
@@ -15,8 +16,8 @@ class _Employeepage extends State<EmployeePage> {
   var controller = GlobalController();
   String collector = 'Collector';
   String storeAttendant = 'Store Attendant';
-
-  late Future employees;
+  var _sortAscending = true;
+  late Future<List<EmployeeModel>> employees;
 
   @override
   void initState() {
@@ -48,11 +49,14 @@ class _Employeepage extends State<EmployeePage> {
                           ),
                         ),
                         TextButton.icon(
-                          icon:Icon(Icons.add_box_rounded, color: Colors.white),
+                          icon:
+                              Icon(Icons.add_box_rounded, color: Colors.white),
                           style: TextButton.styleFrom(
-                            padding: const EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 10),
+                            padding: const EdgeInsets.only(
+                                left: 10, right: 10, top: 10, bottom: 10),
                             primary: Colors.white,
-                            textStyle: TextStyle(fontSize: 18, fontFamily: 'Cairo_SemiBold'),
+                            textStyle: TextStyle(
+                                fontSize: 18, fontFamily: 'Cairo_SemiBold'),
                           ),
                           label: Text('NEW EMPLOYEE'),
                           onPressed: () {
@@ -74,51 +78,6 @@ class _Employeepage extends State<EmployeePage> {
               mainAxisAlignment: MainAxisAlignment.end,
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                Padding(
-                    padding: EdgeInsets.only(bottom: 30, top: 15, right: 15),
-                    child: Text('Sort by')),
-                Padding(
-                  padding: EdgeInsets.only(bottom: 15, top: 15, right: 40),
-                  child: Container(
-                    width: 200,
-                    alignment: Alignment.topLeft,
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Colors.blueGrey.shade50,
-                        style: BorderStyle.solid,
-                        width: 0.80,
-                      ),
-                    ),
-                    child: DropdownButtonHideUnderline(
-                      child: DropdownButton<String>(
-                        isExpanded: true,
-                        value: collector,
-                        icon: const Icon(Icons.arrow_drop_down),
-                        iconSize: 24,
-                        elevation: 16,
-                        style: TextStyle(color: HexColor("#155293")),
-                        onChanged: (String? newValue) {
-                          setState(() {
-                            collector = newValue!;
-                          });
-                        },
-                        items: <String>['Collector', 'Store Attendant']
-                            .map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Padding(
-                              padding: EdgeInsets.only(left: 25),
-                              child: Text(
-                                value,
-                                style: TextStyle(fontSize: 15),
-                              ),
-                            ),
-                          );
-                        }).toList(),
-                      ),
-                    ),
-                  ),
-                ),
                 Container(
                   padding: EdgeInsets.only(top: 15, bottom: 15, right: 100),
                   width: 400,
@@ -154,7 +113,7 @@ class _Employeepage extends State<EmployeePage> {
           child: Container(
             width: (MediaQuery.of(context).size.width),
             height: (MediaQuery.of(context).size.height),
-            child: FutureBuilder(
+            child: FutureBuilder<List<EmployeeModel>>(
               future: employees,
               builder: (context, snapshot) {
                 if (!snapshot.hasData) {
@@ -172,10 +131,26 @@ class _Employeepage extends State<EmployeePage> {
                       PaginatedDataTable(
                         showCheckboxColumn: false,
                         showFirstLastButtons: true,
+                        sortAscending: _sortAscending,
+                        sortColumnIndex: 1,
                         rowsPerPage: 12,
                         columns: [
                           DataColumn(label: Text('EID')),
-                          DataColumn(label: Text('ROLE')),
+                          DataColumn(
+                            label: Text('ROLE'),
+                            onSort: (index, sortAscending) {
+                              setState(() {
+                                _sortAscending = sortAscending;
+                                if (sortAscending) {
+                                  snapshot.data!.sort(
+                                      (a, b) => a.getRole.compareTo(b.getRole));
+                                } else {
+                                  snapshot.data!.sort(
+                                      (a, b) => b.getRole.compareTo(a.getRole));
+                                }
+                              });
+                            },
+                          ),
                           DataColumn(label: Text('NAME')),
                           DataColumn(label: Text('NUMBER')),
                           DataColumn(label: Text('PROFILE')),
@@ -222,7 +197,7 @@ class _Row {
 
 class _DataSource extends DataTableSource {
   _DataSource(this.context) {
-    _employees = _borrowerProfile(context);
+    _employees = _borrowerProfile();
   }
 
   final BuildContext context;
@@ -294,7 +269,7 @@ class _DataSource extends DataTableSource {
   @override
   int get selectedRowCount => _selectedCount;
 
-  List<_Row> _borrowerProfile(BuildContext context) {
+  List<_Row> _borrowerProfile() {
     try {
       return List.generate(Mapping.employeeList.length, (index) {
         return new _Row(
@@ -314,7 +289,8 @@ class _DataSource extends DataTableSource {
                   ),
                 ),
                 Padding(
-                 padding:EdgeInsets.only(top: 8, bottom: 8, left: 16, right: 16),
+                  padding:
+                      EdgeInsets.only(top: 8, bottom: 8, left: 16, right: 16),
                   child: Text(
                     'PROFILE',
                     style: TextStyle(
@@ -339,7 +315,8 @@ class _DataSource extends DataTableSource {
                   ),
                 ),
                 Padding(
-                  padding:EdgeInsets.only(top: 8, bottom: 8, left: 16, right: 16),
+                  padding:
+                      EdgeInsets.only(top: 8, bottom: 8, left: 16, right: 16),
                   child: Text(
                     'PAYROLL',
                     style: TextStyle(

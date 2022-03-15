@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:web_store_management/Backend/GlobalController.dart';
 import 'package:web_store_management/Backend/ProductOperation.dart';
+import 'package:web_store_management/Models/BranchModel.dart';
+import 'package:web_store_management/Models/ProductModel.dart';
 import 'package:web_store_management/Notification/Snack_notification.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
 import 'TransferStock.dart';
 import 'UpdateProduct.dart';
 import '../../Backend/Utility/Mapping.dart';
-
-List<String> _branches = [];
 
 class InventoryPage extends StatefulWidget {
   @override
@@ -16,9 +16,10 @@ class InventoryPage extends StatefulWidget {
 }
 
 class _InventoryPage extends State<InventoryPage> {
+  var _sortAscending = true;
   var controller = GlobalController();
   var product = ProductOperation();
-  late Future _products;
+  late Future<List<ProductModel>> _products;
 
   final TextEditingController barcode = TextEditingController();
   final TextEditingController prodName = TextEditingController();
@@ -30,18 +31,15 @@ class _InventoryPage extends State<InventoryPage> {
   void initState() {
     //fetches the products from the database
     this._products = controller.fetchProducts();
-    setState(() {
-      controller.fetchBranches();
-      //get all the branches available
-      getLocations();
-    });
+    controller.fetchBranches();
     super.initState();
   }
 
-  void getLocations() {
-    Mapping.branchList.forEach((element) {
-      _branches.add(element.branchName);
-    });
+  List<String> getLocations() {
+    List<String> branches = [];
+    branches.addAll(Mapping.branchList.map((e) => e.branchName));
+
+    return branches;
   }
 
   @override
@@ -351,7 +349,7 @@ class _InventoryPage extends State<InventoryPage> {
         height: (MediaQuery.of(context).size.height),
         child: ListView(
           children: [
-            FutureBuilder(
+            FutureBuilder<List<ProductModel>>(
               future: this._products,
               builder: (context, snapshot) {
                 if (!snapshot.hasData) {
@@ -365,10 +363,26 @@ class _InventoryPage extends State<InventoryPage> {
                   return PaginatedDataTable(
                     showCheckboxColumn: false,
                     showFirstLastButtons: true,
+                    sortAscending: _sortAscending,
+                    sortColumnIndex: 1,
                     rowsPerPage: 13,
                     columns: [
                       DataColumn(label: Text('PRODUCT NAME')),
-                      DataColumn(label: Text('QTY')),
+                      DataColumn(
+                        label: Text('QTY'),
+                        onSort: (index, sortAscending) {
+                          setState(() {
+                            _sortAscending = sortAscending;
+                            if (sortAscending) {
+                              snapshot.data!.sort((a, b) =>
+                                  a.getProductQty.compareTo(b.getProductQty));
+                            } else {
+                              snapshot.data!.sort((a, b) =>
+                                  b.getProductQty.compareTo(a.getProductQty));
+                            }
+                          });
+                        },
+                      ),
                       DataColumn(label: Text('UNIT')),
                       DataColumn(label: Text('PRICE')),
                       DataColumn(label: Text('ACTION')),
@@ -377,7 +391,7 @@ class _InventoryPage extends State<InventoryPage> {
                             textAlign: TextAlign.center),
                       ),
                     ],
-                    source: _DataSource(context),
+                    source: _DataSource(context, getLocations()),
                   );
                 }
                 return Center(
@@ -415,13 +429,15 @@ class _Row {
 }
 
 class _DataSource extends DataTableSource {
-  _DataSource(this.context) {
-    _products = _productList(context);
+  _DataSource(this.context, List<String> branches) {
+    _products = _productList();
+    _branches = branches;
   }
 
   final BuildContext context;
   int _selectedCount = 0;
   List<_Row> _products = [];
+  List<String> _branches = [];
 
   @override
   DataRow? getRow(int index) {
@@ -451,7 +467,7 @@ class _DataSource extends DataTableSource {
             builder: (BuildContext context) {
               return UpdateProduct(
                 name: row.valueA,
-                quantity: row.valueB,
+                quantity: checkIfWidget(row.valueB),
                 unit: row.valueC,
                 price: row.valueD,
               );
@@ -465,7 +481,7 @@ class _DataSource extends DataTableSource {
               return TransferStock(
                 branches: _branches,
                 productName: row.valueA,
-                qty: row.valueB,
+                qty: checkIfWidget(row.valueB),
               );
             },
           );
@@ -483,7 +499,7 @@ class _DataSource extends DataTableSource {
   @override
   int get selectedRowCount => _selectedCount;
 
-  List<_Row> _productList(BuildContext context) {
+  List<_Row> _productList() {
     try {
       return List.generate(Mapping.productList.length, (index) {
         return _Row(
@@ -542,12 +558,20 @@ class _DataSource extends DataTableSource {
   }
 }
 
+Text checkIfWidget(Widget widget) {
+  if (widget.runtimeType == Icon) {
+    return Text('Less than 2');
+  }
+
+  return Text(widget.toString());
+}
+
 //this will identify if stock is <= 2
 //if it reacher 2 stock this will return an icon
 //else it will return the stock number
-Widget _dangerStock(String stuff) {
-  if (int.parse(stuff) > 2) {
-    return _parseString(stuff);
+Widget _dangerStock(String qty) {
+  if (int.parse(qty) > 2) {
+    return _parseString(qty);
   } else {
     return Icon(Icons.warning, color: Colors.red);
   }
@@ -555,6 +579,6 @@ Widget _dangerStock(String stuff) {
 
 //this will parse the string and convert
 //it to Text Widget
-Widget _parseString(String stuff) {
-  return Text(stuff);
+Widget _parseString(String qty) {
+  return Text(qty);
 }

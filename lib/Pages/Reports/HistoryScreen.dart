@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:web_store_management/Backend/GlobalController.dart';
 import 'package:web_store_management/Backend/HistoryOperation.dart';
+import 'package:web_store_management/Models/BorrowerModel.dart';
 import 'package:web_store_management/Pages/Reports/GlobalHistoryScreens/PaymentHistoryScreen.dart';
 import 'package:web_store_management/Pages/Reports/GlobalHistoryScreens/ProductHistoryScreen.dart';
 import '../../Backend/Utility/Mapping.dart';
@@ -18,7 +19,8 @@ class HistoryScreen extends StatefulWidget {
 class _HistoryScreen extends State<HistoryScreen> {
   var controller = GlobalController();
   var history = HistoryOperation();
-  late Future borrowers;
+  var _sortAscending = true;
+  late Future<List<BorrowerModel>> borrowers;
 
   @override
   void initState() {
@@ -40,7 +42,8 @@ class _HistoryScreen extends State<HistoryScreen> {
               scrollDirection: Axis.vertical,
               children: [
                 Container(
-                  padding: EdgeInsets.only(top: 15, bottom: 5, left: 5, right: 5),
+                  padding:
+                      EdgeInsets.only(top: 15, bottom: 5, left: 5, right: 5),
                   child: TextField(
                     decoration: InputDecoration(
                       hintText: 'Search Borrower',
@@ -65,14 +68,17 @@ class _HistoryScreen extends State<HistoryScreen> {
                     ),
                   ),
                 ),
-                FutureBuilder(
+                FutureBuilder<List<BorrowerModel>>(
                   future: borrowers,
                   builder: ((context, snapshot) {
                     if (!snapshot.hasData) {
                       return Center(child: CircularProgressIndicator());
                     }
                     if (snapshot.hasData) {
-                      return tableBorrowers();
+                      return tableBorrowers(
+                        snapshot.data ?? [],
+                        _sortAscending,
+                      );
                     } else {
                       return Center(child: Text('No Borrowers'));
                     }
@@ -86,13 +92,28 @@ class _HistoryScreen extends State<HistoryScreen> {
     );
   }
 
-  Widget tableBorrowers() {
+  Widget tableBorrowers(List<BorrowerModel> borrowers, bool sortAscending) {
     return PaginatedDataTable(
       showCheckboxColumn: false,
+      showFirstLastButtons: true,
+      sortAscending: sortAscending,
+      sortColumnIndex: 1,
       rowsPerPage: 12,
       columns: [
         DataColumn(label: Text('BID')),
-        DataColumn(label: Text('BORROWER NAME')),
+        DataColumn(
+          label: Text('BORROWER NAME'),
+          onSort: (index, sortAscending) {
+            setState(() {
+              _sortAscending = sortAscending;
+              if (sortAscending) {
+                borrowers.sort((a, b) => a.toString().compareTo(b.toString()));
+              } else {
+                borrowers.sort((a, b) => b.toString().compareTo(a.toString()));
+              }
+            });
+          },
+        ),
         DataColumn(label: Text('PAYMENT HISTORY')),
         DataColumn(label: Text('LOANED PRODUCT HISTORY')),
       ],

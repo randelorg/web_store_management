@@ -119,7 +119,7 @@ class DashboardOperation implements IDashboard {
     List<GraphCollectionModel> graphCollection = [];
 
     final String url =
-        "http://localhost:8090/api/datecollection/" + dates[0] + "/" + dates[1];
+        "${Url.url}api/datecollection/" + dates[0] + "/" + dates[1];
 
     try {
       final response = await http.get(
@@ -159,7 +159,7 @@ class DashboardOperation implements IDashboard {
 
     List<GraphCollectionModel> graphCollection = [];
     final String url =
-        "http://localhost:8090/api/datecollection/" + startDate + "/" + endDate;
+        "${Url.url}api/datecollection/" + startDate + "/" + endDate;
 
     try {
       final response = await http.get(
