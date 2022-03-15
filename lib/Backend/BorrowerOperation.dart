@@ -247,7 +247,7 @@ class BorrowerOperation extends Login implements IBorrower, IPay, IServices {
     try {
       final response = await http.get(
         Uri.parse(
-          "http://localhost:8090/api/contract/" + id.toString(),
+          "${Url.url}api/contract/" + id.toString(),
         ),
       );
 

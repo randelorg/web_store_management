@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
+import 'package:web_store_management/Backend/Utility/ApiUrl.dart';
 import 'package:web_store_management/Models/ForgetPasswordModel.dart';
 import 'package:web_store_management/Notification/Snack_notification.dart';
 import 'package:web_store_management/Backend/Interfaces/ITextMessage.dart';
@@ -35,7 +36,7 @@ class TextMessage implements ITextMessage {
 
     try {
       final response = await http.post(
-        Uri.parse("http://localhost:8090/api/sendmessage"),
+        Uri.parse("${Url.url}api/sendmessage"),
         body: payload,
         headers: {
           'Content-Type': 'application/json',
@@ -86,7 +87,7 @@ class TextMessage implements ITextMessage {
 
     try {
       final response = await http.post(
-        Uri.parse("http://localhost:8090/api/sendmessage"),
+        Uri.parse("${Url.url}api/sendmessage"),
         body: payload,
         headers: {
           'Content-Type': 'application/json',
@@ -131,7 +132,7 @@ class TextMessage implements ITextMessage {
 
     try {
       final response = await http.post(
-        Uri.parse("http://localhost:8090/api/sendmessage"),
+        Uri.parse("${Url.url}api/sendmessage"),
         body: payload,
         headers: {
           'Content-Type': 'application/json',
@@ -161,7 +162,7 @@ class TextMessage implements ITextMessage {
 
     try {
       final response = await http.get(
-        Uri.parse("http://localhost:8090/api/otpcheckpoint/" + mobile),
+        Uri.parse("${Url.url}api/otpcheckpoint/" + mobile),
         headers: {'Accept': 'application/json'},
       );
 
@@ -217,7 +218,7 @@ class TextMessage implements ITextMessage {
 
     try {
       final response = await http.post(
-        Uri.parse("http://localhost:8090/api/otp"),
+        Uri.parse("${Url.url}api/otp"),
         body: payload,
         headers: {
           'Content-Type': 'application/json',

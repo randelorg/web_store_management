@@ -105,7 +105,7 @@ class BranchOperation implements IBranch, IIventory {
 
     try {
       final response = await http.post(
-        Uri.parse("http://localhost:8090/api/transfer"),
+        Uri.parse("${Url.url}api/transfer"),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json'

@@ -110,7 +110,7 @@ class EmployeeOperation implements IEmployee {
 
     try {
       final response = await http.post(
-        Uri.parse("http://localhost:8090/api/clockin"),
+        Uri.parse("${Url.url}api/clockin"),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json'
