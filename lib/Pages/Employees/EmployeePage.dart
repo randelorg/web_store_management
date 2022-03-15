@@ -12,13 +12,16 @@ class EmployeePage extends StatefulWidget {
 }
 
 class _Employeepage extends State<EmployeePage> {
+  var controller = GlobalController();
   String collector = 'Collector';
   String storeAttendant = 'Store Attendant';
-  var controller = GlobalController();
+
+  late Future employees;
 
   @override
   void initState() {
     super.initState();
+    employees = controller.fetchAllEmployees();
   }
 
   @override
@@ -29,28 +32,27 @@ class _Employeepage extends State<EmployeePage> {
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: EdgeInsets.only(top: 15, bottom: 15, left: 100),
+                  padding: EdgeInsets.only(top: 15, bottom: 15, left: 20),
                   child: ClipRRect(
-                    borderRadius: BorderRadius.circular(5),
+                    borderRadius: BorderRadius.circular(10),
                     child: Stack(
                       children: <Widget>[
                         Positioned.fill(
                           child: Container(
-                            decoration: const BoxDecoration(
-                              color: Colors.blue,
+                            decoration: BoxDecoration(
+                              color: HexColor("#155293"),
                             ),
                           ),
                         ),
                         TextButton.icon(
-                          icon:
-                              Icon(Icons.add_box_rounded, color: Colors.white),
+                          icon:Icon(Icons.add_box_rounded, color: Colors.white),
                           style: TextButton.styleFrom(
-                            padding: const EdgeInsets.only(
-                                left: 5, right: 20, top: 15, bottom: 15),
+                            padding: const EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 10),
                             primary: Colors.white,
-                            textStyle: TextStyle(fontSize: 20),
+                            textStyle: TextStyle(fontSize: 18, fontFamily: 'Cairo_SemiBold'),
                           ),
                           label: Text('NEW EMPLOYEE'),
                           onPressed: () {
@@ -91,10 +93,10 @@ class _Employeepage extends State<EmployeePage> {
                       child: DropdownButton<String>(
                         isExpanded: true,
                         value: collector,
-                        icon: const Icon(Icons.arrow_downward),
+                        icon: const Icon(Icons.arrow_drop_down),
                         iconSize: 24,
                         elevation: 16,
-                        style: TextStyle(color: Colors.blue.shade700),
+                        style: TextStyle(color: HexColor("#155293")),
                         onChanged: (String? newValue) {
                           setState(() {
                             collector = newValue!;
@@ -119,10 +121,10 @@ class _Employeepage extends State<EmployeePage> {
                 ),
                 Container(
                   padding: EdgeInsets.only(top: 15, bottom: 15, right: 100),
-                  width: 350,
+                  width: 400,
                   child: TextField(
                     decoration: InputDecoration(
-                      hintText: 'Search borrower',
+                      hintText: 'Search Employee',
                       suffixIcon: InkWell(
                         child: IconButton(
                           icon: Icon(Icons.qr_code_scanner_outlined),
@@ -153,7 +155,7 @@ class _Employeepage extends State<EmployeePage> {
             width: (MediaQuery.of(context).size.width),
             height: (MediaQuery.of(context).size.height),
             child: FutureBuilder(
-              future: controller.fetchAllEmployees(),
+              future: employees,
               builder: (context, snapshot) {
                 if (!snapshot.hasData) {
                   return Center(
@@ -169,7 +171,8 @@ class _Employeepage extends State<EmployeePage> {
                     children: [
                       PaginatedDataTable(
                         showCheckboxColumn: false,
-                        rowsPerPage: 10,
+                        showFirstLastButtons: true,
+                        rowsPerPage: 12,
                         columns: [
                           DataColumn(label: Text('EID')),
                           DataColumn(label: Text('ROLE')),
@@ -254,7 +257,7 @@ class _DataSource extends DataTableSource {
             context: context,
             builder: (BuildContext context) {
               return ViewEmpProfile(
-                id: row.valueA,
+                eid: row.valueA,
                 role: row.valueB,
                 name: row.valueC,
                 number: row.valueD,
@@ -300,7 +303,7 @@ class _DataSource extends DataTableSource {
           Mapping.employeeList[index].toString(),
           Mapping.employeeList[index].getMobileNumber.toString(),
           ClipRRect(
-            borderRadius: BorderRadius.circular(18),
+            borderRadius: BorderRadius.circular(20),
             child: Stack(
               children: <Widget>[
                 Positioned.fill(
@@ -311,8 +314,7 @@ class _DataSource extends DataTableSource {
                   ),
                 ),
                 Padding(
-                  padding:
-                      EdgeInsets.only(top: 8, bottom: 8, left: 15, right: 15),
+                 padding:EdgeInsets.only(top: 8, bottom: 8, left: 16, right: 16),
                   child: Text(
                     'PROFILE',
                     style: TextStyle(
@@ -326,7 +328,7 @@ class _DataSource extends DataTableSource {
             ),
           ),
           ClipRRect(
-            borderRadius: BorderRadius.circular(18),
+            borderRadius: BorderRadius.circular(20),
             child: Stack(
               children: <Widget>[
                 Positioned.fill(
@@ -337,8 +339,7 @@ class _DataSource extends DataTableSource {
                   ),
                 ),
                 Padding(
-                  padding:
-                      EdgeInsets.only(top: 8, bottom: 8, left: 15, right: 15),
+                  padding:EdgeInsets.only(top: 8, bottom: 8, left: 16, right: 16),
                   child: Text(
                     'PAYROLL',
                     style: TextStyle(

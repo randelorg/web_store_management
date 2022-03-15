@@ -1,16 +1,21 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
 import 'PaymentPlan.dart';
 
 class FinalizePage extends StatefulWidget {
   final String? firstname, lastname, mobile, address;
-  final num total;
+  final num? total;
+  final Uint8List contract;
   FinalizePage({
     required this.firstname,
     required this.lastname,
     required this.mobile,
     required this.address,
-    required this.total,
+    this.total,
+    required this.contract,
   });
 
   @override
@@ -19,9 +24,30 @@ class FinalizePage extends StatefulWidget {
 
 class _FinalizePage extends State<FinalizePage> {
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Column(
       children: [
+        Padding(
+          padding: EdgeInsets.only(bottom: 5, left: 5, right: 5),
+          child: Align(
+            alignment: Alignment.topRight,
+            child: IconButton(
+              icon: Icon(
+                Icons.cancel,
+                color: Colors.black,
+                size: 30,
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ),
+        ),
         Center(
           child: Text(
             "Step 3",
@@ -32,11 +58,11 @@ class _FinalizePage extends State<FinalizePage> {
           ),
         ),
         Padding(
-          padding: EdgeInsets.only(bottom: 5),
+          padding: EdgeInsets.only(bottom: 3),
           child: Center(
             child: Text(
               'FINALIZE',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
+              style: TextStyle(fontFamily: 'Cairo_Bold', fontSize: 30),
             ),
           ),
         ),
@@ -69,7 +95,7 @@ class _FinalizePage extends State<FinalizePage> {
                         Positioned.fill(
                           child: Container(
                             decoration: BoxDecoration(
-                              color: Colors.blue.shade900,
+                              color: Colors.red.shade700,
                             ),
                           ),
                         ),
@@ -88,41 +114,45 @@ class _FinalizePage extends State<FinalizePage> {
                       ],
                     ),
                   ),
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(12),
-                    child: Stack(
-                      children: <Widget>[
-                        Positioned.fill(
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: Colors.blue.shade900,
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(12),
+                      child: Stack(
+                        children: <Widget>[
+                          Positioned.fill(
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Colors.blue.shade900,
+                              ),
                             ),
                           ),
-                        ),
-                        TextButton(
-                          style: TextButton.styleFrom(
-                            padding: const EdgeInsets.all(20.0),
-                            primary: Colors.white,
-                            textStyle: const TextStyle(fontSize: 18),
+                          TextButton(
+                            style: TextButton.styleFrom(
+                              padding: const EdgeInsets.all(20.0),
+                              primary: Colors.white,
+                              textStyle: const TextStyle(fontSize: 18),
+                            ),
+                            child: const Text('NEXT'),
+                            onPressed: () {
+                              Navigator.pop(context, true);
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return PaymentPlanPage(
+                                    firstname: widget.firstname.toString(),
+                                    lastname: widget.lastname.toString(),
+                                    mobile: widget.mobile.toString(),
+                                    address: widget.address.toString(),
+                                    total: _getTotal(),
+                                    contract: widget.contract,
+                                  );
+                                },
+                              );
+                            },
                           ),
-                          child: const Text('NEXT'),
-                          onPressed: () {
-                            Navigator.pop(context, true);
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return PaymentPlanPage(
-                                  firstname: widget.firstname.toString(),
-                                  lastname: widget.lastname.toString(),
-                                  mobile: widget.mobile.toString(),
-                                  address: widget.address.toString(),
-                                  total: widget.total,
-                                );
-                              },
-                            );
-                          },
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ],
@@ -132,6 +162,16 @@ class _FinalizePage extends State<FinalizePage> {
         ),
       ],
     );
+  }
+
+  num _getTotal() {
+    num balance = 0;
+    num temp = 0;
+    Mapping.selectedProducts.forEach((e) {
+      temp = e.getPrice * e.getProductQty;
+      balance += temp;
+    });
+    return balance;
   }
 }
 
@@ -159,7 +199,6 @@ class _DataSource extends DataTableSource {
   }
 
   final BuildContext context;
-
   int _selectedCount = 0;
   List<_Row> _selectedProducts = [];
 
@@ -177,7 +216,9 @@ class _DataSource extends DataTableSource {
         //add quantity
         DataCell((row.valueC), onTap: () {
           int qty = int.parse(row.valueD);
-          if (qty >= 1) {
+
+          //add to cart
+          if (qty >= 0) {
             qty++;
             row.valueD = qty.toString();
             Mapping.selectedProducts[index].setProductQty = qty;
@@ -188,13 +229,13 @@ class _DataSource extends DataTableSource {
         //deduct quantity
         DataCell((row.valueE), onTap: () {
           int qty = int.parse(row.valueD);
-          if (qty == 1) return;
-          if (qty >= 1) {
-            qty--;
-            row.valueD = qty.toString();
-            Mapping.selectedProducts[index].setProductQty = qty;
-            notifyListeners();
-          }
+          if (qty <= 1) return;
+
+          //deduct from cart
+          qty--;
+          row.valueD = qty.toString();
+          Mapping.selectedProducts[index].setProductQty = qty;
+          notifyListeners();
         }),
       ],
     );
@@ -216,9 +257,9 @@ class _DataSource extends DataTableSource {
         return new _Row(
           Mapping.selectedProducts[index].getProductName.toString(),
           Mapping.selectedProducts[index].getPrice.toString(),
-          Icon(Icons.add_circle, color: Colors.blue.shade400),
+          Icon(Icons.add_circle, color: HexColor("#155293")),
           Mapping.selectedProducts[index].getProductQty.toString(),
-          Icon(Icons.remove_circle, color: Colors.red.shade400),
+          Icon(Icons.remove_circle, color: HexColor("#EA1C24")),
         );
       },
     );

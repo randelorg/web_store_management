@@ -1,3 +1,7 @@
+import 'package:intl/intl.dart';
+import 'package:web_store_management/Models/BranchModel.dart';
+import 'package:web_store_management/Models/ForgetPasswordModel.dart';
+import 'package:web_store_management/Models/InvoiceModel.dart';
 import 'package:web_store_management/Models/LoanedProductHistoryModel.dart';
 import '../../Models/PaymentHistoryModel.dart';
 import '../../Models/AdminModel.dart';
@@ -6,6 +10,10 @@ import '../../Models/ProductModel.dart';
 import '../../Models/BorrowerModel.dart';
 
 class Mapping {
+  //formating currency and date
+  static formatPrice(double price) => '\$ ${price.toStringAsFixed(2)}';
+  static formatDate(DateTime date) => DateFormat.yMd().format(date);
+
   //for login purposes
   //for identifying user role
   static String userRole = '';
@@ -23,6 +31,16 @@ class Mapping {
   static List<ProductModel> selectedProducts = [];
   static List<BorrowerModel> borrowerList = [];
   static List<BorrowerModel> creditApprovals = [];
+  static List<BorrowerModel> releaseApproval = [];
   static List<PaymentHistoryModel> paymentList = [];
   static List<LoanedProductHistory> productHistoryList = [];
+  static List<BorrowerModel> repairs = [];
+  static List<BorrowerModel> requested = [];
+  static List<BranchModel> branchList = [];
+
+  //invoice
+  static List<InvoiceItem> invoice = [];
+
+  //forget password
+  static List<ForgetPasswordModel> forgetPassword = [];
 }

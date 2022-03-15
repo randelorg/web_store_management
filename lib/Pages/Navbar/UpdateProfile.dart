@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:web_store_management/Backend/AdminOperation.dart';
+import 'package:web_store_management/Backend/Utility/Mapping.dart';
 import 'package:web_store_management/Models/AdminModel.dart';
 import 'package:web_store_management/Models/EmployeeModel.dart';
-import '../../Backend/Session.dart';
+import 'package:web_store_management/Notification/Snack_notification.dart';
 
 class UpdateProfile extends StatefulWidget {
   @override
@@ -15,64 +16,75 @@ class _EditProfile extends State<UpdateProfile> {
   final firstname = TextEditingController();
   final lastname = TextEditingController();
   final password = TextEditingController();
-  final confPassword = TextEditingController();
+  final confirmPassword = TextEditingController();
 
   AdminModel admin = AdminModel.empty();
   EmployeeModel emp = EmployeeModel.empty();
+  var adminOperation = AdminOperation();
+
+  String error = '';
 
   @override
   void initState() {
     super.initState();
-    Session.getrole().then((value) {
-      switch (value) {
-        case 'Administrator':
-          firstname.text = admin.getFirstname;
-          lastname.text = admin.getLastname;
-          break;
-        case 'StoreAttendant':
-          firstname.text = emp.getFirstname;
-          lastname.text = emp.getLastname;
-          break;
-        default:
-      }
-    });
+    switch (Mapping.userRole) {
+      case 'Administrator':
+        username.text = Mapping.adminLogin[0].getUsername;
+        firstname.text = Mapping.adminLogin[0].getFirstname;
+        lastname.text = Mapping.adminLogin[0].getLastname;
+        break;
+      case 'StoreAttedant':
+        break;
+      default:
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      actionsPadding: EdgeInsets.all(20),
-      title: Text(
-        'Update Profile',
-        softWrap: true,
-        textAlign: TextAlign.center,
-        style: TextStyle(
-          color: HexColor("#155293"),
-          fontFamily: 'Cairo_Bold',
-          fontSize: 30,
-          overflow: TextOverflow.fade,
-        ),
-      ),
+      actionsPadding: EdgeInsets.only(bottom: 5, left: 5, right: 5),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       actions: <Widget>[
         Column(
           children: [
-            Padding(
-              padding: EdgeInsets.only(bottom: 10),
-              child: Container(
-                child: Container(
-                  alignment: Alignment.topLeft,
-                  child: Text('Update your profile'),
+            Align(
+              alignment: Alignment.topRight,
+              child: IconButton(
+                icon: Icon(
+                  Icons.cancel,
+                  color: Colors.black,
+                  size: 30,
                 ),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
               ),
             ),
-            Divider(
-              thickness: 3,
+            Text(
+              'Update Profile',
+              softWrap: true,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: HexColor("#155293"),
+                fontFamily: 'Cairo_Bold',
+                fontSize: 30,
+              ),
+            ),
+
+            Padding(
+              padding: EdgeInsets.only(top: 20, left: 2),
+              child: Container(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Username',
+                  style: TextStyle(fontSize: 10),
+                ),
+              ),
             ),
             Container(
               width: 320,
               child: Padding(
-                padding: EdgeInsets.only(bottom: 20),
+                padding: EdgeInsets.only(bottom: 15),
                 child: TextField(
                   controller: username,
                   decoration: InputDecoration(
@@ -80,7 +92,7 @@ class _EditProfile extends State<UpdateProfile> {
                     filled: true,
                     fillColor: Colors.blueGrey[50],
                     labelStyle: TextStyle(fontSize: 10),
-                    contentPadding: EdgeInsets.only(left: 10),
+                    contentPadding: EdgeInsets.only(left: 15),
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.blueGrey.shade50),
                       borderRadius: BorderRadius.circular(5),
@@ -93,9 +105,20 @@ class _EditProfile extends State<UpdateProfile> {
                 ),
               ),
             ),
+
+            Padding(
+              padding: EdgeInsets.only(left: 2),
+              child: Container(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Fullname',
+                  style: TextStyle(fontSize: 10),
+                ),
+              ),
+            ),
             Stack(
               children: [
-                //this will be disabled because we will display the name here
+                //this will be disabled because we will display the name here          
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
@@ -103,16 +126,17 @@ class _EditProfile extends State<UpdateProfile> {
                       alignment: Alignment.topLeft,
                       width: 155,
                       child: Padding(
-                        padding: EdgeInsets.only(bottom: 20),
+                        padding: EdgeInsets.only(bottom: 15),
                         child: TextField(
                           controller: firstname,
+                          enabled: false,
                           decoration: InputDecoration(
                             enabled: false,
                             hintText: 'Firstname',
                             filled: true,
                             fillColor: Colors.blueGrey[50],
                             labelStyle: TextStyle(fontSize: 10),
-                            contentPadding: EdgeInsets.only(left: 10),
+                            contentPadding: EdgeInsets.only(left: 15),
                             enabledBorder: OutlineInputBorder(
                               borderSide:
                                   BorderSide(color: Colors.blueGrey.shade50),
@@ -137,16 +161,17 @@ class _EditProfile extends State<UpdateProfile> {
                       alignment: Alignment.topRight,
                       width: 155,
                       child: Padding(
-                        padding: EdgeInsets.only(bottom: 20),
+                        padding: EdgeInsets.only(bottom: 15),
                         child: TextField(
                           controller: lastname,
+                          enabled: false,
                           decoration: InputDecoration(
                             enabled: false,
                             hintText: 'Lastname',
                             filled: true,
                             fillColor: Colors.blueGrey[50],
                             labelStyle: TextStyle(fontSize: 10),
-                            contentPadding: EdgeInsets.only(left: 10),
+                            contentPadding: EdgeInsets.only(left: 15),
                             enabledBorder: OutlineInputBorder(
                               borderSide:
                                   BorderSide(color: Colors.blueGrey.shade50),
@@ -165,8 +190,19 @@ class _EditProfile extends State<UpdateProfile> {
                 ),
               ],
             ),
+
             Padding(
-              padding: EdgeInsets.only(bottom: 20),
+              padding: EdgeInsets.only(left: 2),
+              child: Container(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Password',
+                  style: TextStyle(fontSize: 10),
+                ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(bottom: 15),
               child: TextField(
                 controller: password,
                 obscureText: true,
@@ -175,7 +211,7 @@ class _EditProfile extends State<UpdateProfile> {
                   filled: true,
                   fillColor: Colors.blueGrey[50],
                   labelStyle: TextStyle(fontSize: 10),
-                  contentPadding: EdgeInsets.only(left: 10),
+                  contentPadding: EdgeInsets.only(left: 15),
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.blueGrey.shade50),
                     borderRadius: BorderRadius.circular(5),
@@ -187,17 +223,39 @@ class _EditProfile extends State<UpdateProfile> {
                 ),
               ),
             ),
+            
             Padding(
-              padding: EdgeInsets.only(bottom: 20),
+              padding: EdgeInsets.only(left: 2),
+              child: Container(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Confirm Password',
+                  style: TextStyle(fontSize: 10),
+                ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(bottom: 5),
               child: TextField(
-                controller: confPassword,
+                controller: confirmPassword,
                 obscureText: true,
+                onChanged: (value) {
+                  setState(() {
+                    if (value.length > 0) {
+                      if (value == password.text) {
+                        error = 'Password match';
+                      } else {
+                        error = 'Password did not match';
+                      }
+                    }
+                  });
+                },
                 decoration: InputDecoration(
                   hintText: 'Confirm Password',
                   filled: true,
                   fillColor: Colors.blueGrey[50],
                   labelStyle: TextStyle(fontSize: 10),
-                  contentPadding: EdgeInsets.only(left: 10),
+                  contentPadding: EdgeInsets.only(left: 15),
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.blueGrey.shade50),
                     borderRadius: BorderRadius.circular(5),
@@ -208,6 +266,10 @@ class _EditProfile extends State<UpdateProfile> {
                   ),
                 ),
               ),
+            ),
+            Text(
+              error,
+              style: TextStyle(fontSize: 10),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
@@ -220,20 +282,47 @@ class _EditProfile extends State<UpdateProfile> {
                       children: <Widget>[
                         Positioned.fill(
                           child: Container(
-                            decoration: const BoxDecoration(
-                              color: Colors.blue,
+                            decoration: BoxDecoration(
+                              color: HexColor("#155293"),
                             ),
                           ),
                         ),
                         TextButton(
                           style: TextButton.styleFrom(
-                            padding: const EdgeInsets.only(
-                                left: 20, right: 20, top: 15, bottom: 15),
+                          padding: const EdgeInsets.only(left: 20, right: 20, top: 15, bottom: 15),
                             primary: Colors.white,
-                            textStyle: TextStyle(fontSize: 20),
+                            textStyle: TextStyle(
+                                fontFamily: 'Cairo_SemiBold',
+                                fontSize: 14,
+                                color: Colors.white),
                           ),
                           child: const Text('UPDATE'),
-                          onPressed: () {},
+                          onPressed: () {
+                            if (username.text.isEmpty || password.text.isEmpty || confirmPassword.text.isEmpty) {
+                              SnackNotification.notif(
+                                "Error", "Please fill all the fields", Colors.red.shade600);
+                            } else if(password.text != confirmPassword.text){
+                              SnackNotification.notif(
+                                "Error","Password did not match", Colors.red.shade600);                       
+                              }else {
+                              Navigator.pop(context);
+                              adminOperation
+                                  .updateAdminAccount(                             
+                                Mapping.adminLogin[0].getAdminId,
+                                username.text,
+                                password.text,
+                              )
+                                  .then((value) {
+                                if (value) {
+                                  SnackNotification.notif(
+                                    "Success",
+                                    "Successfully updated admin",
+                                    Colors.green.shade500,
+                                  );
+                                }
+                              });
+                            }
+                          },
                         ),
                       ],
                     ),

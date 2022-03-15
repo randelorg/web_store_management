@@ -12,18 +12,16 @@ class Picker {
   Future<String> pickFile() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
       type: FileType.custom,
-      allowedExtensions: ['jpg', 'png', 'jpeg', 'pdf'],
+      allowedExtensions: ['jpg', 'png', 'jpeg'],
     );
 
     if (result != null) {
-      //set the image to the setter
-      print(result.files.single.bytes);
       image = result.files.single.bytes;
 
       return result.files.single.name.toString();
     }
 
-    return 'No file is selected';
+    return 'No File is Selected';
   }
 
   Uint8List getImageBytes() {

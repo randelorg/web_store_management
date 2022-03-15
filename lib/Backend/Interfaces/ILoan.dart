@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 class INewLoan {
   //this will add new loan to the Loan table
   //and this will add credit investigation to the CreditInvestigation table
@@ -12,13 +14,22 @@ class INewLoan {
     return a;
   }
 
-  Future<bool> addBorrower(String firstname, String lastname, String mobile,
-      String homeaddress, num balance) {
+  Future<bool> addBorrower(
+      String firstname,
+      String lastname,
+      String mobile,
+      String homeaddress,
+      num balance,
+      Uint8List contract,
+      String plan,
+      String term,
+      String duedate) {
     var a;
     return a;
   }
 
-  Future<bool> approvedCredit(int investigationId, int borrowerId, String status) {
+  Future<bool> approvedCredit(
+      int investigationId, int borrowerId, String status) {
     var a;
     return a;
   }

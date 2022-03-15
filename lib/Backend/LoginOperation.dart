@@ -62,7 +62,7 @@ class Login extends GlobalController implements ILogin {
     return true;
   }
 
-  Future<bool> _users(http.Response response, String role) async {
+  Future<bool> _users(http.Response response, final String role) async {
     //for identifying the user role
     Mapping.userRole = role;
 
@@ -125,12 +125,14 @@ class Login extends GlobalController implements ILogin {
 
   @override
   void logout() {
-    Session.removeValues(); //remove the values from the session
     //clear the lists
     Mapping.employeeList.clear();
     Mapping.adminLogin.clear();
     Mapping.productList.clear();
     Mapping.borrowerList.clear();
     Mapping.paymentList.clear();
+
+    //remove the values from the session
+    Session.removeValues();
   }
 }

@@ -1,10 +1,10 @@
-import 'dart:js';
-
 import 'package:hexcolor/hexcolor.dart';
 import 'package:flutter/material.dart';
+import 'package:web_store_management/Models/BorrowerModel.dart';
 import 'ViewBorrowerProfile.dart';
 import '../../Backend/Utility/Mapping.dart';
 import '../../Backend/GlobalController.dart';
+import 'package:async/async.dart';
 
 class BorrowersPage extends StatefulWidget {
   @override
@@ -14,13 +14,14 @@ class BorrowersPage extends StatefulWidget {
 class _BorrowersPage extends State<BorrowersPage> {
   var controller = GlobalController();
   List<_Row> _borrowers = [];
-  late Future borrowers;
+  late Future<List<BorrowerModel>> borrowers;
   var _sortAscending = true;
+  AsyncMemoizer _memoizer = AsyncMemoizer();
 
   @override
   void initState() {
     super.initState();
-    borrowers = controller.fetchBorrowers();
+    _memoizer = AsyncMemoizer();
     checkLength();
   }
 
@@ -28,6 +29,12 @@ class _BorrowersPage extends State<BorrowersPage> {
     if (Mapping.borrowerList.length > 0) {
       _borrowers = _borrowerProfile();
     }
+  }
+
+  _fetchData() async {
+    return this._memoizer.runOnce(() async {
+      return controller.fetchBorrowers();
+    });
   }
 
   @override
@@ -43,7 +50,7 @@ class _BorrowersPage extends State<BorrowersPage> {
               width: 400,
               child: TextField(
                 decoration: InputDecoration(
-                  hintText: 'Search borrower',
+                  hintText: 'Search Borrower',
                   suffixIcon: InkWell(
                     child: IconButton(
                       icon: Icon(Icons.qr_code_scanner_outlined),
@@ -72,7 +79,7 @@ class _BorrowersPage extends State<BorrowersPage> {
             width: (MediaQuery.of(context).size.width),
             height: (MediaQuery.of(context).size.height),
             child: FutureBuilder(
-              future: borrowers,
+              future: _fetchData(),
               builder: (context, snapshot) {
                 if (!snapshot.hasData) {
                   return Center(
@@ -92,11 +99,11 @@ class _BorrowersPage extends State<BorrowersPage> {
                         showFirstLastButtons: true,
                         sortAscending: _sortAscending,
                         sortColumnIndex: 1,
-                        rowsPerPage: 15,
+                        rowsPerPage: 14,
                         columns: [
                           DataColumn(label: Text('BID')),
                           DataColumn(
-                            label: Text('Name'),
+                            label: Text('NAME'),
                             onSort: (index, sortAscending) {
                               setState(() {
                                 _sortAscending = sortAscending;
@@ -110,9 +117,9 @@ class _BorrowersPage extends State<BorrowersPage> {
                               });
                             },
                           ),
-                          DataColumn(label: Text('Number')),
-                          DataColumn(label: Text('Balance')),
-                          DataColumn(label: Text('Action')),
+                          DataColumn(label: Text('NUMBER')),
+                          DataColumn(label: Text('BALANCE')),
+                          DataColumn(label: Text('ACTION')),
                         ],
                         source: _DataSource(context, _borrowers),
                       )
@@ -165,7 +172,7 @@ List<_Row> _borrowerProfile() {
           Mapping.borrowerList[index].getMobileNumber.toString(),
           Mapping.borrowerList[index].getBalance.toStringAsFixed(2).toString(),
           ClipRRect(
-            borderRadius: BorderRadius.circular(18),
+            borderRadius: BorderRadius.circular(20),
             child: Stack(
               children: <Widget>[
                 Positioned.fill(
@@ -177,7 +184,7 @@ List<_Row> _borrowerProfile() {
                 ),
                 Padding(
                   padding:
-                      EdgeInsets.only(top: 8, bottom: 8, left: 10, right: 10),
+                      EdgeInsets.only(top: 8, bottom: 8, left: 16, right: 16),
                   child: Text(
                     'VIEW',
                     style: TextStyle(

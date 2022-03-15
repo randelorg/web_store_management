@@ -11,6 +11,41 @@ import 'dart:convert';
 class AdminOperation implements IAdmin {
   final hash = Hashing();
 
+  Future<bool> changePassword(final String id, final String password) async {
+    var payload = json.encode({
+      "id": id,
+      "password": hash.encrypt(password),
+    });
+
+    try {
+      final response = await http.post(
+        Uri.parse("http://localhost:8090/api/checkpoinchangepass"),
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        body: payload,
+      );
+
+      if (response.statusCode == 404) {
+        SnackNotification.notif(
+          'Error',
+          'Unexpected error occured',
+          Colors.red,
+        );
+      }
+    } catch (e) {
+      e.toString();
+      //return false;
+      SnackNotification.notif(
+        'Error',
+        'Unexpected error occured',
+        Colors.red,
+      );
+    }
+    return true;
+  }
+
   @override
   Future<void> createAdminAccount(
       String? firstname,
@@ -21,11 +56,9 @@ class AdminOperation implements IAdmin {
       String? password,
       Uint8List? image) async {
     //json body
-    var id = 'admin-015';
     var addAdmin = json.encode({
-      'AdminID': id,
       'Username': username,
-      'Password': password,
+      'Password': hash.encrypt(password.toString()),
       'Firstname': firstname,
       'Lastname': lastname,
       'MobileNumber': mobileNumber,
@@ -37,18 +70,19 @@ class AdminOperation implements IAdmin {
       final response = await http.post(
         Uri.parse(Url.url + "api/admin"),
         headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
+          "Content-Type": "application/json",
+          "Accept": "application/json"
         },
         body: addAdmin,
       );
 
-      if (response.statusCode == 404)
+      if (response.statusCode == 404) {
         SnackNotification.notif(
           'Error',
           'Unexpected error occured',
           Colors.red,
         );
+      }
     } catch (e) {
       e.toString();
       //return false;
@@ -62,7 +96,7 @@ class AdminOperation implements IAdmin {
     //if status code is 202
     SnackNotification.notif(
       'Success',
-      'Successfully added $firstname',
+      'Successfully added $firstname' + ' $lastname',
       Colors.green,
     );
     //return true;
@@ -72,14 +106,45 @@ class AdminOperation implements IAdmin {
   void deleteAdminAccount() {}
 
   @override
-  void updateAdminAccount() {}
-
-  @override
   bool verifyAdmin(String password) {
     print(Mapping.adminLogin[0].getPassword.toString());
     if (Mapping.adminLogin[0].getPassword.toString() == hash.encrypt(password))
       return true;
 
     return false;
+  }
+
+  @override
+  Future<bool> updateAdminAccount(
+      final String id, String username, final String password) async {
+    var adminUpdateLoad = json.encode({
+      'id': id,
+      'Username': username.trim(),
+      'Password': hash.encrypt(password),
+    });
+
+    try {
+      final response = await http.post(
+        Uri.parse(Url.url + "api/updateadmin"),
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        body: adminUpdateLoad,
+      );
+
+      if (response.statusCode == 404) return false;
+    } catch (e) {
+      e.toString();
+      SnackNotification.notif(
+        'Error',
+        'Something went wrong while updating the admin',
+        Colors.redAccent.shade200,
+      );
+      return false;
+    }
+
+    //if status code is 202
+    return true;
   }
 }

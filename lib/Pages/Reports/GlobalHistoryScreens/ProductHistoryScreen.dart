@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:web_store_management/Backend/HistoryOperation.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
 
@@ -25,8 +26,33 @@ class _ProductHistory extends State<ProductHistory> {
       height: (MediaQuery.of(context).size.height),
       child: ListView(
         scrollDirection: Axis.vertical,
-        padding: const EdgeInsets.all(10),
         children: [
+          Padding(   
+            padding: EdgeInsets.only(bottom: 5, right: 8),
+            child: Align(
+              alignment: Alignment.topRight,
+              child: IconButton(
+                icon: Icon(
+                  Icons.cancel,
+                  color: Colors.black,
+                  size: 30,
+                ),             
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ),
+        ),
+        Text(
+         'Loaned Product History',
+          softWrap: true,
+          textAlign: TextAlign.center,
+          style: TextStyle( 
+            color: HexColor("#155293"),
+            fontFamily: 'Cairo_Bold',
+            fontSize: 30,
+          ),
+        ), 
           FutureBuilder(
             future: history.viewLoanHistory(widget.borrowerId.toString()),
             builder: (context, snapshot) {
@@ -39,10 +65,11 @@ class _ProductHistory extends State<ProductHistory> {
                 if (snapshot.data == true) {
                   return PaginatedDataTable(
                     header: Text(
-                      widget.borrowerName.toString(),
+                      widget.borrowerName.toString().toUpperCase(),
                       style: TextStyle(
+                        color: HexColor("#155293"),
+                        fontFamily: 'Cairo_Bold',
                         fontSize: 20,
-                        fontWeight: FontWeight.bold,
                       ),
                     ),
                     showCheckboxColumn: false,
@@ -50,12 +77,12 @@ class _ProductHistory extends State<ProductHistory> {
                     rowsPerPage: 15,
                     columns: [
                       DataColumn(label: Text('LOANID')),
-                      DataColumn(label: Text('PRODUCT \n NAME')),
+                      DataColumn(label: Text('PRODUCT \n NAME',textAlign: TextAlign.center)),
                       DataColumn(label: Text('PRICE')),
                       DataColumn(label: Text('QTY')),
-                      DataColumn(label: Text('PAYMENT \n PLAN')),
-                      DataColumn(label: Text('DATE \n ADDED')),
-                      DataColumn(label: Text('DUE \n DATE')),
+                      DataColumn(label: Text('PAYMENT \n PLAN',textAlign: TextAlign.center)),
+                      DataColumn(label: Text('DATE \n ADDED',textAlign: TextAlign.center)),
+                      DataColumn(label: Text('DUE \n DATE',textAlign: TextAlign.center)),
                       DataColumn(label: Text('TERM')),
                     ],
                     source: _DataSource(context),

@@ -5,6 +5,10 @@ class PersonModel {
   String? mobileNumber;
   String? homeAddress;
 
+  get getPersonId => this.personId;
+
+  set setPersonId(personId) => this.personId = personId;
+
   get getFirstname => this.firstname;
 
   set setFirstname(firstname) => this.firstname = firstname;
@@ -27,6 +31,12 @@ class PersonModel {
   }
 
   PersonModel.empty();
+
+  PersonModel.invoice(String fname, String lname, String address) {
+    this.firstname = fname;
+    this.lastname = lname;
+    this.homeAddress = address;
+  }
 
   PersonModel.full(int persondId, String firstname, String lastname,
       String mobileNumber, String homeAddress) {

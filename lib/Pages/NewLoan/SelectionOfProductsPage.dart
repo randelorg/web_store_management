@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:web_store_management/Models/ProductModel.dart';
+import 'package:web_store_management/Notification/Snack_notification.dart';
 import '../../Helpers/FilePickerHelper.dart';
 import 'FinalizePage.dart';
 import '../../Backend/Utility/Mapping.dart';
@@ -19,6 +21,7 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
   final homeAddress = TextEditingController();
   //classess
   var pick = Picker();
+  var image;
   //display selected file name
   String fileName = 'UPLOAD CONTRACT';
 
@@ -51,15 +54,12 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
                   ),
                 ),
                 Text(
-                  "Borrower Details",
-                  style: TextStyle(
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  "BORROWER DETAILS",
+                  style: TextStyle(fontFamily: 'Cairo_Bold', fontSize: 30),
                 ),
                 Padding(
                   padding: EdgeInsets.only(
-                      top: 20.0,
+                      top: 20,
                       bottom: 10,
                       right: 10,
                       left: 10), //add padding to the textfields
@@ -107,8 +107,10 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
                   padding: EdgeInsets.all(10.0),
                   child: TextField(
                     controller: mobileNumber,
+                    maxLength: 12,
                     decoration: InputDecoration(
-                      hintText: 'Mobile number',
+                      counterText: '',
+                      hintText: 'Mobile Number',
                       filled: true,
                       fillColor: Colors.blueGrey[50],
                       labelStyle: TextStyle(fontSize: 18),
@@ -129,7 +131,7 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
                   child: TextField(
                     controller: homeAddress,
                     decoration: InputDecoration(
-                      hintText: 'Home address',
+                      hintText: 'Home Address',
                       filled: true,
                       fillColor: Colors.blueGrey[50],
                       labelStyle: TextStyle(fontSize: 18),
@@ -146,34 +148,37 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.all(20.0),
-                  child: TextButton.icon(
-                    style: TextButton.styleFrom(
-                      textStyle: const TextStyle(
-                        color: Colors.white,
-                      ),
-                      backgroundColor: Colors.blue.shade400,
+                  padding: EdgeInsets.only(top: 3),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(8),
+                    child: Stack(
+                      children: <Widget>[
+                        Positioned.fill(
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: HexColor("#155293"),
+                            ),
+                          ),
+                        ),
+                        TextButton.icon(
+                          icon: Icon(Icons.attach_file, color: Colors.white),
+                          style: TextButton.styleFrom(
+                            primary: Colors.white,
+                            textStyle: TextStyle(
+                                fontSize: 18, fontFamily: 'Cairo_SemiBold'),
+                          ),
+                          label: Text(fileName),
+                          onPressed: () {
+                            //get the filename and display it
+                            pick.pickFile().then((value) {
+                              setState(() {
+                                fileName = value;
+                              });
+                            });
+                          },
+                        ),
+                      ],
                     ),
-                    label: Text(
-                      fileName,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
-                      ),
-                    ),
-                    icon: Icon(
-                      Icons.attach_file,
-                      color: Colors.white,
-                    ),
-                    onPressed: () {
-                      //get the filename and display it
-                      pick.pickFile().then((value) {
-                        setState(() {
-                          fileName = value;
-                        });
-                      });
-                    },
                   ),
                 ),
               ],
@@ -205,38 +210,38 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
                 child: Text(
                   "SELECT PRODUCTS",
                   textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: TextStyle(fontFamily: 'Cairo_Bold', fontSize: 30),
                 ),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Container(
-                    width: 300,
-                    child: TextField(
-                      decoration: InputDecoration(
-                        hintText: 'Search Product',
-                        suffixIcon: IconButton(
-                          onPressed: () {},
-                          icon: Icon(Icons.scanner_sharp),
-                          tooltip: 'Scan product barcode',
-                        ),
-                        filled: true,
-                        fillColor: Colors.blueGrey[50],
-                        labelStyle: TextStyle(fontSize: 10),
-                        contentPadding: EdgeInsets.only(left: 10),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide:
-                              BorderSide(color: Colors.blueGrey.shade50),
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide:
-                              BorderSide(color: Colors.blueGrey.shade50),
-                          borderRadius: BorderRadius.circular(5),
+                  Padding(
+                    padding: EdgeInsets.only(left: 5, right: 20),
+                    child: Container(
+                      width: 300,
+                      child: TextField(
+                        decoration: InputDecoration(
+                          hintText: 'Search Product',
+                          suffixIcon: IconButton(
+                            onPressed: () {},
+                            icon: Icon(Icons.scanner_sharp),
+                            tooltip: 'Scan Product Barcode',
+                          ),
+                          filled: true,
+                          fillColor: Colors.blueGrey[50],
+                          labelStyle: TextStyle(fontSize: 10),
+                          contentPadding: EdgeInsets.only(left: 10),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide:
+                                BorderSide(color: Colors.blueGrey.shade50),
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide:
+                                BorderSide(color: Colors.blueGrey.shade50),
+                            borderRadius: BorderRadius.circular(5),
+                          ),
                         ),
                       ),
                     ),
@@ -259,7 +264,7 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
                       child: PaginatedDataTable(
                         sortAscending: true,
                         showFirstLastButtons: true,
-                        rowsPerPage: 9,
+                        rowsPerPage: 10,
                         columns: [
                           DataColumn(label: Text('BARCODE')),
                           DataColumn(label: Text('PRODUCT NAME')),
@@ -284,6 +289,7 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             Container(
+              alignment: Alignment.center,
               width: 120,
               height: 60,
               child: ClipRRect(
@@ -293,40 +299,58 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
                     Positioned.fill(
                       child: Container(
                         decoration: BoxDecoration(
-                          color: Colors.blue.shade900,
+                          color: HexColor("#155293"),
                         ),
                       ),
                     ),
                     TextButton(
                       style: TextButton.styleFrom(
-                        padding: const EdgeInsets.all(25.0),
+                        padding: const EdgeInsets.all(15),
                         primary: Colors.white,
-                        textStyle: const TextStyle(fontSize: 25),
+                        textStyle: TextStyle(
+                          fontSize: 25,
+                          fontFamily: 'Cairo_SemiBold',
+                        ),
                       ),
                       onPressed: () {
                         //push to second page
                         //which is the finalize order page
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return SimpleDialog(
-                              children: [
-                                Container(
-                                  width:
-                                      (MediaQuery.of(context).size.width) / 2,
-                                  height: 500,
-                                  child: FinalizePage(
-                                    firstname: firstname.text,
-                                    lastname: lastname.text,
-                                    mobile: mobileNumber.text,
-                                    address: homeAddress.text,
-                                    total: _getTotal(),
+                        if (firstname.text.isEmpty ||
+                            lastname.text.isEmpty ||
+                            mobileNumber.text.isEmpty ||
+                            homeAddress.text.isEmpty) {
+                          SnackNotification.notif(
+                              "Error",
+                              "Please fill all the fields",
+                              Colors.red.shade600);
+                        } else if (pick.image == null) {
+                          SnackNotification.notif(
+                              "Error",
+                              "Please upload a file (jpg, png, jpeg)",
+                              Colors.red.shade600);
+                        } else {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return SimpleDialog(
+                                children: [
+                                  Container(
+                                    width:
+                                        (MediaQuery.of(context).size.width) / 2,
+                                    height: 555,
+                                    child: FinalizePage(
+                                      firstname: firstname.text,
+                                      lastname: lastname.text,
+                                      mobile: mobileNumber.text,
+                                      address: homeAddress.text,
+                                      contract: pick.getImageBytes(),
+                                    ),
                                   ),
-                                ),
-                              ],
-                            );
-                          },
-                        );
+                                ],
+                              );
+                            },
+                          );
+                        }
                       },
                       child: const Text('NEXT'),
                     ),
@@ -338,17 +362,6 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
         ),
       ],
     );
-  }
-
-  num _getTotal() {
-    num balance = 0;
-    num temp = 0;
-    Mapping.selectedProducts.forEach((e) {
-      temp = e.getPrice * e.getProductQty;
-      balance += temp;
-    });
-
-    return balance;
   }
 }
 
@@ -402,10 +415,10 @@ class _SelectionOfProducts extends DataTableSource {
           //we will remove the duplicate products afterward
           Mapping.selectedProducts.add(
             ProductModel.selectedProduct(
-              row.valueA.toString(),
-              row.valueB.toString(),
+              row.valueA.toString(), //code
+              row.valueB.toString(), //name
               double.parse(
-                row.valueC.toString(),
+                row.valueC.toString(), //price
               ),
             ),
           );
@@ -413,7 +426,8 @@ class _SelectionOfProducts extends DataTableSource {
           //delete the uncheck product to the list
           if (value == false) {
             Mapping.selectedProducts.removeWhere(
-                (element) => element.productCode == row.valueA.toString());
+              (element) => element.productCode == row.valueA.toString(),
+            );
           }
 
           notifyListeners();

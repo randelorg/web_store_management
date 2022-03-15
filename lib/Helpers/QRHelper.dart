@@ -8,11 +8,21 @@ class QrCode {
       data: content.trim(),
       version: QrVersions.auto,
       size: 320,
-      gapless: false,
+      gapless: true,
       embeddedImage: AssetImage('assets/images/store-logo.png'),
       embeddedImageStyle: QrEmbeddedImageStyle(
         size: Size(80, 80),
       ),
+      errorStateBuilder: (cxt, err) {
+        return Container(
+          child: Center(
+            child: Text(
+              "Uh oh! Something went wrong...",
+              textAlign: TextAlign.center,
+            ),
+          ),
+        );
+      },
     );
   }
 }

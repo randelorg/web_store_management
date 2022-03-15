@@ -3,9 +3,12 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:web_store_management/Backend/GlobalController.dart';
 import 'package:web_store_management/Backend/ProductOperation.dart';
 import 'package:web_store_management/Notification/Snack_notification.dart';
+import 'package:web_store_management/Backend/Utility/Mapping.dart';
 import 'TransferStock.dart';
 import 'UpdateProduct.dart';
 import '../../Backend/Utility/Mapping.dart';
+
+List<String> _branches = [];
 
 class InventoryPage extends StatefulWidget {
   @override
@@ -25,9 +28,20 @@ class _InventoryPage extends State<InventoryPage> {
 
   @override
   void initState() {
-    super.initState();
     //fetches the products from the database
     this._products = controller.fetchProducts();
+    setState(() {
+      controller.fetchBranches();
+      //get all the branches available
+      getLocations();
+    });
+    super.initState();
+  }
+
+  void getLocations() {
+    Mapping.branchList.forEach((element) {
+      _branches.add(element.branchName);
+    });
   }
 
   @override
@@ -41,7 +55,7 @@ class _InventoryPage extends State<InventoryPage> {
           child: Column(
             children: [
               Padding(
-                padding: const EdgeInsets.all(10.0),
+                padding: const EdgeInsets.only(top: 120),
                 child: Text(
                   'Add Product',
                   textAlign: TextAlign.center,
@@ -63,12 +77,12 @@ class _InventoryPage extends State<InventoryPage> {
                     suffixIcon: IconButton(
                       onPressed: () {},
                       icon: Icon(Icons.scanner_sharp),
-                      tooltip: 'Scan product barcode',
+                      tooltip: 'Scan Product Barcode',
                     ),
                     filled: true,
                     fillColor: Colors.blueGrey[50],
                     labelStyle: TextStyle(fontSize: 10),
-                    contentPadding: EdgeInsets.only(left: 30),
+                    contentPadding: EdgeInsets.only(left: 15),
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.blueGrey.shade50),
                       borderRadius: BorderRadius.circular(5),
@@ -89,7 +103,7 @@ class _InventoryPage extends State<InventoryPage> {
                     filled: true,
                     fillColor: Colors.blueGrey[50],
                     labelStyle: TextStyle(fontSize: 12),
-                    contentPadding: EdgeInsets.only(left: 30),
+                    contentPadding: EdgeInsets.only(left: 15),
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.blueGrey.shade50),
                       borderRadius: BorderRadius.circular(10),
@@ -110,7 +124,7 @@ class _InventoryPage extends State<InventoryPage> {
                     filled: true,
                     fillColor: Colors.blueGrey[50],
                     labelStyle: TextStyle(fontSize: 12),
-                    contentPadding: EdgeInsets.only(left: 30),
+                    contentPadding: EdgeInsets.only(left: 15),
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.blueGrey.shade50),
                       borderRadius: BorderRadius.circular(10),
@@ -131,7 +145,7 @@ class _InventoryPage extends State<InventoryPage> {
                     filled: true,
                     fillColor: Colors.blueGrey[50],
                     labelStyle: TextStyle(fontSize: 12),
-                    contentPadding: EdgeInsets.only(left: 30),
+                    contentPadding: EdgeInsets.only(left: 15),
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.blueGrey.shade50),
                       borderRadius: BorderRadius.circular(10),
@@ -152,7 +166,7 @@ class _InventoryPage extends State<InventoryPage> {
                     filled: true,
                     fillColor: Colors.blueGrey[50],
                     labelStyle: TextStyle(fontSize: 12),
-                    contentPadding: EdgeInsets.only(left: 30),
+                    contentPadding: EdgeInsets.only(left: 15),
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.blueGrey.shade50),
                       borderRadius: BorderRadius.circular(10),
@@ -165,9 +179,9 @@ class _InventoryPage extends State<InventoryPage> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(10.0),
                 child: ClipRRect(
-                  borderRadius: BorderRadius.circular(18),
+                  borderRadius: BorderRadius.circular(20),
                   child: Stack(
                     children: <Widget>[
                       Positioned.fill(
@@ -179,33 +193,45 @@ class _InventoryPage extends State<InventoryPage> {
                       ),
                       TextButton(
                         style: TextButton.styleFrom(
-                          padding: const EdgeInsets.all(13.0),
+                          padding: const EdgeInsets.only(
+                              top: 18, bottom: 18, left: 36, right: 36),
                           primary: Colors.white,
                           textStyle: TextStyle(
                               fontFamily: 'Cairo_SemiBold', fontSize: 14),
                         ),
                         child: const Text('ADD'),
                         onPressed: () {
-                          product
-                              .addProduct(
-                            barcode.text,
-                            prodName.text,
-                            quantity.text,
-                            unit.text,
-                            double.parse(price.text),
-                          )
-                              .then((value) {
-                            if (value) {
-                              SnackNotification.notif(
-                                'Error',
-                                "Product " + prodName.text + " is now added",
-                                Colors.green.shade600,
-                              );
-                              setState(() {
-                                this._products = controller.fetchProducts();
-                              });
-                            }
-                          });
+                          if (barcode.text.isEmpty ||
+                              prodName.text.isEmpty ||
+                              quantity.text.isEmpty ||
+                              unit.text.isEmpty ||
+                              price.text.isEmpty) {
+                            SnackNotification.notif(
+                                "Error",
+                                "Please fill all the fields",
+                                Colors.red.shade600);
+                          } else {
+                            product
+                                .addProduct(
+                              barcode.text,
+                              prodName.text,
+                              quantity.text,
+                              unit.text,
+                              double.parse(price.text),
+                            )
+                                .then((value) {
+                              if (value) {
+                                SnackNotification.notif(
+                                  'Success',
+                                  "Product " + prodName.text + " is now added",
+                                  Colors.green.shade600,
+                                );
+                                setState(() {
+                                  this._products = controller.fetchProducts();
+                                });
+                              }
+                            });
+                          }
                         },
                       ),
                     ],
@@ -215,82 +241,97 @@ class _InventoryPage extends State<InventoryPage> {
             ],
           ),
         ),
-        Column(
+        Container(
+            child: Row(
           children: [
-            Stack(
+            Padding(
+              padding: const EdgeInsets.only(left: 25, right: 25),
+              child: const VerticalDivider(
+                color: Colors.grey,
+                thickness: 1,
+                indent: 80,
+                endIndent: 80,
+                width: 10,
+              ),
+            ),
+          ],
+        )),
+        Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            Row(
               children: [
-                Row(
-                  children: [
-                    Container(
-                      padding: EdgeInsets.only(top: 10),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-                        child: Stack(
-                          children: <Widget>[
-                            Positioned.fill(
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  color: Colors.blueGrey.shade50,
-                                ),
-                              ),
+                Container(
+                  padding: const EdgeInsets.only(top: 15, bottom: 15),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(8),
+                    child: Stack(
+                      children: <Widget>[
+                        Positioned.fill(
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: HexColor("#155293"),
                             ),
-                            Tooltip(
-                              message: 'Transfer Stocks',
-                              child: TextButton(
-                                style: TextButton.styleFrom(
-                                  padding: const EdgeInsets.all(20),
-                                  primary: Colors.black,
-                                  textStyle: TextStyle(fontSize: 18),
-                                ),
-                                onPressed: () {
-                                  showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return TransferStock();
-                                    },
+                          ),
+                        ),
+                        Tooltip(
+                          message: 'Transfer Stocks',
+                          child: TextButton.icon(
+                            icon: Icon(
+                              Icons.transfer_within_a_station,
+                              color: Colors.white,
+                            ),
+                            style: TextButton.styleFrom(
+                              padding: const EdgeInsets.all(14),
+                              primary: Colors.white,
+                              textStyle: TextStyle(
+                                  fontSize: 18, fontFamily: 'Cairo_SemiBold'),
+                            ),
+                            label: Text('TRANSFER'),
+                            onPressed: () {
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return TransferStock(
+                                    branches: _branches,
                                   );
                                 },
-                                child: const Text('TRANSFER'),
-                              ),
-                            ),
-                          ],
+                              );
+                            },
+                          ),
                         ),
-                      ),
+                      ],
                     ),
-                  ],
+                  ),
                 ),
-                Row(
-                  children: [
-                    Container(
-                      padding: EdgeInsets.only(top: 10, left: 150),
-                      width: 500,
-                      child: TextField(
-                        decoration: InputDecoration(
-                          hintText: 'Search product',
-                          suffixIcon: InkWell(
-                            child: IconButton(
-                              icon: Icon(Icons.search_sharp),
-                              color: Colors.grey,
-                              tooltip: 'Search by Name',
-                              onPressed: () {},
-                            ),
-                          ),
-                          filled: true,
-                          fillColor: Colors.blueGrey[50],
-                          labelStyle: TextStyle(fontSize: 12),
-                          contentPadding: EdgeInsets.only(left: 30),
-                          enabledBorder: OutlineInputBorder(
-                            borderSide:
-                                BorderSide(color: Colors.blueGrey.shade50),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide:
-                                BorderSide(color: Colors.blueGrey.shade50),
-                          ),
+                Container(
+                  padding: const EdgeInsets.only(
+                      top: 15, bottom: 15, left: 20, right: 5),
+                  width: 350,
+                  child: TextField(
+                    decoration: InputDecoration(
+                      hintText: 'Search Product',
+                      suffixIcon: InkWell(
+                        child: IconButton(
+                          icon: Icon(Icons.search_sharp),
+                          color: Colors.grey,
+                          tooltip: 'Search by Name',
+                          onPressed: () {},
                         ),
                       ),
+                      filled: true,
+                      fillColor: Colors.blueGrey[50],
+                      labelStyle: TextStyle(fontSize: 12),
+                      contentPadding: EdgeInsets.only(left: 30),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                      ),
                     ),
-                  ],
+                  ),
                 ),
               ],
             ),
@@ -308,7 +349,6 @@ class _InventoryPage extends State<InventoryPage> {
         width: (MediaQuery.of(context).size.width) / 1.5,
         height: (MediaQuery.of(context).size.height),
         child: ListView(
-          padding: const EdgeInsets.all(10),
           children: [
             FutureBuilder(
               future: this._products,
@@ -324,13 +364,17 @@ class _InventoryPage extends State<InventoryPage> {
                   return PaginatedDataTable(
                     showCheckboxColumn: false,
                     showFirstLastButtons: true,
-                    rowsPerPage: 15,
+                    rowsPerPage: 13,
                     columns: [
                       DataColumn(label: Text('PRODUCT NAME')),
                       DataColumn(label: Text('QTY')),
                       DataColumn(label: Text('UNIT')),
                       DataColumn(label: Text('PRICE')),
                       DataColumn(label: Text('ACTION')),
+                      DataColumn(
+                        label: Text('TRANSFER \n STOCKS',
+                            textAlign: TextAlign.center),
+                      ),
                     ],
                     source: _DataSource(context),
                   );
@@ -356,6 +400,7 @@ class _Row {
     this.valueC,
     this.valueD,
     this.valueE,
+    this.valueF,
   );
 
   final String valueA;
@@ -363,6 +408,7 @@ class _Row {
   final String valueC;
   final String valueD;
   final Widget valueE;
+  final Widget valueF;
 
   bool selected = false;
 }
@@ -404,9 +450,21 @@ class _DataSource extends DataTableSource {
             builder: (BuildContext context) {
               return UpdateProduct(
                 name: row.valueA,
-                //quantity: row.valueB,
+                quantity: row.valueB,
                 unit: row.valueC,
                 price: row.valueD,
+              );
+            },
+          );
+        }),
+        DataCell((row.valueF), onTap: () {
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return TransferStock(
+                branches: _branches,
+                productName: row.valueA,
+                qty: row.valueB,
               );
             },
           );
@@ -435,7 +493,7 @@ class _DataSource extends DataTableSource {
               .toStringAsFixed(2)
               .toString(),
           ClipRRect(
-            borderRadius: BorderRadius.circular(18),
+            borderRadius: BorderRadius.circular(20),
             child: Stack(
               children: <Widget>[
                 Positioned.fill(
@@ -447,7 +505,7 @@ class _DataSource extends DataTableSource {
                 ),
                 Padding(
                   padding:
-                      EdgeInsets.only(top: 8, bottom: 8, left: 10, right: 10),
+                      EdgeInsets.only(top: 8, bottom: 8, left: 16, right: 16),
                   child: Text(
                     'UPDATE',
                     style: TextStyle(
@@ -460,6 +518,11 @@ class _DataSource extends DataTableSource {
               ],
             ),
           ),
+          Icon(
+            Icons.transfer_within_a_station,
+            color: HexColor("#155293"),
+            size: 25,
+          ),
         );
       });
     } catch (e) {
@@ -470,6 +533,7 @@ class _DataSource extends DataTableSource {
           Text(''),
           '',
           '',
+          Text(''),
           Text(''),
         );
       });

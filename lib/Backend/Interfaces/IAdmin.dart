@@ -13,7 +13,13 @@ class IAdmin {
   }
 
   void deleteAdminAccount() {}
-  void updateAdminAccount() {}
+
+  Future<bool> updateAdminAccount(
+      final String id, final String username, final String password) {
+    var a;
+    return a;
+  }
+
   bool verifyAdmin(String password) {
     return true;
   }
