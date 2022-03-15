@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:async/async.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
+import 'package:web_store_management/Models/BorrowerModel.dart';
 import 'package:web_store_management/Pages/Payment/CashPaymentPage.dart';
 import 'package:web_store_management/Pages/Reports/GlobalHistoryScreens/PaymentHistoryScreen.dart';
 import 'MakePayment.dart';
@@ -13,16 +13,14 @@ class PaymentPage extends StatefulWidget {
 }
 
 class _PaymentPage extends State<PaymentPage> {
-  int _currentSortColumn = 0;
-  bool _isAscending = true;
-  final AsyncMemoizer _memoizer = AsyncMemoizer();
-  late Future borrowers;
+  var _sortAscending = true;
+  late Future<List<BorrowerModel>> borrowers;
   var controller = GlobalController();
 
   @override
   void initState() {
     super.initState();
-    borrowers = this._getBorrowers();
+    borrowers = controller.fetchBorrowers();
   }
 
   Widget build(BuildContext context) {
@@ -62,10 +60,14 @@ class _PaymentPage extends State<PaymentPage> {
                               context: context,
                               builder: (BuildContext context) {
                                 return SimpleDialog(
-                                  children: [                                
+                                  children: [
                                     Container(
-                                      width:(MediaQuery.of(context).size.width)/1.1,
-                                      height:(MediaQuery.of(context).size.height/1.2),
+                                      width:
+                                          (MediaQuery.of(context).size.width) /
+                                              1.1,
+                                      height:
+                                          (MediaQuery.of(context).size.height /
+                                              1.2),
                                       child: CashPaymentPage(),
                                     ),
                                   ],
@@ -119,7 +121,7 @@ class _PaymentPage extends State<PaymentPage> {
           child: Container(
             width: (MediaQuery.of(context).size.width),
             height: (MediaQuery.of(context).size.height),
-            child: FutureBuilder(
+            child: FutureBuilder<List<BorrowerModel>>(
               future: borrowers,
               builder: (context, snapshot) {
                 if (!snapshot.hasData) {
@@ -136,14 +138,28 @@ class _PaymentPage extends State<PaymentPage> {
                         bottom: 15, right: 100, left: 100),
                     children: [
                       PaginatedDataTable(
-                        sortColumnIndex: _currentSortColumn,
-                        sortAscending: _isAscending,
                         showCheckboxColumn: false,
                         showFirstLastButtons: true,
+                        sortAscending: _sortAscending,
+                        sortColumnIndex: 1,
                         rowsPerPage: 14,
                         columns: [
                           DataColumn(label: Text('BID')),
-                          DataColumn(label: Text('NAME')),
+                          DataColumn(
+                            label: Text('NAME'),
+                            onSort: (index, sortAscending) {
+                              setState(() {
+                                _sortAscending = sortAscending;
+                                if (sortAscending) {
+                                  snapshot.data!.sort((a, b) =>
+                                      a.getFirstname.compareTo(b.getFirstname));
+                                } else {
+                                  snapshot.data!.sort((a, b) =>
+                                      b.getFirstname.compareTo(a.getFirstname));
+                                }
+                              });
+                            },
+                          ),
                           DataColumn(label: Text('TOTAL DEBT')),
                           DataColumn(label: Text('PAYMENT')),
                           DataColumn(label: Text('PAYMENT HISTORY')),
@@ -164,12 +180,6 @@ class _PaymentPage extends State<PaymentPage> {
         ),
       ],
     );
-  }
-
-  _getBorrowers() async {
-    return this._memoizer.runOnce(() {
-      return controller.fetchBorrowers();
-    });
   }
 }
 
@@ -266,71 +276,73 @@ class _DataSource extends DataTableSource {
   int get selectedRowCount => _selectedCount;
 }
 
-List _paymentsList(BuildContext context) {
-  List<_Row> _payments;
+List<_Row> _paymentsList(BuildContext context) {
   try {
-    return _payments = List.generate(Mapping.borrowerList.length, (index) {
-      return _Row(
-        Mapping.borrowerList[index].getBorrowerId.toString(),
-        Mapping.borrowerList[index].toString(),
-        Mapping.borrowerList[index].getBalance.toStringAsFixed(2).toString(),
-        ClipRRect(
-          borderRadius: BorderRadius.circular(20),
-          child: Stack(
-            children: <Widget>[
-              Positioned.fill(
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: HexColor("#155293"),
+    return List.generate(
+      Mapping.borrowerList.length,
+      (index) {
+        return _Row(
+          Mapping.borrowerList[index].getBorrowerId.toString(),
+          Mapping.borrowerList[index].toString(),
+          Mapping.borrowerList[index].getBalance.toStringAsFixed(2).toString(),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(20),
+            child: Stack(
+              children: <Widget>[
+                Positioned.fill(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: HexColor("#155293"),
+                    ),
                   ),
                 ),
-              ),
-              Padding(
-                padding:
-                    EdgeInsets.only(top: 8, bottom: 8, left: 20, right: 20),
-                child: Text(
-                  'PAY',
-                  style: TextStyle(
-                    fontFamily: 'Cairo_SemiBold',
-                    fontSize: 14,
-                    color: Colors.white,
+                Padding(
+                  padding:
+                      EdgeInsets.only(top: 8, bottom: 8, left: 20, right: 20),
+                  child: Text(
+                    'PAY',
+                    style: TextStyle(
+                      fontFamily: 'Cairo_SemiBold',
+                      fontSize: 14,
+                      color: Colors.white,
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-        ),
-        ClipRRect(
-          borderRadius: BorderRadius.circular(20),
-          child: Stack(
-            children: <Widget>[
-              Positioned.fill(
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: HexColor("#155293"),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(20),
+            child: Stack(
+              children: <Widget>[
+                Positioned.fill(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: HexColor("#155293"),
+                    ),
                   ),
                 ),
-              ),
-              Padding(
-                padding:
-                    EdgeInsets.only(top: 8, bottom: 8, left: 16, right: 16),
-                child: Text(
-                  'VIEW',
-                  style: TextStyle(
-                    fontFamily: 'Cairo_SemiBold',
-                    fontSize: 14,
-                    color: Colors.white,
+                Padding(
+                  padding:
+                      EdgeInsets.only(top: 8, bottom: 8, left: 16, right: 16),
+                  child: Text(
+                    'VIEW',
+                    style: TextStyle(
+                      fontFamily: 'Cairo_SemiBold',
+                      fontSize: 14,
+                      color: Colors.white,
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-        ),
-      );
-    });
+        );
+      },
+    );
   } catch (e) {
     //if borrowers list is empty
-    return _payments = List.generate(0, (index) {
+    return List.generate(0, (index) {
       return _Row(
         '',
         '',

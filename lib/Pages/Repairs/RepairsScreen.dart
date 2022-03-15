@@ -4,6 +4,7 @@ import 'package:web_store_management/Backend/BorrowerOperation.dart';
 import 'package:web_store_management/Backend/GlobalController.dart';
 import 'package:web_store_management/Backend/TextMessage.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
+import 'package:web_store_management/Models/BorrowerModel.dart';
 import 'package:web_store_management/Notification/Snack_notification.dart';
 import 'package:web_store_management/Pages/Repairs/ManualBorrowerSearch.dart';
 
@@ -16,7 +17,7 @@ class _RepairsPage extends State<RepairsPage> {
   var controller = GlobalController();
   var borrower = BorrowerOperation();
   var message = TextMessage();
-  late Future _repairs;
+  late Future<List<BorrowerModel>> _repairs;
   double textSize = 15;
   double titleSize = 30;
 
@@ -54,7 +55,8 @@ class _RepairsPage extends State<RepairsPage> {
                           icon:
                               Icon(Icons.add_box_rounded, color: Colors.white),
                           style: TextButton.styleFrom(
-                            padding: const EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 10),
+                            padding: const EdgeInsets.only(
+                                left: 10, right: 10, top: 10, bottom: 10),
                             primary: Colors.white,
                             textStyle: TextStyle(
                                 fontSize: 18, fontFamily: 'Cairo_SemiBold'),
@@ -111,7 +113,7 @@ class _RepairsPage extends State<RepairsPage> {
             ),
           ],
         ),
-        FutureBuilder(
+        FutureBuilder<List<BorrowerModel>>(
           future: _repairs,
           builder: (context, snapshot) {
             if (!snapshot.hasData) {
@@ -122,27 +124,43 @@ class _RepairsPage extends State<RepairsPage> {
               );
             }
             if (snapshot.hasData) {
-              return Expanded(
-                child: Container(
-                  padding: EdgeInsets.only(right: 20, left: 20),
-                  width: (MediaQuery.of(context).size.width),
-                  height: (MediaQuery.of(context).size.height),
-                  child: GridView.count(
-                    crossAxisCount: 5,
-                    crossAxisSpacing: 10,
-                    mainAxisSpacing: 10,
-                    shrinkWrap: true,
-                    childAspectRatio: (MediaQuery.of(context).size.width) /
-                        (MediaQuery.of(context).size.height) /
-                        2.5,
-                    children: _cards(),
+              if (snapshot.data!.length > 0) {
+                return Expanded(
+                  child: Container(
+                    padding: EdgeInsets.only(right: 20, left: 20),
+                    width: (MediaQuery.of(context).size.width),
+                    height: (MediaQuery.of(context).size.height),
+                    child: GridView.count(
+                      crossAxisCount: 5,
+                      crossAxisSpacing: 10,
+                      mainAxisSpacing: 10,
+                      shrinkWrap: true,
+                      childAspectRatio: (MediaQuery.of(context).size.width) /
+                          (MediaQuery.of(context).size.height) /
+                          2.5,
+                      children: _cards(),
+                    ),
                   ),
-                ),
-              );
+                );
+              } else {
+                return Center(
+                  child: Text(
+                    'No repairs found',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                );
+              }
             } else {
               return Center(
                 child: Text(
-                  'No credits to show',
+                  'No repairs found',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               );
             }
@@ -327,10 +345,11 @@ class _RepairsPage extends State<RepairsPage> {
                         ),
                         TextButton(
                           style: TextButton.styleFrom(
-                            padding: const EdgeInsets.only(left: 20, right: 20, top: 12, bottom: 12),
-                            primary: Colors.white,
-                            textStyle: TextStyle(fontSize: 18, fontFamily: 'Cairo_SemiBold')
-                          ),
+                              padding: const EdgeInsets.only(
+                                  left: 20, right: 20, top: 12, bottom: 12),
+                              primary: Colors.white,
+                              textStyle: TextStyle(
+                                  fontSize: 18, fontFamily: 'Cairo_SemiBold')),
                           child: const Text('REPAIRED'),
                           onPressed: () {
                             repairStatus(
@@ -350,13 +369,13 @@ class _RepairsPage extends State<RepairsPage> {
                     color: Colors.redAccent.shade400,
                     tooltip: 'UNREPAIRABLE',
                     onPressed: () {
-                      repairStatus(            
+                      repairStatus(
                         Mapping.repairs[index].getRepairId,
                         'UNREPAIRABLE',
                         Mapping.repairs[index].getRepairProductName,
                         Mapping.repairs[index].toString(),
                         Mapping.repairs[index].getMobileNumber,
-                       );
+                      );
                     },
                   ),
                 ],
@@ -368,7 +387,8 @@ class _RepairsPage extends State<RepairsPage> {
     );
   }
 
-  void sendRepairedMessage(String name, String number, String product, String status) {
+  void sendRepairedMessage(
+      String name, String number, String product, String status) {
     message.sendRepairedProduct(name, number, product, status).then((value) => {
           if (value)
             {
