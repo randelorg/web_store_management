@@ -19,7 +19,7 @@ class AdminOperation implements IAdmin {
 
     try {
       final response = await http.post(
-        Uri.parse("http://localhost:8090/api/checkpoinchangepass"),
+        Uri.parse("${Url.url}api/checkpoinchangepass"),
         headers: {
           "Content-Type": "application/json",
           "Accept": "application/json"
@@ -31,7 +31,7 @@ class AdminOperation implements IAdmin {
         SnackNotification.notif(
           'Error',
           'Unexpected error occured',
-          Colors.red,
+          Colors.red.shade600,
         );
       }
     } catch (e) {
@@ -40,7 +40,7 @@ class AdminOperation implements IAdmin {
       SnackNotification.notif(
         'Error',
         'Unexpected error occured',
-        Colors.red,
+      Colors.red.shade600,
       );
     }
     return true;
@@ -80,7 +80,7 @@ class AdminOperation implements IAdmin {
         SnackNotification.notif(
           'Error',
           'Unexpected error occured',
-          Colors.red,
+          Colors.red.shade600,
         );
       }
     } catch (e) {
@@ -89,7 +89,7 @@ class AdminOperation implements IAdmin {
       SnackNotification.notif(
         'Error',
         'Unexpected error occured',
-        Colors.red,
+        Colors.red.shade600,
       );
     }
 
@@ -97,7 +97,7 @@ class AdminOperation implements IAdmin {
     SnackNotification.notif(
       'Success',
       'Successfully added $firstname' + ' $lastname',
-      Colors.green,
+      Colors.green.shade600,
     );
     //return true;
   }
@@ -139,7 +139,7 @@ class AdminOperation implements IAdmin {
       SnackNotification.notif(
         'Error',
         'Something went wrong while updating the admin',
-        Colors.redAccent.shade200,
+        Colors.red.shade600,
       );
       return false;
     }

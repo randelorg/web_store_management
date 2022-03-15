@@ -6,6 +6,7 @@ import 'package:web_store_management/Backend/LoanOperation.dart';
 import 'package:web_store_management/Backend/TextMessage.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
 import 'package:web_store_management/Helpers/PrintHelper.dart';
+import 'package:web_store_management/Models/BorrowerModel.dart';
 import 'package:web_store_management/Notification/Snack_notification.dart';
 
 class ReleasePage extends StatefulWidget {
@@ -18,7 +19,7 @@ class _ReleasePage extends State<ReleasePage> {
   var loan = LoanOperation();
   var message = TextMessage();
   final String released = "RELEASED";
-  late Future _releaseApproval;
+  late Future<List<BorrowerModel>> _releaseApproval;
 
   int vid = 0, bid = 0;
   double textSize = 15;
@@ -67,7 +68,7 @@ class _ReleasePage extends State<ReleasePage> {
             ),
           ],
         ),
-        FutureBuilder(
+        FutureBuilder<List<BorrowerModel>>(
           future: _releaseApproval,
           builder: (context, snapshot) {
             if (!snapshot.hasData) {
@@ -78,27 +79,43 @@ class _ReleasePage extends State<ReleasePage> {
               );
             }
             if (snapshot.hasData) {
-              return Expanded(
-                child: Container(
-                  padding: EdgeInsets.only(right: 20, left: 20),
-                  width: (MediaQuery.of(context).size.width),
-                  height: (MediaQuery.of(context).size.height),
-                  child: GridView.count(
-                    crossAxisCount: 5,
-                    crossAxisSpacing: 10,
-                    mainAxisSpacing: 10,
-                    shrinkWrap: true,
-                    childAspectRatio: (MediaQuery.of(context).size.width) /
-                        (MediaQuery.of(context).size.height) /
-                        2.5,
-                    children: _cards(),
+              if (snapshot.data!.length > 0) {
+                return Expanded(
+                  child: Container(
+                    padding: EdgeInsets.only(right: 20, left: 20),
+                    width: (MediaQuery.of(context).size.width),
+                    height: (MediaQuery.of(context).size.height),
+                    child: GridView.count(
+                      crossAxisCount: 5,
+                      crossAxisSpacing: 10,
+                      mainAxisSpacing: 10,
+                      shrinkWrap: true,
+                      childAspectRatio: (MediaQuery.of(context).size.width) /
+                          (MediaQuery.of(context).size.height) /
+                          2.5,
+                      children: _cards(),
+                    ),
                   ),
-                ),
-              );
+                );
+              } else {
+                return Center(
+                  child: Text(
+                    'No Borrowers to release',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                );
+              }
             } else {
               return Center(
                 child: Text(
-                  'No credits to show',
+                  'No Borrowers to release',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               );
             }

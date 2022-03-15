@@ -4,7 +4,6 @@ import 'package:web_store_management/Models/BorrowerModel.dart';
 import 'ViewBorrowerProfile.dart';
 import '../../Backend/Utility/Mapping.dart';
 import '../../Backend/GlobalController.dart';
-import 'package:async/async.dart';
 
 class BorrowersPage extends StatefulWidget {
   @override
@@ -13,28 +12,13 @@ class BorrowersPage extends StatefulWidget {
 
 class _BorrowersPage extends State<BorrowersPage> {
   var controller = GlobalController();
-  List<_Row> _borrowers = [];
   late Future<List<BorrowerModel>> borrowers;
   var _sortAscending = true;
-  AsyncMemoizer _memoizer = AsyncMemoizer();
 
   @override
   void initState() {
     super.initState();
-    _memoizer = AsyncMemoizer();
-    checkLength();
-  }
-
-  void checkLength() {
-    if (Mapping.borrowerList.length > 0) {
-      _borrowers = _borrowerProfile();
-    }
-  }
-
-  _fetchData() async {
-    return this._memoizer.runOnce(() async {
-      return controller.fetchBorrowers();
-    });
+    borrowers = controller.fetchBorrowers();
   }
 
   @override
@@ -78,8 +62,8 @@ class _BorrowersPage extends State<BorrowersPage> {
           child: Container(
             width: (MediaQuery.of(context).size.width),
             height: (MediaQuery.of(context).size.height),
-            child: FutureBuilder(
-              future: _fetchData(),
+            child: FutureBuilder<List<BorrowerModel>>(
+              future: borrowers,
               builder: (context, snapshot) {
                 if (!snapshot.hasData) {
                   return Center(
@@ -108,11 +92,11 @@ class _BorrowersPage extends State<BorrowersPage> {
                               setState(() {
                                 _sortAscending = sortAscending;
                                 if (sortAscending) {
-                                  _borrowers.sort((a, b) =>
-                                      a.getValueB.compareTo(b.getValueB));
+                                  snapshot.data!.sort((a, b) =>
+                                      a.getFirstname.compareTo(b.getFirstname));
                                 } else {
-                                  _borrowers.sort((a, b) =>
-                                      b.getValueB.compareTo(a.getValueB));
+                                  snapshot.data!.sort((a, b) =>
+                                      b.getFirstname.compareTo(a.getFirstname));
                                 }
                               });
                             },
@@ -121,7 +105,7 @@ class _BorrowersPage extends State<BorrowersPage> {
                           DataColumn(label: Text('BALANCE')),
                           DataColumn(label: Text('ACTION')),
                         ],
-                        source: _DataSource(context, _borrowers),
+                        source: _DataSource(context),
                       )
                     ],
                   );
@@ -159,6 +143,64 @@ class _Row {
   get getValueB => this.valueB;
 
   bool selected = false;
+}
+
+class _DataSource extends DataTableSource {
+  _DataSource(this.context) {
+    _borrowers = _borrowerProfile();
+  }
+
+  final BuildContext context;
+  List<_Row> _borrowers = [];
+  int _selectedCount = 0;
+
+  @override
+  DataRow? getRow(int index) {
+    assert(index >= 0);
+    if (index >= _borrowers.length) return null;
+    final row = _borrowers[index];
+    return DataRow.byIndex(
+      index: index,
+      selected: row.selected,
+      onSelectChanged: (value) {
+        if (row.selected != value) {
+          var value = false;
+          _selectedCount += value ? 1 : -1;
+          assert(_selectedCount >= 0);
+          row.selected = value;
+          notifyListeners();
+        }
+      },
+      cells: [
+        DataCell(Text(row.valueA)),
+        DataCell(Text(row.valueB)),
+        DataCell(Text(row.valueC)),
+        DataCell(Text(row.valueD)),
+        DataCell((row.valueE), onTap: () {
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return ViewBorrowerProfile(
+                id: row.valueA,
+                name: row.valueB,
+                number: row.valueC,
+                balance: double.parse(row.valueD),
+              );
+            },
+          );
+        }),
+      ],
+    );
+  }
+
+  @override
+  int get rowCount => _borrowers.length;
+
+  @override
+  bool get isRowCountApproximate => false;
+
+  @override
+  int get selectedRowCount => _selectedCount;
 }
 
 List<_Row> _borrowerProfile() {
@@ -215,60 +257,4 @@ List<_Row> _borrowerProfile() {
       },
     );
   }
-}
-
-class _DataSource extends DataTableSource {
-  _DataSource(this.context, this._borrowers);
-
-  final BuildContext context;
-  List<_Row> _borrowers = [];
-  int _selectedCount = 0;
-
-  @override
-  DataRow? getRow(int index) {
-    assert(index >= 0);
-    if (index >= _borrowers.length) return null;
-    final row = _borrowers[index];
-    return DataRow.byIndex(
-      index: index,
-      selected: row.selected,
-      onSelectChanged: (value) {
-        if (row.selected != value) {
-          var value = false;
-          _selectedCount += value ? 1 : -1;
-          assert(_selectedCount >= 0);
-          row.selected = value;
-          notifyListeners();
-        }
-      },
-      cells: [
-        DataCell(Text(row.valueA)),
-        DataCell(Text(row.valueB)),
-        DataCell(Text(row.valueC)),
-        DataCell(Text(row.valueD)),
-        DataCell((row.valueE), onTap: () {
-          showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return ViewBorrowerProfile(
-                id: row.valueA,
-                name: row.valueB,
-                number: row.valueC,
-                balance: double.parse(row.valueD),
-              );
-            },
-          );
-        }),
-      ],
-    );
-  }
-
-  @override
-  int get rowCount => _borrowers.length;
-
-  @override
-  bool get isRowCountApproximate => false;
-
-  @override
-  int get selectedRowCount => _selectedCount;
 }

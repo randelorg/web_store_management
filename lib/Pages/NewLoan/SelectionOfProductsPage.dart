@@ -58,53 +58,49 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
                   style: TextStyle(fontFamily: 'Cairo_Bold', fontSize: 30),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(
-                      top: 20,
-                      bottom: 10,
-                      right: 10,
-                      left: 10), //add padding to the textfields
+                  padding: EdgeInsets.only(top: 20, bottom: 6, right: 6, left: 6), //add padding to the textfields
                   child: TextField(
                     controller: firstname,
                     decoration: InputDecoration(
                       hintText: 'Firstname',
                       filled: true,
                       fillColor: Colors.blueGrey[50],
-                      labelStyle: TextStyle(fontSize: 18),
-                      contentPadding: EdgeInsets.only(left: 30),
+                      labelStyle: TextStyle(fontSize: 12),
+                      contentPadding: EdgeInsets.only(left: 15),
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                        borderRadius: BorderRadius.circular(15),
+                        borderRadius: BorderRadius.circular(10),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                        borderRadius: BorderRadius.circular(15),
+                        borderRadius: BorderRadius.circular(10),
                       ),
                     ),
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.all(10.0),
+                  padding: EdgeInsets.all(6),
                   child: TextField(
                     controller: lastname,
                     decoration: InputDecoration(
                       hintText: 'Lastname',
                       filled: true,
                       fillColor: Colors.blueGrey[50],
-                      labelStyle: TextStyle(fontSize: 18),
-                      contentPadding: EdgeInsets.only(left: 30),
+                      labelStyle: TextStyle(fontSize: 12),
+                      contentPadding: EdgeInsets.only(left: 15),
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                        borderRadius: BorderRadius.circular(15),
+                        borderRadius: BorderRadius.circular(10),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                        borderRadius: BorderRadius.circular(15),
+                        borderRadius: BorderRadius.circular(10),
                       ),
                     ),
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.all(10.0),
+                  padding: EdgeInsets.all(6),
                   child: TextField(
                     controller: mobileNumber,
                     maxLength: 12,
@@ -113,36 +109,36 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
                       hintText: 'Mobile Number',
                       filled: true,
                       fillColor: Colors.blueGrey[50],
-                      labelStyle: TextStyle(fontSize: 18),
-                      contentPadding: EdgeInsets.only(left: 30),
+                      labelStyle: TextStyle(fontSize: 12),
+                      contentPadding: EdgeInsets.only(left: 15),
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                        borderRadius: BorderRadius.circular(15),
+                        borderRadius: BorderRadius.circular(10),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                        borderRadius: BorderRadius.circular(15),
+                        borderRadius: BorderRadius.circular(10),
                       ),
                     ),
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.all(10.0),
+                  padding: EdgeInsets.all(6),
                   child: TextField(
                     controller: homeAddress,
                     decoration: InputDecoration(
                       hintText: 'Home Address',
                       filled: true,
                       fillColor: Colors.blueGrey[50],
-                      labelStyle: TextStyle(fontSize: 18),
-                      contentPadding: EdgeInsets.only(left: 30),
+                      labelStyle: TextStyle(fontSize: 12),
+                      contentPadding: EdgeInsets.only(left: 15),
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                        borderRadius: BorderRadius.circular(15),
+                        borderRadius: BorderRadius.circular(10),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                        borderRadius: BorderRadius.circular(15),
+                        borderRadius: BorderRadius.circular(10),
                       ),
                     ),
                   ),

@@ -317,7 +317,7 @@ class _EditProfile extends State<UpdateProfile> {
                                   SnackNotification.notif(
                                     "Success",
                                     "Successfully updated admin",
-                                    Colors.green.shade500,
+                                    Colors.green.shade600,
                                   );
                                 }
                               });

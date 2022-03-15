@@ -35,7 +35,7 @@ class BranchOperation implements IBranch, IIventory {
         SnackNotification.notif(
           'Success',
           'New branch added successfully',
-          Colors.green.shade900,
+          Colors.green.shade600,
         );
         return true;
       }
@@ -66,7 +66,7 @@ class BranchOperation implements IBranch, IIventory {
 
     try {
       final response = await http.post(
-        Uri.parse(Url.url + "api/updateBranch"),
+        Uri.parse("${Url.url}api/updateBranch"),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json'
@@ -105,7 +105,7 @@ class BranchOperation implements IBranch, IIventory {
 
     try {
       final response = await http.post(
-        Uri.parse("http://localhost:8090/api/transfer"),
+        Uri.parse("${Url.url}api/transfer"),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json'
