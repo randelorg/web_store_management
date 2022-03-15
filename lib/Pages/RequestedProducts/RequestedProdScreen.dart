@@ -144,10 +144,11 @@ class _RequestedProdScreen extends State<RequestedProdScreen> {
               } else {
                 return Center(
                   child: Text(
-                    'No Requested Products',
+                    'NO REQUESTED PRODUCTS',
                     style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
+                      color: Colors.grey[500],
+                      fontFamily: 'Cairo_SemiBold',
+                      fontSize: 20, 
                     ),
                   ),
                 );
@@ -155,10 +156,11 @@ class _RequestedProdScreen extends State<RequestedProdScreen> {
             } else {
               return Center(
                 child: Text(
-                  'No Requested Products',
+                  'NO REQUESTED PRODUCTS',
                   style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
+                    color: Colors.grey[500],
+                    fontFamily: 'Cairo_SemiBold',
+                    fontSize: 20, 
                   ),
                 ),
               );

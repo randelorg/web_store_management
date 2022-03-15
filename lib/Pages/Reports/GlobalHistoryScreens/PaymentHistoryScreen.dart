@@ -12,8 +12,10 @@ class LocalPaymentHistory extends StatefulWidget {
 }
 
 class _LocalPaymentHistory extends State<LocalPaymentHistory> {
+
   var history = HistoryOperation();
   late Future _history;
+  var _sortAscending = true;
 
   @override
   void initState() {
@@ -26,9 +28,9 @@ class _LocalPaymentHistory extends State<LocalPaymentHistory> {
       width: (MediaQuery.of(context).size.width),
       height: (MediaQuery.of(context).size.height),
       child: ListView(
-        scrollDirection: Axis.vertical,  
-        children: [        
-          Padding(   
+        scrollDirection: Axis.vertical,
+        children: [
+          Padding(
             padding: EdgeInsets.only(bottom: 5, right: 8),
             child: Align(
               alignment: Alignment.topRight,
@@ -37,23 +39,23 @@ class _LocalPaymentHistory extends State<LocalPaymentHistory> {
                   Icons.cancel,
                   color: Colors.black,
                   size: 30,
-                ),             
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
+                ),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
             ),
           ),
-        ),
-        Text(
-         'Payment History',
-          softWrap: true,
-          textAlign: TextAlign.center,
-          style: TextStyle( 
-            color: HexColor("#155293"),
-            fontFamily: 'Cairo_Bold',
-            fontSize: 30,
+          Text(
+            'Payment History',
+            softWrap: true,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: HexColor("#155293"),
+              fontFamily: 'Cairo_Bold',
+              fontSize: 30,
+            ),
           ),
-        ),
           FutureBuilder(
             future: this._history,
             builder: (context, snapshot) {
@@ -73,6 +75,8 @@ class _LocalPaymentHistory extends State<LocalPaymentHistory> {
                     ),
                     showCheckboxColumn: false,
                     showFirstLastButtons: true,
+                    sortAscending: _sortAscending,
+                    sortColumnIndex: 2,
                     rowsPerPage: 15,
                     columns: [
                       DataColumn(label: Text('COLLECTION ID')),
@@ -83,18 +87,24 @@ class _LocalPaymentHistory extends State<LocalPaymentHistory> {
                   );
                 } else {
                   return Center(
-                    child: Text('No Payment History'),
+                    child: Text(
+                      'NO PAYMENT HISTORY',
+                      style: TextStyle(
+                          color: Colors.grey[500],
+                          fontFamily: 'Cairo_SemiBold',
+                          fontSize: 20),
+                    ),
                   );
                 }
               }
               return Center(
                 child: Center(
                   child: Text(
-                    'No payment history for this borrower',
+                    'NO PAYMENT HISTORY FOR THIS BORROWER',
                     style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
+                        color: Colors.grey[500],
+                        fontFamily: 'Cairo_SemiBold',
+                        fontSize: 20),
                   ),
                 ),
               );

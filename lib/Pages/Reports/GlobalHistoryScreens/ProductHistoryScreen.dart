@@ -12,7 +12,10 @@ class ProductHistory extends StatefulWidget {
 }
 
 class _ProductHistory extends State<ProductHistory> {
+  
   var history = HistoryOperation();
+  var _sortAscending = true;
+
 
   @override
   void initState() {
@@ -74,6 +77,8 @@ class _ProductHistory extends State<ProductHistory> {
                     ),
                     showCheckboxColumn: false,
                     showFirstLastButtons: true,
+                    sortAscending: _sortAscending,
+                    sortColumnIndex: 1,
                     rowsPerPage: 15,
                     columns: [
                       DataColumn(label: Text('LOANID')),
@@ -89,16 +94,24 @@ class _ProductHistory extends State<ProductHistory> {
                   );
                 } else {
                   return Center(
-                    child: Text('No Loan History'),
+                    child: Text(
+                      'NO LOAN HISTORY',        
+                      style: TextStyle(
+                        color: Colors.grey[500],
+                        fontFamily: 'Cairo_SemiBold',
+                        fontSize: 20
+                      ),
+                    ),               
                   );
                 }
               }
               return Center(
                 child: Text(
-                  'No loan history for this borrower',
+                  'NO LOAN HISTORY FOR THIS BORROWER',
                   style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
+                    color: Colors.grey[500],
+                    fontFamily: 'Cairo_SemiBold',
+                    fontSize: 20
                   ),
                 ),
               );
