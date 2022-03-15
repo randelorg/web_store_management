@@ -4,6 +4,7 @@ import 'package:web_store_management/Backend/Session.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
 import 'package:web_store_management/Notification/Snack_notification.dart';
 import 'package:web_store_management/Pages/Branch/BranchPage.dart';
+import 'package:web_store_management/Pages/Release/ReleasePage.dart';
 import '../DashBoard/TimeCollection.dart';
 import '../NewLoan/SelectionOfProductsPage.dart';
 import '../Borrowers/BorrowersPage.dart';
@@ -28,9 +29,10 @@ class _NavDrawer extends State<NavDrawer> {
   List<Widget> pages = [
     TimeCollection(),
     SelectionOfProductsPage(),
+    CreditScreen(),
+    ReleasePage(),
     BorrowersPage(),
     PaymentPage(),
-    CreditScreen(),
     RequestedProdScreen(),
     RepairsPage(),
     InventoryPage(),
@@ -60,13 +62,13 @@ class _NavDrawer extends State<NavDrawer> {
           //list[_selectedIndex],
           NavigationRail(
             elevation: 5,
-            minWidth: 30.0,
-            minExtendedWidth: 50.0,
+            minWidth: 25.0,
+            minExtendedWidth: 30.0,
             backgroundColor: Colors.grey.shade900,
             selectedIndex: _selectedIndex,
             onDestinationSelected: (int index) {
               if (Mapping.userRole == 'Store Attendant') {
-                if (index == 9 || index == 10) {
+                if (index == 10 || index == 11) {
                   SnackNotification.notif(
                     "No Access",
                     "You don't have right to access this tab",
@@ -113,6 +115,36 @@ class _NavDrawer extends State<NavDrawer> {
               ),
               NavigationRailDestination(
                 icon: Icon(
+                  Icons.credit_score,
+                  color: Colors.white,
+                ),
+                label: Text(
+                  'Credit \n Approval',
+                  softWrap: true,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 8,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+              NavigationRailDestination(
+                icon: Icon(
+                  Icons.new_releases,
+                  color: Colors.white,
+                ),
+                label: Text(
+                  'Release \n Product',
+                  softWrap: true,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 8,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+              NavigationRailDestination(
+                icon: Icon(
                   Icons.group,
                   color: Colors.white,
                 ),
@@ -133,21 +165,6 @@ class _NavDrawer extends State<NavDrawer> {
                 label: Text(
                   'Payment',
                   softWrap: true,
-                  style: TextStyle(
-                    fontSize: 8,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-              NavigationRailDestination(
-                icon: Icon(
-                  Icons.credit_score,
-                  color: Colors.white,
-                ),
-                label: Text(
-                  'Credit \n Approval',
-                  softWrap: true,
-                  textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 8,
                     color: Colors.white,
@@ -210,7 +227,7 @@ class _NavDrawer extends State<NavDrawer> {
                   ),
                 ),
               ),
-               NavigationRailDestination(
+              NavigationRailDestination(
                 icon: Icon(
                   Icons.store,
                   color: Colors.white,

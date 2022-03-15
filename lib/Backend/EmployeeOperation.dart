@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
+import 'package:web_store_management/Backend/DashboardOperation.dart';
 import 'package:web_store_management/Backend/Utility/ApiUrl.dart';
 import 'package:web_store_management/Notification/Snack_notification.dart';
 import 'Interfaces/IEmployee.dart';
@@ -9,6 +10,7 @@ import 'dart:convert';
 
 class EmployeeOperation implements IEmployee {
   final _hash = Hashing();
+  var dashboard = DashboardOperation();
 
   @override
   Future<bool> createEmployeeAccount(
@@ -98,16 +100,17 @@ class EmployeeOperation implements IEmployee {
     return true;
   }
 
+  //for DTR
   @override
   Future<bool> timeIn(String id, final String date) async {
     var updateRequestLoad = json.encode({
       'id': id,
-      'date': date,
+      'timeIn': date,
     });
 
     try {
       final response = await http.post(
-        Uri.parse(Url.url + "api/clockin"),
+        Uri.parse("http://localhost:8090/api/clockin"),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json'
@@ -133,34 +136,34 @@ class EmployeeOperation implements IEmployee {
 
   @override
   Future<bool> timeOut(String id, final String date) async {
-    var updateRequestLoad = json.encode({
+    var adminUpdateLoad = json.encode({
       'id': id,
-      'date': date,
+      'dateToday': dashboard.getTodayDate().toString(),
+      'timeOut': date,
     });
 
     try {
       final response = await http.post(
-        Uri.parse(Url.url + "api/clockout"),
+        Uri.parse("http://localhost:8090/api/clockout"),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json'
         },
-        body: updateRequestLoad,
+        body: adminUpdateLoad,
       );
 
-      //if response is empty return false
-      if (response.statusCode == 404) {
-        return false;
-      }
-
-      if (response.statusCode == 202) {
-        return true;
-      }
+      if (response.statusCode == 404) return false;
     } catch (e) {
-      print(e.toString());
+      e.toString();
+      SnackNotification.notif(
+        'Error',
+        'Something went wrong while updating time out',
+        Colors.redAccent.shade200,
+      );
       return false;
     }
 
+    //if status code is 202
     return true;
   }
 }

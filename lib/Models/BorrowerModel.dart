@@ -1,5 +1,3 @@
-import 'dart:typed_data';
-
 import 'PersonModel.dart';
 
 class BorrowerModel extends PersonModel {
@@ -10,6 +8,7 @@ class BorrowerModel extends PersonModel {
   String? repairProductName;
   String? requestedProductName;
   double? balance;
+  String? status;
   List<dynamic>? contractImage;
 
   get getBorrowerId => this.borrowerId;
@@ -43,11 +42,18 @@ class BorrowerModel extends PersonModel {
 
   set setBalance(balance) => this.balance = balance;
 
+  get getStatus => this.status;
+
+  set setStatus(String status) => this.status = status;
+
   get getContractImage => this.contractImage;
 
   set setContractImage(contractImage) => this.contractImage = contractImage;
 
   BorrowerModel.empty() : super.empty();
+
+  BorrowerModel.invoice(String firstname, String lastname, String homeAddress)
+      : super.invoice(firstname, lastname, homeAddress);
 
   BorrowerModel.newLoan(String firstname, String lastname, String mobile,
       String homeAddress, List<dynamic> contract)
@@ -62,10 +68,12 @@ class BorrowerModel extends PersonModel {
       String mobileNumber,
       String homeAddress,
       double balance,
+      String status,
       List<dynamic>? contractImage)
       : super.withOutId(firstname, lastname, mobileNumber, homeAddress) {
     this.borrowerId = borrowerId;
     this.balance = balance;
+    this.status = status;
     this.contractImage = contractImage;
   }
 
@@ -93,7 +101,8 @@ class BorrowerModel extends PersonModel {
       firstname,
       lastname,
       mobileNumber,
-      homeAddress})
+      homeAddress,
+      this.status})
       : super.withOutId(firstname, lastname, mobileNumber, homeAddress);
 
   BorrowerModel.repairs(
@@ -139,6 +148,7 @@ class BorrowerModel extends PersonModel {
       lastname: json['Lastname'] as String,
       mobileNumber: json['MobileNumber'] as String,
       homeAddress: json['HomeAddress'] as String,
+      status: json['ResultStatus'] as String,
     );
   }
 

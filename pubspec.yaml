@@ -43,6 +43,9 @@ dependencies:
   async: ^2.8.2
   draw_graph: ^1.0.0
   syncfusion_flutter_charts: ^19.4.53
+  pdf: ^3.6.4
+  open_file: ^3.2.1
+  path_provider: ^2.0.9
 
 dev_dependencies:
   flutter_test:

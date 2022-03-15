@@ -334,9 +334,7 @@ class _TransferStock extends State<TransferStock> {
                                 Navigator.pop(context);
                                 SnackNotification.notif(
                                   'Success',
-                                  "Product" +
-                                      productName.text +
-                                      "is transfferd",
+                                  "Product ${productName.text} is transfferd",
                                   Colors.green.shade600,
                                 );
                               }

@@ -240,21 +240,25 @@ class BorrowerOperation extends Login implements IBorrower, IPay, IServices {
     return true;
   }
 
-  Future<Uint8List> getContract(int id) async {
-    List<BorrowerModel> contract = [];
+  Future<List<int>> getContract(int id) async {
+    List<BorrowerModel> contractImage = [];
+    List<int> picture = [];
 
     try {
-      print('id is $id');
       final response = await http.get(
         Uri.parse(
-          Url.url + "api/contract/" + id.toString(),
+          "http://localhost:8090/api/contract/" + id.toString(),
         ),
       );
 
-      final parsed = jsonDecode(response.body).cast<Map<String, dynamic>>();
-      contract = parsed
-          .map<BorrowerModel>((json) => BorrowerModel.fromJsonContract(json))
-          .toList();
+      Map<String, dynamic> brwMap =
+          jsonDecode(response.body)[0] as Map<String, dynamic>;
+
+      var contract = BorrowerModel.fromJsonContract(brwMap);
+
+      contractImage.add(BorrowerModel.contractOnly(contract.getContractImage));
+
+      picture = contractImage[0].getContractImage.cast<int>();
 
       if (response.statusCode == 404) {
         SnackNotification.notif(
@@ -271,6 +275,6 @@ class BorrowerOperation extends Login implements IBorrower, IPay, IServices {
         Colors.red.shade600,
       );
     }
-    return contract[0].getContractImage;
+    return picture;
   }
 }

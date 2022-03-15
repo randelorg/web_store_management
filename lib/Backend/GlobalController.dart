@@ -42,7 +42,8 @@ class GlobalController {
   }
 
   Future<List<BorrowerModel>> fetchBorrowers() async {
-    final response = await http.get(Uri.parse(Url.url + "api/borrowers"));
+    final response =
+        await http.get(Uri.parse("http://localhost:8090/api/borrowers"));
     final parsed = jsonDecode(response.body).cast<Map<String, dynamic>>();
     Mapping.borrowerList = parsed
         .map<BorrowerModel>((json) => BorrowerModel.fromJsonPartial(json))
@@ -52,7 +53,8 @@ class GlobalController {
 
   //fetch all the credit approvals from the database
   Future<List<BorrowerModel>> fetchCreditApprovals() async {
-    final response = await http.get(Uri.parse(Url.url + "api/credit"));
+    final response =
+        await http.get(Uri.parse("http://localhost:8090/api/credit"));
 
     final parsed = jsonDecode(response.body).cast<Map<String, dynamic>>();
     Mapping.creditApprovals = parsed
@@ -60,6 +62,19 @@ class GlobalController {
         .toList();
     // Use the compute function to run parseAdmin in a separate isolate.
     return Mapping.creditApprovals;
+  }
+
+//fetch all the credit approvals from the database
+  Future<List<BorrowerModel>> fetchReleaseApprovals() async {
+    final response =
+        await http.get(Uri.parse("http://localhost:8090/api/toberelease"));
+
+    final parsed = jsonDecode(response.body).cast<Map<String, dynamic>>();
+    Mapping.releaseApproval = parsed
+        .map<BorrowerModel>((json) => BorrowerModel.fromJsonApproval(json))
+        .toList();
+    // Use the compute function to run parseAdmin in a separate isolate.
+    return Mapping.releaseApproval;
   }
 
   //fetch all the credit approvals from the database

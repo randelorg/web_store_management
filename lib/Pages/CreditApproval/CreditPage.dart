@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:printing/printing.dart';
 import 'package:web_store_management/Backend/GlobalController.dart';
 import 'package:web_store_management/Backend/LoanOperation.dart';
 import 'package:web_store_management/Backend/TextMessage.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
-import 'package:web_store_management/Helpers/PrintHelper.dart';
 import 'package:web_store_management/Notification/Snack_notification.dart';
 
 class CreditScreen extends StatefulWidget {
@@ -18,7 +16,7 @@ class _CreditPage extends State<CreditScreen> {
   var loan = LoanOperation();
   var message = TextMessage();
   int vid = 0, bid = 0;
-  final String approved = "APPROVED", denied = "DENIED";
+  final String denied = "DENIED", tobeRelease = 'TO-BE-RELEASE';
   double textSize = 15;
   double titleSize = 30;
   late Future _creditapproval;
@@ -123,12 +121,18 @@ class _CreditPage extends State<CreditScreen> {
               Padding(
                 padding: EdgeInsets.all(10),
                 child: ListTile(
-                  title: Text('PENDING',
-                      style: TextStyle(
-                          fontSize: 30, fontFamily: 'Cairo_SemiBold')),
+                  title: Text(
+                    Mapping.creditApprovals[index].getStatus.toString(),
+                    style: TextStyle(
+                      fontSize: 30,
+                      fontFamily: 'Cairo_SemiBold',
+                    ),
+                  ),
                   subtitle: Text(
                     'status',
-                    style: TextStyle(color: Colors.black.withOpacity(0.6)),
+                    style: TextStyle(
+                      color: Colors.black.withOpacity(0.6),
+                    ),
                   ),
                 ),
               ),
@@ -159,7 +163,9 @@ class _CreditPage extends State<CreditScreen> {
                         maxLines: 2,
                         softWrap: true,
                         style: TextStyle(
-                            fontFamily: 'Cairo_SemiBold', fontSize: 14),
+                          fontFamily: 'Cairo_SemiBold',
+                          fontSize: 14,
+                        ),
                       ),
                     ),
                   ],
@@ -275,7 +281,7 @@ class _CreditPage extends State<CreditScreen> {
                                 .creditApprovals[index].getinvestigationID;
                             bid = Mapping.creditApprovals[index].getBorrowerId;
                             loan
-                                .approvedCredit(vid, bid, approved)
+                                .approvedCredit(vid, bid, tobeRelease)
                                 .then((value) {
                               if (!value) {
                                 SnackNotification.notif(
@@ -294,19 +300,7 @@ class _CreditPage extends State<CreditScreen> {
                                   Mapping
                                       .creditApprovals[index].getMobileNumber,
                                   Mapping.creditApprovals[index].toString(),
-                                  approved,
-                                );
-                                //show the print screen
-                                showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return showPrint(
-                                      Mapping
-                                          .creditApprovals[index].getBorrowerId
-                                          .toString(),
-                                      Mapping.creditApprovals[index].toString(),
-                                    );
-                                  },
+                                  'APPROVED',
                                 );
                               }
                             });
@@ -339,7 +333,7 @@ class _CreditPage extends State<CreditScreen> {
                             Mapping.creditApprovals[index].getMobileNumber,
                             Mapping.creditApprovals[index].toString(),
                             denied,
-                          );                  
+                          );
                         }
                       });
                     },
@@ -364,18 +358,5 @@ class _CreditPage extends State<CreditScreen> {
               )
             }
         });
-  }
-
-  Widget showPrint(String id, String name) {
-    return Container(
-      child: PdfPreview(
-        padding: EdgeInsets.all(100),
-        build: (format) => PrintHelper.generatePdfQr(
-          format,
-          id,
-          name,
-        ),
-      ),
-    );
   }
 }
