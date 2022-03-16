@@ -4,6 +4,7 @@ import 'package:web_store_management/Backend/GlobalController.dart';
 import 'package:web_store_management/Backend/LoanOperation.dart';
 import 'package:web_store_management/Backend/TextMessage.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
+import 'package:web_store_management/Models/BorrowerModel.dart';
 import 'package:web_store_management/Notification/Snack_notification.dart';
 
 class CreditScreen extends StatefulWidget {
@@ -15,16 +16,18 @@ class _CreditPage extends State<CreditScreen> {
   var controller = GlobalController();
   var loan = LoanOperation();
   var message = TextMessage();
+  late Future<List<BorrowerModel>> _creditapproval;
   int vid = 0, bid = 0;
-  final String denied = "DENIED", tobeRelease = 'TO-BE-RELEASE';
+
   double textSize = 15;
   double titleSize = 30;
-  late Future _creditapproval;
+
+  final String denied = "DENIED", tobeRelease = 'TO-BE-RELEASE';
 
   @override
   void initState() {
-    super.initState();
     _creditapproval = controller.fetchCreditApprovals();
+    super.initState();
   }
 
   @override
@@ -64,7 +67,7 @@ class _CreditPage extends State<CreditScreen> {
             ),
           ],
         ),
-        FutureBuilder(
+        FutureBuilder<List<BorrowerModel>>(
           future: _creditapproval,
           builder: (context, snapshot) {
             if (!snapshot.hasData) {
@@ -75,27 +78,45 @@ class _CreditPage extends State<CreditScreen> {
               );
             }
             if (snapshot.hasData) {
-              return Expanded(
-                child: Container(
-                  padding: EdgeInsets.only(right: 20, left: 20),
-                  width: (MediaQuery.of(context).size.width),
-                  height: (MediaQuery.of(context).size.height),
-                  child: GridView.count(
-                    crossAxisCount: 5,
-                    crossAxisSpacing: 10,
-                    mainAxisSpacing: 10,
-                    shrinkWrap: true,
-                    childAspectRatio: (MediaQuery.of(context).size.width) /
-                        (MediaQuery.of(context).size.height) /
-                        2.5,
-                    children: _cards(),
+              if (snapshot.data!.length > 0) {
+                return Expanded(
+                  child: Container(
+                    padding: EdgeInsets.only(right: 20, left: 20),
+                    width: (MediaQuery.of(context).size.width),
+                    height: (MediaQuery.of(context).size.height),
+                    child: GridView.count(
+                      crossAxisCount: 5,
+                      crossAxisSpacing: 10,
+                      mainAxisSpacing: 10,
+                      shrinkWrap: true,
+                      childAspectRatio: (MediaQuery.of(context).size.width) /
+                          (MediaQuery.of(context).size.height) /
+                          2.5,
+                      children: _cards(),
+                    ),
                   ),
-                ),
-              );
+                );
+              } else {
+                return Center(
+                  child: Text(
+                    'NO CREDIT APPROVALS',
+                    style: TextStyle(
+                      color: Colors.grey[500],
+                      fontFamily: 'Cairo_SemiBold',
+                      fontSize: 20,                                     
+                    ),
+                  ),
+                );
+              }
             } else {
               return Center(
                 child: Text(
-                  'No credits to show',
+                  'NO CREDIT APPROVALS',
+                  style: TextStyle(
+                    color: Colors.grey[500],
+                    fontFamily: 'Cairo_SemiBold',
+                    fontSize: 20,
+                  ),
                 ),
               );
             }
@@ -287,7 +308,7 @@ class _CreditPage extends State<CreditScreen> {
                                 SnackNotification.notif(
                                   'Error',
                                   'Something went wrong while approving the loan',
-                                  Colors.redAccent.shade200,
+                                  Colors.red.shade600,
                                 );
                               } else {
                                 //refresh the data in the window
@@ -321,7 +342,7 @@ class _CreditPage extends State<CreditScreen> {
                           SnackNotification.notif(
                             'Error',
                             'Something went wrong while approving the loan',
-                            Colors.redAccent.shade200,
+                            Colors.red.shade600,
                           );
                         } else {
                           //refresh the data in the window
@@ -354,7 +375,7 @@ class _CreditPage extends State<CreditScreen> {
               SnackNotification.notif(
                 'PENDING',
                 'The message is in transit to the network',
-                Colors.orange.shade500,
+                Colors.orange.shade600,
               )
             }
         });

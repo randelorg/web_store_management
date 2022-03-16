@@ -140,20 +140,20 @@ class PdfInvoiceApi {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 buildText(
-                  title: 'Net total',
+                  title: 'Net Total:',
                   value: Mapping.formatPrice(netTotal),
                   unite: true,
                 ),
                 buildText(
-                  title: 'Vat ${vatPercent * 100} %',
+                  title: 'Vat: ${vatPercent * 100} %',
                   value: Mapping.formatPrice(vat),
                   unite: true,
                 ),
                 Divider(),
                 buildText(
-                  title: 'Total amount due',
+                  title: 'Total Amount Due:',
                   titleStyle: TextStyle(
-                    fontSize: 14,
+                    fontSize: 12,
                     fontWeight: FontWeight.bold,
                   ),
                   value: Mapping.formatPrice(total),
@@ -176,9 +176,9 @@ class PdfInvoiceApi {
         children: [
           Divider(),
           SizedBox(height: 2 * PdfPageFormat.mm),
-          buildSimpleText(title: 'Address', value: 'Dellrains Store Mabolo'),
+          buildSimpleText(title: 'Store Address:', value: 'Dellrains Store Mabolo'),
           SizedBox(height: 1 * PdfPageFormat.mm),
-          buildSimpleText(title: 'Contact', value: '+63 933-854-5538'),
+          buildSimpleText(title: 'Contact No:', value: '+63 933 854 5538  '),
         ],
       );
 

@@ -38,7 +38,7 @@ class BorrowerOperation extends Login implements IBorrower, IPay, IServices {
       SnackNotification.notif(
         'Error',
         'Something went wrong while updating the borrower',
-        Colors.redAccent.shade200,
+        Colors.red.shade600,
       );
       return false;
     }
@@ -68,7 +68,7 @@ class BorrowerOperation extends Login implements IBorrower, IPay, IServices {
       SnackNotification.notif(
         'Error',
         'Something went wrong while fetching borrowers',
-        Colors.redAccent.shade200,
+        Colors.red.shade600,
       );
       return false;
     }

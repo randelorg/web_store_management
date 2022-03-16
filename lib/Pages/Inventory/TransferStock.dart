@@ -8,7 +8,7 @@ import 'package:web_store_management/Notification/Snack_notification.dart';
 class TransferStock extends StatefulWidget {
   final List<String>? branches;
   final String? productName;
-  final Widget? qty;
+  final Text? qty;
   TransferStock({required this.branches, this.productName, this.qty});
   @override
   _TransferStock createState() => _TransferStock();
@@ -30,7 +30,7 @@ class _TransferStock extends State<TransferStock> {
       originStore = widget.branches![0].toString();
       destinationBranch = originStore;
       productName.text = widget.productName.toString();
-      maxqty.text = widget.qty.toString();
+      maxqty.text = widget.qty!.data.toString();
     });
     super.initState();
   }
@@ -67,21 +67,7 @@ class _TransferStock extends State<TransferStock> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(top: 25, bottom: 10),
-              child: Container(
-                child: Container(
-                  alignment: Alignment.topLeft,
-                  child: Text('Transfer Products to Another Branch.',
-                      style: TextStyle(
-                        fontFamily: 'Cairo_SemiBold',
-                        fontSize: 16,
-                        color: HexColor("#155293"),
-                      )),
-                ),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(left: 3),
+              padding: EdgeInsets.only(top: 20, left: 3),
               child: Container(
                 alignment: Alignment.topLeft,
                 child: Text(
@@ -122,7 +108,13 @@ class _TransferStock extends State<TransferStock> {
                             .map<DropdownMenuItem<String>>((String value) {
                           return DropdownMenuItem<String>(
                             value: value,
-                            child: Text(value),
+                            child: Padding(
+                              padding: EdgeInsets.only(left: 10),
+                              child: Text(
+                                value,
+                                style: TextStyle(fontSize: 15),
+                              ),
+                            ),
                           );
                         }).toList(),
                       ),
@@ -172,7 +164,13 @@ class _TransferStock extends State<TransferStock> {
                             .map<DropdownMenuItem<String>>((String value) {
                           return DropdownMenuItem<String>(
                             value: value,
-                            child: Text(value),
+                            child: Padding(
+                              padding: EdgeInsets.only(left: 10),
+                              child: Text(
+                                value,
+                                style: TextStyle(fontSize: 15),
+                              ),
+                            ),
                           );
                         }).toList(),
                       ),
@@ -181,15 +179,12 @@ class _TransferStock extends State<TransferStock> {
                 ),
               ],
             ),
-            Divider(
-              thickness: 3,
-            ),
             Padding(
               padding: EdgeInsets.only(left: 3),
               child: Container(
                 alignment: Alignment.topLeft,
                 child: Text(
-                  'Product',
+                  'Product Name',
                   style: TextStyle(fontSize: 10),
                 ),
               ),
@@ -323,22 +318,29 @@ class _TransferStock extends State<TransferStock> {
                           ),
                           child: const Text('CONFIRM'),
                           onPressed: () {
-                            transfer
-                                .transferStock(
-                              _findProdBarcode(productName.text),
-                              int.parse(qty.text),
-                              _findBranchCode(destinationBranch),
-                            )
-                                .then((value) {
-                              if (value) {
-                                Navigator.pop(context);
-                                SnackNotification.notif(
-                                  'Success',
-                                  "Product ${productName.text} is transfferd",
-                                  Colors.green.shade600,
-                                );
-                              }
-                            });
+                            if (productName.text.isEmpty || qty.text.isEmpty) {
+                              SnackNotification.notif(
+                                "Error",
+                                "Please fill all the fields",
+                               Colors.red.shade600);                           
+                            } else {
+                              transfer
+                                  .transferStock(
+                                _findProdBarcode(productName.text),
+                                int.parse(qty.text),
+                                _findBranchCode(destinationBranch),
+                              )
+                                  .then((value) {
+                                if (value) {
+                                  Navigator.pop(context);
+                                  SnackNotification.notif(
+                                    'Success',
+                                    "Product ${productName.text} is already transfered",
+                                    Colors.green.shade600,
+                                  );
+                                }
+                              });
+                            }
                           },
                         ),
                       ],

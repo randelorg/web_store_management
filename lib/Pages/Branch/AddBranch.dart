@@ -225,7 +225,7 @@ class _AddBranch extends State<AddBranch> {
                                     (value) => SnackNotification.notif(
                                       'Success',
                                       'New branch added successfully',
-                                      Colors.green.shade900,
+                                      Colors.green.shade600,
                                     ),
                                   );
                             }

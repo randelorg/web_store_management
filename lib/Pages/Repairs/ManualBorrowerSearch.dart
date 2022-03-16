@@ -72,13 +72,18 @@ class _ManualBorrowerSearch extends State<ManualBorrowerSearch> {
                             iconSize: 25,
                             icon: Icon(Icons.search, color: Colors.grey),
                             onPressed: () {
+                              if (borrowername.text.isEmpty) {
+                                return;
+                              }
+
                               String fullname = borrowername.text.trim();
                               List<String> name = fullname.split(" ");
                               borrowerDetail = _findName(name[0], name[1]);
-                              if (borrowerDetail != []) {
+                              if (borrowerDetail.isNotEmpty) {
                                 setState(() {
                                   confirmedname.text =
                                       borrowerDetail[1].toString();
+                                  //function display the borrower name
                                   getName();
                                 });
                               }
@@ -98,28 +103,34 @@ class _ManualBorrowerSearch extends State<ManualBorrowerSearch> {
                       ),
                     ),
 
+                    //function display the borrower name
                     getName(),
 
                     // Pay Button
                     Container(
                       margin: const EdgeInsets.only(top: 20),
-                      height: 40, width: 110,
+                      height: 40,
+                      width: 110,
                       decoration: BoxDecoration(
-                          color: HexColor("#155293"),
-                          borderRadius: BorderRadius.circular(20)),
+                        color: HexColor("#155293"),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
                       child: TextButton(
                         child: Text(
                           'CONFIRM',
                           style: TextStyle(
-                              fontFamily: 'Cairo_SemiBold',
-                              fontSize: 16,
-                              color: Colors.white),
+                            fontFamily: 'Cairo_SemiBold',
+                            fontSize: 16,
+                            color: Colors.white,
+                          ),
                         ),
                         onPressed: () {
-                          if (borrowername.text.isEmpty) {                         
+                          if (borrowerDetail.isEmpty) {
                             SnackNotification.notif(
                               "Error",
-                              "Please fill the borrower name field",Colors.red.shade600);
+                              "Please find the borrower name",
+                              Colors.red.shade600,
+                            );
                           } else {
                             Navigator.pop(context);
                             showDialog(

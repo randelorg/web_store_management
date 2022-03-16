@@ -91,7 +91,7 @@ class EmployeeOperation implements IEmployee {
       SnackNotification.notif(
         'Error',
         'Something went wrong while updating the employee',
-        Colors.redAccent.shade200,
+        Colors.red.shade600,
       );
       return false;
     }
@@ -144,26 +144,27 @@ class EmployeeOperation implements IEmployee {
 
     try {
       final response = await http.post(
-        Uri.parse("http://localhost:8090/api/clockout"),
+        Uri.parse("${Url.url}api/clockout"),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json'
         },
         body: adminUpdateLoad,
       );
+      
+      //if response is empty return false
+      if (response.statusCode == 404) {
+        return false;
+      }
 
-      if (response.statusCode == 404) return false;
+      if (response.statusCode == 202) {
+        return true;
+      }
     } catch (e) {
-      e.toString();
-      SnackNotification.notif(
-        'Error',
-        'Something went wrong while updating time out',
-        Colors.redAccent.shade200,
-      );
+      print(e.toString());
       return false;
     }
 
-    //if status code is 202
     return true;
   }
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 import '../../Backend/BranchOperation.dart';
+import '../../Notification/Snack_notification.dart';
 
 class UpdateBranch extends StatefulWidget {
   final String? branchCode, branchName, branchAddress;
@@ -12,17 +13,18 @@ class UpdateBranch extends StatefulWidget {
 }
 
 class _UpdateBranch extends State<UpdateBranch> {
+
   var branch = BranchOperation();
-  final TextEditingController branchName = new TextEditingController();
-  final TextEditingController branchAddress = new TextEditingController();
+  final branchName = TextEditingController();
+  final branchAddress = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-
     branchName.text = widget.branchName.toString();
     branchAddress.text = widget.branchAddress.toString();
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -145,7 +147,31 @@ class _UpdateBranch extends State<UpdateBranch> {
                             ),
                           ),
                           child: const Text('UPDATE'),
-                          onPressed: () {},
+                          onPressed: () {
+                            if(branchName.text.isEmpty || branchAddress.text.isEmpty){                 
+                              SnackNotification.notif(                             
+                                "Error",
+                                "Please fill all the fields",
+                                Colors.red.shade600);
+                            } else {
+                              branch.
+                              updateBranch(
+                                widget.branchCode.toString(),
+                                branchName.text, 
+                                branchAddress.text
+                                ) 
+                                .then((value) {                                 
+                                  if (value) {                                    
+                                    Navigator.pop(context);
+                                    SnackNotification.notif(                           
+                                      'Success',
+                                      "Branch" + branchName.text + " is updated",
+                                     Colors.green.shade600,
+                                    );
+                                  }
+                                });
+                            }
+                          },
                         ),
                       ],
                     ),

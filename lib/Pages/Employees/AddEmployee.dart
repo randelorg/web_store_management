@@ -106,10 +106,10 @@ class _AddEmployee extends State<AddEmployee> {
                       return DropdownMenuItem<String>(
                         value: value,
                         child: Padding(
-                          padding: EdgeInsets.only(left: 25),
+                          padding: EdgeInsets.only(left: 10),
                           child: Text(
                             value,
-                            style: TextStyle(fontSize: 14),
+                            style: TextStyle(fontSize: 15),
                           ),
                         ),
                       );

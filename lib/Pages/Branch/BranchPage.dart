@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:web_store_management/Backend/GlobalController.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
+import 'package:web_store_management/Models/BranchModel.dart';
 import 'package:web_store_management/Pages/Branch/AddBranch.dart';
 import 'package:web_store_management/Pages/Branch/UpdateBranch.dart';
 
@@ -12,7 +13,8 @@ class BranchPage extends StatefulWidget {
 
 class _BranchPage extends State<BranchPage> {
   var controller = GlobalController();
-  late Future branches;
+  var _sortAscending = true;
+  late Future<List<BranchModel>> branches;
 
   @override
   void initState() {
@@ -108,7 +110,7 @@ class _BranchPage extends State<BranchPage> {
           child: Container(
             width: (MediaQuery.of(context).size.width),
             height: (MediaQuery.of(context).size.height),
-            child: FutureBuilder(
+            child: FutureBuilder<List<BranchModel>>(
               future: branches,
               builder: (context, snapshot) {
                 if (!snapshot.hasData) {
@@ -126,9 +128,25 @@ class _BranchPage extends State<BranchPage> {
                       PaginatedDataTable(
                         showCheckboxColumn: false,
                         showFirstLastButtons: true,
+                        sortAscending: _sortAscending,
+                        sortColumnIndex: 0,
                         rowsPerPage: 12,
                         columns: [
-                          DataColumn(label: Text('CODE')),
+                          DataColumn(
+                            label: Text('CODE'),
+                            onSort: (index, sortAscending) {
+                              setState(() {
+                                _sortAscending = sortAscending;
+                                if (sortAscending) {
+                                  snapshot.data!.sort((a, b) =>
+                                      a.branchCode.compareTo(b.branchCode));
+                                } else {
+                                  snapshot.data!.sort((a, b) =>
+                                      b.branchCode.compareTo(a.branchCode));
+                                }
+                              });
+                            },
+                          ),
                           DataColumn(label: Text('NAME')),
                           DataColumn(label: Text('ADDRESS')),
                           DataColumn(label: Text('ATTENDANT')),

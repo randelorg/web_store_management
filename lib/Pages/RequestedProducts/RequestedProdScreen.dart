@@ -4,6 +4,7 @@ import 'package:web_store_management/Backend/BorrowerOperation.dart';
 import 'package:web_store_management/Backend/GlobalController.dart';
 import 'package:web_store_management/Backend/TextMessage.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
+import 'package:web_store_management/Models/BorrowerModel.dart';
 import 'package:web_store_management/Notification/Snack_notification.dart';
 import 'package:web_store_management/Pages/RequestedProducts/ReqManualSearchBorrower.dart';
 
@@ -16,7 +17,7 @@ class _RequestedProdScreen extends State<RequestedProdScreen> {
   var controller = GlobalController();
   var borrower = BorrowerOperation();
   var message = TextMessage();
-  late Future _requested;
+  late Future<List<BorrowerModel>> _requested;
   final double textSize = 15;
   final double titleSize = 30;
 
@@ -111,7 +112,7 @@ class _RequestedProdScreen extends State<RequestedProdScreen> {
             ),
           ],
         ),
-        FutureBuilder(
+        FutureBuilder<List<BorrowerModel>>(
           future: _requested,
           builder: (context, snapshot) {
             if (!snapshot.hasData) {
@@ -122,27 +123,45 @@ class _RequestedProdScreen extends State<RequestedProdScreen> {
               );
             }
             if (snapshot.hasData) {
-              return Expanded(
-                child: Container(
-                  padding: EdgeInsets.only(right: 20, left: 20),
-                  width: (MediaQuery.of(context).size.width),
-                  height: (MediaQuery.of(context).size.height),
-                  child: GridView.count(
-                    crossAxisCount: 5,
-                    crossAxisSpacing: 10,
-                    mainAxisSpacing: 10,
-                    shrinkWrap: true,
-                    childAspectRatio: (MediaQuery.of(context).size.width) /
-                        (MediaQuery.of(context).size.height) /
-                        2.5,
-                    children: _cards(),
+              if (snapshot.data!.length > 0) {
+                return Expanded(
+                  child: Container(
+                    padding: EdgeInsets.only(right: 20, left: 20),
+                    width: (MediaQuery.of(context).size.width),
+                    height: (MediaQuery.of(context).size.height),
+                    child: GridView.count(
+                      crossAxisCount: 5,
+                      crossAxisSpacing: 10,
+                      mainAxisSpacing: 10,
+                      shrinkWrap: true,
+                      childAspectRatio: (MediaQuery.of(context).size.width) /
+                          (MediaQuery.of(context).size.height) /
+                          2.5,
+                      children: _cards(),
+                    ),
                   ),
-                ),
-              );
+                );
+              } else {
+                return Center(
+                  child: Text(
+                    'NO REQUESTED PRODUCTS',
+                    style: TextStyle(
+                      color: Colors.grey[500],
+                      fontFamily: 'Cairo_SemiBold',
+                      fontSize: 20, 
+                    ),
+                  ),
+                );
+              }
             } else {
               return Center(
                 child: Text(
-                  'No requested to show',
+                  'NO REQUESTED PRODUCTS',
+                  style: TextStyle(
+                    color: Colors.grey[500],
+                    fontFamily: 'Cairo_SemiBold',
+                    fontSize: 20, 
+                  ),
                 ),
               );
             }
@@ -322,10 +341,11 @@ class _RequestedProdScreen extends State<RequestedProdScreen> {
                         ),
                         TextButton(
                           style: TextButton.styleFrom(
-                            padding: const EdgeInsets.only(left: 20, right: 20, top: 12, bottom: 12),
-                            primary: Colors.white,
-                            textStyle: TextStyle(fontSize: 18, fontFamily: 'Cairo_SemiBold')
-                          ),
+                              padding: const EdgeInsets.only(
+                                  left: 20, right: 20, top: 12, bottom: 12),
+                              primary: Colors.white,
+                              textStyle: TextStyle(
+                                  fontSize: 18, fontFamily: 'Cairo_SemiBold')),
                           child: const Text('IN-STORE'),
                           onPressed: () {
                             requestStatus(
@@ -351,7 +371,7 @@ class _RequestedProdScreen extends State<RequestedProdScreen> {
                         Mapping.requested[index].getRequestedProductName,
                         Mapping.requested[index].toString(),
                         Mapping.requested[index].getMobileNumber,
-                       );
+                      );
                     },
                   ),
                 ],
@@ -363,17 +383,20 @@ class _RequestedProdScreen extends State<RequestedProdScreen> {
     );
   }
 
-  void sendRequestedMessage(String name, String number, String product, String status) {
-    message.sendRequestedProduct(name, number, product, status).then((value) => {
-          if (value)
-            {
-              SnackNotification.notif(
-                'PENDING',
-                'The message is in transit to the network',
-                Colors.orange.shade500,
-              )
-            }
-        });
+  void sendRequestedMessage(
+      String name, String number, String product, String status) {
+    message
+        .sendRequestedProduct(name, number, product, status)
+        .then((value) => {
+              if (value)
+                {
+                  SnackNotification.notif(
+                    'PENDING',
+                    'The message is in transit to the network',
+                    Colors.orange.shade500,
+                  )
+                }
+            });
   }
 
   void requestStatus(

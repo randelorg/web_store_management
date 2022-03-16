@@ -8,7 +8,8 @@ import 'package:web_store_management/Backend/Utility/Mapping.dart';
 import 'package:web_store_management/Helpers/PrintHelper.dart';
 import 'package:web_store_management/Models/BorrowerModel.dart';
 import 'package:web_store_management/Models/InvoiceModel.dart';
-import 'package:web_store_management/Models/ProductModel.dart';
+
+import '../../Notification/Snack_notification.dart';
 
 class CashPaymentPage extends StatefulWidget {
   @override
@@ -41,21 +42,21 @@ class _CashPaymentPage extends State<CashPaymentPage> {
           child: Column(
             children: [
               Padding(
-                padding: const EdgeInsets.only(top: 120),
+                padding: const EdgeInsets.only(top: 160),
                 child: Text(
-                  'Customer Details',
-                  textAlign: TextAlign.center,
+                  "Step 1",
                   style: TextStyle(
-                    color: HexColor("#155293"),
-                    fontFamily: 'Cairo_Bold',
-                    fontSize: 30,
-                    overflow: TextOverflow.fade,
+                    fontSize: 15,
+                    fontWeight: FontWeight.normal,
                   ),
-                  maxLines: 2,
                 ),
               ),
+              Text(
+                "CUSTOMER DETAILS",
+                style: TextStyle(fontFamily: 'Cairo_Bold', fontSize: 30),
+              ),
               Padding(
-                padding: EdgeInsets.all(6.0),
+                padding: EdgeInsets.only(top: 20, bottom: 6, right: 6, left: 6),
                 child: TextField(
                   controller: fname,
                   decoration: InputDecoration(
@@ -76,7 +77,7 @@ class _CashPaymentPage extends State<CashPaymentPage> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.all(6.0),
+                padding: EdgeInsets.all(6),
                 child: TextField(
                   controller: lname,
                   decoration: InputDecoration(
@@ -97,11 +98,11 @@ class _CashPaymentPage extends State<CashPaymentPage> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(6.0),
+                padding: const EdgeInsets.all(6),
                 child: TextField(
                   controller: address,
                   decoration: InputDecoration(
-                    hintText: 'Address',
+                    hintText: 'Home Address',
                     filled: true,
                     fillColor: Colors.blueGrey[50],
                     labelStyle: TextStyle(fontSize: 12),
@@ -120,48 +121,36 @@ class _CashPaymentPage extends State<CashPaymentPage> {
             ],
           ),
         ),
-        Container(
-          child: Row(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 25, right: 25),
-                child: const VerticalDivider(
-                  color: Colors.grey,
-                  thickness: 1,
-                  indent: 80,
-                  endIndent: 80,
-                  width: 10,
-                ),
-              ),
-            ],
+        Padding(
+          padding: const EdgeInsets.only(left: 20, right: 20),
+          child: const VerticalDivider(
+            color: Colors.grey,
+            thickness: 1,
+            indent: 60,
+            endIndent: 60,
+            width: 10,
           ),
         ),
         Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Row(
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(bottom: 20, right: 8),
-                  child: Align(
-                    alignment: Alignment.topRight,
-                    child: IconButton(
-                      icon: Icon(
-                        Icons.cancel,
-                        color: Colors.black,
-                        size: 30,
-                      ),
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                    ),
-                  ),
+            Padding(
+              padding: const EdgeInsets.only(top: 40),
+              child: Text(
+                "Step 2",
+                style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.normal,
                 ),
-              ],
+              ),
+            ),
+            Text(
+              "SELECT PRODUCTS",
+              style: TextStyle(fontFamily: 'Cairo_Bold', fontSize: 30),
             ),
             Expanded(
               child: Container(
+                padding: EdgeInsets.only(top: 20, bottom: 10, right: 10, left: 10),
                 width: (MediaQuery.of(context).size.width) / 1.5,
                 height: (MediaQuery.of(context).size.height),
                 child: ListView(
@@ -203,6 +192,7 @@ class _CashPaymentPage extends State<CashPaymentPage> {
                 ),
               ),
             ),
+
             SizedBox(
               height: 5,
             ),
@@ -220,11 +210,7 @@ class _CashPaymentPage extends State<CashPaymentPage> {
                   TextButton(
                     style: TextButton.styleFrom(
                       padding: const EdgeInsets.only(
-                        left: 36,
-                        right: 36,
-                        top: 18,
-                        bottom: 18,
-                      ),
+                          left: 36, right: 36, top: 18, bottom: 18),
                       primary: Colors.white,
                       textStyle: TextStyle(
                         fontFamily: 'Cairo_SemiBold',
@@ -234,39 +220,63 @@ class _CashPaymentPage extends State<CashPaymentPage> {
                     ),
                     child: const Text('DONE'),
                     onPressed: () async {
-                      final date = DateTime.now();
-                      final dueDate = date.add(Duration(days: 7));
+                      if (fname.text.isEmpty || lname.text.isEmpty || address.text.isEmpty) {
+                        SnackNotification.notif(
+                          "Error",
+                          "Please fill all the fields",
+                          Colors.red.shade600);
+                      } else {
+                        final date = DateTime.now();
+                        final dueDate = date.add(Duration(days: 7));
 
-                      final invoice = Invoice(
-                        customer: BorrowerModel.invoice(
-                          fname.text.trim(),
-                          lname.text.trim(),
-                          address.text.trim(),
-                        ),
-                        info: InvoiceInfo(
-                          date: date,
-                          description:
-                              'This will serve as your Unofficial Receipt. Thank you.',
-                          number: '${DateTime.now().year}-9999',
-                          dueDate: dueDate,
-                        ),
-                        items: Mapping.invoice,
-                      );
+                        final invoice = Invoice(
+                          customer: BorrowerModel.invoice(
+                            fname.text.trim(),
+                            lname.text.trim(),
+                            address.text.trim(),
+                          ),
+                          info: InvoiceInfo(
+                            date: date,
+                            description:
+                                'This will serve as your Unofficial Receipt. Thank you!',
+                            number: '${DateTime.now().year}-9999',
+                            dueDate: dueDate,
+                          ),
+                          items: Mapping.invoice,
+                        );
 
-                      Navigator.pop(context);
-                      //show the print screen
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return showInvoice(invoice);
-                        },
-                      );
+                        Navigator.pop(context);
+                        //show the print screen
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return showInvoice(invoice);
+                          },
+                        );
+                      }
                     },
                   ),
                 ],
               ),
             ),
           ],
+        ),
+        
+        Padding(
+          padding: EdgeInsets.only(bottom: 5, right: 8),
+          child: Align(
+            alignment: Alignment.topRight,
+            child: IconButton(
+              icon: Icon(
+                Icons.cancel,
+                color: Colors.black,
+                size: 30,
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ),
         ),
       ],
     );

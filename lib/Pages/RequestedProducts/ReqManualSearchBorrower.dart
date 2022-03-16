@@ -12,7 +12,6 @@ class ReqManualBorrowerSearch extends StatefulWidget {
 }
 
 class _ReqManualBorrowerSearch extends State<ReqManualBorrowerSearch> {
-  
   var borrower = BorrowerOperation();
   var controller = GlobalController();
 
@@ -31,23 +30,23 @@ class _ReqManualBorrowerSearch extends State<ReqManualBorrowerSearch> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      actionsPadding: EdgeInsets.only(bottom: 5, left: 5, right: 5),   
+      actionsPadding: EdgeInsets.only(bottom: 5, left: 5, right: 5),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-      actions: <Widget>[         
+      actions: <Widget>[
         Column(
           children: [
-            Align(          
+            Align(
               alignment: Alignment.topRight,
               child: IconButton(
-              icon: Icon(
-                Icons.cancel,
-                color: Colors.black,
-                size: 30,
-              ),
-              onPressed: () {    
-                Navigator.of(context).pop();
-              }),
-            ), 
+                  icon: Icon(
+                    Icons.cancel,
+                    color: Colors.black,
+                    size: 30,
+                  ),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  }),
+            ),
             Text(
               'Search Borrower',
               softWrap: true,
@@ -58,7 +57,6 @@ class _ReqManualBorrowerSearch extends State<ReqManualBorrowerSearch> {
                 fontSize: 30,
               ),
             ),
-        
             Form(
               child: Center(
                 child: Column(
@@ -74,11 +72,15 @@ class _ReqManualBorrowerSearch extends State<ReqManualBorrowerSearch> {
                           filled: true,
                           fillColor: Colors.blueGrey[50],
                           labelStyle: TextStyle(fontSize: 12),
-                          contentPadding: EdgeInsets.only(left: 15),                        
+                          contentPadding: EdgeInsets.only(left: 15),
                           suffixIcon: IconButton(
                             iconSize: 25,
-                            icon: Icon(Icons.search, color: Colors.grey),                  
+                            icon: Icon(Icons.search, color: Colors.grey),
                             onPressed: () {
+                              if (borrowername.text.isEmpty) {
+                                return;
+                              }
+
                               String fullname = borrowername.text.trim();
                               List<String> name = fullname.split(" ");
                               borrowerDetail = _findName(name[0], name[1]);
@@ -86,20 +88,22 @@ class _ReqManualBorrowerSearch extends State<ReqManualBorrowerSearch> {
                                 setState(() {
                                   confirmedname.text =
                                       borrowerDetail[1].toString();
-                                  getName();      
+                                  getName();
                                 });
-                              }    
+                              }
                             },
                           ),
                           enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                            borderRadius: BorderRadius.circular(10),
-                          ),           
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                            borderSide:
+                                BorderSide(color: Colors.blueGrey.shade50),
                             borderRadius: BorderRadius.circular(10),
                           ),
-                        ),                    
+                          focusedBorder: OutlineInputBorder(
+                            borderSide:
+                                BorderSide(color: Colors.blueGrey.shade50),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
                       ),
                     ),
 
@@ -107,40 +111,41 @@ class _ReqManualBorrowerSearch extends State<ReqManualBorrowerSearch> {
 
                     Container(
                       margin: const EdgeInsets.only(top: 20),
-                      height: 40, width: 110,
+                      height: 40,
+                      width: 110,
                       decoration: BoxDecoration(
                           color: HexColor("#155293"),
                           borderRadius: BorderRadius.circular(20)),
                       child: TextButton(
-                        child: Text(
-                          'CONFIRM',
-                          style: TextStyle(           
-                          fontFamily: 'Cairo_SemiBold',
-                          fontSize: 16,
-                          color: Colors.white
+                          child: Text(
+                            'CONFIRM',
+                            style: TextStyle(
+                              fontFamily: 'Cairo_SemiBold',
+                              fontSize: 16,
+                              color: Colors.white,
+                            ),
                           ),
-                        ),
-                        onPressed: () {
-                          if(borrowername.text.isEmpty){
-                             SnackNotification.notif(
-                              "Error",
-                              "Please fill the borrower name field",Colors.red.shade600);                        
-                          } else {             
-                            Navigator.pop(context);
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return AddRequest(
-                                  id: borrowerDetail[0],
-                                  name: borrowerDetail[1],
-                                  address: borrowerDetail[2],
-                                  number: borrowerDetail[3],
-                                );
-                              },
-                            );
-                          }       
-                        }                       
-                      ),
+                          onPressed: () {
+                            if (borrowerDetail.isEmpty) {
+                              SnackNotification.notif(
+                                  "Error",
+                                  "Please fill the borrower name field",
+                                  Colors.red.shade600);
+                            } else {
+                              Navigator.pop(context);
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AddRequest(
+                                    id: borrowerDetail[0],
+                                    name: borrowerDetail[1],
+                                    address: borrowerDetail[2],
+                                    number: borrowerDetail[3],
+                                  );
+                                },
+                              );
+                            }
+                          }),
                     ),
                   ],
                 ),
@@ -157,7 +162,8 @@ class _ReqManualBorrowerSearch extends State<ReqManualBorrowerSearch> {
       children: [
         // Display Borrowers Name
         Container(
-          height: 45, width: 350,
+          height: 45,
+          width: 350,
           child: Card(
             elevation: 3,
             shadowColor: Colors.black,

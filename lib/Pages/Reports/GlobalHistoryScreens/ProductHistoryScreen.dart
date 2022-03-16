@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:web_store_management/Backend/HistoryOperation.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
+import 'package:web_store_management/Models/LoanedProductHistoryModel.dart';
 
 class ProductHistory extends StatefulWidget {
   final String? borrowerId, borrowerName;
@@ -12,10 +13,14 @@ class ProductHistory extends StatefulWidget {
 }
 
 class _ProductHistory extends State<ProductHistory> {
+  
   var history = HistoryOperation();
+  late Future<List<LoanedProductHistory>> _productHistory;
+  var _sortAscending = true;
 
   @override
   void initState() {
+    _productHistory = history.viewLoanHistory(widget.borrowerId.toString());
     super.initState();
   }
 
@@ -27,7 +32,7 @@ class _ProductHistory extends State<ProductHistory> {
       child: ListView(
         scrollDirection: Axis.vertical,
         children: [
-          Padding(   
+          Padding(
             padding: EdgeInsets.only(bottom: 5, right: 8),
             child: Align(
               alignment: Alignment.topRight,
@@ -36,25 +41,25 @@ class _ProductHistory extends State<ProductHistory> {
                   Icons.cancel,
                   color: Colors.black,
                   size: 30,
-                ),             
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
+                ),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
             ),
           ),
-        ),
-        Text(
-         'Loaned Product History',
-          softWrap: true,
-          textAlign: TextAlign.center,
-          style: TextStyle( 
-            color: HexColor("#155293"),
-            fontFamily: 'Cairo_Bold',
-            fontSize: 30,
+          Text(
+            'Loaned Product History',
+            softWrap: true,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: HexColor("#155293"),
+              fontFamily: 'Cairo_Bold',
+              fontSize: 30,
+            ),
           ),
-        ), 
-          FutureBuilder(
-            future: history.viewLoanHistory(widget.borrowerId.toString()),
+          FutureBuilder<List<LoanedProductHistory>>(
+            future: _productHistory,
             builder: (context, snapshot) {
               if (!snapshot.hasData) {
                 return Center(
@@ -62,7 +67,7 @@ class _ProductHistory extends State<ProductHistory> {
                 );
               }
               if (snapshot.hasData) {
-                if (snapshot.data == true) {
+                if (snapshot.data!.isNotEmpty) {
                   return PaginatedDataTable(
                     header: Text(
                       widget.borrowerName.toString().toUpperCase(),
@@ -74,31 +79,73 @@ class _ProductHistory extends State<ProductHistory> {
                     ),
                     showCheckboxColumn: false,
                     showFirstLastButtons: true,
+                    sortAscending: _sortAscending,
+                    sortColumnIndex: 5,
                     rowsPerPage: 15,
                     columns: [
                       DataColumn(label: Text('LOANID')),
-                      DataColumn(label: Text('PRODUCT \n NAME',textAlign: TextAlign.center)),
+                      DataColumn(
+                        label: Text(
+                          'PRODUCT \n NAME',
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
                       DataColumn(label: Text('PRICE')),
                       DataColumn(label: Text('QTY')),
-                      DataColumn(label: Text('PAYMENT \n PLAN',textAlign: TextAlign.center)),
-                      DataColumn(label: Text('DATE \n ADDED',textAlign: TextAlign.center)),
-                      DataColumn(label: Text('DUE \n DATE',textAlign: TextAlign.center)),
+                      DataColumn(
+                        label: Text(
+                          'PAYMENT \n PLAN',
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                      DataColumn(
+                        label: Text(
+                          'DATE \n ADDED',
+                          textAlign: TextAlign.center,
+                        ),
+                        onSort: (index, sortAscending) {
+                          setState(() {
+                            _sortAscending = sortAscending;
+                            if (sortAscending) {
+                              snapshot.data!.sort((a, b) =>
+                                  a.getDateAdded.compareTo(b.getDateAdded));
+                            } else {
+                              snapshot.data!.sort((a, b) =>
+                                  b.getDateAdded.compareTo(a.getDateAdded));
+                            }
+                          });
+                        },
+                      ),
+                      DataColumn(
+                        label: Text(
+                          'DUE \n DATE',
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
                       DataColumn(label: Text('TERM')),
                     ],
                     source: _DataSource(context),
                   );
                 } else {
                   return Center(
-                    child: Text('No Loan History'),
+                    child: Text(
+                      'NO LOAN HISTORY',        
+                      style: TextStyle(
+                        color: Colors.grey[500],
+                        fontFamily: 'Cairo_SemiBold',
+                        fontSize: 20
+                      ),
+                    ),               
                   );
                 }
               }
               return Center(
                 child: Text(
-                  'No loan history for this borrower',
+                  'NO LOAN HISTORY FOR THIS BORROWER',
                   style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
+                    color: Colors.grey[500],
+                    fontFamily: 'Cairo_SemiBold',
+                    fontSize: 20
                   ),
                 ),
               );

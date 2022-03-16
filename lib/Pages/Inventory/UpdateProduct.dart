@@ -7,7 +7,7 @@ import '../../Backend/Utility/Mapping.dart';
 
 class UpdateProduct extends StatefulWidget {
   final String? name, price, unit;
-  final Widget? quantity;
+  final Text? quantity;
   UpdateProduct({this.name, this.quantity, this.price, this.unit});
 
   @override
@@ -26,9 +26,8 @@ class _UpdateProduct extends State<UpdateProduct> {
   @override
   void initState() {
     super.initState();
-
     prodName.text = widget.name.toString();
-    prodQtySuffix.text = widget.quantity.toString();
+    prodQtySuffix.text = widget.quantity!.data.toString();
     prodPrice.text = widget.price.toString();
     prodUnit.text = widget.unit.toString();
   }
@@ -64,7 +63,6 @@ class _UpdateProduct extends State<UpdateProduct> {
                 fontSize: 30,
               ),
             ),
-
             Padding(
               padding: EdgeInsets.only(top: 20, left: 2),
               child: Container(
@@ -74,7 +72,7 @@ class _UpdateProduct extends State<UpdateProduct> {
                   style: TextStyle(fontSize: 10),
                 ),
               ),
-            ),  
+            ),
             Padding(
               padding: EdgeInsets.only(bottom: 15),
               child: TextField(
@@ -96,7 +94,6 @@ class _UpdateProduct extends State<UpdateProduct> {
                 ),
               ),
             ),
-
             Padding(
               padding: EdgeInsets.only(left: 2),
               child: Container(
@@ -106,9 +103,9 @@ class _UpdateProduct extends State<UpdateProduct> {
                   style: TextStyle(fontSize: 10),
                 ),
               ),
-            ),  
+            ),
             Padding(
-              padding: EdgeInsets.only(bottom: 15),   
+              padding: EdgeInsets.only(bottom: 15),
               child: TextField(
                 controller: prodQuantity,
                 onChanged: (value) {
@@ -136,7 +133,6 @@ class _UpdateProduct extends State<UpdateProduct> {
                 ),
               ),
             ),
-       
             Padding(
               padding: EdgeInsets.only(left: 2),
               child: Container(
@@ -146,7 +142,7 @@ class _UpdateProduct extends State<UpdateProduct> {
                   style: TextStyle(fontSize: 10),
                 ),
               ),
-            ), 
+            ),
             Padding(
               padding: EdgeInsets.only(bottom: 15),
               child: TextField(
@@ -168,7 +164,6 @@ class _UpdateProduct extends State<UpdateProduct> {
                 ),
               ),
             ),
-
             Padding(
               padding: EdgeInsets.only(left: 2),
               child: Container(
@@ -215,7 +210,8 @@ class _UpdateProduct extends State<UpdateProduct> {
                     ),
                     TextButton(
                       style: TextButton.styleFrom(
-                        padding: const EdgeInsets.only(left: 36, right: 36, top: 18, bottom: 18),
+                        padding: const EdgeInsets.only(
+                            left: 36, right: 36, top: 18, bottom: 18),
                         primary: Colors.white,
                         textStyle: TextStyle(
                             fontFamily: 'Cairo_SemiBold',
