@@ -99,10 +99,11 @@ class _CreditPage extends State<CreditScreen> {
               } else {
                 return Center(
                   child: Text(
-                    'No Credit Approvals',
+                    'NO CREDIT APPROVALS',
                     style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
+                      color: Colors.grey[500],
+                      fontFamily: 'Cairo_SemiBold',
+                      fontSize: 20,                                     
                     ),
                   ),
                 );
@@ -110,10 +111,11 @@ class _CreditPage extends State<CreditScreen> {
             } else {
               return Center(
                 child: Text(
-                  'No Credit Approvals',
+                  'NO CREDIT APPROVALS',
                   style: TextStyle(
+                    color: Colors.grey[500],
+                    fontFamily: 'Cairo_SemiBold',
                     fontSize: 20,
-                    fontWeight: FontWeight.bold,
                   ),
                 ),
               );

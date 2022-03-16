@@ -145,10 +145,11 @@ class _RepairsPage extends State<RepairsPage> {
               } else {
                 return Center(
                   child: Text(
-                    'No repairs found',
+                    'NO REPAIRS FOUND',
                     style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
+                      color: Colors.grey[500],
+                      fontFamily: 'Cairo_SemiBold',
+                      fontSize: 20,   
                     ),
                   ),
                 );
@@ -156,10 +157,11 @@ class _RepairsPage extends State<RepairsPage> {
             } else {
               return Center(
                 child: Text(
-                  'No repairs found',
+                  'NO REPAIRS FOUND',
                   style: TextStyle(
+                    color: Colors.grey[500],
+                    fontFamily: 'Cairo_SemiBold',
                     fontSize: 20,
-                    fontWeight: FontWeight.bold,
                   ),
                 ),
               );

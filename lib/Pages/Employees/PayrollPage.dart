@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
+import 'package:web_store_management/Models/EmployeeModel.dart';
 import '../../Backend/GlobalController.dart';
 import 'package:hexcolor/hexcolor.dart';
 
@@ -12,17 +13,20 @@ class PayrollPage extends StatefulWidget {
 
 class _Payrollpage extends State<PayrollPage> {
   var controller = GlobalController();
+  late Future<List<EmployeeModel>> employees;
+  var _sortAscending = true;
 
   @override
   void initState() {
     super.initState();
+    employees = controller.fetchAllEmployees();
   }
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        Padding(            
+        Padding(
           padding: EdgeInsets.only(bottom: 5, right: 8),
           child: Align(
             alignment: Alignment.topRight,
@@ -31,7 +35,7 @@ class _Payrollpage extends State<PayrollPage> {
                 Icons.cancel,
                 color: Colors.black,
                 size: 30,
-              ),    
+              ),
               onPressed: () {
                 Navigator.of(context).pop();
               },
@@ -39,34 +43,33 @@ class _Payrollpage extends State<PayrollPage> {
           ),
         ),
         Text(
-             'Payroll',
-              softWrap: true,
-              textAlign: TextAlign.center,
-              style: TextStyle(             
-                color: HexColor("#155293"),
-                fontFamily: 'Cairo_Bold',
-                fontSize: 30,
-              ),
-            ),
-            
+          'Payroll',
+          softWrap: true,
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            color: HexColor("#155293"),
+            fontFamily: 'Cairo_Bold',
+            fontSize: 30,
+          ),
+        ),
         Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Padding(
-              padding: EdgeInsets.only(left: 20, top: 20, bottom: 5),
+              padding: EdgeInsets.only(left: 20, top: 50),
               child: Text(
                 widget.employeeName.toString().toUpperCase(),
                 style: TextStyle(
-                  color: HexColor("#155293"),
-                  fontFamily: 'Cairo_Bold',
-                  fontSize: 20,
+                  color: Colors.black,
+                  fontFamily: 'Cairo_SemiBold',
+                  fontSize: 18,
                 ),
               ),
             ),
           ],
         ),
-        FutureBuilder(
-          future: controller.fetchAllEmployees(),
+        FutureBuilder<List<EmployeeModel>>(
+          future: employees,
           builder: (context, snapshot) {
             if (!snapshot.hasData) {
               return Center(
@@ -82,13 +85,28 @@ class _Payrollpage extends State<PayrollPage> {
                   height: (MediaQuery.of(context).size.height),
                   child: ListView(
                     scrollDirection: Axis.vertical,
-                    padding: const EdgeInsets.only(top: 20),
+                    padding: const EdgeInsets.only(top: 5),
                     children: [
                       PaginatedDataTable(
                         showCheckboxColumn: false,
+                        showFirstLastButtons: true,
+                        sortAscending: _sortAscending,
+                        sortColumnIndex: 0,
                         rowsPerPage: 10,
                         columns: [
-                          DataColumn(label: Text('PYID')),
+                          DataColumn(label: Text('PYID'),
+                          onSort: (index, sortAscending) {
+                              setState(() {
+                                _sortAscending = sortAscending;
+                                if (sortAscending) {
+                                  snapshot.data!.sort((a, b) =>
+                                      a.getEmployeeID.compareTo(b.getEmployeeID));
+                                } else {
+                                  snapshot.data!.sort((a, b) =>
+                                      b.getEmployeeID.compareTo(a.getEmployeeID));
+                                }
+                              });
+                            },),
                           DataColumn(label: Text('CHECKIN')),
                           DataColumn(label: Text('CHECKOUT')),
                           DataColumn(label: Text('WAGE')),

@@ -100,10 +100,11 @@ class _ReleasePage extends State<ReleasePage> {
               } else {
                 return Center(
                   child: Text(
-                    'No Borrowers to release',
+                    'NO BORROWERS TO RELEASE',
                     style: TextStyle(
+                      color: Colors.grey[500],
+                      fontFamily: 'Cairo_SemiBold',
                       fontSize: 20,
-                      fontWeight: FontWeight.bold,
                     ),
                   ),
                 );
@@ -111,10 +112,11 @@ class _ReleasePage extends State<ReleasePage> {
             } else {
               return Center(
                 child: Text(
-                  'No Borrowers to release',
+                  'NO BORROWERS TO RELEASE',
                   style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
+                    color: Colors.grey[500],
+                    fontFamily: 'Cairo_SemiBold',
+                    fontSize: 20,               
                   ),
                 ),
               );

@@ -66,7 +66,6 @@ class _TransferStock extends State<TransferStock> {
                 fontSize: 30,
               ),
             ),
-            
             Padding(
               padding: EdgeInsets.only(top: 20, left: 3),
               child: Container(
@@ -109,7 +108,7 @@ class _TransferStock extends State<TransferStock> {
                             .map<DropdownMenuItem<String>>((String value) {
                           return DropdownMenuItem<String>(
                             value: value,
-                            child: Padding(         
+                            child: Padding(
                               padding: EdgeInsets.only(left: 10),
                               child: Text(
                                 value,
@@ -165,7 +164,7 @@ class _TransferStock extends State<TransferStock> {
                             .map<DropdownMenuItem<String>>((String value) {
                           return DropdownMenuItem<String>(
                             value: value,
-                            child: Padding(         
+                            child: Padding(
                               padding: EdgeInsets.only(left: 10),
                               child: Text(
                                 value,
@@ -180,7 +179,6 @@ class _TransferStock extends State<TransferStock> {
                 ),
               ],
             ),
-           
             Padding(
               padding: EdgeInsets.only(left: 3),
               child: Container(
@@ -320,22 +318,29 @@ class _TransferStock extends State<TransferStock> {
                           ),
                           child: const Text('CONFIRM'),
                           onPressed: () {
-                            transfer
-                                .transferStock(
-                              _findProdBarcode(productName.text),
-                              int.parse(qty.text),
-                              _findBranchCode(destinationBranch),
-                            )
-                                .then((value) {
-                              if (value) {
-                                Navigator.pop(context);
-                                SnackNotification.notif(
-                                  'Success',
-                                  "Product ${productName.text} is transfered",
-                                  Colors.green.shade600,
-                                );
-                              }
-                            });
+                            if (productName.text.isEmpty || qty.text.isEmpty) {
+                              SnackNotification.notif(
+                                "Error",
+                                "Please fill all the fields",
+                               Colors.red.shade600);                           
+                            } else {
+                              transfer
+                                  .transferStock(
+                                _findProdBarcode(productName.text),
+                                int.parse(qty.text),
+                                _findBranchCode(destinationBranch),
+                              )
+                                  .then((value) {
+                                if (value) {
+                                  Navigator.pop(context);
+                                  SnackNotification.notif(
+                                    'Success',
+                                    "Product ${productName.text} is already transfered",
+                                    Colors.green.shade600,
+                                  );
+                                }
+                              });
+                            }
                           },
                         ),
                       ],
