@@ -1,9 +1,13 @@
+import 'package:web_store_management/Models/BorrowerModel.dart';
+import 'package:web_store_management/Models/LoanedProductHistoryModel.dart';
+import 'package:web_store_management/Models/PaymentHistoryModel.dart';
+
 class IHistory {
-  Future<bool> viewPaymentHistory(String userId) async {
+  Future<List<PaymentHistoryModel>> viewPaymentHistory(String userId) async {
     throw UnimplementedError();
   }
 
-  Future<bool> viewLoanHistory(String userId) {
+  Future<List<LoanedProductHistory>> viewLoanHistory(String userId) {
     throw UnimplementedError();
   }
 }
