@@ -272,7 +272,7 @@ class _UpdateProduct extends State<UpdateProduct> {
     String barcode = '';
     Mapping.productList
         .where((element) =>
-            element.productName?.toLowerCase() == prodName.text.toLowerCase())
+            element.productName?.toLowerCase() == widget.name.toString().toLowerCase())
         .forEach((element) {
       barcode = element.getProductCode;
     });

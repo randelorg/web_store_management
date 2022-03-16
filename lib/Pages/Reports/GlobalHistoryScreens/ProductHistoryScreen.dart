@@ -20,8 +20,8 @@ class _ProductHistory extends State<ProductHistory> {
 
   @override
   void initState() {
-    _productHistory = history.viewLoanHistory(widget.borrowerId.toString());
     super.initState();
+    this._productHistory = history.viewLoanHistory(widget.borrowerId.toString());
   }
 
   @override
@@ -58,73 +58,86 @@ class _ProductHistory extends State<ProductHistory> {
               fontSize: 30,
             ),
           ),
+
+          Row(        
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [         
+              Padding(
+                padding: EdgeInsets.only(left: 20, top: 50),
+                child: Text(
+                  widget.borrowerName.toString().toUpperCase(),
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontFamily: 'Cairo_SemiBold',
+                    fontSize: 18,
+                  ),
+                ),
+              ),
+            ],
+          ),
           FutureBuilder<List<LoanedProductHistory>>(
-            future: _productHistory,
+            future: this._productHistory,
             builder: (context, snapshot) {
               if (!snapshot.hasData) {
-                return Center(
-                  child: CircularProgressIndicator(),
+                return Center(      
+                  child: CircularProgressIndicator(        
+                    semanticsLabel: 'Fetching borrowers',
+                  ),
                 );
               }
               if (snapshot.hasData) {
                 if (snapshot.data!.isNotEmpty) {
-                  return PaginatedDataTable(
-                    header: Text(
-                      widget.borrowerName.toString().toUpperCase(),
-                      style: TextStyle(
-                        color: HexColor("#155293"),
-                        fontFamily: 'Cairo_Bold',
-                        fontSize: 20,
-                      ),
-                    ),
-                    showCheckboxColumn: false,
-                    showFirstLastButtons: true,
-                    sortAscending: _sortAscending,
-                    sortColumnIndex: 5,
-                    rowsPerPage: 15,
-                    columns: [
-                      DataColumn(label: Text('LOANID')),
-                      DataColumn(
-                        label: Text(
-                          'PRODUCT \n NAME',
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                      DataColumn(label: Text('PRICE')),
-                      DataColumn(label: Text('QTY')),
-                      DataColumn(
-                        label: Text(
-                          'PAYMENT \n PLAN',
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                      DataColumn(
-                        label: Text(
-                          'DATE \n ADDED',
-                          textAlign: TextAlign.center,
-                        ),
+                  return Padding(
+                    padding: const EdgeInsets.only(top: 5, left: 15, right: 15),
+                    child: PaginatedDataTable(
+                      showCheckboxColumn: false,
+                      showFirstLastButtons: true,
+                      sortAscending: _sortAscending,
+                      sortColumnIndex: 0,
+                      rowsPerPage: 12,
+                      columns: [
+                        DataColumn(label: Text('LOANID'),
                         onSort: (index, sortAscending) {
-                          setState(() {
-                            _sortAscending = sortAscending;
-                            if (sortAscending) {
-                              snapshot.data!.sort((a, b) =>
-                                  a.getDateAdded.compareTo(b.getDateAdded));
-                            } else {
-                              snapshot.data!.sort((a, b) =>
-                                  b.getDateAdded.compareTo(a.getDateAdded));
-                            }
-                          });
-                        },
-                      ),
-                      DataColumn(
-                        label: Text(
-                          'DUE \n DATE',
-                          textAlign: TextAlign.center,
+                            setState(() {
+                              _sortAscending = sortAscending;
+                              if (sortAscending) {
+                                snapshot.data!.sort((a, b) =>
+                                    a.getLoanId.compareTo(b.getLoanId));
+                              } else {
+                                snapshot.data!.sort((a, b) =>
+                                    b.getLoanId.compareTo(a.getLoanId));
+                              }
+                            });
+                          },                      
                         ),
-                      ),
-                      DataColumn(label: Text('TERM')),
-                    ],
-                    source: _DataSource(context),
+                        DataColumn(
+                          label: Text(
+                            'PRODUCT \n NAME',
+                            textAlign: TextAlign.center,
+                          )),
+                        DataColumn(label: Text('PRICE')),
+                        DataColumn(label: Text('QTY')),
+                        DataColumn(
+                          label: Text(
+                            'PAYMENT \n PLAN',
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                        DataColumn(
+                          label: Text(
+                            'DATE \n ADDED',
+                            textAlign: TextAlign.center,
+                          )),
+                        DataColumn(
+                          label: Text(
+                            'DUE \n DATE',
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                        DataColumn(label: Text('TERM')),
+                      ],
+                      source: _DataSource(context),
+                    ),
                   );
                 } else {
                   return Center(
@@ -135,7 +148,7 @@ class _ProductHistory extends State<ProductHistory> {
                         fontFamily: 'Cairo_SemiBold',
                         fontSize: 20
                       ),
-                    ),               
+                    ),
                   );
                 }
               }

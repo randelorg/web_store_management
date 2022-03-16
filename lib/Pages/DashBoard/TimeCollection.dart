@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:web_store_management/Backend/DashboardOperation.dart';
 import 'package:web_store_management/Models/GraphCollectionModel.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'CollectionGraph.dart';
 
 class TimeCollection extends StatefulWidget {
@@ -58,8 +59,8 @@ class _TimeCollection extends State<TimeCollection> {
                           return TextButton.icon(
                             //Today collection graph
                             icon: Icon(
-                              Icons.attach_money,
-                              size: 30.0,
+                              MdiIcons.currencyPhp,
+                              size: 24,
                               color: Colors.black,
                             ),
                             label: Text(
@@ -121,8 +122,8 @@ class _TimeCollection extends State<TimeCollection> {
                           return TextButton.icon(
                             //this weeek collection graph
                             icon: Icon(
-                              Icons.attach_money,
-                              size: 30.0,
+                              MdiIcons.currencyPhp,
+                              size: 24,
                               color: Colors.black,
                             ),
                             label: Text(
@@ -184,8 +185,8 @@ class _TimeCollection extends State<TimeCollection> {
                           return TextButton.icon(
                             //Month collection graph
                             icon: Icon(
-                              Icons.attach_money,
-                              size: 30.0,
+                              MdiIcons.currencyPhp,
+                              size: 24,
                               color: Colors.black,
                             ),
                             label: Text(

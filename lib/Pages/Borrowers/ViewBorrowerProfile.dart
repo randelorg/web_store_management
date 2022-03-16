@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:printing/printing.dart';
 import 'package:web_store_management/Backend/BorrowerOperation.dart';
 import 'package:web_store_management/Backend/HistoryOperation.dart';
@@ -180,7 +181,7 @@ class _ViewBorrowerProfile extends State<ViewBorrowerProfile> {
                   ),
                   Padding(
                     padding: EdgeInsets.only(right: 3),
-                    child: Icon(Icons.attach_money),
+                    child: Icon(MdiIcons.currencyPhp, size: 12),
                   ),
                   Text(
                     widget.balance.toString(),

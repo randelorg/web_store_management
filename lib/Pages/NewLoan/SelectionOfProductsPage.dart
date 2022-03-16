@@ -260,7 +260,7 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
                       child: PaginatedDataTable(
                         sortAscending: true,
                         showFirstLastButtons: true,
-                        rowsPerPage: 10,
+                        rowsPerPage: 11,
                         columns: [
                           DataColumn(label: Text('BARCODE')),
                           DataColumn(label: Text('PRODUCT NAME')),
