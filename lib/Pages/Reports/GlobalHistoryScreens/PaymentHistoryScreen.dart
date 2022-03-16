@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:web_store_management/Backend/HistoryOperation.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
+import 'package:web_store_management/Models/PaymentHistoryModel.dart';
 
 class LocalPaymentHistory extends StatefulWidget {
   final String? id, borrowerName;
@@ -14,7 +15,11 @@ class LocalPaymentHistory extends StatefulWidget {
 class _LocalPaymentHistory extends State<LocalPaymentHistory> {
 
   var history = HistoryOperation();
+<<<<<<< HEAD
   late Future _history;
+=======
+  late Future<List<PaymentHistoryModel>> _history;
+>>>>>>> feature-c
   var _sortAscending = true;
 
   @override
@@ -56,14 +61,14 @@ class _LocalPaymentHistory extends State<LocalPaymentHistory> {
               fontSize: 30,
             ),
           ),
-          FutureBuilder(
+          FutureBuilder<List<PaymentHistoryModel>>(
             future: this._history,
             builder: (context, snapshot) {
               if (!snapshot.hasData) {
                 return Center(child: CircularProgressIndicator());
               }
               if (snapshot.hasData) {
-                if (snapshot.data == true) {
+                if (snapshot.data!.isNotEmpty) {
                   return PaginatedDataTable(
                     header: Text(
                       widget.borrowerName.toString().toUpperCase(),
@@ -75,13 +80,26 @@ class _LocalPaymentHistory extends State<LocalPaymentHistory> {
                     ),
                     showCheckboxColumn: false,
                     showFirstLastButtons: true,
-                    sortAscending: _sortAscending,
                     sortColumnIndex: 2,
                     rowsPerPage: 15,
                     columns: [
                       DataColumn(label: Text('COLLECTION ID')),
                       DataColumn(label: Text('AMOUNT PAID')),
-                      DataColumn(label: Text('DATE GIVEN')),
+                      DataColumn(
+                        label: Text('DATE GIVEN'),
+                        onSort: (index, sortAscending) {
+                          setState(() {
+                            _sortAscending = sortAscending;
+                            if (sortAscending) {
+                              snapshot.data!.sort((a, b) =>
+                                  a.getGivenDate.compareTo(b.getGivenDate));
+                            } else {
+                              snapshot.data!.sort((a, b) =>
+                                  b.getGivenDate.compareTo(a.getGivenDate));
+                            }
+                          });
+                        },
+                      ),
                     ],
                     source: _DataSource(context),
                   );
