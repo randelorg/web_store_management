@@ -15,13 +15,8 @@ class ProductHistory extends StatefulWidget {
 class _ProductHistory extends State<ProductHistory> {
   
   var history = HistoryOperation();
-<<<<<<< HEAD
-  var _sortAscending = true;
-
-=======
   late Future<List<LoanedProductHistory>> _productHistory;
   var _sortAscending = true;
->>>>>>> feature-c
 
   @override
   void initState() {

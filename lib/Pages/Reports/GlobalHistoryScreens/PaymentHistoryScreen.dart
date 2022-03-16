@@ -15,11 +15,7 @@ class LocalPaymentHistory extends StatefulWidget {
 class _LocalPaymentHistory extends State<LocalPaymentHistory> {
 
   var history = HistoryOperation();
-<<<<<<< HEAD
-  late Future _history;
-=======
   late Future<List<PaymentHistoryModel>> _history;
->>>>>>> feature-c
   var _sortAscending = true;
 
   @override
