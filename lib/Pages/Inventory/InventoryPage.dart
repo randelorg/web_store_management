@@ -283,20 +283,21 @@ class _InventoryPage extends State<InventoryPage> {
                             style: TextButton.styleFrom(
                               padding: const EdgeInsets.all(14),
                               primary: Colors.white,
-                              onSurface: Colors.white, //remove it if enable the button
+                              onSurface:
+                                  Colors.white, //remove it if enable the button
                               textStyle: TextStyle(
-                                fontSize: 18, fontFamily: 'Cairo_SemiBold'),
+                                  fontSize: 18, fontFamily: 'Cairo_SemiBold'),
                             ),
                             label: Text('TRANSFER'),
                             onPressed: null, //() {
-                              //showDialog(
-                                //context: context,
-                                //builder: (BuildContext context) {
-                                  //return TransferStock(
-                                    //branches: _branches,
-                                  //);
-                                //},
-                              //);
+                            //showDialog(
+                            //context: context,
+                            //builder: (BuildContext context) {
+                            //return TransferStock(
+                            //branches: _branches,
+                            //);
+                            //},
+                            //);
                             //},
                           ),
                         ),
@@ -387,8 +388,10 @@ class _InventoryPage extends State<InventoryPage> {
                       DataColumn(label: Text('PRICE')),
                       DataColumn(label: Text('ACTION')),
                       DataColumn(
-                        label: Text('TRANSFER \n STOCKS',
-                            textAlign: TextAlign.center),
+                        label: Text(
+                          'TRANSFER \n STOCKS',
+                          textAlign: TextAlign.center,
+                        ),
                       ),
                     ],
                     source: _DataSource(context, getLocations()),
