@@ -11,6 +11,20 @@
     For more details:
     * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
   -->
+  <!-- raygun monitoring -->
+  <script type="text/javascript">
+    !function(a,b,c,d,e,f,g,h){a.RaygunObject=e,a[e]=a[e]||function(){
+    (a[e].o=a[e].o||[]).push(arguments)},f=b.createElement(c),g=b.getElementsByTagName(c)[0],
+    f.async=1,f.src=d,g.parentNode.insertBefore(f,g),h=a.onerror,a.onerror=function(b,c,d,f,g){
+    h&&h(b,c,d,f,g),g||(g=new Error(b)),a[e].q=a[e].q||[],a[e].q.push({
+    e:g})}}(window,document,"script","//cdn.raygun.io/raygun4js/raygun.min.js","rg4js");
+  </script>
+
+<script type="text/javascript">
+  rg4js('apiKey', 'a88CHitBgp1rDxbuYqvBbw');
+  rg4js('enablePulse', true);
+</script>
+
   <base href="/">
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
@@ -48,7 +62,7 @@
        application. For more information, see:
        https://developers.google.com/web/fundamentals/primers/service-workers -->
   <script>
-    var serviceWorkerVersion = '1926311468';
+    var serviceWorkerVersion = '3339460768';
     var scriptLoaded = false;
     function loadMainDartJs() {
       if (scriptLoaded) {
