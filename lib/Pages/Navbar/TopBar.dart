@@ -57,9 +57,12 @@ class _TopBar extends State<TopBar> {
           child: IconButton(
             icon: Icon(Icons.logout, color: HexColor("#EA1C24")),
             tooltip: 'Logout',
-            onPressed: () {
-              login.logout(); //destroys the session
-              Navigator.pushNamed(context, '/logout');
+            onPressed: () async {
+              await login.logout().then((value) {
+                if (value) {
+                  Navigator.pushNamed(context, '/logout');
+                }
+              }); //destroys the session
             },
           ),
         ),

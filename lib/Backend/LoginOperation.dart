@@ -124,7 +124,7 @@ class Login extends GlobalController implements ILogin {
   }
 
   @override
-  void logout() {
+  Future<bool> logout() async {
     //clear the lists
     Mapping.employeeList.clear();
     Mapping.adminLogin.clear();
@@ -133,6 +133,8 @@ class Login extends GlobalController implements ILogin {
     Mapping.paymentList.clear();
 
     //remove the values from the session
-    Session.removeValues();
+    await Session.removeValues();
+
+    return true;
   }
 }
