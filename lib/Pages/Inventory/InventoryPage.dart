@@ -366,7 +366,7 @@ class _InventoryPage extends State<InventoryPage> {
                     showFirstLastButtons: true,
                     sortAscending: _sortAscending,
                     sortColumnIndex: 1,
-                    rowsPerPage: 13,
+                    rowsPerPage: 14,
                     columns: [
                       DataColumn(label: Text('PRODUCT NAME')),
                       DataColumn(

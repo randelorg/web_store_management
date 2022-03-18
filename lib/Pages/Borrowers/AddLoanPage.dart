@@ -3,18 +3,18 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:web_store_management/Models/ProductModel.dart';
 import 'package:web_store_management/Notification/Snack_notification.dart';
 import '../../Helpers/FilePickerHelper.dart';
-import 'FinalizePage.dart';
 import '../../Backend/Utility/Mapping.dart';
 import '../../Backend/GlobalController.dart';
+import '../NewLoan/FinalizePage.dart';
 
-class SelectionOfProductsPage extends StatefulWidget {
-  const SelectionOfProductsPage({Key? key}) : super(key: key);
+class AddLoanPage extends StatefulWidget {
+  const AddLoanPage({Key? key}) : super(key: key);
 
   @override
-  _SelectionOfProductsPage createState() => _SelectionOfProductsPage();
+  _AddLoanPage createState() => _AddLoanPage();
 }
 
-class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
+class _AddLoanPage extends State<AddLoanPage> {
   final firstname = TextEditingController();
   final lastname = TextEditingController();
   final mobileNumber = TextEditingController();
@@ -40,8 +40,8 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         Container(
-          margin: EdgeInsets.all(10),
           width: (MediaQuery.of(context).size.width) / 4,
+          height: (MediaQuery.of(context).size.height) / 1.5,
           child: Form(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -143,40 +143,6 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
                     ),
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsets.only(top: 3),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(8),
-                    child: Stack(
-                      children: <Widget>[
-                        Positioned.fill(
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: HexColor("#155293"),
-                            ),
-                          ),
-                        ),
-                        TextButton.icon(
-                          icon: Icon(Icons.attach_file, color: Colors.white),
-                          style: TextButton.styleFrom(
-                            primary: Colors.white,
-                            textStyle: TextStyle(
-                                fontSize: 18, fontFamily: 'Cairo_SemiBold'),
-                          ),
-                          label: Text(fileName),
-                          onPressed: () {
-                            //get the filename and display it
-                            pick.pickFile().then((value) {
-                              setState(() {
-                                fileName = value;
-                              });
-                            });
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
               ],
             ),
           ),
@@ -194,11 +160,14 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text(
-                "Step 2",
-                style: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.normal,
+              Padding(
+                padding: const EdgeInsets.only(top: 40),
+                child: Text(
+                  "Step 2",
+                  style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.normal,
+                  ),
                 ),
               ),
               Padding(
@@ -244,113 +213,147 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
                   ),
                 ],
               ),
-              FutureBuilder(
-                future: this._products,
-                builder: (context, snapshot) {
-                  if (!snapshot.hasData) {
-                    return Center(
-                      child: CircularProgressIndicator(
-                        semanticsLabel: 'Fetching products',
+              Expanded(
+                child: Container(
+                  width: (MediaQuery.of(context).size.width) / 1.5,
+                  height: (MediaQuery.of(context).size.height),
+                  child: ListView(
+                    children: [
+                      FutureBuilder(
+                        future: this._products,
+                        builder: (context, snapshot) {
+                          if (!snapshot.hasData) {
+                            return Center(child: CircularProgressIndicator());
+                          }
+                          if (snapshot.hasData) {
+                            return PaginatedDataTable(
+                              sortAscending: true,
+                              showCheckboxColumn: true,
+                              showFirstLastButtons: true,
+                              rowsPerPage: 10,
+                              columns: [
+                                DataColumn(label: Text('BARCODE')),
+                                DataColumn(label: Text('PRODUCT NAME')),
+                                DataColumn(label: Text('PRICE')),
+                              ],
+                              source: _SelectionOfProducts(context),
+                            );
+                          }
+                          return Center(
+                            child: Center(
+                              child: Text(
+                                'No Data',
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          );
+                        },
                       ),
-                    );
-                  }
-                  if (snapshot.hasData) {
-                    return Container(
-                      width: (MediaQuery.of(context).size.width) / 2,
-                      child: PaginatedDataTable(
-                        sortAscending: true,
-                        showFirstLastButtons: true,
-                        rowsPerPage: 11,
-                        columns: [
-                          DataColumn(label: Text('BARCODE')),
-                          DataColumn(label: Text('PRODUCT NAME')),
-                          DataColumn(label: Text('PRICE')),
-                        ],
-                        source: _SelectionOfProducts(context),
-                      ),
-                    );
-                  }
-                  return Center(
-                    child: CircularProgressIndicator(
-                      semanticsLabel: 'Fetching products',
-                    ),
-                  );
-                },
+                    ],
+                  ),
+                ),
               ),
             ],
           ),
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            Container(
-              alignment: Alignment.center,
-              width: 120,
-              height: 60,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(12),
-                child: Stack(
-                  children: <Widget>[
-                    Positioned.fill(
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: HexColor("#155293"),
+        Padding(
+          padding: const EdgeInsets.all(30),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Container(
+                alignment: Alignment.center,
+                width: 120,
+                height: 60,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(12),
+                  child: Stack(
+                    children: <Widget>[
+                      Positioned.fill(
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: HexColor("#155293"),
+                          ),
                         ),
                       ),
-                    ),
-                    TextButton(
-                      style: TextButton.styleFrom(
-                        padding: const EdgeInsets.all(15),
-                        primary: Colors.white,
-                        textStyle: TextStyle(
-                          fontSize: 25,
-                          fontFamily: 'Cairo_SemiBold',
+                      TextButton(
+                        style: TextButton.styleFrom(
+                          padding: const EdgeInsets.all(15),
+                          primary: Colors.white,
+                          textStyle: TextStyle(
+                            fontSize: 25,
+                            fontFamily: 'Cairo_SemiBold',
+                          ),
                         ),
-                      ),
-                      onPressed: () {
-                        //push to second page
-                        //which is the finalize order page
-                        if (firstname.text.isEmpty ||
-                            lastname.text.isEmpty ||
-                            mobileNumber.text.isEmpty ||
-                            homeAddress.text.isEmpty) {
-                          SnackNotification.notif(
-                              "Error",
-                              "Please fill all the fields",
-                              Colors.red.shade600);
-                        } else if (pick.image == null) {
-                          SnackNotification.notif(
-                              "Error",
-                              "Please upload a file (jpg, png, jpeg)",
-                              Colors.red.shade600);
-                        } else {
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return SimpleDialog(
-                                children: [
-                                  Container(
-                                    width:
-                                        (MediaQuery.of(context).size.width) / 2,
-                                    height: 555,
-                                    child: FinalizePage(
-                                      firstname: firstname.text,
-                                      lastname: lastname.text,
-                                      mobile: mobileNumber.text,
-                                      address: homeAddress.text,
-                                      contract: pick.getImageBytes(),
+                        onPressed: () {
+                          //push to second page
+                          //which is the finalize order page
+                          if (firstname.text.isEmpty ||
+                              lastname.text.isEmpty ||
+                              mobileNumber.text.isEmpty ||
+                              homeAddress.text.isEmpty) {
+                            SnackNotification.notif(
+                                "Error",
+                                "Please fill all the fields",
+                                Colors.red.shade600);
+                          } else if (pick.image == null) {
+                            SnackNotification.notif(
+                                "Error",
+                                "Please upload a file (jpg, png, jpeg)",
+                                Colors.red.shade600);
+                          } else {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return SimpleDialog(
+                                  children: [
+                                    Container(
+                                      width:
+                                          (MediaQuery.of(context).size.width) /
+                                              2,
+                                      height: 555,
+                                      child: FinalizePage(
+                                        firstname: firstname.text,
+                                        lastname: lastname.text,
+                                        mobile: mobileNumber.text,
+                                        address: homeAddress.text,
+                                        contract: pick.getImageBytes(),
+                                      ),
                                     ),
-                                  ),
-                                ],
-                              );
-                            },
-                          );
-                        }
-                      },
-                      child: const Text('NEXT'),
-                    ),
-                  ],
+                                  ],
+                                );
+                              },
+                            );
+                          }
+                        },
+                        child: const Text('NEXT'),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+        Column(
+          children: [
+            Padding(
+              padding: EdgeInsets.only(bottom: 5, right: 8),
+              child: Align(
+                alignment: Alignment.topRight,
+                child: IconButton(
+                  icon: Icon(
+                    Icons.cancel,
+                    color: Colors.black,
+                    size: 30,
+                  ),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
                 ),
               ),
             ),
