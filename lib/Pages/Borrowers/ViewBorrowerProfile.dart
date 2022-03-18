@@ -6,6 +6,7 @@ import 'package:web_store_management/Backend/BorrowerOperation.dart';
 import 'package:web_store_management/Backend/HistoryOperation.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
 import 'package:web_store_management/Helpers/PrintHelper.dart';
+import 'package:web_store_management/Pages/Borrowers/AddLoanPage.dart';
 import 'package:web_store_management/Pages/Borrowers/UpdateBorrowerPage.dart';
 import '../Reports/GlobalHistoryScreens/PaymentHistoryScreen.dart';
 import '../Reports/GlobalHistoryScreens/ProductHistoryScreen.dart';
@@ -297,7 +298,39 @@ class _ViewBorrowerProfile extends State<ViewBorrowerProfile> {
                       style: TextStyle(fontSize: 8),
                     )
                   ],
-                )
+                ),
+                Column(
+                  children: [
+                    IconButton(
+                      icon: const Icon(
+                        Icons.add_box_rounded,
+                        size: 30,
+                      ),
+                      tooltip: 'Add Loan',
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return SimpleDialog(
+                              children: [
+                                Container(
+                                  width: (MediaQuery.of(context).size.width) / 1.1,
+                                  height: (MediaQuery.of(context).size.height) / 1.2,
+                                  child: AddLoanPage(                        
+                                  ),
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                      },
+                    ),
+                    Text(
+                      'Add Loan',
+                      style: TextStyle(fontSize: 8),
+                    )
+                  ],
+                ),
               ],
             ),
           ],
