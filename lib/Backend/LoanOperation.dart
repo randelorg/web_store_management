@@ -5,6 +5,7 @@ import 'package:web_store_management/Backend/BorrowerOperation.dart';
 import 'package:web_store_management/Backend/Interfaces/ILoan.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
 import 'package:http/http.dart' as http;
+import 'package:web_store_management/Models/LoansModel.dart';
 import 'dart:convert';
 
 import 'package:web_store_management/Notification/Snack_notification.dart';
@@ -145,12 +146,18 @@ class LoanOperation extends BorrowerOperation implements INewLoan {
     try {
       final response = await http.get(
         Uri.parse(
-          Url.url +
-              "api/approved/${investigationId.toString()}/${borrowerId.toString()}/$status",
+          "${Url.url}api/approved/${investigationId.toString()}/${borrowerId.toString()}/$status",
         ),
       );
 
-      print("${response.statusCode}");
+      //initate deduction of stock here
+      if (status == 'RELEASED') {
+        await http.get(
+          Uri.parse(
+            "http://localhost:8090/api/loans/${borrowerId.toString()}",
+          ),
+        );
+      }
 
       //if response is empty return false
       if (response.statusCode == 404) {

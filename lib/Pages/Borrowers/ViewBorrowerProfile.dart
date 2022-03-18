@@ -6,6 +6,7 @@ import 'package:web_store_management/Backend/BorrowerOperation.dart';
 import 'package:web_store_management/Backend/HistoryOperation.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
 import 'package:web_store_management/Helpers/PrintHelper.dart';
+import 'package:web_store_management/Notification/Snack_notification.dart';
 import 'package:web_store_management/Pages/Borrowers/AddLoanPage.dart';
 import 'package:web_store_management/Pages/Borrowers/UpdateBorrowerPage.dart';
 import '../Reports/GlobalHistoryScreens/PaymentHistoryScreen.dart';
@@ -308,16 +309,28 @@ class _ViewBorrowerProfile extends State<ViewBorrowerProfile> {
                       ),
                       tooltip: 'Add Loan',
                       onPressed: () {
+                        //if borrower balance is > 0 then the borrower
+                        //is not eligible to apply for a new loan
+                        if (widget.balance! > 0) {
+                          SnackNotification.notif(
+                            'Not yet applicable',
+                            'Borrower balance must be zero to add new loan',
+                            Colors.red.shade900,
+                          );
+                          return null;
+                        }
+
                         showDialog(
                           context: context,
                           builder: (BuildContext context) {
                             return SimpleDialog(
                               children: [
                                 Container(
-                                  width: (MediaQuery.of(context).size.width) / 1.1,
-                                  height: (MediaQuery.of(context).size.height) / 1.2,
-                                  child: AddLoanPage(                        
-                                  ),
+                                  width:
+                                      (MediaQuery.of(context).size.width) / 1.1,
+                                  height: (MediaQuery.of(context).size.height) /
+                                      1.2,
+                                  child: AddLoanPage(),
                                 ),
                               ],
                             );
