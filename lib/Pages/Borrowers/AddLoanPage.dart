@@ -8,7 +8,8 @@ import '../../Backend/GlobalController.dart';
 import '../NewLoan/FinalizePage.dart';
 
 class AddLoanPage extends StatefulWidget {
-  const AddLoanPage({Key? key}) : super(key: key);
+  final String? id, firstname, lastname, number, address;
+  AddLoanPage({this.id, this.firstname, this.lastname, this.number, this.address});
 
   @override
   _AddLoanPage createState() => _AddLoanPage();
@@ -32,6 +33,10 @@ class _AddLoanPage extends State<AddLoanPage> {
   void initState() {
     super.initState();
     this._products = controller.fetchProducts();
+    firstname.text = widget.firstname.toString();
+    lastname.text = widget.lastname.toString();
+    mobileNumber.text = widget.number.toString();
+    homeAddress.text = widget.address.toString();
   }
 
   @override
@@ -57,10 +62,12 @@ class _AddLoanPage extends State<AddLoanPage> {
                   "BORROWER DETAILS",
                   style: TextStyle(fontFamily: 'Cairo_Bold', fontSize: 30),
                 ),
+                
                 Padding(
                   padding: EdgeInsets.only(top: 20, bottom: 6, right: 6, left: 6), //add padding to the textfields
                   child: TextField(
                     controller: firstname,
+                    enabled: false,
                     decoration: InputDecoration(
                       hintText: 'Firstname',
                       filled: true,
@@ -82,6 +89,7 @@ class _AddLoanPage extends State<AddLoanPage> {
                   padding: EdgeInsets.all(6),
                   child: TextField(
                     controller: lastname,
+                    enabled: false,
                     decoration: InputDecoration(
                       hintText: 'Lastname',
                       filled: true,
@@ -103,6 +111,7 @@ class _AddLoanPage extends State<AddLoanPage> {
                   padding: EdgeInsets.all(6),
                   child: TextField(
                     controller: mobileNumber,
+                    enabled: false,
                     maxLength: 12,
                     decoration: InputDecoration(
                       counterText: '',
@@ -126,6 +135,7 @@ class _AddLoanPage extends State<AddLoanPage> {
                   padding: EdgeInsets.all(6),
                   child: TextField(
                     controller: homeAddress,
+                    enabled: false,
                     decoration: InputDecoration(
                       hintText: 'Home Address',
                       filled: true,
@@ -140,6 +150,40 @@ class _AddLoanPage extends State<AddLoanPage> {
                         borderSide: BorderSide(color: Colors.blueGrey.shade50),
                         borderRadius: BorderRadius.circular(10),
                       ),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(top: 3),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(8),
+                    child: Stack(
+                      children: <Widget>[
+                        Positioned.fill(
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: HexColor("#155293"),
+                            ),
+                          ),
+                        ),
+                        TextButton.icon(
+                          icon: Icon(Icons.attach_file, color: Colors.white),
+                          style: TextButton.styleFrom(
+                            primary: Colors.white,
+                            textStyle: TextStyle(
+                                fontSize: 18, fontFamily: 'Cairo_SemiBold'),
+                          ),
+                          label: Text(fileName),
+                          onPressed: () {
+                            //get the filename and display it
+                            pick.pickFile().then((value) {
+                              setState(() {
+                                fileName = value;
+                              });
+                            });
+                          },
+                        ),
+                      ],
                     ),
                   ),
                 ),
@@ -292,19 +336,11 @@ class _AddLoanPage extends State<AddLoanPage> {
                         onPressed: () {
                           //push to second page
                           //which is the finalize order page
-                          if (firstname.text.isEmpty ||
-                              lastname.text.isEmpty ||
-                              mobileNumber.text.isEmpty ||
-                              homeAddress.text.isEmpty) {
+                          if (pick.image == null) {
                             SnackNotification.notif(
-                                "Error",
-                                "Please fill all the fields",
-                                Colors.red.shade600);
-                          } else if (pick.image == null) {
-                            SnackNotification.notif(
-                                "Error",
-                                "Please upload a file (jpg, png, jpeg)",
-                                Colors.red.shade600);
+                              "Error",
+                              "Please upload a file (jpg, png, jpeg)",
+                              Colors.red.shade600);
                           } else {
                             showDialog(
                               context: context,
@@ -313,8 +349,7 @@ class _AddLoanPage extends State<AddLoanPage> {
                                   children: [
                                     Container(
                                       width:
-                                          (MediaQuery.of(context).size.width) /
-                                              2,
+                                          (MediaQuery.of(context).size.width) / 2,
                                       height: 555,
                                       child: FinalizePage(
                                         firstname: firstname.text,

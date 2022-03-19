@@ -315,22 +315,27 @@ class _ViewBorrowerProfile extends State<ViewBorrowerProfile> {
                           SnackNotification.notif(
                             'Not yet applicable',
                             'Borrower balance must be zero to add new loan',
-                            Colors.red.shade900,
+                            Colors.red.shade600,
                           );
                           return null;
                         }
-
                         showDialog(
                           context: context,
                           builder: (BuildContext context) {
+                            String fullname = widget.name.toString().trim();
+                            List name = fullname.split(" ");
                             return SimpleDialog(
                               children: [
                                 Container(
-                                  width:
-                                      (MediaQuery.of(context).size.width) / 1.1,
-                                  height: (MediaQuery.of(context).size.height) /
-                                      1.2,
-                                  child: AddLoanPage(),
+                                  width:(MediaQuery.of(context).size.width) / 1.1,
+                                  height: (MediaQuery.of(context).size.height) /1.2,
+                                  child: AddLoanPage(                           
+                                    id: widget.id.toString(),
+                                    firstname: name [0],
+                                    lastname: name [1],
+                                    number: widget.number.toString(),
+                                    address: _findAddress(widget.id.toString()),
+                                  ),
                                 ),
                               ],
                             );
