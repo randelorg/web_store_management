@@ -46,6 +46,7 @@ dependencies:
   pdf: ^3.6.4
   open_file: ^3.2.1
   path_provider: ^2.0.9
+  material_design_icons_flutter: ^5.0.6595
 
 dev_dependencies:
   flutter_test:

@@ -231,7 +231,7 @@ class _UpdateProduct extends State<UpdateProduct> {
                         } else {
                           operation
                               .updateProductDetails(
-                            _findBarName(),
+                            _findBarCode(),
                             prodName.text,
                             _qtyIsEmpty(),
                             prodUnit.text,
@@ -268,11 +268,11 @@ class _UpdateProduct extends State<UpdateProduct> {
     }
   }
 
-  String _findBarName() {
+  String _findBarCode() {
     String barcode = '';
     Mapping.productList
         .where((element) =>
-            element.productName?.toLowerCase() == prodName.text.toLowerCase())
+            element.productName?.toLowerCase() == widget.name.toString().toLowerCase())
         .forEach((element) {
       barcode = element.getProductCode;
     });

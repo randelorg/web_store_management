@@ -130,7 +130,7 @@ class _BranchPage extends State<BranchPage> {
                         showFirstLastButtons: true,
                         sortAscending: _sortAscending,
                         sortColumnIndex: 0,
-                        rowsPerPage: 12,
+                        rowsPerPage: 14,
                         columns: [
                           DataColumn(
                             label: Text('CODE'),

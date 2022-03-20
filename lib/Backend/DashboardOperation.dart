@@ -93,9 +93,7 @@ class DashboardOperation implements IDashboard {
 
     try {
       final response = await http.get(
-        Uri.parse(
-          Url.url + "api/week/" + dates[0] + "/" + dates[1],
-        ),
+        Uri.parse("${Url.url}api/week/${dates[0]}/${dates[1]}"),
         headers: {"Accept": "application/json"},
       );
 
@@ -118,8 +116,7 @@ class DashboardOperation implements IDashboard {
     List<String> dates = getMonthDates();
     List<GraphCollectionModel> graphCollection = [];
 
-    final String url =
-        "${Url.url}api/datecollection/" + dates[0] + "/" + dates[1];
+    final String url = "${Url.url}api/datecollection/${dates[0]}/${dates[1]}";
 
     try {
       final response = await http.get(
@@ -158,8 +155,7 @@ class DashboardOperation implements IDashboard {
     }
 
     List<GraphCollectionModel> graphCollection = [];
-    final String url =
-        "${Url.url}api/datecollection/" + startDate + "/" + endDate;
+    final String url = "${Url.url}api/datecollection/$startDate/$endDate";
 
     try {
       final response = await http.get(

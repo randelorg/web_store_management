@@ -6,10 +6,13 @@ import 'package:web_store_management/Backend/LoanOperation.dart';
 import 'package:web_store_management/Notification/Snack_notification.dart';
 
 class PaymentPlanPage extends StatefulWidget {
-  final String? firstname, lastname, mobile, address;
+  final String? action, firstname, lastname, mobile, address;
+  final int? id;
   final num total;
   final Uint8List contract;
   PaymentPlanPage({
+    this.action,
+    this.id,
     required this.firstname,
     required this.lastname,
     required this.mobile,
@@ -23,7 +26,7 @@ class PaymentPlanPage extends StatefulWidget {
 }
 
 class _PaymentPlanPage extends State<PaymentPlanPage> {
-  var newloan = LoanOperation();
+  var loan = LoanOperation();
   var image;
   TextEditingController borrowerName = TextEditingController();
   TextEditingController totalAmount = TextEditingController();
@@ -280,27 +283,9 @@ class _PaymentPlanPage extends State<PaymentPlanPage> {
                               fontSize: 14, fontFamily: 'Cairo_SemiBold')),
                       child: const Text('SEND TO REVIEW'),
                       onPressed: () {
-                        newloan
-                            .addBorrower(
-                          widget.firstname.toString(),
-                          widget.lastname.toString(),
-                          widget.mobile.toString(),
-                          widget.address.toString(),
-                          widget.total,
-                          widget.contract,
-                          plan,
-                          _currenSliderValue.toString(),
-                          duedate.text,
-                        )
-                            .then((value) {
-                          if (value) {
-                            SnackNotification.notif(
-                              'Success',
-                              'Potential Borrower sent to credit approval',
-                              Colors.green.shade800,
-                            );
-                          }
-                        });
+                        print(widget.action.toString());
+                        //function
+                        actionTaken(widget.action.toString());
                       },
                     ),
                   ],
@@ -311,5 +296,60 @@ class _PaymentPlanPage extends State<PaymentPlanPage> {
         )
       ],
     );
+  }
+
+  //this will be use as decission if the user add new loan or
+  //renew a loan
+  void actionTaken(final String action) {
+    switch (action) {
+      case 'new_loan':
+        loan
+            .addBorrower(
+          widget.firstname.toString(),
+          widget.lastname.toString(),
+          widget.mobile.toString(),
+          widget.address.toString(),
+          widget.total,
+          widget.contract,
+          plan,
+          _currenSliderValue.toString(),
+          duedate.text,
+        )
+            .then((value) {
+          if (value) {
+            SnackNotification.notif(
+              'Success',
+              'Potential Borrower sent to credit approval',
+              Colors.green.shade800,
+            );
+          }
+        });
+        break;
+      case 'renew_loan':
+        loan
+            .updateBalanceAndContract(
+                widget.total,
+                widget.id!.toInt(),
+                widget.firstname.toString(),
+                widget.lastname.toString(),
+                plan,
+                _currenSliderValue.toString(),
+                duedate.text,
+                widget.contract)
+            .then((value) {
+          if (value) {
+            SnackNotification.notif(
+              'Success',
+              'Renewal successful',
+              Colors.green.shade800,
+            );
+          }
+        });
+        break;
+      default:
+        {
+          print('default');
+        }
+    }
   }
 }
