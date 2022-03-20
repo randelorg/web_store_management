@@ -25,7 +25,7 @@ class EmployeeOperation implements IEmployee {
       Uint8List? image) async {
     var addEmployee = json.encode(
       {
-        'Role': role,
+        'Role': role!.replaceAll(' ', '').toString(),
         'Username': username,
         'Password': _hash.encrypt(password.toString()),
         'Firstname': firstname,
@@ -39,7 +39,7 @@ class EmployeeOperation implements IEmployee {
 
     try {
       final response = await http.post(
-        Uri.parse(Url.url + "api/employee"),
+        Uri.parse("${Url.url}api/employee"),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json'
@@ -47,7 +47,11 @@ class EmployeeOperation implements IEmployee {
         body: addEmployee,
       );
 
-      if (response.statusCode == 404) return false;
+      if (response.statusCode == 404) {
+        return false;
+      } else if (response.statusCode == 202) {
+        return true;
+      }
     } catch (e) {
       SnackNotification.notif(
         'Error',
@@ -151,7 +155,7 @@ class EmployeeOperation implements IEmployee {
         },
         body: adminUpdateLoad,
       );
-      
+
       //if response is empty return false
       if (response.statusCode == 404) {
         return false;

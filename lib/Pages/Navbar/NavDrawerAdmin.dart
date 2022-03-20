@@ -16,14 +16,12 @@ import '../Inventory/InventoryPage.dart';
 import '../Reports/ReportScreen.dart';
 import '../Employees/EmployeePage.dart';
 
-class NavDrawer extends StatefulWidget {
-  final Function? callback;
-  NavDrawer({this.callback});
+class NavDrawerAdmin extends StatefulWidget {
   @override
-  _NavDrawer createState() => _NavDrawer();
+  _NavDrawerAdmin createState() => _NavDrawerAdmin();
 }
 
-class _NavDrawer extends State<NavDrawer> {
+class _NavDrawerAdmin extends State<NavDrawerAdmin> {
   int _selectedIndex = 0;
 
   List<Widget> pages = [
@@ -67,23 +65,9 @@ class _NavDrawer extends State<NavDrawer> {
             backgroundColor: Colors.grey.shade900,
             selectedIndex: _selectedIndex,
             onDestinationSelected: (int index) {
-              if (Mapping.userRole == 'Store Attendant') {
-                if (index == 10 || index == 11) {
-                  SnackNotification.notif(
-                    "No Access",
-                    "You don't have right to access this tab",
-                    Colors.red.shade500,
-                  );
-                } else {
-                  setState(() {
-                    _selectedIndex = index;
-                  });
-                }
-              } else {
-                setState(() {
-                  _selectedIndex = index;
-                });
-              }
+              setState(() {
+                _selectedIndex = index;
+              });
             },
             labelType: NavigationRailLabelType.all,
             destinations: <NavigationRailDestination>[

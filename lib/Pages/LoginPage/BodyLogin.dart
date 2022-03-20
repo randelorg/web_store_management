@@ -17,7 +17,7 @@ class _BodyLogin extends State<BodyLogin> {
   final password = TextEditingController();
 
   String administrator = 'Administrator';
-  String storeAttendant = 'Store Attendant';
+  final String storeAttendant = 'Store Attendant';
   String? loginRole;
 
   @override
@@ -190,6 +190,7 @@ class _BodyLogin extends State<BodyLogin> {
                   Colors.red.shade600,
                 );
               } else {
+                print(administrator.toString());
                 login
                     .mainLogin(
                   administrator.toString(),
@@ -199,7 +200,7 @@ class _BodyLogin extends State<BodyLogin> {
                     .then((value) {
                   setState(() {
                     if (value) {
-                      Navigator.pushNamed(context, '/home');
+                      switchUser(administrator.toString());
                     } else {
                       SnackNotification.notif(
                         "Error",
@@ -215,5 +216,18 @@ class _BodyLogin extends State<BodyLogin> {
         ),
       ],
     );
+  }
+
+  void switchUser(String user) {
+    switch (user) {
+      case 'Administrator':
+        Navigator.pushNamed(context, '/homeAdmin');
+        break;
+      case 'Store Attendant':
+        Navigator.pushNamed(context, '/homeAttendant');
+        break;
+      default:
+        Navigator.pushNamed(context, '/logout');
+    }
   }
 }
