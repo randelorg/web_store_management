@@ -133,7 +133,7 @@ class _Employeepage extends State<EmployeePage> {
                         showFirstLastButtons: true,
                         sortAscending: _sortAscending,
                         sortColumnIndex: 1,
-                        rowsPerPage: 12,
+                        rowsPerPage: 14,
                         columns: [
                           DataColumn(label: Text('EID')),
                           DataColumn(

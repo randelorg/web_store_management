@@ -212,10 +212,8 @@ class _MakePayment extends State<MakePayment> {
                     },
                   );
                   if (pickedDate != null) {
-                    print(pickedDate);
                     String formattedDate =
                         DateFormat('yyyy-MM-dd').format(pickedDate);
-                    print(formattedDate);
                     setState(() {
                       dateinput.text = formattedDate;
                     });

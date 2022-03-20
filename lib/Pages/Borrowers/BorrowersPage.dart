@@ -181,7 +181,7 @@ class _DataSource extends DataTableSource {
             context: context,
             builder: (BuildContext context) {
               return ViewBorrowerProfile(
-                id: row.valueA,
+                id: int.parse(row.valueA),
                 name: row.valueB,
                 number: row.valueC,
                 balance: double.parse(row.valueD),

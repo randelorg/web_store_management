@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:printing/printing.dart';
 import 'package:web_store_management/Backend/BorrowerOperation.dart';
 import 'package:web_store_management/Backend/HistoryOperation.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
 import 'package:web_store_management/Helpers/PrintHelper.dart';
+import 'package:web_store_management/Notification/Snack_notification.dart';
+import 'package:web_store_management/Pages/Borrowers/AddLoanPage.dart';
 import 'package:web_store_management/Pages/Borrowers/UpdateBorrowerPage.dart';
 import '../Reports/GlobalHistoryScreens/PaymentHistoryScreen.dart';
 import '../Reports/GlobalHistoryScreens/ProductHistoryScreen.dart';
 import '../../Helpers/CreateQRHelper.dart';
 
 class ViewBorrowerProfile extends StatefulWidget {
-  final String? id, name, number;
+  final int? id;
+  final String? name, number;
   final double? balance;
   ViewBorrowerProfile({
     required this.id,
@@ -180,7 +184,7 @@ class _ViewBorrowerProfile extends State<ViewBorrowerProfile> {
                   ),
                   Padding(
                     padding: EdgeInsets.only(right: 3),
-                    child: Icon(Icons.attach_money),
+                    child: Icon(MdiIcons.currencyPhp, size: 12),
                   ),
                   Text(
                     widget.balance.toString(),
@@ -296,7 +300,62 @@ class _ViewBorrowerProfile extends State<ViewBorrowerProfile> {
                       style: TextStyle(fontSize: 8),
                     )
                   ],
-                )
+                ),
+                Column(
+                  children: [
+                    IconButton(
+                      icon: const Icon(
+                        Icons.add_box_rounded,
+                        size: 30,
+                      ),
+                      tooltip: 'Add Loan',
+                      onPressed: () {
+                        //if borrower balance is > 0 then the borrower
+                        //is not eligible to apply for a new loan
+                        if (widget.balance! > 0) {
+                          SnackNotification.notif(
+                            'Not yet applicable',
+                            'Borrower balance must be zero to add new loan',
+                            Colors.red.shade600,
+                          );
+                          return null;
+                        }
+                        //exit
+                        Navigator.pop(context);
+                        //show dialog
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            String fullname = widget.name.toString().trim();
+                            List name = fullname.split(" ");
+                            return SimpleDialog(
+                              children: [
+                                Container(
+                                  width:
+                                      (MediaQuery.of(context).size.width) / 1.1,
+                                  height: (MediaQuery.of(context).size.height) /
+                                      1.2,
+                                  child: AddLoanPage(
+                                    action: 'renew_loan',
+                                    id: widget.id,
+                                    firstname: name[0],
+                                    lastname: name[1],
+                                    number: widget.number.toString(),
+                                    address: _findAddress(widget.id.toString()),
+                                  ),
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                      },
+                    ),
+                    Text(
+                      'Add Loan',
+                      style: TextStyle(fontSize: 8),
+                    )
+                  ],
+                ),
               ],
             ),
           ],
@@ -316,14 +375,8 @@ class _ViewBorrowerProfile extends State<ViewBorrowerProfile> {
   }
 
   String qrContent() {
-    String content = "Name " +
-        widget.name.toString() +
-        "\n" +
-        "Mobile Number " +
-        widget.number.toString() +
-        "\n" +
-        "Balance " +
-        widget.balance.toString();
+    String content =
+        "Name ${widget.name.toString()} \n Mobile Number ${widget.number.toString()} \n Balance  ${widget.balance.toString()}";
     return content;
   }
 }

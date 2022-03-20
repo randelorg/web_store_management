@@ -15,13 +15,12 @@ class GlobalController {
     DateTime today = DateTime.now();
     DateTime _firstDayOfTheweek =
         today.subtract(new Duration(days: today.weekday - 1));
-    print(_firstDayOfTheweek.day);
 
     return collection;
   }
 
   Future<List<EmployeeModel>> fetchAllEmployees() async {
-    final response = await http.get(Uri.parse(Url.url + "api/employees"));
+    final response = await http.get(Uri.parse("${Url.url}api/employees"));
     final parsed = jsonDecode(response.body).cast<Map<String, dynamic>>();
     Mapping.employeeList = parsed
         .map<EmployeeModel>((json) => EmployeeModel.fromJson(json))
@@ -32,7 +31,7 @@ class GlobalController {
 
   //fetch all the products from the database
   Future<List<ProductModel>> fetchProducts() async {
-    final response = await http.get(Uri.parse(Url.url + "api/products"));
+    final response = await http.get(Uri.parse("${Url.url}api/products"));
     final parsed = jsonDecode(response.body).cast<Map<String, dynamic>>();
     Mapping.productList = parsed
         .map<ProductModel>((json) => ProductModel.fromJson(json))
@@ -76,7 +75,7 @@ class GlobalController {
 
   //fetch all the credit approvals from the database
   Future<List<BorrowerModel>> fetchRepairs() async {
-    final response = await http.get(Uri.parse(Url.url + "api/repairs"));
+    final response = await http.get(Uri.parse("${Url.url}api/repairs"));
 
     final parsed = jsonDecode(response.body).cast<Map<String, dynamic>>();
     Mapping.repairs = parsed
@@ -89,7 +88,7 @@ class GlobalController {
   //fetch all the credit approvals from the database
   Future<List<BorrowerModel>> fetchRequestedProducts() async {
     final response =
-        await http.get(Uri.parse(Url.url + "api/requestedproducts"));
+        await http.get(Uri.parse("${Url.url}api/requestedproducts"));
     final parsed = jsonDecode(response.body).cast<Map<String, dynamic>>();
     Mapping.requested = parsed
         .map<BorrowerModel>(
@@ -101,7 +100,7 @@ class GlobalController {
 
   //fetch all the branches from the database
   Future<List<BranchModel>> fetchBranches() async {
-    final response = await http.get(Uri.parse(Url.url + "api/branches"));
+    final response = await http.get(Uri.parse("${Url.url}api/branches"));
 
     final parsed = jsonDecode(response.body).cast<Map<String, dynamic>>();
     Mapping.branchList = parsed

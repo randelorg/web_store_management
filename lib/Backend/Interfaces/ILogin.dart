@@ -3,5 +3,7 @@ class ILogin {
     return true;
   }
 
-  void logout() {}
+  Future<bool> logout() async {
+    return true;
+  }
 }

@@ -15,15 +15,16 @@ class LocalPaymentHistory extends StatefulWidget {
 class _LocalPaymentHistory extends State<LocalPaymentHistory> {
 
   var history = HistoryOperation();
-  late Future<List<PaymentHistoryModel>> _history;
+  late Future<List<PaymentHistoryModel>> _paymentHistory;
   var _sortAscending = true;
 
   @override
   void initState() {
     super.initState();
-    this._history = history.viewPaymentHistory(widget.id.toString());
+    this._paymentHistory = history.viewPaymentHistory(widget.id.toString());
   }
 
+  @override
   Widget build(BuildContext context) {
     return Container(
       width: (MediaQuery.of(context).size.width),
@@ -57,47 +58,63 @@ class _LocalPaymentHistory extends State<LocalPaymentHistory> {
               fontSize: 30,
             ),
           ),
+
+          Row(        
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [         
+              Padding(
+                padding: EdgeInsets.only(left: 20, top: 50),
+                child: Text(
+                  widget.borrowerName.toString().toUpperCase(),
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontFamily: 'Cairo_SemiBold',
+                    fontSize: 18,
+                  ),
+                ),
+              ),
+            ],
+          ),
           FutureBuilder<List<PaymentHistoryModel>>(
-            future: this._history,
+            future: this._paymentHistory,
             builder: (context, snapshot) {
               if (!snapshot.hasData) {
-                return Center(child: CircularProgressIndicator());
+                return Center(      
+                  child: CircularProgressIndicator(        
+                    semanticsLabel: 'Fetching borrowers',
+                  ),
+                );
               }
               if (snapshot.hasData) {
                 if (snapshot.data!.isNotEmpty) {
-                  return PaginatedDataTable(
-                    header: Text(
-                      widget.borrowerName.toString().toUpperCase(),
-                      style: TextStyle(
-                        color: HexColor("#155293"),
-                        fontFamily: 'Cairo_Bold',
-                        fontSize: 20,
-                      ),
-                    ),
-                    showCheckboxColumn: false,
-                    showFirstLastButtons: true,
-                    sortColumnIndex: 2,
-                    rowsPerPage: 15,
-                    columns: [
-                      DataColumn(label: Text('COLLECTION ID')),
-                      DataColumn(label: Text('AMOUNT PAID')),
-                      DataColumn(
-                        label: Text('DATE GIVEN'),
+                  return Padding(
+                    padding: const EdgeInsets.only(top: 5, left: 15, right: 15),
+                    child: PaginatedDataTable(            
+                      showCheckboxColumn: false,
+                      showFirstLastButtons: true,
+                      sortAscending: _sortAscending,
+                      sortColumnIndex: 0,
+                      rowsPerPage: 12,
+                      columns: [
+                        DataColumn(label: Text('COLLECTION ID'),
                         onSort: (index, sortAscending) {
-                          setState(() {
-                            _sortAscending = sortAscending;
-                            if (sortAscending) {
-                              snapshot.data!.sort((a, b) =>
-                                  a.getGivenDate.compareTo(b.getGivenDate));
-                            } else {
-                              snapshot.data!.sort((a, b) =>
-                                  b.getGivenDate.compareTo(a.getGivenDate));
-                            }
-                          });
-                        },
-                      ),
-                    ],
-                    source: _DataSource(context),
+                            setState(() {
+                              _sortAscending = sortAscending;
+                              if (sortAscending) {
+                                snapshot.data!.sort((a, b) =>
+                                    a.getCollectionID.compareTo(b.getCollectionID));
+                              } else {
+                                snapshot.data!.sort((a, b) =>
+                                    b.getCollectionID.compareTo(a.getCollectionID));
+                              }
+                            });
+                          },
+                        ),
+                        DataColumn(label: Text('AMOUNT PAID')),
+                        DataColumn(label: Text('DATE GIVEN')),
+                      ],
+                      source: _DataSource(context),
+                    ),
                   );
                 } else {
                   return Center(

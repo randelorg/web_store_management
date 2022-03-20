@@ -11,17 +11,17 @@ class Session {
 
   static Future<bool> getvalues() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getBool('isLoggedin')!;
+    return prefs.getBool('isLoggedin') ?? false;
   }
 
   static Future<String> getid() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getString('id').toString();
+    return prefs.getString('id') ?? '';
   }
 
   static Future<String> getrole() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getString('role').toString();
+    return prefs.getString('role') ?? '';
   }
 
   static Future<bool> removeValues() async {

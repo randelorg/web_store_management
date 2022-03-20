@@ -197,23 +197,7 @@ class _TransferStock extends State<TransferStock> {
                   suffixIcon: IconButton(
                     icon: Icon(Icons.scanner_sharp),
                     tooltip: 'Scan product barcode',
-                    onPressed: () {
-                      try {
-                        showDialog(
-                          context: context,
-                          builder: (context) => CamCodeScanner(
-                            width: MediaQuery.of(context).size.width,
-                            height: MediaQuery.of(context).size.height,
-                            refreshDelayMillis: 200,
-                            onBarcodeResult: (barcode) {
-                              print('object ' + barcode.toString());
-                            },
-                          ),
-                        );
-                      } catch (e) {
-                        print('Error');
-                      }
-                    },
+                    onPressed: () {},
                   ),
                   filled: true,
                   fillColor: Colors.blueGrey[50],
@@ -320,9 +304,9 @@ class _TransferStock extends State<TransferStock> {
                           onPressed: () {
                             if (productName.text.isEmpty || qty.text.isEmpty) {
                               SnackNotification.notif(
-                                "Error",
-                                "Please fill all the fields",
-                               Colors.red.shade600);                           
+                                  "Error",
+                                  "Please fill all the fields",
+                                  Colors.red.shade600);
                             } else {
                               transfer
                                   .transferStock(

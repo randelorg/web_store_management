@@ -1,4 +1,3 @@
-import 'package:web_store_management/Models/BorrowerModel.dart';
 import 'package:web_store_management/Models/LoanedProductHistoryModel.dart';
 import 'package:web_store_management/Models/PaymentHistoryModel.dart';
 

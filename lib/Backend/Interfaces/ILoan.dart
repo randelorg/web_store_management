@@ -33,4 +33,9 @@ class INewLoan {
     var a;
     return a;
   }
+
+  Future<bool> updateBalanceAndContract(num balance, int id, String firstname,
+      String lastname, plan, term, dueDate, Uint8List contract) async {
+    return true;
+  }
 }
