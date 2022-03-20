@@ -82,7 +82,7 @@ class _CollectionSummary extends State<CollectionSummary> {
                     );
                     if (pickedDate != null) {
                       String formattedDate =
-                          DateFormat('yyyy-dd-MM').format(pickedDate);
+                          DateFormat('yyyy-MM-dd').format(pickedDate);
                       setState(() {
                         startDate.text = formattedDate;
                       });
@@ -148,7 +148,7 @@ class _CollectionSummary extends State<CollectionSummary> {
                     );
                     if (pickedDate != null) {
                       String formattedDate =
-                          DateFormat('yyyy-dd-MM').format(pickedDate);
+                          DateFormat('yyyy-MM-dd').format(pickedDate);
                       setState(() {
                         endDate.text = formattedDate;
                       });
@@ -208,6 +208,13 @@ class _CollectionSummary extends State<CollectionSummary> {
             child: FutureBuilder<List<GraphCollectionModel>>(
               future: report,
               builder: (context, snapshot) {
+                if (ConnectionState.waiting == snapshot.connectionState) {
+                  return Center(
+                    child: CircularProgressIndicator(
+                      semanticsLabel: 'Fetching collections',
+                    ),
+                  );
+                }
                 if (!snapshot.hasData) {
                   return Center(
                     child: CircularProgressIndicator(
@@ -218,7 +225,7 @@ class _CollectionSummary extends State<CollectionSummary> {
                 if (snapshot.hasData) {
                   //checkLength();
                   return CollectionGraph(graphData: snapshot.data);
-                } else if (snapshot.data == []) {
+                } else if (snapshot.data!.isEmpty) {
                   return Center(
                     child: Text(
                       'No data to display',

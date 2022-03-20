@@ -6,10 +6,13 @@ import 'package:web_store_management/Backend/Utility/Mapping.dart';
 import 'PaymentPlan.dart';
 
 class FinalizePage extends StatefulWidget {
-  final String? firstname, lastname, mobile, address;
+  final String? action, firstname, lastname, mobile, address;
   final num? total;
+  final int? id;
   final Uint8List contract;
   FinalizePage({
+    this.action,
+    this.id,
     required this.firstname,
     required this.lastname,
     required this.mobile,
@@ -140,6 +143,8 @@ class _FinalizePage extends State<FinalizePage> {
                                 context: context,
                                 builder: (BuildContext context) {
                                   return PaymentPlanPage(
+                                    action: widget.action,
+                                    id: widget.id,
                                     firstname: widget.firstname.toString(),
                                     lastname: widget.lastname.toString(),
                                     mobile: widget.mobile.toString(),

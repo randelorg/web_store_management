@@ -5,11 +5,8 @@ import 'package:web_store_management/Backend/BorrowerOperation.dart';
 import 'package:web_store_management/Backend/Interfaces/ILoan.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
 import 'package:http/http.dart' as http;
-import 'package:web_store_management/Models/LoansModel.dart';
 import 'dart:convert';
-
 import 'package:web_store_management/Notification/Snack_notification.dart';
-
 import 'Utility/ApiUrl.dart';
 
 class LoanOperation extends BorrowerOperation implements INewLoan {
@@ -36,7 +33,7 @@ class LoanOperation extends BorrowerOperation implements INewLoan {
 
     try {
       final response = await http.post(
-        Uri.parse(Url.url + "api/addborrower"),
+        Uri.parse("${Url.url}api/addborrower"),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json'
@@ -75,7 +72,7 @@ class LoanOperation extends BorrowerOperation implements INewLoan {
 
     try {
       final response = await http.post(
-        Uri.parse(Url.url + "api/addinvestigation"),
+        Uri.parse("http://localhost:8090/api/addinvestigation"),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json'
@@ -106,7 +103,7 @@ class LoanOperation extends BorrowerOperation implements INewLoan {
     for (var item in Mapping.selectedProducts) {
       try {
         final response = await http.post(
-          Uri.parse(Url.url + "api/addloan"),
+          Uri.parse("http://localhost:8090/api/addloan"),
           headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json'
@@ -123,9 +120,7 @@ class LoanOperation extends BorrowerOperation implements INewLoan {
           }),
         );
 
-        if (response.statusCode == 202) {
-          return true;
-        }
+        print("wow1 ${response.statusCode}");
       } catch (e) {
         e.toString();
         SnackNotification.notif(
@@ -154,7 +149,7 @@ class LoanOperation extends BorrowerOperation implements INewLoan {
       if (status == 'RELEASED') {
         await http.get(
           Uri.parse(
-            "http://localhost:8090/api/loans/${borrowerId.toString()}",
+            "${Url.url}api/loans/${borrowerId.toString()}",
           ),
         );
       }
@@ -178,5 +173,40 @@ class LoanOperation extends BorrowerOperation implements INewLoan {
     }
 
     return true;
+  }
+
+  @override
+  Future<bool> updateBalanceAndContract(num balance, int id, String firstname,
+      String lastname, plan, term, dueDate, Uint8List? contract) async {
+    try {
+      final response = await http.post(
+        Uri.parse("http://localhost:8090/api/updatebal"),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: json.encode({
+          "id": id,
+          "balance": balance,
+          "contract": contract,
+        }),
+      );
+
+      print(response.statusCode);
+
+      //if response is empty return false
+      if (response.statusCode == 404) {
+        return false;
+      } else {
+        await addInvestigation(firstname, lastname);
+
+        //add to new loan {renewal}
+        await addNewLoan(firstname, lastname, plan, term, dueDate);
+        return true;
+      }
+    } catch (e) {
+      print(e.toString());
+      return false;
+    }
   }
 }

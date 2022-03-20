@@ -31,7 +31,6 @@ class _UpdateEmployee extends State<UpdateEmployee> {
 
   @override
   void initState() {
-    print(widget.pid?.toInt());
     super.initState();
     firstname.text = widget.firstname.toString();
     lastname.text = widget.lastname.toString();

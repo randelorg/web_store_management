@@ -14,7 +14,8 @@ import '../Reports/GlobalHistoryScreens/ProductHistoryScreen.dart';
 import '../../Helpers/CreateQRHelper.dart';
 
 class ViewBorrowerProfile extends StatefulWidget {
-  final String? id, name, number;
+  final int? id;
+  final String? name, number;
   final double? balance;
   ViewBorrowerProfile({
     required this.id,
@@ -319,6 +320,9 @@ class _ViewBorrowerProfile extends State<ViewBorrowerProfile> {
                           );
                           return null;
                         }
+                        //exit
+                        Navigator.pop(context);
+                        //show dialog
                         showDialog(
                           context: context,
                           builder: (BuildContext context) {
@@ -327,12 +331,15 @@ class _ViewBorrowerProfile extends State<ViewBorrowerProfile> {
                             return SimpleDialog(
                               children: [
                                 Container(
-                                  width:(MediaQuery.of(context).size.width) / 1.1,
-                                  height: (MediaQuery.of(context).size.height) /1.2,
-                                  child: AddLoanPage(                           
-                                    id: widget.id.toString(),
-                                    firstname: name [0],
-                                    lastname: name [1],
+                                  width:
+                                      (MediaQuery.of(context).size.width) / 1.1,
+                                  height: (MediaQuery.of(context).size.height) /
+                                      1.2,
+                                  child: AddLoanPage(
+                                    action: 'renew_loan',
+                                    id: widget.id,
+                                    firstname: name[0],
+                                    lastname: name[1],
                                     number: widget.number.toString(),
                                     address: _findAddress(widget.id.toString()),
                                   ),
@@ -368,14 +375,8 @@ class _ViewBorrowerProfile extends State<ViewBorrowerProfile> {
   }
 
   String qrContent() {
-    String content = "Name " +
-        widget.name.toString() +
-        "\n" +
-        "Mobile Number " +
-        widget.number.toString() +
-        "\n" +
-        "Balance " +
-        widget.balance.toString();
+    String content =
+        "Name ${widget.name.toString()} \n Mobile Number ${widget.number.toString()} \n Balance  ${widget.balance.toString()}";
     return content;
   }
 }

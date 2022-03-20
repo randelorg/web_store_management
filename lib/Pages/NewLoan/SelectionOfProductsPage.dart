@@ -58,7 +58,11 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
                   style: TextStyle(fontFamily: 'Cairo_Bold', fontSize: 30),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(top: 20, bottom: 6, right: 6, left: 6), //add padding to the textfields
+                  padding: EdgeInsets.only(
+                      top: 20,
+                      bottom: 6,
+                      right: 6,
+                      left: 6), //add padding to the textfields
                   child: TextField(
                     controller: firstname,
                     decoration: InputDecoration(
@@ -335,6 +339,7 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
                                         (MediaQuery.of(context).size.width) / 2,
                                     height: 555,
                                     child: FinalizePage(
+                                      action: 'new_loan',
                                       firstname: firstname.text,
                                       lastname: lastname.text,
                                       mobile: mobileNumber.text,

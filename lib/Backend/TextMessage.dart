@@ -9,10 +9,6 @@ import 'package:web_store_management/Backend/Interfaces/ITextMessage.dart';
 import 'Utility/Mapping.dart';
 
 class TextMessage implements ITextMessage {
-  //ignore: non_constant_identifier_names
-  final String _apikey = "a9eca54684a3d81ace2d45da8472cc0f";
-  final String _singleMessageUrl = "https://api.semaphore.co/api/v4/messages";
-
   String message = "";
 
   ///api/v4/messages
@@ -27,12 +23,9 @@ class TextMessage implements ITextMessage {
           "Dear $name,\n\nSorry your credit has been $status. \n\n- Team Dellrains Store";
     }
 
-    var payload = json.encode({
-      "apikey": _apikey,
-      "number": number,
-      "message": message,
-      "sendername": "DELLRAINS"
-    });
+    var payload = json.encode(
+      {"number": number, "message": message, "sendername": "DELLRAINS"},
+    );
 
     try {
       final response = await http.post(
@@ -78,12 +71,9 @@ class TextMessage implements ITextMessage {
           "Dear $name,\n\nThe $product you requested is $status.\nThank you for using our service. \n\nRegards,\n- Team Dellrains Store";
     }
 
-    var payload = json.encode({
-      "apikey": _apikey,
-      "number": number,
-      "message": message,
-      "sendername": "DELLRAINS"
-    });
+    var payload = json.encode(
+      {"number": number, "message": message, "sendername": "DELLRAINS"},
+    );
 
     try {
       final response = await http.post(
@@ -123,12 +113,9 @@ class TextMessage implements ITextMessage {
           "Dear $name,\n\nYour $product has been $status.\nThank you for using our service. Visit the store anytime within 8:00AM to 5:00PM. \n\nRegards,\n- Team Dellrains Store";
     }
 
-    var payload = json.encode({
-      "apikey": _apikey,
-      "number": number,
-      "message": message,
-      "sendername": "DELLRAINS"
-    });
+    var payload = json.encode(
+      {"number": number, "message": message, "sendername": "DELLRAINS"},
+    );
 
     try {
       final response = await http.post(
@@ -207,12 +194,8 @@ class TextMessage implements ITextMessage {
     final String message =
         "Your One Time Password is: {otp}. Please use it within 5 minutes.\n\nRegards,\n\n- Team Dellrains";
 
-    var payload = json.encode({
-      "apikey": _apikey,
-      "number": number,
-      "message": message,
-      "sendername": "DELLRAINS"
-    });
+    var payload = json.encode(
+        {"number": number, "message": message, "sendername": "DELLRAINS"});
 
     Map<String, dynamic> otpCode;
 

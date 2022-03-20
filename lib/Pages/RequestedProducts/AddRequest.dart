@@ -257,10 +257,8 @@ class _AddRequest extends State<AddRequest> {
                     },
                   );
                   if (pickedDate != null) {
-                    print(pickedDate);
                     String formattedDate =
                         DateFormat('yyyy-MM-dd').format(pickedDate);
-                    print(formattedDate);
                     setState(() {
                       dateinput.text = formattedDate;
                     });

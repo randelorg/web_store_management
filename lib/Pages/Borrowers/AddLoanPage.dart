@@ -8,8 +8,16 @@ import '../../Backend/GlobalController.dart';
 import '../NewLoan/FinalizePage.dart';
 
 class AddLoanPage extends StatefulWidget {
-  final String? id, firstname, lastname, number, address;
-  AddLoanPage({this.id, this.firstname, this.lastname, this.number, this.address});
+  final int? id;
+  final String? action, firstname, lastname, number, address;
+  AddLoanPage({
+    required this.action,
+    this.id,
+    this.firstname,
+    this.lastname,
+    this.number,
+    this.address,
+  });
 
   @override
   _AddLoanPage createState() => _AddLoanPage();
@@ -24,7 +32,7 @@ class _AddLoanPage extends State<AddLoanPage> {
   var pick = Picker();
   var image;
   //display selected file name
-  String fileName = 'UPLOAD CONTRACT';
+  String fileName = 'UPLOAD NEW CONTRACT';
 
   var controller = GlobalController();
   late Future _products;
@@ -62,9 +70,12 @@ class _AddLoanPage extends State<AddLoanPage> {
                   "BORROWER DETAILS",
                   style: TextStyle(fontFamily: 'Cairo_Bold', fontSize: 30),
                 ),
-                
                 Padding(
-                  padding: EdgeInsets.only(top: 20, bottom: 6, right: 6, left: 6), //add padding to the textfields
+                  padding: EdgeInsets.only(
+                      top: 20,
+                      bottom: 6,
+                      right: 6,
+                      left: 6), //add padding to the textfields
                   child: TextField(
                     controller: firstname,
                     enabled: false,
@@ -340,8 +351,12 @@ class _AddLoanPage extends State<AddLoanPage> {
                             SnackNotification.notif(
                               "Error",
                               "Please upload a file (jpg, png, jpeg)",
-                              Colors.red.shade600);
+                              Colors.red.shade600,
+                            );
                           } else {
+                            //exit
+                            Navigator.pop(context);
+                            //show dialog
                             showDialog(
                               context: context,
                               builder: (BuildContext context) {
@@ -349,9 +364,12 @@ class _AddLoanPage extends State<AddLoanPage> {
                                   children: [
                                     Container(
                                       width:
-                                          (MediaQuery.of(context).size.width) / 2,
+                                          (MediaQuery.of(context).size.width) /
+                                              2,
                                       height: 555,
                                       child: FinalizePage(
+                                        action: widget.action,
+                                        id: widget.id,
                                         firstname: firstname.text,
                                         lastname: lastname.text,
                                         mobile: mobileNumber.text,
