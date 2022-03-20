@@ -221,13 +221,13 @@ class _BodyLogin extends State<BodyLogin> {
   void switchUser(String user) {
     switch (user) {
       case 'Administrator':
-        Navigator.pushNamed(context, '/homeAdmin');
+        Navigator.pushReplacementNamed(context, '/homeAdmin');
         break;
       case 'Store Attendant':
-        Navigator.pushNamed(context, '/homeAttendant');
+        Navigator.pushReplacementNamed(context, '/homeAttendant');
         break;
       default:
-        Navigator.pushNamed(context, '/logout');
+        Navigator.pushReplacementNamed(context, '/logout');
     }
   }
 }

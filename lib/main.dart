@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:web_store_management/Pages/DashBoard/HomeAttendant.dart';
+import 'package:web_store_management/HomeAdmin.dart';
+import 'package:web_store_management/HomeAttendant.dart';
 import 'Pages/LoginPage/LoginPage.dart';
-import 'Pages/DashBoard/HomeAdmin.dart';
 
 void main() => runApp(MyApp());
 

@@ -1,20 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:web_store_management/Backend/Session.dart';
-import 'package:web_store_management/Backend/Utility/Mapping.dart';
-import 'package:web_store_management/Notification/Snack_notification.dart';
-import 'package:web_store_management/Pages/Branch/BranchPage.dart';
 import 'package:web_store_management/Pages/Release/ReleasePage.dart';
 import '../DashBoard/TimeCollection.dart';
 import '../NewLoan/SelectionOfProductsPage.dart';
 import '../Borrowers/BorrowersPage.dart';
 import '../Payment/PaymentPage.dart';
-import '../CreditApproval/CreditPage.dart';
 import '../RequestedProducts/RequestedProdScreen.dart';
 import '../Repairs/RepairsScreen.dart';
 import '../Inventory/InventoryPage.dart';
 import '../Reports/ReportScreen.dart';
-import '../Employees/EmployeePage.dart';
 
 class NavDrawerAttendant extends StatefulWidget {
   @override
@@ -22,6 +17,18 @@ class NavDrawerAttendant extends StatefulWidget {
 }
 
 class _NavDrawerAttendant extends State<NavDrawerAttendant> {
+  @override
+  void initState() {
+    Session.getid().then((id) {
+      setState(() {
+        if (id.isEmpty) {
+          Navigator.pushReplacementNamed(context, '/logout');
+        }
+      });
+    });
+    super.initState();
+  }
+
   int _selectedIndex = 0;
 
   List<Widget> pages = [
@@ -35,19 +42,6 @@ class _NavDrawerAttendant extends State<NavDrawerAttendant> {
     InventoryPage(),
     ViewReport(),
   ];
-
-  @override
-  void initState() {
-    super.initState();
-
-    Session.getid().then((id) {
-      setState(() {
-        if (id.compareTo('') == 0) {
-          Navigator.pushNamed(context, '/logout');
-        }
-      });
-    });
-  }
 
   @override
   Widget build(BuildContext context) {

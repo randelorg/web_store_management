@@ -2,6 +2,7 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:flutter/material.dart'; //library for going to next pages
 import 'package:web_store_management/Backend/GlobalController.dart';
 import 'package:web_store_management/Backend/LoginOperation.dart';
+import 'package:web_store_management/Backend/Session.dart';
 
 import 'Drawers/NotificationDrawer.dart';
 import 'Drawers/ProfileDrawer.dart';
@@ -20,6 +21,13 @@ class _TopBar extends State<TopBar> {
 
   @override
   void initState() {
+    Session.getid().then((id) {
+      setState(() {
+        if (id.isEmpty) {
+          Navigator.pushReplacementNamed(context, '/logout');
+        }
+      });
+    });
     super.initState();
   }
 
@@ -60,7 +68,7 @@ class _TopBar extends State<TopBar> {
             onPressed: () async {
               await login.logout().then((value) {
                 if (value) {
-                  Navigator.pushNamed(context, '/logout');
+                  Navigator.pushReplacementNamed(context, '/logout');
                 }
               }); //destroys the session
             },

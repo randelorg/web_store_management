@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:web_store_management/Backend/Session.dart';
-import 'package:web_store_management/Backend/Utility/Mapping.dart';
-import 'package:web_store_management/Notification/Snack_notification.dart';
 import 'package:web_store_management/Pages/Branch/BranchPage.dart';
 import 'package:web_store_management/Pages/Release/ReleasePage.dart';
 import '../DashBoard/TimeCollection.dart';
@@ -22,6 +20,18 @@ class NavDrawerAdmin extends StatefulWidget {
 }
 
 class _NavDrawerAdmin extends State<NavDrawerAdmin> {
+  @override
+  void initState() {
+    Session.getid().then((id) {
+      setState(() {
+        if (id.isEmpty) {
+          Navigator.pushReplacementNamed(context, '/logout');
+        }
+      });
+    });
+    super.initState();
+  }
+
   int _selectedIndex = 0;
 
   List<Widget> pages = [
@@ -38,19 +48,6 @@ class _NavDrawerAdmin extends State<NavDrawerAdmin> {
     BranchPage(),
     EmployeePage(),
   ];
-
-  @override
-  void initState() {
-    super.initState();
-
-    Session.getid().then((id) {
-      setState(() {
-        if (id.compareTo('') == 0) {
-          Navigator.pushNamed(context, '/logout');
-        }
-      });
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
