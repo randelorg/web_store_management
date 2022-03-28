@@ -6,7 +6,7 @@ import 'package:web_store_management/Backend/Interfaces/IInventory.dart';
 import 'package:web_store_management/Notification/Snack_notification.dart';
 import 'Utility/ApiUrl.dart';
 
-class BranchOperation implements IBranch, IIventory {
+class BranchOperation implements IBranch, IInventory {
   @override
   Future<bool> addBranch(final String branchName, final String branchAddress,
       final String empId) async {

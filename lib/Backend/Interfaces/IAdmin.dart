@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 class IAdmin {
+
   Future<void> createAdminAccount(
       String? firstname,
       String? lastname,
@@ -14,13 +15,16 @@ class IAdmin {
 
   void deleteAdminAccount() {}
 
-  Future<bool> updateAdminAccount(
-      final String id, final String username, final String password) {
-    var a;
-    return a;
+  bool verifyAdmin(
+    String password) {  
+      return true;
   }
 
-  bool verifyAdmin(String password) {
-    return true;
-  }
+  Future<bool> updateAdminAccount(
+    final String id, 
+    final String username, 
+    final String password) {
+      var a;
+      return a;
+    }  
 }

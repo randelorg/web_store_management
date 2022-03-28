@@ -5,7 +5,6 @@ import 'package:web_store_management/Backend/Utility/ApiUrl.dart';
 import 'package:web_store_management/Models/ForgetPasswordModel.dart';
 import 'package:web_store_management/Notification/Snack_notification.dart';
 import 'package:web_store_management/Backend/Interfaces/ITextMessage.dart';
-
 import 'Utility/Mapping.dart';
 
 class TextMessage implements ITextMessage {
@@ -56,7 +55,6 @@ class TextMessage implements ITextMessage {
 
   @override
   Future<bool> sendPromotions() {
-    // TODO: implement sendPromotions
     throw UnimplementedError();
   }
 

@@ -1,6 +1,12 @@
 class IBorrower {
+
   Future<bool> updateBorrower(int id, String firstname, String lastname,
       String mobile, String address) {
+    var a;
+    return a;
+  }
+
+  Future<bool> makePayment(int id, double payment, String date) {
     var a;
     return a;
   }
@@ -17,5 +23,20 @@ class IBorrower {
 
   bool removeBorrower() {
     return false;
+  }
+
+  Future<bool> updateRepair(int id, final String status) {
+    var a;
+    return a;
+  }
+
+  Future<bool> updateRequest(int id, final String status) {
+    var a;
+    return a;
+  }
+
+  Future<List<int>> getContract(int id) {
+    var a;
+    return a;
   }
 }
