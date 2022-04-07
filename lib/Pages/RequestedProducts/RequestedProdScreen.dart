@@ -5,7 +5,7 @@ import 'package:web_store_management/Backend/GlobalController.dart';
 import 'package:web_store_management/Backend/TextMessage.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
 import 'package:web_store_management/Models/BorrowerModel.dart';
-import 'package:web_store_management/Notification/Snack_notification.dart';
+import 'package:web_store_management/Notification/BannerNotif.dart';
 import 'package:web_store_management/Pages/RequestedProducts/ReqManualSearchBorrower.dart';
 
 class RequestedProdScreen extends StatefulWidget {
@@ -390,7 +390,7 @@ class _RequestedProdScreen extends State<RequestedProdScreen> {
         .then((value) => {
               if (value)
                 {
-                  SnackNotification.notif(
+                  BannerNotif.notif(
                     'PENDING',
                     'The message is in transit to the network',
                     Colors.orange.shade500,
@@ -403,7 +403,7 @@ class _RequestedProdScreen extends State<RequestedProdScreen> {
       int id, final String status, String product, String name, String number) {
     borrower.updateRequest(id, status).then((value) {
       if (!value) {
-        SnackNotification.notif(
+        BannerNotif.notif(
           'Error',
           'Something went wrong while updating the request',
           Colors.redAccent.shade200,

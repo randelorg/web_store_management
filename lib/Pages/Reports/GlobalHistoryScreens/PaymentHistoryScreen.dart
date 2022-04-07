@@ -6,14 +6,13 @@ import 'package:web_store_management/Models/PaymentHistoryModel.dart';
 
 class LocalPaymentHistory extends StatefulWidget {
   final String? id, borrowerName;
-  LocalPaymentHistory({this.id, this.borrowerName});
+  LocalPaymentHistory({required this.id, this.borrowerName});
 
   @override
   _LocalPaymentHistory createState() => _LocalPaymentHistory();
 }
 
 class _LocalPaymentHistory extends State<LocalPaymentHistory> {
-
   var history = HistoryOperation();
   late Future<List<PaymentHistoryModel>> _paymentHistory;
   var _sortAscending = true;
@@ -58,10 +57,9 @@ class _LocalPaymentHistory extends State<LocalPaymentHistory> {
               fontSize: 30,
             ),
           ),
-
-          Row(        
+          Row(
             mainAxisAlignment: MainAxisAlignment.start,
-            children: [         
+            children: [
               Padding(
                 padding: EdgeInsets.only(left: 20, top: 50),
                 child: Text(
@@ -79,8 +77,8 @@ class _LocalPaymentHistory extends State<LocalPaymentHistory> {
             future: this._paymentHistory,
             builder: (context, snapshot) {
               if (!snapshot.hasData) {
-                return Center(      
-                  child: CircularProgressIndicator(        
+                return Center(
+                  child: CircularProgressIndicator(
                     semanticsLabel: 'Fetching borrowers',
                   ),
                 );
@@ -89,23 +87,24 @@ class _LocalPaymentHistory extends State<LocalPaymentHistory> {
                 if (snapshot.data!.isNotEmpty) {
                   return Padding(
                     padding: const EdgeInsets.only(top: 5, left: 15, right: 15),
-                    child: PaginatedDataTable(            
+                    child: PaginatedDataTable(
                       showCheckboxColumn: false,
                       showFirstLastButtons: true,
                       sortAscending: _sortAscending,
                       sortColumnIndex: 0,
                       rowsPerPage: 12,
                       columns: [
-                        DataColumn(label: Text('COLLECTION ID'),
-                        onSort: (index, sortAscending) {
+                        DataColumn(
+                          label: Text('COLLECTION ID'),
+                          onSort: (index, sortAscending) {
                             setState(() {
                               _sortAscending = sortAscending;
                               if (sortAscending) {
-                                snapshot.data!.sort((a, b) =>
-                                    a.getCollectionID.compareTo(b.getCollectionID));
+                                snapshot.data!.sort((a, b) => a.getCollectionID
+                                    .compareTo(b.getCollectionID));
                               } else {
-                                snapshot.data!.sort((a, b) =>
-                                    b.getCollectionID.compareTo(a.getCollectionID));
+                                snapshot.data!.sort((a, b) => b.getCollectionID
+                                    .compareTo(a.getCollectionID));
                               }
                             });
                           },

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:web_store_management/Backend/TextMessage.dart';
-import 'package:web_store_management/Notification/Snack_notification.dart';
+import 'package:web_store_management/Notification/BannerNotif.dart';
 import 'package:web_store_management/Pages/LoginPage/ForgotPasswordScreens/OTPVerification.dart';
 
 class ForgotPassword extends StatefulWidget {
@@ -101,7 +101,7 @@ class _ForgotPassword extends State<ForgotPassword> {
                       child: const Text('GET OTP'),
                       onPressed: () {
                         if (mobileNumber.text.isEmpty) {
-                          SnackNotification.notif(
+                          BannerNotif.notif(
                             "Error",
                             "Please fill the mobile number field",
                             Colors.red.shade600,
@@ -111,7 +111,7 @@ class _ForgotPassword extends State<ForgotPassword> {
                               .checkNumberIfExisting(mobileNumber.text)
                               .then((value) {
                             if (value == 0) {
-                              SnackNotification.notif(
+                              BannerNotif.notif(
                                   'Not found',
                                   'Mobile number does not exist',
                                   Colors.red.shade600);

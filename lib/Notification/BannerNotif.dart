@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class SnackNotification {
+class BannerNotif {
   static void notif(String title, String message, Color color) {
     Get.snackbar(
       title, //title of the snackbar

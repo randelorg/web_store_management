@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:web_store_management/Backend/GlobalController.dart';
 import 'package:web_store_management/Backend/ProductOperation.dart';
+import 'package:web_store_management/Backend/Session.dart';
 import 'package:web_store_management/Models/BranchModel.dart';
 import 'package:web_store_management/Models/ProductModel.dart';
-import 'package:web_store_management/Notification/Snack_notification.dart';
+import 'package:web_store_management/Notification/BannerNotif.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
 import 'TransferStock.dart';
 import 'UpdateProduct.dart';
@@ -204,7 +205,7 @@ class _InventoryPage extends State<InventoryPage> {
                               quantity.text.isEmpty ||
                               unit.text.isEmpty ||
                               price.text.isEmpty) {
-                            SnackNotification.notif(
+                            BannerNotif.notif(
                                 "Error",
                                 "Please fill all the fields",
                                 Colors.red.shade600);
@@ -219,7 +220,7 @@ class _InventoryPage extends State<InventoryPage> {
                             )
                                 .then((value) {
                               if (value) {
-                                SnackNotification.notif(
+                                BannerNotif.notif(
                                   'Success',
                                   "Product " + prodName.text + " is now added",
                                   Colors.green.shade600,
@@ -477,7 +478,22 @@ class _DataSource extends DataTableSource {
             },
           );
         }),
-        DataCell((row.valueF), onTap: () {
+        DataCell((row.valueF), onTap: () async {
+          String branch = '';
+          await Session.getBranch().then((branchName) {
+            branch = branchName;
+            print("branch: $branch");
+          });
+
+          if (branch != 'Main') {
+            BannerNotif.notif(
+              'Invalid Action',
+              'Main branch has the ability to trasnfer product',
+              Colors.red.shade600,
+            );
+            return;
+          }
+
           showDialog(
             context: context,
             builder: (BuildContext context) {
@@ -538,10 +554,28 @@ class _DataSource extends DataTableSource {
               ],
             ),
           ),
-          Icon(
-            Icons.transfer_within_a_station,
-            color: HexColor("#155293"),
-            size: 25,
+          ClipRRect(
+            borderRadius: BorderRadius.circular(20),
+            child: Stack(
+              children: <Widget>[
+                Positioned.fill(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: HexColor("#155293"),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding:
+                      EdgeInsets.only(top: 8, bottom: 8, left: 16, right: 16),
+                  child: Icon(
+                    Icons.transfer_within_a_station,
+                    color: Colors.white,
+                    size: 25,
+                  ),
+                ),
+              ],
+            ),
           ),
         );
       });

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:web_store_management/Notification/Snack_notification.dart';
+import 'package:web_store_management/Notification/BannerNotif.dart';
 import '../../Helpers/FilePickerHelper.dart';
 import '../../Helpers/HashingHelper.dart';
 import '../../Backend/EmployeeOperation.dart';
@@ -453,17 +453,17 @@ class _AddEmployee extends State<AddEmployee> {
                                 basicWage.text.isEmpty ||
                                 password.text.isEmpty ||
                                 confirmPassword.text.isEmpty) {
-                              SnackNotification.notif(
+                              BannerNotif.notif(
                                   'Error',
                                   'Please supply all fields',
                                   Colors.red.shade600);
                             } else if (pick.image == null) {
-                              SnackNotification.notif(
+                              BannerNotif.notif(
                                   "Error",
                                   "Please upload an account image (jpg, png, or jpeg)",
                                   Colors.red.shade600);
                             } else if (password.text != confirmPassword.text) {
-                              SnackNotification.notif(
+                              BannerNotif.notif(
                                   "Error",
                                   "Password did not match",
                                   Colors.red.shade600);
@@ -483,7 +483,7 @@ class _AddEmployee extends State<AddEmployee> {
                                   .then((value) {
                                 if (value) {
                                   Navigator.pop(context);
-                                  SnackNotification.notif(
+                                  BannerNotif.notif(
                                     'Success',
                                     'Employee account is created',
                                     Colors.green.shade600,

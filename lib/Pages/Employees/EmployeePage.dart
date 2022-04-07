@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
 import 'package:web_store_management/Models/EmployeeModel.dart';
-import 'package:web_store_management/Pages/Employees/PayrollPage.dart';
+import 'package:web_store_management/Pages/Employees/AttendancePage.dart';
 import 'AddEmployee.dart';
 import 'ViewEmpProfile.dart';
 import '../../Backend/GlobalController.dart';
@@ -154,7 +154,7 @@ class _Employeepage extends State<EmployeePage> {
                           DataColumn(label: Text('NAME')),
                           DataColumn(label: Text('NUMBER')),
                           DataColumn(label: Text('PROFILE')),
-                          DataColumn(label: Text('PAYROLL')),
+                          DataColumn(label: Text('ATTENDANCE')),
                         ],
                         source: _DataSource(context),
                       )
@@ -249,7 +249,10 @@ class _DataSource extends DataTableSource {
                   Container(
                     width: (MediaQuery.of(context).size.width) / 2,
                     height: (MediaQuery.of(context).size.height),
-                    child: PayrollPage(employeeName: row.valueC),
+                    child: AttendancePage(
+                      empId: row.valueA,
+                      employeeName: row.valueC,
+                    ),
                   ),
                 ],
               );
@@ -291,14 +294,7 @@ class _DataSource extends DataTableSource {
                 Padding(
                   padding:
                       EdgeInsets.only(top: 8, bottom: 8, left: 16, right: 16),
-                  child: Text(
-                    'PROFILE',
-                    style: TextStyle(
-                      fontFamily: 'Cairo_SemiBold',
-                      fontSize: 14,
-                      color: Colors.white,
-                    ),
-                  ),
+                  child: Icon(Icons.badge, color: Colors.white),
                 ),
               ],
             ),
@@ -317,14 +313,7 @@ class _DataSource extends DataTableSource {
                 Padding(
                   padding:
                       EdgeInsets.only(top: 8, bottom: 8, left: 16, right: 16),
-                  child: Text(
-                    'PAYROLL',
-                    style: TextStyle(
-                      fontFamily: 'Cairo_SemiBold',
-                      fontSize: 14,
-                      color: Colors.white,
-                    ),
-                  ),
+                  child: Icon(Icons.date_range, color: Colors.white),
                 ),
               ],
             ),

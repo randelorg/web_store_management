@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:web_store_management/Backend/AdminOperation.dart';
-import 'package:web_store_management/Notification/Snack_notification.dart';
+import 'package:web_store_management/Notification/BannerNotif.dart';
 
 import '../../../Backend/Utility/Mapping.dart';
 
@@ -169,12 +169,12 @@ class _ChangePass extends State<ChangePass> {
                       child: const Text('CONFIRM'),
                       onPressed: () {
                         if (newPassword.text.isEmpty || confirmPassword.text.isEmpty) {
-                          SnackNotification.notif(
+                          BannerNotif.notif(
                             "Error",
                             "Please fill all the fields",
                             Colors.red.shade600);
                         } else if (newPassword.text != confirmPassword.text){
-                          SnackNotification.notif(
+                          BannerNotif.notif(
                             "Error",
                             "Password did not match",
                             Colors.red.shade600);                   
@@ -186,7 +186,7 @@ class _ChangePass extends State<ChangePass> {
                               .then((value) {
                             if (value) {
                               Navigator.pop(context);
-                              SnackNotification.notif(
+                              BannerNotif.notif(
                                 'Success',
                                 'Password changed, please now log in',
                                 Colors.green.shade600,

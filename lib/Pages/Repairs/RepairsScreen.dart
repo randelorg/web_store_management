@@ -5,7 +5,7 @@ import 'package:web_store_management/Backend/GlobalController.dart';
 import 'package:web_store_management/Backend/TextMessage.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
 import 'package:web_store_management/Models/BorrowerModel.dart';
-import 'package:web_store_management/Notification/Snack_notification.dart';
+import 'package:web_store_management/Notification/BannerNotif.dart';
 import 'package:web_store_management/Pages/Repairs/ManualBorrowerSearch.dart';
 
 class RepairsPage extends StatefulWidget {
@@ -394,7 +394,7 @@ class _RepairsPage extends State<RepairsPage> {
     message.sendRepairedProduct(name, number, product, status).then((value) => {
           if (value)
             {
-              SnackNotification.notif(
+              BannerNotif.notif(
                 'PENDING',
                 'The message is in transit to the network',
                 Colors.orange.shade500,
@@ -407,7 +407,7 @@ class _RepairsPage extends State<RepairsPage> {
       int id, final String status, String product, String name, String number) {
     borrower.updateRepair(id, status).then((value) {
       if (!value) {
-        SnackNotification.notif(
+        BannerNotif.notif(
           'Error',
           'Something went wrong while updating the repair',
           Colors.redAccent.shade200,

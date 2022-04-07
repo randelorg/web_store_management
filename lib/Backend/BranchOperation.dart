@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:web_store_management/Backend/Interfaces/IBranch.dart';
 import 'package:web_store_management/Backend/Interfaces/IInventory.dart';
-import 'package:web_store_management/Notification/Snack_notification.dart';
+import 'package:web_store_management/Notification/BannerNotif.dart';
 import 'Utility/ApiUrl.dart';
 
 class BranchOperation implements IBranch, IInventory {
@@ -32,7 +32,7 @@ class BranchOperation implements IBranch, IInventory {
       }
 
       if (response.statusCode == 202) {
-        SnackNotification.notif(
+        BannerNotif.notif(
           'Success',
           'New branch added successfully',
           Colors.green.shade600,
@@ -80,7 +80,7 @@ class BranchOperation implements IBranch, IInventory {
     } catch (e) {
       e.toString();
       //if there is an error in the method
-      SnackNotification.notif(
+      BannerNotif.notif(
         'Error',
         "Branch failed to  update",
         Colors.red.shade600,
@@ -124,7 +124,7 @@ class BranchOperation implements IBranch, IInventory {
     } catch (e) {
       e.toString();
       //if there is an error in the method
-      SnackNotification.notif(
+      BannerNotif.notif(
         'Error',
         "Product failed to be transferred",
         Colors.red.shade600,

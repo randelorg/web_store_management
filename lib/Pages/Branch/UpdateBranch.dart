@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 import '../../Backend/BranchOperation.dart';
-import '../../Notification/Snack_notification.dart';
+import '../../Notification/BannerNotif.dart';
 
 class UpdateBranch extends StatefulWidget {
   final String? branchCode, branchName, branchAddress;
@@ -149,7 +149,7 @@ class _UpdateBranch extends State<UpdateBranch> {
                           child: const Text('UPDATE'),
                           onPressed: () {
                             if(branchName.text.isEmpty || branchAddress.text.isEmpty){                 
-                              SnackNotification.notif(                             
+                              BannerNotif.notif(                             
                                 "Error",
                                 "Please fill all the fields",
                                 Colors.red.shade600);
@@ -163,7 +163,7 @@ class _UpdateBranch extends State<UpdateBranch> {
                                 .then((value) {                                 
                                   if (value) {                                    
                                     Navigator.pop(context);
-                                    SnackNotification.notif(                           
+                                    BannerNotif.notif(                           
                                       'Success',
                                       "Branch" + branchName.text + " is updated",
                                      Colors.green.shade600,

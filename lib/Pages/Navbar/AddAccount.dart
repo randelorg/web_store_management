@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:web_store_management/Notification/Snack_notification.dart';
+import 'package:web_store_management/Notification/BannerNotif.dart';
 import '../../Helpers/HashingHelper.dart';
 import 'ConfirmNewAccount.dart';
 import '../../Helpers/FilePickerHelper.dart';
@@ -362,17 +362,17 @@ class _AddAccount extends State<AddAccount> {
                           onPressed: () {
                             if (username.text.isEmpty || firstname.text.isEmpty || lastname.text.isEmpty || mobileNumber.text.isEmpty ||  
                                 homeAddress.text.isEmpty || password.text.isEmpty ||confirmPassword.text.isEmpty) {                         
-                                  SnackNotification.notif(                                
+                                  BannerNotif.notif(                                
                                     "Error",
                                     "Please fill all the fields",
                                    Colors.red.shade600);
                             } else if (pick.image == null) {                                                   
-                              SnackNotification.notif(
+                              BannerNotif.notif(
                                 "Error",
                                 "Please upload an account image (jpg, png, or jpeg)",
                                 Colors.red.shade600);
                             } else if (password.text != confirmPassword.text) {
-                              SnackNotification.notif(
+                              BannerNotif.notif(
                                   "Error",
                                   "Password did not match",
                                   Colors.red.shade600);

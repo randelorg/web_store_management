@@ -1,14 +1,9 @@
 class BranchModel {
-  String? _employeeAssigned;
   String? _branchCode;
   String? _branchName;
   String? _branchAddress;
   String? _productCodeCopy;
   int? _prodQty;
-
-  String? get employeeAssigned => this._employeeAssigned;
-
-  set employeeAssigned(String? value) => this._employeeAssigned = value;
 
   get branchCode => this._branchCode;
 
@@ -63,7 +58,6 @@ class BranchModel {
       String? branchAddress,
       String? productCodeCopy,
       int? prodQty}) {
-    this._employeeAssigned = employeeAssigned;
     this._branchCode = branchCode;
     this._branchName = branchName;
     this._branchAddress = branchAddress;
@@ -84,18 +78,17 @@ class BranchModel {
       branchCode: json['BranchCode'] as String,
       branchName: json['BranchName'] as String,
       branchAddress: json['BranchAddress'] as String,
-      productCodeCopy: json['ProductCode_Copy'] as String,
+      productCodeCopy: json['ProductCode'] as String,
       prodQty: json['ProdQty'] as int,
     );
   }
 
   factory BranchModel.fromJson(Map<String, dynamic> json) {
     return BranchModel.fullJson(
-      employeeAssigned: json['EmployeeID'] as String,
       branchCode: json['BranchCode'] as String,
       branchName: json['BranchName'] as String,
       branchAddress: json['BranchAddress'] as String,
-      productCodeCopy: json['ProductCode_Copy'] as String,
+      productCodeCopy: json['ProductCode'] as String,
       prodQty: json['ProdQty'] as int,
     );
   }

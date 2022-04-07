@@ -9,7 +9,7 @@ import 'package:web_store_management/Helpers/PrintHelper.dart';
 import 'package:web_store_management/Models/BorrowerModel.dart';
 import 'package:web_store_management/Models/InvoiceModel.dart';
 
-import '../../Notification/Snack_notification.dart';
+import '../../Notification/BannerNotif.dart';
 
 class CashPaymentPage extends StatefulWidget {
   @override
@@ -221,7 +221,7 @@ class _CashPaymentPage extends State<CashPaymentPage> {
                     child: const Text('DONE'),
                     onPressed: () async {
                       if (fname.text.isEmpty || lname.text.isEmpty || address.text.isEmpty) {
-                        SnackNotification.notif(
+                        BannerNotif.notif(
                           "Error",
                           "Please fill all the fields",
                           Colors.red.shade600);

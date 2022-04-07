@@ -4,7 +4,7 @@ import 'package:web_store_management/Backend/AdminOperation.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
 import 'package:web_store_management/Models/AdminModel.dart';
 import 'package:web_store_management/Models/EmployeeModel.dart';
-import 'package:web_store_management/Notification/Snack_notification.dart';
+import 'package:web_store_management/Notification/BannerNotif.dart';
 
 class UpdateProfile extends StatefulWidget {
   @override
@@ -299,10 +299,10 @@ class _EditProfile extends State<UpdateProfile> {
                           child: const Text('UPDATE'),
                           onPressed: () {
                             if (username.text.isEmpty || password.text.isEmpty || confirmPassword.text.isEmpty) {
-                              SnackNotification.notif(
+                              BannerNotif.notif(
                                 "Error", "Please fill all the fields", Colors.red.shade600);
                             } else if(password.text != confirmPassword.text){
-                              SnackNotification.notif(
+                              BannerNotif.notif(
                                 "Error","Password did not match", Colors.red.shade600);                       
                               }else {
                               Navigator.pop(context);
@@ -314,7 +314,7 @@ class _EditProfile extends State<UpdateProfile> {
                               )
                                   .then((value) {
                                 if (value) {
-                                  SnackNotification.notif(
+                                  BannerNotif.notif(
                                     "Success",
                                     "Successfully updated admin",
                                     Colors.green.shade600,

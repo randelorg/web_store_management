@@ -5,7 +5,7 @@ import 'package:web_store_management/Backend/EmployeeOperation.dart';
 import 'package:web_store_management/Backend/GlobalController.dart';
 import 'package:web_store_management/Backend/Session.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
-import 'package:web_store_management/Notification/Snack_notification.dart';
+import 'package:web_store_management/Notification/BannerNotif.dart';
 import '../ViewProfile.dart';
 import '../AddAccount.dart';
 import '../UpdateProfile.dart';
@@ -21,6 +21,8 @@ class _ProfileDrawer extends State<ProfileDrawer> {
 
   bool _isAuthorized = false;
   bool _isEmployee = true;
+
+  String branchName = '';
 
   String _getTodayDate() {
     var _formatter = new DateFormat('yyyy-MM-dd hh:mm:ss a');
@@ -39,11 +41,16 @@ class _ProfileDrawer extends State<ProfileDrawer> {
         _isEmployee = false;
       });
     }
+    Session.getBranch().then((branch) {
+      setState(() {
+        branchName = branch;
+      });
+    });
   }
 
   void timeIn(String id, String date) {
     emp.timeIn(id, date).then(
-          (value) => SnackNotification.notif(
+          (value) => BannerNotif.notif(
             'Success',
             'Time-in: $date',
             Colors.green.shade600,
@@ -53,7 +60,7 @@ class _ProfileDrawer extends State<ProfileDrawer> {
 
   void timeOut(String id, String date) {
     emp.timeOut(id, date).then(
-          (value) => SnackNotification.notif(
+          (value) => BannerNotif.notif(
             'Success',
             'Time-out: $date',
             Colors.red.shade600,
@@ -76,6 +83,39 @@ class _ProfileDrawer extends State<ProfileDrawer> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
+                Card(
+                  elevation: 3,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                        top: 10, bottom: 10, left: 10, right: 20),
+                    child: //indicate the branch here
+                        Padding(
+                      padding: EdgeInsets.only(top: 10),
+                      child: TextButton.icon(
+                        icon: Icon(
+                          Icons.store,
+                          color: HexColor("#155293"),
+                        ),
+                        label: Text(
+                          '$branchName',
+                          style: TextStyle(
+                            fontFamily: 'Cairo_SemiBold',
+                            color: HexColor("#155293"),
+                          ),
+                          softWrap: true,
+                        ),
+                        onPressed: null,
+                      ),
+                    ),
+                  ),
+                ),
+                const Divider(
+                  height: 1,
+                  color: Colors.black,
+                ),
                 Padding(
                   padding: EdgeInsets.only(top: 10),
                   child: Container(
@@ -132,7 +172,8 @@ class _ProfileDrawer extends State<ProfileDrawer> {
                           borderRadius: BorderRadius.circular(30),
                         ),
                         child: Padding(
-                          padding: EdgeInsets.only(top: 10, bottom: 10, left: 10, right: 6),
+                          padding: EdgeInsets.only(
+                              top: 10, bottom: 10, left: 10, right: 6),
                           child: TextButton.icon(
                             icon: Icon(
                               Icons.create_rounded,
@@ -163,7 +204,8 @@ class _ProfileDrawer extends State<ProfileDrawer> {
                           borderRadius: BorderRadius.circular(30),
                         ),
                         child: Padding(
-                          padding: EdgeInsets.only(top: 10, bottom: 10, left: 10, right: 24),
+                          padding: EdgeInsets.only(
+                              top: 10, bottom: 10, left: 10, right: 24),
                           child: TextButton.icon(
                             icon: Icon(
                               Icons.person_add,
@@ -224,7 +266,8 @@ class _ProfileDrawer extends State<ProfileDrawer> {
                                   borderRadius: BorderRadius.circular(30),
                                 ),
                                 child: Padding(
-                                  padding: EdgeInsets.only(top: 10, bottom: 10, left: 10, right: 20),
+                                  padding: EdgeInsets.only(
+                                      top: 10, bottom: 10, left: 10, right: 20),
                                   child: TextButton.icon(
                                     icon: Icon(
                                       Icons.check_circle,
@@ -277,7 +320,8 @@ class _ProfileDrawer extends State<ProfileDrawer> {
                                   borderRadius: BorderRadius.circular(30),
                                 ),
                                 child: Padding(
-                                  padding: EdgeInsets.only(top: 10, bottom: 10, left: 10, right: 13),
+                                  padding: EdgeInsets.only(
+                                      top: 10, bottom: 10, left: 10, right: 13),
                                   child: TextButton.icon(
                                     icon: Icon(
                                       Icons.cancel,

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:intl/intl.dart';
 import 'package:web_store_management/Backend/BorrowerOperation.dart';
-import 'package:web_store_management/Notification/Snack_notification.dart';
+import 'package:web_store_management/Notification/BannerNotif.dart';
 
 class AddRepair extends StatefulWidget {
   final String? id, name, address, number;
@@ -292,7 +292,7 @@ class _AddRepair extends State<AddRepair> {
                       child: const Text('ADD REPAIR'),
                       onPressed: () {
                         if (productname.text.isEmpty || dateinput.text.isEmpty) {
-                          SnackNotification.notif(
+                          BannerNotif.notif(
                             "Error",
                              "Please fill all the fields",Colors.red.shade600);
                         } else {
@@ -305,7 +305,7 @@ class _AddRepair extends State<AddRepair> {
                           )
                               .then((value) {
                             if (value) {
-                              SnackNotification.notif(
+                              BannerNotif.notif(
                                 "Success",
                                 "Successfully added repair",
                                 Colors.green.shade600,

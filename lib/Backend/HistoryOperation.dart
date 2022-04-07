@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:web_store_management/Models/LoanedProductHistoryModel.dart';
 import 'package:web_store_management/Models/PaymentHistoryModel.dart';
-import 'package:web_store_management/Notification/Snack_notification.dart';
+import 'package:web_store_management/Notification/BannerNotif.dart';
 import 'Interfaces/IHistory.dart';
 import '../Backend/Utility/Mapping.dart';
 import 'Utility/ApiUrl.dart';
@@ -25,7 +25,7 @@ class HistoryOperation implements IHistory {
           .toList();
 
       if (response.statusCode == 404) {
-        SnackNotification.notif(
+        BannerNotif.notif(
           'Error',
           'Cant fetch loaned product history',
           Colors.red.shade600,
@@ -34,7 +34,7 @@ class HistoryOperation implements IHistory {
       }
     } catch (e) {
       print(e.toString());
-      SnackNotification.notif(
+      BannerNotif.notif(
         'Error',
         'Cant fetch loaned product history',
         Colors.red.shade600,
@@ -60,7 +60,7 @@ class HistoryOperation implements IHistory {
           .toList();
 
       if (response.statusCode == 404) {
-        SnackNotification.notif(
+        BannerNotif.notif(
           'Error',
           'There is history of this borrower',
           Colors.red.shade600,
@@ -69,7 +69,7 @@ class HistoryOperation implements IHistory {
       }
     } catch (e) {
       print(e.toString());
-      SnackNotification.notif(
+      BannerNotif.notif(
         'Error',
         'Cant fetch payment history',
         Colors.red.shade600,
