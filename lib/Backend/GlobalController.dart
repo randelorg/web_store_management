@@ -40,11 +40,11 @@ class GlobalController {
 
     if (branch == 'Main') {
       response = await http.get(Uri.parse(
-        "http://localhost:8090/api/products/Main",
+        "${Url.url}api/products/Main",
       ));
     } else {
       response = await http.get(Uri.parse(
-        "http://localhost:8090/api/products/${Mapping.findBranchCode(branch)}",
+        "${Url.url}api/products/${Mapping.findBranchCode(branch)}",
       ));
     }
 

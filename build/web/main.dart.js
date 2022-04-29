@@ -111001,7 +111001,7 @@ s=p}while(true)switch(s){case 0:if(a===""){q=A.b([],t.wQ)
 s=1
 break}p=4
 s=7
-return A.N(A.fv(A.bT("http://localhost:8090/api/attendance/"+a,0,null),null),$async$tP)
+return A.N(A.fv(A.bT("https://dellrainapi.herokuapp.com/api/attendance/"+a,0,null),null),$async$tP)
 case 7:m=c
 k=m
 s=8
@@ -111043,7 +111043,7 @@ s=p}while(true)switch(s){case 0:k=t.N
 j=B.L.cE(A.aa(["id",a,"timeIn",b],k,k))
 p=4
 s=7
-return A.N(A.e8(A.bT("http://localhost:8090/api/clockin",0,null),j,A.aa(["Content-Type","application/json","Accept","application/json"],k,k)),$async$tD)
+return A.N(A.e8(A.bT("https://dellrainapi.herokuapp.com/api/clockin",0,null),j,A.aa(["Content-Type","application/json","Accept","application/json"],k,k)),$async$tD)
 case 7:m=d
 if(m.b===404){q=!1
 s=1
@@ -111075,7 +111075,7 @@ i=t.N
 h=B.L.cE(A.aa(["id",a,"dateToday",j.b.dB(0,j.c),"timeOut",b],i,i))
 p=4
 s=7
-return A.N(A.e8(A.bT("http://localhost:8090/api/clockout",0,null),h,A.aa(["Content-Type","application/json","Accept","application/json"],i,i)),$async$tE)
+return A.N(A.e8(A.bT("https://dellrainapi.herokuapp.com/api/clockout",0,null),h,A.aa(["Content-Type","application/json","Accept","application/json"],i,i)),$async$tE)
 case 7:l=d
 if(l.b===404){q=!1
 s=1
@@ -111130,11 +111130,11 @@ k=J
 s=p==="Main"?4:6
 break
 case 4:s=7
-return A.N(A.fv(A.bT("http://localhost:8090/api/products/Main",0,null),null),$async$kJ)
+return A.N(A.fv(A.bT("https://dellrainapi.herokuapp.com/api/products/Main",0,null),null),$async$kJ)
 case 7:s=5
 break
 case 6:s=8
-return A.N(A.fv(A.bT("http://localhost:8090/api/products/"+A.b65(p),0,null),null),$async$kJ)
+return A.N(A.fv(A.bT("https://dellrainapi.herokuapp.com/api/products/"+A.b65(p),0,null),null),$async$kJ)
 case 8:case 5:q=o.eV=n.fK(m.eF(l.eP(0,k.b2j(b),null),t.a),new A.afW(),t.bq).dO(0)
 s=1
 break

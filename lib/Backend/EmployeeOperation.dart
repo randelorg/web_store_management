@@ -110,7 +110,7 @@ class EmployeeOperation implements IEmployee {
     if (empId == "") return [];
     try {
       final response = await http.get(
-        Uri.parse("http://localhost:8090/api/attendance/$empId"),
+        Uri.parse("${Url.url}api/attendance/$empId"),
       );
 
       final parsed =
@@ -148,7 +148,7 @@ class EmployeeOperation implements IEmployee {
 
     try {
       final response = await http.post(
-        Uri.parse("http://localhost:8090/api/clockin"),
+        Uri.parse("${Url.url}api/clockin"),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json'
@@ -181,7 +181,7 @@ class EmployeeOperation implements IEmployee {
 
     try {
       final response = await http.post(
-        Uri.parse("http://localhost:8090/api/clockout"),
+        Uri.parse("${Url.url}api/clockout"),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json'
