@@ -1,0 +1,2028 @@
+@startuml
+set namespaceSeparator ::
+
+class "web_store_management::Backend::AdminOperation.dart::AdminOperation" {
+  +Hashing hash
+  +Future<bool> changePassword()
+  +Future<void> createAdminAccount()
+  +void deleteAdminAccount()
+  +bool verifyAdmin()
+  +Future<bool> updateAdminAccount()
+}
+
+"web_store_management::Backend::AdminOperation.dart::AdminOperation" o-- "web_store_management::Helpers::HashingHelper.dart::Hashing"
+"web_store_management::Backend::Interfaces::IAdmin.dart::IAdmin" <|-- "web_store_management::Backend::AdminOperation.dart::AdminOperation"
+
+class "web_store_management::Backend::BorrowerOperation.dart::BorrowerOperation" {
+  +Future<bool> updateBorrower()
+  +Future<bool> makePayment()
+  +Future<bool> addRequest()
+  +Future<bool> addRepair()
+  +bool removeBorrower()
+  +Future<bool> updateRepair()
+  +Future<bool> updateRequest()
+  +Future<List<int>> getContract()
+}
+
+"web_store_management::Backend::LoginOperation.dart::Login" <|-- "web_store_management::Backend::BorrowerOperation.dart::BorrowerOperation"
+"web_store_management::Backend::Interfaces::IBorrower.dart::IBorrower" <|-- "web_store_management::Backend::BorrowerOperation.dart::BorrowerOperation"
+"web_store_management::Backend::Interfaces::IPay.dart::IPay" <|-- "web_store_management::Backend::BorrowerOperation.dart::BorrowerOperation"
+"web_store_management::Backend::Interfaces::IServices.dart::IServices" <|-- "web_store_management::Backend::BorrowerOperation.dart::BorrowerOperation"
+
+class "web_store_management::Backend::BranchOperation.dart::BranchOperation" {
+  +Future<bool> addBranch()
+  +Future<bool> deleteBranch()
+  +Future<bool> updateBranch()
+  +Future<bool> transferStock()
+}
+
+"web_store_management::Backend::Interfaces::IBranch.dart::IBranch" <|-- "web_store_management::Backend::BranchOperation.dart::BranchOperation"
+"web_store_management::Backend::Interfaces::IInventory.dart::IInventory" <|-- "web_store_management::Backend::BranchOperation.dart::BranchOperation"
+
+class "web_store_management::Backend::DashboardOperation.dart::DashboardOperation" {
+  +BuildContext context
+  -DateFormat _formatter
+  -DateTime _now
+  +String getTodayDate()
+  +List<String> getWeekDates()
+  +List<String> getMonthDates()
+  +Future<double> getTodayCollection()
+  +Future<double> getWeekCollection()
+  +Future<double> getMonthCollection()
+  +Future<List<GraphCollectionModel>> getGraphWeek()
+  +Future<List<GraphCollectionModel>> getGraphMonth()
+  +Future<List<GraphCollectionModel>> getGraphReport()
+}
+
+"web_store_management::Backend::DashboardOperation.dart::DashboardOperation" o-- "flutter::src::widgets::framework.dart::BuildContext"
+"web_store_management::Backend::DashboardOperation.dart::DashboardOperation" o-- "intl::src::intl::date_format.dart::DateFormat"
+"web_store_management::Backend::Interfaces::IDashboard.dart::IDashboard" <|-- "web_store_management::Backend::DashboardOperation.dart::DashboardOperation"
+
+class "web_store_management::Backend::EmployeeOperation.dart::EmployeeOperation" {
+  -Hashing _hash
+  +DashboardOperation dashboard
+  +Future<bool> createEmployeeAccount()
+  +void deleteEmployeeAccount()
+  +Future<bool> updateEmployeeAccount()
+  +Future<List<EmployeeModel>> getAttendance()
+  +Future<bool> timeIn()
+  +Future<bool> timeOut()
+}
+
+"web_store_management::Backend::EmployeeOperation.dart::EmployeeOperation" o-- "web_store_management::Helpers::HashingHelper.dart::Hashing"
+"web_store_management::Backend::EmployeeOperation.dart::EmployeeOperation" o-- "web_store_management::Backend::DashboardOperation.dart::DashboardOperation"
+"web_store_management::Backend::Interfaces::IEmployee.dart::IEmployee" <|-- "web_store_management::Backend::EmployeeOperation.dart::EmployeeOperation"
+
+class "web_store_management::Backend::GlobalController.dart::GlobalController" {
+  +Future<List<String>> getThisWeekCollection()
+  +Future<List<EmployeeModel>> fetchAllEmployees()
+  +Future<List<ProductModel>> fetchProducts()
+  +Future<List<BorrowerModel>> fetchBorrowers()
+  +Future<List<BorrowerModel>> fetchCreditApprovals()
+  +Future<List<BorrowerModel>> fetchReleaseApprovals()
+  +Future<List<BorrowerModel>> fetchRepairs()
+  +Future<List<BorrowerModel>> fetchRequestedProducts()
+  +Future<List<BranchModel>> fetchBranches()
+}
+
+class "web_store_management::Backend::HistoryOperation.dart::HistoryOperation" {
+  +Future<List<LoanedProductHistory>> viewLoanHistory()
+  +Future<List<PaymentHistoryModel>> viewPaymentHistory()
+}
+
+"web_store_management::Backend::Interfaces::IHistory.dart::IHistory" <|-- "web_store_management::Backend::HistoryOperation.dart::HistoryOperation"
+
+class "web_store_management::Backend::Interfaces::IAdmin.dart::IAdmin" {
+  +Future<void> createAdminAccount()
+  +void deleteAdminAccount()
+  +bool verifyAdmin()
+  +Future<bool> updateAdminAccount()
+}
+
+class "web_store_management::Backend::Interfaces::IBorrower.dart::IBorrower" {
+  +Future<bool> updateBorrower()
+  +Future<bool> makePayment()
+  +Future<bool> addRequest()
+  +Future<bool> addRepair()
+  +bool removeBorrower()
+  +Future<bool> updateRepair()
+  +Future<bool> updateRequest()
+  +Future<List<int>> getContract()
+}
+
+class "web_store_management::Backend::Interfaces::IBranch.dart::IBranch" {
+  +Future<bool> addBranch()
+  +Future<bool> deleteBranch()
+  +Future<bool> updateBranch()
+  +Future<bool> transferStock()
+}
+
+class "web_store_management::Backend::Interfaces::IDashboard.dart::IDashboard" {
+  +String getTodayDate()
+  +List<String> getWeekDates()
+  +List<String> getMonthDates()
+  +Future<double> getWeekCollection()
+  +Future<double> getTodayCollection()
+  +Future<double> getMonthCollection()
+  +Future<List<GraphCollectionModel>> getGraphWeek()
+  +Future<List<GraphCollectionModel>> getGraphMonth()
+  +Future<List<GraphCollectionModel>> getGraphReport()
+}
+
+class "web_store_management::Backend::Interfaces::IEmployee.dart::IEmployee" {
+  +Future<bool> createEmployeeAccount()
+  +void deleteEmployeeAccount()
+  +Future<bool> updateEmployeeAccount()
+  +Future<bool> timeIn()
+  +Future<bool> timeOut()
+}
+
+class "web_store_management::Backend::Interfaces::IHash.dart::IHash" {
+  +void encrypt()
+}
+
+class "web_store_management::Backend::Interfaces::IHistory.dart::IHistory" {
+  +Future<List<PaymentHistoryModel>> viewPaymentHistory()
+  +Future<List<LoanedProductHistory>> viewLoanHistory()
+}
+
+class "web_store_management::Backend::Interfaces::IInventory.dart::IInventory" {
+  +Future<bool> transferStock()
+}
+
+class "web_store_management::Backend::Interfaces::ILoan.dart::INewLoan" {
+  +Future<bool> addBorrower()
+  +Future<bool> addInvestigation()
+  +Future<bool> addNewLoan()
+  +Future<bool> approvedCredit()
+  +Future<bool> updateBalanceAndContract()
+}
+
+class "web_store_management::Backend::Interfaces::ILogin.dart::ILogin" {
+  +Future<bool> mainLogin()
+  +Future<bool> logout()
+}
+
+class "web_store_management::Backend::Interfaces::IPay.dart::IPay" {
+  +Future<bool> makePayment()
+}
+
+class "web_store_management::Backend::Interfaces::IProduct.dart::IProduct" {
+  +Future<bool> updateProductDetails()
+  +Future<bool> addProduct()
+  +void deleteProduct()
+  +void transferProduct()
+}
+
+class "web_store_management::Backend::Interfaces::IServices.dart::IServices" {
+  +Future<bool> updateRequest()
+  +Future<bool> updateRepair()
+}
+
+class "web_store_management::Backend::Interfaces::ITextMessage.dart::ITextMessage" {
+  +Future<bool> sendApprovedCredit()
+  +Future<bool> sendPromotions()
+  +Future<bool> sendRequestedProduct()
+  +Future<bool> sendRepairedProduct()
+  +Future<int> checkNumberIfExisting()
+  +Future<int> getOtp()
+}
+
+class "web_store_management::Backend::LoanOperation.dart::LoanOperation" {
+  +Future<bool> addBorrower()
+  +Future<bool> addInvestigation()
+  +Future<bool> addNewLoan()
+  +Future<bool> approvedCredit()
+  +Future<bool> updateBalanceAndContract()
+}
+
+"web_store_management::Backend::BorrowerOperation.dart::BorrowerOperation" <|-- "web_store_management::Backend::LoanOperation.dart::LoanOperation"
+"web_store_management::Backend::Interfaces::ILoan.dart::INewLoan" <|-- "web_store_management::Backend::LoanOperation.dart::LoanOperation"
+
+class "web_store_management::Backend::LoginOperation.dart::Login" {
+  +Hashing hash
+  +AdminModel admin
+  +Session session
+  +Future<bool> mainLogin()
+  -Future<bool> _users()
+  +Future<void> setSession()
+  +Future<bool> logout()
+}
+
+"web_store_management::Backend::LoginOperation.dart::Login" o-- "web_store_management::Helpers::HashingHelper.dart::Hashing"
+"web_store_management::Backend::LoginOperation.dart::Login" o-- "web_store_management::Models::AdminModel.dart::AdminModel"
+"web_store_management::Backend::LoginOperation.dart::Login" o-- "web_store_management::Backend::Session.dart::Session"
+"web_store_management::Backend::GlobalController.dart::GlobalController" <|-- "web_store_management::Backend::LoginOperation.dart::Login"
+"web_store_management::Backend::Interfaces::ILogin.dart::ILogin" <|-- "web_store_management::Backend::LoginOperation.dart::Login"
+
+class "web_store_management::Backend::ProductOperation.dart::ProductOperation" {
+  +Future<bool> updateProductDetails()
+  +Future<bool> addProduct()
+  +void deleteProduct()
+  +void transferProduct()
+}
+
+"web_store_management::Backend::Interfaces::IProduct.dart::IProduct" <|-- "web_store_management::Backend::ProductOperation.dart::ProductOperation"
+
+class "web_store_management::Backend::Session.dart::Session" {
+  {static} +Future<void> setValues()
+  {static} +Future<bool> getvalues()
+  {static} +Future<String> getid()
+  {static} +Future<String> getrole()
+  {static} +Future<String> getBranch()
+  {static} +Future<bool> removeValues()
+  {static} +Future<bool> getTimeIn()
+  {static} +Future<bool> getTimeOut()
+  {static} +Future<bool> setTimeIn()
+  {static} +Future<bool> setTimeOut()
+}
+
+class "web_store_management::Backend::TextMessage.dart::TextMessage" {
+  +String message
+  +Future<bool> sendApprovedCredit()
+  +Future<bool> sendPromotions()
+  +Future<bool> sendRequestedProduct()
+  +Future<bool> sendRepairedProduct()
+  +Future<int> checkNumberIfExisting()
+  +Future<int> getOtp()
+}
+
+"web_store_management::Backend::Interfaces::ITextMessage.dart::ITextMessage" <|-- "web_store_management::Backend::TextMessage.dart::TextMessage"
+
+class "web_store_management::Backend::Utility::ApiUrl.dart::Url" {
+  {static} -String _url
+  {static} +dynamic url
+}
+
+class "web_store_management::Backend::Utility::Mapping.dart::Mapping" {
+  {static} +String userRole
+  {static} +String borrowerId
+  {static} +List<AdminModel> adminLogin
+  {static} +List<EmployeeModel> employeeLogin
+  {static} +List<EmployeeModel> employeeList
+  {static} +List<ProductModel> productList
+  {static} +List<ProductModel> selectedProducts
+  {static} +List<BorrowerModel> borrowerList
+  {static} +List<BorrowerModel> creditApprovals
+  {static} +List<BorrowerModel> releaseApproval
+  {static} +List<PaymentHistoryModel> paymentList
+  {static} +List<LoanedProductHistory> productHistoryList
+  {static} +List<BorrowerModel> repairs
+  {static} +List<BorrowerModel> requested
+  {static} +List<BranchModel> branchList
+  {static} +List<InvoiceItem> invoice
+  {static} +List<ForgetPasswordModel> forgetPassword
+  {static} +String findBranchCode()
+  {static} +dynamic formatPrice()
+  {static} +dynamic formatDate()
+}
+
+class "web_store_management::Helpers::CreateQRHelper.dart::CreateQrHelper" {
+  {static} +Widget createQr()
+}
+
+class "web_store_management::Helpers::FilePickerHelper.dart::Picker" {
+  -dynamic _image
+  +dynamic image
+  +Future<String> pickFile()
+  +Uint8List getImageBytes()
+}
+
+class "web_store_management::Helpers::HashingHelper.dart::Hashing" {
+  -String _encryptedWord
+  +dynamic encryptedWord
+  +String encrypt()
+}
+
+"web_store_management::Backend::Interfaces::IHash.dart::IHash" <|-- "web_store_management::Helpers::HashingHelper.dart::Hashing"
+
+class "web_store_management::Helpers::PdfInvoiceApi.dart::PdfInvoiceApi" {
+  {static} +Widget buildHeader()
+  {static} +Widget buildCustomerAddress()
+  {static} +Widget buildInvoiceInfo()
+  {static} +Widget buildTitle()
+  {static} +Widget buildInvoice()
+  {static} +Widget buildTotal()
+  {static} +Widget buildFooter()
+  {static} +dynamic buildSimpleText()
+  {static} +dynamic buildText()
+}
+
+class "web_store_management::Helpers::PdfPaymentHistory.dart::PdfPaymentHistory" {
+  {static} +Widget buildHeader()
+  {static} +Widget buildCustomerAddress()
+  {static} +Widget buildInvoiceInfo()
+  {static} +Widget buildTitle()
+  {static} +Widget buildInvoice()
+  {static} +Widget buildTotal()
+  {static} +Widget buildFooter()
+  {static} +dynamic buildSimpleText()
+  {static} +dynamic buildText()
+}
+
+class "web_store_management::Helpers::PrintHelper.dart::PrintHelper" {
+  {static} +Future<Uint8List> generatePdfQr()
+  {static} +Future<Uint8List> generateInvoice()
+  {static} +Future<Uint8List> generatePdfContract()
+}
+
+class "web_store_management::Helpers::QRHelper.dart::QrCode" {
+  {static} +void generateQR()
+}
+
+class "web_store_management::Helpers::Widget::ButtonWidget.dart::ButtonWidget" {
+  +String text
+  +void Function() onClicked
+  +Widget build()
+}
+
+"web_store_management::Helpers::Widget::ButtonWidget.dart::ButtonWidget" o-- "dart::ui::void Function()"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "web_store_management::Helpers::Widget::ButtonWidget.dart::ButtonWidget"
+
+class "web_store_management::Helpers::Widget::TitleWidget.dart::TitleWidget" {
+  +IconData icon
+  +String text
+  +Widget build()
+}
+
+"web_store_management::Helpers::Widget::TitleWidget.dart::TitleWidget" o-- "flutter::src::widgets::icon_data.dart::IconData"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "web_store_management::Helpers::Widget::TitleWidget.dart::TitleWidget"
+
+class "web_store_management::HomeAdmin.dart::HomeAdmin" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "web_store_management::HomeAdmin.dart::HomeAdmin"
+
+class "web_store_management::HomeAttendant.dart::HomeAttendant" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "web_store_management::HomeAttendant.dart::HomeAttendant"
+
+class "web_store_management::main.dart::MyApp" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "web_store_management::main.dart::MyApp"
+
+class "web_store_management::Models::AdminModel.dart::AdminModel" {
+  +String? adminId
+  +String? username
+  +String? password
+  +List<dynamic>? userImage
+  +dynamic getAdminId
+  +dynamic setAdminId
+  +dynamic getUsername
+  +dynamic setUsername
+  +dynamic getPassword
+  +dynamic setPassword
+  +dynamic getUserImage
+  +dynamic setUserImage
+}
+
+"web_store_management::Models::PersonModel.dart::PersonModel" <|-- "web_store_management::Models::AdminModel.dart::AdminModel"
+
+class "web_store_management::Models::BorrowerModel.dart::BorrowerModel" {
+  +int? borrowerId
+  +int? repairId
+  +int? requestId
+  +int? investigationID
+  +String? repairProductName
+  +String? requestedProductName
+  +double? balance
+  +String? status
+  +List<dynamic>? contractImage
+  +dynamic getBorrowerId
+  +dynamic setBorrowerId
+  +dynamic getRepairId
+  +dynamic setRepairId
+  +dynamic getRequestId
+  +int setRequestId
+  +dynamic getinvestigationID
+  +int setinvestigationID
+  +dynamic getRepairProductName
+  +String setRepairProductName
+  +dynamic getRequestedProductName
+  +String setRequestedProductName
+  +dynamic getBalance
+  +dynamic setBalance
+  +dynamic getStatus
+  +String setStatus
+  +dynamic getContractImage
+  +dynamic setContractImage
+}
+
+"web_store_management::Models::PersonModel.dart::PersonModel" <|-- "web_store_management::Models::BorrowerModel.dart::BorrowerModel"
+
+class "web_store_management::Models::BranchModel.dart::BranchModel" {
+  -String? _branchCode
+  -String? _branchName
+  -String? _branchAddress
+  -String? _productCodeCopy
+  -int? _prodQty
+  +dynamic branchCode
+  +dynamic branchName
+  +dynamic branchAddress
+  +dynamic productCodeCopy
+  +dynamic prodQty
+}
+
+class "web_store_management::Models::CollectionModel.dart::CollectionModel" {
+  +double? today
+  +double? week
+  +double? month
+  +dynamic getToday
+  +double setToday
+  +dynamic getWeek
+  +dynamic setWeek
+  +dynamic getMonth
+  +dynamic setMonth
+}
+
+class "web_store_management::Models::EmployeeModel.dart::EmployeeModel" {
+  +String? employeeID
+  +String? role
+  +String? username
+  +String? password
+  +List<dynamic>? userImage
+  +int? attendanceID
+  +String? clockIn
+  +String? clockOut
+  +dynamic getEmployeeID
+  +dynamic setEmployeeID
+  +dynamic getRole
+  +dynamic setRole
+  +dynamic getUsername
+  +dynamic setUsername
+  +dynamic getPassword
+  +dynamic setPassword
+  +dynamic getUserImage
+  +dynamic setUserImage
+  +dynamic getAttendanceID
+  +dynamic setAttendanceID
+  +dynamic getClockIn
+  +dynamic setTimeIn
+  +dynamic getClockOut
+  +dynamic setClockOut
+}
+
+"web_store_management::Models::PersonModel.dart::PersonModel" <|-- "web_store_management::Models::EmployeeModel.dart::EmployeeModel"
+
+class "web_store_management::Models::ForgetPasswordModel.dart::ForgetPasswordModel" {
+  +int? personID
+  +String? adminID
+  +String? mobilenumber
+  +String? firstname
+  +String? lastname
+  +dynamic getPersonID
+  +int? setPersonID
+  +dynamic getAdminID
+  +dynamic setAdminID
+  +dynamic getMobilenumber
+  +dynamic setMobilenumber
+  +dynamic getFirstname
+  +dynamic setFirstname
+  +dynamic getLastname
+  +dynamic setLastname
+  +String toString()
+}
+
+class "web_store_management::Models::GraphCollectionModel.dart::GraphCollectionModel" {
+  +String? givenDate
+  +double? collection
+  +dynamic getGivenDate
+  +String setGivenDate
+  +dynamic getCollection
+  +dynamic setCollection
+  +String convertDateTimeDisplay()
+}
+
+class "web_store_management::Models::InvoiceModel.dart::Invoice" {
+  +InvoiceInfo info
+  +BorrowerModel customer
+  +List<InvoiceItem> items
+}
+
+"web_store_management::Models::InvoiceModel.dart::Invoice" o-- "web_store_management::Models::InvoiceModel.dart::InvoiceInfo"
+"web_store_management::Models::InvoiceModel.dart::Invoice" o-- "web_store_management::Models::BorrowerModel.dart::BorrowerModel"
+
+class "web_store_management::Models::InvoiceModel.dart::InvoiceInfo" {
+  +String description
+  +String number
+  +DateTime date
+  +DateTime dueDate
+}
+
+class "web_store_management::Models::InvoiceModel.dart::InvoiceItem" {
+  +String description
+  +int quantity
+  +double vat
+  +double unitPrice
+}
+
+class "web_store_management::Models::LoanedProductHistoryModel.dart::LoanedProductHistory" {
+  +int? loanId
+  +String? productName
+  +double? price
+  +int? qty
+  +String? paymentPlan
+  +String? dueDate
+  +String? term
+  +String? dateAdded
+  +dynamic getLoanId
+  +dynamic setLoanId
+  +dynamic getProductName
+  +dynamic setProductName
+  +dynamic getPrice
+  +dynamic setPrice
+  +dynamic getQty
+  +dynamic setQty
+  +dynamic getPaymentPlan
+  +dynamic setPaymentPlan
+  +dynamic getDueDate
+  +dynamic setDueDate
+  +dynamic getTerm
+  +dynamic setTerm
+  +dynamic getDateAdded
+  +dynamic setDateAdded
+  +String convertDateTimeDisplay()
+}
+
+class "web_store_management::Models::LoansModel.dart::LoansModel" {
+  +int? loanId
+  +String? productCode
+  +num? productPrice
+  +int? qty
+  +dynamic getLoanId
+  +dynamic setLoanId
+  +dynamic getProductCode
+  +dynamic setProductCode
+  +dynamic getProductPrice
+  +dynamic setProductPrice
+  +dynamic getQty
+  +dynamic setQty
+}
+
+class "web_store_management::Models::PaymentHistoryModel.dart::PaymentHistoryModel" {
+  +int? collectionID
+  +String? givenDate
+  +double? collectionAmount
+  +dynamic getCollectionID
+  +int setCollectionID
+  +dynamic getCollectionAmount
+  +double setCollectionAmount
+  +dynamic getGivenDate
+  +String setGivenDate
+  +String convertDateTimeDisplay()
+}
+
+class "web_store_management::Models::PersonModel.dart::PersonModel" {
+  +int? personId
+  +String? firstname
+  +String? lastname
+  +String? mobileNumber
+  +String? homeAddress
+  +dynamic getPersonId
+  +dynamic setPersonId
+  +dynamic getFirstname
+  +dynamic setFirstname
+  +dynamic getLastname
+  +dynamic setLastname
+  +dynamic getMobileNumber
+  +dynamic setMobileNumber
+  +dynamic getHomeAddress
+  +dynamic setHomeAddress
+  +String toString()
+}
+
+class "web_store_management::Models::ProductModel.dart::ProductModel" {
+  +String? productCode
+  +String? productName
+  +double? productPrice
+  +int? productQty
+  +String? productUnit
+  +double? price
+  +dynamic getProductUnit
+  +String setProductUnit
+  +dynamic getProductCode
+  +String setProductCode
+  +dynamic getProductName
+  +dynamic setProductName
+  +dynamic getProductPrice
+  +dynamic setProductPrice
+  +dynamic getProductQty
+  +dynamic setProductQty
+  +dynamic getPrice
+  +double setPrice
+}
+
+class "web_store_management::Notification::BannerNotif.dart::BannerNotif" {
+  {static} +void notif()
+}
+
+class "web_store_management::Pages::Borrowers::AddLoanPage.dart::AddLoanPage" {
+  +int? id
+  +String? action
+  +String? firstname
+  +String? lastname
+  +String? number
+  +String? address
+  +_AddLoanPage createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "web_store_management::Pages::Borrowers::AddLoanPage.dart::AddLoanPage"
+
+class "web_store_management::Pages::Borrowers::AddLoanPage.dart::_AddLoanPage" {
+  +TextEditingController firstname
+  +TextEditingController lastname
+  +TextEditingController mobileNumber
+  +TextEditingController homeAddress
+  +Picker pick
+  +dynamic image
+  +String fileName
+  +GlobalController controller
+  -Future<dynamic> _products
+  +void initState()
+  +Widget build()
+}
+
+"web_store_management::Pages::Borrowers::AddLoanPage.dart::_AddLoanPage" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"web_store_management::Pages::Borrowers::AddLoanPage.dart::_AddLoanPage" o-- "web_store_management::Helpers::FilePickerHelper.dart::Picker"
+"web_store_management::Pages::Borrowers::AddLoanPage.dart::_AddLoanPage" o-- "web_store_management::Backend::GlobalController.dart::GlobalController"
+"flutter::src::widgets::framework.dart::State" <|-- "web_store_management::Pages::Borrowers::AddLoanPage.dart::_AddLoanPage"
+
+class "web_store_management::Pages::Borrowers::AddLoanPage.dart::_RowSelectProducts" {
+  +String valueA
+  +String valueB
+  +String valueC
+  +bool selected
+}
+
+class "web_store_management::Pages::Borrowers::AddLoanPage.dart::_SelectionOfProducts" {
+  -int _selectedCount
+  +BuildContext context
+  -List<_RowSelectProducts> _rows
+  +int rowCount
+  +bool isRowCountApproximate
+  +int selectedRowCount
+  +DataRow? getRow()
+  -List<_RowSelectProducts> _selectionProducts()
+}
+
+"web_store_management::Pages::Borrowers::AddLoanPage.dart::_SelectionOfProducts" o-- "flutter::src::widgets::framework.dart::BuildContext"
+"flutter::src::material::data_table_source.dart::DataTableSource" <|-- "web_store_management::Pages::Borrowers::AddLoanPage.dart::_SelectionOfProducts"
+
+class "web_store_management::Pages::Borrowers::BorrowersPage.dart::BorrowersPage" {
+  +_BorrowersPage createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "web_store_management::Pages::Borrowers::BorrowersPage.dart::BorrowersPage"
+
+class "web_store_management::Pages::Borrowers::BorrowersPage.dart::_BorrowersPage" {
+  +GlobalController controller
+  +Future<List<BorrowerModel>> borrowers
+  -bool _sortAscending
+  +void initState()
+  +Widget build()
+}
+
+"web_store_management::Pages::Borrowers::BorrowersPage.dart::_BorrowersPage" o-- "web_store_management::Backend::GlobalController.dart::GlobalController"
+"flutter::src::widgets::framework.dart::State" <|-- "web_store_management::Pages::Borrowers::BorrowersPage.dart::_BorrowersPage"
+
+class "web_store_management::Pages::Borrowers::BorrowersPage.dart::_Row" {
+  +String valueA
+  +String valueB
+  +String valueC
+  +String valueD
+  +Widget valueE
+  +bool selected
+  +dynamic getValueA
+  +dynamic getValueB
+}
+
+"web_store_management::Pages::Borrowers::BorrowersPage.dart::_Row" o-- "flutter::src::widgets::framework.dart::Widget"
+
+class "web_store_management::Pages::Borrowers::BorrowersPage.dart::_DataSource" {
+  +BuildContext context
+  -List<_Row> _borrowers
+  -int _selectedCount
+  +int rowCount
+  +bool isRowCountApproximate
+  +int selectedRowCount
+  +DataRow? getRow()
+}
+
+"web_store_management::Pages::Borrowers::BorrowersPage.dart::_DataSource" o-- "flutter::src::widgets::framework.dart::BuildContext"
+"flutter::src::material::data_table_source.dart::DataTableSource" <|-- "web_store_management::Pages::Borrowers::BorrowersPage.dart::_DataSource"
+
+class "web_store_management::Pages::Borrowers::UpdateBorrowerPage.dart::UpdateBorrowerPage" {
+  +String? bid
+  +String? firstname
+  +String? lastname
+  +String? number
+  +String? address
+  +_UpdateBorrowerPage createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "web_store_management::Pages::Borrowers::UpdateBorrowerPage.dart::UpdateBorrowerPage"
+
+class "web_store_management::Pages::Borrowers::UpdateBorrowerPage.dart::_UpdateBorrowerPage" {
+  +BorrowerOperation borrower
+  +TextEditingController firstname
+  +TextEditingController lastname
+  +TextEditingController number
+  +TextEditingController address
+  +void initState()
+  +Widget build()
+}
+
+"web_store_management::Pages::Borrowers::UpdateBorrowerPage.dart::_UpdateBorrowerPage" o-- "web_store_management::Backend::BorrowerOperation.dart::BorrowerOperation"
+"web_store_management::Pages::Borrowers::UpdateBorrowerPage.dart::_UpdateBorrowerPage" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"flutter::src::widgets::framework.dart::State" <|-- "web_store_management::Pages::Borrowers::UpdateBorrowerPage.dart::_UpdateBorrowerPage"
+
+class "web_store_management::Pages::Borrowers::ViewBorrowerProfile.dart::ViewBorrowerProfile" {
+  +int? id
+  +String? name
+  +String? number
+  +double? balance
+  +_ViewBorrowerProfile createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "web_store_management::Pages::Borrowers::ViewBorrowerProfile.dart::ViewBorrowerProfile"
+
+class "web_store_management::Pages::Borrowers::ViewBorrowerProfile.dart::_ViewBorrowerProfile" {
+  +HistoryOperation history
+  +BorrowerOperation brw
+  +String address
+  +void initState()
+  +Widget build()
+  -String _findAddress()
+  +String qrContent()
+}
+
+"web_store_management::Pages::Borrowers::ViewBorrowerProfile.dart::_ViewBorrowerProfile" o-- "web_store_management::Backend::HistoryOperation.dart::HistoryOperation"
+"web_store_management::Pages::Borrowers::ViewBorrowerProfile.dart::_ViewBorrowerProfile" o-- "web_store_management::Backend::BorrowerOperation.dart::BorrowerOperation"
+"flutter::src::widgets::framework.dart::State" <|-- "web_store_management::Pages::Borrowers::ViewBorrowerProfile.dart::_ViewBorrowerProfile"
+
+class "web_store_management::Pages::Branch::AddBranch.dart::AddBranch" {
+  +_AddBranch createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "web_store_management::Pages::Branch::AddBranch.dart::AddBranch"
+
+class "web_store_management::Pages::Branch::AddBranch.dart::_AddBranch" {
+  +BranchOperation branch
+  +TextEditingController branchName
+  +TextEditingController branchAddress
+  +String? employeeAssigned
+  +List<String> employees
+  +void initState()
+  +String getEmpId()
+  +Widget build()
+}
+
+"web_store_management::Pages::Branch::AddBranch.dart::_AddBranch" o-- "web_store_management::Backend::BranchOperation.dart::BranchOperation"
+"web_store_management::Pages::Branch::AddBranch.dart::_AddBranch" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"flutter::src::widgets::framework.dart::State" <|-- "web_store_management::Pages::Branch::AddBranch.dart::_AddBranch"
+
+class "web_store_management::Pages::Branch::BranchPage.dart::BranchPage" {
+  +_BranchPage createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "web_store_management::Pages::Branch::BranchPage.dart::BranchPage"
+
+class "web_store_management::Pages::Branch::BranchPage.dart::_BranchPage" {
+  +GlobalController controller
+  -bool _sortAscending
+  +Future<List<BranchModel>> branches
+  +void initState()
+  +Widget build()
+}
+
+"web_store_management::Pages::Branch::BranchPage.dart::_BranchPage" o-- "web_store_management::Backend::GlobalController.dart::GlobalController"
+"flutter::src::widgets::framework.dart::State" <|-- "web_store_management::Pages::Branch::BranchPage.dart::_BranchPage"
+
+class "web_store_management::Pages::Branch::BranchPage.dart::_Row" {
+  +String valueA
+  +String valueB
+  +String valueC
+  +Widget valueD
+  +bool selected
+}
+
+"web_store_management::Pages::Branch::BranchPage.dart::_Row" o-- "flutter::src::widgets::framework.dart::Widget"
+
+class "web_store_management::Pages::Branch::BranchPage.dart::_DataSource" {
+  +BuildContext context
+  -int _selectedCount
+  -List<_Row> _branch
+  +int rowCount
+  +bool isRowCountApproximate
+  +int selectedRowCount
+  +DataRow? getRow()
+  -List<_Row> _borrowerProfile()
+}
+
+"web_store_management::Pages::Branch::BranchPage.dart::_DataSource" o-- "flutter::src::widgets::framework.dart::BuildContext"
+"flutter::src::material::data_table_source.dart::DataTableSource" <|-- "web_store_management::Pages::Branch::BranchPage.dart::_DataSource"
+
+class "web_store_management::Pages::Branch::UpdateBranch.dart::UpdateBranch" {
+  +String? branchCode
+  +String? branchName
+  +String? branchAddress
+  +_UpdateBranch createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "web_store_management::Pages::Branch::UpdateBranch.dart::UpdateBranch"
+
+class "web_store_management::Pages::Branch::UpdateBranch.dart::_UpdateBranch" {
+  +BranchOperation branch
+  +TextEditingController branchName
+  +TextEditingController branchAddress
+  +void initState()
+  +Widget build()
+}
+
+"web_store_management::Pages::Branch::UpdateBranch.dart::_UpdateBranch" o-- "web_store_management::Backend::BranchOperation.dart::BranchOperation"
+"web_store_management::Pages::Branch::UpdateBranch.dart::_UpdateBranch" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"flutter::src::widgets::framework.dart::State" <|-- "web_store_management::Pages::Branch::UpdateBranch.dart::_UpdateBranch"
+
+class "web_store_management::Pages::CreditApproval::CreditPage.dart::CreditScreen" {
+  +_CreditPage createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "web_store_management::Pages::CreditApproval::CreditPage.dart::CreditScreen"
+
+class "web_store_management::Pages::CreditApproval::CreditPage.dart::_CreditPage" {
+  +GlobalController controller
+  +LoanOperation loan
+  +TextMessage message
+  -Future<List<BorrowerModel>> _creditapproval
+  +int vid
+  +int bid
+  +double textSize
+  +double titleSize
+  +String denied
+  +String tobeRelease
+  +void initState()
+  +Widget build()
+  -List<Widget> _cards()
+  +void sendMessageApproved()
+}
+
+"web_store_management::Pages::CreditApproval::CreditPage.dart::_CreditPage" o-- "web_store_management::Backend::GlobalController.dart::GlobalController"
+"web_store_management::Pages::CreditApproval::CreditPage.dart::_CreditPage" o-- "web_store_management::Backend::LoanOperation.dart::LoanOperation"
+"web_store_management::Pages::CreditApproval::CreditPage.dart::_CreditPage" o-- "web_store_management::Backend::TextMessage.dart::TextMessage"
+"flutter::src::widgets::framework.dart::State" <|-- "web_store_management::Pages::CreditApproval::CreditPage.dart::_CreditPage"
+
+class "web_store_management::Pages::DashBoard::CollectionGraph.dart::CollectionGraph" {
+  +String? caption
+  +List<GraphCollectionModel>? graphData
+  +_CollectionGraph createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "web_store_management::Pages::DashBoard::CollectionGraph.dart::CollectionGraph"
+
+class "web_store_management::Pages::DashBoard::CollectionGraph.dart::_CollectionGraph" {
+  +void initState()
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::State" <|-- "web_store_management::Pages::DashBoard::CollectionGraph.dart::_CollectionGraph"
+
+class "web_store_management::Pages::DashBoard::TimeCollection.dart::TimeCollection" {
+  +_TimeCollection createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "web_store_management::Pages::DashBoard::TimeCollection.dart::TimeCollection"
+
+class "web_store_management::Pages::DashBoard::TimeCollection.dart::_TimeCollection" {
+  +DashboardOperation dashboard
+  +Future<dynamic> day
+  +Future<dynamic> week
+  +Future<dynamic> month
+  +Future<List<GraphCollectionModel>> monthGraph
+  +void initState()
+  +Widget build()
+  +Widget collectionGraph()
+}
+
+"web_store_management::Pages::DashBoard::TimeCollection.dart::_TimeCollection" o-- "web_store_management::Backend::DashboardOperation.dart::DashboardOperation"
+"flutter::src::widgets::framework.dart::State" <|-- "web_store_management::Pages::DashBoard::TimeCollection.dart::_TimeCollection"
+
+class "web_store_management::Pages::Employees::AddEmployee.dart::AddEmployee" {
+  +_AddEmployee createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "web_store_management::Pages::Employees::AddEmployee.dart::AddEmployee"
+
+class "web_store_management::Pages::Employees::AddEmployee.dart::_AddEmployee" {
+  +Picker pick
+  +Hashing hash
+  +EmployeeOperation emp
+  +dynamic image
+  +String fileName
+  +TextEditingController username
+  +TextEditingController firstname
+  +TextEditingController lastname
+  +TextEditingController mobileNumber
+  +TextEditingController homeAddress
+  +TextEditingController basicWage
+  +TextEditingController password
+  +TextEditingController confirmPassword
+  +String collector
+  +String storeAttendant
+  +String error
+  +Widget build()
+}
+
+"web_store_management::Pages::Employees::AddEmployee.dart::_AddEmployee" o-- "web_store_management::Helpers::FilePickerHelper.dart::Picker"
+"web_store_management::Pages::Employees::AddEmployee.dart::_AddEmployee" o-- "web_store_management::Helpers::HashingHelper.dart::Hashing"
+"web_store_management::Pages::Employees::AddEmployee.dart::_AddEmployee" o-- "web_store_management::Backend::EmployeeOperation.dart::EmployeeOperation"
+"web_store_management::Pages::Employees::AddEmployee.dart::_AddEmployee" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"flutter::src::widgets::framework.dart::State" <|-- "web_store_management::Pages::Employees::AddEmployee.dart::_AddEmployee"
+
+class "web_store_management::Pages::Employees::AttendancePage.dart::AttendancePage" {
+  +String? empId
+  +String? employeeName
+  +_AttendancePage createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "web_store_management::Pages::Employees::AttendancePage.dart::AttendancePage"
+
+class "web_store_management::Pages::Employees::AttendancePage.dart::_AttendancePage" {
+  +GlobalController controller
+  +EmployeeOperation emp
+  +Future<List<EmployeeModel>> employees
+  -bool _sortAscending
+  +void initState()
+  +Widget build()
+}
+
+"web_store_management::Pages::Employees::AttendancePage.dart::_AttendancePage" o-- "web_store_management::Backend::GlobalController.dart::GlobalController"
+"web_store_management::Pages::Employees::AttendancePage.dart::_AttendancePage" o-- "web_store_management::Backend::EmployeeOperation.dart::EmployeeOperation"
+"flutter::src::widgets::framework.dart::State" <|-- "web_store_management::Pages::Employees::AttendancePage.dart::_AttendancePage"
+
+class "web_store_management::Pages::Employees::AttendancePage.dart::_Row" {
+  +String valueA
+  +String valueB
+  +String valueC
+  +bool selected
+}
+
+class "web_store_management::Pages::Employees::AttendancePage.dart::_DataSource" {
+  +BuildContext context
+  +List<_Row> attendance
+  -int _selectedCount
+  +int rowCount
+  +bool isRowCountApproximate
+  +int selectedRowCount
+  +DataRow? getRow()
+}
+
+"web_store_management::Pages::Employees::AttendancePage.dart::_DataSource" o-- "flutter::src::widgets::framework.dart::BuildContext"
+"flutter::src::material::data_table_source.dart::DataTableSource" <|-- "web_store_management::Pages::Employees::AttendancePage.dart::_DataSource"
+
+class "web_store_management::Pages::Employees::EmployeePage.dart::EmployeePage" {
+  +_Employeepage createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "web_store_management::Pages::Employees::EmployeePage.dart::EmployeePage"
+
+class "web_store_management::Pages::Employees::EmployeePage.dart::_Employeepage" {
+  +GlobalController controller
+  +String collector
+  +String storeAttendant
+  -bool _sortAscending
+  +Future<List<EmployeeModel>> employees
+  +void initState()
+  +Widget build()
+}
+
+"web_store_management::Pages::Employees::EmployeePage.dart::_Employeepage" o-- "web_store_management::Backend::GlobalController.dart::GlobalController"
+"flutter::src::widgets::framework.dart::State" <|-- "web_store_management::Pages::Employees::EmployeePage.dart::_Employeepage"
+
+class "web_store_management::Pages::Employees::EmployeePage.dart::_Row" {
+  +String valueA
+  +String valueB
+  +String valueC
+  +String valueD
+  +Widget valueE
+  +Widget valueF
+  +bool selected
+}
+
+"web_store_management::Pages::Employees::EmployeePage.dart::_Row" o-- "flutter::src::widgets::framework.dart::Widget"
+
+class "web_store_management::Pages::Employees::EmployeePage.dart::_DataSource" {
+  +BuildContext context
+  -int _selectedCount
+  -List<_Row> _employees
+  +int rowCount
+  +bool isRowCountApproximate
+  +int selectedRowCount
+  +DataRow? getRow()
+  -List<_Row> _borrowerProfile()
+}
+
+"web_store_management::Pages::Employees::EmployeePage.dart::_DataSource" o-- "flutter::src::widgets::framework.dart::BuildContext"
+"flutter::src::material::data_table_source.dart::DataTableSource" <|-- "web_store_management::Pages::Employees::EmployeePage.dart::_DataSource"
+
+class "web_store_management::Pages::Employees::UpdateEmployee.dart::UpdateEmployee" {
+  +int? pid
+  +String? eid
+  +String? firstname
+  +String? lastname
+  +String? number
+  +String? address
+  +_UpdateEmployee createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "web_store_management::Pages::Employees::UpdateEmployee.dart::UpdateEmployee"
+
+class "web_store_management::Pages::Employees::UpdateEmployee.dart::_UpdateEmployee" {
+  +EmployeeOperation employee
+  +TextEditingController firstname
+  +TextEditingController lastname
+  +TextEditingController number
+  +TextEditingController address
+  +String collector
+  +String storeAttendant
+  +void initState()
+  +Widget build()
+}
+
+"web_store_management::Pages::Employees::UpdateEmployee.dart::_UpdateEmployee" o-- "web_store_management::Backend::EmployeeOperation.dart::EmployeeOperation"
+"web_store_management::Pages::Employees::UpdateEmployee.dart::_UpdateEmployee" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"flutter::src::widgets::framework.dart::State" <|-- "web_store_management::Pages::Employees::UpdateEmployee.dart::_UpdateEmployee"
+
+class "web_store_management::Pages::Employees::ViewEmpProfile.dart::ViewEmpProfile" {
+  +int? pid
+  +String? eid
+  +String? name
+  +String? number
+  +String? role
+  +_ViewEmpProfile createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "web_store_management::Pages::Employees::ViewEmpProfile.dart::ViewEmpProfile"
+
+class "web_store_management::Pages::Employees::ViewEmpProfile.dart::_ViewEmpProfile" {
+  +Widget build()
+  -int _personId()
+  -String _findAddress()
+  +String qrContent()
+}
+
+"flutter::src::widgets::framework.dart::State" <|-- "web_store_management::Pages::Employees::ViewEmpProfile.dart::_ViewEmpProfile"
+
+class "web_store_management::Pages::Inventory::InventoryPage.dart::InventoryPage" {
+  +_InventoryPage createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "web_store_management::Pages::Inventory::InventoryPage.dart::InventoryPage"
+
+class "web_store_management::Pages::Inventory::InventoryPage.dart::_InventoryPage" {
+  -bool _sortAscending
+  +GlobalController controller
+  +ProductOperation product
+  -Future<List<ProductModel>> _products
+  +TextEditingController barcode
+  +TextEditingController prodName
+  +TextEditingController quantity
+  +TextEditingController unit
+  +TextEditingController price
+  +void initState()
+  +List<String> getLocations()
+  +Widget build()
+  +Widget tableProducts()
+}
+
+"web_store_management::Pages::Inventory::InventoryPage.dart::_InventoryPage" o-- "web_store_management::Backend::GlobalController.dart::GlobalController"
+"web_store_management::Pages::Inventory::InventoryPage.dart::_InventoryPage" o-- "web_store_management::Backend::ProductOperation.dart::ProductOperation"
+"web_store_management::Pages::Inventory::InventoryPage.dart::_InventoryPage" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"flutter::src::widgets::framework.dart::State" <|-- "web_store_management::Pages::Inventory::InventoryPage.dart::_InventoryPage"
+
+class "web_store_management::Pages::Inventory::InventoryPage.dart::_Row" {
+  +String valueA
+  +Widget valueB
+  +String valueC
+  +String valueD
+  +Widget valueE
+  +Widget valueF
+  +bool selected
+}
+
+"web_store_management::Pages::Inventory::InventoryPage.dart::_Row" o-- "flutter::src::widgets::framework.dart::Widget"
+
+class "web_store_management::Pages::Inventory::InventoryPage.dart::_DataSource" {
+  +BuildContext context
+  -int _selectedCount
+  -List<_Row> _products
+  -List<String> _branches
+  +int rowCount
+  +bool isRowCountApproximate
+  +int selectedRowCount
+  +DataRow? getRow()
+  -List<_Row> _productList()
+}
+
+"web_store_management::Pages::Inventory::InventoryPage.dart::_DataSource" o-- "flutter::src::widgets::framework.dart::BuildContext"
+"flutter::src::material::data_table_source.dart::DataTableSource" <|-- "web_store_management::Pages::Inventory::InventoryPage.dart::_DataSource"
+
+class "web_store_management::Pages::Inventory::TransferStock.dart::TransferStock" {
+  +List<String>? branches
+  +String? productName
+  +Text? qty
+  +_TransferStock createState()
+}
+
+"web_store_management::Pages::Inventory::TransferStock.dart::TransferStock" o-- "flutter::src::widgets::text.dart::Text"
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "web_store_management::Pages::Inventory::TransferStock.dart::TransferStock"
+
+class "web_store_management::Pages::Inventory::TransferStock.dart::_TransferStock" {
+  +String originStore
+  +String destinationBranch
+  +TextEditingController thisStore
+  +TextEditingController productName
+  +TextEditingController maxqty
+  +TextEditingController qty
+  +BranchOperation transfer
+  +void initState()
+  +Widget build()
+  -String _findBranchCode()
+  -String _findProdBarcode()
+}
+
+"web_store_management::Pages::Inventory::TransferStock.dart::_TransferStock" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"web_store_management::Pages::Inventory::TransferStock.dart::_TransferStock" o-- "web_store_management::Backend::BranchOperation.dart::BranchOperation"
+"flutter::src::widgets::framework.dart::State" <|-- "web_store_management::Pages::Inventory::TransferStock.dart::_TransferStock"
+
+class "web_store_management::Pages::Inventory::UpdateProduct.dart::UpdateProduct" {
+  +String? name
+  +String? price
+  +String? unit
+  +Text? quantity
+  +_UpdateProduct createState()
+}
+
+"web_store_management::Pages::Inventory::UpdateProduct.dart::UpdateProduct" o-- "flutter::src::widgets::text.dart::Text"
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "web_store_management::Pages::Inventory::UpdateProduct.dart::UpdateProduct"
+
+class "web_store_management::Pages::Inventory::UpdateProduct.dart::_UpdateProduct" {
+  +ProductOperation operation
+  +InventoryPage updateTable
+  +TextEditingController prodName
+  +TextEditingController prodQuantity
+  +TextEditingController prodQtySuffix
+  +TextEditingController prodPrice
+  +TextEditingController prodUnit
+  +void initState()
+  +Widget build()
+  -int _qtyIsEmpty()
+  -String _findBarCode()
+}
+
+"web_store_management::Pages::Inventory::UpdateProduct.dart::_UpdateProduct" o-- "web_store_management::Backend::ProductOperation.dart::ProductOperation"
+"web_store_management::Pages::Inventory::UpdateProduct.dart::_UpdateProduct" o-- "web_store_management::Pages::Inventory::InventoryPage.dart::InventoryPage"
+"web_store_management::Pages::Inventory::UpdateProduct.dart::_UpdateProduct" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"flutter::src::widgets::framework.dart::State" <|-- "web_store_management::Pages::Inventory::UpdateProduct.dart::_UpdateProduct"
+
+class "web_store_management::Pages::LoginPage::BodyLogin.dart::BodyLogin" {
+  +_BodyLogin createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "web_store_management::Pages::LoginPage::BodyLogin.dart::BodyLogin"
+
+class "web_store_management::Pages::LoginPage::BodyLogin.dart::_BodyLogin" {
+  +Login login
+  +Future<dynamic> branches
+  +GlobalController controller
+  +TextEditingController username
+  +TextEditingController password
+  +String originBranch
+  +String administrator
+  +String storeAttendant
+  +String? loginRole
+  +void initState()
+  +List<String> getLocations()
+  +Widget build()
+  -Widget _formLogin()
+  +void switchUser()
+}
+
+"web_store_management::Pages::LoginPage::BodyLogin.dart::_BodyLogin" o-- "web_store_management::Backend::LoginOperation.dart::Login"
+"web_store_management::Pages::LoginPage::BodyLogin.dart::_BodyLogin" o-- "web_store_management::Backend::GlobalController.dart::GlobalController"
+"web_store_management::Pages::LoginPage::BodyLogin.dart::_BodyLogin" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"flutter::src::widgets::framework.dart::State" <|-- "web_store_management::Pages::LoginPage::BodyLogin.dart::_BodyLogin"
+
+class "web_store_management::Pages::LoginPage::ForgotPasswordScreens::ChangePass.dart::ChangePass" {
+  +_ChangePass createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "web_store_management::Pages::LoginPage::ForgotPasswordScreens::ChangePass.dart::ChangePass"
+
+class "web_store_management::Pages::LoginPage::ForgotPasswordScreens::ChangePass.dart::_ChangePass" {
+  +AdminOperation admin
+  +TextEditingController newPassword
+  +TextEditingController confirmPassword
+  +String error
+  +String? name
+  +void initState()
+  +Widget build()
+}
+
+"web_store_management::Pages::LoginPage::ForgotPasswordScreens::ChangePass.dart::_ChangePass" o-- "web_store_management::Backend::AdminOperation.dart::AdminOperation"
+"web_store_management::Pages::LoginPage::ForgotPasswordScreens::ChangePass.dart::_ChangePass" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"flutter::src::widgets::framework.dart::State" <|-- "web_store_management::Pages::LoginPage::ForgotPasswordScreens::ChangePass.dart::_ChangePass"
+
+class "web_store_management::Pages::LoginPage::ForgotPasswordScreens::ForgotPassword.dart::ForgotPassword" {
+  +_ForgotPassword createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "web_store_management::Pages::LoginPage::ForgotPasswordScreens::ForgotPassword.dart::ForgotPassword"
+
+class "web_store_management::Pages::LoginPage::ForgotPasswordScreens::ForgotPassword.dart::_ForgotPassword" {
+  +TextEditingController mobileNumber
+  +TextMessage message
+  +dynamic otpCode
+  +Widget build()
+}
+
+"web_store_management::Pages::LoginPage::ForgotPasswordScreens::ForgotPassword.dart::_ForgotPassword" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"web_store_management::Pages::LoginPage::ForgotPasswordScreens::ForgotPassword.dart::_ForgotPassword" o-- "web_store_management::Backend::TextMessage.dart::TextMessage"
+"flutter::src::widgets::framework.dart::State" <|-- "web_store_management::Pages::LoginPage::ForgotPasswordScreens::ForgotPassword.dart::_ForgotPassword"
+
+class "web_store_management::Pages::LoginPage::ForgotPasswordScreens::OTPVerification.dart::OTPVerification" {
+  +int? code
+  +_OTPVerification createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "web_store_management::Pages::LoginPage::ForgotPasswordScreens::OTPVerification.dart::OTPVerification"
+
+class "web_store_management::Pages::LoginPage::ForgotPasswordScreens::OTPVerification.dart::_OTPVerification" {
+  +TextEditingController verifyOTP
+  +String continueTimer
+  +int counter
+  +bool checkOtp()
+  +Widget build()
+}
+
+"web_store_management::Pages::LoginPage::ForgotPasswordScreens::OTPVerification.dart::_OTPVerification" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"flutter::src::widgets::framework.dart::State" <|-- "web_store_management::Pages::LoginPage::ForgotPasswordScreens::OTPVerification.dart::_OTPVerification"
+
+class "web_store_management::Pages::LoginPage::LoginPage.dart::LoginPage" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "web_store_management::Pages::LoginPage::LoginPage.dart::LoginPage"
+
+class "web_store_management::Pages::Navbar::AddAccount.dart::AddAccount" {
+  +_AddAccount createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "web_store_management::Pages::Navbar::AddAccount.dart::AddAccount"
+
+class "web_store_management::Pages::Navbar::AddAccount.dart::_AddAccount" {
+  +Picker pick
+  +Hashing hash
+  +String fileName
+  +String error
+  +TextEditingController username
+  +TextEditingController firstname
+  +TextEditingController lastname
+  +TextEditingController mobileNumber
+  +TextEditingController homeAddress
+  +TextEditingController password
+  +TextEditingController confirmPassword
+  +Widget build()
+}
+
+"web_store_management::Pages::Navbar::AddAccount.dart::_AddAccount" o-- "web_store_management::Helpers::FilePickerHelper.dart::Picker"
+"web_store_management::Pages::Navbar::AddAccount.dart::_AddAccount" o-- "web_store_management::Helpers::HashingHelper.dart::Hashing"
+"web_store_management::Pages::Navbar::AddAccount.dart::_AddAccount" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"flutter::src::widgets::framework.dart::State" <|-- "web_store_management::Pages::Navbar::AddAccount.dart::_AddAccount"
+
+class "web_store_management::Pages::Navbar::ConfirmNewAccount.dart::ConfirmAccount" {
+  +String? firstname
+  +String? lastname
+  +String? mobileNumber
+  +String? homeAddress
+  +String? username
+  +String? password
+  +Uint8List? image
+  +_ConfirmAccount createState()
+}
+
+"web_store_management::Pages::Navbar::ConfirmNewAccount.dart::ConfirmAccount" o-- "dart::typed_data::Uint8List"
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "web_store_management::Pages::Navbar::ConfirmNewAccount.dart::ConfirmAccount"
+
+class "web_store_management::Pages::Navbar::ConfirmNewAccount.dart::_ConfirmAccount" {
+  +TextEditingController password
+  +AdminOperation admin
+  +void clearText()
+  +Widget build()
+}
+
+"web_store_management::Pages::Navbar::ConfirmNewAccount.dart::_ConfirmAccount" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"web_store_management::Pages::Navbar::ConfirmNewAccount.dart::_ConfirmAccount" o-- "web_store_management::Backend::AdminOperation.dart::AdminOperation"
+"flutter::src::widgets::framework.dart::State" <|-- "web_store_management::Pages::Navbar::ConfirmNewAccount.dart::_ConfirmAccount"
+
+class "web_store_management::Pages::Navbar::Drawers::NotificationDrawer.dart::NotificationDrawer" {
+  +_NotificationDrawer createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "web_store_management::Pages::Navbar::Drawers::NotificationDrawer.dart::NotificationDrawer"
+
+class "web_store_management::Pages::Navbar::Drawers::NotificationDrawer.dart::_NotificationDrawer" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::State" <|-- "web_store_management::Pages::Navbar::Drawers::NotificationDrawer.dart::_NotificationDrawer"
+
+class "web_store_management::Pages::Navbar::Drawers::ProfileDrawer.dart::ProfileDrawer" {
+  +_ProfileDrawer createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "web_store_management::Pages::Navbar::Drawers::ProfileDrawer.dart::ProfileDrawer"
+
+class "web_store_management::Pages::Navbar::Drawers::ProfileDrawer.dart::_ProfileDrawer" {
+  +GlobalController controller
+  +EmployeeOperation emp
+  -bool _isAuthorized
+  -bool _isEmployee
+  +String branchName
+  -String _getTodayDate()
+  +void initState()
+  +void timeIn()
+  +void timeOut()
+  +Widget build()
+}
+
+"web_store_management::Pages::Navbar::Drawers::ProfileDrawer.dart::_ProfileDrawer" o-- "web_store_management::Backend::GlobalController.dart::GlobalController"
+"web_store_management::Pages::Navbar::Drawers::ProfileDrawer.dart::_ProfileDrawer" o-- "web_store_management::Backend::EmployeeOperation.dart::EmployeeOperation"
+"flutter::src::widgets::framework.dart::State" <|-- "web_store_management::Pages::Navbar::Drawers::ProfileDrawer.dart::_ProfileDrawer"
+
+class "web_store_management::Pages::Navbar::NavDrawerAdmin.dart::NavDrawerAdmin" {
+  +_NavDrawerAdmin createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "web_store_management::Pages::Navbar::NavDrawerAdmin.dart::NavDrawerAdmin"
+
+class "web_store_management::Pages::Navbar::NavDrawerAdmin.dart::_NavDrawerAdmin" {
+  -int _selectedIndex
+  +List<Widget> pages
+  +void initState()
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::State" <|-- "web_store_management::Pages::Navbar::NavDrawerAdmin.dart::_NavDrawerAdmin"
+
+class "web_store_management::Pages::Navbar::NavDrawerAttendant.dart::NavDrawerAttendant" {
+  +_NavDrawerAttendant createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "web_store_management::Pages::Navbar::NavDrawerAttendant.dart::NavDrawerAttendant"
+
+class "web_store_management::Pages::Navbar::NavDrawerAttendant.dart::_NavDrawerAttendant" {
+  -int _selectedIndex
+  +List<Widget> pages
+  +void initState()
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::State" <|-- "web_store_management::Pages::Navbar::NavDrawerAttendant.dart::_NavDrawerAttendant"
+
+class "web_store_management::Pages::Navbar::TopBar.dart::TopBar" {
+  +Size preferredSize
+  +_TopBar createState()
+}
+
+"web_store_management::Pages::Navbar::TopBar.dart::TopBar" o-- "dart::ui::Size"
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "web_store_management::Pages::Navbar::TopBar.dart::TopBar"
+"flutter::src::widgets::preferred_size.dart::PreferredSizeWidget" <|-- "web_store_management::Pages::Navbar::TopBar.dart::TopBar"
+
+class "web_store_management::Pages::Navbar::TopBar.dart::_TopBar" {
+  +GlobalController controller
+  +Login login
+  +void initState()
+  +Widget build()
+}
+
+"web_store_management::Pages::Navbar::TopBar.dart::_TopBar" o-- "web_store_management::Backend::GlobalController.dart::GlobalController"
+"web_store_management::Pages::Navbar::TopBar.dart::_TopBar" o-- "web_store_management::Backend::LoginOperation.dart::Login"
+"flutter::src::widgets::framework.dart::State" <|-- "web_store_management::Pages::Navbar::TopBar.dart::_TopBar"
+
+class "web_store_management::Pages::Navbar::UpdateProfile.dart::UpdateProfile" {
+  +_EditProfile createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "web_store_management::Pages::Navbar::UpdateProfile.dart::UpdateProfile"
+
+class "web_store_management::Pages::Navbar::UpdateProfile.dart::_EditProfile" {
+  +TextEditingController username
+  +TextEditingController firstname
+  +TextEditingController lastname
+  +TextEditingController password
+  +TextEditingController confirmPassword
+  +AdminModel admin
+  +EmployeeModel emp
+  +AdminOperation adminOperation
+  +String error
+  +void initState()
+  +Widget build()
+}
+
+"web_store_management::Pages::Navbar::UpdateProfile.dart::_EditProfile" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"web_store_management::Pages::Navbar::UpdateProfile.dart::_EditProfile" o-- "web_store_management::Models::AdminModel.dart::AdminModel"
+"web_store_management::Pages::Navbar::UpdateProfile.dart::_EditProfile" o-- "web_store_management::Models::EmployeeModel.dart::EmployeeModel"
+"web_store_management::Pages::Navbar::UpdateProfile.dart::_EditProfile" o-- "web_store_management::Backend::AdminOperation.dart::AdminOperation"
+"flutter::src::widgets::framework.dart::State" <|-- "web_store_management::Pages::Navbar::UpdateProfile.dart::_EditProfile"
+
+class "web_store_management::Pages::Navbar::ViewProfile.dart::ViewProfile" {
+  +State<ViewProfile> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "web_store_management::Pages::Navbar::ViewProfile.dart::ViewProfile"
+
+class "web_store_management::Pages::Navbar::ViewProfile.dart::_ViewProfileState" {
+  +List<int> picture
+  +String? name
+  +void initState()
+  +Widget build()
+  +Future<String> getRole()
+}
+
+"flutter::src::widgets::framework.dart::State" <|-- "web_store_management::Pages::Navbar::ViewProfile.dart::_ViewProfileState"
+
+class "web_store_management::Pages::NewLoan::FinalizePage.dart::FinalizePage" {
+  +String? action
+  +String? firstname
+  +String? lastname
+  +String? mobile
+  +String? address
+  +num? total
+  +int? id
+  +Uint8List contract
+  +_FinalizePage createState()
+}
+
+"web_store_management::Pages::NewLoan::FinalizePage.dart::FinalizePage" o-- "dart::typed_data::Uint8List"
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "web_store_management::Pages::NewLoan::FinalizePage.dart::FinalizePage"
+
+class "web_store_management::Pages::NewLoan::FinalizePage.dart::_FinalizePage" {
+  +void initState()
+  +Widget build()
+  -num _getTotal()
+}
+
+"flutter::src::widgets::framework.dart::State" <|-- "web_store_management::Pages::NewLoan::FinalizePage.dart::_FinalizePage"
+
+class "web_store_management::Pages::NewLoan::FinalizePage.dart::_Row" {
+  +String valueA
+  +String valueB
+  +Widget valueC
+  +String valueD
+  +Widget valueE
+  +bool selected
+}
+
+"web_store_management::Pages::NewLoan::FinalizePage.dart::_Row" o-- "flutter::src::widgets::framework.dart::Widget"
+
+class "web_store_management::Pages::NewLoan::FinalizePage.dart::_DataSource" {
+  +BuildContext context
+  -int _selectedCount
+  -List<_Row> _selectedProducts
+  +int rowCount
+  +bool isRowCountApproximate
+  +int selectedRowCount
+  +DataRow? getRow()
+  -List<_Row> _finalizeProducts()
+}
+
+"web_store_management::Pages::NewLoan::FinalizePage.dart::_DataSource" o-- "flutter::src::widgets::framework.dart::BuildContext"
+"flutter::src::material::data_table_source.dart::DataTableSource" <|-- "web_store_management::Pages::NewLoan::FinalizePage.dart::_DataSource"
+
+class "web_store_management::Pages::NewLoan::PaymentPlan.dart::PaymentPlanPage" {
+  +String? action
+  +String? firstname
+  +String? lastname
+  +String? mobile
+  +String? address
+  +int? id
+  +num total
+  +Uint8List contract
+  +_PaymentPlanPage createState()
+}
+
+"web_store_management::Pages::NewLoan::PaymentPlan.dart::PaymentPlanPage" o-- "dart::typed_data::Uint8List"
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "web_store_management::Pages::NewLoan::PaymentPlan.dart::PaymentPlanPage"
+
+class "web_store_management::Pages::NewLoan::PaymentPlan.dart::_PaymentPlanPage" {
+  +LoanOperation loan
+  +dynamic image
+  +TextEditingController borrowerName
+  +TextEditingController totalAmount
+  +TextEditingController duedate
+  +String plan
+  -double _currenSliderValue
+  +void initState()
+  +Widget build()
+  +void actionTaken()
+}
+
+"web_store_management::Pages::NewLoan::PaymentPlan.dart::_PaymentPlanPage" o-- "web_store_management::Backend::LoanOperation.dart::LoanOperation"
+"web_store_management::Pages::NewLoan::PaymentPlan.dart::_PaymentPlanPage" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"flutter::src::widgets::framework.dart::State" <|-- "web_store_management::Pages::NewLoan::PaymentPlan.dart::_PaymentPlanPage"
+
+class "web_store_management::Pages::NewLoan::SelectionOfProductsPage.dart::SelectionOfProductsPage" {
+  +_SelectionOfProductsPage createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "web_store_management::Pages::NewLoan::SelectionOfProductsPage.dart::SelectionOfProductsPage"
+
+class "web_store_management::Pages::NewLoan::SelectionOfProductsPage.dart::_SelectionOfProductsPage" {
+  +TextEditingController firstname
+  +TextEditingController lastname
+  +TextEditingController mobileNumber
+  +TextEditingController homeAddress
+  +Picker pick
+  +dynamic image
+  +String fileName
+  +GlobalController controller
+  -Future<dynamic> _products
+  +void initState()
+  +Widget build()
+}
+
+"web_store_management::Pages::NewLoan::SelectionOfProductsPage.dart::_SelectionOfProductsPage" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"web_store_management::Pages::NewLoan::SelectionOfProductsPage.dart::_SelectionOfProductsPage" o-- "web_store_management::Helpers::FilePickerHelper.dart::Picker"
+"web_store_management::Pages::NewLoan::SelectionOfProductsPage.dart::_SelectionOfProductsPage" o-- "web_store_management::Backend::GlobalController.dart::GlobalController"
+"flutter::src::widgets::framework.dart::State" <|-- "web_store_management::Pages::NewLoan::SelectionOfProductsPage.dart::_SelectionOfProductsPage"
+
+class "web_store_management::Pages::NewLoan::SelectionOfProductsPage.dart::_RowSelectProducts" {
+  +String valueA
+  +String valueB
+  +String valueC
+  +bool selected
+}
+
+class "web_store_management::Pages::NewLoan::SelectionOfProductsPage.dart::_SelectionOfProducts" {
+  -int _selectedCount
+  +BuildContext context
+  -List<_RowSelectProducts> _rows
+  +int rowCount
+  +bool isRowCountApproximate
+  +int selectedRowCount
+  +DataRow? getRow()
+  -List<_RowSelectProducts> _selectionProducts()
+}
+
+"web_store_management::Pages::NewLoan::SelectionOfProductsPage.dart::_SelectionOfProducts" o-- "flutter::src::widgets::framework.dart::BuildContext"
+"flutter::src::material::data_table_source.dart::DataTableSource" <|-- "web_store_management::Pages::NewLoan::SelectionOfProductsPage.dart::_SelectionOfProducts"
+
+class "web_store_management::Pages::Payment::CashPaymentPage.dart::CashPaymentPage" {
+  +_CashPaymentPage createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "web_store_management::Pages::Payment::CashPaymentPage.dart::CashPaymentPage"
+
+class "web_store_management::Pages::Payment::CashPaymentPage.dart::_CashPaymentPage" {
+  +GlobalController controller
+  +ProductOperation product
+  +TextEditingController fname
+  +TextEditingController lname
+  +TextEditingController address
+  +List<InvoiceItem> items
+  -Future<dynamic> _products
+  +void initState()
+  +Widget build()
+  +Widget showInvoice()
+}
+
+"web_store_management::Pages::Payment::CashPaymentPage.dart::_CashPaymentPage" o-- "web_store_management::Backend::GlobalController.dart::GlobalController"
+"web_store_management::Pages::Payment::CashPaymentPage.dart::_CashPaymentPage" o-- "web_store_management::Backend::ProductOperation.dart::ProductOperation"
+"web_store_management::Pages::Payment::CashPaymentPage.dart::_CashPaymentPage" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"flutter::src::widgets::framework.dart::State" <|-- "web_store_management::Pages::Payment::CashPaymentPage.dart::_CashPaymentPage"
+
+class "web_store_management::Pages::Payment::CashPaymentPage.dart::_Row" {
+  +String valueA
+  +String valueB
+  +String valueC
+  +TextFormField valueD
+  +bool selected
+}
+
+"web_store_management::Pages::Payment::CashPaymentPage.dart::_Row" o-- "flutter::src::material::text_form_field.dart::TextFormField"
+
+class "web_store_management::Pages::Payment::CashPaymentPage.dart::_DataSource" {
+  +BuildContext context
+  -int _selectedCount
+  {static} -List<_Row> _products
+  +List<TextEditingController> qty
+  +int rowCount
+  +bool isRowCountApproximate
+  +int selectedRowCount
+  +DataRow? getRow()
+  -List<_Row> _productList()
+}
+
+"web_store_management::Pages::Payment::CashPaymentPage.dart::_DataSource" o-- "flutter::src::widgets::framework.dart::BuildContext"
+"flutter::src::material::data_table_source.dart::DataTableSource" <|-- "web_store_management::Pages::Payment::CashPaymentPage.dart::_DataSource"
+
+class "web_store_management::Pages::Payment::MakePayment.dart::MakePayment" {
+  +String? id
+  +String? name
+  +String? debt
+  +_MakePayment createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "web_store_management::Pages::Payment::MakePayment.dart::MakePayment"
+
+class "web_store_management::Pages::Payment::MakePayment.dart::_MakePayment" {
+  +TextEditingController name
+  +TextEditingController debt
+  +TextEditingController givenAmount
+  +TextEditingController dateinput
+  +BorrowerOperation borrower
+  +void initState()
+  +Widget build()
+}
+
+"web_store_management::Pages::Payment::MakePayment.dart::_MakePayment" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"web_store_management::Pages::Payment::MakePayment.dart::_MakePayment" o-- "web_store_management::Backend::BorrowerOperation.dart::BorrowerOperation"
+"flutter::src::widgets::framework.dart::State" <|-- "web_store_management::Pages::Payment::MakePayment.dart::_MakePayment"
+
+class "web_store_management::Pages::Payment::PaymentPage.dart::PaymentPage" {
+  +_PaymentPage createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "web_store_management::Pages::Payment::PaymentPage.dart::PaymentPage"
+
+class "web_store_management::Pages::Payment::PaymentPage.dart::_PaymentPage" {
+  -bool _sortAscending
+  +Future<List<BorrowerModel>> borrowers
+  +GlobalController controller
+  +void initState()
+  +Widget build()
+}
+
+"web_store_management::Pages::Payment::PaymentPage.dart::_PaymentPage" o-- "web_store_management::Backend::GlobalController.dart::GlobalController"
+"flutter::src::widgets::framework.dart::State" <|-- "web_store_management::Pages::Payment::PaymentPage.dart::_PaymentPage"
+
+class "web_store_management::Pages::Payment::PaymentPage.dart::_Row" {
+  +String valueA
+  +String valueB
+  +String valueC
+  +Widget valueD
+  +Widget valueE
+  +bool selected
+}
+
+"web_store_management::Pages::Payment::PaymentPage.dart::_Row" o-- "flutter::src::widgets::framework.dart::Widget"
+
+class "web_store_management::Pages::Payment::PaymentPage.dart::_DataSource" {
+  +BuildContext context
+  -int _selectedCount
+  +int rowCount
+  +bool isRowCountApproximate
+  +int selectedRowCount
+  +DataRow? getRow()
+}
+
+"web_store_management::Pages::Payment::PaymentPage.dart::_DataSource" o-- "flutter::src::widgets::framework.dart::BuildContext"
+"flutter::src::material::data_table_source.dart::DataTableSource" <|-- "web_store_management::Pages::Payment::PaymentPage.dart::_DataSource"
+
+class "web_store_management::Pages::Release::ReleasePage.dart::ReleasePage" {
+  +_ReleasePage createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "web_store_management::Pages::Release::ReleasePage.dart::ReleasePage"
+
+class "web_store_management::Pages::Release::ReleasePage.dart::_ReleasePage" {
+  +GlobalController controller
+  +LoanOperation loan
+  +TextMessage message
+  +String released
+  -Future<List<BorrowerModel>> _releaseApproval
+  +int vid
+  +int bid
+  +double textSize
+  +double titleSize
+  +void initState()
+  +Widget build()
+  -List<Widget> _cards()
+  +Widget showPrint()
+}
+
+"web_store_management::Pages::Release::ReleasePage.dart::_ReleasePage" o-- "web_store_management::Backend::GlobalController.dart::GlobalController"
+"web_store_management::Pages::Release::ReleasePage.dart::_ReleasePage" o-- "web_store_management::Backend::LoanOperation.dart::LoanOperation"
+"web_store_management::Pages::Release::ReleasePage.dart::_ReleasePage" o-- "web_store_management::Backend::TextMessage.dart::TextMessage"
+"flutter::src::widgets::framework.dart::State" <|-- "web_store_management::Pages::Release::ReleasePage.dart::_ReleasePage"
+
+class "web_store_management::Pages::Repairs::AddRepair.dart::AddRepair" {
+  +String? id
+  +String? name
+  +String? address
+  +String? number
+  +_AddRepair createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "web_store_management::Pages::Repairs::AddRepair.dart::AddRepair"
+
+class "web_store_management::Pages::Repairs::AddRepair.dart::_AddRepair" {
+  +BorrowerOperation borrower
+  +TextEditingController dateinput
+  +TextEditingController productname
+  +TextEditingController brwname
+  +TextEditingController address
+  +TextEditingController mobile
+  +void initState()
+  +Widget build()
+}
+
+"web_store_management::Pages::Repairs::AddRepair.dart::_AddRepair" o-- "web_store_management::Backend::BorrowerOperation.dart::BorrowerOperation"
+"web_store_management::Pages::Repairs::AddRepair.dart::_AddRepair" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"flutter::src::widgets::framework.dart::State" <|-- "web_store_management::Pages::Repairs::AddRepair.dart::_AddRepair"
+
+class "web_store_management::Pages::Repairs::ManualBorrowerSearch.dart::ManualBorrowerSearch" {
+  +_ManualBorrowerSearch createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "web_store_management::Pages::Repairs::ManualBorrowerSearch.dart::ManualBorrowerSearch"
+
+class "web_store_management::Pages::Repairs::ManualBorrowerSearch.dart::_ManualBorrowerSearch" {
+  +TextEditingController borrowername
+  +TextEditingController confirmedname
+  +BorrowerOperation controller
+  +List<String> borrowerDetail
+  +void initState()
+  +Widget build()
+  +Widget getName()
+  -List<String> _findName()
+}
+
+"web_store_management::Pages::Repairs::ManualBorrowerSearch.dart::_ManualBorrowerSearch" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"web_store_management::Pages::Repairs::ManualBorrowerSearch.dart::_ManualBorrowerSearch" o-- "web_store_management::Backend::BorrowerOperation.dart::BorrowerOperation"
+"flutter::src::widgets::framework.dart::State" <|-- "web_store_management::Pages::Repairs::ManualBorrowerSearch.dart::_ManualBorrowerSearch"
+
+class "web_store_management::Pages::Repairs::RepairsScreen.dart::RepairsPage" {
+  +_RepairsPage createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "web_store_management::Pages::Repairs::RepairsScreen.dart::RepairsPage"
+
+class "web_store_management::Pages::Repairs::RepairsScreen.dart::_RepairsPage" {
+  +GlobalController controller
+  +BorrowerOperation borrower
+  +TextMessage message
+  -Future<List<BorrowerModel>> _repairs
+  +double textSize
+  +double titleSize
+  +void initState()
+  +Widget build()
+  -List<Widget> _cards()
+  +void sendRepairedMessage()
+  +void repairStatus()
+}
+
+"web_store_management::Pages::Repairs::RepairsScreen.dart::_RepairsPage" o-- "web_store_management::Backend::GlobalController.dart::GlobalController"
+"web_store_management::Pages::Repairs::RepairsScreen.dart::_RepairsPage" o-- "web_store_management::Backend::BorrowerOperation.dart::BorrowerOperation"
+"web_store_management::Pages::Repairs::RepairsScreen.dart::_RepairsPage" o-- "web_store_management::Backend::TextMessage.dart::TextMessage"
+"flutter::src::widgets::framework.dart::State" <|-- "web_store_management::Pages::Repairs::RepairsScreen.dart::_RepairsPage"
+
+class "web_store_management::Pages::Reports::CollectionSummary.dart::CollectionSummary" {
+  +_CollectionSummary createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "web_store_management::Pages::Reports::CollectionSummary.dart::CollectionSummary"
+
+class "web_store_management::Pages::Reports::CollectionSummary.dart::_CollectionSummary" {
+  +TextEditingController startDate
+  +TextEditingController endDate
+  +Future<List<GraphCollectionModel>> report
+  +DashboardOperation dashboard
+  +void initState()
+  +Widget build()
+}
+
+"web_store_management::Pages::Reports::CollectionSummary.dart::_CollectionSummary" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"web_store_management::Pages::Reports::CollectionSummary.dart::_CollectionSummary" o-- "web_store_management::Backend::DashboardOperation.dart::DashboardOperation"
+"flutter::src::widgets::framework.dart::State" <|-- "web_store_management::Pages::Reports::CollectionSummary.dart::_CollectionSummary"
+
+class "web_store_management::Pages::Reports::GlobalHistoryScreens::PaymentHistoryScreen.dart::LocalPaymentHistory" {
+  +String? id
+  +String? borrowerName
+  +_LocalPaymentHistory createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "web_store_management::Pages::Reports::GlobalHistoryScreens::PaymentHistoryScreen.dart::LocalPaymentHistory"
+
+class "web_store_management::Pages::Reports::GlobalHistoryScreens::PaymentHistoryScreen.dart::_LocalPaymentHistory" {
+  +HistoryOperation history
+  -Future<List<PaymentHistoryModel>> _paymentHistory
+  -bool _sortAscending
+  +void initState()
+  +Widget build()
+}
+
+"web_store_management::Pages::Reports::GlobalHistoryScreens::PaymentHistoryScreen.dart::_LocalPaymentHistory" o-- "web_store_management::Backend::HistoryOperation.dart::HistoryOperation"
+"flutter::src::widgets::framework.dart::State" <|-- "web_store_management::Pages::Reports::GlobalHistoryScreens::PaymentHistoryScreen.dart::_LocalPaymentHistory"
+
+class "web_store_management::Pages::Reports::GlobalHistoryScreens::PaymentHistoryScreen.dart::_Row" {
+  +String valueA
+  +String valueB
+  +String valueC
+  +bool selected
+}
+
+class "web_store_management::Pages::Reports::GlobalHistoryScreens::PaymentHistoryScreen.dart::_DataSource" {
+  +BuildContext context
+  -int _selectedCount
+  -List<_Row> _payHistory
+  +int rowCount
+  +bool isRowCountApproximate
+  +int selectedRowCount
+  +DataRow? getRow()
+  -List<_Row> _paymentsHistory()
+}
+
+"web_store_management::Pages::Reports::GlobalHistoryScreens::PaymentHistoryScreen.dart::_DataSource" o-- "flutter::src::widgets::framework.dart::BuildContext"
+"flutter::src::material::data_table_source.dart::DataTableSource" <|-- "web_store_management::Pages::Reports::GlobalHistoryScreens::PaymentHistoryScreen.dart::_DataSource"
+
+class "web_store_management::Pages::Reports::GlobalHistoryScreens::ProductHistoryScreen.dart::ProductHistory" {
+  +String? borrowerId
+  +String? borrowerName
+  +_ProductHistory createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "web_store_management::Pages::Reports::GlobalHistoryScreens::ProductHistoryScreen.dart::ProductHistory"
+
+class "web_store_management::Pages::Reports::GlobalHistoryScreens::ProductHistoryScreen.dart::_ProductHistory" {
+  +HistoryOperation history
+  -Future<List<LoanedProductHistory>> _productHistory
+  -bool _sortAscending
+  +void initState()
+  +Widget build()
+}
+
+"web_store_management::Pages::Reports::GlobalHistoryScreens::ProductHistoryScreen.dart::_ProductHistory" o-- "web_store_management::Backend::HistoryOperation.dart::HistoryOperation"
+"flutter::src::widgets::framework.dart::State" <|-- "web_store_management::Pages::Reports::GlobalHistoryScreens::ProductHistoryScreen.dart::_ProductHistory"
+
+class "web_store_management::Pages::Reports::GlobalHistoryScreens::ProductHistoryScreen.dart::_Row" {
+  +String valueA
+  +String valueB
+  +double valueC
+  +int valueD
+  +String valueE
+  +String valueF
+  +String valueG
+  +String valueH
+  +bool selected
+}
+
+class "web_store_management::Pages::Reports::GlobalHistoryScreens::ProductHistoryScreen.dart::_DataSource" {
+  +BuildContext context
+  -int _selectedCount
+  -List<_Row> _productsHistory
+  +int rowCount
+  +bool isRowCountApproximate
+  +int selectedRowCount
+  +DataRow? getRow()
+  -List<_Row> _products()
+}
+
+"web_store_management::Pages::Reports::GlobalHistoryScreens::ProductHistoryScreen.dart::_DataSource" o-- "flutter::src::widgets::framework.dart::BuildContext"
+"flutter::src::material::data_table_source.dart::DataTableSource" <|-- "web_store_management::Pages::Reports::GlobalHistoryScreens::ProductHistoryScreen.dart::_DataSource"
+
+class "web_store_management::Pages::Reports::HistoryScreen.dart::HistoryScreen" {
+  +Function? onUpdate
+  +String? id
+  +String? name
+  +_HistoryScreen createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "web_store_management::Pages::Reports::HistoryScreen.dart::HistoryScreen"
+
+class "web_store_management::Pages::Reports::HistoryScreen.dart::_HistoryScreen" {
+  +GlobalController controller
+  +HistoryOperation history
+  -bool _sortAscending
+  +Future<List<BorrowerModel>> borrowers
+  +void initState()
+  +Widget build()
+  +Widget tableBorrowers()
+}
+
+"web_store_management::Pages::Reports::HistoryScreen.dart::_HistoryScreen" o-- "web_store_management::Backend::GlobalController.dart::GlobalController"
+"web_store_management::Pages::Reports::HistoryScreen.dart::_HistoryScreen" o-- "web_store_management::Backend::HistoryOperation.dart::HistoryOperation"
+"flutter::src::widgets::framework.dart::State" <|-- "web_store_management::Pages::Reports::HistoryScreen.dart::_HistoryScreen"
+
+class "web_store_management::Pages::Reports::HistoryScreen.dart::_Row" {
+  +String valueA
+  +String valueB
+  +Widget valueC
+  +Widget valueD
+  +bool selected
+}
+
+"web_store_management::Pages::Reports::HistoryScreen.dart::_Row" o-- "flutter::src::widgets::framework.dart::Widget"
+
+class "web_store_management::Pages::Reports::HistoryScreen.dart::_DataSource" {
+  +HistoryOperation history
+  +BuildContext context
+  -int _selectedCount
+  +int rowCount
+  +bool isRowCountApproximate
+  +int selectedRowCount
+  +DataRow? getRow()
+  -List<dynamic> _borrowersList()
+}
+
+"web_store_management::Pages::Reports::HistoryScreen.dart::_DataSource" o-- "web_store_management::Backend::HistoryOperation.dart::HistoryOperation"
+"web_store_management::Pages::Reports::HistoryScreen.dart::_DataSource" o-- "flutter::src::widgets::framework.dart::BuildContext"
+"flutter::src::material::data_table_source.dart::DataTableSource" <|-- "web_store_management::Pages::Reports::HistoryScreen.dart::_DataSource"
+
+class "web_store_management::Pages::Reports::ReportScreen.dart::ViewReport" {
+  +List<Tab> myTabs
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "web_store_management::Pages::Reports::ReportScreen.dart::ViewReport"
+
+class "web_store_management::Pages::RequestedProducts::AddRequest.dart::AddRequest" {
+  +String? id
+  +String? name
+  +String? address
+  +String? number
+  +_AddRequest createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "web_store_management::Pages::RequestedProducts::AddRequest.dart::AddRequest"
+
+class "web_store_management::Pages::RequestedProducts::AddRequest.dart::_AddRequest" {
+  +BorrowerOperation borrower
+  +TextEditingController dateinput
+  +TextEditingController requestedProduct
+  +TextEditingController brwname
+  +TextEditingController address
+  +TextEditingController mobile
+  +void initState()
+  +Widget build()
+}
+
+"web_store_management::Pages::RequestedProducts::AddRequest.dart::_AddRequest" o-- "web_store_management::Backend::BorrowerOperation.dart::BorrowerOperation"
+"web_store_management::Pages::RequestedProducts::AddRequest.dart::_AddRequest" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"flutter::src::widgets::framework.dart::State" <|-- "web_store_management::Pages::RequestedProducts::AddRequest.dart::_AddRequest"
+
+class "web_store_management::Pages::RequestedProducts::ReqManualSearchBorrower.dart::ReqManualBorrowerSearch" {
+  +_ReqManualBorrowerSearch createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "web_store_management::Pages::RequestedProducts::ReqManualSearchBorrower.dart::ReqManualBorrowerSearch"
+
+class "web_store_management::Pages::RequestedProducts::ReqManualSearchBorrower.dart::_ReqManualBorrowerSearch" {
+  +BorrowerOperation borrower
+  +GlobalController controller
+  +TextEditingController borrowername
+  +TextEditingController confirmedname
+  +List<String> borrowerDetail
+  +void initState()
+  +Widget build()
+  +Widget getName()
+  -List<String> _findName()
+}
+
+"web_store_management::Pages::RequestedProducts::ReqManualSearchBorrower.dart::_ReqManualBorrowerSearch" o-- "web_store_management::Backend::BorrowerOperation.dart::BorrowerOperation"
+"web_store_management::Pages::RequestedProducts::ReqManualSearchBorrower.dart::_ReqManualBorrowerSearch" o-- "web_store_management::Backend::GlobalController.dart::GlobalController"
+"web_store_management::Pages::RequestedProducts::ReqManualSearchBorrower.dart::_ReqManualBorrowerSearch" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"flutter::src::widgets::framework.dart::State" <|-- "web_store_management::Pages::RequestedProducts::ReqManualSearchBorrower.dart::_ReqManualBorrowerSearch"
+
+class "web_store_management::Pages::RequestedProducts::RequestedProdScreen.dart::RequestedProdScreen" {
+  +_RequestedProdScreen createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "web_store_management::Pages::RequestedProducts::RequestedProdScreen.dart::RequestedProdScreen"
+
+class "web_store_management::Pages::RequestedProducts::RequestedProdScreen.dart::_RequestedProdScreen" {
+  +GlobalController controller
+  +BorrowerOperation borrower
+  +TextMessage message
+  -Future<List<BorrowerModel>> _requested
+  +double textSize
+  +double titleSize
+  +void initState()
+  +Widget build()
+  -List<Widget> _cards()
+  +void sendRequestedMessage()
+  +void requestStatus()
+}
+
+"web_store_management::Pages::RequestedProducts::RequestedProdScreen.dart::_RequestedProdScreen" o-- "web_store_management::Backend::GlobalController.dart::GlobalController"
+"web_store_management::Pages::RequestedProducts::RequestedProdScreen.dart::_RequestedProdScreen" o-- "web_store_management::Backend::BorrowerOperation.dart::BorrowerOperation"
+"web_store_management::Pages::RequestedProducts::RequestedProdScreen.dart::_RequestedProdScreen" o-- "web_store_management::Backend::TextMessage.dart::TextMessage"
+"flutter::src::widgets::framework.dart::State" <|-- "web_store_management::Pages::RequestedProducts::RequestedProdScreen.dart::_RequestedProdScreen"
+
+
+@enduml

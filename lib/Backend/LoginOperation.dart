@@ -21,7 +21,7 @@ class Login extends GlobalController implements ILogin {
     var entity;
 
     switch (role.replaceAll(' ', '')) {
-      case 'Administrator':
+      case 'Manager':
         entity = json.encode({
           "Username": username,
           "Password": hash.encrypt(password),
@@ -70,7 +70,7 @@ class Login extends GlobalController implements ILogin {
 
     try {
       switch (role.replaceAll(' ', '')) {
-        case 'Administrator':
+        case 'Manager':
           Map<String, dynamic> adminMap =
               jsonDecode(response.body)[0] as Map<String, dynamic>;
 

@@ -135,7 +135,7 @@ class _OTPVerification extends State<OTPVerification> {
                               //attempted to enter wrong OTP 3 times
                               BannerNotif.notif(
                                 'WRONG OTP',
-                                'You enter wrong OTP for 3 times, try again in few minutes or contact your IT administrator',
+                                'You enter wrong OTP for 3 times, try again in few minutes or contact your Manager',
                                 Colors.red.shade600,
                               );
                             }

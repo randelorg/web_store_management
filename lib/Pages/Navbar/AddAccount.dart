@@ -48,7 +48,7 @@ class _AddAccount extends State<AddAccount> {
               ),
             ),
             Text(
-              'New Admin Account',
+              'New Manager Account',
               softWrap: true,
               textAlign: TextAlign.center,
               style: TextStyle(
@@ -58,7 +58,6 @@ class _AddAccount extends State<AddAccount> {
                 overflow: TextOverflow.fade,
               ),
             ),
-
             Padding(
               padding: EdgeInsets.only(top: 20, left: 2),
               child: Container(
@@ -93,7 +92,6 @@ class _AddAccount extends State<AddAccount> {
                 ),
               ),
             ),
-
             Padding(
               padding: EdgeInsets.only(left: 2),
               child: Container(
@@ -103,7 +101,7 @@ class _AddAccount extends State<AddAccount> {
                   style: TextStyle(fontSize: 10),
                 ),
               ),
-            ),   
+            ),
             Stack(
               children: [
                 Row(
@@ -172,8 +170,7 @@ class _AddAccount extends State<AddAccount> {
                 ),
               ],
             ),
-
-             Padding(
+            Padding(
               padding: EdgeInsets.only(left: 2),
               child: Container(
                 alignment: Alignment.centerLeft,
@@ -182,9 +179,9 @@ class _AddAccount extends State<AddAccount> {
                   style: TextStyle(fontSize: 10),
                 ),
               ),
-            ), 
+            ),
             Padding(
-             padding: EdgeInsets.only(bottom: 15),
+              padding: EdgeInsets.only(bottom: 15),
               child: TextField(
                 controller: mobileNumber,
                 maxLength: 12,
@@ -206,8 +203,7 @@ class _AddAccount extends State<AddAccount> {
                 ),
               ),
             ),
-
-             Padding(
+            Padding(
               padding: EdgeInsets.only(left: 2),
               child: Container(
                 alignment: Alignment.centerLeft,
@@ -216,9 +212,9 @@ class _AddAccount extends State<AddAccount> {
                   style: TextStyle(fontSize: 10),
                 ),
               ),
-            ), 
+            ),
             Padding(
-               padding: EdgeInsets.only(bottom: 15),
+              padding: EdgeInsets.only(bottom: 15),
               child: TextField(
                 controller: homeAddress,
                 decoration: InputDecoration(
@@ -238,7 +234,6 @@ class _AddAccount extends State<AddAccount> {
                 ),
               ),
             ),
-
             Padding(
               padding: EdgeInsets.only(left: 2),
               child: Container(
@@ -248,7 +243,7 @@ class _AddAccount extends State<AddAccount> {
                   style: TextStyle(fontSize: 10),
                 ),
               ),
-            ), 
+            ),
             Padding(
               padding: EdgeInsets.only(bottom: 15),
               child: TextField(
@@ -271,7 +266,6 @@ class _AddAccount extends State<AddAccount> {
                 ),
               ),
             ),
-
             Padding(
               padding: EdgeInsets.only(left: 2),
               child: Container(
@@ -360,17 +354,22 @@ class _AddAccount extends State<AddAccount> {
                             textStyle: TextStyle(fontSize: 20),
                           ),
                           onPressed: () {
-                            if (username.text.isEmpty || firstname.text.isEmpty || lastname.text.isEmpty || mobileNumber.text.isEmpty ||  
-                                homeAddress.text.isEmpty || password.text.isEmpty ||confirmPassword.text.isEmpty) {                         
-                                  BannerNotif.notif(                                
-                                    "Error",
-                                    "Please fill all the fields",
-                                   Colors.red.shade600);
-                            } else if (pick.image == null) {                                                   
+                            if (username.text.isEmpty ||
+                                firstname.text.isEmpty ||
+                                lastname.text.isEmpty ||
+                                mobileNumber.text.isEmpty ||
+                                homeAddress.text.isEmpty ||
+                                password.text.isEmpty ||
+                                confirmPassword.text.isEmpty) {
                               BannerNotif.notif(
-                                "Error",
-                                "Please upload an account image (jpg, png, or jpeg)",
-                                Colors.red.shade600);
+                                  "Error",
+                                  "Please fill all the fields",
+                                  Colors.red.shade600);
+                            } else if (pick.image == null) {
+                              BannerNotif.notif(
+                                  "Error",
+                                  "Please upload an account image (jpg, png, or jpeg)",
+                                  Colors.red.shade600);
                             } else if (password.text != confirmPassword.text) {
                               BannerNotif.notif(
                                   "Error",

@@ -28,7 +28,7 @@ class _EditProfile extends State<UpdateProfile> {
   void initState() {
     super.initState();
     switch (Mapping.userRole) {
-      case 'Administrator':
+      case 'Manager':
         username.text = Mapping.adminLogin[0].getUsername;
         firstname.text = Mapping.adminLogin[0].getFirstname;
         lastname.text = Mapping.adminLogin[0].getLastname;
@@ -70,7 +70,6 @@ class _EditProfile extends State<UpdateProfile> {
                 fontSize: 30,
               ),
             ),
-
             Padding(
               padding: EdgeInsets.only(top: 20, left: 2),
               child: Container(
@@ -105,7 +104,6 @@ class _EditProfile extends State<UpdateProfile> {
                 ),
               ),
             ),
-
             Padding(
               padding: EdgeInsets.only(left: 2),
               child: Container(
@@ -118,7 +116,7 @@ class _EditProfile extends State<UpdateProfile> {
             ),
             Stack(
               children: [
-                //this will be disabled because we will display the name here          
+                //this will be disabled because we will display the name here
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
@@ -190,7 +188,6 @@ class _EditProfile extends State<UpdateProfile> {
                 ),
               ],
             ),
-
             Padding(
               padding: EdgeInsets.only(left: 2),
               child: Container(
@@ -223,7 +220,6 @@ class _EditProfile extends State<UpdateProfile> {
                 ),
               ),
             ),
-            
             Padding(
               padding: EdgeInsets.only(left: 2),
               child: Container(
@@ -289,7 +285,8 @@ class _EditProfile extends State<UpdateProfile> {
                         ),
                         TextButton(
                           style: TextButton.styleFrom(
-                          padding: const EdgeInsets.only(left: 20, right: 20, top: 15, bottom: 15),
+                            padding: const EdgeInsets.only(
+                                left: 20, right: 20, top: 15, bottom: 15),
                             primary: Colors.white,
                             textStyle: TextStyle(
                                 fontFamily: 'Cairo_SemiBold',
@@ -298,16 +295,22 @@ class _EditProfile extends State<UpdateProfile> {
                           ),
                           child: const Text('UPDATE'),
                           onPressed: () {
-                            if (username.text.isEmpty || password.text.isEmpty || confirmPassword.text.isEmpty) {
+                            if (username.text.isEmpty ||
+                                password.text.isEmpty ||
+                                confirmPassword.text.isEmpty) {
                               BannerNotif.notif(
-                                "Error", "Please fill all the fields", Colors.red.shade600);
-                            } else if(password.text != confirmPassword.text){
+                                  "Error",
+                                  "Please fill all the fields",
+                                  Colors.red.shade600);
+                            } else if (password.text != confirmPassword.text) {
                               BannerNotif.notif(
-                                "Error","Password did not match", Colors.red.shade600);                       
-                              }else {
+                                  "Error",
+                                  "Password did not match",
+                                  Colors.red.shade600);
+                            } else {
                               Navigator.pop(context);
                               adminOperation
-                                  .updateAdminAccount(                             
+                                  .updateAdminAccount(
                                 Mapping.adminLogin[0].getAdminId,
                                 username.text,
                                 password.text,

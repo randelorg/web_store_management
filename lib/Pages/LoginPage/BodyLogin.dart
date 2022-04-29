@@ -18,8 +18,8 @@ class _BodyLogin extends State<BodyLogin> {
   final username = TextEditingController();
   final password = TextEditingController();
 
-  String originBranch = 'Main';
-  String administrator = 'Administrator';
+  String _originBranch = 'Main';
+  String _manager = 'Manager';
   final String storeAttendant = 'Store Attendant';
   String? loginRole;
 
@@ -91,14 +91,14 @@ class _BodyLogin extends State<BodyLogin> {
                   child: DropdownButtonHideUnderline(
                     child: DropdownButton<String>(
                       isExpanded: true,
-                      value: originBranch,
+                      value: _originBranch,
                       icon: const Icon(Icons.arrow_drop_down),
                       iconSize: 24,
                       elevation: 16,
                       style: TextStyle(color: HexColor("#155293")),
                       onChanged: (role) {
                         setState(() {
-                          originBranch = role!;
+                          _originBranch = role!;
                         });
                       },
                       items: getLocations()
@@ -147,17 +147,17 @@ class _BodyLogin extends State<BodyLogin> {
             child: DropdownButtonHideUnderline(
               child: DropdownButton<String>(
                 isExpanded: true,
-                value: administrator,
+                value: _manager,
                 icon: const Icon(Icons.arrow_drop_down),
                 iconSize: 24,
                 elevation: 16,
                 style: TextStyle(color: HexColor("#155293")),
                 onChanged: (role) {
                   setState(() {
-                    administrator = role!;
+                    _manager = role!;
                   });
                 },
-                items: <String>['Administrator', 'Store Attendant']
+                items: <String>['Manager', 'Store Attendant']
                     .map<DropdownMenuItem<String>>((String value) {
                   return DropdownMenuItem<String>(
                     value: value,
@@ -269,18 +269,17 @@ class _BodyLogin extends State<BodyLogin> {
                   Colors.red.shade600,
                 );
               } else {
-                print(administrator.toString());
                 login
                     .mainLogin(
-                  originBranch,
-                  administrator.toString(),
+                  _originBranch,
+                  _manager.toString(),
                   username.text,
                   password.text,
                 )
                     .then((value) {
                   setState(() {
                     if (value) {
-                      switchUser(administrator.toString());
+                      switchUser(_manager.toString());
                     } else {
                       BannerNotif.notif(
                         "Error",
@@ -300,7 +299,7 @@ class _BodyLogin extends State<BodyLogin> {
 
   void switchUser(String user) {
     switch (user) {
-      case 'Administrator':
+      case 'Manager':
         Navigator.pushReplacementNamed(context, '/homeAdmin');
         break;
       case 'Store Attendant':

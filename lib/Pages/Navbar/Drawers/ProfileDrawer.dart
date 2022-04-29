@@ -35,7 +35,7 @@ class _ProfileDrawer extends State<ProfileDrawer> {
   void initState() {
     super.initState();
     controller.fetchAllEmployees();
-    if (Mapping.userRole == "Administrator") {
+    if (Mapping.userRole == "Manager") {
       setState(() {
         _isAuthorized = true;
         _isEmployee = false;
@@ -212,7 +212,7 @@ class _ProfileDrawer extends State<ProfileDrawer> {
                               color: HexColor("#155293"),
                             ),
                             label: Text(
-                              ' Add Admin',
+                              ' Add Manager',
                               style: TextStyle(
                                 fontFamily: 'Cairo_SemiBold',
                                 color: HexColor("#155293"),
