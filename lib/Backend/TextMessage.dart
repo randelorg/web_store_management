@@ -3,9 +3,8 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:web_store_management/Backend/Utility/ApiUrl.dart';
 import 'package:web_store_management/Models/ForgetPasswordModel.dart';
-import 'package:web_store_management/Notification/Snack_notification.dart';
+import 'package:web_store_management/Notification/BannerNotif.dart';
 import 'package:web_store_management/Backend/Interfaces/ITextMessage.dart';
-
 import 'Utility/Mapping.dart';
 
 class TextMessage implements ITextMessage {
@@ -38,12 +37,11 @@ class TextMessage implements ITextMessage {
       );
 
       if (response.statusCode == 200) {
-        print(response.body);
         return true;
       }
     } catch (e) {
       //if there is an error in the method
-      SnackNotification.notif(
+      BannerNotif.notif(
         "Error",
         "Something went wrong while sending the message",
         Colors.red.shade600,
@@ -56,7 +54,6 @@ class TextMessage implements ITextMessage {
 
   @override
   Future<bool> sendPromotions() {
-    // TODO: implement sendPromotions
     throw UnimplementedError();
   }
 
@@ -89,9 +86,8 @@ class TextMessage implements ITextMessage {
         return true;
       }
     } catch (e) {
-      print(e.toString());
       //if there is an error in the method
-      SnackNotification.notif(
+      BannerNotif.notif(
         "Error",
         "Something went wrong while sending the message",
         Colors.red.shade600,
@@ -131,9 +127,8 @@ class TextMessage implements ITextMessage {
         return true;
       }
     } catch (e) {
-      print(e.toString());
       //if there is an error in the method
-      SnackNotification.notif(
+      BannerNotif.notif(
         "Error",
         "Something went wrong while sending the message",
         Colors.red.shade600,
@@ -175,10 +170,8 @@ class TextMessage implements ITextMessage {
         return otp;
       }
     } catch (e, s) {
-      print(s.toString());
-      print(e.toString());
       //if there is an error in the method
-      SnackNotification.notif(
+      BannerNotif.notif(
         "Error",
         "Something went wrong while finding the mobile number",
         Colors.red.shade600,
@@ -216,7 +209,7 @@ class TextMessage implements ITextMessage {
       }
     } catch (e) {
       //if there is an error in the method
-      SnackNotification.notif(
+      BannerNotif.notif(
         "Error",
         "Something went wrong while sending the message",
         Colors.red.shade600,

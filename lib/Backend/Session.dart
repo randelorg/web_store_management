@@ -1,11 +1,13 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Session {
-  static Future<void> setValues(String id, bool isLog, String role) async {
+  static Future<void> setValues(
+      String id, bool isLog, String role, String branch) async {
     await SharedPreferences.getInstance().then((prefs) {
       prefs.setString('id', id);
       prefs.setBool('isLoggedin', isLog);
       prefs.setString('role', role);
+      prefs.setString('branch', branch);
     });
   }
 
@@ -22,6 +24,11 @@ class Session {
   static Future<String> getrole() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getString('role') ?? '';
+  }
+
+  static Future<String> getBranch() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString('branch') ?? '';
   }
 
   static Future<bool> removeValues() async {

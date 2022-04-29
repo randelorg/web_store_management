@@ -1,15 +1,6 @@
 import 'dart:typed_data';
 
 class IEmployee {
-  Future<bool> timeIn(String id, String date) {
-    var a;
-    return a;
-  }
-
-  Future<bool> timeOut(String id, String date) {
-    var a;
-    return a;
-  }
 
   Future<bool> createEmployeeAccount(
       String? role,
@@ -21,13 +12,23 @@ class IEmployee {
       String? username,
       String? password,
       Uint8List? image) async {
-    return false;
+        return false;
   }
 
   void deleteEmployeeAccount() {}
 
   Future<bool> updateEmployeeAccount(
       int pid, String eid, String role, String mobile, String address) {
+    var a;
+    return a;
+  }
+
+  Future<bool> timeIn(String id, String date) {
+    var a;
+    return a;
+  }
+
+  Future<bool> timeOut(String id, String date) {
     var a;
     return a;
   }

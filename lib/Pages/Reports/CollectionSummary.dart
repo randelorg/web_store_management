@@ -86,8 +86,6 @@ class _CollectionSummary extends State<CollectionSummary> {
                       setState(() {
                         startDate.text = formattedDate;
                       });
-                    } else {
-                      print("Date is not selected");
                     }
                   },
                 ),
@@ -152,9 +150,7 @@ class _CollectionSummary extends State<CollectionSummary> {
                       setState(() {
                         endDate.text = formattedDate;
                       });
-                    } else {
-                      print("Date is not selected");
-                    }
+                    } 
                   },
                 ),
               ),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:web_store_management/Models/ProductModel.dart';
-import 'package:web_store_management/Notification/Snack_notification.dart';
+import 'package:web_store_management/Notification/BannerNotif.dart';
 import '../../Helpers/FilePickerHelper.dart';
 import 'FinalizePage.dart';
 import '../../Backend/Utility/Mapping.dart';
@@ -319,12 +319,12 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
                             lastname.text.isEmpty ||
                             mobileNumber.text.isEmpty ||
                             homeAddress.text.isEmpty) {
-                          SnackNotification.notif(
+                          BannerNotif.notif(
                               "Error",
                               "Please fill all the fields",
                               Colors.red.shade600);
                         } else if (pick.image == null) {
-                          SnackNotification.notif(
+                          BannerNotif.notif(
                               "Error",
                               "Please upload a file (jpg, png, jpeg)",
                               Colors.red.shade600);

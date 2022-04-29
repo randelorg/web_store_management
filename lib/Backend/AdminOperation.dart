@@ -1,6 +1,6 @@
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
-import 'package:web_store_management/Notification/Snack_notification.dart';
+import 'package:web_store_management/Notification/BannerNotif.dart';
 import 'Interfaces/IAdmin.dart';
 import 'Utility/ApiUrl.dart';
 import 'Utility/Mapping.dart';
@@ -28,7 +28,7 @@ class AdminOperation implements IAdmin {
       );
 
       if (response.statusCode == 404) {
-        SnackNotification.notif(
+        BannerNotif.notif(
           'Error',
           'Unexpected error occured',
           Colors.red.shade600,
@@ -37,7 +37,7 @@ class AdminOperation implements IAdmin {
     } catch (e) {
       e.toString();
       //return false;
-      SnackNotification.notif(
+      BannerNotif.notif(
         'Error',
         'Unexpected error occured',
       Colors.red.shade600,
@@ -77,7 +77,7 @@ class AdminOperation implements IAdmin {
       );
 
       if (response.statusCode == 404) {
-        SnackNotification.notif(
+        BannerNotif.notif(
           'Error',
           'Unexpected error occured',
           Colors.red.shade600,
@@ -86,7 +86,7 @@ class AdminOperation implements IAdmin {
     } catch (e) {
       e.toString();
       //return false;
-      SnackNotification.notif(
+      BannerNotif.notif(
         'Error',
         'Unexpected error occured',
         Colors.red.shade600,
@@ -94,7 +94,7 @@ class AdminOperation implements IAdmin {
     }
 
     //if status code is 202
-    SnackNotification.notif(
+    BannerNotif.notif(
       'Success',
       'Successfully added $firstname' + ' $lastname',
       Colors.green.shade600,
@@ -107,7 +107,6 @@ class AdminOperation implements IAdmin {
 
   @override
   bool verifyAdmin(String password) {
-    print(Mapping.adminLogin[0].getPassword.toString());
     if (Mapping.adminLogin[0].getPassword.toString() == hash.encrypt(password))
       return true;
 
@@ -136,7 +135,7 @@ class AdminOperation implements IAdmin {
       if (response.statusCode == 404) return false;
     } catch (e) {
       e.toString();
-      SnackNotification.notif(
+      BannerNotif.notif(
         'Error',
         'Something went wrong while updating the admin',
         Colors.red.shade600,

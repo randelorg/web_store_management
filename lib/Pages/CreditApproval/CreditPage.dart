@@ -5,7 +5,7 @@ import 'package:web_store_management/Backend/LoanOperation.dart';
 import 'package:web_store_management/Backend/TextMessage.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
 import 'package:web_store_management/Models/BorrowerModel.dart';
-import 'package:web_store_management/Notification/Snack_notification.dart';
+import 'package:web_store_management/Notification/BannerNotif.dart';
 
 class CreditScreen extends StatefulWidget {
   @override
@@ -305,7 +305,7 @@ class _CreditPage extends State<CreditScreen> {
                                 .approvedCredit(vid, bid, tobeRelease)
                                 .then((value) {
                               if (!value) {
-                                SnackNotification.notif(
+                                BannerNotif.notif(
                                   'Error',
                                   'Something went wrong while approving the loan',
                                   Colors.red.shade600,
@@ -339,7 +339,7 @@ class _CreditPage extends State<CreditScreen> {
                       bid = Mapping.creditApprovals[index].getBorrowerId;
                       loan.approvedCredit(vid, bid, denied).then((value) {
                         if (!value) {
-                          SnackNotification.notif(
+                          BannerNotif.notif(
                             'Error',
                             'Something went wrong while approving the loan',
                             Colors.red.shade600,
@@ -372,7 +372,7 @@ class _CreditPage extends State<CreditScreen> {
     message.sendApprovedCredit(name, number, status).then((value) => {
           if (value)
             {
-              SnackNotification.notif(
+              BannerNotif.notif(
                 'PENDING',
                 'The message is in transit to the network',
                 Colors.orange.shade600,

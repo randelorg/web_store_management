@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:web_store_management/Notification/Snack_notification.dart';
+import 'package:web_store_management/Notification/BannerNotif.dart';
 import 'package:http/http.dart' as http;
 import 'Interfaces/IProduct.dart';
 import 'Utility/ApiUrl.dart';
@@ -35,7 +35,7 @@ class ProductOperation implements IProduct {
     } catch (e) {
       e.toString();
       //if there is an error in the method
-      SnackNotification.notif(
+      BannerNotif.notif(
         'Error',
         "Product " + name + " failed to  update",
         Colors.red.shade600,
@@ -73,7 +73,7 @@ class ProductOperation implements IProduct {
     } catch (e) {
       e.toString();
       //if there is an error in the method
-      SnackNotification.notif(
+      BannerNotif.notif(
         'Error',
         "Product " + productName + " failed to  add",
         Colors.red.shade600,

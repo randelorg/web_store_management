@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:web_store_management/Notification/Snack_notification.dart';
+import 'package:web_store_management/Notification/BannerNotif.dart';
 import 'package:web_store_management/Pages/Inventory/InventoryPage.dart';
 import '../../Backend/ProductOperation.dart';
 import '../../Backend/Utility/Mapping.dart';
@@ -224,7 +224,7 @@ class _UpdateProduct extends State<UpdateProduct> {
                             prodQuantity.text.isEmpty ||
                             prodUnit.text.isEmpty ||
                             prodPrice.text.isEmpty) {
-                          SnackNotification.notif(
+                          BannerNotif.notif(
                               "Error",
                               "Please fill all the fields",
                               Colors.red.shade600);
@@ -240,7 +240,7 @@ class _UpdateProduct extends State<UpdateProduct> {
                               .then((value) {
                             if (value) {
                               Navigator.pop(context);
-                              SnackNotification.notif(
+                              BannerNotif.notif(
                                 'Success',
                                 "Product " + prodName.text + " is updated",
                                 Colors.green.shade600,

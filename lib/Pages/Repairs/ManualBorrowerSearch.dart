@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:web_store_management/Backend/BorrowerOperation.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
-import 'package:web_store_management/Notification/Snack_notification.dart';
+import 'package:web_store_management/Notification/BannerNotif.dart';
 import 'package:web_store_management/Pages/Repairs/AddRepair.dart';
 
 class ManualBorrowerSearch extends StatefulWidget {
@@ -126,7 +126,7 @@ class _ManualBorrowerSearch extends State<ManualBorrowerSearch> {
                         ),
                         onPressed: () {
                           if (borrowerDetail.isEmpty) {
-                            SnackNotification.notif(
+                            BannerNotif.notif(
                               "Error",
                               "Please find the borrower name",
                               Colors.red.shade600,

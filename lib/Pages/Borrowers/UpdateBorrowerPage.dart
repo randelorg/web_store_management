@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:web_store_management/Backend/BorrowerOperation.dart';
-import 'package:web_store_management/Notification/Snack_notification.dart';
+import 'package:web_store_management/Notification/BannerNotif.dart';
 
 class UpdateBorrowerPage extends StatefulWidget {
   final String? bid, firstname, lastname, number, address;
@@ -220,7 +220,7 @@ class _UpdateBorrowerPage extends State<UpdateBorrowerPage> {
                       onPressed: () {
                         if (firstname.text.isEmpty || lastname.text.isEmpty ||
                             number.text.isEmpty || address.text.isEmpty) {
-                              SnackNotification.notif(
+                              BannerNotif.notif(
                                "Error",
                                "Please fill all the fields",Colors.red.shade600);
                         } else {                   
@@ -235,7 +235,7 @@ class _UpdateBorrowerPage extends State<UpdateBorrowerPage> {
                               .then((value) {
                             if (value) {
                               Navigator.pop(context);
-                              SnackNotification.notif(
+                              BannerNotif.notif(
                                 'Success',
                                 'Borrower ' +
                                     widget.firstname.toString() +

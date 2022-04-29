@@ -8,11 +8,9 @@ class EmployeeModel extends PersonModel {
   List<dynamic>? userImage;
 
   //for payroll
-  String? payrollID;
-  double? wage;
-  double? salary;
-  String? checkin;
-  String? checkout;
+  int? attendanceID;
+  String? clockIn;
+  String? clockOut;
 
   get getEmployeeID => this.employeeID;
 
@@ -34,25 +32,17 @@ class EmployeeModel extends PersonModel {
 
   set setUserImage(userImage) => this.userImage = userImage;
 
-  get getPayrollID => this.payrollID;
+  get getAttendanceID => this.attendanceID;
 
-  set setPayrollID(payrollID) => this.payrollID = payrollID;
+  set setAttendanceID(attendanceID) => this.attendanceID = attendanceID;
 
-  get getWage => this.wage;
+  get getClockIn => this.clockIn;
 
-  set setWage(wage) => this.wage = wage;
+  set setTimeIn(clockIn) => this.clockIn = clockIn;
 
-  get getSalary => this.salary;
+  get getClockOut => this.clockOut;
 
-  set setSalary(salary) => this.salary = salary;
-
-  get getCheckin => this.checkin;
-
-  set setCheckin(checkin) => this.checkin = checkin;
-
-  get getCheckout => this.checkout;
-
-  set setCheckout(checkout) => this.checkout = checkout;
+  set setClockOut(clockOut) => this.clockOut = clockOut;
 
   EmployeeModel.empty() : super.empty();
 
@@ -117,14 +107,18 @@ class EmployeeModel extends PersonModel {
   }
 
   //for payroll
-  EmployeeModel.payroll({this.payrollID, this.checkin, this.checkout})
-      : super.empty();
+  EmployeeModel.attendance({this.attendanceID, this.clockIn, this.clockOut})
+      : super.empty() {
+    this.attendanceID = attendanceID;
+    this.clockIn = clockIn;
+    this.clockOut = clockOut;
+  }
 
-  factory EmployeeModel.payrollJson(Map<String, dynamic> json) {
-    return EmployeeModel.payroll(
-      payrollID: json['payrollID'] as String,
-      checkin: json['checkin'] as String,
-      checkout: json['checkout'] as String,
+  factory EmployeeModel.attendanceJson(Map<String, dynamic> json) {
+    return EmployeeModel.attendance(
+      attendanceID: json['AttendanceID'] as int,
+      clockIn: json['TimeIn'] as String,
+      clockOut: json['TimeOut'] as String?,
     );
   }
 
