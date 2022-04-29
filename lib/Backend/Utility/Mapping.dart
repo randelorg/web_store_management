@@ -10,6 +10,17 @@ import '../../Models/ProductModel.dart';
 import '../../Models/BorrowerModel.dart';
 
 class Mapping {
+  static String findBranchCode(String branchName) {
+    String code = '';
+    Mapping.branchList
+        .where((element) =>
+            element.branchName?.toLowerCase() == branchName.toLowerCase())
+        .forEach((element) {
+      code = element.branchCode;
+    });
+    return code;
+  }
+
   //formating currency and date
   static formatPrice(double price) => '\$ ${price.toStringAsFixed(2)}';
   static formatDate(DateTime date) => DateFormat.yMd().format(date);

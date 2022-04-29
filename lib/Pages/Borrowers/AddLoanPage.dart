@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:web_store_management/Models/ProductModel.dart';
-import 'package:web_store_management/Notification/Snack_notification.dart';
+import 'package:web_store_management/Notification/BannerNotif.dart';
 import '../../Helpers/FilePickerHelper.dart';
 import '../../Backend/Utility/Mapping.dart';
 import '../../Backend/GlobalController.dart';
@@ -348,7 +348,7 @@ class _AddLoanPage extends State<AddLoanPage> {
                           //push to second page
                           //which is the finalize order page
                           if (pick.image == null) {
-                            SnackNotification.notif(
+                            BannerNotif.notif(
                               "Error",
                               "Please upload a file (jpg, png, jpeg)",
                               Colors.red.shade600,

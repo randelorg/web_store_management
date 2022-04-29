@@ -1,15 +1,7 @@
 class ITextMessage {
-  Future<bool> sendApprovedCredit(String name, String number, String status) async {
-    var a;
-    return a;
-  }
-
-  Future<bool> sendRepairedProduct(String name, String number, String product, String status) {
-    var a;
-    return a;
-  }
-
-  Future<bool> sendRequestedProduct(String name, String number, String product, String status) {
+  
+  Future<bool> sendApprovedCredit(
+      String name, String number, String status) async {
     var a;
     return a;
   }
@@ -17,6 +9,23 @@ class ITextMessage {
   Future<bool> sendPromotions() {
     var a;
     return Future.value(a);
+  }
+
+  Future<bool> sendRequestedProduct(
+      String name, String number, String product, String status) {
+    var a;
+    return a;
+  }
+
+  Future<bool> sendRepairedProduct(
+      String name, String number, String product, String status) {
+    var a;
+    return a;
+  }
+
+  Future<int> checkNumberIfExisting(String mobile) {
+    var a;
+    return a;
   }
 
   Future<int> getOtp(String number) {

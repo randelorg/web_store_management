@@ -1,12 +1,11 @@
 import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
 import 'package:web_store_management/Backend/BorrowerOperation.dart';
 import 'package:web_store_management/Backend/Interfaces/ILoan.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'package:web_store_management/Notification/Snack_notification.dart';
+import 'package:web_store_management/Notification/BannerNotif.dart';
 import 'Utility/ApiUrl.dart';
 
 class LoanOperation extends BorrowerOperation implements INewLoan {
@@ -52,7 +51,7 @@ class LoanOperation extends BorrowerOperation implements INewLoan {
       }
     } catch (e) {
       e.toString();
-      SnackNotification.notif(
+      BannerNotif.notif(
         'Error',
         'Something went wrong while adding the borrower',
         Colors.redAccent.shade200,
@@ -85,7 +84,7 @@ class LoanOperation extends BorrowerOperation implements INewLoan {
       }
     } catch (e) {
       e.toString();
-      SnackNotification.notif(
+      BannerNotif.notif(
         'Error',
         'Something went wrong while adding the borrower',
         Colors.red.shade600,
@@ -123,7 +122,7 @@ class LoanOperation extends BorrowerOperation implements INewLoan {
         print("wow1 ${response.statusCode}");
       } catch (e) {
         e.toString();
-        SnackNotification.notif(
+        BannerNotif.notif(
           'Error',
           'Something went wrong while adding the loan',
           Colors.red.shade600,
@@ -160,7 +159,7 @@ class LoanOperation extends BorrowerOperation implements INewLoan {
       }
 
       if (response.statusCode == 202) {
-        SnackNotification.notif(
+        BannerNotif.notif(
           'Success',
           'Loan is now $status - Go now to Borrowers',
           Colors.green.shade600,

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:intl/intl.dart';
-import 'package:web_store_management/Notification/Snack_notification.dart';
+import 'package:web_store_management/Notification/BannerNotif.dart';
 import '../../Backend/BorrowerOperation.dart';
 
 class MakePayment extends StatefulWidget {
@@ -247,7 +247,7 @@ class _MakePayment extends State<MakePayment> {
                       ),
                       onPressed: () {
                         if (givenAmount.text.isEmpty || dateinput.text.isEmpty) {
-                          SnackNotification.notif(
+                          BannerNotif.notif(
                               "Error",
                               "Please fill all the fields",
                               Colors.red.shade600);
@@ -259,7 +259,7 @@ class _MakePayment extends State<MakePayment> {
                                   dateinput.text.toString())
                               .then((value) {
                             if (value) {
-                              SnackNotification.notif(
+                              BannerNotif.notif(
                                 'Success',
                                 'Payment has been recorded',
                                 Colors.green.shade600,

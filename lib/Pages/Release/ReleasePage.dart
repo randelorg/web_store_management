@@ -7,7 +7,7 @@ import 'package:web_store_management/Backend/TextMessage.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
 import 'package:web_store_management/Helpers/PrintHelper.dart';
 import 'package:web_store_management/Models/BorrowerModel.dart';
-import 'package:web_store_management/Notification/Snack_notification.dart';
+import 'package:web_store_management/Notification/BannerNotif.dart';
 
 class ReleasePage extends StatefulWidget {
   @override
@@ -308,7 +308,7 @@ class _ReleasePage extends State<ReleasePage> {
                                 .approvedCredit(vid, bid, released)
                                 .then((value) {
                               if (!value) {
-                                SnackNotification.notif(
+                                BannerNotif.notif(
                                   'Error',
                                   'Something went wrong while approving the loan',
                                   Colors.redAccent.shade200,

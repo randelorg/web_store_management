@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:web_store_management/Backend/EmployeeOperation.dart';
-import 'package:web_store_management/Notification/Snack_notification.dart';
+import 'package:web_store_management/Notification/BannerNotif.dart';
 
 class UpdateEmployee extends StatefulWidget {
   final int? pid;
@@ -278,7 +278,7 @@ class _UpdateEmployee extends State<UpdateEmployee> {
                             child: const Text('UPDATE'),
                             onPressed: () {
                               if (number.text.isEmpty || address.text.isEmpty) {
-                                SnackNotification.notif(
+                                BannerNotif.notif(
                                     "Error",
                                     "Please fill all the fields",
                                     Colors.red.shade600);
@@ -295,7 +295,7 @@ class _UpdateEmployee extends State<UpdateEmployee> {
                                     .then((value) {
                                   if (value) {
                                     Navigator.pop(context);
-                                    SnackNotification.notif(
+                                    BannerNotif.notif(
                                       'Success',
                                       'Successfully updated employee account',
                                       Colors.green.shade600,

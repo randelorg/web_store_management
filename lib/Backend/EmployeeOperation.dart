@@ -2,7 +2,9 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:web_store_management/Backend/DashboardOperation.dart';
 import 'package:web_store_management/Backend/Utility/ApiUrl.dart';
-import 'package:web_store_management/Notification/Snack_notification.dart';
+import 'package:web_store_management/Backend/Utility/Mapping.dart';
+import 'package:web_store_management/Models/EmployeeModel.dart';
+import 'package:web_store_management/Notification/BannerNotif.dart';
 import 'Interfaces/IEmployee.dart';
 import '../Helpers/HashingHelper.dart';
 import 'package:http/http.dart' as http;
@@ -53,7 +55,7 @@ class EmployeeOperation implements IEmployee {
         return true;
       }
     } catch (e) {
-      SnackNotification.notif(
+      BannerNotif.notif(
         'Error',
         'Something went wrong',
         Colors.red.shade600,
@@ -92,7 +94,7 @@ class EmployeeOperation implements IEmployee {
       if (response.statusCode == 404) return false;
     } catch (e) {
       e.toString();
-      SnackNotification.notif(
+      BannerNotif.notif(
         'Error',
         'Something went wrong while updating the employee',
         Colors.red.shade600,
@@ -102,6 +104,39 @@ class EmployeeOperation implements IEmployee {
 
     //if status code is 202
     return true;
+  }
+
+  Future<List<EmployeeModel>> getAttendance(String empId) async {
+    if (empId == "") return [];
+    try {
+      final response = await http.get(
+        Uri.parse("http://localhost:8090/api/attendance/$empId"),
+      );
+
+      final parsed =
+          await jsonDecode(response.body).cast<Map<String, dynamic>>();
+      Mapping.employeeList = parsed
+          .map<EmployeeModel>((json) => EmployeeModel.attendanceJson(json))
+          .toList();
+
+      if (response.statusCode == 404) {
+        BannerNotif.notif(
+          'Error',
+          'There is history of this borrower',
+          Colors.red.shade600,
+        );
+        return [];
+      }
+    } catch (e) {
+      print(e.toString());
+      BannerNotif.notif(
+        'Error',
+        'Cant fetch attendance',
+        Colors.red.shade600,
+      );
+      return [];
+    }
+    return Mapping.employeeList;
   }
 
   //for DTR
@@ -114,7 +149,7 @@ class EmployeeOperation implements IEmployee {
 
     try {
       final response = await http.post(
-        Uri.parse("${Url.url}api/clockin"),
+        Uri.parse("http://localhost:8090/api/clockin"),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json'
@@ -148,7 +183,7 @@ class EmployeeOperation implements IEmployee {
 
     try {
       final response = await http.post(
-        Uri.parse("${Url.url}api/clockout"),
+        Uri.parse("http://localhost:8090/api/clockout"),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json'

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:intl/intl.dart';
 import 'package:web_store_management/Backend/BorrowerOperation.dart';
-import 'package:web_store_management/Notification/Snack_notification.dart';
+import 'package:web_store_management/Notification/BannerNotif.dart';
 
 class AddRequest extends StatefulWidget {
   final String? id, name, address, number;
@@ -293,7 +293,7 @@ class _AddRequest extends State<AddRequest> {
                       child: const Text('ADD REQUEST'),
                       onPressed: () {
                         if (requestedProduct.text.isEmpty || dateinput.text.isEmpty) {
-                          SnackNotification.notif(
+                          BannerNotif.notif(
                             "Error",
                              "Please fill all the fields",Colors.red.shade600);
                         } else {
@@ -306,7 +306,7 @@ class _AddRequest extends State<AddRequest> {
                           )
                               .then((value) {
                             if (value) {
-                              SnackNotification.notif(
+                              BannerNotif.notif(
                                 "Success",
                                 "Successfully added request",
                                 Colors.green.shade600,

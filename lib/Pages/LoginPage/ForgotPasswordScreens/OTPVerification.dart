@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:web_store_management/Pages/LoginPage/ForgotPasswordScreens/ChangePass.dart';
 
-import '../../../Notification/Snack_notification.dart';
+import '../../../Notification/BannerNotif.dart';
 
 class OTPVerification extends StatefulWidget {
   final int? code;
@@ -111,7 +111,7 @@ class _OTPVerification extends State<OTPVerification> {
                       child: Text(continueTimer),
                       onPressed: () {
                         if (verifyOTP.text.isEmpty) {
-                          SnackNotification.notif(
+                          BannerNotif.notif(
                             "Error",
                             "Please fill the OTP field",
                             Colors.red.shade600,
@@ -133,14 +133,14 @@ class _OTPVerification extends State<OTPVerification> {
                             if (counter >= 3) {
                               Navigator.pop(context);
                               //attempted to enter wrong OTP 3 times
-                              SnackNotification.notif(
+                              BannerNotif.notif(
                                 'WRONG OTP',
-                                'You enter wrong OTP for 3 times, try again in few minutes or contact your IT administrator',
+                                'You enter wrong OTP for 3 times, try again in few minutes or contact your Manager',
                                 Colors.red.shade600,
                               );
                             }
                             //show snackbar that the otp is wrong
-                            SnackNotification.notif(
+                            BannerNotif.notif(
                               'Try again',
                               'Wrong OTP',
                               Colors.red.shade600,

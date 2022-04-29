@@ -2,7 +2,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import '../../Backend/AdminOperation.dart';
-import '../../Notification/Snack_notification.dart';
+import '../../Notification/BannerNotif.dart';
 
 // ignore: must_be_immutable
 class ConfirmAccount extends StatefulWidget {
@@ -123,7 +123,7 @@ class _ConfirmAccount extends State<ConfirmAccount> {
                           ),
                           onPressed: () {
                             if (password.text.isEmpty) {
-                              SnackNotification.notif(
+                              BannerNotif.notif(
                                   "Error", "Please fill the password field", Colors.red.shade600);
                             } else {
                               bool status = admin.verifyAdmin(password.text);
@@ -139,7 +139,7 @@ class _ConfirmAccount extends State<ConfirmAccount> {
                                 );                        
                                 Navigator.pop(context);                           
                               } else {                           
-                                SnackNotification.notif('Try again',
+                                BannerNotif.notif('Try again',
                                     'Wrong Password', Colors.red.shade600);
                               }
                             }

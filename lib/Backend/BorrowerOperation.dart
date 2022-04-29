@@ -1,12 +1,11 @@
 import 'dart:convert';
-import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:web_store_management/Backend/Interfaces/IBorrower.dart';
 import 'package:web_store_management/Backend/Interfaces/IPay.dart';
 import 'package:web_store_management/Backend/Interfaces/IServices.dart';
 import 'package:web_store_management/Models/BorrowerModel.dart';
-import 'package:web_store_management/Notification/Snack_notification.dart';
+import 'package:web_store_management/Notification/BannerNotif.dart';
 import 'LoginOperation.dart';
 import 'Utility/ApiUrl.dart';
 
@@ -35,7 +34,7 @@ class BorrowerOperation extends Login implements IBorrower, IPay, IServices {
       if (response.statusCode == 404) return false;
     } catch (e) {
       e.toString();
-      SnackNotification.notif(
+      BannerNotif.notif(
         'Error',
         'Something went wrong while updating the borrower',
         Colors.red.shade600,
@@ -65,7 +64,7 @@ class BorrowerOperation extends Login implements IBorrower, IPay, IServices {
       if (response.statusCode == 404) return false;
     } catch (e) {
       e.toString();
-      SnackNotification.notif(
+      BannerNotif.notif(
         'Error',
         'Something went wrong while fetching borrowers',
         Colors.red.shade600,
@@ -103,7 +102,7 @@ class BorrowerOperation extends Login implements IBorrower, IPay, IServices {
       }
 
       if (response.statusCode == 202) {
-        SnackNotification.notif(
+        BannerNotif.notif(
           'Success',
           'New request added successfully',
           Colors.green.shade600,
@@ -144,7 +143,7 @@ class BorrowerOperation extends Login implements IBorrower, IPay, IServices {
       }
 
       if (response.statusCode == 202) {
-        SnackNotification.notif(
+        BannerNotif.notif(
           'Success',
           'New repair added successfully',
           Colors.green.shade600,
@@ -187,7 +186,7 @@ class BorrowerOperation extends Login implements IBorrower, IPay, IServices {
       }
 
       if (response.statusCode == 202) {
-        SnackNotification.notif(
+        BannerNotif.notif(
           'Success',
           'Product Repair is updated',
           Colors.green.shade600,
@@ -225,7 +224,7 @@ class BorrowerOperation extends Login implements IBorrower, IPay, IServices {
       }
 
       if (response.statusCode == 202) {
-        SnackNotification.notif(
+        BannerNotif.notif(
           'Success',
           'Product Request is updated',
           Colors.green.shade600,
@@ -261,7 +260,7 @@ class BorrowerOperation extends Login implements IBorrower, IPay, IServices {
       picture = contractImage[0].getContractImage.cast<int>();
 
       if (response.statusCode == 404) {
-        SnackNotification.notif(
+        BannerNotif.notif(
           'Error',
           'Cant fetch contract',
           Colors.red.shade600,
@@ -269,7 +268,7 @@ class BorrowerOperation extends Login implements IBorrower, IPay, IServices {
       }
     } catch (e) {
       print(e.toString());
-      SnackNotification.notif(
+      BannerNotif.notif(
         'Error',
         'Cant fetch contract',
         Colors.red.shade600,

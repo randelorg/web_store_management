@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:web_store_management/Backend/BranchOperation.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
-import 'package:web_store_management/Notification/Snack_notification.dart';
+import 'package:web_store_management/Notification/BannerNotif.dart';
 
 class AddBranch extends StatefulWidget {
   @override
@@ -214,7 +214,7 @@ class _AddBranch extends State<AddBranch> {
                           child: const Text('CONFIRM'),
                           onPressed: () {
                             if (branchName.text.isEmpty || branchAddress.text.isEmpty) {                     
-                              SnackNotification.notif(
+                              BannerNotif.notif(
                                    "Error",
                                    "Please fill all the fields",Colors.red.shade600);
                             } else {
@@ -222,7 +222,7 @@ class _AddBranch extends State<AddBranch> {
                                   .addBranch(branchName.text,
                                       branchAddress.text, getEmpId())
                                   .then(
-                                    (value) => SnackNotification.notif(
+                                    (value) => BannerNotif.notif(
                                       'Success',
                                       'New branch added successfully',
                                       Colors.green.shade600,

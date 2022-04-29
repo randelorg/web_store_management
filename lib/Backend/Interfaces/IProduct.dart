@@ -1,4 +1,5 @@
 class IProduct {
+  
   Future<bool> updateProductDetails(
       String barcode, String name, int qty, String unit, double price) {
     var a;

@@ -15,12 +15,13 @@ class Login extends GlobalController implements ILogin {
   var session = Session();
 
   @override
-  Future<bool> mainLogin(String role, String username, String password) async {
+  Future<bool> mainLogin(
+      String branch, String role, String username, String password) async {
     //holds the json body
     var entity;
 
     switch (role.replaceAll(' ', '')) {
-      case 'Administrator':
+      case 'Manager':
         entity = json.encode({
           "Username": username,
           "Password": hash.encrypt(password),
@@ -52,7 +53,7 @@ class Login extends GlobalController implements ILogin {
 
     try {
       //if response is not empty
-      bool status = await _users(response, role);
+      bool status = await _users(response, role, branch);
 
       if (!status) return false;
     } catch (e) {
@@ -62,13 +63,14 @@ class Login extends GlobalController implements ILogin {
     return true;
   }
 
-  Future<bool> _users(http.Response response, final String role) async {
+  Future<bool> _users(
+      http.Response response, final String role, String branch) async {
     //for identifying the user role
     Mapping.userRole = role;
 
     try {
       switch (role.replaceAll(' ', '')) {
-        case 'Administrator':
+        case 'Manager':
           Map<String, dynamic> adminMap =
               jsonDecode(response.body)[0] as Map<String, dynamic>;
 
@@ -87,7 +89,7 @@ class Login extends GlobalController implements ILogin {
             ),
           );
 
-          await setSession(admin.toString(), true, role);
+          await setSession(admin.toString(), true, role, branch);
 
           break;
         case 'StoreAttendant':
@@ -107,7 +109,7 @@ class Login extends GlobalController implements ILogin {
             emp.getUserImage,
           ));
 
-          await setSession(emp.toString(), true, role);
+          await setSession(emp.toString(), true, role, branch);
           break;
         default:
       }
@@ -119,8 +121,9 @@ class Login extends GlobalController implements ILogin {
     return true;
   }
 
-  Future<void> setSession(String id, bool status, String role) async {
-    await Session.setValues(id, status, role);
+  Future<void> setSession(
+      String id, bool status, String role, String branch) async {
+    await Session.setValues(id, status, role, branch);
   }
 
   @override

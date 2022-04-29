@@ -3,7 +3,7 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:web_store_management/Backend/BorrowerOperation.dart';
 import 'package:web_store_management/Backend/GlobalController.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
-import 'package:web_store_management/Notification/Snack_notification.dart';
+import 'package:web_store_management/Notification/BannerNotif.dart';
 import 'package:web_store_management/Pages/RequestedProducts/AddRequest.dart';
 
 class ReqManualBorrowerSearch extends StatefulWidget {
@@ -127,7 +127,7 @@ class _ReqManualBorrowerSearch extends State<ReqManualBorrowerSearch> {
                           ),
                           onPressed: () {
                             if (borrowerDetail.isEmpty) {
-                              SnackNotification.notif(
+                              BannerNotif.notif(
                                   "Error",
                                   "Please fill the borrower name field",
                                   Colors.red.shade600);

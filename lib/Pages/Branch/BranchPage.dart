@@ -149,7 +149,6 @@ class _BranchPage extends State<BranchPage> {
                           ),
                           DataColumn(label: Text('NAME')),
                           DataColumn(label: Text('ADDRESS')),
-                          DataColumn(label: Text('ATTENDANT')),
                           DataColumn(label: Text('UPDATE')),
                         ],
                         source: _DataSource(context),
@@ -177,14 +176,12 @@ class _Row {
     this.valueB,
     this.valueC,
     this.valueD,
-    this.valueE,
   );
 
   final String valueA;
   final String valueB;
   final String valueC;
-  final String valueD;
-  final Widget valueE;
+  final Widget valueD;
 
   bool selected = false;
 }
@@ -220,8 +217,7 @@ class _DataSource extends DataTableSource {
         DataCell(Text(row.valueA)),
         DataCell(Text(row.valueB)),
         DataCell(Text(row.valueC)),
-        DataCell(Text(row.valueD)),
-        DataCell((row.valueE), onTap: () {
+        DataCell((row.valueD), onTap: () {
           showDialog(
             context: context,
             builder: (BuildContext context) {
@@ -253,7 +249,6 @@ class _DataSource extends DataTableSource {
           Mapping.branchList[index].branchCode.toString(),
           Mapping.branchList[index].branchName.toString(),
           Mapping.branchList[index].branchAddress.toString(),
-          Mapping.branchList[index].employeeAssigned.toString(),
           ClipRRect(
             borderRadius: BorderRadius.circular(20),
             child: Stack(
@@ -268,14 +263,7 @@ class _DataSource extends DataTableSource {
                 Padding(
                   padding:
                       EdgeInsets.only(top: 8, bottom: 8, left: 16, right: 16),
-                  child: Text(
-                    'UPDATE',
-                    style: TextStyle(
-                      fontFamily: 'Cairo_SemiBold',
-                      fontSize: 14,
-                      color: Colors.white,
-                    ),
-                  ),
+                  child: Icon(Icons.update, color: Colors.white),
                 ),
               ],
             ),
@@ -286,7 +274,6 @@ class _DataSource extends DataTableSource {
       //if employees list is empty
       return List.generate(0, (index) {
         return _Row(
-          '',
           '',
           '',
           '',

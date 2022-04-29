@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:intl/intl.dart';
 import 'package:web_store_management/Backend/LoanOperation.dart';
-import 'package:web_store_management/Notification/Snack_notification.dart';
+import 'package:web_store_management/Notification/BannerNotif.dart';
 
 class PaymentPlanPage extends StatefulWidget {
   final String? action, firstname, lastname, mobile, address;
@@ -317,7 +317,7 @@ class _PaymentPlanPage extends State<PaymentPlanPage> {
         )
             .then((value) {
           if (value) {
-            SnackNotification.notif(
+            BannerNotif.notif(
               'Success',
               'Potential Borrower sent to credit approval',
               Colors.green.shade800,
@@ -338,7 +338,7 @@ class _PaymentPlanPage extends State<PaymentPlanPage> {
                 widget.contract)
             .then((value) {
           if (value) {
-            SnackNotification.notif(
+            BannerNotif.notif(
               'Success',
               'Renewal successful',
               Colors.green.shade800,

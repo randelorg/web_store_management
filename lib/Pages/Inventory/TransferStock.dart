@@ -2,8 +2,9 @@ import 'package:camcode/cam_code_scanner.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:web_store_management/Backend/BranchOperation.dart';
+import 'package:web_store_management/Backend/Session.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
-import 'package:web_store_management/Notification/Snack_notification.dart';
+import 'package:web_store_management/Notification/BannerNotif.dart';
 
 class TransferStock extends StatefulWidget {
   final List<String>? branches;
@@ -18,6 +19,7 @@ class _TransferStock extends State<TransferStock> {
   String originStore = 'One';
   String destinationBranch = 'One';
 
+  final TextEditingController thisStore = TextEditingController();
   final TextEditingController productName = TextEditingController();
   final TextEditingController maxqty = TextEditingController();
   final TextEditingController qty = TextEditingController();
@@ -26,6 +28,11 @@ class _TransferStock extends State<TransferStock> {
 
   @override
   void initState() {
+    Session.getBranch().then((branch) {
+      setState(() {
+        thisStore.text = branch;
+      });
+    });
     setState(() {
       originStore = widget.branches![0].toString();
       destinationBranch = originStore;
@@ -76,52 +83,26 @@ class _TransferStock extends State<TransferStock> {
                 ),
               ),
             ),
-            Row(
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(bottom: 20),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.blueGrey[50],
-                      border: Border.all(
-                        color: Colors.blueGrey.shade50,
-                        style: BorderStyle.solid,
-                        width: 0.80,
-                      ),
-                    ),
-                    alignment: Alignment.topLeft,
-                    width: 300,
-                    child: DropdownButtonHideUnderline(
-                      child: DropdownButton<String>(
-                        isExpanded: true,
-                        value: originStore,
-                        icon: const Icon(Icons.arrow_drop_down),
-                        iconSize: 24,
-                        elevation: 16,
-                        style: TextStyle(color: HexColor("#155293")),
-                        onChanged: (String? newValue) {
-                          setState(() {
-                            originStore = newValue!;
-                          });
-                        },
-                        items: widget.branches!
-                            .map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Padding(
-                              padding: EdgeInsets.only(left: 10),
-                              child: Text(
-                                value,
-                                style: TextStyle(fontSize: 15),
-                              ),
-                            ),
-                          );
-                        }).toList(),
-                      ),
-                    ),
+            Padding(
+              padding: EdgeInsets.only(bottom: 20),
+              child: TextField(
+                controller: thisStore,
+                decoration: InputDecoration(
+                  enabled: false,
+                  filled: true,
+                  fillColor: Colors.blueGrey[50],
+                  labelStyle: TextStyle(fontSize: 10),
+                  contentPadding: EdgeInsets.only(left: 10),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                    borderRadius: BorderRadius.circular(5),
                   ),
                 ),
-              ],
+              ),
             ),
             Padding(
               padding: EdgeInsets.only(left: 3),
@@ -303,7 +284,7 @@ class _TransferStock extends State<TransferStock> {
                           child: const Text('CONFIRM'),
                           onPressed: () {
                             if (productName.text.isEmpty || qty.text.isEmpty) {
-                              SnackNotification.notif(
+                              BannerNotif.notif(
                                   "Error",
                                   "Please fill all the fields",
                                   Colors.red.shade600);
@@ -317,7 +298,7 @@ class _TransferStock extends State<TransferStock> {
                                   .then((value) {
                                 if (value) {
                                   Navigator.pop(context);
-                                  SnackNotification.notif(
+                                  BannerNotif.notif(
                                     'Success',
                                     "Product ${productName.text} is already transfered",
                                     Colors.green.shade600,

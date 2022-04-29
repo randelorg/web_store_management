@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:web_store_management/Backend/Session.dart';
 import 'package:web_store_management/Models/BranchModel.dart';
 import 'Utility/ApiUrl.dart';
 import 'Utility/Mapping.dart';
@@ -31,7 +32,22 @@ class GlobalController {
 
   //fetch all the products from the database
   Future<List<ProductModel>> fetchProducts() async {
-    final response = await http.get(Uri.parse("${Url.url}api/products"));
+    String branch = '';
+    var response;
+    await Session.getBranch().then((branchName) {
+      branch = branchName;
+    });
+
+    if (branch == 'Main') {
+      response = await http.get(Uri.parse(
+        "http://localhost:8090/api/products/Main",
+      ));
+    } else {
+      response = await http.get(Uri.parse(
+        "http://localhost:8090/api/products/${Mapping.findBranchCode(branch)}",
+      ));
+    }
+
     final parsed = jsonDecode(response.body).cast<Map<String, dynamic>>();
     Mapping.productList = parsed
         .map<ProductModel>((json) => ProductModel.fromJson(json))
