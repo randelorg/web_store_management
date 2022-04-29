@@ -40,7 +40,6 @@ class BranchOperation implements IBranch, IInventory {
         return true;
       }
     } catch (e) {
-      print(e.toString());
       return false;
     }
 

@@ -119,7 +119,6 @@ class LoanOperation extends BorrowerOperation implements INewLoan {
           }),
         );
 
-        print("wow1 ${response.statusCode}");
       } catch (e) {
         e.toString();
         BannerNotif.notif(
@@ -167,7 +166,6 @@ class LoanOperation extends BorrowerOperation implements INewLoan {
         return true;
       }
     } catch (e) {
-      print(e.toString());
       return false;
     }
 
@@ -191,8 +189,6 @@ class LoanOperation extends BorrowerOperation implements INewLoan {
         }),
       );
 
-      print(response.statusCode);
-
       //if response is empty return false
       if (response.statusCode == 404) {
         return false;
@@ -204,7 +200,6 @@ class LoanOperation extends BorrowerOperation implements INewLoan {
         return true;
       }
     } catch (e) {
-      print(e.toString());
       return false;
     }
   }

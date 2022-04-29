@@ -150,7 +150,8 @@ class _CashPaymentPage extends State<CashPaymentPage> {
             ),
             Expanded(
               child: Container(
-                padding: EdgeInsets.only(top: 20, bottom: 10, right: 10, left: 10),
+                padding:
+                    EdgeInsets.only(top: 20, bottom: 10, right: 10, left: 10),
                 width: (MediaQuery.of(context).size.width) / 1.5,
                 height: (MediaQuery.of(context).size.height),
                 child: ListView(
@@ -192,7 +193,6 @@ class _CashPaymentPage extends State<CashPaymentPage> {
                 ),
               ),
             ),
-
             SizedBox(
               height: 5,
             ),
@@ -220,11 +220,11 @@ class _CashPaymentPage extends State<CashPaymentPage> {
                     ),
                     child: const Text('DONE'),
                     onPressed: () async {
-                      if (fname.text.isEmpty || lname.text.isEmpty || address.text.isEmpty) {
-                        BannerNotif.notif(
-                          "Error",
-                          "Please fill all the fields",
-                          Colors.red.shade600);
+                      if (fname.text.isEmpty ||
+                          lname.text.isEmpty ||
+                          address.text.isEmpty) {
+                        BannerNotif.notif("Error", "Please fill all the fields",
+                            Colors.red.shade600);
                       } else {
                         final date = DateTime.now();
                         final dueDate = date.add(Duration(days: 7));
@@ -261,7 +261,6 @@ class _CashPaymentPage extends State<CashPaymentPage> {
             ),
           ],
         ),
-        
         Padding(
           padding: EdgeInsets.only(bottom: 5, right: 8),
           child: Align(
@@ -406,7 +405,6 @@ class _DataSource extends DataTableSource {
         );
       });
     } catch (e) {
-      print(e.toString());
       //if product list is empty
       return List.generate(0, (index) {
         return _Row(

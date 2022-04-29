@@ -59,7 +59,6 @@ class _MakePayment extends State<MakePayment> {
                 fontSize: 30,
               ),
             ),
-         
             Padding(
               padding: EdgeInsets.only(top: 20, left: 2),
               child: Container(
@@ -69,7 +68,7 @@ class _MakePayment extends State<MakePayment> {
                   style: TextStyle(fontSize: 10),
                 ),
               ),
-            ),       
+            ),
             Padding(
               padding: EdgeInsets.only(bottom: 15),
               child: TextField(
@@ -92,7 +91,6 @@ class _MakePayment extends State<MakePayment> {
                 ),
               ),
             ),
-         
             Padding(
               padding: EdgeInsets.only(left: 2),
               child: Container(
@@ -102,7 +100,7 @@ class _MakePayment extends State<MakePayment> {
                   style: TextStyle(fontSize: 10),
                 ),
               ),
-            ), 
+            ),
             Padding(
               padding: EdgeInsets.only(bottom: 15),
               child: TextField(
@@ -125,8 +123,7 @@ class _MakePayment extends State<MakePayment> {
                 ),
               ),
             ),
-           
-             Padding(
+            Padding(
               padding: EdgeInsets.only(left: 2),
               child: Container(
                 alignment: Alignment.centerLeft,
@@ -135,13 +132,13 @@ class _MakePayment extends State<MakePayment> {
                   style: TextStyle(fontSize: 10),
                 ),
               ),
-            ), 
+            ),
             Padding(
               padding: EdgeInsets.only(bottom: 15),
               child: TextField(
                 controller: givenAmount,
                 decoration: InputDecoration(
-                  hintText: 'Amount to be Paid',       
+                  hintText: 'Amount to be Paid',
                   filled: true,
                   fillColor: Colors.blueGrey[50],
                   labelStyle: TextStyle(fontSize: 12),
@@ -157,7 +154,6 @@ class _MakePayment extends State<MakePayment> {
                 ),
               ),
             ),
-             
             Padding(
               padding: EdgeInsets.only(left: 2),
               child: Container(
@@ -167,7 +163,7 @@ class _MakePayment extends State<MakePayment> {
                   style: TextStyle(fontSize: 10),
                 ),
               ),
-            ),                
+            ),
             Padding(
               padding: EdgeInsets.only(bottom: 15),
               child: TextField(
@@ -217,8 +213,6 @@ class _MakePayment extends State<MakePayment> {
                     setState(() {
                       dateinput.text = formattedDate;
                     });
-                  } else {
-                    print("Date is not selected");
                   }
                 },
               ),
@@ -238,7 +232,8 @@ class _MakePayment extends State<MakePayment> {
                     ),
                     TextButton(
                       style: TextButton.styleFrom(
-                        padding: const EdgeInsets.only(left: 36, right: 36, top: 18, bottom: 18),
+                        padding: const EdgeInsets.only(
+                            left: 36, right: 36, top: 18, bottom: 18),
                         primary: Colors.white,
                         textStyle: TextStyle(
                             fontFamily: 'Cairo_SemiBold',
@@ -246,7 +241,8 @@ class _MakePayment extends State<MakePayment> {
                             color: Colors.white),
                       ),
                       onPressed: () {
-                        if (givenAmount.text.isEmpty || dateinput.text.isEmpty) {
+                        if (givenAmount.text.isEmpty ||
+                            dateinput.text.isEmpty) {
                           BannerNotif.notif(
                               "Error",
                               "Please fill all the fields",

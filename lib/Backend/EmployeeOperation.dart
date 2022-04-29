@@ -128,7 +128,6 @@ class EmployeeOperation implements IEmployee {
         return [];
       }
     } catch (e) {
-      print(e.toString());
       BannerNotif.notif(
         'Error',
         'Cant fetch attendance',
@@ -166,7 +165,6 @@ class EmployeeOperation implements IEmployee {
         return true;
       }
     } catch (e) {
-      print(e.toString());
       return false;
     }
 
@@ -200,7 +198,6 @@ class EmployeeOperation implements IEmployee {
         return true;
       }
     } catch (e) {
-      print(e.toString());
       return false;
     }
 

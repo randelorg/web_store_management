@@ -261,9 +261,7 @@ class _AddRepair extends State<AddRepair> {
                     setState(() {
                       dateinput.text = formattedDate;
                     });
-                  } else {
-                    print("Date is not selected");
-                  }
+                  } 
                 },
               ),
             ),

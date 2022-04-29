@@ -60,7 +60,6 @@ class _AddRequest extends State<AddRequest> {
                 fontSize: 30,
               ),
             ),
-
             Padding(
               padding: EdgeInsets.only(top: 20, left: 2),
               child: Container(
@@ -70,7 +69,7 @@ class _AddRequest extends State<AddRequest> {
                   style: TextStyle(fontSize: 10),
                 ),
               ),
-            ),   
+            ),
             Container(
               width: 320,
               child: Padding(
@@ -95,7 +94,6 @@ class _AddRequest extends State<AddRequest> {
                 ),
               ),
             ),
-
             Padding(
               padding: EdgeInsets.only(left: 2),
               child: Container(
@@ -105,7 +103,7 @@ class _AddRequest extends State<AddRequest> {
                   style: TextStyle(fontSize: 10),
                 ),
               ),
-            ),  
+            ),
             Padding(
               padding: EdgeInsets.only(bottom: 15),
               child: TextField(
@@ -136,7 +134,6 @@ class _AddRequest extends State<AddRequest> {
                 ),
               ),
             ),
-
             Padding(
               padding: EdgeInsets.only(left: 2),
               child: Container(
@@ -169,7 +166,6 @@ class _AddRequest extends State<AddRequest> {
                 ),
               ),
             ),
-        
             Padding(
               padding: EdgeInsets.only(left: 2),
               child: Container(
@@ -202,7 +198,6 @@ class _AddRequest extends State<AddRequest> {
                 ),
               ),
             ),
-
             Padding(
               padding: EdgeInsets.only(left: 2),
               child: Container(
@@ -262,8 +257,6 @@ class _AddRequest extends State<AddRequest> {
                     setState(() {
                       dateinput.text = formattedDate;
                     });
-                  } else {
-                    print("Date is not selected");
                   }
                 },
               ),
@@ -283,7 +276,8 @@ class _AddRequest extends State<AddRequest> {
                     ),
                     TextButton(
                       style: TextButton.styleFrom(
-                        padding: const EdgeInsets.only(left: 20, right: 20, top: 18, bottom: 18),
+                        padding: const EdgeInsets.only(
+                            left: 20, right: 20, top: 18, bottom: 18),
                         primary: Colors.white,
                         textStyle: TextStyle(
                             fontFamily: 'Cairo_SemiBold',
@@ -292,10 +286,12 @@ class _AddRequest extends State<AddRequest> {
                       ),
                       child: const Text('ADD REQUEST'),
                       onPressed: () {
-                        if (requestedProduct.text.isEmpty || dateinput.text.isEmpty) {
+                        if (requestedProduct.text.isEmpty ||
+                            dateinput.text.isEmpty) {
                           BannerNotif.notif(
-                            "Error",
-                             "Please fill all the fields",Colors.red.shade600);
+                              "Error",
+                              "Please fill all the fields",
+                              Colors.red.shade600);
                         } else {
                           Navigator.pop(context);
                           borrower

@@ -33,7 +33,6 @@ class HistoryOperation implements IHistory {
         return [];
       }
     } catch (e) {
-      print(e.toString());
       BannerNotif.notif(
         'Error',
         'Cant fetch loaned product history',
@@ -68,7 +67,6 @@ class HistoryOperation implements IHistory {
         return [];
       }
     } catch (e) {
-      print(e.toString());
       BannerNotif.notif(
         'Error',
         'Cant fetch payment history',

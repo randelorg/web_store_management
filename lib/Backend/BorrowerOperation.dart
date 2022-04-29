@@ -110,7 +110,6 @@ class BorrowerOperation extends Login implements IBorrower, IPay, IServices {
         return true;
       }
     } catch (e) {
-      print(e.toString());
       return false;
     }
 
@@ -151,7 +150,6 @@ class BorrowerOperation extends Login implements IBorrower, IPay, IServices {
         return true;
       }
     } catch (e) {
-      print(e.toString());
       return false;
     }
 
@@ -194,7 +192,6 @@ class BorrowerOperation extends Login implements IBorrower, IPay, IServices {
         return true;
       }
     } catch (e) {
-      print(e.toString());
       return false;
     }
 
@@ -232,7 +229,6 @@ class BorrowerOperation extends Login implements IBorrower, IPay, IServices {
         return true;
       }
     } catch (e) {
-      print(e.toString());
       return false;
     }
 
@@ -267,7 +263,6 @@ class BorrowerOperation extends Login implements IBorrower, IPay, IServices {
         );
       }
     } catch (e) {
-      print(e.toString());
       BannerNotif.notif(
         'Error',
         'Cant fetch contract',

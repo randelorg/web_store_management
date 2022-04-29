@@ -257,8 +257,6 @@ class _PaymentPlanPage extends State<PaymentPlanPage> {
                     setState(() {
                       duedate.text = formattedDate;
                     });
-                  } else {
-                    print("Date is not selected");
                   }
                 },
               ),
@@ -283,7 +281,6 @@ class _PaymentPlanPage extends State<PaymentPlanPage> {
                               fontSize: 14, fontFamily: 'Cairo_SemiBold')),
                       child: const Text('SEND TO REVIEW'),
                       onPressed: () {
-                        print(widget.action.toString());
                         //function
                         actionTaken(widget.action.toString());
                       },

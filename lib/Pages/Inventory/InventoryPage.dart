@@ -482,7 +482,6 @@ class _DataSource extends DataTableSource {
           String branch = '';
           await Session.getBranch().then((branchName) {
             branch = branchName;
-            print("branch: $branch");
           });
 
           if (branch != 'Main') {

@@ -37,7 +37,6 @@ class TextMessage implements ITextMessage {
       );
 
       if (response.statusCode == 200) {
-        print(response.body);
         return true;
       }
     } catch (e) {
@@ -87,7 +86,6 @@ class TextMessage implements ITextMessage {
         return true;
       }
     } catch (e) {
-      print(e.toString());
       //if there is an error in the method
       BannerNotif.notif(
         "Error",
@@ -129,7 +127,6 @@ class TextMessage implements ITextMessage {
         return true;
       }
     } catch (e) {
-      print(e.toString());
       //if there is an error in the method
       BannerNotif.notif(
         "Error",
@@ -173,8 +170,6 @@ class TextMessage implements ITextMessage {
         return otp;
       }
     } catch (e, s) {
-      print(s.toString());
-      print(e.toString());
       //if there is an error in the method
       BannerNotif.notif(
         "Error",

@@ -107,7 +107,6 @@ class AdminOperation implements IAdmin {
 
   @override
   bool verifyAdmin(String password) {
-    print(Mapping.adminLogin[0].getPassword.toString());
     if (Mapping.adminLogin[0].getPassword.toString() == hash.encrypt(password))
       return true;
 
