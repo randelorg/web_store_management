@@ -48,6 +48,7 @@ dependencies:
   path_provider: ^2.0.9
   material_design_icons_flutter: ^5.0.6595
   dcdg: ^4.0.1
+  dotenv: ^4.0.1
 
 dev_dependencies:
   flutter_test:
