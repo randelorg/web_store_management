@@ -45,3 +45,6 @@ ios/
 
 # Service account files
 svc-keyfile.json
+
+#environment variables
+.env
