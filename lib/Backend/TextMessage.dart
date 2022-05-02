@@ -1,11 +1,13 @@
+
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
-import 'package:web_store_management/Backend/Utility/ApiUrl.dart';
 import 'package:web_store_management/Models/ForgetPasswordModel.dart';
 import 'package:web_store_management/Notification/BannerNotif.dart';
 import 'package:web_store_management/Backend/Interfaces/ITextMessage.dart';
+import 'package:web_store_management/environment/Environment.dart';
 import 'Utility/Mapping.dart';
+import 'dart:io';
 
 class TextMessage implements ITextMessage {
   String message = "";
@@ -28,11 +30,11 @@ class TextMessage implements ITextMessage {
 
     try {
       final response = await http.post(
-        Uri.parse("${Url.url}api/sendmessage"),
+        Uri.parse("${Environment.apiUrl}/api/sendmessage"),
         body: payload,
         headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
+          HttpHeaders.contentTypeHeader: 'application/json',
+          HttpHeaders.acceptHeader: 'application/json',
         },
       );
 
@@ -75,11 +77,11 @@ class TextMessage implements ITextMessage {
 
     try {
       final response = await http.post(
-        Uri.parse("${Url.url}api/sendmessage"),
+        Uri.parse("${Environment.apiUrl}/api/sendmessage"),
         body: payload,
         headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
+          HttpHeaders.contentTypeHeader: 'application/json',
+          HttpHeaders.acceptHeader: 'application/json',
         },
       );
 
@@ -117,11 +119,11 @@ class TextMessage implements ITextMessage {
 
     try {
       final response = await http.post(
-        Uri.parse("${Url.url}api/sendmessage"),
+        Uri.parse("${Environment.apiUrl}/api/sendmessage"),
         body: payload,
         headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
+          HttpHeaders.contentTypeHeader: 'application/json',
+          HttpHeaders.acceptHeader: 'application/json',
         },
       );
 
@@ -147,8 +149,11 @@ class TextMessage implements ITextMessage {
 
     try {
       final response = await http.get(
-        Uri.parse("${Url.url}api/otpcheckpoint/" + mobile),
-        headers: {'Accept': 'application/json'},
+        Uri.parse("${Environment.apiUrl}/api/otpcheckpoint/" + mobile),
+        headers: {
+          HttpHeaders.contentTypeHeader: 'application/json',
+          HttpHeaders.acceptHeader: 'application/json',
+        },
       );
 
       if (response.statusCode == 404) {
@@ -199,11 +204,11 @@ class TextMessage implements ITextMessage {
 
     try {
       final response = await http.post(
-        Uri.parse("${Url.url}api/otp"),
+        Uri.parse("${Environment.apiUrl}/api/otp"),
         body: payload,
         headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
+          HttpHeaders.contentTypeHeader: 'application/json',
+          HttpHeaders.acceptHeader: 'application/json',
         },
       );
 

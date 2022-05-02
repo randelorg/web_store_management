@@ -1,3 +1,4 @@
+
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:web_store_management/Backend/BorrowerOperation.dart';
@@ -5,8 +6,9 @@ import 'package:web_store_management/Backend/Interfaces/ILoan.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'dart:io';
 import 'package:web_store_management/Notification/BannerNotif.dart';
-import 'Utility/ApiUrl.dart';
+import 'package:web_store_management/environment/Environment.dart';
 
 class LoanOperation extends BorrowerOperation implements INewLoan {
   @override
@@ -32,10 +34,10 @@ class LoanOperation extends BorrowerOperation implements INewLoan {
 
     try {
       final response = await http.post(
-        Uri.parse("${Url.url}api/addborrower"),
+        Uri.parse("${Environment.apiUrl}/api/addborrower"),
         headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
+          HttpHeaders.contentTypeHeader: 'application/json',
+          HttpHeaders.acceptHeader: 'application/json',
         },
         body: brwDetail,
       );
@@ -73,8 +75,8 @@ class LoanOperation extends BorrowerOperation implements INewLoan {
       final response = await http.post(
         Uri.parse("http://localhost:8090/api/addinvestigation"),
         headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
+          HttpHeaders.contentTypeHeader: 'application/json',
+          HttpHeaders.acceptHeader: 'application/json',
         },
         body: brwDetail2,
       );
@@ -104,8 +106,8 @@ class LoanOperation extends BorrowerOperation implements INewLoan {
         final response = await http.post(
           Uri.parse("http://localhost:8090/api/addloan"),
           headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
+            HttpHeaders.contentTypeHeader: 'application/json',
+            HttpHeaders.acceptHeader: 'application/json',
           },
           body: json.encode({
             "firstname": firstname,
@@ -140,7 +142,7 @@ class LoanOperation extends BorrowerOperation implements INewLoan {
     try {
       final response = await http.get(
         Uri.parse(
-          "${Url.url}api/approved/${investigationId.toString()}/${borrowerId.toString()}/$status",
+          "${Environment.apiUrl}/api/approved/${investigationId.toString()}/${borrowerId.toString()}/$status",
         ),
       );
 
@@ -148,7 +150,7 @@ class LoanOperation extends BorrowerOperation implements INewLoan {
       if (status == 'RELEASED') {
         await http.get(
           Uri.parse(
-            "${Url.url}api/loans/${borrowerId.toString()}",
+            "${Environment.apiUrl}/api/loans/${borrowerId.toString()}",
           ),
         );
       }
@@ -181,8 +183,8 @@ class LoanOperation extends BorrowerOperation implements INewLoan {
       final response = await http.post(
         Uri.parse("http://localhost:8090/api/updatebal"),
         headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
+          HttpHeaders.contentTypeHeader: 'application/json',
+          HttpHeaders.acceptHeader: 'application/json',
         },
         body: json.encode({
           "id": id,

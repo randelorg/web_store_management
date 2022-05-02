@@ -1,13 +1,15 @@
+
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:web_store_management/Backend/Interfaces/IBorrower.dart';
 import 'package:web_store_management/Backend/Interfaces/IPay.dart';
 import 'package:web_store_management/Backend/Interfaces/IServices.dart';
 import 'package:web_store_management/Models/BorrowerModel.dart';
 import 'package:web_store_management/Notification/BannerNotif.dart';
+import 'package:web_store_management/environment/Environment.dart';
 import 'LoginOperation.dart';
-import 'Utility/ApiUrl.dart';
 
 class BorrowerOperation extends Login implements IBorrower, IPay, IServices {
   @override
@@ -23,10 +25,10 @@ class BorrowerOperation extends Login implements IBorrower, IPay, IServices {
 
     try {
       final response = await http.post(
-        Uri.parse(Url.url + "api/updatebrw"),
+        Uri.parse("${Environment.apiUrl}/api/updatebrw"),
         headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
+          HttpHeaders.contentTypeHeader: 'application/json',
+          HttpHeaders.acceptHeader: 'application/json',
         },
         body: borrowerUpdateLoad,
       );
@@ -53,7 +55,7 @@ class BorrowerOperation extends Login implements IBorrower, IPay, IServices {
 
     try {
       final response = await http.post(
-        Uri.parse(Url.url + "api/payment"),
+        Uri.parse("${Environment.apiUrl}/api/payment"),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json'
@@ -88,10 +90,10 @@ class BorrowerOperation extends Login implements IBorrower, IPay, IServices {
 
     try {
       final response = await http.post(
-        Uri.parse(Url.url + "api/addrequest"),
+        Uri.parse("${Environment.apiUrl}/api/addrequest"),
         headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
+          HttpHeaders.contentTypeHeader: 'application/json',
+          HttpHeaders.acceptHeader: 'application/json',
         },
         body: requestLoad,
       );
@@ -129,10 +131,10 @@ class BorrowerOperation extends Login implements IBorrower, IPay, IServices {
 
     try {
       final response = await http.post(
-        Uri.parse(Url.url + "api/addrepair"),
+        Uri.parse("${Environment.apiUrl}/api/addrepair"),
         headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
+          HttpHeaders.contentTypeHeader: 'application/json',
+          HttpHeaders.acceptHeader: 'application/json',
         },
         body: repairLoad,
       );
@@ -172,10 +174,10 @@ class BorrowerOperation extends Login implements IBorrower, IPay, IServices {
 
     try {
       final response = await http.post(
-        Uri.parse(Url.url + "api/updaterepair"),
+        Uri.parse("${Environment.apiUrl}/api/updaterepair"),
         headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
+          HttpHeaders.contentTypeHeader: 'application/json',
+          HttpHeaders.acceptHeader: 'application/json',
         },
         body: updateRepairLoad,
       );
@@ -210,10 +212,10 @@ class BorrowerOperation extends Login implements IBorrower, IPay, IServices {
 
     try {
       final response = await http.post(
-        Uri.parse(Url.url + "api/updaterequest"),
+        Uri.parse("${Environment.apiUrl}/api/updaterequest"),
         headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
+          HttpHeaders.contentTypeHeader: 'application/json',
+          HttpHeaders.acceptHeader: 'application/json',
         },
         body: updateRequestLoad,
       );
@@ -246,8 +248,12 @@ class BorrowerOperation extends Login implements IBorrower, IPay, IServices {
     try {
       final response = await http.get(
         Uri.parse(
-          "${Url.url}api/contract/" + id.toString(),
+          "${Environment.apiUrl}/}api/contract/" + id.toString(),
         ),
+        headers: {
+          HttpHeaders.contentTypeHeader: 'application/json',
+          HttpHeaders.acceptHeader: 'application/json',
+        },
       );
 
       Map<String, dynamic> brwMap =

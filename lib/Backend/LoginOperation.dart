@@ -1,16 +1,18 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'package:web_store_management/Models/EmployeeModel.dart';
+import 'package:web_store_management/Models/AdminModel.dart';
+import 'package:web_store_management/environment/Environment.dart';
 import '../Helpers/HashingHelper.dart';
 import 'GlobalController.dart';
 import 'Interfaces/ILogin.dart';
-import '../Models/AdminModel.dart';
-import 'Utility/ApiUrl.dart';
 import 'Utility/Mapping.dart';
 import 'Session.dart';
 
 class Login extends GlobalController implements ILogin {
+  //var auth = Auth();
   var hash = Hashing();
   var admin = AdminModel.empty();
   var session = Session();
@@ -19,15 +21,7 @@ class Login extends GlobalController implements ILogin {
   Future<bool> mainLogin(
       String branch, String role, String username, String password) async {
     //holds the json body
-
     var entity;
-    final String _username =
-        dotenv.get('API_USERNAME', fallback: 'API username not found');
-    final String _password =
-        dotenv.get('API_PASSWORD', fallback: 'API password not found');
-    final String _basicAuth =
-        'Basic ' + base64Encode(utf8.encode('$_username:$_password'));
-    print(_basicAuth);
 
     switch (role.replaceAll(' ', '')) {
       case 'Manager':
@@ -49,15 +43,20 @@ class Login extends GlobalController implements ILogin {
     final response = await http.post(
       Uri.parse("http://localhost:8090/api/login"),
       headers: {
-        'authorization': _basicAuth,
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
+        HttpHeaders.contentTypeHeader: 'application/json',
+        HttpHeaders.acceptHeader: 'application/json',
+        HttpHeaders.authorizationHeader: "Basic ${Environment.apiToken}"
       },
       body: entity,
     );
 
     //if response is empty return false
     if (response.statusCode == 404) {
+      return false;
+    }
+
+    //if response is empty return false
+    if (response.statusCode == 401) {
       return false;
     }
 

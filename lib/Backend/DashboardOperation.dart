@@ -1,11 +1,13 @@
+
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
+import 'dart:io';
 import 'package:intl/intl.dart';
 import 'package:web_store_management/Backend/Interfaces/IDashboard.dart';
 import 'package:web_store_management/Models/CollectionModel.dart';
 import 'package:web_store_management/Models/GraphCollectionModel.dart';
-import 'Utility/ApiUrl.dart';
+import 'package:web_store_management/environment/Environment.dart';
 
 class DashboardOperation implements IDashboard {
   late final BuildContext context;
@@ -44,8 +46,8 @@ class DashboardOperation implements IDashboard {
   @override
   Future<double> getTodayCollection() async {
     try {
-      final response =
-          await http.get(Uri.parse(Url.url + "api/today/" + getTodayDate()));
+      final response = await http
+          .get(Uri.parse("${Environment.apiUrl}/api/today/${getTodayDate()}"));
 
       var todayTotalCollection = jsonDecode(response.body)[0];
 
@@ -68,9 +70,12 @@ class DashboardOperation implements IDashboard {
     try {
       final response = await http.get(
         Uri.parse(
-          Url.url + "api/week/" + dates[0] + "/" + dates[1],
+          "${Environment.apiUrl}/api/week/${dates[0]}/${dates[1]}",
         ),
-        headers: {"Accept": "application/json"},
+        headers: {
+          HttpHeaders.contentTypeHeader: 'application/json',
+          HttpHeaders.acceptHeader: 'application/json',
+        },
       );
 
       var weekTotalCollection = jsonDecode(response.body)[0];
@@ -93,8 +98,13 @@ class DashboardOperation implements IDashboard {
 
     try {
       final response = await http.get(
-        Uri.parse("${Url.url}api/week/${dates[0]}/${dates[1]}"),
-        headers: {"Accept": "application/json"},
+        Uri.parse(
+          "${Environment.apiUrl}/api/week/${dates[0]}/${dates[1]}",
+        ),
+        headers: {
+          HttpHeaders.contentTypeHeader: 'application/json',
+          HttpHeaders.acceptHeader: 'application/json',
+        },
       );
 
       var monthTotalCollection = jsonDecode(response.body)[0];
@@ -116,12 +126,16 @@ class DashboardOperation implements IDashboard {
     List<String> dates = getMonthDates();
     List<GraphCollectionModel> graphCollection = [];
 
-    final String url = "${Url.url}api/datecollection/${dates[0]}/${dates[1]}";
+    final String url =
+        "${Environment.apiUrl}/api/datecollection/${dates[0]}/${dates[1]}";
 
     try {
       final response = await http.get(
         Uri.parse(url),
-        headers: {"Accept": "application/json"},
+        headers: {
+          HttpHeaders.contentTypeHeader: 'application/json',
+          HttpHeaders.acceptHeader: 'application/json',
+        },
       );
 
       final parsed =
@@ -161,7 +175,10 @@ class DashboardOperation implements IDashboard {
     try {
       final response = await http.get(
         Uri.parse(url),
-        headers: {"Accept": "application/json"},
+        headers: {
+          HttpHeaders.contentTypeHeader: 'application/json',
+          HttpHeaders.acceptHeader: 'application/json',
+        },
       );
 
       final parsed =

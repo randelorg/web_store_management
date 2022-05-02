@@ -4,18 +4,17 @@ import 'package:http/http.dart' as http;
 import 'package:web_store_management/Models/LoanedProductHistoryModel.dart';
 import 'package:web_store_management/Models/PaymentHistoryModel.dart';
 import 'package:web_store_management/Notification/BannerNotif.dart';
+import 'package:web_store_management/environment/Environment.dart';
 import 'Interfaces/IHistory.dart';
 import '../Backend/Utility/Mapping.dart';
-import 'Utility/ApiUrl.dart';
 
 class HistoryOperation implements IHistory {
-  
   @override
   Future<List<LoanedProductHistory>> viewLoanHistory(String borrowerId) async {
     if (borrowerId == "") return [];
     try {
-      final response = await http
-          .get(Uri.parse(Url.url + "api/loanedproducts/" + borrowerId));
+      final response = await http.get(
+          Uri.parse("${Environment.apiUrl}/api/loanedproducts/" + borrowerId));
 
       final parsed =
           await jsonDecode(response.body).cast<Map<String, dynamic>>();
@@ -49,8 +48,8 @@ class HistoryOperation implements IHistory {
       String borrowerId) async {
     if (borrowerId == "") return [];
     try {
-      final response =
-          await http.get(Uri.parse(Url.url + "api/payment/" + borrowerId));
+      final response = await http
+          .get(Uri.parse("${Environment.apiUrl}/api/payment/" + borrowerId));
 
       final parsed =
           await jsonDecode(response.body).cast<Map<String, dynamic>>();

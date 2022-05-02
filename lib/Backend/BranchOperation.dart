@@ -1,10 +1,12 @@
+
 import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:web_store_management/Backend/Interfaces/IBranch.dart';
 import 'package:web_store_management/Backend/Interfaces/IInventory.dart';
 import 'package:web_store_management/Notification/BannerNotif.dart';
-import 'Utility/ApiUrl.dart';
+import 'package:web_store_management/environment/Environment.dart';
 
 class BranchOperation implements IBranch, IInventory {
   @override
@@ -18,10 +20,10 @@ class BranchOperation implements IBranch, IInventory {
 
     try {
       final response = await http.post(
-        Uri.parse(Url.url + "api/addbranch"),
+        Uri.parse("${Environment.apiUrl}/api/addbranch"),
         headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
+          HttpHeaders.contentTypeHeader: 'application/json',
+          HttpHeaders.acceptHeader: 'application/json',
         },
         body: branchLoad,
       );
@@ -66,10 +68,10 @@ class BranchOperation implements IBranch, IInventory {
 
     try {
       final response = await http.post(
-        Uri.parse("${Url.url}api/updateBranch"),
+        Uri.parse("${Environment.apiUrl}/api/updateBranch"),
         headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
+          HttpHeaders.contentTypeHeader: 'application/json',
+          HttpHeaders.acceptHeader: 'application/json',
         },
         body: updateBranch,
       );
@@ -105,10 +107,10 @@ class BranchOperation implements IBranch, IInventory {
 
     try {
       final response = await http.post(
-        Uri.parse("${Url.url}api/transfer"),
+        Uri.parse("${Environment.apiUrl}/api/transfer"),
         headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
+          HttpHeaders.contentTypeHeader: 'application/json',
+          HttpHeaders.acceptHeader: 'application/json',
         },
         body: stockLoad,
       );

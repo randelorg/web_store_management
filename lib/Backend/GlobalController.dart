@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:web_store_management/Backend/Session.dart';
 import 'package:web_store_management/Models/BranchModel.dart';
-import 'Utility/ApiUrl.dart';
+import 'package:web_store_management/environment/Environment.dart';
 import 'Utility/Mapping.dart';
 import '../Models/ProductModel.dart';
 import '../Models/BorrowerModel.dart';
@@ -21,7 +21,8 @@ class GlobalController {
   }
 
   Future<List<EmployeeModel>> fetchAllEmployees() async {
-    final response = await http.get(Uri.parse("${Url.url}api/employees"));
+    final response =
+        await http.get(Uri.parse("${Environment.apiUrl}/api/employees"));
     final parsed = jsonDecode(response.body).cast<Map<String, dynamic>>();
     Mapping.employeeList = parsed
         .map<EmployeeModel>((json) => EmployeeModel.fromJson(json))
@@ -57,7 +58,8 @@ class GlobalController {
   }
 
   Future<List<BorrowerModel>> fetchBorrowers() async {
-    final response = await http.get(Uri.parse("${Url.url}api/borrowers"));
+    final response =
+        await http.get(Uri.parse("${Environment.apiUrl}/api/borrowers"));
     final parsed = jsonDecode(response.body).cast<Map<String, dynamic>>();
     Mapping.borrowerList = parsed
         .map<BorrowerModel>((json) => BorrowerModel.fromJsonPartial(json))
@@ -67,7 +69,8 @@ class GlobalController {
 
   //fetch all the credit approvals from the database
   Future<List<BorrowerModel>> fetchCreditApprovals() async {
-    final response = await http.get(Uri.parse("${Url.url}api/credit"));
+    final response =
+        await http.get(Uri.parse("${Environment.apiUrl}/api/credit"));
 
     final parsed = jsonDecode(response.body).cast<Map<String, dynamic>>();
     Mapping.creditApprovals = parsed
@@ -79,7 +82,8 @@ class GlobalController {
 
 //fetch all the credit approvals from the database
   Future<List<BorrowerModel>> fetchReleaseApprovals() async {
-    final response = await http.get(Uri.parse("${Url.url}api/toberelease"));
+    final response =
+        await http.get(Uri.parse("${Environment.apiUrl}/api/toberelease"));
 
     final parsed = jsonDecode(response.body).cast<Map<String, dynamic>>();
     Mapping.releaseApproval = parsed
@@ -91,7 +95,8 @@ class GlobalController {
 
   //fetch all the credit approvals from the database
   Future<List<BorrowerModel>> fetchRepairs() async {
-    final response = await http.get(Uri.parse("${Url.url}api/repairs"));
+    final response =
+        await http.get(Uri.parse("${Environment.apiUrl}/api/repairs"));
 
     final parsed = jsonDecode(response.body).cast<Map<String, dynamic>>();
     Mapping.repairs = parsed
@@ -103,8 +108,8 @@ class GlobalController {
 
   //fetch all the credit approvals from the database
   Future<List<BorrowerModel>> fetchRequestedProducts() async {
-    final response =
-        await http.get(Uri.parse("${Url.url}api/requestedproducts"));
+    final response = await http
+        .get(Uri.parse("${Environment.apiUrl}/api/requestedproducts"));
     final parsed = jsonDecode(response.body).cast<Map<String, dynamic>>();
     Mapping.requested = parsed
         .map<BorrowerModel>(
@@ -116,7 +121,8 @@ class GlobalController {
 
   //fetch all the branches from the database
   Future<List<BranchModel>> fetchBranches() async {
-    final response = await http.get(Uri.parse("${Url.url}api/branches"));
+    final response =
+        await http.get(Uri.parse("${Environment.apiUrl}/api/branches"));
 
     final parsed = jsonDecode(response.body).cast<Map<String, dynamic>>();
     Mapping.branchList = parsed

@@ -1,9 +1,11 @@
+
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:web_store_management/Notification/BannerNotif.dart';
 import 'package:http/http.dart' as http;
+import 'package:web_store_management/environment/Environment.dart';
 import 'Interfaces/IProduct.dart';
-import 'Utility/ApiUrl.dart';
+import 'dart:io';
 
 class ProductOperation implements IProduct {
   @override
@@ -21,10 +23,10 @@ class ProductOperation implements IProduct {
 
     try {
       final response = await http.post(
-        Uri.parse(Url.url + "api/product"),
+        Uri.parse("${Environment.apiUrl}/api/product"),
         headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
+          HttpHeaders.contentTypeHeader: 'application/json',
+          HttpHeaders.acceptHeader: 'application/json',
         },
         body: product,
       );
@@ -59,10 +61,10 @@ class ProductOperation implements IProduct {
 
     try {
       final response = await http.post(
-        Uri.parse(Url.url + "api/addproduct"),
+        Uri.parse("${Environment.apiUrl}/api/addproduct"),
         headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
+          HttpHeaders.contentTypeHeader: 'application/json',
+          HttpHeaders.acceptHeader: 'application/json',
         },
         body: newProduct,
       );

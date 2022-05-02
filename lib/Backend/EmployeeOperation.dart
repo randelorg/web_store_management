@@ -1,13 +1,15 @@
+
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:web_store_management/Backend/DashboardOperation.dart';
-import 'package:web_store_management/Backend/Utility/ApiUrl.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
 import 'package:web_store_management/Models/EmployeeModel.dart';
 import 'package:web_store_management/Notification/BannerNotif.dart';
+import 'package:web_store_management/environment/Environment.dart';
 import 'Interfaces/IEmployee.dart';
 import '../Helpers/HashingHelper.dart';
 import 'package:http/http.dart' as http;
+import 'dart:io';
 import 'dart:convert';
 
 class EmployeeOperation implements IEmployee {
@@ -41,10 +43,10 @@ class EmployeeOperation implements IEmployee {
 
     try {
       final response = await http.post(
-        Uri.parse("${Url.url}api/employee"),
+        Uri.parse("${Environment.apiUrl}/api/employee"),
         headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
+          HttpHeaders.contentTypeHeader: 'application/json',
+          HttpHeaders.acceptHeader: 'application/json',
         },
         body: addEmployee,
       );
@@ -83,10 +85,10 @@ class EmployeeOperation implements IEmployee {
 
     try {
       final response = await http.post(
-        Uri.parse(Url.url + "api/updateemp"),
+        Uri.parse("${Environment.apiUrl}/api/updateemp"),
         headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
+          HttpHeaders.contentTypeHeader: 'application/json',
+          HttpHeaders.acceptHeader: 'application/json',
         },
         body: adminUpdateLoad,
       );
@@ -111,6 +113,10 @@ class EmployeeOperation implements IEmployee {
     try {
       final response = await http.get(
         Uri.parse("http://localhost:8090/api/attendance/$empId"),
+        headers: {
+          HttpHeaders.contentTypeHeader: 'application/json',
+          HttpHeaders.acceptHeader: 'application/json',
+        },
       );
 
       final parsed =
@@ -151,8 +157,8 @@ class EmployeeOperation implements IEmployee {
       final response = await http.post(
         Uri.parse("http://localhost:8090/api/clockin"),
         headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
+          HttpHeaders.contentTypeHeader: 'application/json',
+          HttpHeaders.acceptHeader: 'application/json',
         },
         body: updateRequestLoad,
       );
@@ -185,8 +191,8 @@ class EmployeeOperation implements IEmployee {
       final response = await http.post(
         Uri.parse("http://localhost:8090/api/clockout"),
         headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
+          HttpHeaders.contentTypeHeader: 'application/json',
+          HttpHeaders.acceptHeader: 'application/json',
         },
         body: adminUpdateLoad,
       );

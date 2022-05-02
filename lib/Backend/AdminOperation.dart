@@ -1,12 +1,14 @@
+
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:web_store_management/Notification/BannerNotif.dart';
+import 'package:web_store_management/environment/Environment.dart';
 import 'Interfaces/IAdmin.dart';
-import 'Utility/ApiUrl.dart';
 import 'Utility/Mapping.dart';
 import '../Helpers/HashingHelper.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'dart:io';
 
 class AdminOperation implements IAdmin {
   final hash = Hashing();
@@ -19,10 +21,10 @@ class AdminOperation implements IAdmin {
 
     try {
       final response = await http.post(
-        Uri.parse("${Url.url}api/checkpoinchangepass"),
+        Uri.parse("${Environment.apiUrl}/api/checkpoinchangepass"),
         headers: {
-          "Content-Type": "application/json",
-          "Accept": "application/json"
+          HttpHeaders.contentTypeHeader: 'application/json',
+          HttpHeaders.acceptHeader: 'application/json',
         },
         body: payload,
       );
@@ -40,7 +42,7 @@ class AdminOperation implements IAdmin {
       BannerNotif.notif(
         'Error',
         'Unexpected error occured',
-      Colors.red.shade600,
+        Colors.red.shade600,
       );
     }
     return true;
@@ -68,10 +70,10 @@ class AdminOperation implements IAdmin {
 
     try {
       final response = await http.post(
-        Uri.parse(Url.url + "api/admin"),
+        Uri.parse("${Environment.apiUrl}/api/admin"),
         headers: {
-          "Content-Type": "application/json",
-          "Accept": "application/json"
+          HttpHeaders.contentTypeHeader: 'application/json',
+          HttpHeaders.acceptHeader: 'application/json',
         },
         body: addAdmin,
       );
@@ -125,10 +127,10 @@ class AdminOperation implements IAdmin {
 
     try {
       final response = await http.post(
-        Uri.parse(Url.url + "api/updateadmin"),
+        Uri.parse("${Environment.apiUrl}/api/updateadmin"),
         headers: {
-          "Content-Type": "application/json",
-          "Accept": "application/json"
+          HttpHeaders.contentTypeHeader: 'application/json',
+          HttpHeaders.acceptHeader: 'application/json',
         },
         body: adminUpdateLoad,
       );
