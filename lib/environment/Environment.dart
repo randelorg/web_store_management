@@ -1,5 +1,8 @@
+import 'dart:io';
+import 'package:http/http.dart' as http;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'dart:convert';
+import 'package:http/http.dart';
 
 class Environment {
   static String get apiToken {
@@ -14,5 +17,29 @@ class Environment {
 
   static String get apiUrl {
     return dotenv.get('API_URL', fallback: 'API url not found');
+  }
+
+  static Future<Response> getPostData(String url, dynamic payload) async {
+    return await http.post(
+      Uri.parse(url),
+      headers: {
+        HttpHeaders.contentTypeHeader: 'application/json',
+        HttpHeaders.acceptHeader: 'application/json',
+        HttpHeaders.authorizationHeader: "${Environment.apiToken}"
+      },
+      body: payload,
+    );
+  }
+
+  static Future<Response> getGetData(String url, dynamic payload) async {
+    return await http.post(
+      Uri.parse(url),
+      headers: {
+        HttpHeaders.contentTypeHeader: 'application/json',
+        HttpHeaders.acceptHeader: 'application/json',
+        HttpHeaders.authorizationHeader: "${Environment.apiToken}"
+      },
+      body: payload,
+    );
   }
 }

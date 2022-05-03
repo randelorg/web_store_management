@@ -21,7 +21,7 @@ class Login extends GlobalController implements ILogin {
   Future<bool> mainLogin(
       String branch, String role, String username, String password) async {
     //holds the json body
-    var entity;
+    var entity, response;
 
     switch (role.replaceAll(' ', '')) {
       case 'Manager':
@@ -40,25 +40,21 @@ class Login extends GlobalController implements ILogin {
       default:
     }
 
-    final response = await http.post(
-      Uri.parse("http://localhost:8090/api/login"),
-      headers: {
-        HttpHeaders.contentTypeHeader: 'application/json',
-        HttpHeaders.acceptHeader: 'application/json',
-        HttpHeaders.authorizationHeader: "${Environment.apiToken}"
-      },
-      body: entity,
-    );
+    await Environment.getPostData("http://localhost:8090/api/login", entity)
+        .then((value) {
+      response = value;
+    });
 
-    //if response is empty return false
-    if (response.statusCode == 404) {
-      return false;
-    }
-
-    //if response is empty return false
-    if (response.statusCode == 401) {
-      return false;
-    }
+    print("Response $response");
+    // final response = await http.post(
+    //   Uri.parse("http://localhost:8090/api/login"),
+    //   headers: {
+    //     HttpHeaders.contentTypeHeader: 'application/json',
+    //     HttpHeaders.acceptHeader: 'application/json',
+    //     HttpHeaders.authorizationHeader: "${Environment.apiToken}"
+    //   },
+    //   body: entity,
+    // );
 
     try {
       //if response is not empty
