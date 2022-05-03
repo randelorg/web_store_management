@@ -45,7 +45,7 @@ class Login extends GlobalController implements ILogin {
       headers: {
         HttpHeaders.contentTypeHeader: 'application/json',
         HttpHeaders.acceptHeader: 'application/json',
-        HttpHeaders.authorizationHeader: "Basic ${Environment.apiToken}"
+        HttpHeaders.authorizationHeader: "${Environment.apiToken}"
       },
       body: entity,
     );
@@ -98,7 +98,7 @@ class Login extends GlobalController implements ILogin {
             ),
           );
 
-          await setSession(admin.toString(), true, role, branch);
+          await _setSession(admin.toString(), true, role, branch);
 
           break;
         case 'StoreAttendant':
@@ -118,7 +118,7 @@ class Login extends GlobalController implements ILogin {
             emp.getUserImage,
           ));
 
-          await setSession(emp.toString(), true, role, branch);
+          await _setSession(emp.toString(), true, role, branch);
           break;
         default:
       }
@@ -130,7 +130,7 @@ class Login extends GlobalController implements ILogin {
     return true;
   }
 
-  Future<void> setSession(
+  Future<void> _setSession(
       String id, bool status, String role, String branch) async {
     await Session.setValues(id, status, role, branch);
   }
