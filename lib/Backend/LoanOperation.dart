@@ -1,4 +1,3 @@
-
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:web_store_management/Backend/BorrowerOperation.dart';
@@ -179,19 +178,17 @@ class LoanOperation extends BorrowerOperation implements INewLoan {
   @override
   Future<bool> updateBalanceAndContract(num balance, int id, String firstname,
       String lastname, plan, term, dueDate, Uint8List? contract) async {
+    var response, load;
+    load = json.encode({
+      "id": id,
+      "balance": balance,
+      "contract": contract,
+    });
     try {
-      final response = await http.post(
-        Uri.parse("http://localhost:8090/api/updatebal"),
-        headers: {
-          HttpHeaders.contentTypeHeader: 'application/json',
-          HttpHeaders.acceptHeader: 'application/json',
-        },
-        body: json.encode({
-          "id": id,
-          "balance": balance,
-          "contract": contract,
-        }),
-      );
+      await Environment.methodPost("${Environment.apiUrl}/api/updatebal", load)
+          .then((value) {
+        response = value;
+      });
 
       print(response.statusCode);
 

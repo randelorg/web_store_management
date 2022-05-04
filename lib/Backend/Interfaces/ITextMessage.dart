@@ -1,5 +1,4 @@
 class ITextMessage {
-  
   Future<bool> sendApprovedCredit(
       String name, String number, String status) async {
     var a;

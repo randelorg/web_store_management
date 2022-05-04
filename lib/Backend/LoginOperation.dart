@@ -40,21 +40,10 @@ class Login extends GlobalController implements ILogin {
       default:
     }
 
-    await Environment.getPostData("http://localhost:8090/api/login", entity)
+    await Environment.methodPost("http://localhost:8090/api/login", entity)
         .then((value) {
       response = value;
     });
-
-    print("Response $response");
-    // final response = await http.post(
-    //   Uri.parse("http://localhost:8090/api/login"),
-    //   headers: {
-    //     HttpHeaders.contentTypeHeader: 'application/json',
-    //     HttpHeaders.acceptHeader: 'application/json',
-    //     HttpHeaders.authorizationHeader: "${Environment.apiToken}"
-    //   },
-    //   body: entity,
-    // );
 
     try {
       //if response is not empty

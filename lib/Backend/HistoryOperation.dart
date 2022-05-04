@@ -12,9 +12,13 @@ class HistoryOperation implements IHistory {
   @override
   Future<List<LoanedProductHistory>> viewLoanHistory(String borrowerId) async {
     if (borrowerId == "") return [];
+    var response;
     try {
-      final response = await http.get(
-          Uri.parse("${Environment.apiUrl}/api/loanedproducts/" + borrowerId));
+      await Environment.methodGet(
+              "${Environment.apiUrl}/api/loanedproducts/$borrowerId")
+          .then((value) {
+        response = value;
+      });
 
       final parsed =
           await jsonDecode(response.body).cast<Map<String, dynamic>>();
@@ -47,9 +51,13 @@ class HistoryOperation implements IHistory {
   Future<List<PaymentHistoryModel>> viewPaymentHistory(
       String borrowerId) async {
     if (borrowerId == "") return [];
+    var response;
     try {
-      final response = await http
-          .get(Uri.parse("${Environment.apiUrl}/api/payment/" + borrowerId));
+      await Environment.methodGet(
+              "${Environment.apiUrl}/api/payment/$borrowerId")
+          .then((value) {
+        response = value;
+      });
 
       final parsed =
           await jsonDecode(response.body).cast<Map<String, dynamic>>();

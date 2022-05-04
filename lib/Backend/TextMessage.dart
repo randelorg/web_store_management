@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
@@ -24,19 +23,17 @@ class TextMessage implements ITextMessage {
           "Dear $name,\n\nSorry your credit has been $status. \n\n- Team Dellrains Store";
     }
 
-    var payload = json.encode(
+    var payload, response;
+    payload = json.encode(
       {"number": number, "message": message, "sendername": "DELLRAINS"},
     );
 
     try {
-      final response = await http.post(
-        Uri.parse("${Environment.apiUrl}/api/sendmessage"),
-        body: payload,
-        headers: {
-          HttpHeaders.contentTypeHeader: 'application/json',
-          HttpHeaders.acceptHeader: 'application/json',
-        },
-      );
+      await Environment.methodPost(
+              "${Environment.apiUrl}/api/sendmessage", payload)
+          .then((value) {
+        response = value;
+      });
 
       if (response.statusCode == 200) {
         print(response.body);
@@ -71,19 +68,17 @@ class TextMessage implements ITextMessage {
           "Dear $name,\n\nThe $product you requested is $status.\nThank you for using our service. \n\nRegards,\n- Team Dellrains Store";
     }
 
-    var payload = json.encode(
+    var payload, response;
+    payload = json.encode(
       {"number": number, "message": message, "sendername": "DELLRAINS"},
     );
 
     try {
-      final response = await http.post(
-        Uri.parse("${Environment.apiUrl}/api/sendmessage"),
-        body: payload,
-        headers: {
-          HttpHeaders.contentTypeHeader: 'application/json',
-          HttpHeaders.acceptHeader: 'application/json',
-        },
-      );
+      await Environment.methodPost(
+              "${Environment.apiUrl}/api/sendmessage", payload)
+          .then((value) {
+        response = value;
+      });
 
       if (response.statusCode == 200) {
         return true;
@@ -113,19 +108,17 @@ class TextMessage implements ITextMessage {
           "Dear $name,\n\nYour $product has been $status.\nThank you for using our service. Visit the store anytime within 8:00AM to 5:00PM. \n\nRegards,\n- Team Dellrains Store";
     }
 
-    var payload = json.encode(
+    var payload, response;
+    payload = json.encode(
       {"number": number, "message": message, "sendername": "DELLRAINS"},
     );
 
     try {
-      final response = await http.post(
-        Uri.parse("${Environment.apiUrl}/api/sendmessage"),
-        body: payload,
-        headers: {
-          HttpHeaders.contentTypeHeader: 'application/json',
-          HttpHeaders.acceptHeader: 'application/json',
-        },
-      );
+      await Environment.methodPost(
+              "${Environment.apiUrl}/api/sendmessage", payload)
+          .then((value) {
+        response = value;
+      });
 
       if (response.statusCode == 200) {
         return true;
@@ -146,15 +139,13 @@ class TextMessage implements ITextMessage {
 
   Future<int> checkNumberIfExisting(String mobile) async {
     int otp = 0;
-
+    var response;
     try {
-      final response = await http.get(
-        Uri.parse("${Environment.apiUrl}/api/otpcheckpoint/" + mobile),
-        headers: {
-          HttpHeaders.contentTypeHeader: 'application/json',
-          HttpHeaders.acceptHeader: 'application/json',
-        },
-      );
+      await Environment.methodGet(
+              "${Environment.apiUrl}/api/otpcheckpoint/$mobile")
+          .then((value) {
+        response = value;
+      });
 
       if (response.statusCode == 404) {
         return 0;
@@ -197,20 +188,17 @@ class TextMessage implements ITextMessage {
     final String message =
         "Your One Time Password is: {otp}. Please use it within 5 minutes.\n\nRegards,\n\n- Team Dellrains";
 
-    var payload = json.encode(
+    var payload, response;
+    payload = json.encode(
         {"number": number, "message": message, "sendername": "DELLRAINS"});
 
     Map<String, dynamic> otpCode;
 
     try {
-      final response = await http.post(
-        Uri.parse("${Environment.apiUrl}/api/otp"),
-        body: payload,
-        headers: {
-          HttpHeaders.contentTypeHeader: 'application/json',
-          HttpHeaders.acceptHeader: 'application/json',
-        },
-      );
+      await Environment.methodPost("${Environment.apiUrl}/api/otp", payload)
+          .then((value) {
+        response = value;
+      });
 
       otpCode = jsonDecode(response.body);
 

@@ -19,7 +19,7 @@ class Environment {
     return dotenv.get('API_URL', fallback: 'API url not found');
   }
 
-  static Future<Response> getPostData(String url, dynamic payload) async {
+  static Future<Response> methodPost(String url, dynamic payload) async {
     return await http.post(
       Uri.parse(url),
       headers: {
@@ -31,15 +31,14 @@ class Environment {
     );
   }
 
-  static Future<Response> getGetData(String url, dynamic payload) async {
-    return await http.post(
+  static Future<Response> methodGet(String url) async {
+    return await http.get(
       Uri.parse(url),
       headers: {
         HttpHeaders.contentTypeHeader: 'application/json',
         HttpHeaders.acceptHeader: 'application/json',
         HttpHeaders.authorizationHeader: "${Environment.apiToken}"
       },
-      body: payload,
     );
   }
 }

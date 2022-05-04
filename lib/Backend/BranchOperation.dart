@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
@@ -12,6 +11,7 @@ class BranchOperation implements IBranch, IInventory {
   @override
   Future<bool> addBranch(final String branchName, final String branchAddress,
       final String empId) async {
+    var response;
     var branchLoad = json.encode({
       'branchName': branchName,
       'branchAddress': branchAddress.trim(),
@@ -19,14 +19,11 @@ class BranchOperation implements IBranch, IInventory {
     });
 
     try {
-      final response = await http.post(
-        Uri.parse("${Environment.apiUrl}/api/addbranch"),
-        headers: {
-          HttpHeaders.contentTypeHeader: 'application/json',
-          HttpHeaders.acceptHeader: 'application/json',
-        },
-        body: branchLoad,
-      );
+      await Environment.methodPost(
+              "${Environment.apiUrl}/api/addbranch", branchLoad)
+          .then((value) {
+        response = value;
+      });
 
       //if response is empty return false
       if (response.statusCode == 404) {
@@ -58,6 +55,7 @@ class BranchOperation implements IBranch, IInventory {
   @override
   Future<bool> updateBranch(
       String branchCode, String branchName, String branchAddress) async {
+    var response;
     var updateBranch = json.encode(
       {
         "branchCode": branchCode,
@@ -67,14 +65,11 @@ class BranchOperation implements IBranch, IInventory {
     );
 
     try {
-      final response = await http.post(
-        Uri.parse("${Environment.apiUrl}/api/updateBranch"),
-        headers: {
-          HttpHeaders.contentTypeHeader: 'application/json',
-          HttpHeaders.acceptHeader: 'application/json',
-        },
-        body: updateBranch,
-      );
+      await Environment.methodPost(
+              "${Environment.apiUrl}/api/updateBranch", updateBranch)
+          .then((value) {
+        response = value;
+      });
 
       if (response.statusCode == 202) {
         return true;
@@ -98,7 +93,7 @@ class BranchOperation implements IBranch, IInventory {
       String productCode, int qty, String branchCode) async {
     //concatonate product code and branch code as the product code copy for this branch
     final String code = branchCode.trim() + '-' + productCode.trim();
-
+    var response;
     var stockLoad = json.encode({
       'prodCode': code,
       'qty': qty,
@@ -106,14 +101,11 @@ class BranchOperation implements IBranch, IInventory {
     });
 
     try {
-      final response = await http.post(
-        Uri.parse("${Environment.apiUrl}/api/transfer"),
-        headers: {
-          HttpHeaders.contentTypeHeader: 'application/json',
-          HttpHeaders.acceptHeader: 'application/json',
-        },
-        body: stockLoad,
-      );
+      await Environment.methodPost(
+              "${Environment.apiUrl}/api/transfer", stockLoad)
+          .then((value) {
+        response = value;
+      });
 
       //if response is empty return false
       if (response.statusCode == 404) {

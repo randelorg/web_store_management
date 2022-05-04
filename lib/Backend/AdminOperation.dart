@@ -1,4 +1,3 @@
-
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:web_store_management/Notification/BannerNotif.dart';
@@ -14,20 +13,18 @@ class AdminOperation implements IAdmin {
   final hash = Hashing();
 
   Future<bool> changePassword(final String id, final String password) async {
+    var response;
     var payload = json.encode({
       "id": id,
       "password": hash.encrypt(password),
     });
 
     try {
-      final response = await http.post(
-        Uri.parse("${Environment.apiUrl}/api/checkpoinchangepass"),
-        headers: {
-          HttpHeaders.contentTypeHeader: 'application/json',
-          HttpHeaders.acceptHeader: 'application/json',
-        },
-        body: payload,
-      );
+      await Environment.methodPost(
+              "${Environment.apiUrl}/api/checkpoinchangepass", payload)
+          .then((value) {
+        response = value;
+      });
 
       if (response.statusCode == 404) {
         BannerNotif.notif(
@@ -67,16 +64,13 @@ class AdminOperation implements IAdmin {
       'HomeAddress': homeAddress,
       'UserImage': image
     });
+    var response;
 
     try {
-      final response = await http.post(
-        Uri.parse("${Environment.apiUrl}/api/admin"),
-        headers: {
-          HttpHeaders.contentTypeHeader: 'application/json',
-          HttpHeaders.acceptHeader: 'application/json',
-        },
-        body: addAdmin,
-      );
+      await Environment.methodPost("${Environment.apiUrl}/api/admin", addAdmin)
+          .then((value) {
+        response = value;
+      });
 
       if (response.statusCode == 404) {
         BannerNotif.notif(
@@ -119,6 +113,7 @@ class AdminOperation implements IAdmin {
   @override
   Future<bool> updateAdminAccount(
       final String id, String username, final String password) async {
+    var response;
     var adminUpdateLoad = json.encode({
       'id': id,
       'Username': username.trim(),
@@ -126,14 +121,11 @@ class AdminOperation implements IAdmin {
     });
 
     try {
-      final response = await http.post(
-        Uri.parse("${Environment.apiUrl}/api/updateadmin"),
-        headers: {
-          HttpHeaders.contentTypeHeader: 'application/json',
-          HttpHeaders.acceptHeader: 'application/json',
-        },
-        body: adminUpdateLoad,
-      );
+      await Environment.methodPost(
+              "${Environment.apiUrl}/api/updateadmin", adminUpdateLoad)
+          .then((value) {
+        response = value;
+      });
 
       if (response.statusCode == 404) return false;
     } catch (e) {

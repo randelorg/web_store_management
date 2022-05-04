@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:web_store_management/Notification/BannerNotif.dart';
@@ -20,16 +19,13 @@ class ProductOperation implements IProduct {
         "price": price
       },
     );
+    var response;
 
     try {
-      final response = await http.post(
-        Uri.parse("${Environment.apiUrl}/api/product"),
-        headers: {
-          HttpHeaders.contentTypeHeader: 'application/json',
-          HttpHeaders.acceptHeader: 'application/json',
-        },
-        body: product,
-      );
+      await Environment.methodPost("${Environment.apiUrl}/api/product", product)
+          .then((value) {
+        response = value;
+      });
 
       if (response.statusCode == 202) {
         return true;
@@ -49,7 +45,8 @@ class ProductOperation implements IProduct {
 
   Future<bool> addProduct(String barcode, String productName, String quantity,
       String unit, double price) async {
-    var newProduct = json.encode(
+    var response, newProduct;
+    newProduct = json.encode(
       {
         "barcode": barcode,
         "name": productName,
@@ -60,14 +57,11 @@ class ProductOperation implements IProduct {
     );
 
     try {
-      final response = await http.post(
-        Uri.parse("${Environment.apiUrl}/api/addproduct"),
-        headers: {
-          HttpHeaders.contentTypeHeader: 'application/json',
-          HttpHeaders.acceptHeader: 'application/json',
-        },
-        body: newProduct,
-      );
+      await Environment.methodPost(
+              "${Environment.apiUrl}/api/addproduct", newProduct)
+          .then((value) {
+        response = value;
+      });
 
       if (response.statusCode == 202) {
         return true;

@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
@@ -45,9 +44,13 @@ class DashboardOperation implements IDashboard {
 
   @override
   Future<double> getTodayCollection() async {
+    var response;
     try {
-      final response = await http
-          .get(Uri.parse("${Environment.apiUrl}/api/today/${getTodayDate()}"));
+      await Environment.methodGet(
+              "${Environment.apiUrl}/api/today/${getTodayDate()}")
+          .then((value) {
+        response = value;
+      });
 
       var todayTotalCollection = jsonDecode(response.body)[0];
 
@@ -66,17 +69,13 @@ class DashboardOperation implements IDashboard {
   @override
   Future<double> getWeekCollection() async {
     List<String> dates = getWeekDates();
-
+    var response;
     try {
-      final response = await http.get(
-        Uri.parse(
-          "${Environment.apiUrl}/api/week/${dates[0]}/${dates[1]}",
-        ),
-        headers: {
-          HttpHeaders.contentTypeHeader: 'application/json',
-          HttpHeaders.acceptHeader: 'application/json',
-        },
-      );
+      await Environment.methodGet(
+              "${Environment.apiUrl}/api/week/${dates[0]}/${dates[1]}")
+          .then((value) {
+        response = value;
+      });
 
       var weekTotalCollection = jsonDecode(response.body)[0];
 
@@ -95,17 +94,13 @@ class DashboardOperation implements IDashboard {
   @override
   Future<double> getMonthCollection() async {
     List<String> dates = getMonthDates();
-
+    var response;
     try {
-      final response = await http.get(
-        Uri.parse(
-          "${Environment.apiUrl}/api/week/${dates[0]}/${dates[1]}",
-        ),
-        headers: {
-          HttpHeaders.contentTypeHeader: 'application/json',
-          HttpHeaders.acceptHeader: 'application/json',
-        },
-      );
+      await Environment.methodGet(
+              "${Environment.apiUrl}/api/week/${dates[0]}/${dates[1]}")
+          .then((value) {
+        response = value;
+      });
 
       var monthTotalCollection = jsonDecode(response.body)[0];
 
@@ -125,18 +120,14 @@ class DashboardOperation implements IDashboard {
   Future<List<GraphCollectionModel>> getGraphWeek() async {
     List<String> dates = getMonthDates();
     List<GraphCollectionModel> graphCollection = [];
-
-    final String url =
-        "${Environment.apiUrl}/api/datecollection/${dates[0]}/${dates[1]}";
+    var response;
 
     try {
-      final response = await http.get(
-        Uri.parse(url),
-        headers: {
-          HttpHeaders.contentTypeHeader: 'application/json',
-          HttpHeaders.acceptHeader: 'application/json',
-        },
-      );
+      await Environment.methodGet(
+              "${Environment.apiUrl}/api/datecollection/${dates[0]}/${dates[1]}")
+          .then((value) {
+        response = value;
+      });
 
       final parsed =
           await jsonDecode(response.body).cast<Map<String, dynamic>>();
@@ -169,17 +160,14 @@ class DashboardOperation implements IDashboard {
     }
 
     List<GraphCollectionModel> graphCollection = [];
-    final String url =
-        "http://localhost:8090/api/datecollection/$startDate/$endDate";
+    var response;
 
     try {
-      final response = await http.get(
-        Uri.parse(url),
-        headers: {
-          HttpHeaders.contentTypeHeader: 'application/json',
-          HttpHeaders.acceptHeader: 'application/json',
-        },
-      );
+      await Environment.methodGet(
+              "${Environment.apiUrl}/api/datecollection/$startDate/$endDate")
+          .then((value) {
+        response = value;
+      });
 
       final parsed =
           await jsonDecode(response.body).cast<Map<String, dynamic>>();
