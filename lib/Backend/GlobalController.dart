@@ -34,6 +34,7 @@ class GlobalController {
   //fetch all the products from the database
   Future<List<ProductModel>> fetchProducts() async {
     String branch = '';
+    final String main = "Main";
     var response;
     await Session.getBranch().then((branchName) {
       branch = branchName;
@@ -41,11 +42,11 @@ class GlobalController {
 
     if (branch == 'Main') {
       response = await http.get(Uri.parse(
-        "http://localhost:8090/api/products/Main",
+        "${Environment.apiUrl}/api/products/$main",
       ));
     } else {
       response = await http.get(Uri.parse(
-        "http://localhost:8090/api/products/${Mapping.findBranchCode(branch)}",
+        "${Environment.apiUrl}/api/products/${Mapping.findBranchCode(branch)}",
       ));
     }
 

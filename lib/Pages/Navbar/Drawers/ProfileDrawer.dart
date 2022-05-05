@@ -6,9 +6,8 @@ import 'package:web_store_management/Backend/GlobalController.dart';
 import 'package:web_store_management/Backend/Session.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
 import 'package:web_store_management/Notification/BannerNotif.dart';
-import '../ViewProfile.dart';
-import '../AddAccount.dart';
-import '../UpdateProfile.dart';
+import 'package:web_store_management/Pages/Navbar/UpdateProfile.dart';
+import 'package:web_store_management/Pages/Navbar/ViewProfile.dart';
 
 class ProfileDrawer extends StatefulWidget {
   @override
@@ -71,295 +70,56 @@ class _ProfileDrawer extends State<ProfileDrawer> {
   @override
   Widget build(BuildContext context) {
     return PopupMenuButton(
-      tooltip: "My Profile",
-      offset: const Offset(0, 45.0),
-      elevation: 2,
       child: Icon(Icons.person, color: HexColor("#155293")),
-      itemBuilder: (context) => [
+      itemBuilder: (context) => <PopupMenuEntry>[
         PopupMenuItem(
-          child: Align(
-            alignment: Alignment.centerLeft,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Card(
-                  elevation: 3,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Padding(
-                    padding: EdgeInsets.only(
-                        top: 10, bottom: 10, left: 10, right: 20),
-                    child: //indicate the branch here
-                        Padding(
-                      padding: EdgeInsets.only(top: 10),
-                      child: TextButton.icon(
-                        icon: Icon(
-                          Icons.store,
-                          color: HexColor("#155293"),
-                        ),
-                        label: Text(
-                          '$branchName',
-                          style: TextStyle(
-                            fontFamily: 'Cairo_SemiBold',
-                            color: HexColor("#155293"),
-                          ),
-                          softWrap: true,
-                        ),
-                        onPressed: null,
-                      ),
-                    ),
-                  ),
-                ),
-                const Divider(
-                  height: 1,
-                  color: Colors.black,
-                ),
-                Padding(
-                  padding: EdgeInsets.only(top: 10),
-                  child: Container(
-                    child: Text(
-                      'Profile Management',
-                      style: TextStyle(fontSize: 10),
-                    ),
-                  ),
-                ),
-                Card(
-                  elevation: 3,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                  child: Padding(
-                    padding: EdgeInsets.only(
-                        top: 10, bottom: 10, left: 10, right: 20),
-                    child: TextButton.icon(
-                      icon: Icon(
-                        Icons.visibility,
-                        color: HexColor("#155293"),
-                      ),
-                      label: Text(
-                        'View Profile',
-                        style: TextStyle(
-                          fontFamily: 'Cairo_SemiBold',
-                          color: HexColor("#155293"),
-                        ),
-                        softWrap: true,
-                      ),
-                      onPressed: () {
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return ViewProfile();
-                          },
-                        );
-                      },
-                    ),
-                  ),
-                ),
-                Visibility(
-                  maintainSize: false,
-                  maintainAnimation: true,
-                  maintainState: true,
-                  visible: this._isAuthorized,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Card(
-                        elevation: 3,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                        child: Padding(
-                          padding: EdgeInsets.only(
-                              top: 10, bottom: 10, left: 10, right: 6),
-                          child: TextButton.icon(
-                            icon: Icon(
-                              Icons.create_rounded,
-                              color: HexColor("#155293"),
-                            ),
-                            label: Text(
-                              'Update Profile',
-                              style: TextStyle(
-                                fontFamily: 'Cairo_SemiBold',
-                                color: HexColor("#155293"),
-                              ),
-                              softWrap: true,
-                            ),
-                            onPressed: () {
-                              showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return UpdateProfile();
-                                },
-                              );
-                            },
-                          ),
-                        ),
-                      ),
-                      Card(
-                        elevation: 3,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                        child: Padding(
-                          padding: EdgeInsets.only(
-                              top: 10, bottom: 10, left: 10, right: 24),
-                          child: TextButton.icon(
-                            icon: Icon(
-                              Icons.person_add,
-                              color: HexColor("#155293"),
-                            ),
-                            label: Text(
-                              ' Add Manager',
-                              style: TextStyle(
-                                fontFamily: 'Cairo_SemiBold',
-                                color: HexColor("#155293"),
-                              ),
-                              softWrap: true,
-                            ),
-                            onPressed: () {
-                              showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return AddAccount();
-                                },
-                              );
-                            },
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Visibility(
-                  maintainSize: false,
-                  maintainAnimation: true,
-                  maintainState: true,
-                  visible: this._isEmployee,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(top: 10),
-                        child: Container(
-                          child: Text(
-                            'Attendance',
-                            style: TextStyle(fontSize: 10),
-                          ),
-                        ),
-                      ),
-                      FutureBuilder(
-                        future: Session.getTimeIn(),
-                        builder: (context, snapshot) {
-                          if (snapshot.data == true) {
-                            return Visibility(
-                              maintainSize: false,
-                              maintainAnimation: true,
-                              maintainState: true,
-                              visible: snapshot.data == true,
-                              child: Card(
-                                elevation: 3,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(30),
-                                ),
-                                child: Padding(
-                                  padding: EdgeInsets.only(
-                                      top: 10, bottom: 10, left: 10, right: 20),
-                                  child: TextButton.icon(
-                                    icon: Icon(
-                                      Icons.check_circle,
-                                      color: Colors.green,
-                                    ),
-                                    label: Text(
-                                      'Time-in',
-                                      style: TextStyle(
-                                        fontFamily: 'Cairo_SemiBold',
-                                        color: HexColor("#155293"),
-                                      ),
-                                    ),
-                                    onPressed: () {
-                                      timeIn(
-                                        Mapping.employeeLogin[0].getEmployeeID,
-                                        _getTodayDate(),
-                                      );
-                                      //set the time in button to invisible
-                                      setState(() {
-                                        //set the visbility to false -> timeIn
-                                        Session.setTimeIn(false);
-                                        Session.setTimeOut(true);
-                                      });
-                                    },
-                                  ),
-                                ),
-                              ),
-                            );
-                          } else {
-                            return Center(
-                              child: Text(
-                                ' ',
-                              ),
-                            );
-                          }
-                        },
-                      ),
-                      FutureBuilder(
-                        future: Session.getTimeOut(),
-                        builder: (context, snapshot) {
-                          if (snapshot.data == true) {
-                            return Visibility(
-                              maintainSize: false,
-                              maintainAnimation: true,
-                              maintainState: true,
-                              visible: snapshot.data == true,
-                              child: Card(
-                                elevation: 3,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(30),
-                                ),
-                                child: Padding(
-                                  padding: EdgeInsets.only(
-                                      top: 10, bottom: 10, left: 10, right: 13),
-                                  child: TextButton.icon(
-                                    icon: Icon(
-                                      Icons.cancel,
-                                      color: Colors.red,
-                                    ),
-                                    label: Text(
-                                      'Time-out',
-                                      textAlign: TextAlign.left,
-                                      style: TextStyle(
-                                        fontFamily: 'Cairo_SemiBold',
-                                        color: HexColor("#155293"),
-                                      ),
-                                    ),
-                                    onPressed: () {
-                                      timeOut(
-                                        Mapping.employeeLogin[0].getEmployeeID,
-                                        _getTodayDate(),
-                                      );
-                                    },
-                                  ),
-                                ),
-                              ),
-                            );
-                          } else {
-                            return Center(
-                              child: Text(
-                                ' ',
-                              ),
-                            );
-                          }
-                        },
-                      )
-                    ],
-                  ),
-                ),
-              ],
+          child: ListTile(
+            leading: Icon(Icons.store),
+            title: Text('$branchName'),
+          ),
+          value: 1,
+        ),
+        const PopupMenuDivider(),
+        PopupMenuItem(
+          child: ListTile(
+            leading: Icon(Icons.person),
+            title: TextButton(
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return ViewProfile();
+                  },
+                );
+              },
+              child: Text('Update Profile'),
             ),
           ),
+          value: 2,
+        ),
+        PopupMenuItem(
+          child: ListTile(
+            leading: Icon(Icons.create_rounded),
+            title: TextButton(
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return UpdateProfile();
+                  },
+                );
+              },
+              child: Text('View Profile'),
+            ),
+          ),
+          value: 3,
+        ),
+        const PopupMenuItem(
+          child: ListTile(
+            leading: Icon(Icons.person_add),
+            title: Text('Add Manager'),
+          ),
+          value: 4,
         ),
       ],
     );
