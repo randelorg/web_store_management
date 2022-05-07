@@ -61,7 +61,7 @@ class _NavDrawerAdmin extends State<NavDrawerAdmin> {
                   constraints: BoxConstraints(minHeight: constraints.maxHeight),
                   child: IntrinsicHeight(
                     child: NavigationRail(
-                      //elevation: 5,
+                      elevation: 5,
                       minWidth: 10,
                       minExtendedWidth: 20.0,
                       backgroundColor: Colors.grey.shade900,
@@ -72,7 +72,7 @@ class _NavDrawerAdmin extends State<NavDrawerAdmin> {
                         });
                       },
                       labelType: NavigationRailLabelType.all,
-                      destinations: <NavigationRailDestination>[
+                      destinations: [
                         NavigationRailDestination(
                           icon: Icon(
                             Icons.space_dashboard,

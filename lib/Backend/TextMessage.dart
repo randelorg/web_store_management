@@ -135,6 +135,33 @@ class TextMessage implements ITextMessage {
     return true;
   }
 
+  Future<bool> checkNumberIfNew(String mobile) async {
+    var response;
+    try {
+      await Environment.methodGet(
+              "${Environment.apiUrl}/api/otpcheckpoint/$mobile")
+          .then((value) {
+        response = value;
+      });
+
+      if (response.statusCode == 404) {
+        return false;
+      } else if (response.statusCode == 202) {
+        return true;
+      }
+    } catch (e) {
+      //if there is an error in the method
+      BannerNotif.notif(
+        "Error",
+        "Something went wrong while finding the mobile number",
+        Colors.red.shade600,
+      );
+      return false;
+    }
+
+    return true;
+  }
+
   Future<int> checkNumberIfExisting(String mobile) async {
     int otp = 0;
     var response;
