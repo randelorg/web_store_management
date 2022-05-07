@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
 import 'package:web_store_management/Home.dart';
-import 'package:web_store_management/pages/LoginPage/FrontLogin.dart';
+import 'package:web_store_management/Pages/LoginPage/FrontLogin.dart';
 
 Future<void> main() async {
   await dotenv.load();

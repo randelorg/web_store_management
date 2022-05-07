@@ -5,10 +5,10 @@ import 'package:web_store_management/Backend/LoginOperation.dart';
 import 'package:web_store_management/Backend/Session.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
 import 'package:web_store_management/Pages/Navbar/AddAccount.dart';
+import 'package:web_store_management/Pages/Navbar/NavDrawerAdmin.dart';
 import 'package:web_store_management/Pages/Navbar/NavDrawerAttendant.dart';
 import 'package:web_store_management/Pages/Navbar/UpdateProfile.dart';
 import 'package:web_store_management/Pages/Navbar/ViewProfile.dart';
-import 'package:web_store_management/pages/Navbar/NavDrawerAdmin.dart';
 
 class Home extends StatefulWidget with PreferredSizeWidget {
   @override

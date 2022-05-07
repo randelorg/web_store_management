@@ -7,8 +7,6 @@ import 'package:web_store_management/Notification/BannerNotif.dart';
 import 'package:web_store_management/environment/Environment.dart';
 import 'Interfaces/IEmployee.dart';
 import '../Helpers/HashingHelper.dart';
-import 'package:http/http.dart' as http;
-import 'dart:io';
 import 'dart:convert';
 
 class EmployeeOperation implements IEmployee {

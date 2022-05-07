@@ -3,7 +3,6 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:web_store_management/Backend/GlobalController.dart';
 import 'package:web_store_management/Backend/ProductOperation.dart';
 import 'package:web_store_management/Backend/Session.dart';
-import 'package:web_store_management/Models/BranchModel.dart';
 import 'package:web_store_management/Models/ProductModel.dart';
 import 'package:web_store_management/Notification/BannerNotif.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';

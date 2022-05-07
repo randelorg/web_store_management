@@ -5,9 +5,7 @@ import 'package:web_store_management/environment/Environment.dart';
 import 'Interfaces/IAdmin.dart';
 import 'Utility/Mapping.dart';
 import '../Helpers/HashingHelper.dart';
-import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'dart:io';
 
 class AdminOperation implements IAdmin {
   final hash = Hashing();

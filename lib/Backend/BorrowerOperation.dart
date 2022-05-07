@@ -1,7 +1,5 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'dart:io';
-import 'package:http/http.dart' as http;
 import 'package:web_store_management/Backend/Interfaces/IBorrower.dart';
 import 'package:web_store_management/Backend/Interfaces/IPay.dart';
 import 'package:web_store_management/Backend/Interfaces/IServices.dart';

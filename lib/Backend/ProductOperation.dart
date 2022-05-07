@@ -1,10 +1,8 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:web_store_management/Notification/BannerNotif.dart';
-import 'package:http/http.dart' as http;
 import 'package:web_store_management/environment/Environment.dart';
 import 'Interfaces/IProduct.dart';
-import 'dart:io';
 
 class ProductOperation implements IProduct {
   @override

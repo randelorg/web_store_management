@@ -1,7 +1,5 @@
 import 'dart:convert';
-import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:web_store_management/Backend/Interfaces/IBranch.dart';
 import 'package:web_store_management/Backend/Interfaces/IInventory.dart';
 import 'package:web_store_management/Notification/BannerNotif.dart';

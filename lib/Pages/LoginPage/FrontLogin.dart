@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:web_store_management/pages/LoginPage/LoginPage.dart';
+import 'package:web_store_management/Pages/LoginPage/LoginPage.dart';
 
 class FrontLogin extends StatelessWidget {
   @override

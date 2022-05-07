@@ -1,4 +1,3 @@
-import 'package:camcode/cam_code_scanner.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:web_store_management/Backend/BranchOperation.dart';
