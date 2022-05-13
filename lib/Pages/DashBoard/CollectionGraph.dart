@@ -27,17 +27,19 @@ class _CollectionGraph extends State<CollectionGraph> {
             child: SfCartesianChart(
               primaryXAxis: CategoryAxis(),
               // Enable legend
-              legend: Legend(isVisible: true),
+              legend: Legend(isVisible: false),
               // Enable tooltip
               tooltipBehavior: TooltipBehavior(enable: true),
+              crosshairBehavior: CrosshairBehavior(enable: true),
+              trackballBehavior: TrackballBehavior(enable: true),
               series: <ChartSeries<GraphCollectionModel, String>>[
                 LineSeries<GraphCollectionModel, String>(
                   //name: widget.caption.toString(),
                   dataSource: widget.graphData!.toList(),
-                  xValueMapper: (GraphCollectionModel sales, _) =>
-                      sales.getGivenDate,
-                  yValueMapper: (GraphCollectionModel sales, _) =>
-                      sales.getCollection,
+                  xValueMapper: (GraphCollectionModel collection, _) =>
+                      collection.getGivenDate,
+                  yValueMapper: (GraphCollectionModel collection, _) =>
+                      collection.getCollection,
 
                   // Enable data label
                   dataLabelSettings: DataLabelSettings(isVisible: true),

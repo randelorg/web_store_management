@@ -49,7 +49,7 @@ class _InventoryPage extends State<InventoryPage> {
       children: <Widget>[
         Container(
           width: (MediaQuery.of(context).size.width) / 5,
-          height: (MediaQuery.of(context).size.height) / 1.5,
+          //height: (MediaQuery.of(context).size.height) / 1.5,
           child: Column(
             children: [
               Padding(
@@ -240,20 +240,21 @@ class _InventoryPage extends State<InventoryPage> {
           ),
         ),
         Container(
-            child: Row(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 25, right: 25),
-              child: const VerticalDivider(
-                color: Colors.grey,
-                thickness: 1,
-                indent: 80,
-                endIndent: 80,
-                width: 10,
+          child: Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 25, right: 25),
+                child: const VerticalDivider(
+                  color: Colors.grey,
+                  thickness: 1,
+                  indent: 80,
+                  endIndent: 80,
+                  width: 10,
+                ),
               ),
-            ),
-          ],
-        )),
+            ],
+          ),
+        ),
         Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.end,
@@ -289,16 +290,7 @@ class _InventoryPage extends State<InventoryPage> {
                                   fontSize: 18, fontFamily: 'Cairo_SemiBold'),
                             ),
                             label: Text('TRANSFER'),
-                            onPressed: null, //() {
-                            //showDialog(
-                            //context: context,
-                            //builder: (BuildContext context) {
-                            //return TransferStock(
-                            //branches: _branches,
-                            //);
-                            //},
-                            //);
-                            //},
+                            onPressed: null,
                           ),
                         ),
                       ],
@@ -422,7 +414,7 @@ class _Row {
   );
 
   final String valueA;
-  final Widget valueB;
+  final valueB;
   final String valueC;
   final String valueD;
   final Widget valueE;
@@ -470,7 +462,7 @@ class _DataSource extends DataTableSource {
             builder: (BuildContext context) {
               return UpdateProduct(
                 name: row.valueA,
-                quantity: checkIfWidget(row.valueB),
+                quantity: determineWidget(row.valueB),
                 unit: row.valueC,
                 price: row.valueD,
               );
@@ -481,13 +473,12 @@ class _DataSource extends DataTableSource {
           String branch = '';
           await Session.getBranch().then((branchName) {
             branch = branchName;
-            print("branch: $branch");
           });
 
           if (branch != 'Main') {
             BannerNotif.notif(
               'Invalid Action',
-              'Main branch has the ability to trasnfer product',
+              'Main branch has the ability to transfer product',
               Colors.red.shade600,
             );
             return;
@@ -499,7 +490,7 @@ class _DataSource extends DataTableSource {
               return TransferStock(
                 branches: _branches,
                 productName: row.valueA,
-                qty: checkIfWidget(row.valueB),
+                qty: determineWidget(row.valueB),
               );
             },
           );
@@ -594,27 +585,29 @@ class _DataSource extends DataTableSource {
   }
 }
 
-Text checkIfWidget(Widget widget) {
-  if (widget.runtimeType == Icon) {
-    return Text('Less than 2');
-  }
-
-  return Text(widget.toString());
-}
-
 //this will identify if stock is <= 2
 //if it reacher 2 stock this will return an icon
 //else it will return the stock number
 Widget _dangerStock(String qty) {
+  String temp = qty;
   if (int.parse(qty) > 2) {
-    return _parseString(qty);
-  } else {
-    return Icon(Icons.warning, color: Colors.red);
+    return Text(qty);
   }
+
+  return Row(
+    children: [
+      Text(qty),
+      Icon(Icons.warning, color: Colors.red),
+    ],
+  );
 }
 
-//this will parse the string and convert
-//it to Text Widget
-Widget _parseString(String qty) {
-  return Text(qty);
+String determineWidget(widget) {
+  if (widget is Row) {
+    return '<= 2';
+  }
+  //get data from the TEXT widget
+  Text txt = widget;
+
+  return txt.data.toString();
 }

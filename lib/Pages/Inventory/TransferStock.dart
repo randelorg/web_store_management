@@ -7,9 +7,8 @@ import 'package:web_store_management/Notification/BannerNotif.dart';
 
 class TransferStock extends StatefulWidget {
   final List<String>? branches;
-  final String? productName;
-  final Text? qty;
-  TransferStock({required this.branches, this.productName, this.qty});
+  final String? productName, qty;
+  TransferStock({required this.branches, this.productName, required this.qty});
   @override
   _TransferStock createState() => _TransferStock();
 }
@@ -36,7 +35,7 @@ class _TransferStock extends State<TransferStock> {
       originStore = widget.branches![0].toString();
       destinationBranch = originStore;
       productName.text = widget.productName.toString();
-      maxqty.text = widget.qty!.data.toString();
+      maxqty.text = widget.qty.toString();
     });
     super.initState();
   }

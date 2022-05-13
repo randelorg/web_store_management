@@ -6,8 +6,7 @@ import '../../Backend/ProductOperation.dart';
 import '../../Backend/Utility/Mapping.dart';
 
 class UpdateProduct extends StatefulWidget {
-  final String? name, price, unit;
-  final Text? quantity;
+  final String? name, price, unit, quantity;
   UpdateProduct({this.name, this.quantity, this.price, this.unit});
 
   @override
@@ -27,7 +26,7 @@ class _UpdateProduct extends State<UpdateProduct> {
   void initState() {
     super.initState();
     prodName.text = widget.name.toString();
-    prodQtySuffix.text = widget.quantity!.data.toString();
+    prodQtySuffix.text = widget.quantity.toString();
     prodPrice.text = widget.price.toString();
     prodUnit.text = widget.unit.toString();
   }
@@ -272,7 +271,8 @@ class _UpdateProduct extends State<UpdateProduct> {
     String barcode = '';
     Mapping.productList
         .where((element) =>
-            element.productName?.toLowerCase() == widget.name.toString().toLowerCase())
+            element.productName?.toLowerCase() ==
+            widget.name.toString().toLowerCase())
         .forEach((element) {
       barcode = element.getProductCode;
     });
