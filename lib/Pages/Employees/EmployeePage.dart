@@ -29,69 +29,65 @@ class _Employeepage extends State<EmployeePage> {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        Stack(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(top: 15, bottom: 15, left: 20),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
-                    child: Stack(
-                      children: <Widget>[
-                        Positioned.fill(
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: HexColor("#155293"),
-                            ),
-                          ),
-                        ),
-                        TextButton.icon(
-                          icon:
-                              Icon(Icons.add_box_rounded, color: Colors.white),
-                          style: TextButton.styleFrom(
-                            padding: const EdgeInsets.only(
-                                left: 10, right: 10, top: 10, bottom: 10),
-                            primary: Colors.white,
-                            textStyle: TextStyle(
-                                fontSize: 18, fontFamily: 'Cairo_SemiBold'),
-                          ),
-                          label: Text('NEW EMPLOYEE'),
-                          onPressed: () {
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return AddEmployee();
-                              },
-                            );
-                          },
-                        ),
-                      ],
-                    ),
+        Padding(
+          padding: const EdgeInsets.only(left: 10, right: 20, top: 10),
+          child: Stack(
+            children: [
+              Align(
+                alignment: Alignment.topLeft,
+                child: const Text(
+                  'Branches',
+                  style: TextStyle(
+                    fontSize: 20,
+                    color: Colors.black,
+                    fontFamily: 'Cairo_SemiBold',
                   ),
                 ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                Container(
-                  padding: EdgeInsets.only(top: 15, bottom: 15, right: 100),
+              ),
+              Align(
+                alignment: Alignment.topCenter,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: Stack(
+                    children: <Widget>[
+                      Positioned.fill(
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: HexColor("#155293"),
+                          ),
+                        ),
+                      ),
+                      TextButton.icon(
+                        icon: Icon(Icons.add_box_rounded, color: Colors.white),
+                        style: TextButton.styleFrom(
+                          padding: const EdgeInsets.only(
+                              left: 10, right: 10, top: 10, bottom: 10),
+                          primary: Colors.white,
+                          textStyle: TextStyle(
+                              fontSize: 18, fontFamily: 'Cairo_SemiBold'),
+                        ),
+                        label: Text('NEW EMPLOYEE'),
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AddEmployee();
+                            },
+                          );
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Align(
+                alignment: Alignment.topRight,
+                child: Container(
+                  //padding: EdgeInsets.only(top: 15, bottom: 15, right: 20),
                   width: 400,
                   child: TextField(
                     decoration: InputDecoration(
                       hintText: 'Search Employee',
-                      suffixIcon: InkWell(
-                        child: IconButton(
-                          icon: Icon(Icons.qr_code_scanner_outlined),
-                          color: Colors.grey,
-                          tooltip: 'Search by QR',
-                          onPressed: () {},
-                        ),
-                      ),
                       filled: true,
                       fillColor: Colors.blueGrey[50],
                       labelStyle: TextStyle(fontSize: 12),
@@ -105,9 +101,9 @@ class _Employeepage extends State<EmployeePage> {
                     ),
                   ),
                 ),
-              ],
-            ),
-          ],
+              ),
+            ],
+          ),
         ),
         Expanded(
           child: Container(

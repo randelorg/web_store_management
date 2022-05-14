@@ -645,8 +645,6 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
         result = value;
     });
 
-    print("Result $result");
-
     return result;
   }
 }

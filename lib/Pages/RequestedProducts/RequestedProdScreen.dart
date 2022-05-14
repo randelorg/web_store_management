@@ -32,57 +32,61 @@ class _RequestedProdScreen extends State<RequestedProdScreen> {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        Stack(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(top: 15, bottom: 15, left: 20),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(8),
-                    child: Stack(
-                      children: <Widget>[
-                        Positioned.fill(
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: HexColor("#155293"),
-                            ),
-                          ),
-                        ),
-                        TextButton.icon(
-                          icon:
-                              Icon(Icons.add_box_rounded, color: Colors.white),
-                          style: TextButton.styleFrom(
-                            padding: const EdgeInsets.only(
-                                left: 10, right: 10, top: 10, bottom: 10),
-                            primary: Colors.white,
-                            textStyle: TextStyle(
-                                fontSize: 18, fontFamily: 'Cairo_SemiBold'),
-                          ),
-                          label: Text('NEW REQUEST'),
-                          onPressed: () {
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return ReqManualBorrowerSearch();
-                              },
-                            );
-                          },
-                        ),
-                      ],
-                    ),
+        Padding(
+          padding: const EdgeInsets.only(left: 10, right: 20, top: 10),
+          child: Stack(
+            children: [
+              Align(
+                alignment: Alignment.topLeft,
+                child: const Text(
+                  'Payments',
+                  style: TextStyle(
+                    fontSize: 20,
+                    color: Colors.black,
+                    fontFamily: 'Cairo_SemiBold',
                   ),
                 ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                Container(
-                  padding: EdgeInsets.only(top: 15, bottom: 15, right: 20),
+              ),
+              Align(
+                alignment: Alignment.topCenter,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(8),
+                  child: Stack(
+                    children: <Widget>[
+                      Positioned.fill(
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: HexColor("#155293"),
+                          ),
+                        ),
+                      ),
+                      TextButton.icon(
+                        icon: Icon(Icons.add_box_rounded, color: Colors.white),
+                        style: TextButton.styleFrom(
+                          padding: const EdgeInsets.only(
+                              left: 10, right: 10, top: 10, bottom: 10),
+                          primary: Colors.white,
+                          textStyle: TextStyle(
+                              fontSize: 18, fontFamily: 'Cairo_SemiBold'),
+                        ),
+                        label: Text('NEW REQUEST'),
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return ReqManualBorrowerSearch();
+                            },
+                          );
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Align(
+                alignment: Alignment.topRight,
+                child: Container(
+                  //padding: EdgeInsets.only(top: 15, bottom: 15, right: 20),
                   width: 400,
                   child: TextField(
                     decoration: InputDecoration(
@@ -108,9 +112,9 @@ class _RequestedProdScreen extends State<RequestedProdScreen> {
                     ),
                   ),
                 ),
-              ],
-            ),
-          ],
+              ),
+            ],
+          ),
         ),
         FutureBuilder<List<BorrowerModel>>(
           future: _requested,
@@ -148,7 +152,7 @@ class _RequestedProdScreen extends State<RequestedProdScreen> {
                     style: TextStyle(
                       color: Colors.grey[500],
                       fontFamily: 'Cairo_SemiBold',
-                      fontSize: 20, 
+                      fontSize: 20,
                     ),
                   ),
                 );
@@ -160,7 +164,7 @@ class _RequestedProdScreen extends State<RequestedProdScreen> {
                   style: TextStyle(
                     color: Colors.grey[500],
                     fontFamily: 'Cairo_SemiBold',
-                    fontSize: 20, 
+                    fontSize: 20,
                   ),
                 ),
               );

@@ -224,7 +224,14 @@ class _CollectionSummary extends State<CollectionSummary> {
                 }
                 if (snapshot.hasData) {
                   //checkLength();
-                  return CollectionGraph(graphData: snapshot.data);
+                  return Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                    shadowColor: Colors.black,
+                    elevation: 5,
+                    child: CollectionGraph(graphData: snapshot.data),
+                  );
                 } else if (snapshot.data!.isEmpty) {
                   return Center(
                     child: Text(

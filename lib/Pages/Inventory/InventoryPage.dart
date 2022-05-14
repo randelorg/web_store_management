@@ -49,7 +49,6 @@ class _InventoryPage extends State<InventoryPage> {
       children: <Widget>[
         Container(
           width: (MediaQuery.of(context).size.width) / 5,
-          //height: (MediaQuery.of(context).size.height) / 1.5,
           child: Column(
             children: [
               Padding(
@@ -328,14 +327,14 @@ class _InventoryPage extends State<InventoryPage> {
               ],
             ),
             //the list of products
-            tableProducts(),
+            _tableProducts(),
           ],
         ),
       ],
     );
   }
 
-  Widget tableProducts() {
+  Widget _tableProducts() {
     return Expanded(
       child: Container(
         width: (MediaQuery.of(context).size.width) / 1.5,

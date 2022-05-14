@@ -35,38 +35,53 @@ class _ReleasePage extends State<ReleasePage> {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            Container(
-              padding: EdgeInsets.only(top: 15, bottom: 15, right: 20),
-              width: 400,
-              child: TextField(
-                decoration: InputDecoration(
-                  hintText: 'Search Borrower',
-                  suffixIcon: InkWell(
-                    child: IconButton(
-                      icon: Icon(Icons.qr_code_scanner_outlined),
-                      color: Colors.grey,
-                      tooltip: 'Search by QR',
-                      onPressed: () {},
-                    ),
-                  ),
-                  filled: true,
-                  fillColor: Colors.blueGrey[50],
-                  labelStyle: TextStyle(fontSize: 12),
-                  contentPadding: EdgeInsets.only(left: 30),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.blueGrey.shade50),
+        Padding(
+          padding: const EdgeInsets.only(left: 10, right: 20, top: 10),
+          child: Stack(
+            children: [
+              Align(
+                alignment: Alignment.topLeft,
+                child: const Text(
+                  'Release Product',
+                  style: TextStyle(
+                    fontSize: 20,
+                    color: Colors.black,
+                    fontFamily: 'Cairo_SemiBold',
                   ),
                 ),
               ),
-            ),
-          ],
+              Align(
+                alignment: Alignment.topRight,
+                child: Container(
+                  //padding: EdgeInsets.only(top: 15, bottom: 15, right: 20),
+                  width: 400,
+                  child: TextField(
+                    decoration: InputDecoration(
+                      hintText: 'Search Borrower',
+                      suffixIcon: InkWell(
+                        child: IconButton(
+                          icon: Icon(Icons.qr_code_scanner_outlined),
+                          color: Colors.grey,
+                          tooltip: 'Search by QR',
+                          onPressed: () {},
+                        ),
+                      ),
+                      filled: true,
+                      fillColor: Colors.blueGrey[50],
+                      labelStyle: TextStyle(fontSize: 12),
+                      contentPadding: EdgeInsets.only(left: 30),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
         FutureBuilder<List<BorrowerModel>>(
           future: _releaseApproval,
@@ -116,7 +131,7 @@ class _ReleasePage extends State<ReleasePage> {
                   style: TextStyle(
                     color: Colors.grey[500],
                     fontFamily: 'Cairo_SemiBold',
-                    fontSize: 20,               
+                    fontSize: 20,
                   ),
                 ),
               );
