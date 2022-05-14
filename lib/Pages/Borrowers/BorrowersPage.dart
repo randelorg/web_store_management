@@ -13,6 +13,9 @@ class BorrowersPage extends StatefulWidget {
 class _BorrowersPage extends State<BorrowersPage> {
   var controller = GlobalController();
   late Future<List<BorrowerModel>> borrowers;
+  List<BorrowerModel> borrowerFiltered = [];
+  TextEditingController searchValue = TextEditingController();
+  String _searchResult = '';
   var _sortAscending = true;
 
   @override
@@ -43,17 +46,38 @@ class _BorrowersPage extends State<BorrowersPage> {
               Align(
                 alignment: Alignment.topRight,
                 child: Container(
-                  //padding: EdgeInsets.only(top: 15, bottom: 15, right: 20),
                   width: 400,
                   child: TextField(
+                    controller: searchValue,
+                    onChanged: (value) {
+                      setState(() {
+                        _searchResult = value;
+                        borrowerFiltered = Mapping.borrowerList
+                            .where((brw) => brw
+                                .toString()
+                                .toLowerCase()
+                                .contains(_searchResult.toLowerCase()))
+                            .toList();
+                        //borrowers = controller.fetchBorrowers();
+                      });
+
+                      print("Searching for: ${borrowerFiltered.toList()}");
+                    },
                     decoration: InputDecoration(
                       hintText: 'Search Borrower',
                       suffixIcon: InkWell(
                         child: IconButton(
-                          icon: Icon(Icons.qr_code_scanner_outlined),
+                          icon: Icon(Icons.search),
                           color: Colors.grey,
-                          tooltip: 'Search by QR',
-                          onPressed: () {},
+                          tooltip: 'Search Borrower',
+                          onPressed: () {
+                            setState(() {
+                              print("Button ${borrowerFiltered.toList()}");
+                              searchValue.clear();
+                              _searchResult = '';
+                              //borrowerFiltered = Mapping.borrowerList;
+                            });
+                          },
                         ),
                       ),
                       filled: true,
@@ -88,7 +112,7 @@ class _BorrowersPage extends State<BorrowersPage> {
                   );
                 }
                 if (snapshot.hasData) {
-                  //checkLength();
+                  borrowerFiltered = snapshot.data!.toList();
                   return ListView(
                     scrollDirection: Axis.vertical,
                     padding: const EdgeInsets.only(right: 100, left: 100),
@@ -120,7 +144,7 @@ class _BorrowersPage extends State<BorrowersPage> {
                           DataColumn(label: Text('BALANCE')),
                           DataColumn(label: Text('ACTION')),
                         ],
-                        source: _DataSource(context),
+                        source: _DataSource(context, borrowerFiltered),
                       )
                     ],
                   );
@@ -161,11 +185,13 @@ class _Row {
 }
 
 class _DataSource extends DataTableSource {
-  _DataSource(this.context) {
-    _borrowers = _borrowerProfile();
+  _DataSource(this.context, this.brw) {
+    brw = brw;
+    _borrowers = _borrowerProfile(brw);
   }
 
   final BuildContext context;
+  List<BorrowerModel> brw = [];
   List<_Row> _borrowers = [];
   int _selectedCount = 0;
 
@@ -218,16 +244,16 @@ class _DataSource extends DataTableSource {
   int get selectedRowCount => _selectedCount;
 }
 
-List<_Row> _borrowerProfile() {
+List<_Row> _borrowerProfile(List<BorrowerModel> brw) {
   try {
     return List.generate(
-      Mapping.borrowerList.length,
+      brw.length,
       (index) {
         return new _Row(
-          Mapping.borrowerList[index].getBorrowerId.toString(),
-          Mapping.borrowerList[index].toString(),
-          Mapping.borrowerList[index].getMobileNumber.toString(),
-          Mapping.borrowerList[index].getBalance.toStringAsFixed(2).toString(),
+          brw[index].getBorrowerId.toString(),
+          brw[index].toString(),
+          brw[index].getMobileNumber.toString(),
+          brw[index].getBalance.toStringAsFixed(2).toString(),
           ClipRRect(
             borderRadius: BorderRadius.circular(20),
             child: Stack(
