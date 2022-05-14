@@ -114,6 +114,8 @@ class DashboardOperation implements IDashboard {
     }
   }
 
+  //TODO: implement sales graph here and return a list of GraphCollectionModel
+  //TODO: modify the api endpoint to get the sales data
   @override
   Future<List<GraphCollectionModel>> getGraphWeek() async {
     List<String> dates = getMonthDates();

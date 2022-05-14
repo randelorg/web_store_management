@@ -17,14 +17,14 @@ class _TimeCollection extends State<TimeCollection> {
   late Future day;
   late Future week;
   late Future month;
-  late Future<List<GraphCollectionModel>> monthGraph;
+  late Future<List<GraphCollectionModel>> weekGraph;
 
   @override
   void initState() {
     //display user name in dashboard
     displayName();
     //graph
-    monthGraph = dashboard.getGraphWeek();
+    weekGraph = dashboard.getGraphWeek();
     //collection summary total
     day = dashboard.getTodayCollection();
     week = dashboard.getWeekCollection();
@@ -403,7 +403,7 @@ class _TimeCollection extends State<TimeCollection> {
 
   Widget collectionGraph(String caption) {
     return FutureBuilder<List<GraphCollectionModel>>(
-      future: monthGraph,
+      future: weekGraph,
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
           return Center(
