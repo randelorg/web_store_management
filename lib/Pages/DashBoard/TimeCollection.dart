@@ -118,7 +118,7 @@ class _TimeCollection extends State<TimeCollection> {
     return Padding(
       padding: const EdgeInsets.only(top: 0, left: 10),
       child: Container(
-        width: 200,
+        //width: 200,
         child: Card(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(5),
@@ -190,7 +190,7 @@ class _TimeCollection extends State<TimeCollection> {
 
   Widget weekCollection() {
     return Container(
-      width: 200,
+      //width: 200,
       child: Card(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(5),
@@ -261,7 +261,7 @@ class _TimeCollection extends State<TimeCollection> {
 
   Widget monthCollection() {
     return Container(
-      width: 200,
+      // width: 200,
       child: Card(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(5),
@@ -332,7 +332,7 @@ class _TimeCollection extends State<TimeCollection> {
 
   Widget totalSales() {
     return Container(
-      width: 200,
+      // width: 200,
       child: Card(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(5),

@@ -20,8 +20,19 @@ class _BorrowersPage extends State<BorrowersPage> {
 
   @override
   void initState() {
-    super.initState();
     borrowers = controller.fetchBorrowers();
+
+    //fill the list with all the borrowers
+    //to have a init state of filled table
+    borrowers.whenComplete(() => borrowerFiltered = Mapping.borrowerList);
+    
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    searchValue.dispose();
+    super.dispose();
   }
 
   @override
@@ -46,7 +57,7 @@ class _BorrowersPage extends State<BorrowersPage> {
               Align(
                 alignment: Alignment.topRight,
                 child: Container(
-                  width: 400,
+                  width: 300,
                   child: TextField(
                     controller: searchValue,
                     onChanged: (value) {
@@ -58,7 +69,6 @@ class _BorrowersPage extends State<BorrowersPage> {
                                 .toLowerCase()
                                 .contains(_searchResult.toLowerCase()))
                             .toList();
-                        //borrowers = controller.fetchBorrowers();
                       });
 
                       print("Searching for: ${borrowerFiltered.toList()}");
@@ -70,14 +80,7 @@ class _BorrowersPage extends State<BorrowersPage> {
                           icon: Icon(Icons.search),
                           color: Colors.grey,
                           tooltip: 'Search Borrower',
-                          onPressed: () {
-                            setState(() {
-                              print("Button ${borrowerFiltered.toList()}");
-                              searchValue.clear();
-                              _searchResult = '';
-                              //borrowerFiltered = Mapping.borrowerList;
-                            });
-                          },
+                          onPressed: () {},
                         ),
                       ),
                       filled: true,
@@ -112,7 +115,6 @@ class _BorrowersPage extends State<BorrowersPage> {
                   );
                 }
                 if (snapshot.hasData) {
-                  borrowerFiltered = snapshot.data!.toList();
                   return ListView(
                     scrollDirection: Axis.vertical,
                     padding: const EdgeInsets.only(right: 100, left: 100),
@@ -131,10 +133,10 @@ class _BorrowersPage extends State<BorrowersPage> {
                               setState(() {
                                 _sortAscending = sortAscending;
                                 if (sortAscending) {
-                                  snapshot.data!.sort((a, b) =>
+                                  borrowerFiltered.sort((a, b) =>
                                       a.getFirstname.compareTo(b.getFirstname));
                                 } else {
-                                  snapshot.data!.sort((a, b) =>
+                                  borrowerFiltered.sort((a, b) =>
                                       b.getFirstname.compareTo(a.getFirstname));
                                 }
                               });
