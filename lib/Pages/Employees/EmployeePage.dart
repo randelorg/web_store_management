@@ -18,11 +18,15 @@ class _Employeepage extends State<EmployeePage> {
   String storeAttendant = 'Store Attendant';
   var _sortAscending = true;
   late Future<List<EmployeeModel>> employees;
+  List<EmployeeModel> _employeeFiltered = [];
+  TextEditingController searchValue = TextEditingController();
+  String _searchResult = '';
 
   @override
   void initState() {
-    super.initState();
     employees = controller.fetchAllEmployees();
+    employees.whenComplete(() => _employeeFiltered = Mapping.employeeList);
+    super.initState();
   }
 
   @override
@@ -84,8 +88,20 @@ class _Employeepage extends State<EmployeePage> {
                 alignment: Alignment.topRight,
                 child: Container(
                   //padding: EdgeInsets.only(top: 15, bottom: 15, right: 20),
-                  width: 400,
+                  width: 300,
                   child: TextField(
+                    controller: searchValue,
+                    onChanged: (value) {
+                      setState(() {
+                        _searchResult = value;
+                        _employeeFiltered = Mapping.employeeList
+                            .where((emp) => emp
+                                .toString()
+                                .toLowerCase()
+                                .contains(_searchResult.toLowerCase()))
+                            .toList();
+                      });
+                    },
                     decoration: InputDecoration(
                       hintText: 'Search Employee',
                       filled: true,
@@ -138,10 +154,10 @@ class _Employeepage extends State<EmployeePage> {
                               setState(() {
                                 _sortAscending = sortAscending;
                                 if (sortAscending) {
-                                  snapshot.data!.sort(
+                                  _employeeFiltered.sort(
                                       (a, b) => a.getRole.compareTo(b.getRole));
                                 } else {
-                                  snapshot.data!.sort(
+                                  _employeeFiltered.sort(
                                       (a, b) => b.getRole.compareTo(a.getRole));
                                 }
                               });
@@ -152,7 +168,7 @@ class _Employeepage extends State<EmployeePage> {
                           DataColumn(label: Text('PROFILE')),
                           DataColumn(label: Text('ATTENDANCE')),
                         ],
-                        source: _DataSource(context),
+                        source: _DataSource(context, _employeeFiltered),
                       )
                     ],
                   );
@@ -192,14 +208,16 @@ class _Row {
 }
 
 class _DataSource extends DataTableSource {
-  _DataSource(this.context) {
-    _employees = _borrowerProfile();
+  _DataSource(this.context, this._employeeFiltered) {
+    _employeeFiltered = _employeeFiltered;
+    _employees = _borrowerProfile(_employeeFiltered);
   }
 
   final BuildContext context;
 
   int _selectedCount = 0;
   List<_Row> _employees = [];
+  List<EmployeeModel> _employeeFiltered = [];
 
   @override
   DataRow? getRow(int index) {
@@ -267,67 +285,67 @@ class _DataSource extends DataTableSource {
 
   @override
   int get selectedRowCount => _selectedCount;
+}
 
-  List<_Row> _borrowerProfile() {
-    try {
-      return List.generate(Mapping.employeeList.length, (index) {
-        return new _Row(
-          Mapping.employeeList[index].getEmployeeID.toString(),
-          Mapping.employeeList[index].getRole.toString(),
-          Mapping.employeeList[index].toString(),
-          Mapping.employeeList[index].getMobileNumber.toString(),
-          ClipRRect(
-            borderRadius: BorderRadius.circular(20),
-            child: Stack(
-              children: <Widget>[
-                Positioned.fill(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: HexColor("#155293"),
-                    ),
+List<_Row> _borrowerProfile(List<EmployeeModel> emp) {
+  try {
+    return List.generate(emp.length, (index) {
+      return _Row(
+        emp[index].getEmployeeID.toString(),
+        emp[index].getRole.toString(),
+        emp[index].toString(),
+        emp[index].getMobileNumber.toString(),
+        ClipRRect(
+          borderRadius: BorderRadius.circular(20),
+          child: Stack(
+            children: <Widget>[
+              Positioned.fill(
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: HexColor("#155293"),
                   ),
                 ),
-                Padding(
-                  padding:
-                      EdgeInsets.only(top: 8, bottom: 8, left: 16, right: 16),
-                  child: Icon(Icons.badge, color: Colors.white),
-                ),
-              ],
-            ),
+              ),
+              Padding(
+                padding:
+                    EdgeInsets.only(top: 8, bottom: 8, left: 16, right: 16),
+                child: Icon(Icons.badge, color: Colors.white),
+              ),
+            ],
           ),
-          ClipRRect(
-            borderRadius: BorderRadius.circular(20),
-            child: Stack(
-              children: <Widget>[
-                Positioned.fill(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: HexColor("#155293"),
-                    ),
+        ),
+        ClipRRect(
+          borderRadius: BorderRadius.circular(20),
+          child: Stack(
+            children: <Widget>[
+              Positioned.fill(
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: HexColor("#155293"),
                   ),
                 ),
-                Padding(
-                  padding:
-                      EdgeInsets.only(top: 8, bottom: 8, left: 16, right: 16),
-                  child: Icon(Icons.date_range, color: Colors.white),
-                ),
-              ],
-            ),
+              ),
+              Padding(
+                padding:
+                    EdgeInsets.only(top: 8, bottom: 8, left: 16, right: 16),
+                child: Icon(Icons.date_range, color: Colors.white),
+              ),
+            ],
           ),
-        );
-      });
-    } catch (e) {
-      //if employees list is empty
-      return List.generate(0, (index) {
-        return _Row(
-          '',
-          '',
-          '',
-          '',
-          Text(''),
-          Text(''),
-        );
-      });
-    }
+        ),
+      );
+    });
+  } catch (e) {
+    //if employees list is empty
+    return List.generate(0, (index) {
+      return _Row(
+        '',
+        '',
+        '',
+        '',
+        Text(''),
+        Text(''),
+      );
+    });
   }
 }

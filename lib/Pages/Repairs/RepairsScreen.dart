@@ -18,14 +18,18 @@ class _RepairsPage extends State<RepairsPage> {
   var borrower = BorrowerOperation();
   var message = TextMessage();
   late Future<List<BorrowerModel>> _repairs;
-  double textSize = 15;
-  double titleSize = 30;
+  List<BorrowerModel> _borrowerFiltered = [];
+  TextEditingController searchValue = TextEditingController();
+  String _searchResult = '';
+  final double textSize = 15;
+  final double titleSize = 30;
 
   @override
   void initState() {
-    super.initState();
     controller.fetchBorrowers();
     _repairs = controller.fetchRepairs();
+    _repairs.whenComplete(() => _borrowerFiltered = Mapping.repairs);
+    super.initState();
   }
 
   @override
@@ -87,18 +91,22 @@ class _RepairsPage extends State<RepairsPage> {
                 alignment: Alignment.topRight,
                 child: Container(
                   //padding: EdgeInsets.only(top: 15, bottom: 15, right: 20),
-                  width: 400,
+                  width: 300,
                   child: TextField(
+                    controller: searchValue,
+                    onChanged: (value) {
+                      setState(() {
+                        _searchResult = value;
+                        _borrowerFiltered = Mapping.repairs
+                            .where((brw) => brw
+                                .toString()
+                                .toLowerCase()
+                                .contains(_searchResult.toLowerCase()))
+                            .toList();
+                      });
+                    },
                     decoration: InputDecoration(
                       hintText: 'Search Borrower',
-                      suffixIcon: InkWell(
-                        child: IconButton(
-                          icon: Icon(Icons.qr_code_scanner_outlined),
-                          color: Colors.grey,
-                          tooltip: 'Search by QR',
-                          onPressed: () {},
-                        ),
-                      ),
                       filled: true,
                       fillColor: Colors.blueGrey[50],
                       labelStyle: TextStyle(fontSize: 12),
@@ -141,7 +149,7 @@ class _RepairsPage extends State<RepairsPage> {
                       childAspectRatio: (MediaQuery.of(context).size.width) /
                           (MediaQuery.of(context).size.height) /
                           2.5,
-                      children: _cards(),
+                      children: _cards(_borrowerFiltered),
                     ),
                   ),
                 );
@@ -175,9 +183,9 @@ class _RepairsPage extends State<RepairsPage> {
     );
   }
 
-  List<Widget> _cards() {
+  List<Widget> _cards(List<BorrowerModel> brwRepair) {
     return List.generate(
-      Mapping.repairs.length,
+      brwRepair.length,
       (index) {
         return new Card(
           shape: RoundedRectangleBorder(
@@ -224,7 +232,7 @@ class _RepairsPage extends State<RepairsPage> {
                     ),
                     Expanded(
                       child: Text(
-                        Mapping.repairs[index].getRepairProductName,
+                        brwRepair[index].getRepairProductName,
                         overflow: TextOverflow.visible,
                         softWrap: true,
                         maxLines: 2,
@@ -257,7 +265,7 @@ class _RepairsPage extends State<RepairsPage> {
                     ),
                     Expanded(
                       child: Text(
-                        Mapping.repairs[index].toString(),
+                        brwRepair[index].toString(),
                         overflow: TextOverflow.visible,
                         softWrap: true,
                         maxLines: 2,
@@ -290,7 +298,7 @@ class _RepairsPage extends State<RepairsPage> {
                     ),
                     Expanded(
                       child: Text(
-                        Mapping.repairs[index].getHomeAddress,
+                        brwRepair[index].getHomeAddress,
                         overflow: TextOverflow.visible,
                         softWrap: true,
                         maxLines: 3,
@@ -323,7 +331,7 @@ class _RepairsPage extends State<RepairsPage> {
                     ),
                     Expanded(
                       child: Text(
-                        Mapping.repairs[index].getMobileNumber,
+                        brwRepair[index].getMobileNumber,
                         overflow: TextOverflow.visible,
                         softWrap: true,
                         maxLines: 2,
@@ -358,11 +366,11 @@ class _RepairsPage extends State<RepairsPage> {
                           child: const Text('REPAIRED'),
                           onPressed: () {
                             repairStatus(
-                              Mapping.repairs[index].getRepairId,
+                              brwRepair[index].getRepairId,
                               'REPAIRED',
-                              Mapping.repairs[index].getRepairProductName,
-                              Mapping.repairs[index].toString(),
-                              Mapping.repairs[index].getMobileNumber,
+                              brwRepair[index].getRepairProductName,
+                              brwRepair[index].toString(),
+                              brwRepair[index].getMobileNumber,
                             );
                           },
                         ),
@@ -375,11 +383,11 @@ class _RepairsPage extends State<RepairsPage> {
                     tooltip: 'UNREPAIRABLE',
                     onPressed: () {
                       repairStatus(
-                        Mapping.repairs[index].getRepairId,
+                        brwRepair[index].getRepairId,
                         'UNREPAIRABLE',
-                        Mapping.repairs[index].getRepairProductName,
-                        Mapping.repairs[index].toString(),
-                        Mapping.repairs[index].getMobileNumber,
+                        brwRepair[index].getRepairProductName,
+                        brwRepair[index].toString(),
+                        brwRepair[index].getMobileNumber,
                       );
                     },
                   ),
@@ -419,9 +427,12 @@ class _RepairsPage extends State<RepairsPage> {
         //refresh the future and the widget
         setState(() {
           _repairs = controller.fetchRepairs();
+          _repairs.whenComplete(() => _borrowerFiltered = Mapping.repairs);
         });
         //send message to the receiver
-        sendRepairedMessage(name, number, product, status);
+        _repairs.whenComplete(() {
+          sendRepairedMessage(name, number, product, status);
+        });
       }
     });
   }

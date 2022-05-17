@@ -17,16 +17,22 @@ class _CreditPage extends State<CreditScreen> {
   var loan = LoanOperation();
   var message = TextMessage();
   late Future<List<BorrowerModel>> _creditapproval;
+  List<BorrowerModel> _borrowerFiltered = [];
+  TextEditingController searchValue = TextEditingController();
+  String _searchResult = '';
+
   int vid = 0, bid = 0;
-
-  double textSize = 15;
-  double titleSize = 30;
-
-  final String denied = "DENIED", tobeRelease = 'TO-BE-RELEASE';
+  final double textSize = 15;
+  final double titleSize = 30;
+  final String denied = "DENIED",
+      tobeRelease = 'TO-BE-RELEASE',
+      approved = 'APPROVED';
 
   @override
   void initState() {
     _creditapproval = controller.fetchCreditApprovals();
+    _creditapproval
+        .whenComplete(() => _borrowerFiltered = Mapping.creditApprovals);
     super.initState();
   }
 
@@ -53,18 +59,22 @@ class _CreditPage extends State<CreditScreen> {
                 alignment: Alignment.topRight,
                 child: Container(
                   //padding: EdgeInsets.only(top: 15, bottom: 15, right: 20),
-                  width: 400,
+                  width: 300,
                   child: TextField(
+                    controller: searchValue,
+                    onChanged: (value) {
+                      setState(() {
+                        _searchResult = value;
+                        _borrowerFiltered = Mapping.creditApprovals
+                            .where((brw) => brw
+                                .toString()
+                                .toLowerCase()
+                                .contains(_searchResult.toLowerCase()))
+                            .toList();
+                      });
+                    },
                     decoration: InputDecoration(
                       hintText: 'Search Borrower',
-                      suffixIcon: InkWell(
-                        child: IconButton(
-                          icon: Icon(Icons.qr_code_scanner_outlined),
-                          color: Colors.grey,
-                          tooltip: 'Search by QR',
-                          onPressed: () {},
-                        ),
-                      ),
                       filled: true,
                       fillColor: Colors.blueGrey[50],
                       labelStyle: TextStyle(fontSize: 12),
@@ -107,7 +117,7 @@ class _CreditPage extends State<CreditScreen> {
                       childAspectRatio: (MediaQuery.of(context).size.width) /
                           (MediaQuery.of(context).size.height) /
                           2.5,
-                      children: _cards(),
+                      children: _cards(_borrowerFiltered),
                     ),
                   ),
                 );
@@ -141,9 +151,9 @@ class _CreditPage extends State<CreditScreen> {
     );
   }
 
-  List<Widget> _cards() {
+  List<Widget> _cards(List<BorrowerModel> brwCredit) {
     return List.generate(
-      Mapping.creditApprovals.length,
+      brwCredit.length,
       (index) {
         return new Card(
           shape: RoundedRectangleBorder(
@@ -158,7 +168,7 @@ class _CreditPage extends State<CreditScreen> {
                 padding: EdgeInsets.all(10),
                 child: ListTile(
                   title: Text(
-                    Mapping.creditApprovals[index].getStatus.toString(),
+                    brwCredit[index].getStatus.toString(),
                     style: TextStyle(
                       fontSize: 30,
                       fontFamily: 'Cairo_SemiBold',
@@ -194,7 +204,7 @@ class _CreditPage extends State<CreditScreen> {
                     ),
                     Expanded(
                       child: Text(
-                        Mapping.creditApprovals[index].toString(),
+                        brwCredit[index].toString(),
                         overflow: TextOverflow.visible,
                         maxLines: 2,
                         softWrap: true,
@@ -229,8 +239,7 @@ class _CreditPage extends State<CreditScreen> {
                     ),
                     Expanded(
                       child: Text(
-                        Mapping.creditApprovals[index].getHomeAddress
-                            .toString(),
+                        brwCredit[index].getHomeAddress.toString(),
                         overflow: TextOverflow.visible,
                         softWrap: true,
                         maxLines: 3,
@@ -263,8 +272,7 @@ class _CreditPage extends State<CreditScreen> {
                     ),
                     Expanded(
                       child: Text(
-                        Mapping.creditApprovals[index].getMobileNumber
-                            .toString(),
+                        brwCredit[index].getMobileNumber.toString(),
                         overflow: TextOverflow.visible,
                         softWrap: true,
                         maxLines: 2,
@@ -313,9 +321,8 @@ class _CreditPage extends State<CreditScreen> {
                                   fontSize: 18, fontFamily: 'Cairo_SemiBold')),
                           child: const Text('APPROVE'),
                           onPressed: () {
-                            vid = Mapping
-                                .creditApprovals[index].getinvestigationID;
-                            bid = Mapping.creditApprovals[index].getBorrowerId;
+                            vid = brwCredit[index].getinvestigationID;
+                            bid = brwCredit[index].getBorrowerId;
                             loan
                                 .approvedCredit(vid, bid, tobeRelease)
                                 .then((value) {
@@ -330,14 +337,17 @@ class _CreditPage extends State<CreditScreen> {
                                 setState(() {
                                   _creditapproval =
                                       controller.fetchCreditApprovals();
+                                  _creditapproval.whenComplete(() =>
+                                      _borrowerFiltered =
+                                          Mapping.creditApprovals);
                                 });
                                 //send message to the borrower that the credit has been approved
-                                sendMessageApproved(
-                                  Mapping
-                                      .creditApprovals[index].getMobileNumber,
-                                  Mapping.creditApprovals[index].toString(),
-                                  'APPROVED',
-                                );
+                                _creditapproval
+                                    .whenComplete(() => sendMessageApproved(
+                                          brwCredit[index].getMobileNumber,
+                                          brwCredit[index].toString(),
+                                          approved,
+                                        ));
                               }
                             });
                           },
@@ -350,8 +360,8 @@ class _CreditPage extends State<CreditScreen> {
                     color: Colors.redAccent.shade400,
                     tooltip: 'DENY CREDIT',
                     onPressed: () {
-                      vid = Mapping.creditApprovals[index].getinvestigationID;
-                      bid = Mapping.creditApprovals[index].getBorrowerId;
+                      vid = brwCredit[index].getinvestigationID;
+                      bid = brwCredit[index].getBorrowerId;
                       loan.approvedCredit(vid, bid, denied).then((value) {
                         if (!value) {
                           BannerNotif.notif(
@@ -363,13 +373,16 @@ class _CreditPage extends State<CreditScreen> {
                           //refresh the data in the window
                           setState(() {
                             _creditapproval = controller.fetchCreditApprovals();
+                            _creditapproval.whenComplete(() =>
+                                _borrowerFiltered = Mapping.creditApprovals);
                           });
                           //send message to the borrower that the credit has been approved
-                          sendMessageApproved(
-                            Mapping.creditApprovals[index].getMobileNumber,
-                            Mapping.creditApprovals[index].toString(),
-                            denied,
-                          );
+                          _creditapproval
+                              .whenComplete(() => sendMessageApproved(
+                                    brwCredit[index].getMobileNumber,
+                                    brwCredit[index].toString(),
+                                    denied,
+                                  ));
                         }
                       });
                     },

@@ -17,15 +17,19 @@ class _RequestedProdScreen extends State<RequestedProdScreen> {
   var controller = GlobalController();
   var borrower = BorrowerOperation();
   var message = TextMessage();
+  List<BorrowerModel> _borrowerFiltered = [];
+  TextEditingController searchValue = TextEditingController();
+  String _searchResult = '';
   late Future<List<BorrowerModel>> _requested;
   final double textSize = 15;
   final double titleSize = 30;
 
   @override
   void initState() {
-    super.initState();
-    controller.fetchBorrowers();
+    //controller.fetchBorrowers();
     _requested = controller.fetchRequestedProducts();
+    _requested.whenComplete(() => _borrowerFiltered = Mapping.requested);
+    super.initState();
   }
 
   @override
@@ -87,18 +91,22 @@ class _RequestedProdScreen extends State<RequestedProdScreen> {
                 alignment: Alignment.topRight,
                 child: Container(
                   //padding: EdgeInsets.only(top: 15, bottom: 15, right: 20),
-                  width: 400,
+                  width: 300,
                   child: TextField(
+                    controller: searchValue,
+                    onChanged: (value) {
+                      setState(() {
+                        _searchResult = value;
+                        _borrowerFiltered = Mapping.requested
+                            .where((brw) => brw
+                                .toString()
+                                .toLowerCase()
+                                .contains(_searchResult.toLowerCase()))
+                            .toList();
+                      });
+                    },
                     decoration: InputDecoration(
                       hintText: 'Search Request',
-                      suffixIcon: InkWell(
-                        child: IconButton(
-                          icon: Icon(Icons.qr_code_scanner_outlined),
-                          color: Colors.grey,
-                          tooltip: 'Search by QR',
-                          onPressed: () {},
-                        ),
-                      ),
                       filled: true,
                       fillColor: Colors.blueGrey[50],
                       labelStyle: TextStyle(fontSize: 12),
@@ -141,7 +149,7 @@ class _RequestedProdScreen extends State<RequestedProdScreen> {
                       childAspectRatio: (MediaQuery.of(context).size.width) /
                           (MediaQuery.of(context).size.height) /
                           2.5,
-                      children: _cards(),
+                      children: _cards(_borrowerFiltered),
                     ),
                   ),
                 );
@@ -175,9 +183,9 @@ class _RequestedProdScreen extends State<RequestedProdScreen> {
     );
   }
 
-  List<Widget> _cards() {
+  List<Widget> _cards(List<BorrowerModel> brwRequest) {
     return List.generate(
-      Mapping.requested.length,
+      brwRequest.length,
       (index) {
         return new Card(
           shape: RoundedRectangleBorder(
@@ -222,7 +230,7 @@ class _RequestedProdScreen extends State<RequestedProdScreen> {
                     ),
                     Expanded(
                       child: Text(
-                        Mapping.requested[index].getRequestedProductName,
+                        brwRequest[index].getRequestedProductName,
                         overflow: TextOverflow.visible,
                         maxLines: 2,
                         softWrap: true,
@@ -254,7 +262,7 @@ class _RequestedProdScreen extends State<RequestedProdScreen> {
                     ),
                     Expanded(
                       child: Text(
-                        Mapping.requested[index].toString(),
+                        brwRequest[index].toString(),
                         overflow: TextOverflow.visible,
                         softWrap: true,
                         maxLines: 2,
@@ -286,7 +294,7 @@ class _RequestedProdScreen extends State<RequestedProdScreen> {
                     ),
                     Expanded(
                       child: Text(
-                        Mapping.requested[index].getHomeAddress,
+                        brwRequest[index].getHomeAddress,
                         overflow: TextOverflow.visible,
                         softWrap: true,
                         maxLines: 3,
@@ -318,7 +326,7 @@ class _RequestedProdScreen extends State<RequestedProdScreen> {
                     ),
                     Expanded(
                       child: Text(
-                        Mapping.requested[index].getMobileNumber,
+                        brwRequest[index].getMobileNumber,
                         overflow: TextOverflow.visible,
                         softWrap: true,
                         maxLines: 2,
@@ -353,11 +361,11 @@ class _RequestedProdScreen extends State<RequestedProdScreen> {
                           child: const Text('IN-STORE'),
                           onPressed: () {
                             requestStatus(
-                              Mapping.requested[index].getRequestId,
+                              brwRequest[index].getRequestId,
                               'IN-STORE',
-                              Mapping.requested[index].getRequestedProductName,
-                              Mapping.requested[index].toString(),
-                              Mapping.requested[index].getMobileNumber,
+                              brwRequest[index].getRequestedProductName,
+                              brwRequest[index].toString(),
+                              brwRequest[index].getMobileNumber,
                             );
                           },
                         ),
@@ -370,11 +378,11 @@ class _RequestedProdScreen extends State<RequestedProdScreen> {
                     tooltip: 'DENY REQUEST',
                     onPressed: () {
                       requestStatus(
-                        Mapping.requested[index].getRequestId,
+                        brwRequest[index].getRequestId,
                         'DENIED',
-                        Mapping.requested[index].getRequestedProductName,
-                        Mapping.requested[index].toString(),
-                        Mapping.requested[index].getMobileNumber,
+                        brwRequest[index].getRequestedProductName,
+                        brwRequest[index].toString(),
+                        brwRequest[index].getMobileNumber,
                       );
                     },
                   ),
@@ -415,9 +423,11 @@ class _RequestedProdScreen extends State<RequestedProdScreen> {
       } else {
         setState(() {
           _requested = controller.fetchRequestedProducts();
+          _requested.whenComplete(() => _borrowerFiltered = Mapping.requested);
         });
         //send message to the receiver
-        sendRequestedMessage(name, number, product, status);
+        _requested.whenComplete(
+            () => sendRequestedMessage(name, number, product, status));
       }
     });
   }

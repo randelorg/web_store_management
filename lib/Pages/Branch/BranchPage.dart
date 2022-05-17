@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:web_store_management/Backend/GlobalController.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
-import 'package:web_store_management/Models/BranchModel.dart';
 import 'package:web_store_management/Pages/Branch/AddBranch.dart';
 import 'package:web_store_management/Pages/Branch/UpdateBranch.dart';
+import 'package:web_store_management/Models/BranchModel.dart';
 
 class BranchPage extends StatefulWidget {
   @override
@@ -15,11 +15,15 @@ class _BranchPage extends State<BranchPage> {
   var controller = GlobalController();
   var _sortAscending = true;
   late Future<List<BranchModel>> branches;
+  List<BranchModel> _branchFiltered = [];
+  TextEditingController searchValue = TextEditingController();
+  String _searchResult = '';
 
   @override
   void initState() {
-    super.initState();
     branches = controller.fetchBranches();
+    branches.whenComplete(() => _branchFiltered = Mapping.branchList);
+    super.initState();
   }
 
   @override
@@ -81,8 +85,19 @@ class _BranchPage extends State<BranchPage> {
                 alignment: Alignment.topRight,
                 child: Container(
                   //padding: EdgeInsets.only(top: 15, bottom: 15, right: 20),
-                  width: 400,
+                  width: 300,
                   child: TextField(
+                    controller: searchValue,
+                    onChanged: (value) {
+                      setState(() {
+                        _searchResult = value;
+                        _branchFiltered = Mapping.branchList
+                            .where((branch) => branch.branchName
+                                .toLowerCase()
+                                .contains(_searchResult.toLowerCase()))
+                            .toList();
+                      });
+                    },
                     decoration: InputDecoration(
                       hintText: 'Search Branch',
                       filled: true,
@@ -134,10 +149,10 @@ class _BranchPage extends State<BranchPage> {
                               setState(() {
                                 _sortAscending = sortAscending;
                                 if (sortAscending) {
-                                  snapshot.data!.sort((a, b) =>
+                                  _branchFiltered.sort((a, b) =>
                                       a.branchCode.compareTo(b.branchCode));
                                 } else {
-                                  snapshot.data!.sort((a, b) =>
+                                  _branchFiltered.sort((a, b) =>
                                       b.branchCode.compareTo(a.branchCode));
                                 }
                               });
@@ -147,7 +162,7 @@ class _BranchPage extends State<BranchPage> {
                           DataColumn(label: Text('ADDRESS')),
                           DataColumn(label: Text('UPDATE')),
                         ],
-                        source: _DataSource(context),
+                        source: _DataSource(context, _branchFiltered),
                       )
                     ],
                   );
@@ -183,14 +198,16 @@ class _Row {
 }
 
 class _DataSource extends DataTableSource {
-  _DataSource(this.context) {
-    _branch = _borrowerProfile(context);
+  _DataSource(this.context, this._branchesFiltered) {
+    _branchesFiltered = _branchesFiltered;
+    _branch = _borrowerProfile(_branchesFiltered);
   }
 
   final BuildContext context;
 
   int _selectedCount = 0;
   List<_Row> _branch = [];
+  List<BranchModel> _branchesFiltered = [];
 
   @override
   DataRow? getRow(int index) {
@@ -238,13 +255,13 @@ class _DataSource extends DataTableSource {
   @override
   int get selectedRowCount => _selectedCount;
 
-  List<_Row> _borrowerProfile(BuildContext context) {
+  List<_Row> _borrowerProfile(List<BranchModel> branch) {
     try {
-      return List.generate(Mapping.branchList.length, (index) {
+      return List.generate(branch.length, (index) {
         return new _Row(
-          Mapping.branchList[index].branchCode.toString(),
-          Mapping.branchList[index].branchName.toString(),
-          Mapping.branchList[index].branchAddress.toString(),
+          branch[index].branchCode.toString(),
+          branch[index].branchName.toString(),
+          branch[index].branchAddress.toString(),
           ClipRRect(
             borderRadius: BorderRadius.circular(20),
             child: Stack(

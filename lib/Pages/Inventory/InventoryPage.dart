@@ -20,7 +20,10 @@ class _InventoryPage extends State<InventoryPage> {
   var controller = GlobalController();
   var product = ProductOperation();
   late Future<List<ProductModel>> _products;
+  List<ProductModel> _productsFiltered = [];
+  String _searchResult = '';
 
+  TextEditingController searchValue = TextEditingController();
   final TextEditingController barcode = TextEditingController();
   final TextEditingController prodName = TextEditingController();
   final TextEditingController quantity = TextEditingController();
@@ -29,16 +32,15 @@ class _InventoryPage extends State<InventoryPage> {
 
   @override
   void initState() {
-    //fetches the products from the database
-    this._products = controller.fetchProducts();
-    controller.fetchBranches();
+    _products = controller.fetchProducts(); //fetches the products
+    controller.fetchBranches(); //fetch logged in branch
+    _products.whenComplete(() => _productsFiltered = Mapping.productList);
     super.initState();
   }
 
   List<String> getLocations() {
     List<String> branches = [];
     branches.addAll(Mapping.branchList.map((e) => e.branchName));
-
     return branches;
   }
 
@@ -71,11 +73,12 @@ class _InventoryPage extends State<InventoryPage> {
                   controller: barcode,
                   decoration: InputDecoration(
                     hintText: 'Barcode',
-                    suffixIcon: IconButton(
-                      onPressed: () {},
-                      icon: Icon(Icons.scanner_sharp),
-                      tooltip: 'Scan Product Barcode',
-                    ),
+                    //TODO: add a barcode scanner
+                    // suffixIcon: IconButton(
+                    //   onPressed: () {},
+                    //   icon: Icon(Icons.scanner_sharp),
+                    //   tooltip: 'Scan Product Barcode',
+                    // ),
                     filled: true,
                     fillColor: Colors.blueGrey[50],
                     labelStyle: TextStyle(fontSize: 10),
@@ -225,6 +228,8 @@ class _InventoryPage extends State<InventoryPage> {
                                 );
                                 setState(() {
                                   this._products = controller.fetchProducts();
+                                  _products.whenComplete(() =>
+                                      _productsFiltered = Mapping.productList);
                                 });
                               }
                             });
@@ -301,16 +306,19 @@ class _InventoryPage extends State<InventoryPage> {
                       top: 15, bottom: 15, left: 20, right: 5),
                   width: 350,
                   child: TextField(
+                    controller: searchValue,
+                    onChanged: (value) {
+                      setState(() {
+                        _searchResult = value;
+                        _productsFiltered = Mapping.productList
+                            .where((product) => product.getProductName
+                                .toLowerCase()
+                                .contains(_searchResult.toLowerCase()))
+                            .toList();
+                      });
+                    },
                     decoration: InputDecoration(
                       hintText: 'Search Product',
-                      suffixIcon: InkWell(
-                        child: IconButton(
-                          icon: Icon(Icons.search_sharp),
-                          color: Colors.grey,
-                          tooltip: 'Search by Name',
-                          onPressed: () {},
-                        ),
-                      ),
                       filled: true,
                       fillColor: Colors.blueGrey[50],
                       labelStyle: TextStyle(fontSize: 12),
@@ -327,14 +335,14 @@ class _InventoryPage extends State<InventoryPage> {
               ],
             ),
             //the list of products
-            _tableProducts(),
+            _tableProducts(_productsFiltered),
           ],
         ),
       ],
     );
   }
 
-  Widget _tableProducts() {
+  Widget _tableProducts(List<ProductModel> products) {
     return Expanded(
       child: Container(
         width: (MediaQuery.of(context).size.width) / 1.5,
@@ -366,10 +374,10 @@ class _InventoryPage extends State<InventoryPage> {
                           setState(() {
                             _sortAscending = sortAscending;
                             if (sortAscending) {
-                              snapshot.data!.sort((a, b) =>
+                              _productsFiltered.sort((a, b) =>
                                   a.getProductQty.compareTo(b.getProductQty));
                             } else {
-                              snapshot.data!.sort((a, b) =>
+                              _productsFiltered.sort((a, b) =>
                                   b.getProductQty.compareTo(a.getProductQty));
                             }
                           });
@@ -385,7 +393,8 @@ class _InventoryPage extends State<InventoryPage> {
                         ),
                       ),
                     ],
-                    source: _DataSource(context, getLocations()),
+                    source:
+                        _DataSource(context, getLocations(), _productsFiltered),
                   );
                 }
                 return Center(
@@ -423,15 +432,16 @@ class _Row {
 }
 
 class _DataSource extends DataTableSource {
-  _DataSource(this.context, List<String> branches) {
-    _products = _productList();
-    _branches = branches;
+  _DataSource(this.context, this._branches, this._productsFiltered) {
+    _products = _productList(_productsFiltered);
+    _branches = _branches;
   }
 
   final BuildContext context;
   int _selectedCount = 0;
   List<_Row> _products = [];
   List<String> _branches = [];
+  List<ProductModel> _productsFiltered = [];
 
   @override
   DataRow? getRow(int index) {
@@ -507,16 +517,14 @@ class _DataSource extends DataTableSource {
   @override
   int get selectedRowCount => _selectedCount;
 
-  List<_Row> _productList() {
+  List<_Row> _productList(List<ProductModel> products) {
     try {
-      return List.generate(Mapping.productList.length, (index) {
+      return List.generate(products.length, (index) {
         return _Row(
-          Mapping.productList[index].getProductName.toString(),
-          _dangerStock(Mapping.productList[index].getProductQty.toString()),
-          Mapping.productList[index].getProductUnit.toString(),
-          Mapping.productList[index].getProductPrice
-              .toStringAsFixed(2)
-              .toString(),
+          products[index].getProductName.toString(),
+          _dangerStock(products[index].getProductQty.toString()),
+          products[index].getProductUnit.toString(),
+          products[index].getProductPrice.toStringAsFixed(2).toString(),
           ClipRRect(
             borderRadius: BorderRadius.circular(20),
             child: Stack(

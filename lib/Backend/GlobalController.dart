@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:web_store_management/Backend/Session.dart';
 import 'package:web_store_management/Models/BranchModel.dart';
@@ -21,8 +22,10 @@ class GlobalController {
   }
 
   Future<List<EmployeeModel>> fetchAllEmployees() async {
-    final response =
-        await http.get(Uri.parse("${Environment.apiUrl}/api/employees"));
+    final response = await http.get(
+      Uri.parse("${Environment.apiUrl}/api/employees"),
+      headers: {HttpHeaders.authorizationHeader: "${Environment.apiToken}"},
+    );
     final parsed = jsonDecode(response.body).cast<Map<String, dynamic>>();
     Mapping.employeeList = parsed
         .map<EmployeeModel>((json) => EmployeeModel.fromJson(json))
@@ -41,13 +44,19 @@ class GlobalController {
     });
 
     if (branch == 'Main') {
-      response = await http.get(Uri.parse(
-        "${Environment.apiUrl}/api/products/$main",
-      ));
+      response = await http.get(
+        Uri.parse(
+          "${Environment.apiUrl}/api/products/$main",
+        ),
+        headers: {HttpHeaders.authorizationHeader: "${Environment.apiToken}"},
+      );
     } else {
-      response = await http.get(Uri.parse(
-        "${Environment.apiUrl}/api/products/${Mapping.findBranchCode(branch)}",
-      ));
+      response = await http.get(
+        Uri.parse(
+          "${Environment.apiUrl}/api/products/${Mapping.findBranchCode(branch)}",
+        ),
+        headers: {HttpHeaders.authorizationHeader: "${Environment.apiToken}"},
+      );
     }
 
     final parsed = jsonDecode(response.body).cast<Map<String, dynamic>>();
@@ -59,8 +68,10 @@ class GlobalController {
   }
 
   Future<List<BorrowerModel>> fetchBorrowers() async {
-    final response =
-        await http.get(Uri.parse("${Environment.apiUrl}/api/borrowers"));
+    final response = await http.get(
+      Uri.parse("${Environment.apiUrl}/api/borrowers"),
+      headers: {HttpHeaders.authorizationHeader: "${Environment.apiToken}"},
+    );
     final parsed = jsonDecode(response.body).cast<Map<String, dynamic>>();
     Mapping.borrowerList = parsed
         .map<BorrowerModel>((json) => BorrowerModel.fromJsonPartial(json))
@@ -70,8 +81,10 @@ class GlobalController {
 
   //fetch all the credit approvals from the database
   Future<List<BorrowerModel>> fetchCreditApprovals() async {
-    final response =
-        await http.get(Uri.parse("${Environment.apiUrl}/api/credit"));
+    final response = await http.get(
+      Uri.parse("${Environment.apiUrl}/api/credit"),
+      headers: {HttpHeaders.authorizationHeader: "${Environment.apiToken}"},
+    );
 
     final parsed = jsonDecode(response.body).cast<Map<String, dynamic>>();
     Mapping.creditApprovals = parsed
@@ -83,8 +96,10 @@ class GlobalController {
 
 //fetch all the credit approvals from the database
   Future<List<BorrowerModel>> fetchReleaseApprovals() async {
-    final response =
-        await http.get(Uri.parse("${Environment.apiUrl}/api/toberelease"));
+    final response = await http.get(
+      Uri.parse("${Environment.apiUrl}/api/toberelease"),
+      headers: {HttpHeaders.authorizationHeader: "${Environment.apiToken}"},
+    );
 
     final parsed = jsonDecode(response.body).cast<Map<String, dynamic>>();
     Mapping.releaseApproval = parsed
@@ -96,8 +111,10 @@ class GlobalController {
 
   //fetch all the credit approvals from the database
   Future<List<BorrowerModel>> fetchRepairs() async {
-    final response =
-        await http.get(Uri.parse("${Environment.apiUrl}/api/repairs"));
+    final response = await http.get(
+      Uri.parse("${Environment.apiUrl}/api/repairs"),
+      headers: {HttpHeaders.authorizationHeader: "${Environment.apiToken}"},
+    );
 
     final parsed = jsonDecode(response.body).cast<Map<String, dynamic>>();
     Mapping.repairs = parsed
@@ -109,8 +126,10 @@ class GlobalController {
 
   //fetch all the credit approvals from the database
   Future<List<BorrowerModel>> fetchRequestedProducts() async {
-    final response = await http
-        .get(Uri.parse("${Environment.apiUrl}/api/requestedproducts"));
+    final response = await http.get(
+      Uri.parse("${Environment.apiUrl}/api/requestedproducts"),
+      headers: {HttpHeaders.authorizationHeader: "${Environment.apiToken}"},
+    );
     final parsed = jsonDecode(response.body).cast<Map<String, dynamic>>();
     Mapping.requested = parsed
         .map<BorrowerModel>(
@@ -122,8 +141,10 @@ class GlobalController {
 
   //fetch all the branches from the database
   Future<List<BranchModel>> fetchBranches() async {
-    final response =
-        await http.get(Uri.parse("${Environment.apiUrl}/api/branches"));
+    final response = await http.get(
+      Uri.parse("${Environment.apiUrl}/api/branches"),
+      headers: {HttpHeaders.authorizationHeader: "${Environment.apiToken}"},
+    );
 
     final parsed = jsonDecode(response.body).cast<Map<String, dynamic>>();
     Mapping.branchList = parsed

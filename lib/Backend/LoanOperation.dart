@@ -22,6 +22,7 @@ class LoanOperation extends BorrowerOperation implements INewLoan {
     String term,
     String duedate,
   ) async {
+    var response;
     var brwDetail = json.encode({
       'firstname': firstname.trim(),
       'lastname': lastname.trim(),
@@ -32,14 +33,11 @@ class LoanOperation extends BorrowerOperation implements INewLoan {
     });
 
     try {
-      final response = await http.post(
-        Uri.parse("${Environment.apiUrl}/api/addborrower"),
-        headers: {
-          HttpHeaders.contentTypeHeader: 'application/json',
-          HttpHeaders.acceptHeader: 'application/json',
-        },
-        body: brwDetail,
-      );
+      await Environment.methodPost(
+              "${Environment.apiUrl}/api/addborrower", brwDetail)
+          .then((value) {
+        response = value;
+      });
 
       //add investigation
       await addInvestigation(firstname, lastname);
@@ -65,20 +63,18 @@ class LoanOperation extends BorrowerOperation implements INewLoan {
   }
 
   Future<bool> addInvestigation(String firstname, String lastname) async {
+    var response;
     var brwDetail2 = json.encode({
       'firstname': firstname.trim(),
       'lastname': lastname.trim(),
     });
 
     try {
-      final response = await http.post(
-        Uri.parse("http://localhost:8090/api/addinvestigation"),
-        headers: {
-          HttpHeaders.contentTypeHeader: 'application/json',
-          HttpHeaders.acceptHeader: 'application/json',
-        },
-        body: brwDetail2,
-      );
+      await Environment.methodPost(
+              "${Environment.apiUrl}/api/addinvestigation", brwDetail2)
+          .then((value) {
+        response = value;
+      });
 
       if (response.statusCode == 404) {
         return false;
@@ -100,27 +96,24 @@ class LoanOperation extends BorrowerOperation implements INewLoan {
   @override
   Future<bool> addNewLoan(String firstname, String lastname, String plan,
       String term, String duedate) async {
+    var response;
     for (var item in Mapping.selectedProducts) {
       try {
-        final response = await http.post(
-          Uri.parse("http://localhost:8090/api/addloan"),
-          headers: {
-            HttpHeaders.contentTypeHeader: 'application/json',
-            HttpHeaders.acceptHeader: 'application/json',
-          },
-          body: json.encode({
-            "firstname": firstname,
-            "lastname": lastname,
-            "productCode": item.getProductCode,
-            'plan': plan,
-            'duedate': duedate,
-            'term': term,
-            'qty': item.getProductQty,
-            'status': 'UNPAID',
-          }),
-        );
-
-        print("wow1 ${response.statusCode}");
+        var payload = json.encode({
+          "firstname": firstname,
+          "lastname": lastname,
+          "productCode": item.getProductCode,
+          'plan': plan,
+          'duedate': duedate,
+          'term': term,
+          'qty': item.getProductQty,
+          'status': 'UNPAID',
+        });
+        await Environment.methodPost(
+                "${Environment.apiUrl}/api/addloan", payload)
+            .then((value) {
+          response = value;
+        });
       } catch (e) {
         e.toString();
         BannerNotif.notif(
@@ -143,6 +136,7 @@ class LoanOperation extends BorrowerOperation implements INewLoan {
         Uri.parse(
           "${Environment.apiUrl}/api/approved/${investigationId.toString()}/${borrowerId.toString()}/$status",
         ),
+        headers: {HttpHeaders.authorizationHeader: "${Environment.apiToken}"},
       );
 
       //initate deduction of stock here
@@ -151,6 +145,7 @@ class LoanOperation extends BorrowerOperation implements INewLoan {
           Uri.parse(
             "${Environment.apiUrl}/api/loans/${borrowerId.toString()}",
           ),
+          headers: {HttpHeaders.authorizationHeader: "${Environment.apiToken}"},
         );
       }
 

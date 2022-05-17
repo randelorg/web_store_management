@@ -21,14 +21,21 @@ class _ReleasePage extends State<ReleasePage> {
   final String released = "RELEASED";
   late Future<List<BorrowerModel>> _releaseApproval;
 
+  List<BorrowerModel> _borrowerFiltered = [];
+  TextEditingController searchValue = TextEditingController();
+  String _searchResult = '';
+
   int vid = 0, bid = 0;
   double textSize = 15;
   double titleSize = 30;
 
   @override
   void initState() {
-    super.initState();
     _releaseApproval = controller.fetchReleaseApprovals();
+    //_releaseApproval = controller.fetchBorrowers();
+    _releaseApproval
+        .whenComplete(() => _borrowerFiltered = Mapping.releaseApproval);
+    super.initState();
   }
 
   @override
@@ -54,18 +61,22 @@ class _ReleasePage extends State<ReleasePage> {
                 alignment: Alignment.topRight,
                 child: Container(
                   //padding: EdgeInsets.only(top: 15, bottom: 15, right: 20),
-                  width: 400,
+                  width: 300,
                   child: TextField(
+                    controller: searchValue,
+                    onChanged: (value) {
+                      setState(() {
+                        _searchResult = value;
+                        _borrowerFiltered = Mapping.releaseApproval
+                            .where((brw) => brw
+                                .toString()
+                                .toLowerCase()
+                                .contains(_searchResult.toLowerCase()))
+                            .toList();
+                      });
+                    },
                     decoration: InputDecoration(
                       hintText: 'Search Borrower',
-                      suffixIcon: InkWell(
-                        child: IconButton(
-                          icon: Icon(Icons.qr_code_scanner_outlined),
-                          color: Colors.grey,
-                          tooltip: 'Search by QR',
-                          onPressed: () {},
-                        ),
-                      ),
                       filled: true,
                       fillColor: Colors.blueGrey[50],
                       labelStyle: TextStyle(fontSize: 12),
@@ -108,7 +119,7 @@ class _ReleasePage extends State<ReleasePage> {
                       childAspectRatio: (MediaQuery.of(context).size.width) /
                           (MediaQuery.of(context).size.height) /
                           2.5,
-                      children: _cards(),
+                      children: _cards(_borrowerFiltered),
                     ),
                   ),
                 );
@@ -142,9 +153,9 @@ class _ReleasePage extends State<ReleasePage> {
     );
   }
 
-  List<Widget> _cards() {
+  List<Widget> _cards(List<BorrowerModel> brwRelease) {
     return List.generate(
-      Mapping.releaseApproval.length,
+      brwRelease.length,
       (index) {
         return new Card(
           shape: RoundedRectangleBorder(
@@ -159,7 +170,7 @@ class _ReleasePage extends State<ReleasePage> {
                 padding: EdgeInsets.all(10),
                 child: ListTile(
                   title: Text(
-                    Mapping.releaseApproval[index].getStatus.toString(),
+                    brwRelease[index].getStatus.toString(),
                     style: TextStyle(
                       fontSize: 30,
                       fontFamily: 'Cairo_SemiBold',
@@ -195,7 +206,7 @@ class _ReleasePage extends State<ReleasePage> {
                     ),
                     Expanded(
                       child: Text(
-                        Mapping.releaseApproval[index].toString(),
+                        brwRelease[index].toString(),
                         overflow: TextOverflow.visible,
                         maxLines: 2,
                         softWrap: true,
@@ -230,8 +241,7 @@ class _ReleasePage extends State<ReleasePage> {
                     ),
                     Expanded(
                       child: Text(
-                        Mapping.releaseApproval[index].getHomeAddress
-                            .toString(),
+                        brwRelease[index].getHomeAddress.toString(),
                         overflow: TextOverflow.visible,
                         softWrap: true,
                         maxLines: 3,
@@ -264,8 +274,7 @@ class _ReleasePage extends State<ReleasePage> {
                     ),
                     Expanded(
                       child: Text(
-                        Mapping.releaseApproval[index].getMobileNumber
-                            .toString(),
+                        brwRelease[index].getMobileNumber.toString(),
                         overflow: TextOverflow.visible,
                         softWrap: true,
                         maxLines: 2,
@@ -316,9 +325,8 @@ class _ReleasePage extends State<ReleasePage> {
                                   fontSize: 18, fontFamily: 'Cairo_SemiBold')),
                           child: const Text('RELEASE'),
                           onPressed: () {
-                            vid = Mapping
-                                .releaseApproval[index].getinvestigationID;
-                            bid = Mapping.releaseApproval[index].getBorrowerId;
+                            vid = brwRelease[index].getinvestigationID;
+                            bid = brwRelease[index].getBorrowerId;
                             loan
                                 .approvedCredit(vid, bid, released)
                                 .then((value) {
@@ -333,6 +341,9 @@ class _ReleasePage extends State<ReleasePage> {
                                 setState(() {
                                   _releaseApproval =
                                       controller.fetchReleaseApprovals();
+                                  _releaseApproval.whenComplete(() =>
+                                      _borrowerFiltered =
+                                          Mapping.releaseApproval);
                                 });
 
                                 //show the print screen
@@ -340,10 +351,10 @@ class _ReleasePage extends State<ReleasePage> {
                                   context: context,
                                   builder: (BuildContext context) {
                                     return showPrint(
-                                      Mapping
-                                          .releaseApproval[index].getBorrowerId
+                                      brwRelease[index]
+                                          .getBorrowerId
                                           .toString(),
-                                      Mapping.releaseApproval[index].toString(),
+                                      brwRelease[index].toString(),
                                     );
                                   },
                                 );

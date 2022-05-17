@@ -38,7 +38,7 @@ class Login extends GlobalController implements ILogin {
       default:
     }
 
-    await Environment.methodPost("http://localhost:8090/api/login", entity)
+    await Environment.methodPost("${Environment.apiUrl}/api/login", entity)
         .then((value) {
       response = value;
     });
