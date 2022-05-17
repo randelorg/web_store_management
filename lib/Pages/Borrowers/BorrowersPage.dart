@@ -13,7 +13,7 @@ class BorrowersPage extends StatefulWidget {
 class _BorrowersPage extends State<BorrowersPage> {
   var controller = GlobalController();
   late Future<List<BorrowerModel>> borrowers;
-  List<BorrowerModel> borrowerFiltered = [];
+  List<BorrowerModel> _borrowerFiltered = [];
   TextEditingController searchValue = TextEditingController();
   String _searchResult = '';
   var _sortAscending = true;
@@ -24,8 +24,8 @@ class _BorrowersPage extends State<BorrowersPage> {
 
     //fill the list with all the borrowers
     //to have a init state of filled table
-    borrowers.whenComplete(() => borrowerFiltered = Mapping.borrowerList);
-    
+    borrowers.whenComplete(() => _borrowerFiltered = Mapping.borrowerList);
+
     super.initState();
   }
 
@@ -63,26 +63,16 @@ class _BorrowersPage extends State<BorrowersPage> {
                     onChanged: (value) {
                       setState(() {
                         _searchResult = value;
-                        borrowerFiltered = Mapping.borrowerList
+                        _borrowerFiltered = Mapping.borrowerList
                             .where((brw) => brw
                                 .toString()
                                 .toLowerCase()
                                 .contains(_searchResult.toLowerCase()))
                             .toList();
                       });
-
-                      print("Searching for: ${borrowerFiltered.toList()}");
                     },
                     decoration: InputDecoration(
                       hintText: 'Search Borrower',
-                      suffixIcon: InkWell(
-                        child: IconButton(
-                          icon: Icon(Icons.search),
-                          color: Colors.grey,
-                          tooltip: 'Search Borrower',
-                          onPressed: () {},
-                        ),
-                      ),
                       filled: true,
                       fillColor: Colors.blueGrey[50],
                       labelStyle: TextStyle(fontSize: 12),
@@ -133,10 +123,10 @@ class _BorrowersPage extends State<BorrowersPage> {
                               setState(() {
                                 _sortAscending = sortAscending;
                                 if (sortAscending) {
-                                  borrowerFiltered.sort((a, b) =>
+                                  _borrowerFiltered.sort((a, b) =>
                                       a.getFirstname.compareTo(b.getFirstname));
                                 } else {
-                                  borrowerFiltered.sort((a, b) =>
+                                  _borrowerFiltered.sort((a, b) =>
                                       b.getFirstname.compareTo(a.getFirstname));
                                 }
                               });
@@ -146,7 +136,7 @@ class _BorrowersPage extends State<BorrowersPage> {
                           DataColumn(label: Text('BALANCE')),
                           DataColumn(label: Text('ACTION')),
                         ],
-                        source: _DataSource(context, borrowerFiltered),
+                        source: _DataSource(context, _borrowerFiltered),
                       )
                     ],
                   );

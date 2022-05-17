@@ -15,12 +15,16 @@ class PaymentPage extends StatefulWidget {
 class _PaymentPage extends State<PaymentPage> {
   var _sortAscending = true;
   late Future<List<BorrowerModel>> borrowers;
+  List<BorrowerModel> _borrowerFiltered = [];
+  TextEditingController searchValue = TextEditingController();
+  String _searchResult = '';
   var controller = GlobalController();
 
   @override
   void initState() {
-    super.initState();
     borrowers = controller.fetchBorrowers();
+    borrowers.whenComplete(() => _borrowerFiltered = Mapping.borrowerList);
+    super.initState();
   }
 
   Widget build(BuildContext context) {
@@ -92,18 +96,21 @@ class _PaymentPage extends State<PaymentPage> {
                 alignment: Alignment.topRight,
                 child: Container(
                   //padding: EdgeInsets.only(top: 15, bottom: 15, right: 20),
-                  width: 400,
+                  width: 300,
                   child: TextField(
+                    onChanged: (value) {
+                      setState(() {
+                        _searchResult = value;
+                        _borrowerFiltered = Mapping.borrowerList
+                            .where((brw) => brw
+                                .toString()
+                                .toLowerCase()
+                                .contains(_searchResult.toLowerCase()))
+                            .toList();
+                      });
+                    },
                     decoration: InputDecoration(
                       hintText: 'Search Borrower',
-                      suffixIcon: InkWell(
-                        child: IconButton(
-                          icon: Icon(Icons.qr_code_scanner_outlined),
-                          color: Colors.grey,
-                          tooltip: 'Search by QR',
-                          onPressed: () {},
-                        ),
-                      ),
                       filled: true,
                       fillColor: Colors.blueGrey[50],
                       labelStyle: TextStyle(fontSize: 12),
@@ -155,10 +162,10 @@ class _PaymentPage extends State<PaymentPage> {
                               setState(() {
                                 _sortAscending = sortAscending;
                                 if (sortAscending) {
-                                  snapshot.data!.sort((a, b) =>
+                                  _borrowerFiltered.sort((a, b) =>
                                       a.getFirstname.compareTo(b.getFirstname));
                                 } else {
-                                  snapshot.data!.sort((a, b) =>
+                                  _borrowerFiltered.sort((a, b) =>
                                       b.getFirstname.compareTo(a.getFirstname));
                                 }
                               });
@@ -168,7 +175,7 @@ class _PaymentPage extends State<PaymentPage> {
                           DataColumn(label: Text('PAYMENT')),
                           DataColumn(label: Text('PAYMENT HISTORY')),
                         ],
-                        source: _DataSource(context),
+                        source: _DataSource(context, _borrowerFiltered),
                       ),
                     ],
                   );
@@ -206,19 +213,20 @@ class _Row {
 }
 
 class _DataSource extends DataTableSource {
-  _DataSource(this.context) {
-    _paymentsList(context);
+  _DataSource(this.context, this.brw) {
+    brw = brw;
+    _paymentsList(brw);
   }
 
   final BuildContext context;
-
+  List<BorrowerModel> brw = [];
   int _selectedCount = 0;
 
   @override
   DataRow? getRow(int index) {
     assert(index >= 0);
-    if (index >= _paymentsList(context).length) return null;
-    final row = _paymentsList(context)[index];
+    if (index >= _paymentsList(brw).length) return null;
+    final row = _paymentsList(brw)[index];
     return DataRow.byIndex(
       index: index,
       selected: row.selected,
@@ -271,7 +279,7 @@ class _DataSource extends DataTableSource {
   }
 
   @override
-  int get rowCount => _paymentsList(context).length;
+  int get rowCount => _paymentsList(brw).length;
 
   @override
   bool get isRowCountApproximate => false;
@@ -280,15 +288,15 @@ class _DataSource extends DataTableSource {
   int get selectedRowCount => _selectedCount;
 }
 
-List<_Row> _paymentsList(BuildContext context) {
+List<_Row> _paymentsList(List<BorrowerModel> brw) {
   try {
     return List.generate(
-      Mapping.borrowerList.length,
+      brw.length,
       (index) {
         return _Row(
-          Mapping.borrowerList[index].getBorrowerId.toString(),
-          Mapping.borrowerList[index].toString(),
-          Mapping.borrowerList[index].getBalance.toStringAsFixed(2).toString(),
+          brw[index].getBorrowerId.toString(),
+          brw[index].toString(),
+          brw[index].getBalance.toStringAsFixed(2).toString(),
           ClipRRect(
             borderRadius: BorderRadius.circular(20),
             child: Stack(
