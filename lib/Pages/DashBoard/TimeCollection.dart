@@ -6,7 +6,7 @@ import 'package:web_store_management/Backend/Utility/Mapping.dart';
 import 'package:web_store_management/Models/GraphCollectionModel.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:web_store_management/Notification/BannerNotif.dart';
-import 'package:web_store_management/backend/Session.dart';
+import 'package:web_store_management/Backend/Session.dart';
 import 'CollectionGraph.dart';
 
 class TimeCollection extends StatefulWidget {

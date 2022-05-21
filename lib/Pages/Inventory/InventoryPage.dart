@@ -19,9 +19,12 @@ class _InventoryPage extends State<InventoryPage> {
   var _sortAscending = true;
   var controller = GlobalController();
   var product = ProductOperation();
+  late Future<Set<String>> _futureTypes;
   late Future<List<ProductModel>> _products;
   List<ProductModel> _productsFiltered = [];
+  final List<String> _filters = [];
   String _searchResult = '';
+  String _type = "Appliances";
 
   TextEditingController searchValue = TextEditingController();
   final TextEditingController barcode = TextEditingController();
@@ -32,12 +35,30 @@ class _InventoryPage extends State<InventoryPage> {
 
   @override
   void initState() {
-    _products = controller.fetchProducts(); //fetches the products
-    controller.fetchBranches(); //fetch logged in branch
-    _products.whenComplete(() => _productsFiltered = Mapping.productList);
+    //fetches the products
+    _products = controller.fetchProducts();
+    controller.fetchBranches();
+    //fetch logged in branch
+    _products.whenComplete(() {
+      _productsFiltered = Mapping.productList;
+    });
+    //get product types
+    _futureTypes = getTypes();
     super.initState();
   }
 
+  //get the product types using SET
+  Future<Set<String>> getTypes() async {
+    Set<String> types = new Set<String>();
+    await _products.whenComplete(() {
+      for (ProductModel product in Mapping.productList) {
+        types.add(product.getProdType);
+      }
+    });
+    return types;
+  }
+
+  //get store available branches
   List<String> getLocations() {
     List<String> branches = [];
     branches.addAll(Mapping.branchList.map((e) => e.branchName));
@@ -94,6 +115,33 @@ class _InventoryPage extends State<InventoryPage> {
                   ),
                 ),
               ),
+              FutureBuilder<Set<String>>(
+                  future: _futureTypes,
+                  builder: (context, snapshot) {
+                    if (!snapshot.hasData) {
+                      return CircularProgressIndicator();
+                    }
+                    if (snapshot.hasData) {
+                      return Container(
+                        width: 350,
+                        child: Autocomplete<String>(
+                          optionsBuilder: (TextEditingValue textEditingValue) {
+                            if (textEditingValue.text == '') {
+                              return const Iterable<String>.empty();
+                            }
+                            return snapshot.data!.where((String option) {
+                              return option.toLowerCase().contains(
+                                  textEditingValue.text.toLowerCase());
+                            });
+                          },
+                          onSelected: (String selection) {
+                            debugPrint('You just selected $selection');
+                          },
+                        ),
+                      );
+                    }
+                    return Text("No product type available");
+                  }),
               Padding(
                 padding: const EdgeInsets.all(6),
                 child: TextField(
@@ -265,41 +313,21 @@ class _InventoryPage extends State<InventoryPage> {
           children: [
             Row(
               children: [
-                Container(
-                  padding: const EdgeInsets.only(top: 15, bottom: 15),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(8),
-                    child: Stack(
-                      children: <Widget>[
-                        Positioned.fill(
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: HexColor("#155293"),
-                            ),
-                          ),
-                        ),
-                        Tooltip(
-                          message: 'not available',
-                          child: TextButton.icon(
-                            icon: Icon(
-                              Icons.transfer_within_a_station,
-                              color: Colors.white,
-                            ),
-                            style: TextButton.styleFrom(
-                              padding: const EdgeInsets.all(14),
-                              primary: Colors.white,
-                              onSurface:
-                                  Colors.white, //remove it if enable the button
-                              textStyle: TextStyle(
-                                  fontSize: 18, fontFamily: 'Cairo_SemiBold'),
-                            ),
-                            label: Text('TRANSFER'),
-                            onPressed: null,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                FutureBuilder<Set<String>>(
+                  future: _futureTypes,
+                  builder: (context, snapshot) {
+                    if (!snapshot.hasData) {
+                      return CircularProgressIndicator();
+                    }
+                    if (snapshot.hasData) {
+                      if (snapshot.data!.length > 0) {
+                        return Wrap(
+                            children: productTypeWidget(snapshot.data!.toSet())
+                                .toList());
+                      }
+                    }
+                    return Text("No product type available");
+                  },
                 ),
                 Container(
                   padding: const EdgeInsets.only(
@@ -340,6 +368,33 @@ class _InventoryPage extends State<InventoryPage> {
         ),
       ],
     );
+  }
+
+  Iterable<Widget> productTypeWidget(Set<String> types) {
+    return types.map((type) {
+      return Padding(
+        padding: const EdgeInsets.all(4.0),
+        child: FilterChip(
+          label: Text(type),
+          selected: _filters.contains(type),
+          onSelected: (bool value) {
+            setState(() {
+              if (value) {
+                _filters.add(type);
+                _productsFiltered = Mapping.productList
+                    .where((product) => product.getProdType == type)
+                    .toList();
+              } else {
+                _filters.removeWhere((name) {
+                  _productsFiltered = Mapping.productList;
+                  return name == type;
+                });
+              }
+            });
+          },
+        ),
+      );
+    });
   }
 
   Widget _tableProducts(List<ProductModel> products) {

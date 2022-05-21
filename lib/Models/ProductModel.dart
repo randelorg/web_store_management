@@ -5,6 +5,11 @@ class ProductModel {
   int? productQty = 0;
   String? productUnit;
   double? price;
+  String? prodType;
+
+  get getProdType => this.prodType;
+
+  set setProdType(String prodType) => this.prodType = prodType;
 
   get getProductUnit => this.productUnit;
 
@@ -66,12 +71,14 @@ class ProductModel {
       this.productName,
       this.productPrice,
       this.productUnit,
-      this.productQty}) {
+      this.productQty,
+      this.prodType}) {
     this.productCode = productCode;
     this.productName = productName;
     this.productPrice = productPrice;
     this.productUnit = productUnit;
     this.productQty = productQty;
+    this.prodType = prodType;
   }
 
   factory ProductModel.fromJson(Map<String, dynamic> json) {
@@ -81,6 +88,7 @@ class ProductModel {
       productPrice: json['ProdPrice'] as double,
       productUnit: json['ProdUnit'] as String,
       productQty: json['ProdQty'] as int,
+      prodType: json['ProdType'] as String,
     );
   }
 }
