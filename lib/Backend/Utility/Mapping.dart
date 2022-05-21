@@ -21,6 +21,13 @@ class Mapping {
     return code;
   }
 
+  static String dateToday() {
+    var _formatter = new DateFormat('yyyy-MM-dd hh:mm:ss a');
+    var _now = new DateTime.now();
+    String formattedDate = _formatter.format(_now);
+    return formattedDate;
+  }
+
   //formating currency and date
   static formatPrice(double price) => '\$ ${price.toStringAsFixed(2)}';
   static formatDate(DateTime date) => DateFormat.yMd().format(date);

@@ -36,6 +36,7 @@ class _NavDrawerAdmin extends State<NavDrawerAdmin> {
 
   List<Widget> pages = [
     TimeCollection(),
+    InventoryPage(),
     SelectionOfProductsPage(),
     CreditScreen(),
     ReleasePage(),
@@ -43,10 +44,9 @@ class _NavDrawerAdmin extends State<NavDrawerAdmin> {
     PaymentPage(),
     RequestedProdScreen(),
     RepairsPage(),
-    InventoryPage(),
     ViewReport(),
-    BranchPage(),
     EmployeePage(),
+    BranchPage(),
   ];
 
   @override
@@ -85,6 +85,25 @@ class _NavDrawerAdmin extends State<NavDrawerAdmin> {
                           ),
                           label: Text(
                             'Dashboard',
+                            style: TextStyle(
+                              fontSize: 8,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                        NavigationRailDestination(
+                          icon: Icon(
+                            Icons.inventory_2,
+                            color: Colors.white,
+                          ),
+                          selectedIcon: Icon(
+                            Icons.inventory_2,
+                            color: Colors.red,
+                            size: iconSize,
+                          ),
+                          label: Text(
+                            'Inventory',
+                            softWrap: true,
                             style: TextStyle(
                               fontSize: 8,
                               color: Colors.white,
@@ -227,25 +246,6 @@ class _NavDrawerAdmin extends State<NavDrawerAdmin> {
                         ),
                         NavigationRailDestination(
                           icon: Icon(
-                            Icons.inventory_2,
-                            color: Colors.white,
-                          ),
-                          selectedIcon: Icon(
-                            Icons.inventory_2,
-                            color: Colors.red,
-                            size: iconSize,
-                          ),
-                          label: Text(
-                            'Inventory',
-                            softWrap: true,
-                            style: TextStyle(
-                              fontSize: 8,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                        NavigationRailDestination(
-                          icon: Icon(
                             Icons.insights,
                             color: Colors.white,
                           ),
@@ -265,25 +265,6 @@ class _NavDrawerAdmin extends State<NavDrawerAdmin> {
                         ),
                         NavigationRailDestination(
                           icon: Icon(
-                            Icons.store,
-                            color: Colors.white,
-                          ),
-                          selectedIcon: Icon(
-                            Icons.store,
-                            color: Colors.red,
-                            size: iconSize,
-                          ),
-                          label: Text(
-                            'Branch',
-                            softWrap: true,
-                            style: TextStyle(
-                              fontSize: 8,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                        NavigationRailDestination(
-                          icon: Icon(
                             Icons.badge,
                             color: Colors.white,
                           ),
@@ -294,6 +275,25 @@ class _NavDrawerAdmin extends State<NavDrawerAdmin> {
                           ),
                           label: Text(
                             'Employees',
+                            softWrap: true,
+                            style: TextStyle(
+                              fontSize: 8,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                        NavigationRailDestination(
+                          icon: Icon(
+                            Icons.store,
+                            color: Colors.white,
+                          ),
+                          selectedIcon: Icon(
+                            Icons.store,
+                            color: Colors.red,
+                            size: iconSize,
+                          ),
+                          label: Text(
+                            'Branch',
                             softWrap: true,
                             style: TextStyle(
                               fontSize: 8,

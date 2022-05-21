@@ -106,21 +106,6 @@ class _Home extends State<Home> {
                     ),
                     value: 3,
                   ),
-                  PopupMenuItem<int>(
-                    child: Column(
-                      children: [
-                        ListTile(
-                          leading: Icon(Icons.notifications),
-                          title: Text('Clock in'),
-                        ),
-                        ListTile(
-                          leading: Icon(Icons.settings),
-                          title: Text('Clock out'),
-                        ),
-                      ],
-                    ),
-                    value: 4,
-                  ),
                 ];
               },
               onSelected: (value) {

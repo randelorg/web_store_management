@@ -147,7 +147,7 @@ class EmployeeOperation implements IEmployee {
 
     try {
       await Environment.methodPost(
-              "${Environment.apiUrl}/api/attendance/clockin", updateRequestLoad)
+              "${Environment.apiUrl}/api/clockin", updateRequestLoad)
           .then((value) {
         response = value;
       });
@@ -179,7 +179,7 @@ class EmployeeOperation implements IEmployee {
 
     try {
       await Environment.methodPost(
-              "${Environment.apiUrl}/api/attendance/clockout", adminUpdateLoad)
+              "${Environment.apiUrl}/api/clockout", adminUpdateLoad)
           .then((value) {
         response = value;
       });

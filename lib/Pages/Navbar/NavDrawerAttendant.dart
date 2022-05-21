@@ -33,13 +33,13 @@ class _NavDrawerAttendant extends State<NavDrawerAttendant> {
 
   List<Widget> pages = [
     TimeCollection(),
+    InventoryPage(),
     SelectionOfProductsPage(),
     ReleasePage(),
     BorrowersPage(),
     PaymentPage(),
     RequestedProdScreen(),
     RepairsPage(),
-    InventoryPage(),
     ViewReport(),
   ];
 
@@ -80,6 +80,25 @@ class _NavDrawerAttendant extends State<NavDrawerAttendant> {
                           ),
                           label: Text(
                             'Dashboard',
+                            style: TextStyle(
+                              fontSize: 8,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                        NavigationRailDestination(
+                          icon: Icon(
+                            Icons.inventory_2,
+                            color: Colors.white,
+                          ),
+                          selectedIcon: Icon(
+                            Icons.inventory_2,
+                            color: Colors.red,
+                            size: iconSize,
+                          ),
+                          label: Text(
+                            'Inventory',
+                            softWrap: true,
                             style: TextStyle(
                               fontSize: 8,
                               color: Colors.white,
@@ -193,25 +212,6 @@ class _NavDrawerAttendant extends State<NavDrawerAttendant> {
                           ),
                           label: Text(
                             'Repair',
-                            softWrap: true,
-                            style: TextStyle(
-                              fontSize: 8,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                        NavigationRailDestination(
-                          icon: Icon(
-                            Icons.inventory_2,
-                            color: Colors.white,
-                          ),
-                          selectedIcon: Icon(
-                            Icons.inventory_2,
-                            color: Colors.red,
-                            size: iconSize,
-                          ),
-                          label: Text(
-                            'Inventory',
                             softWrap: true,
                             style: TextStyle(
                               fontSize: 8,

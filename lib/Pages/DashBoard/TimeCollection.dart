@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:web_store_management/Backend/DashboardOperation.dart';
+import 'package:web_store_management/Backend/EmployeeOperation.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
 import 'package:web_store_management/Models/GraphCollectionModel.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:web_store_management/Notification/BannerNotif.dart';
+import 'package:web_store_management/backend/Session.dart';
 import 'CollectionGraph.dart';
 
 class TimeCollection extends StatefulWidget {
@@ -13,19 +16,18 @@ class TimeCollection extends StatefulWidget {
 
 class _TimeCollection extends State<TimeCollection> {
   var dashboard = DashboardOperation();
+  var emp = EmployeeOperation();
+  bool _isAuthorized = false, _isEmployee = true;
   String? name;
-  late Future day;
-  late Future week;
-  late Future month;
+  late Future day, week, month;
   late Future<List<GraphCollectionModel>> weekGraph;
+  String timeStatus = "CLOCK IN";
 
   @override
   void initState() {
-    //display user name in dashboard
-    displayName();
-    //graph
-    weekGraph = dashboard.getGraphWeek();
-    //collection summary total
+    displayName(); //display user name in dashboard
+    weekGraph = dashboard.getGraphWeek(); //graph
+    //collection total
     day = dashboard.getTodayCollection();
     week = dashboard.getWeekCollection();
     month = dashboard.getMonthCollection();
@@ -39,10 +41,49 @@ class _TimeCollection extends State<TimeCollection> {
       } else {
         //if user is admin
         name = Mapping.adminLogin[0].toString();
+        _isAuthorized = true;
+        _isEmployee = false;
       }
     } catch (e) {
       print(e);
     }
+  }
+
+  //for employee clock in and clock out
+  void timeIn(String id, String date) {
+    emp.timeIn(id, date).then(
+      (value) {
+        //set the time in button to invisible
+        setState(() {
+          //change the button text
+          timeStatus = "CLOCK OUT";
+          //set the visbility to false -> timeIn
+          Session.setTimeIn(false);
+          Session.setTimeOut(true);
+        });
+
+        BannerNotif.notif(
+          'Success',
+          'Time-in: $date',
+          Colors.green.shade600,
+        );
+      },
+    );
+  }
+
+  void timeOut(String id, String date) {
+    emp.timeOut(id, date).then((value) {
+      setState(() {
+        //change the button text
+        timeStatus = "CLOCK IN";
+      });
+
+      BannerNotif.notif(
+        'Success',
+        'Time-out: $date',
+        Colors.red.shade600,
+      );
+    });
   }
 
   @override
@@ -65,16 +106,30 @@ class _TimeCollection extends State<TimeCollection> {
                   ),
                 ),
               ),
-              Align(
-                alignment: Alignment.topRight,
-                child: Text(
-                  'Welcome, ${name.toString()}',
-                  style: TextStyle(
-                    fontSize: 15,
-                    color: Colors.black,
-                    fontFamily: 'Cairo_SemiBold',
+              Column(
+                children: [
+                  Align(
+                    alignment: Alignment.topRight,
+                    child: Text(
+                      'Welcome, ${name.toString()}',
+                      style: TextStyle(
+                        fontSize: 15,
+                        color: Colors.black,
+                        fontFamily: 'Cairo_SemiBold',
+                      ),
+                    ),
                   ),
-                ),
+                  Visibility(
+                    visible: _isEmployee,
+                    maintainSize: false,
+                    maintainAnimation: true,
+                    maintainState: true,
+                    child: Align(
+                      alignment: Alignment.topRight,
+                      child: attendantClock(),
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
@@ -111,6 +166,57 @@ class _TimeCollection extends State<TimeCollection> {
           ),
         ),
       ],
+    );
+  }
+
+  Widget attendantClock() {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(8),
+      child: Stack(
+        children: <Widget>[
+          Positioned.fill(
+            child: Container(
+              decoration: BoxDecoration(
+                color: HexColor("#155293"),
+              ),
+            ),
+          ),
+          Tooltip(
+            message: timeStatus,
+            child: TextButton.icon(
+              icon: Icon(
+                Icons.timer,
+                color: Colors.white,
+              ),
+              style: TextButton.styleFrom(
+                padding: const EdgeInsets.all(5),
+                primary: Colors.white,
+                onSurface: Colors.white, //remove it if enable the button
+                textStyle: TextStyle(
+                  fontSize: 15,
+                  fontFamily: 'Cairo_SemiBold',
+                ),
+              ),
+              label: Text(timeStatus),
+              onPressed: () async {
+                await Session.getTimeIn().then((value) {
+                  if (!value) {
+                    timeOut(
+                      Mapping.employeeLogin[0].getEmployeeID,
+                      Mapping.dateToday(),
+                    );
+                  } else {
+                    timeIn(
+                      Mapping.employeeLogin[0].getEmployeeID,
+                      Mapping.dateToday(),
+                    );
+                  }
+                });
+              },
+            ),
+          ),
+        ],
+      ),
     );
   }
 
