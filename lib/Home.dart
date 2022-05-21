@@ -22,7 +22,6 @@ class _Home extends State<Home> {
   var controller = GlobalController();
   var login = Login();
   bool _isAuthorized = false;
-  bool _isEmployee = true;
   String branchName = '';
   late Future<int> route;
 
@@ -40,7 +39,6 @@ class _Home extends State<Home> {
     if (Mapping.userRole == "Manager") {
       setState(() {
         _isAuthorized = true;
-        _isEmployee = false;
       });
     }
     Session.getBranch().then((branch) {
@@ -78,28 +76,30 @@ class _Home extends State<Home> {
               ),
               itemBuilder: (context) {
                 return [
-                  PopupMenuItem<int>(
+                  PopupMenuItem(
                     child: ListTile(
                       leading: Icon(Icons.store),
                       title: Text('$branchName'),
                     ),
                     value: 0,
                   ),
-                  PopupMenuItem<int>(
+                  PopupMenuItem(
                     child: ListTile(
                       leading: Icon(Icons.create_rounded),
                       title: Text('View Profile'),
                     ),
                     value: 1,
                   ),
-                  PopupMenuItem<int>(
+                  PopupMenuItem(
+                    enabled: _isAuthorized,
                     child: ListTile(
                       leading: Icon(Icons.person),
                       title: Text('Update Profile'),
                     ),
                     value: 2,
                   ),
-                  PopupMenuItem<int>(
+                  PopupMenuItem(
+                    enabled: _isAuthorized,
                     child: ListTile(
                       leading: Icon(Icons.person_add),
                       title: Text('Add Manager'),
@@ -155,7 +155,7 @@ class _Home extends State<Home> {
         body: FutureBuilder(
           future: route,
           builder: (context, snapshot) {
-            if (!snapshot.hasData) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
               return Center(
                 child: CircularProgressIndicator(),
               );
@@ -192,28 +192,27 @@ class _Home extends State<Home> {
   }
 
   void _destinationMenu(dynamic value) {
-    if (value == 1) {
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return ViewProfile();
-        },
-      );
-    } else if (value == 2) {
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return UpdateProfile();
-        },
-      );
-    } else if (value == 3) {
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AddAccount();
-        },
-      );
+    switch (value) {
+      case 1:
+        routeName(ViewProfile());
+        break;
+      case 2:
+        routeName(UpdateProfile());
+        break;
+      case 3:
+        routeName(AddAccount());
+        break;
+      default:
     }
+  }
+
+  void routeName(Widget name) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return name;
+      },
+    );
   }
 
   void _destinationNotif(dynamic value) {

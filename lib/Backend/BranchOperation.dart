@@ -90,17 +90,16 @@ class BranchOperation implements IBranch, IInventory {
   Future<bool> transferStock(
       String productCode, int qty, String branchCode) async {
     //concatonate product code and branch code as the product code copy for this branch
-    final String code = branchCode.trim() + '-' + productCode.trim();
     var response;
     var stockLoad = json.encode({
-      'prodCode': code,
+      'prodCode': productCode.trim(),
       'qty': qty,
       'branchCode': branchCode,
     });
 
     try {
       await Environment.methodPost(
-              "${Environment.apiUrl}/api/transfer", stockLoad)
+              "http://localhost:8090/api/transfer", stockLoad)
           .then((value) {
         response = value;
       });
