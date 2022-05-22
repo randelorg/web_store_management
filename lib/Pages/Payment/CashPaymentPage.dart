@@ -8,7 +8,7 @@ import 'package:web_store_management/Backend/Utility/Mapping.dart';
 import 'package:web_store_management/Helpers/PrintHelper.dart';
 import 'package:web_store_management/Models/BorrowerModel.dart';
 import 'package:web_store_management/Models/InvoiceModel.dart';
-
+import 'package:web_store_management/Models/ProductModel.dart';
 import '../../Notification/BannerNotif.dart';
 
 class CashPaymentPage extends StatefulWidget {
@@ -22,14 +22,35 @@ class _CashPaymentPage extends State<CashPaymentPage> {
   final fname = TextEditingController();
   final lname = TextEditingController();
   final address = TextEditingController();
+  final searchValue = TextEditingController();
+  final List<String> _filters = [];
+  late Future<Set<String>> _futureTypes;
+  String _searchResult = '';
+  List<ProductModel> _productsFiltered = [];
   List<InvoiceItem> items = [];
   late Future _products;
 
   @override
   void initState() {
     //fetches the products from the database
-    this._products = controller.fetchProducts();
+    _products = controller.fetchProducts();
+    //fetch logged in branch
+    _products.whenComplete(() {
+      _productsFiltered = Mapping.productList;
+    });
+    _futureTypes = getTypes();
     super.initState();
+  }
+
+  //get the product types using SET
+  Future<Set<String>> getTypes() async {
+    Set<String> types = new Set<String>();
+    await _products.whenComplete(() {
+      for (ProductModel product in Mapping.productList) {
+        types.add(product.getProdType);
+      }
+    });
+    return types;
   }
 
   Widget build(BuildContext context) {
@@ -148,15 +169,72 @@ class _CashPaymentPage extends State<CashPaymentPage> {
               "SELECT PRODUCTS",
               style: TextStyle(fontFamily: 'Cairo_Bold', fontSize: 30),
             ),
+            Row(
+              children: [
+                FutureBuilder<Set<String>>(
+                  future: _futureTypes,
+                  builder: (context, snapshot) {
+                    if (!snapshot.hasData) {
+                      return CircularProgressIndicator();
+                    }
+                    if (snapshot.hasData) {
+                      if (snapshot.data!.length > 0) {
+                        return Wrap(
+                            children: productTypeWidget(snapshot.data!.toSet())
+                                .toList());
+                      }
+                    }
+                    return Text("No product type available");
+                  },
+                ),
+                Align(
+                  alignment: Alignment.topRight,
+                  child: Container(
+                    padding: const EdgeInsets.only(
+                        top: 15, bottom: 15, left: 20, right: 5),
+                    width: 350,
+                    child: TextField(
+                      controller: searchValue,
+                      onChanged: (value) {
+                        setState(() {
+                          _searchResult = value;
+                          _productsFiltered = Mapping.productList
+                              .where((product) => product.getProductName
+                                  .toLowerCase()
+                                  .contains(_searchResult.toLowerCase()))
+                              .toList();
+                        });
+                      },
+                      decoration: InputDecoration(
+                        hintText: 'Search Product',
+                        filled: true,
+                        fillColor: Colors.blueGrey[50],
+                        labelStyle: TextStyle(fontSize: 12),
+                        contentPadding: EdgeInsets.only(left: 30),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide:
+                              BorderSide(color: Colors.blueGrey.shade50),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide:
+                              BorderSide(color: Colors.blueGrey.shade50),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
             Expanded(
               child: Container(
-                padding: EdgeInsets.only(top: 20, bottom: 10, right: 10, left: 10),
+                padding:
+                    EdgeInsets.only(top: 20, bottom: 10, right: 10, left: 10),
                 width: (MediaQuery.of(context).size.width) / 1.5,
                 height: (MediaQuery.of(context).size.height),
                 child: ListView(
                   children: [
                     FutureBuilder(
-                      future: this._products,
+                      future: _products,
                       builder: (context, snapshot) {
                         if (!snapshot.hasData) {
                           return Center(child: CircularProgressIndicator());
@@ -172,7 +250,7 @@ class _CashPaymentPage extends State<CashPaymentPage> {
                               DataColumn(label: Text('PRICE')),
                               DataColumn(label: Text('QTY')),
                             ],
-                            source: _DataSource(context),
+                            source: _DataSource(context, _productsFiltered),
                           );
                         }
                         return Center(
@@ -192,7 +270,6 @@ class _CashPaymentPage extends State<CashPaymentPage> {
                 ),
               ),
             ),
-
             SizedBox(
               height: 5,
             ),
@@ -220,11 +297,11 @@ class _CashPaymentPage extends State<CashPaymentPage> {
                     ),
                     child: const Text('DONE'),
                     onPressed: () async {
-                      if (fname.text.isEmpty || lname.text.isEmpty || address.text.isEmpty) {
-                        BannerNotif.notif(
-                          "Error",
-                          "Please fill all the fields",
-                          Colors.red.shade600);
+                      if (fname.text.isEmpty ||
+                          lname.text.isEmpty ||
+                          address.text.isEmpty) {
+                        BannerNotif.notif("Error", "Please fill all the fields",
+                            Colors.red.shade600);
                       } else {
                         final date = DateTime.now();
                         final dueDate = date.add(Duration(days: 7));
@@ -261,7 +338,6 @@ class _CashPaymentPage extends State<CashPaymentPage> {
             ),
           ],
         ),
-        
         Padding(
           padding: EdgeInsets.only(bottom: 5, right: 8),
           child: Align(
@@ -293,6 +369,33 @@ class _CashPaymentPage extends State<CashPaymentPage> {
       ),
     );
   }
+
+  Iterable<Widget> productTypeWidget(Set<String> types) {
+    return types.map((type) {
+      return Padding(
+        padding: const EdgeInsets.all(4.0),
+        child: FilterChip(
+          label: Text(type),
+          selected: _filters.contains(type),
+          onSelected: (bool value) {
+            setState(() {
+              if (value) {
+                _filters.add(type);
+                _productsFiltered = Mapping.productList
+                    .where((product) => product.getProdType == type)
+                    .toList();
+              } else {
+                _filters.removeWhere((name) {
+                  _productsFiltered = Mapping.productList;
+                  return name == type;
+                });
+              }
+            });
+          },
+        ),
+      );
+    });
+  }
 }
 
 class _Row {
@@ -312,12 +415,14 @@ class _Row {
 }
 
 class _DataSource extends DataTableSource {
-  _DataSource(this.context) {
-    _products = _productList(context);
+  _DataSource(this.context, this._productsFiltered) {
+    _productsFiltered = _productsFiltered;
+    _products = _productList(_productsFiltered);
   }
 
   final BuildContext context;
   int _selectedCount = 0;
+  List<ProductModel> _productsFiltered = [];
   static List<_Row> _products = [];
 
   List<TextEditingController> qty = List<TextEditingController>.generate(
@@ -387,15 +492,13 @@ class _DataSource extends DataTableSource {
   @override
   int get selectedRowCount => _selectedCount;
 
-  List<_Row> _productList(BuildContext context) {
+  List<_Row> _productList(List<ProductModel> products) {
     try {
-      return List.generate(Mapping.productList.length, (index) {
+      return List.generate(products.length, (index) {
         return _Row(
-          Mapping.productList[index].getProductCode.toString(),
-          Mapping.productList[index].getProductName.toString(),
-          Mapping.productList[index].getProductPrice
-              .toStringAsFixed(2)
-              .toString(),
+          products[index].getProductCode.toString(),
+          products[index].getProductName.toString(),
+          products[index].getProductPrice.toStringAsFixed(2).toString(),
           TextFormField(
             controller: qty[index],
             keyboardType: TextInputType.number,

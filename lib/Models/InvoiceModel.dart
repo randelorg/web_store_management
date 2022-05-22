@@ -26,6 +26,18 @@ class InvoiceInfo {
   });
 }
 
+class InvoiceCash {
+  final String description;
+  final String number;
+  final DateTime date;
+
+  const InvoiceCash({
+    required this.description,
+    required this.number,
+    required this.date,
+  });
+}
+
 class InvoiceItem {
   final String description;
   final int quantity;
