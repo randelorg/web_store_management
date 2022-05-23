@@ -45,18 +45,13 @@ class PdfInvoiceApi {
       );
 
   static Widget buildInvoiceInfo(InvoiceInfo info) {
-    final paymentTerms = '${info.dueDate.difference(info.date).inDays} days';
     final titles = <String>[
       'Invoice Number:',
       'Invoice Date:',
-      'Payment Terms:',
-      'Due Date:'
     ];
     final data = <String>[
       info.number,
       Mapping.formatDate(info.date),
-      paymentTerms,
-      Mapping.formatDate(info.dueDate),
     ];
 
     return Column(
@@ -97,9 +92,9 @@ class PdfInvoiceApi {
       return [
         item.description,
         '${item.quantity}',
-        '\$ ${item.unitPrice}',
+        '\PHP ${item.unitPrice}',
         '${item.vat} %',
-        '\$ ${total.toStringAsFixed(2)}',
+        '\PHP ${total.toStringAsFixed(2)}',
       ];
     }).toList();
 
@@ -176,7 +171,8 @@ class PdfInvoiceApi {
         children: [
           Divider(),
           SizedBox(height: 2 * PdfPageFormat.mm),
-          buildSimpleText(title: 'Store Address:', value: 'Dellrains Store Mabolo'),
+          buildSimpleText(
+              title: 'Store Address:', value: 'Dellrains Store Mabolo'),
           SizedBox(height: 1 * PdfPageFormat.mm),
           buildSimpleText(title: 'Contact No:', value: '+63 933 854 5538  '),
         ],

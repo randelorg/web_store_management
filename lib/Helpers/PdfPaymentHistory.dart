@@ -34,7 +34,6 @@ class PdfPaymentHistory {
           ),
         ],
       );
-
   static Widget buildCustomerAddress(BorrowerModel customer) => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -45,11 +44,10 @@ class PdfPaymentHistory {
             ),
           ),
           Text(customer.getHomeAddress),
-        ],  
+        ],
       );
 
-  static Widget buildInvoiceInfo(InvoiceInfo info) {
-    final paymentTerms = '${info.dueDate.difference(info.date).inDays} days';
+  static Widget buildInvoiceInfo(InvoiceInfo cash) {
     final titles = <String>[
       'Invoice Number:',
       'Invoice Date:',
@@ -57,10 +55,8 @@ class PdfPaymentHistory {
       'Due Date:'
     ];
     final data = <String>[
-      info.number,
-      Mapping.formatDate(info.date),
-      paymentTerms,
-      Mapping.formatDate(info.dueDate),
+      cash.number,
+      Mapping.formatDate(cash.date),
     ];
 
     return Column(

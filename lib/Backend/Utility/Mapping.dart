@@ -29,7 +29,7 @@ class Mapping {
   }
 
   //formating currency and date
-  static formatPrice(double price) => '\$ ${price.toStringAsFixed(2)}';
+  static formatPrice(double price) => '\PHP ${price.toStringAsFixed(2)}';
   static formatDate(DateTime date) => DateFormat.yMd().format(date);
 
   //for login purposes

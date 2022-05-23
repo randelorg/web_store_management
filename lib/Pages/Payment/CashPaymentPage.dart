@@ -4,12 +4,13 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:printing/printing.dart';
 import 'package:web_store_management/Backend/GlobalController.dart';
 import 'package:web_store_management/Backend/ProductOperation.dart';
-import 'package:web_store_management/Backend/Utility/Mapping.dart';
-import 'package:web_store_management/Helpers/PrintHelper.dart';
 import 'package:web_store_management/Models/BorrowerModel.dart';
 import 'package:web_store_management/Models/InvoiceModel.dart';
 import 'package:web_store_management/Models/ProductModel.dart';
-import '../../Notification/BannerNotif.dart';
+import 'package:web_store_management/Backend/CashPaymentOperation.dart';
+import 'package:web_store_management/Backend/Utility/Mapping.dart';
+import 'package:web_store_management/Helpers/PrintHelper.dart';
+import 'package:web_store_management/Notification/BannerNotif.dart';
 
 class CashPaymentPage extends StatefulWidget {
   @override
@@ -17,6 +18,7 @@ class CashPaymentPage extends StatefulWidget {
 }
 
 class _CashPaymentPage extends State<CashPaymentPage> {
+  var keyInvoice = CashPaymentOperation();
   var controller = GlobalController();
   var product = ProductOperation();
   final fname = TextEditingController();
@@ -297,40 +299,31 @@ class _CashPaymentPage extends State<CashPaymentPage> {
                     ),
                     child: const Text('DONE'),
                     onPressed: () async {
+                      String invoiceNumber = "";
+                      await keyInvoice
+                          .getInvoiceNumber()
+                          .then((value) => invoiceNumber = value);
+
                       if (fname.text.isEmpty ||
                           lname.text.isEmpty ||
                           address.text.isEmpty) {
-                        BannerNotif.notif("Error", "Please fill all the fields",
-                            Colors.red.shade600);
-                      } else {
-                        final date = DateTime.now();
-                        final dueDate = date.add(Duration(days: 7));
-
-                        final invoice = Invoice(
-                          customer: BorrowerModel.invoice(
-                            fname.text.trim(),
-                            lname.text.trim(),
-                            address.text.trim(),
-                          ),
-                          info: InvoiceInfo(
-                            date: date,
-                            description:
-                                'This will serve as your Unofficial Receipt. Thank you!',
-                            number: '${DateTime.now().year}-9999',
-                            dueDate: dueDate,
-                          ),
-                          items: Mapping.invoice,
+                        BannerNotif.notif(
+                          "Error",
+                          "Please fill all the fields",
+                          Colors.red.shade600,
                         );
 
-                        Navigator.pop(context);
-                        //show the print screen
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return showInvoice(invoice);
-                          },
-                        );
+                        return;
                       }
+
+                      Navigator.pop(context);
+                      //show the print screen
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return showInvoice(invoiceContent(invoiceNumber));
+                        },
+                      );
                     },
                   ),
                 ],
@@ -349,6 +342,7 @@ class _CashPaymentPage extends State<CashPaymentPage> {
                 size: 30,
               ),
               onPressed: () {
+                Mapping.invoice.clear();
                 Navigator.of(context).pop();
               },
             ),
@@ -358,11 +352,27 @@ class _CashPaymentPage extends State<CashPaymentPage> {
     );
   }
 
+  Invoice invoiceContent(String invoiceNumber) {
+    return Invoice(
+      customer: BorrowerModel.invoice(
+        fname.text.trim(),
+        lname.text.trim(),
+        address.text.trim(),
+      ),
+      info: InvoiceInfo(
+        date: DateTime.now(),
+        description: 'This will serve as your Unofficial Receipt. Thank you!',
+        number: invoiceNumber,
+      ),
+      items: Mapping.invoice,
+    );
+  }
+
   Widget showInvoice(Invoice invoice) {
     return Container(
       child: PdfPreview(
         padding: EdgeInsets.all(10),
-        build: (format) => PrintHelper.generateInvoice(
+        build: (format) => PrintHelper.generateLoanInvoice(
           format,
           invoice,
         ),

@@ -97,9 +97,9 @@ class _InventoryPage extends State<InventoryPage> {
                     hintText: 'Barcode',
                     //TODO: add a barcode scanner
                     // suffixIcon: IconButton(
-                    //   onPressed: () {},
                     //   icon: Icon(Icons.scanner_sharp),
                     //   tooltip: 'Scan Product Barcode',
+                    //   onPressed: () {},
                     // ),
                     filled: true,
                     fillColor: Colors.blueGrey[50],
@@ -132,9 +132,7 @@ class _InventoryPage extends State<InventoryPage> {
                             if (textEditingValue.text == '') {
                               return const Iterable<String>.empty();
                             }
-                            if (textEditingValue.text.isNotEmpty) {
-                              
-                            }
+                            if (textEditingValue.text.isNotEmpty) {}
                             return snapshot.data!.where((String option) {
                               return option.toLowerCase().contains(
                                   textEditingValue.text.toLowerCase());

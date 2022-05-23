@@ -54,7 +54,7 @@ class PrintHelper {
     return pdf.save();
   }
 
-  static Future<Uint8List> generateInvoice(
+  static Future<Uint8List> generateLoanInvoice(
       PdfPageFormat format, Invoice invoice) async {
     final pdf = pw.Document(version: PdfVersion.pdf_1_5, compress: true);
 

@@ -49,7 +49,6 @@ dependencies:
   material_design_icons_flutter: ^5.0.6595
   dcdg: ^4.0.1
   flutter_dotenv: ^5.0.2
-  side_sheet: ^1.0.1
   modal_side_sheet: ^0.0.1
   
 
