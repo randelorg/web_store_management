@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:web_store_management/backend/Interfaces/IProduct.dart';
+import 'package:web_store_management/Backend/Interfaces/IProduct.dart';
 import 'package:web_store_management/Notification/BannerNotif.dart';
 import 'package:web_store_management/environment/Environment.dart';
 

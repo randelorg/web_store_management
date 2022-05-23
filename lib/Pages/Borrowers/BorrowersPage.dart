@@ -1,7 +1,8 @@
 import 'package:hexcolor/hexcolor.dart';
 import 'package:flutter/material.dart';
+import 'package:modal_side_sheet/modal_side_sheet.dart';
 import 'package:web_store_management/Models/BorrowerModel.dart';
-import 'ViewBorrowerProfile.dart';
+import 'package:web_store_management/Pages/Borrowers/ViewBrwProfile.dart';
 import '../../Backend/Utility/Mapping.dart';
 import '../../Backend/GlobalController.dart';
 
@@ -210,16 +211,22 @@ class _DataSource extends DataTableSource {
         DataCell(Text(row.valueC)),
         DataCell(Text(row.valueD)),
         DataCell((row.valueE), onTap: () {
-          showDialog(
+          showModalSideSheet(
             context: context,
-            builder: (BuildContext context) {
-              return ViewBorrowerProfile(
-                id: int.parse(row.valueA),
-                name: row.valueB,
-                number: row.valueC,
-                balance: double.parse(row.valueD),
-              );
-            },
+            width: MediaQuery.of(context).size.width / 4,
+            body: ListView(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(30.0),
+                  child: ViewBrwProfile(
+                    id: int.parse(row.valueA),
+                    name: row.valueB,
+                    number: row.valueC,
+                    balance: double.parse(row.valueD),
+                  ),
+                ),
+              ],
+            ),
           );
         }),
       ],

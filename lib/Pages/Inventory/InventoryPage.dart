@@ -6,7 +6,7 @@ import 'package:web_store_management/Backend/Session.dart';
 import 'package:web_store_management/Models/ProductModel.dart';
 import 'package:web_store_management/Notification/BannerNotif.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
-import 'package:web_store_management/backend/ProductOperation.dart';
+import 'package:web_store_management/Backend/ProductOperation.dart';
 import 'TransferStock.dart';
 import 'UpdateProduct.dart';
 import '../../Backend/Utility/Mapping.dart';

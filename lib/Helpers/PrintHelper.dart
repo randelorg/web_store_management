@@ -2,6 +2,7 @@ import 'dart:typed_data';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:web_store_management/Backend/BorrowerOperation.dart';
+import 'package:web_store_management/Backend/CashPaymentOperation.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
 import 'package:web_store_management/Helpers/PdfInvoiceApi.dart';
 import 'package:web_store_management/Models/InvoiceModel.dart';
@@ -57,7 +58,16 @@ class PrintHelper {
   static Future<Uint8List> generateLoanInvoice(
       PdfPageFormat format, Invoice invoice) async {
     final pdf = pw.Document(version: PdfVersion.pdf_1_5, compress: true);
+    var sales = CashPaymentOperation();
+    //compute total
+    double netTotal = invoice.items
+        .map((item) => item.unitPrice * item.quantity)
+        .reduce((item1, item2) => item1 + item2);
+    //send sales to the database
+    await sales.sendSales(
+        invoice.info.number, invoice.info.date.toString(), netTotal);
 
+    //build the invoice
     pdf.addPage(pw.MultiPage(
       build: (context) => [
         PdfInvoiceApi.buildHeader(invoice),

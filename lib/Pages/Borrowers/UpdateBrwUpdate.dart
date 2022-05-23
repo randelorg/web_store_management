@@ -3,9 +3,9 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:web_store_management/Backend/BorrowerOperation.dart';
 import 'package:web_store_management/Notification/BannerNotif.dart';
 
-class UpdateBorrowerPage extends StatefulWidget {
+class UpdateBrwPage extends StatefulWidget {
   final String? bid, firstname, lastname, number, address;
-  UpdateBorrowerPage({
+  UpdateBrwPage({
     required this.bid,
     this.firstname,
     this.lastname,
@@ -14,10 +14,10 @@ class UpdateBorrowerPage extends StatefulWidget {
   });
 
   @override
-  _UpdateBorrowerPage createState() => _UpdateBorrowerPage();
+  _UpdateBrwPage createState() => _UpdateBrwPage();
 }
 
-class _UpdateBorrowerPage extends State<UpdateBorrowerPage> {
+class _UpdateBrwPage extends State<UpdateBrwPage> {
   var borrower = BorrowerOperation();
   final firstname = TextEditingController();
   final lastname = TextEditingController();
@@ -35,25 +35,11 @@ class _UpdateBorrowerPage extends State<UpdateBorrowerPage> {
 
   @override
   Widget build(BuildContext context) {
-    return AlertDialog(
-      actionsPadding: EdgeInsets.only(bottom: 5, left: 5, right: 5),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-      actions: <Widget>[
-        Column(
+    return Container(
+      child: Align(
+        alignment: Alignment.center,
+        child: Column(
           children: [
-            Align(
-              alignment: Alignment.topRight,
-              child: IconButton(
-                icon: Icon(
-                  Icons.cancel,
-                  color: Colors.black,
-                  size: 30,
-                ),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-            ),
             Text(
               'Update Borrower',
               softWrap: true,
@@ -61,11 +47,10 @@ class _UpdateBorrowerPage extends State<UpdateBorrowerPage> {
               style: TextStyle(
                 color: HexColor("#155293"),
                 fontFamily: 'Cairo_Bold',
-                fontSize: 30,
+                fontSize: 25,
               ),
             ),
-
-             Padding(
+            Padding(
               padding: EdgeInsets.only(top: 20, left: 2),
               child: Container(
                 alignment: Alignment.centerLeft,
@@ -74,7 +59,7 @@ class _UpdateBorrowerPage extends State<UpdateBorrowerPage> {
                   style: TextStyle(fontSize: 10),
                 ),
               ),
-            ),  
+            ),
             Padding(
               padding: EdgeInsets.only(bottom: 15),
               child: TextField(
@@ -96,7 +81,6 @@ class _UpdateBorrowerPage extends State<UpdateBorrowerPage> {
                 ),
               ),
             ),
-
             Padding(
               padding: EdgeInsets.only(left: 2),
               child: Container(
@@ -128,7 +112,6 @@ class _UpdateBorrowerPage extends State<UpdateBorrowerPage> {
                 ),
               ),
             ),
-
             Padding(
               padding: EdgeInsets.only(left: 2),
               child: Container(
@@ -162,7 +145,6 @@ class _UpdateBorrowerPage extends State<UpdateBorrowerPage> {
                 ),
               ),
             ),
-            
             Padding(
               padding: EdgeInsets.only(left: 2),
               child: Container(
@@ -209,7 +191,8 @@ class _UpdateBorrowerPage extends State<UpdateBorrowerPage> {
                     ),
                     TextButton(
                       style: TextButton.styleFrom(
-                        padding: const EdgeInsets.only(left: 36, right: 36, top: 18, bottom: 18),
+                        padding: const EdgeInsets.only(
+                            left: 36, right: 36, top: 18, bottom: 18),
                         primary: Colors.white,
                         textStyle: TextStyle(
                             fontFamily: 'Cairo_SemiBold',
@@ -218,20 +201,23 @@ class _UpdateBorrowerPage extends State<UpdateBorrowerPage> {
                       ),
                       child: const Text('UPDATE'),
                       onPressed: () {
-                        if (firstname.text.isEmpty || lastname.text.isEmpty ||
-                            number.text.isEmpty || address.text.isEmpty) {
-                              BannerNotif.notif(
-                               "Error",
-                               "Please fill all the fields",Colors.red.shade600);
-                        } else {                   
+                        if (firstname.text.isEmpty ||
+                            lastname.text.isEmpty ||
+                            number.text.isEmpty ||
+                            address.text.isEmpty) {
+                          BannerNotif.notif(
+                              "Error",
+                              "Please fill all the fields",
+                              Colors.red.shade600);
+                        } else {
                           borrower
                               .updateBorrower(
-                                int.parse(widget.bid.toString()),
-                                firstname.text,
-                                lastname.text,
-                                number.text,
-                                address.text,
-                              )
+                            int.parse(widget.bid.toString()),
+                            firstname.text,
+                            lastname.text,
+                            number.text,
+                            address.text,
+                          )
                               .then((value) {
                             if (value) {
                               Navigator.pop(context);
@@ -254,8 +240,8 @@ class _UpdateBorrowerPage extends State<UpdateBorrowerPage> {
               ),
             ),
           ],
-        )
-      ],
+        ),
+      ),
     );
   }
 }
