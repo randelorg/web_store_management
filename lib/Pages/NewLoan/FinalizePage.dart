@@ -173,7 +173,7 @@ class _FinalizePage extends State<FinalizePage> {
     num balance = 0;
     num temp = 0;
     Mapping.selectedProducts.forEach((e) {
-      temp = e.getPrice * e.getProductQty;
+      //temp = e.getPrice * e.getProductQty;
       balance += temp;
     });
     return balance;
@@ -226,7 +226,7 @@ class _DataSource extends DataTableSource {
           if (qty >= 0) {
             qty++;
             row.valueD = qty.toString();
-            Mapping.selectedProducts[index].setProductQty = qty;
+            //Mapping.selectedProducts[index].setProductQty = qty;
             notifyListeners();
           }
         }),
@@ -239,7 +239,7 @@ class _DataSource extends DataTableSource {
           //deduct from cart
           qty--;
           row.valueD = qty.toString();
-          Mapping.selectedProducts[index].setProductQty = qty;
+          //Mapping.selectedProducts[index].setProductQty = qty;
           notifyListeners();
         }),
       ],
@@ -261,9 +261,11 @@ class _DataSource extends DataTableSource {
       (index) {
         return new _Row(
           Mapping.selectedProducts[index].getProductName.toString(),
-          Mapping.selectedProducts[index].getPrice.toString(),
+          // Mapping.selectedProducts[index].getPrice.toString(),
+          30.toString(),
           Icon(Icons.add_circle, color: HexColor("#155293")),
-          Mapping.selectedProducts[index].getProductQty.toString(),
+          // Mapping.selectedProducts[index].getProductQty.toString(),
+          4.toString(),
           Icon(Icons.remove_circle, color: HexColor("#EA1C24")),
         );
       },

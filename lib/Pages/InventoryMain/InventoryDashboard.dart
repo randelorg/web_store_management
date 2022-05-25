@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:modal_side_sheet/modal_side_sheet.dart';
@@ -7,16 +8,14 @@ import 'package:web_store_management/Models/ProductModel.dart';
 import 'package:web_store_management/Notification/BannerNotif.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
 import 'package:web_store_management/Backend/ProductOperation.dart';
-import 'TransferStock.dart';
-import 'UpdateProduct.dart';
 import '../../Backend/Utility/Mapping.dart';
 
-class InventoryPage extends StatefulWidget {
+class InventoryDashboard extends StatefulWidget {
   @override
-  _InventoryPage createState() => _InventoryPage();
+  _InventoryDashboard createState() => _InventoryDashboard();
 }
 
-class _InventoryPage extends State<InventoryPage> {
+class _InventoryDashboard extends State<InventoryDashboard> {
   var _sortAscending = true;
   var controller = GlobalController();
   var prod = ProductOperation();
@@ -71,235 +70,6 @@ class _InventoryPage extends State<InventoryPage> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        Container(
-          width: (MediaQuery.of(context).size.width) / 5,
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 120),
-                child: Text(
-                  'Add Product',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: HexColor("#155293"),
-                    fontFamily: 'Cairo_Bold',
-                    fontSize: 30,
-                    overflow: TextOverflow.fade,
-                  ),
-                  maxLines: 2,
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.all(6),
-                child: TextField(
-                  controller: productTextfields[0],
-                  decoration: InputDecoration(
-                    hintText: 'Barcode',
-                    //TODO: add a barcode scanner
-                    // suffixIcon: IconButton(
-                    //   icon: Icon(Icons.scanner_sharp),
-                    //   tooltip: 'Scan Product Barcode',
-                    //   onPressed: () {},
-                    // ),
-                    filled: true,
-                    fillColor: Colors.blueGrey[50],
-                    labelStyle: TextStyle(fontSize: 10),
-                    contentPadding: EdgeInsets.only(left: 15),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                      borderRadius: BorderRadius.circular(5),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                      borderRadius: BorderRadius.circular(5),
-                    ),
-                  ),
-                ),
-              ),
-              FutureBuilder<Set<String>>(
-                  future: _futureTypes,
-                  builder: (context, snapshot) {
-                    if (!snapshot.hasData) {
-                      return CircularProgressIndicator();
-                    }
-                    if (snapshot.hasData) {
-                      return Container(
-                        width: 350,
-                        child: Autocomplete<String>(
-                          initialValue:
-                              TextEditingValue(text: snapshot.data!.first),
-                          optionsBuilder: (TextEditingValue textEditingValue) {
-                            if (textEditingValue.text == '') {
-                              return const Iterable<String>.empty();
-                            }
-                            if (textEditingValue.text.isNotEmpty) {}
-                            return snapshot.data!.where((String option) {
-                              return option.toLowerCase().contains(
-                                  textEditingValue.text.toLowerCase());
-                            });
-                          },
-                          onSelected: (String selection) {
-                            _prodType = selection;
-                          },
-                        ),
-                      );
-                    }
-                    return Text("No product type available");
-                  }),
-              Padding(
-                padding: const EdgeInsets.all(6),
-                child: TextField(
-                  controller: productTextfields[1],
-                  decoration: InputDecoration(
-                    hintText: 'Product Name',
-                    filled: true,
-                    fillColor: Colors.blueGrey[50],
-                    labelStyle: TextStyle(fontSize: 12),
-                    contentPadding: EdgeInsets.only(left: 15),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(6),
-                child: TextField(
-                  controller: productTextfields[2],
-                  decoration: InputDecoration(
-                    hintText: 'Quantity',
-                    filled: true,
-                    fillColor: Colors.blueGrey[50],
-                    labelStyle: TextStyle(fontSize: 12),
-                    contentPadding: EdgeInsets.only(left: 15),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(6),
-                child: TextField(
-                  controller: productTextfields[3],
-                  decoration: InputDecoration(
-                    hintText: 'Unit',
-                    filled: true,
-                    fillColor: Colors.blueGrey[50],
-                    labelStyle: TextStyle(fontSize: 12),
-                    contentPadding: EdgeInsets.only(left: 15),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(6),
-                child: TextField(
-                  controller: productTextfields[4],
-                  decoration: InputDecoration(
-                    hintText: 'Price',
-                    filled: true,
-                    fillColor: Colors.blueGrey[50],
-                    labelStyle: TextStyle(fontSize: 12),
-                    contentPadding: EdgeInsets.only(left: 15),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(10),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(20),
-                  child: Stack(
-                    children: <Widget>[
-                      Positioned.fill(
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: HexColor("#155293"),
-                          ),
-                        ),
-                      ),
-                      TextButton(
-                        style: TextButton.styleFrom(
-                          padding: const EdgeInsets.only(
-                              top: 18, bottom: 18, left: 36, right: 36),
-                          primary: Colors.white,
-                          textStyle: TextStyle(
-                              fontFamily: 'Cairo_SemiBold', fontSize: 14),
-                        ),
-                        child: const Text('NEXT'),
-                        onPressed: () async {
-                          for (var x in productTextfields) {
-                            if (x.text.isEmpty) {
-                              BannerNotif.notif(
-                                "Error",
-                                "Please fill all the fields",
-                                Colors.red.shade600,
-                              );
-                              return;
-                            }
-                          }
-                          showModalSideSheet(
-                            context: context,
-                            width: MediaQuery.of(context).size.width / 4,
-                            body: ListView(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(30.0),
-                                  child: _pickSupplier(context),
-                                ),
-                              ],
-                            ),
-                          );
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-        Container(
-          child: Row(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 25, right: 25),
-                child: const VerticalDivider(
-                  color: Colors.grey,
-                  thickness: 1,
-                  indent: 80,
-                  endIndent: 80,
-                  width: 10,
-                ),
-              ),
-            ],
-          ),
-        ),
         Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.end,
@@ -700,7 +470,7 @@ class _InventoryPage extends State<InventoryPage> {
   Widget _tableProducts(List<ProductModel> products) {
     return Expanded(
       child: Container(
-        width: (MediaQuery.of(context).size.width) / 1.5,
+        width: (MediaQuery.of(context).size.width) / 1.3,
         height: (MediaQuery.of(context).size.height),
         child: ListView(
           children: [
@@ -716,15 +486,17 @@ class _InventoryPage extends State<InventoryPage> {
                 }
                 if (snapshot.hasData) {
                   return PaginatedDataTable(
+                    columnSpacing: 45,
                     showCheckboxColumn: false,
                     showFirstLastButtons: true,
                     sortAscending: _sortAscending,
                     sortColumnIndex: 1,
                     rowsPerPage: 14,
                     columns: [
-                      DataColumn(label: Text('PRODUCT NAME')),
+                      DataColumn(label: Text('PRODUCT \n NAME')),
+                      DataColumn(label: Text('PRODUCT \n LABEL')),
                       DataColumn(
-                        label: Text('QTY'),
+                        label: Text('STARTING \n INVENTORY'),
                         // onSort: (index, sortAscending) {
                         //   setState(() {
                         //     _sortAscending = sortAscending;
@@ -738,15 +510,37 @@ class _InventoryPage extends State<InventoryPage> {
                         //   });
                         // },
                       ),
-                      DataColumn(label: Text('UNIT')),
-                      DataColumn(label: Text('PRICE')),
-                      DataColumn(label: Text('ACTION')),
                       DataColumn(
-                        label: Text(
-                          'TRANSFER \n STOCKS',
-                          textAlign: TextAlign.center,
-                        ),
+                        label: Text('INVENTORY \n RECEIVED'),
+                        // onSort: (index, sortAscending) {
+                        //   setState(() {
+                        //     _sortAscending = sortAscending;
+                        //     if (sortAscending) {
+                        //       _productsFiltered.sort((a, b) =>
+                        //           a.getProductQty.compareTo(b.getProductQty));
+                        //     } else {
+                        //       _productsFiltered.sort((a, b) =>
+                        //           b.getProductQty.compareTo(a.getProductQty));
+                        //     }
+                        //   });
+                        // },
                       ),
+                      DataColumn(
+                        label: Text('INVENTORY \n BOUGHT'),
+                        // onSort: (index, sortAscending) {
+                        //   setState(() {
+                        //     _sortAscending = sortAscending;
+                        //     if (sortAscending) {
+                        //       _productsFiltered.sort((a, b) =>
+                        //           a.getProductQty.compareTo(b.getProductQty));
+                        //     } else {
+                        //       _productsFiltered.sort((a, b) =>
+                        //           b.getProductQty.compareTo(a.getProductQty));
+                        //     }
+                        //   });
+                        // },
+                      ),
+                      DataColumn(label: Text('INVENTORY \n ON HAND')),
                     ],
                     source:
                         _DataSource(context, getLocations(), _productsFiltered),
@@ -770,18 +564,18 @@ class _Row {
   _Row(
     this.valueA,
     this.valueB,
-    this.valueC,
-    this.valueD,
     this.valueE,
     this.valueF,
+    this.valueG,
+    this.valueH,
   );
 
-  final String valueA;
-  final valueB;
-  final String valueC;
-  final String valueD;
-  final Widget valueE;
-  final Widget valueF;
+  final String valueA; //product name
+  final String valueB; //label
+  final int valueE; //starting inventory
+  final int valueF; //inventory received
+  final int valueG; //inventory bought
+  final int valueH; //inventory on hand
 
   bool selected = false;
 }
@@ -817,48 +611,11 @@ class _DataSource extends DataTableSource {
       },
       cells: [
         DataCell(Text(row.valueA)),
-        DataCell((row.valueB)),
-        DataCell(Text(row.valueC)),
-        DataCell(Text(row.valueD)),
-        DataCell((row.valueE), onTap: () {
-          showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return UpdateProduct(
-                name: row.valueA,
-                quantity: determineWidget(row.valueB),
-                unit: row.valueC,
-                price: row.valueD,
-              );
-            },
-          );
-        }),
-        DataCell((row.valueF), onTap: () async {
-          String branch = '';
-          await Session.getBranch().then((branchName) {
-            branch = branchName;
-          });
-
-          if (branch != 'Main') {
-            BannerNotif.notif(
-              'Invalid Action',
-              'Main branch has the ability to transfer product',
-              Colors.red.shade600,
-            );
-            return;
-          }
-
-          showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return TransferStock(
-                branches: _branches,
-                productName: row.valueA,
-                qty: determineWidget(row.valueB),
-              );
-            },
-          );
-        }),
+        DataCell(Text(row.valueB)),
+        DataCell(Text(row.valueE.toString())),
+        DataCell(Text(row.valueF.toString())),
+        DataCell(Text(row.valueG.toString())),
+        DataCell(Text(row.valueH.toString())),
       ],
     );
   }
@@ -877,58 +634,11 @@ class _DataSource extends DataTableSource {
       return List.generate(products.length, (index) {
         return _Row(
           products[index].getProductName.toString(),
-          _dangerStock(100.toString()),
-          products[index].getProductUnit.toString(),
-          products[index].getProductPrice.toStringAsFixed(2).toString(),
-          ClipRRect(
-            borderRadius: BorderRadius.circular(20),
-            child: Stack(
-              children: <Widget>[
-                Positioned.fill(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: HexColor("#155293"),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding:
-                      EdgeInsets.only(top: 8, bottom: 8, left: 16, right: 16),
-                  child: Text(
-                    'UPDATE',
-                    style: TextStyle(
-                      fontFamily: 'Cairo_SemiBold',
-                      fontSize: 14,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          ClipRRect(
-            borderRadius: BorderRadius.circular(20),
-            child: Stack(
-              children: <Widget>[
-                Positioned.fill(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: HexColor("#155293"),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding:
-                      EdgeInsets.only(top: 8, bottom: 8, left: 16, right: 16),
-                  child: Icon(
-                    Icons.transfer_within_a_station,
-                    color: Colors.white,
-                    size: 25,
-                  ),
-                ),
-              ],
-            ),
-          ),
+          products[index].getProductLabel.toString(),
+          products[index].getStartingInventory,
+          products[index].getInventoryReceived,
+          products[index].getInventorySold,
+          products[index].getInventoryOnHand,
         );
       });
     } catch (e) {
@@ -936,11 +646,11 @@ class _DataSource extends DataTableSource {
       return List.generate(0, (index) {
         return _Row(
           '',
-          Text(''),
           '',
-          '',
-          Text(''),
-          Text(''),
+          0,
+          0,
+          0,
+          0,
         );
       });
     }
@@ -958,7 +668,7 @@ Widget _dangerStock(String qty) {
 
   return Row(
     children: [
-      Text(qty),
+      Text(qty.toString()),
       Icon(Icons.warning, color: Colors.red),
     ],
   );

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:web_store_management/Backend/Session.dart';
 import 'package:web_store_management/Pages/Branch/BranchPage.dart';
+import 'package:web_store_management/Pages/InventoryMain/InventoryMain.dart';
+import 'package:web_store_management/Pages/Purchase/PurchaseProducts.dart';
 import 'package:web_store_management/Pages/Release/ReleasePage.dart';
 import '../DashBoard/TimeCollection.dart';
 import '../NewLoan/SelectionOfProductsPage.dart';
@@ -36,6 +38,8 @@ class _NavDrawerAdmin extends State<NavDrawerAdmin> {
 
   List<Widget> pages = [
     TimeCollection(),
+    InventoryMain(),
+    PurchaseProducts(),
     InventoryPage(),
     SelectionOfProductsPage(),
     CreditScreen(),
@@ -85,6 +89,43 @@ class _NavDrawerAdmin extends State<NavDrawerAdmin> {
                           ),
                           label: Text(
                             'Dashboard',
+                            style: TextStyle(
+                              fontSize: 8,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                        NavigationRailDestination(
+                          icon: Icon(
+                            Icons.inventory_2,
+                            color: Colors.white,
+                          ),
+                          selectedIcon: Icon(
+                            Icons.inventory_2,
+                            color: Colors.red,
+                            size: iconSize,
+                          ),
+                          label: Text(
+                            'Inventory NEW',
+                            softWrap: true,
+                            style: TextStyle(
+                              fontSize: 8,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                        NavigationRailDestination(
+                          icon: Icon(
+                            Icons.shopping_cart,
+                            color: Colors.white,
+                          ),
+                          selectedIcon: Icon(
+                            Icons.shopping_basket,
+                            color: Colors.red,
+                            size: iconSize,
+                          ),
+                          label: Text(
+                            'Purchase',
                             style: TextStyle(
                               fontSize: 8,
                               color: Colors.white,

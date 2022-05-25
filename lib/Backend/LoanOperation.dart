@@ -106,7 +106,8 @@ class LoanOperation extends BorrowerOperation implements INewLoan {
           'plan': plan,
           'duedate': duedate,
           'term': term,
-          'qty': item.getProductQty,
+          // 'qty': item.getProductQty,
+          'qty': 10,
           'status': 'UNPAID',
         });
         await Environment.methodPost(

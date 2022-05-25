@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:web_store_management/Backend/Session.dart';
 import 'package:web_store_management/Models/BranchModel.dart';
+import 'package:web_store_management/Models/IncomingPurchasesModel.dart';
 import 'package:web_store_management/environment/Environment.dart';
 import 'Utility/Mapping.dart';
 import '../Models/ProductModel.dart';
@@ -65,6 +66,19 @@ class GlobalController {
         .toList();
     // Use the compute function to run parseAdmin in a separate isolate.
     return Mapping.productList;
+  }
+
+  Future<List<IncomingPurchasesModel>> fetchIncomingPurchases() async {
+    final response = await http.get(
+      Uri.parse("http://localhost:8090/api/incomingpurchases"),
+      headers: {HttpHeaders.authorizationHeader: "${Environment.apiToken}"},
+    );
+    final parsed = jsonDecode(response.body).cast<Map<String, dynamic>>();
+    Mapping.incomingPurchases = parsed
+        .map<IncomingPurchasesModel>(
+            (json) => IncomingPurchasesModel.fromJson(json))
+        .toList();
+    return Mapping.incomingPurchases;
   }
 
   Future<List<BorrowerModel>> fetchBorrowers() async {
