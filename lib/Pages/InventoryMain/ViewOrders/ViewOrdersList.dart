@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:web_store_management/Backend/HistoryOperation.dart';
+import 'package:web_store_management/Backend/PurchasesOperation.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
 import 'package:web_store_management/Models/IncomingPurchasesModel.dart';
 
@@ -16,36 +16,22 @@ class ViewOrderList extends StatefulWidget {
 }
 
 class _ViewOrderList extends State<ViewOrderList> {
-  var history = HistoryOperation();
+  var orders = PurchasesOperation();
+
   late Future<List<IncomingPurchasesModel>> _order;
   var _sortAscending = true;
 
   @override
   void initState() {
     super.initState();
-    this._order = Future.value([]);
+    this._order = orders.getOrders(widget.orderSlipId.toString(),
+        widget.supplierName.toString(), widget.datePurchase.toString());
   }
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Padding(
-          padding: EdgeInsets.only(bottom: 5, right: 8),
-          child: Align(
-            alignment: Alignment.topRight,
-            child: IconButton(
-              icon: Icon(
-                Icons.cancel,
-                color: Colors.black,
-                size: 30,
-              ),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ),
-        ),
         Text(
           'Order Slip ID: ${widget.orderSlipId} ordered from ${widget.supplierName!.toUpperCase()}',
           softWrap: true,
@@ -85,31 +71,33 @@ class _ViewOrderList extends State<ViewOrderList> {
             if (snapshot.hasData) {
               if (snapshot.data!.isNotEmpty) {
                 return Padding(
-                  padding: const EdgeInsets.only(top: 5, left: 15, right: 15),
+                  padding: EdgeInsets.only(top: 5, left: 15, right: 15),
                   child: PaginatedDataTable(
                     showCheckboxColumn: false,
                     showFirstLastButtons: true,
                     sortAscending: _sortAscending,
                     sortColumnIndex: 0,
-                    rowsPerPage: 12,
+                    rowsPerPage: 8,
                     columns: [
                       DataColumn(
-                        label: Text('COLLECTION ID'),
-                        // onSort: (index, sortAscending) {
-                        //   setState(() {
-                        //     _sortAscending = sortAscending;
-                        //     if (sortAscending) {
-                        //       snapshot.data!.sort((a, b) => a.getCollectionID
-                        //           .compareTo(b.getCollectionID));
-                        //     } else {
-                        //       snapshot.data!.sort((a, b) => b.getCollectionID
-                        //           .compareTo(a.getCollectionID));
-                        //     }
-                        //   });
-                        // },
+                        label: Text('BARCODE'),
+                        onSort: (index, sortAscending) {
+                          setState(() {
+                            _sortAscending = sortAscending;
+                            if (sortAscending) {
+                              snapshot.data!.sort((a, b) =>
+                                  a.getProductCode.compareTo(b.getProductCode));
+                            } else {
+                              snapshot.data!.sort((a, b) =>
+                                  b.getProductCode.compareTo(a.getProductCode));
+                            }
+                          });
+                        },
                       ),
-                      DataColumn(label: Text('AMOUNT PAID')),
-                      DataColumn(label: Text('DATE GIVEN')),
+                      DataColumn(label: Text('PNAME')),
+                      DataColumn(label: Text('TYPE')),
+                      DataColumn(label: Text('QUANTITY ORDERED')),
+                      DataColumn(label: Text('SCAN')),
                     ],
                     source: _DataSource(context),
                   ),
@@ -117,11 +105,12 @@ class _ViewOrderList extends State<ViewOrderList> {
               } else {
                 return Center(
                   child: Text(
-                    'NO PAYMENT HISTORY',
+                    'NO ORDER DETAILS FOUND',
                     style: TextStyle(
-                        color: Colors.grey[500],
-                        fontFamily: 'Cairo_SemiBold',
-                        fontSize: 20),
+                      color: Colors.grey[500],
+                      fontFamily: 'Cairo_SemiBold',
+                      fontSize: 20,
+                    ),
                   ),
                 );
               }
@@ -129,11 +118,12 @@ class _ViewOrderList extends State<ViewOrderList> {
             return Center(
               child: Center(
                 child: Text(
-                  'NO PAYMENT HISTORY FOR THIS BORROWER',
+                  'NO ORDER DETAILS FOUND',
                   style: TextStyle(
-                      color: Colors.grey[500],
-                      fontFamily: 'Cairo_SemiBold',
-                      fontSize: 20),
+                    color: Colors.grey[500],
+                    fontFamily: 'Cairo_SemiBold',
+                    fontSize: 20,
+                  ),
                 ),
               ),
             );
@@ -149,18 +139,22 @@ class _Row {
     this.valueA,
     this.valueB,
     this.valueC,
+    this.valueD,
+    this.valueE,
   );
 
   final String valueA;
   final String valueB;
   final String valueC;
+  final int valueD;
+  final Widget valueE;
 
   bool selected = false;
 }
 
 class _DataSource extends DataTableSource {
   _DataSource(this.context) {
-    _payHistory = _paymentsHistory();
+    _payHistory = _orders();
   }
 
   final BuildContext context;
@@ -180,6 +174,8 @@ class _DataSource extends DataTableSource {
         DataCell(Text(row.valueA)),
         DataCell(Text(row.valueB)),
         DataCell(Text(row.valueC)),
+        DataCell(Text(row.valueD.toString())),
+        DataCell((row.valueE)),
       ],
     );
   }
@@ -193,15 +189,42 @@ class _DataSource extends DataTableSource {
   @override
   int get selectedRowCount => _selectedCount;
 
-  List<_Row> _paymentsHistory() {
+  List<_Row> _orders() {
     try {
       return List.generate(
-        Mapping.paymentList.length,
+        Mapping.ordersList.length,
         (index) {
           return _Row(
-            Mapping.paymentList[index].getCollectionID.toString(),
-            Mapping.paymentList[index].getCollectionAmount.toString(),
-            Mapping.paymentList[index].getGivenDate.toString(),
+            Mapping.ordersList[index].getProductCode,
+            Mapping.ordersList[index].getProductName,
+            Mapping.ordersList[index].getProdType,
+            Mapping.ordersList[index].getNumberReceived,
+            ClipRRect(
+              borderRadius: BorderRadius.circular(20),
+              child: Stack(
+                children: <Widget>[
+                  Positioned.fill(
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: HexColor("#155293"),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding:
+                        EdgeInsets.only(top: 8, bottom: 8, left: 16, right: 16),
+                    child: Text(
+                      'SCAN',
+                      style: TextStyle(
+                        fontFamily: 'Cairo_SemiBold',
+                        fontSize: 14,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
           );
         },
       );
@@ -213,6 +236,8 @@ class _DataSource extends DataTableSource {
             '',
             '',
             '',
+            0,
+            Text(''),
           );
         },
       );

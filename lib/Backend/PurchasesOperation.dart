@@ -44,7 +44,7 @@ class PurchasesOperation {
     var response;
     try {
       await Environment.methodGet(
-              "${Environment.apiUrl}/api/loanedproducts/$orderId/$suppName/$date")
+              "http://localhost:8090/api/incomingpurchases/$orderId/$suppName/$date")
           .then((value) {
         response = value;
       });

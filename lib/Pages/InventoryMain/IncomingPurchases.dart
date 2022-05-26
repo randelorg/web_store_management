@@ -211,17 +211,13 @@ class _DataSource extends DataTableSource {
             showModalSideSheet(
               context: context,
               width: MediaQuery.of(context).size.width / 2,
-              body: ListView(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(30.0),
-                    child: ViewOrderList(
-                      orderSlipId: row.valueA,
-                      datePurchase: row.valueE,
-                      supplierName: row.valueB,
-                    ),
-                  ),
-                ],
+              body: Padding(
+                padding: const EdgeInsets.all(30.0),
+                child: ViewOrderList(
+                  orderSlipId: row.valueA,
+                  datePurchase: row.valueE,
+                  supplierName: row.valueB,
+                ),
               ),
             );
           }),
