@@ -2,10 +2,16 @@ import 'package:web_store_management/Models/ProductModel.dart';
 
 class IncomingPurchasesModel extends ProductModel {
   int? supplierId;
+  String? purchaseOrderSlip;
   String? supplierName;
   int? numberReceived;
   String? datePurchase;
   int? qty;
+
+  get getPurchaseOrderSlip => this.purchaseOrderSlip;
+
+  set setPurchaseOrderSlip(purchaseOrderSlip) =>
+      this.purchaseOrderSlip = purchaseOrderSlip;
 
   get getQty => this.qty;
 
@@ -51,6 +57,38 @@ class IncomingPurchasesModel extends ProductModel {
     this.supplierId = supplierId;
     this.supplierName = supplierName;
     this.datePurchase = purchaseDate;
+  }
+
+  IncomingPurchasesModel.order({
+    productCode,
+    productName,
+    prodType,
+    this.supplierName,
+    this.numberReceived,
+    this.datePurchase,
+  }) : super.incomingPurchases(productCode, productName, prodType);
+
+  factory IncomingPurchasesModel.jsonOrder(Map<String, dynamic> json) {
+    return IncomingPurchasesModel.order(
+      productCode: json['ProductCode'] as String,
+      productName: json['ProdName'] as String,
+      prodType: json['ProdType'] as String,
+      supplierName: json['SupplierName'] as String,
+      numberReceived: json['NumberReceived'] as int,
+      datePurchase: json['PurchaseDate'] as String,
+    );
+  }
+
+  IncomingPurchasesModel.orderSlip(
+      {this.purchaseOrderSlip, this.supplierName, this.datePurchase})
+      : super.empty();
+
+  factory IncomingPurchasesModel.jsonOrderSlip(Map<String, dynamic> json) {
+    return IncomingPurchasesModel.orderSlip(
+      purchaseOrderSlip: json['PurchaseOrderSlipID'] as String,
+      supplierName: json['SupplierName'] as String,
+      datePurchase: json['PurchaseDate'] as String,
+    );
   }
 
   IncomingPurchasesModel.fullJson({

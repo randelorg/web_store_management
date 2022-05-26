@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:web_store_management/Backend/Session.dart';
-import 'package:web_store_management/Backend/utility/Mapping.dart';
+import 'package:web_store_management/Backend/Utility/Mapping.dart';
 import 'package:web_store_management/Models/BorrowerModel.dart';
 import 'package:web_store_management/Models/BranchModel.dart';
 import 'package:web_store_management/Models/EmployeeModel.dart';
@@ -75,11 +75,11 @@ class GlobalController {
       headers: {HttpHeaders.authorizationHeader: "${Environment.apiToken}"},
     );
     final parsed = jsonDecode(response.body).cast<Map<String, dynamic>>();
-    Mapping.incomingPurchases = parsed
+    Mapping.groupedPurchase = parsed
         .map<IncomingPurchasesModel>(
-            (json) => IncomingPurchasesModel.fromJson(json))
+            (json) => IncomingPurchasesModel.jsonOrderSlip(json))
         .toList();
-    return Mapping.incomingPurchases;
+    return Mapping.groupedPurchase;
   }
 
   Future<List<BorrowerModel>> fetchBorrowers() async {

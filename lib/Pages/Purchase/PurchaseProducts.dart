@@ -6,7 +6,7 @@ import 'package:web_store_management/Backend/GlobalController.dart';
 import 'package:web_store_management/Backend/PurchasesOperation.dart';
 import 'package:web_store_management/Models/IncomingPurchasesModel.dart';
 import 'package:web_store_management/Models/ProductModel.dart';
-import 'package:web_store_management/Backend/utility/Mapping.dart';
+import 'package:web_store_management/Backend/Utility/Mapping.dart';
 import 'package:web_store_management/Backend/ProductOperation.dart';
 import 'package:web_store_management/Notification/BannerNotif.dart';
 import 'package:web_store_management/Pages/Purchase/NewSupplier.dart';

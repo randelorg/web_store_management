@@ -64,8 +64,9 @@ class Mapping {
   static List<BorrowerModel> repairs = [];
   static List<BorrowerModel> requested = [];
   static List<BranchModel> branchList = [];
-  static List<IncomingPurchasesModel> incomingPurchases = [];
+  static List<IncomingPurchasesModel> groupedPurchase = [];
   static List<IncomingPurchasesModel> purchases = [];
+  static List<IncomingPurchasesModel> ordersList = [];
   static List<SupplierModel> suppliersList = [];
 
   //invoice

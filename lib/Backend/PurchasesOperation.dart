@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:web_store_management/Backend/utility/Mapping.dart';
-import 'package:web_store_management/Environment/Environment.dart';
+import 'package:web_store_management/Backend/Utility/Mapping.dart';
+import 'package:web_store_management/environment/Environment.dart';
 import 'package:web_store_management/Models/IncomingPurchasesModel.dart';
 import 'package:web_store_management/Notification/BannerNotif.dart';
 
@@ -37,6 +37,43 @@ class PurchasesOperation {
     }
 
     return true;
+  }
+
+  Future<List<IncomingPurchasesModel>> getOrders(
+      String orderId, String suppName, String date) async {
+    var response;
+    try {
+      await Environment.methodGet(
+              "${Environment.apiUrl}/api/loanedproducts/$orderId/$suppName/$date")
+          .then((value) {
+        response = value;
+      });
+
+      final parsed =
+          await jsonDecode(response.body).cast<Map<String, dynamic>>();
+      Mapping.ordersList = parsed
+          .map<IncomingPurchasesModel>(
+              (json) => IncomingPurchasesModel.jsonOrder(json))
+          .toList();
+
+      if (response.statusCode == 404) {
+        BannerNotif.notif(
+          'Error',
+          'Cant fetch orders',
+          Colors.red.shade600,
+        );
+        return [];
+      }
+    } catch (e) {
+      print(e.toString());
+      BannerNotif.notif(
+        'Error',
+        'Cant fetch orders',
+        Colors.red.shade600,
+      );
+      return [];
+    }
+    return Mapping.ordersList;
   }
 
   Future<List<IncomingPurchasesModel>> addToPurchaseTable(
