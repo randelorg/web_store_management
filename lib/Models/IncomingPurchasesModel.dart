@@ -5,6 +5,11 @@ class IncomingPurchasesModel extends ProductModel {
   String? supplierName;
   int? numberReceived;
   String? datePurchase;
+  int? qty;
+
+  get getQty => this.qty;
+
+  set setQty(qty) => this.qty = qty;
 
   get getDatePurchase => this.datePurchase;
 
@@ -23,6 +28,17 @@ class IncomingPurchasesModel extends ProductModel {
   set setNumberReceived(numberReceived) => this.numberReceived = numberReceived;
 
   IncomingPurchasesModel.empty() : super.empty();
+
+  IncomingPurchasesModel.purchase(
+    String productCode,
+    String productName,
+    int qty,
+    String prodType,
+    String datePurchase,
+  ) : super.incomingPurchases(productCode, productName, prodType) {
+    this.datePurchase = datePurchase;
+    this.qty = qty;
+  }
 
   IncomingPurchasesModel.incomingPurchases(
       int supplierId,

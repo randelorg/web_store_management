@@ -3,13 +3,14 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:web_store_management/Backend/Session.dart';
+import 'package:web_store_management/Backend/utility/Mapping.dart';
+import 'package:web_store_management/Models/BorrowerModel.dart';
 import 'package:web_store_management/Models/BranchModel.dart';
+import 'package:web_store_management/Models/EmployeeModel.dart';
 import 'package:web_store_management/Models/IncomingPurchasesModel.dart';
+import 'package:web_store_management/Models/ProductModel.dart';
+import 'package:web_store_management/Models/SupplierModel.dart';
 import 'package:web_store_management/environment/Environment.dart';
-import 'Utility/Mapping.dart';
-import '../Models/ProductModel.dart';
-import '../Models/BorrowerModel.dart';
-import '../Models/EmployeeModel.dart';
 
 class GlobalController {
   //fetch this week collection
@@ -91,6 +92,21 @@ class GlobalController {
         .map<BorrowerModel>((json) => BorrowerModel.fromJsonPartial(json))
         .toList();
     return Mapping.borrowerList;
+  }
+
+  Future<List<SupplierModel>> fetchSuppliers() async {
+    final response = await http.get(
+      Uri.parse("http://localhost:8090/api/suppliers"),
+      headers: {HttpHeaders.authorizationHeader: "${Environment.apiToken}"},
+    );
+
+    final parsed = jsonDecode(response.body).cast<Map<String, dynamic>>();
+    print("Global supplier ${Mapping.suppliersList.length}");
+    Mapping.suppliersList = parsed
+        .map<SupplierModel>((json) => SupplierModel.fromJson(json))
+        .toList();
+    print("Global supplier ${Mapping.suppliersList.length}");
+    return Mapping.suppliersList;
   }
 
   //fetch all the credit approvals from the database
