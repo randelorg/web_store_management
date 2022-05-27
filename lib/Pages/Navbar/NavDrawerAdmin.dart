@@ -3,6 +3,7 @@ import 'package:web_store_management/Backend/Session.dart';
 import 'package:web_store_management/Pages/Branch/BranchPage.dart';
 import 'package:web_store_management/Pages/InventoryMain/InventoryMain.dart';
 import 'package:web_store_management/Pages/LoanRelated/GroupLoan.dart';
+import 'package:web_store_management/Pages/Purchase/CustomerBuy.dart';
 import 'package:web_store_management/Pages/Purchase/PurchaseProducts.dart';
 import '../DashBoard/TimeCollection.dart';
 import '../NewLoan/SelectionOfProductsPage.dart';
@@ -36,6 +37,7 @@ class _NavDrawerAdmin extends State<NavDrawerAdmin> {
     TimeCollection(),
     InventoryMain(),
     PurchaseProducts(),
+    CustomerBuy(),
     InventoryPage(),
     SelectionOfProductsPage(),
     BorrowersPage(),
@@ -108,7 +110,7 @@ class _NavDrawerAdmin extends State<NavDrawerAdmin> {
                         ),
                         NavigationRailDestination(
                           icon: Icon(
-                            Icons.shopping_cart,
+                            Icons.shopping_basket,
                             color: Colors.white,
                           ),
                           selectedIcon: Icon(
@@ -118,6 +120,24 @@ class _NavDrawerAdmin extends State<NavDrawerAdmin> {
                           ),
                           label: Text(
                             'Purchase',
+                            style: TextStyle(
+                              fontSize: 8,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                        NavigationRailDestination(
+                          icon: Icon(
+                            Icons.shopping_cart,
+                            color: Colors.white,
+                          ),
+                          selectedIcon: Icon(
+                            Icons.shopping_cart,
+                            color: Colors.red,
+                            size: iconSize,
+                          ),
+                          label: Text(
+                            'Buy',
                             style: TextStyle(
                               fontSize: 8,
                               color: Colors.white,

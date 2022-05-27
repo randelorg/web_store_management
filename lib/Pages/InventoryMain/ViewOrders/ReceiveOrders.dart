@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:intl/intl.dart';
 import 'package:web_store_management/Backend/PurchasesOperation.dart';
-import 'package:web_store_management/Backend/utility/Mapping.dart';
+import 'package:web_store_management/Backend/Utility/Mapping.dart';
 import 'package:web_store_management/Models/IncomingPurchasesModel.dart';
 import 'package:web_store_management/Notification/BannerNotif.dart';
 

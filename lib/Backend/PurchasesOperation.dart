@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:web_store_management/Backend/utility/Mapping.dart';
+import 'package:web_store_management/Backend/Utility/Mapping.dart';
 import 'package:web_store_management/environment/Environment.dart';
 import 'package:web_store_management/Models/IncomingPurchasesModel.dart';
 import 'package:web_store_management/Notification/BannerNotif.dart';
@@ -74,6 +74,67 @@ class PurchasesOperation {
       return [];
     }
     return Mapping.ordersList;
+  }
+
+  Future<List<IncomingPurchasesModel>> getProductItems(String barcode) async {
+    var response;
+    final String onHand = "ON-HAND";
+    try {
+      await Environment.methodGet(
+              "http://localhost:8090/api/item/$barcode/$onHand")
+          .then((value) {
+        response = value;
+      });
+
+      final parsed =
+          await jsonDecode(response.body).cast<Map<String, dynamic>>();
+      Mapping.productItems = parsed
+          .map<IncomingPurchasesModel>(
+              (json) => IncomingPurchasesModel.jsonItems(json))
+          .toList();
+
+      if (response.statusCode == 404) {
+        BannerNotif.notif(
+          'Error',
+          'Cant fetch orders',
+          Colors.red.shade600,
+        );
+        return [];
+      }
+    } catch (e) {
+      print(e.toString());
+      BannerNotif.notif(
+        'Error',
+        'Cant fetch orders',
+        Colors.red.shade600,
+      );
+      return [];
+    }
+    return Mapping.productItems;
+  }
+
+  Future<bool> customerPurchase() async {
+    var response;
+    final String status = 'BOUGHT';
+    for (var item in Mapping.productItems) {
+      try {
+        await Environment.methodGet(
+                "http://localhost:8090/api/buyitem/${item.getProductItemCode}/$status")
+            .then((value) {
+          response = value;
+        });
+      } catch (e) {
+        e.toString();
+        BannerNotif.notif(
+          'Error',
+          'Something while buying',
+          Colors.red.shade600,
+        );
+        return false;
+      }
+    }
+
+    return true;
   }
 
   Future<List<IncomingPurchasesModel>> addToPurchaseTable(

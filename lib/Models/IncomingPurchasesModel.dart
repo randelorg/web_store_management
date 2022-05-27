@@ -8,6 +8,7 @@ class IncomingPurchasesModel extends ProductModel {
   String? datePurchase;
   String? productItemCode;
   String? remarks;
+  String? status;
 
   get getProductItemCode => this.productItemCode;
 
@@ -50,6 +51,28 @@ class IncomingPurchasesModel extends ProductModel {
       : super.productCodeOnly(prodCode) {
     this.productItemCode = itemCode;
     this.remarks = remarks;
+  }
+
+  IncomingPurchasesModel.productItems(String itemCode, String remarks)
+      : super.empty() {
+    this.productItemCode = itemCode;
+    this.remarks = remarks;
+  }
+
+  IncomingPurchasesModel.items({
+    this.productItemCode,
+    productCode,
+    this.remarks,
+    this.status,
+  }) : super.productCodeOnly(productCode);
+
+  factory IncomingPurchasesModel.jsonItems(Map<String, dynamic> json) {
+    return IncomingPurchasesModel.items(
+      productCode: json['ProductCode'] as String,
+      productItemCode: json['ProductItemID'] as String,
+      remarks: json['Remarks'] as String,
+      status: json['Status'] as String,
+    );
   }
 
   IncomingPurchasesModel.purchase(
