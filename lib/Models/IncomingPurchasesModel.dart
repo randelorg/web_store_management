@@ -6,6 +6,17 @@ class IncomingPurchasesModel extends ProductModel {
   String? supplierName;
   int? numberReceived;
   String? datePurchase;
+  String? productItemCode;
+  String? remarks;
+
+  get getProductItemCode => this.productItemCode;
+
+  set setProductItemCode(productItemCode) =>
+      this.productItemCode = productItemCode;
+
+  get getRemarks => this.remarks;
+
+  set setRemarks(remarks) => this.remarks = remarks;
   int? qty;
 
   get getPurchaseOrderSlip => this.purchaseOrderSlip;
@@ -34,6 +45,12 @@ class IncomingPurchasesModel extends ProductModel {
   set setNumberReceived(numberReceived) => this.numberReceived = numberReceived;
 
   IncomingPurchasesModel.empty() : super.empty();
+
+  IncomingPurchasesModel.receive(String itemCode, String remarks, prodCode)
+      : super.productCodeOnly(prodCode) {
+    this.productItemCode = itemCode;
+    this.remarks = remarks;
+  }
 
   IncomingPurchasesModel.purchase(
     String productCode,

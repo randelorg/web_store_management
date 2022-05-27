@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:web_store_management/Backend/Utility/Mapping.dart';
+import 'package:web_store_management/Backend/utility/Mapping.dart';
 import 'package:web_store_management/environment/Environment.dart';
 import 'package:web_store_management/Models/IncomingPurchasesModel.dart';
 import 'package:web_store_management/Notification/BannerNotif.dart';
@@ -91,6 +91,41 @@ class PurchasesOperation {
       ));
     });
     return Mapping.purchases;
+  }
+
+  Future<bool> receivedItems() async {
+    var response;
+    for (var item in Mapping.receiverOrders) {
+      try {
+        var payload = json.encode({
+          "prodItemID": item.getProductItemCode,
+          "prodCode": item.getProductCode,
+          "remarks": item.getRemarks,
+        });
+        await Environment.methodPost(
+                "http://localhost:8090/api/additem", payload)
+            .then((value) {
+          response = value;
+        });
+      } catch (e) {
+        e.toString();
+        BannerNotif.notif(
+          'Error',
+          'Something went wrong while adding the loan',
+          Colors.red.shade600,
+        );
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  Future<List<IncomingPurchasesModel>> addToReceiveTable(
+      String itemCode, String productCode, String remarks) async {
+    Mapping.receiverOrders
+        .add(IncomingPurchasesModel.receive(itemCode, remarks, productCode));
+    return Mapping.receiverOrders;
   }
 
   Future<String> getProductInfo(String barcode) async {

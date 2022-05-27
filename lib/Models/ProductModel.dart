@@ -61,6 +61,10 @@ class ProductModel {
 
   ProductModel.empty();
 
+  ProductModel.productCodeOnly(String prodCode) {
+    this.productCode = prodCode;
+  }
+
   ProductModel.incomingPurchases(
       String prodCode, String prodName, String prodType) {
     this.productCode = prodCode;

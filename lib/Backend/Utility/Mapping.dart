@@ -68,6 +68,7 @@ class Mapping {
   static List<IncomingPurchasesModel> purchases = [];
   static List<IncomingPurchasesModel> ordersList = [];
   static List<SupplierModel> suppliersList = [];
+  static List<IncomingPurchasesModel> receiverOrders = [];
 
   //invoice
   static List<InvoiceItem> invoice = [];

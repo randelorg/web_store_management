@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:web_store_management/Backend/PurchasesOperation.dart';
-import 'package:web_store_management/Backend/Utility/Mapping.dart';
+import 'package:web_store_management/Backend/utility/Mapping.dart';
 import 'package:web_store_management/Models/IncomingPurchasesModel.dart';
+import 'package:web_store_management/Pages/InventoryMain/ViewOrders/ReceiveOrders.dart';
 
 class ViewOrderList extends StatefulWidget {
   final String? orderSlipId, datePurchase, supplierName;
@@ -97,7 +98,7 @@ class _ViewOrderList extends State<ViewOrderList> {
                       DataColumn(label: Text('PNAME')),
                       DataColumn(label: Text('TYPE')),
                       DataColumn(label: Text('QUANTITY ORDERED')),
-                      DataColumn(label: Text('SCAN')),
+                      DataColumn(label: Text('ACTIION')),
                     ],
                     source: _DataSource(context),
                   ),
@@ -175,7 +176,17 @@ class _DataSource extends DataTableSource {
         DataCell(Text(row.valueB)),
         DataCell(Text(row.valueC)),
         DataCell(Text(row.valueD.toString())),
-        DataCell((row.valueE)),
+        DataCell((row.valueE), onTap: () {
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return ReceiveOrders(
+                supplierBarcode: row.valueA,
+                qty: int.parse(row.valueD.toString()),
+              );
+            },
+          );
+        }),
       ],
     );
   }
@@ -214,7 +225,7 @@ class _DataSource extends DataTableSource {
                     padding:
                         EdgeInsets.only(top: 8, bottom: 8, left: 16, right: 16),
                     child: Text(
-                      'SCAN',
+                      'RECEIEVE',
                       style: TextStyle(
                         fontFamily: 'Cairo_SemiBold',
                         fontSize: 14,
