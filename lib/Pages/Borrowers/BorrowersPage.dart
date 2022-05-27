@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:modal_side_sheet/modal_side_sheet.dart';
 import 'package:web_store_management/Models/BorrowerModel.dart';
 import 'package:web_store_management/Pages/Borrowers/ViewBrwProfile.dart';
+import 'package:web_store_management/Pages/Payment/MakePayment.dart';
 import '../../Backend/Utility/Mapping.dart';
 import '../../Backend/GlobalController.dart';
 
@@ -133,9 +134,9 @@ class _BorrowersPage extends State<BorrowersPage> {
                               });
                             },
                           ),
-                          DataColumn(label: Text('NUMBER')),
                           DataColumn(label: Text('BALANCE')),
-                          DataColumn(label: Text('ACTION')),
+                          DataColumn(label: Text('PAY')),
+                          DataColumn(label: Text('VIEW')),
                         ],
                         source: _DataSource(context, _borrowerFiltered),
                       )
@@ -168,7 +169,7 @@ class _Row {
   final String valueA;
   final String valueB;
   final String valueC;
-  final String valueD;
+  final Widget valueD;
   final Widget valueE;
 
   get getValueA => this.valueA;
@@ -209,7 +210,18 @@ class _DataSource extends DataTableSource {
         DataCell(Text(row.valueA)),
         DataCell(Text(row.valueB)),
         DataCell(Text(row.valueC)),
-        DataCell(Text(row.valueD)),
+        DataCell((row.valueD), onTap: () {
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return MakePayment(
+                id: row.valueA,
+                name: row.valueB,
+                debt: row.valueC,
+              );
+            },
+          );
+        }),
         DataCell((row.valueE), onTap: () {
           showModalSideSheet(
             context: context,
@@ -222,7 +234,7 @@ class _DataSource extends DataTableSource {
                     id: int.parse(row.valueA),
                     name: row.valueB,
                     number: row.valueC,
-                    balance: double.parse(row.valueD),
+                    balance: double.parse(row.valueC),
                   ),
                 ),
               ],
@@ -251,8 +263,33 @@ List<_Row> _borrowerProfile(List<BorrowerModel> brw) {
         return new _Row(
           brw[index].getBorrowerId.toString(),
           brw[index].toString(),
-          brw[index].getMobileNumber.toString(),
           brw[index].getBalance.toStringAsFixed(2).toString(),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(20),
+            child: Stack(
+              children: <Widget>[
+                Positioned.fill(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: HexColor("#155293"),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding:
+                      EdgeInsets.only(top: 8, bottom: 8, left: 16, right: 16),
+                  child: Text(
+                    'PAY',
+                    style: TextStyle(
+                      fontFamily: 'Cairo_SemiBold',
+                      fontSize: 14,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
           ClipRRect(
             borderRadius: BorderRadius.circular(20),
             child: Stack(
@@ -291,7 +328,7 @@ List<_Row> _borrowerProfile(List<BorrowerModel> brw) {
           "",
           "",
           "",
-          "",
+          Text(''),
           Text(''),
         );
       },

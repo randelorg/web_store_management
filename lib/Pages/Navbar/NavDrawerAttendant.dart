@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:web_store_management/Backend/Session.dart';
-import 'package:web_store_management/Pages/Release/ReleasePage.dart';
 import '../DashBoard/TimeCollection.dart';
 import '../NewLoan/SelectionOfProductsPage.dart';
 import '../Borrowers/BorrowersPage.dart';
-import '../Payment/PaymentPage.dart';
-import '../RequestedProducts/RequestedProdScreen.dart';
-import '../Repairs/RepairsScreen.dart';
 import '../Inventory/InventoryPage.dart';
 import '../Reports/ReportScreen.dart';
 
@@ -35,11 +31,7 @@ class _NavDrawerAttendant extends State<NavDrawerAttendant> {
     TimeCollection(),
     InventoryPage(),
     SelectionOfProductsPage(),
-    ReleasePage(),
     BorrowersPage(),
-    PaymentPage(),
-    RequestedProdScreen(),
-    RepairsPage(),
     ViewReport(),
   ];
 
@@ -155,25 +147,6 @@ class _NavDrawerAttendant extends State<NavDrawerAttendant> {
                           ),
                           label: Text(
                             'Borrowers',
-                            softWrap: true,
-                            style: TextStyle(
-                              fontSize: 8,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                        NavigationRailDestination(
-                          icon: Icon(
-                            Icons.payments,
-                            color: Colors.white,
-                          ),
-                          selectedIcon: Icon(
-                            Icons.payments,
-                            color: Colors.red,
-                            size: iconSize,
-                          ),
-                          label: Text(
-                            'Payment',
                             softWrap: true,
                             style: TextStyle(
                               fontSize: 8,

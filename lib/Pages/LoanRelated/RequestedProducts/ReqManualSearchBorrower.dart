@@ -4,7 +4,7 @@ import 'package:web_store_management/Backend/BorrowerOperation.dart';
 import 'package:web_store_management/Backend/GlobalController.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
 import 'package:web_store_management/Notification/BannerNotif.dart';
-import 'package:web_store_management/Pages/RequestedProducts/AddRequest.dart';
+import 'package:web_store_management/Pages/LoanRelated/RequestedProducts/AddRequest.dart';
 
 class ReqManualBorrowerSearch extends StatefulWidget {
   @override

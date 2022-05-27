@@ -6,7 +6,8 @@ import 'package:web_store_management/Backend/TextMessage.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
 import 'package:web_store_management/Models/BorrowerModel.dart';
 import 'package:web_store_management/Notification/BannerNotif.dart';
-import 'package:web_store_management/Pages/RequestedProducts/ReqManualSearchBorrower.dart';
+import 'package:web_store_management/Pages/LoanRelated/RequestedProducts/ReqManualSearchBorrower.dart';
+
 
 class RequestedProdScreen extends StatefulWidget {
   @override

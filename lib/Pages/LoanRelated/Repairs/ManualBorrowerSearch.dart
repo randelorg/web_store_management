@@ -3,7 +3,7 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:web_store_management/Backend/BorrowerOperation.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
 import 'package:web_store_management/Notification/BannerNotif.dart';
-import 'package:web_store_management/Pages/Repairs/AddRepair.dart';
+import 'package:web_store_management/Pages/LoanRelated/Repairs/AddRepair.dart';
 
 class ManualBorrowerSearch extends StatefulWidget {
   @override
