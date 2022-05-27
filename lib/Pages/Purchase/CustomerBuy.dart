@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:printing/printing.dart';
 import 'package:web_store_management/Backend/CashPaymentOperation.dart';
 import 'package:web_store_management/Backend/GlobalController.dart';
 import 'package:web_store_management/Backend/PurchasesOperation.dart';
+import 'package:web_store_management/Helpers/PrintHelper.dart';
+import 'package:web_store_management/Models/BorrowerModel.dart';
 import 'package:web_store_management/Models/IncomingPurchasesModel.dart';
+import 'package:web_store_management/Models/InvoiceModel.dart';
 import 'package:web_store_management/Models/ProductModel.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
 import 'package:web_store_management/Backend/ProductOperation.dart';
@@ -178,6 +182,14 @@ class _CustomerBuy extends State<CustomerBuy> {
                                 child: const Text('PROCEED'),
                                 onPressed: () async {
                                   //TODO: ADD TO PURCHASE ORDER HERE O THE DB
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return showInvoice(
+                                          invoiceContent(_orderId));
+                                    },
+                                  );
+
                                   searchProduct
                                       .customerPurchase(
                                           _orderId, Mapping.dateToday())
@@ -222,6 +234,34 @@ class _CustomerBuy extends State<CustomerBuy> {
               },
             ),
           ],
+        ),
+      ),
+    );
+  }
+
+  Invoice invoiceContent(String invoiceNumber) {
+    return Invoice(
+      customer: BorrowerModel.invoice(
+        fname.text.trim(),
+        lname.text.trim(),
+        address.text.trim(),
+      ),
+      info: InvoiceInfo(
+        date: DateTime.now(),
+        description: 'This will serve as your Unofficial Receipt. Thank you!',
+        number: invoiceNumber,
+      ),
+      items: Mapping.invoice,
+    );
+  }
+
+  Widget showInvoice(Invoice invoice) {
+    return Container(
+      child: PdfPreview(
+        padding: EdgeInsets.all(10),
+        build: (format) => PrintHelper.generateLoanInvoice(
+          format,
+          invoice,
         ),
       ),
     );

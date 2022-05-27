@@ -38,7 +38,6 @@ class _NavDrawerAdmin extends State<NavDrawerAdmin> {
     InventoryMain(),
     PurchaseProducts(),
     CustomerBuy(),
-    InventoryPage(),
     SelectionOfProductsPage(),
     BorrowersPage(),
     GroupLoan(),
@@ -100,7 +99,7 @@ class _NavDrawerAdmin extends State<NavDrawerAdmin> {
                             size: iconSize,
                           ),
                           label: Text(
-                            'Inventory NEW',
+                            'Inventory',
                             softWrap: true,
                             style: TextStyle(
                               fontSize: 8,
@@ -138,25 +137,6 @@ class _NavDrawerAdmin extends State<NavDrawerAdmin> {
                           ),
                           label: Text(
                             'Buy',
-                            style: TextStyle(
-                              fontSize: 8,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                        NavigationRailDestination(
-                          icon: Icon(
-                            Icons.inventory_2,
-                            color: Colors.white,
-                          ),
-                          selectedIcon: Icon(
-                            Icons.inventory_2,
-                            color: Colors.red,
-                            size: iconSize,
-                          ),
-                          label: Text(
-                            'Inventory',
-                            softWrap: true,
                             style: TextStyle(
                               fontSize: 8,
                               color: Colors.white,
@@ -211,7 +191,7 @@ class _NavDrawerAdmin extends State<NavDrawerAdmin> {
                             size: iconSize,
                           ),
                           label: Text(
-                            'Loan related',
+                            'More',
                             style: TextStyle(
                               fontSize: 8,
                               color: Colors.white,

@@ -324,7 +324,6 @@ class _CashPaymentPage extends State<CashPaymentPage> {
                           return showInvoice(invoiceContent(invoiceNumber));
                         },
                       );
-                      
                     },
                   ),
                 ],
