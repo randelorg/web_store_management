@@ -65,6 +65,11 @@ class ProductModel {
     this.productCode = prodCode;
   }
 
+  ProductModel.productPrice(String prodCode, double price) {
+    this.productCode = prodCode;
+    this.productPrice = price;
+  }
+
   ProductModel.incomingPurchases(
       String prodCode, String prodName, String prodType) {
     this.productCode = prodCode;

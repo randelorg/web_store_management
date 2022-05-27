@@ -175,11 +175,12 @@ class _CustomerBuy extends State<CustomerBuy> {
                                     fontSize: 14,
                                   ),
                                 ),
-                                child: const Text('BUY'),
+                                child: const Text('PROCEED'),
                                 onPressed: () async {
                                   //TODO: ADD TO PURCHASE ORDER HERE O THE DB
                                   searchProduct
-                                      .customerPurchase()
+                                      .customerPurchase(
+                                          _orderId, Mapping.dateToday())
                                       .then((value) {});
                                 },
                               ),

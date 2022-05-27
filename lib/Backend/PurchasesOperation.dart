@@ -113,13 +113,22 @@ class PurchasesOperation {
     return Mapping.productItems;
   }
 
-  Future<bool> customerPurchase() async {
+  Future<bool> customerPurchase(
+      String invoiceNumber, String datePurchase) async {
     var response;
     final String status = 'BOUGHT';
     for (var item in Mapping.productItems) {
       try {
-        await Environment.methodGet(
-                "http://localhost:8090/api/buyitem/${item.getProductItemCode}/$status")
+        var payload = json.encode({
+          "itemCode": item.getProductItemCode,
+          "status": status,
+          "invoiceNumber": item.getRemarks,
+          "prodCode": item.getProductCode,
+          "currentPrice": item.getProductPrice,
+          "date": datePurchase,
+        });
+        await Environment.methodPost(
+                "http://localhost:8090/api/buyitem", payload)
             .then((value) {
           response = value;
         });

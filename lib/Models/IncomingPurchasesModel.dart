@@ -64,7 +64,8 @@ class IncomingPurchasesModel extends ProductModel {
     productCode,
     this.remarks,
     this.status,
-  }) : super.productCodeOnly(productCode);
+    price,
+  }) : super.productPrice(productCode, price);
 
   factory IncomingPurchasesModel.jsonItems(Map<String, dynamic> json) {
     return IncomingPurchasesModel.items(
@@ -72,6 +73,7 @@ class IncomingPurchasesModel extends ProductModel {
       productItemCode: json['ProductItemID'] as String,
       remarks: json['Remarks'] as String,
       status: json['Status'] as String,
+      price: json['ProdPrice'] as double,
     );
   }
 
