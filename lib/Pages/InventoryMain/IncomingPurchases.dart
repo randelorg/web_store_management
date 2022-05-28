@@ -210,7 +210,7 @@ class _DataSource extends DataTableSource {
           DataCell((row.valueD), onTap: () {
             showModalSideSheet(
               context: context,
-              width: MediaQuery.of(context).size.width / 2,
+              width: MediaQuery.of(context).size.width / 1.5,
               body: Padding(
                 padding: const EdgeInsets.all(30.0),
                 child: ViewOrderList(

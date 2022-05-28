@@ -8,7 +8,7 @@ import 'package:web_store_management/Notification/BannerNotif.dart';
 class PurchasesOperation {
   Future<bool> sendToIncomingProducts(
       String orderSlipId, String supplierName) async {
-    final status = "NOT RECEIVED";
+    final status = "NOT RECEIVE";
     final orderSlip = "PO-$orderSlipId";
 
     var response;
@@ -80,10 +80,10 @@ class PurchasesOperation {
 
   Future<List<IncomingPurchasesModel>> getProductItems(String barcode) async {
     var response;
-    final String onHand = "ON-HAND";
+    final String receive = "RECEIVED";
     try {
       await Environment.methodGet(
-              "http://localhost:8090/api/item/$barcode/$onHand")
+              "http://localhost:8090/api/item/$barcode/$receive")
           .then((value) {
         response = value;
       });
