@@ -11,6 +11,7 @@ import 'package:web_store_management/Models/InvoiceModel.dart';
 import 'package:web_store_management/Models/ProductModel.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
 import 'package:web_store_management/Backend/ProductOperation.dart';
+import 'package:web_store_management/Notification/BannerNotif.dart';
 
 class CustomerBuy extends StatefulWidget {
   @override
@@ -27,6 +28,8 @@ class _CustomerBuy extends State<CustomerBuy> {
   late Future<List<IncomingPurchasesModel>> _items;
   String _orderId = '', pickedSupplier = '';
   bool show = false;
+  int onhand = 0;
+  double total = 0;
   var purchaseOrderId = CashPaymentOperation();
   TextEditingController productName = TextEditingController();
   TextEditingController barcode = TextEditingController();
@@ -114,8 +117,18 @@ class _CustomerBuy extends State<CustomerBuy> {
                       onPressed: () async {
                         _items = searchProduct.getProductItems(barcode.text);
 
-                        setState(() {
-                          _items = _items;
+                        _items.whenComplete(() {
+                          setState(() {
+                            _items = _items;
+                            onhand = Mapping.productItems.length;
+                            if (onhand == 0) {
+                              BannerNotif.notif(
+                                'SOLD OUT',
+                                'Product is sold out',
+                                Colors.orange,
+                              );
+                            }
+                          });
                         });
                       },
                     ),
@@ -128,8 +141,27 @@ class _CustomerBuy extends State<CustomerBuy> {
 
         //the list of products
         _tablePurchases(),
+
+        Text('Total: $total'),
       ],
     );
+  }
+
+  double getPrice() {
+    for (var i in Mapping.productList) {
+      if (i.getProductCode == barcode.text) {
+        return i.getProductPrice;
+      }
+    }
+    return 0;
+  }
+
+  double getTotal() {
+    double total = 0;
+    for (var i in Mapping.invoice) {
+      total = i.currentPrice + i.currentPrice;
+    }
+    return total;
   }
 
   Widget _tablePurchases() {
@@ -181,19 +213,63 @@ class _CustomerBuy extends State<CustomerBuy> {
                                 ),
                                 child: const Text('PROCEED'),
                                 onPressed: () async {
-                                  //TODO: ADD TO PURCHASE ORDER HERE O THE DB
-                                  showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return showInvoice(
-                                          invoiceContent(_orderId));
-                                    },
-                                  );
-
                                   searchProduct
-                                      .customerPurchase(
-                                          _orderId, Mapping.dateToday())
-                                      .then((value) {});
+                                      .customerPurchase(_orderId)
+                                      .then((value) {
+                                    //after sending the data print the invoice
+                                    showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return showInvoice(
+                                            invoiceContent(_orderId));
+                                      },
+                                    );
+                                  });
+                                  //TODO: ADD TO PURCHASE ORDER HERE O THE DB
+                                },
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(20),
+                          child: Stack(
+                            children: <Widget>[
+                              Positioned.fill(
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color: HexColor("#155293"),
+                                  ),
+                                ),
+                              ),
+                              TextButton(
+                                style: TextButton.styleFrom(
+                                  padding: const EdgeInsets.only(
+                                    top: 18,
+                                    bottom: 18,
+                                    left: 36,
+                                    right: 36,
+                                  ),
+                                  primary: Colors.white,
+                                  textStyle: TextStyle(
+                                    fontFamily: 'Cairo_SemiBold',
+                                    fontSize: 14,
+                                  ),
+                                ),
+                                child: const Text('CANCEL'),
+                                onPressed: () async {
+                                  //reset all in the page
+                                  barcode.clear();
+                                  Mapping.productItems.clear();
+                                  Mapping.invoice.clear();
+
+                                  setState(() {
+                                    onhand = 0;
+                                    _items = Future.value([]);
+                                  });
                                 },
                               ),
                             ],
@@ -204,14 +280,14 @@ class _CustomerBuy extends State<CustomerBuy> {
                     header: Row(
                       children: [
                         Padding(
-                          padding: const EdgeInsets.only(right: 40),
-                          child: Text(_orderId.toUpperCase()),
+                          padding: const EdgeInsets.only(right: 50),
+                          child: Text("Invoice #: ${_orderId.toUpperCase()}"),
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(right: 40),
-                          child: Text('total qty of onhand products'),
+                          padding: const EdgeInsets.only(right: 50),
+                          child: Text('ON HAND: $onhand'),
                         ),
-                        Text(Mapping.dateToday()),
+                        Text("Date Today ${Mapping.dateToday()}"),
                       ],
                     ),
                     showCheckboxColumn: true,
@@ -223,7 +299,7 @@ class _CustomerBuy extends State<CustomerBuy> {
                       DataColumn(label: Text('Item Code')),
                       DataColumn(label: Text('Remarks')),
                     ],
-                    source: _DataSource(context),
+                    source: _DataSource(context, barcode.text, getPrice()),
                   );
                 }
                 return Center(
@@ -242,9 +318,9 @@ class _CustomerBuy extends State<CustomerBuy> {
   Invoice invoiceContent(String invoiceNumber) {
     return Invoice(
       customer: BorrowerModel.invoice(
-        fname.text.trim(),
-        lname.text.trim(),
-        address.text.trim(),
+        'RANDEL',
+        'REYES',
+        'Mabolo',
       ),
       info: InvoiceInfo(
         date: DateTime.now(),
@@ -259,7 +335,7 @@ class _CustomerBuy extends State<CustomerBuy> {
     return Container(
       child: PdfPreview(
         padding: EdgeInsets.all(10),
-        build: (format) => PrintHelper.generateLoanInvoice(
+        build: (format) => PrintHelper.generateInvoice(
           format,
           invoice,
         ),
@@ -281,13 +357,15 @@ class _Row {
 }
 
 class _DataSource extends DataTableSource {
-  _DataSource(this.context) {
+  _DataSource(this.context, this.barcode, this.price) {
     _products = _productList();
   }
 
   final BuildContext context;
   int _selectedCount = 0;
   List<_Row> _products = [];
+  String barcode = '';
+  double price = 0.0;
 
   @override
   DataRow? getRow(int index) {
@@ -308,6 +386,28 @@ class _DataSource extends DataTableSource {
           if (value) {
             _selectedCount += 1;
           }
+
+          //add the checked product to the list
+          //we will remove the duplicate products afterward
+          Mapping.invoice.add(
+            InvoiceProductItem(
+              remarks: row.valueB,
+              itemCode: row.valueA,
+              prodCode: barcode,
+              currentPrice: price,
+              vat: 0,
+              qty: 1,
+            ),
+          );
+
+          //delete the uncheck product to the list
+          if (value == false) {
+            _selectedCount -= 1;
+            Mapping.invoice.removeWhere(
+              (element) => element.itemCode == row.valueA.toString(),
+            );
+          }
+
           notifyListeners();
         }
 

@@ -6,7 +6,6 @@ class InventoryMain extends StatelessWidget {
   final List<Tab> myTabs = <Tab>[
     Tab(text: 'Inventory'),
     Tab(text: 'Incoming Purchases'),
-    Tab(text: 'Outgoing Orders'),
   ];
 
   @override
@@ -29,7 +28,6 @@ class InventoryMain extends StatelessWidget {
           children: [
             Center(child: InventoryDashboard()),
             Center(child: IncomingPurchases()),
-            Center(child: InventoryDashboard()),
           ],
         ),
       ),

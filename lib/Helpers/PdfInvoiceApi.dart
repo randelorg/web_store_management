@@ -86,13 +86,14 @@ class PdfInvoiceApi {
       'VAT',
       'Total',
     ];
+
     final data = invoice.items.map((item) {
-      final total = item.unitPrice * item.quantity * (1 + item.vat);
+      final total = item.currentPrice * item.qty * (1 + item.vat);
 
       return [
-        item.description,
-        '${item.quantity}',
-        '\PHP ${item.unitPrice}',
+        item.remarks,
+        '${item.qty}',
+        '\PHP ${item.currentPrice}',
         '${item.vat} %',
         '\PHP ${total.toStringAsFixed(2)}',
       ];
@@ -118,7 +119,7 @@ class PdfInvoiceApi {
 
   static Widget buildTotal(Invoice invoice) {
     final netTotal = invoice.items
-        .map((item) => item.unitPrice * item.quantity)
+        .map((item) => item.currentPrice * item.qty)
         .reduce((item1, item2) => item1 + item2);
     final vatPercent = invoice.items.first.vat;
     final vat = netTotal * vatPercent;

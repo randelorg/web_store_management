@@ -8,7 +8,6 @@ import 'package:web_store_management/Pages/Purchase/PurchaseProducts.dart';
 import '../DashBoard/TimeCollection.dart';
 import '../NewLoan/SelectionOfProductsPage.dart';
 import '../Borrowers/BorrowersPage.dart';
-import '../Inventory/InventoryPage.dart';
 import '../Reports/ReportScreen.dart';
 import '../Employees/EmployeePage.dart';
 
@@ -154,7 +153,7 @@ class _NavDrawerAdmin extends State<NavDrawerAdmin> {
                             size: iconSize,
                           ),
                           label: Text(
-                            'New Loan',
+                            'Loan',
                             style: TextStyle(
                               fontSize: 8,
                               color: Colors.white,

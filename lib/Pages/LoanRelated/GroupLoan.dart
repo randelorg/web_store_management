@@ -2,14 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:web_store_management/Pages/LoanRelated/CreditApproval/CreditPage.dart';
 import 'package:web_store_management/Pages/LoanRelated/Release/ReleasePage.dart';
 import 'package:web_store_management/Pages/LoanRelated/Repairs/RepairsScreen.dart';
-import 'package:web_store_management/Pages/LoanRelated/RequestedProducts/RequestedProdScreen.dart';
 
 class GroupLoan extends StatelessWidget {
   final List<Tab> myTabs = <Tab>[
     Tab(text: 'Credit Approval'),
     Tab(text: 'Release Products'),
-    Tab(text: 'Request Products'),
-    Tab(text: 'Repair Products'),
+    Tab(text: 'Returns'),
   ];
 
   @override
@@ -32,8 +30,7 @@ class GroupLoan extends StatelessWidget {
           children: [
             Center(child: CreditScreen()),
             Center(child: ReleasePage()),
-            Center(child: RequestedProdScreen()),
-            Center(child: RepairsPage()),
+            Center(child: ReturnsPage()),
           ],
         ),
       ),

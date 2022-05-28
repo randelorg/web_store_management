@@ -9,11 +9,13 @@ class PurchasesOperation {
   Future<bool> sendToIncomingProducts(
       String orderSlipId, String supplierName) async {
     final status = "NOT RECEIVED";
+    final orderSlip = "PO-$orderSlipId";
+
     var response;
     for (var item in Mapping.purchases) {
       try {
         var payload = json.encode({
-          "purchaseOrdeSlip": orderSlipId,
+          "purchaseOrdeSlip": orderSlip,
           "supplierName": supplierName,
           "productCode": item.productCode,
           "qty": item.qty,
@@ -113,19 +115,18 @@ class PurchasesOperation {
     return Mapping.productItems;
   }
 
-  Future<bool> customerPurchase(
-      String invoiceNumber, String datePurchase) async {
+  Future<bool> customerPurchase(String invoiceNumber) async {
     var response;
-    final String status = 'BOUGHT';
-    for (var item in Mapping.productItems) {
+    final String sold = 'SOLD';
+    for (var item in Mapping.invoice) {
       try {
         var payload = json.encode({
-          "itemCode": item.getProductItemCode,
-          "status": status,
-          "invoiceNumber": item.getRemarks,
-          "prodCode": item.getProductCode,
-          "currentPrice": item.getProductPrice,
-          "date": datePurchase,
+          "itemCode": item.itemCode,
+          "status": sold,
+          "invoiceNumber": invoiceNumber,
+          "prodCode": item.prodCode,
+          "currentPrice": item.currentPrice,
+          "date": Mapping.dateToday(),
         });
         await Environment.methodPost(
                 "http://localhost:8090/api/buyitem", payload)

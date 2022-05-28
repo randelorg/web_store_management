@@ -8,12 +8,12 @@ import 'package:web_store_management/Models/BorrowerModel.dart';
 import 'package:web_store_management/Notification/BannerNotif.dart';
 import 'package:web_store_management/Pages/LoanRelated/Repairs/ManualBorrowerSearch.dart';
 
-class RepairsPage extends StatefulWidget {
+class ReturnsPage extends StatefulWidget {
   @override
-  _RepairsPage createState() => _RepairsPage();
+  _ReturnsPage createState() => _ReturnsPage();
 }
 
-class _RepairsPage extends State<RepairsPage> {
+class _ReturnsPage extends State<ReturnsPage> {
   var controller = GlobalController();
   var borrower = BorrowerOperation();
   var message = TextMessage();

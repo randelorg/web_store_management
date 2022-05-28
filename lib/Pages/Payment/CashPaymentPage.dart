@@ -372,7 +372,7 @@ class _CashPaymentPage extends State<CashPaymentPage> {
     return Container(
       child: PdfPreview(
         padding: EdgeInsets.all(10),
-        build: (format) => PrintHelper.generateLoanInvoice(
+        build: (format) => PrintHelper.generateInvoice(
           format,
           invoice,
         ),
@@ -462,21 +462,21 @@ class _DataSource extends DataTableSource {
 
           //add the checked product to the list
           //we will remove the duplicate products afterward
-          Mapping.invoice.add(
-            InvoiceItem(
-              description: row.valueB.toString(),
-              quantity: int.parse(qty[index].text),
-              vat: 0,
-              unitPrice: double.parse(row.valueC.toString()),
-            ),
-          );
+          // Mapping.invoice.add(
+          //   InvoiceItem(
+          //     description: row.valueB.toString(),
+          //     quantity: int.parse(qty[index].text),
+          //     vat: 0,
+          //     unitPrice: double.parse(row.valueC.toString()),
+          //   ),
+          // );
 
-          //delete the uncheck product to the list
-          if (value == false) {
-            Mapping.invoice.removeWhere(
-              (element) => element.description == row.valueA.toString(),
-            );
-          }
+          // //delete the uncheck product to the list
+          // if (value == false) {
+          //   Mapping.invoice.removeWhere(
+          //     (element) => element.description == row.valueA.toString(),
+          //   );
+          // }
 
           notifyListeners();
         }

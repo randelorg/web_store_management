@@ -176,10 +176,9 @@ class _InventoryDashboard extends State<InventoryDashboard> {
                     columns: [
                       DataColumn(label: Text('PRODUCT \n NAME')),
                       DataColumn(label: Text('PRODUCT \n LABEL')),
-                      DataColumn(label: Text('STARTING \n INVENTORY')),
-                      DataColumn(label: Text('INVENTORY \n RECEIVED')),
-                      DataColumn(label: Text('INVENTORY \n BOUGHT')),
-                      DataColumn(label: Text('INVENTORY \n ON HAND')),
+                      DataColumn(label: Text('QUANTITY \n RECEIVED')),
+                      DataColumn(label: Text('QUANTITY \n BOUGHT')),
+                      DataColumn(label: Text('QUANTITY \n ON HAND')),
                     ],
                     source:
                         _DataSource(context, getLocations(), _productsFiltered),
@@ -203,7 +202,6 @@ class _Row {
   _Row(
     this.valueA,
     this.valueB,
-    this.valueE,
     this.valueF,
     this.valueG,
     this.valueH,
@@ -211,7 +209,6 @@ class _Row {
 
   final String valueA; //product name
   final String valueB; //label
-  final int valueE; //starting inventory
   final int valueF; //inventory received
   final int valueG; //inventory bought
   final int valueH; //inventory on hand
@@ -251,7 +248,6 @@ class _DataSource extends DataTableSource {
       cells: [
         DataCell(Text(row.valueA)),
         DataCell(Text(row.valueB)),
-        DataCell(Text(row.valueE.toString())),
         DataCell(Text(row.valueF.toString())),
         DataCell(Text(row.valueG.toString())),
         DataCell(Text(row.valueH.toString())),
@@ -274,7 +270,6 @@ class _DataSource extends DataTableSource {
         return _Row(
           products[index].getProductName.toString(),
           products[index].getProductLabel.toString(),
-          products[index].getStartingInventory,
           products[index].getInventoryReceived,
           products[index].getInventorySold,
           products[index].getInventoryOnHand,
@@ -286,7 +281,6 @@ class _DataSource extends DataTableSource {
         return _Row(
           '',
           '',
-          0,
           0,
           0,
           0,

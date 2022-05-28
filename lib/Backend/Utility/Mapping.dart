@@ -72,7 +72,7 @@ class Mapping {
   static List<IncomingPurchasesModel> productItems = [];
 
   //invoice
-  static List<InvoiceItem> invoice = [];
+  static List<InvoiceProductItem> invoice = [];
 
   //forget password
   static List<ForgetPasswordModel> forgetPassword = [];
