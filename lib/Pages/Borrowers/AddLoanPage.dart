@@ -5,7 +5,6 @@ import 'package:web_store_management/Notification/BannerNotif.dart';
 import '../../Helpers/FilePickerHelper.dart';
 import '../../Backend/Utility/Mapping.dart';
 import '../../Backend/GlobalController.dart';
-import '../NewLoan/FinalizePage.dart';
 
 class AddLoanPage extends StatefulWidget {
   final int? id;
@@ -357,30 +356,30 @@ class _AddLoanPage extends State<AddLoanPage> {
                             //exit
                             Navigator.pop(context);
                             //show dialog
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return SimpleDialog(
-                                  children: [
-                                    Container(
-                                      width:
-                                          (MediaQuery.of(context).size.width) /
-                                              2,
-                                      height: 555,
-                                      child: FinalizePage(
-                                        action: widget.action,
-                                        id: widget.id,
-                                        firstname: firstname.text,
-                                        lastname: lastname.text,
-                                        mobile: mobileNumber.text,
-                                        address: homeAddress.text,
-                                        contract: pick.getImageBytes(),
-                                      ),
-                                    ),
-                                  ],
-                                );
-                              },
-                            );
+                            // showDialog(
+                            //   context: context,
+                            //   builder: (BuildContext context) {
+                            //     return SimpleDialog(
+                            //       children: [
+                            //         Container(
+                            //           width:
+                            //               (MediaQuery.of(context).size.width) /
+                            //                   2,
+                            //           height: 555,
+                            //           child: FinalizePage(
+                            //             action: widget.action,
+                            //             id: widget.id,
+                            //             firstname: firstname.text,
+                            //             lastname: lastname.text,
+                            //             mobile: mobileNumber.text,
+                            //             address: homeAddress.text,
+                            //             contract: pick.getImageBytes(),
+                            //           ),
+                            //         ),
+                            //       ],
+                            //     );
+                            //   },
+                            // );
                           }
                         },
                         child: const Text('NEXT'),
