@@ -59,8 +59,8 @@ class _CustomerBuy extends State<CustomerBuy> {
             Align(
               alignment: Alignment.topLeft,
               child: Container(
-                  width: 350,
-                  padding: const EdgeInsets.only(left: 130, right: 5),
+                  width: 400,
+                  padding: const EdgeInsets.only(top: 50, bottom: 10, left: 135, right: 5),
                   child: TextField(
                     controller: barcode,
                     decoration: InputDecoration(
@@ -82,7 +82,7 @@ class _CustomerBuy extends State<CustomerBuy> {
                 ),           
             ),
             Padding(
-              padding: const EdgeInsets.only(top:20, bottom: 20, left: 5, right: 40),
+              padding: const EdgeInsets.only(top: 50, bottom: 10, left: 5, right: 40),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(20),
                 child: Stack(

@@ -48,8 +48,8 @@ class _CreditPage extends State<CreditScreen> {
               Align(
                 alignment: Alignment.topRight,
                 child: Container(
-                  padding: EdgeInsets.only(right: 85),
-                  width: 350,
+                  padding: EdgeInsets.only(bottom: 10),
+                  width: 300,
                   child: TextField(
                     controller: searchValue,
                     onChanged: (value) {
@@ -100,12 +100,11 @@ class _CreditPage extends State<CreditScreen> {
                   if (snapshot.data!.length > 0) {
                     return GridView.count(
                       crossAxisCount: 5,
-                      crossAxisSpacing: 50,
-                      mainAxisSpacing: 50,
+                      crossAxisSpacing: 40,
+                      mainAxisSpacing: 40,
                       shrinkWrap: true,
                       childAspectRatio: (MediaQuery.of(context).size.width) /
-                          (MediaQuery.of(context).size.height) /
-                          2.5,
+                          (MediaQuery.of(context).size.height) / 2.5,
                       children: _cards(_borrowerFiltered),
                     );
                   } else {

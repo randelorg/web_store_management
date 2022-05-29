@@ -24,14 +24,14 @@ class Mapping {
   }
 
   static String dateTodayTime() {
-    var _formatter = new DateFormat('yyyy-MM-dd hh:mm:ss a');
+    var _formatter = new DateFormat('dd-MM-yyy hh:mm:ss a');
     var _now = new DateTime.now();
     String formattedDate = _formatter.format(_now);
     return formattedDate;
   }
 
   static String dateToday() {
-    var _formatter = new DateFormat('yyyy-MM-dd');
+    var _formatter = new DateFormat('dd-MM-yyyy');
     var _now = new DateTime.now();
     String formattedDate = _formatter.format(_now);
     return formattedDate;

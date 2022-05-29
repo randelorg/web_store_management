@@ -244,13 +244,13 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Padding(
-                  padding: EdgeInsets.only(left: 5, right: 20),
+                  padding: EdgeInsets.only(left: 5, right: 15),
                   child: Container(
                     width: 300,
                     child: TextField(
                       controller: barcode,
                       decoration: InputDecoration(
-                        hintText: 'Search Product Barcode',
+                        hintText: 'Product Barcode',
                         //TODO: add scan feature barcode here
                         // suffixIcon: IconButton(
                         //   onPressed: () {},
@@ -296,7 +296,7 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
                             textStyle: TextStyle(
                                 fontFamily: 'Cairo_SemiBold', fontSize: 14),
                           ),
-                          child: const Text('SEARCH'),
+                          child: const Text('Search'),
                           onPressed: () async {
                             bool status = true;
                             _products.whenComplete(() {
@@ -448,7 +448,7 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
                         color: Colors.white,
                       ),
                     ),
-                    child: Text('Send OTP'),
+                    child: Text('Verify'),
                     onPressed: () {
                       if (mobileNumberOtp.text.isEmpty) {
                         BannerNotif.notif(
@@ -658,7 +658,7 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
               controller: productName,
               readOnly: true,
               decoration: InputDecoration(
-                hintText: 'Product name',
+                hintText: 'Product Name',
                 filled: true,
                 fillColor: Colors.blueGrey[50],
                 labelStyle: TextStyle(fontSize: 12),
@@ -680,7 +680,7 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
               controller: productPrice,
               readOnly: true,
               decoration: InputDecoration(
-                hintText: 'Product price',
+                hintText: 'Product Price',
                 filled: true,
                 fillColor: Colors.blueGrey[50],
                 labelStyle: TextStyle(fontSize: 12),
@@ -703,7 +703,8 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
               maxLength: 12,
               readOnly: true,
               decoration: InputDecoration(
-                hintText: 'Product type',
+                counterText: '',
+                hintText: 'Product Type',
                 filled: true,
                 fillColor: Colors.blueGrey[50],
                 labelStyle: TextStyle(fontSize: 12),

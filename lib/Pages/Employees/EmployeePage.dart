@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:modal_side_sheet/modal_side_sheet.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
 import 'package:web_store_management/Models/EmployeeModel.dart';
 import 'package:web_store_management/Pages/Employees/AttendancePage.dart';
@@ -242,16 +243,22 @@ class _DataSource extends DataTableSource {
         DataCell(Text(row.valueC)),
         DataCell(Text(row.valueD)),
         DataCell((row.valueE), onTap: () {
-          showDialog(
+          showModalSideSheet(
             context: context,
-            builder: (BuildContext context) {
-              return ViewEmpProfile(
-                eid: row.valueA,
-                role: row.valueB,
-                name: row.valueC,
-                number: row.valueD,
-              );
-            },
+            width: MediaQuery.of(context).size.width / 4,
+            body: ListView(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(30.0),
+                  child: ViewEmpProfile(
+                    eid: row.valueA,
+                    role: row.valueB,
+                    name: row.valueC,
+                    number: row.valueD,
+                  ),
+                ),
+              ],
+            ),
           );
         }),
         DataCell((row.valueF), onTap: () {

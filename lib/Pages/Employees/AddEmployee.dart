@@ -81,6 +81,7 @@ class _AddEmployee extends State<AddEmployee> {
                 width: 320,
                 alignment: Alignment.topLeft,
                 decoration: BoxDecoration(
+                  color: Colors.blueGrey[50],
                   border: Border.all(
                     color: Colors.blueGrey.shade50,
                     style: BorderStyle.solid,

@@ -43,17 +43,6 @@ class _ReturnsPage extends State<ReturnsPage> {
             children: [
               Align(
                 alignment: Alignment.topLeft,
-                child: const Text(
-                  'Payments',
-                  style: TextStyle(
-                    fontSize: 20,
-                    color: Colors.black,
-                    fontFamily: 'Cairo_SemiBold',
-                  ),
-                ),
-              ),
-              Align(
-                alignment: Alignment.topCenter,
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(8),
                   child: Stack(

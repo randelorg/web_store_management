@@ -1,3 +1,4 @@
+import 'package:intl/intl.dart';
 import 'package:web_store_management/Models/ProductModel.dart';
 
 class IncomingPurchasesModel extends ProductModel {
@@ -33,7 +34,7 @@ class IncomingPurchasesModel extends ProductModel {
 
   set setQty(qty) => this.qty = qty;
 
-  get getDatePurchase => this.datePurchase;
+  get getDatePurchase => convertDateTimeDisplay(this.datePurchase.toString());
 
   set setDatePurchase(datePurchase) => this.datePurchase = datePurchase;
 
@@ -48,6 +49,14 @@ class IncomingPurchasesModel extends ProductModel {
   get getNumberReceived => this.numberReceived;
 
   set setNumberReceived(numberReceived) => this.numberReceived = numberReceived;
+
+  String convertDateTimeDisplay(String date) {
+    final DateFormat displayFormater = DateFormat('yyyy-MM-ddTHH:mm:ss.SSS');
+    final DateFormat serverFormater = DateFormat('dd-MM-yyyy');
+    final DateTime displayDate = displayFormater.parse(date);
+    final String formatted = serverFormater.format(displayDate);
+    return formatted;
+  }
 
   IncomingPurchasesModel.empty() : super.empty();
 
