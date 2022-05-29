@@ -103,7 +103,7 @@ class _TimeCollection extends State<TimeCollection> {
                   style: TextStyle(
                     fontSize: 20,
                     color: Colors.black,
-                    fontFamily: 'Cairo_SemiBold',
+                    fontFamily: 'Cairo_Bold',
                   ),
                 ),
               ),

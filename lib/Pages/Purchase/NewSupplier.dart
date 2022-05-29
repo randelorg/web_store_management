@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:web_store_management/Backend/ProductOperation.dart';
+import 'package:web_store_management/Models/SupplierModel.dart';
+
+import '../../Notification/BannerNotif.dart';
 
 class NewSupplier extends StatefulWidget {
   @override
@@ -7,6 +11,7 @@ class NewSupplier extends StatefulWidget {
 }
 
 class _NewSupplier extends State<NewSupplier> {
+  var supplier = ProductOperation();
   var supplierName = new TextEditingController();
   var supplierMobile = new TextEditingController();
   var supplierWebiste = new TextEditingController();
@@ -20,7 +25,7 @@ class _NewSupplier extends State<NewSupplier> {
     return Column(
       children: [
         Padding(
-          padding: const EdgeInsets.only(top: 120),
+          padding: const EdgeInsets.only(top: 250),
           child: Text(
             'New Supplier Details',
             textAlign: TextAlign.center,
@@ -38,7 +43,7 @@ class _NewSupplier extends State<NewSupplier> {
           child: TextField(
             controller: supplierName,
             decoration: InputDecoration(
-              hintText: 'Supplier preffered name',
+              hintText: 'Supplier Name',
               filled: true,
               fillColor: Colors.blueGrey[50],
               labelStyle: TextStyle(fontSize: 12),
@@ -59,7 +64,7 @@ class _NewSupplier extends State<NewSupplier> {
           child: TextField(
             controller: supplierMobile,
             decoration: InputDecoration(
-              hintText: 'Mobile number',
+              hintText: 'Supplier Mobile Number',
               filled: true,
               fillColor: Colors.blueGrey[50],
               labelStyle: TextStyle(fontSize: 12),
@@ -80,7 +85,7 @@ class _NewSupplier extends State<NewSupplier> {
           child: TextField(
             controller: supplierWebiste,
             decoration: InputDecoration(
-              hintText: 'Website',
+              hintText: 'Supplier Website',
               filled: true,
               fillColor: Colors.blueGrey[50],
               labelStyle: TextStyle(fontSize: 12),
@@ -124,7 +129,24 @@ class _NewSupplier extends State<NewSupplier> {
                     ),
                   ),
                   child: const Text('ADD SUPPLIER'),
-                  onPressed: () async {},
+                  onPressed: () async {
+                    if(supplierName.text.isEmpty){
+                       BannerNotif.notif(
+                        "Error",
+                        "Please fill the supplier name field",Colors.red.shade600);
+                    } else {
+                      supplier
+                        .addSupplier(supplierName.text,
+                         supplierMobile.text, supplierWebiste.text)
+                           .then(
+                                    (value) => BannerNotif.notif(
+                                      'Success',
+                                      'New supplier added successfully',
+                                      Colors.green.shade600,
+                                    ),
+                                  );
+                    }
+                  },
                 ),
               ],
             ),

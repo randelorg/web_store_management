@@ -56,38 +56,33 @@ class _CustomerBuy extends State<CustomerBuy> {
       children: <Widget>[
         Row(
           children: [
-            Container(
-              width: 400,
-              child: Padding(
-                //scan barcode or manually enter barcode
-                padding: EdgeInsets.all(40),
-                child: TextField(
-                  controller: barcode,
-                  decoration: InputDecoration(
-                    hintText: 'Barcode',
-                    filled: true,
-                    fillColor: Colors.blueGrey[50],
-                    labelStyle: TextStyle(fontSize: 10),
-                    contentPadding: EdgeInsets.only(left: 15),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                      borderRadius: BorderRadius.circular(5),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                      borderRadius: BorderRadius.circular(5),
+            Align(
+              alignment: Alignment.topLeft,
+              child: Container(
+                  width: 350,
+                  padding: const EdgeInsets.only(left: 130, right: 5),
+                  child: TextField(
+                    controller: barcode,
+                    decoration: InputDecoration(
+                      hintText: 'Product Barcode',
+                      filled: true,
+                      fillColor: Colors.blueGrey[50],
+                      labelStyle: TextStyle(fontSize: 12),
+                      contentPadding: EdgeInsets.only(left: 15),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                        borderRadius: BorderRadius.circular(5),
+                      ),
                     ),
                   ),
-                ),
-              ),
+                ),           
             ),
             Padding(
-              padding: const EdgeInsets.only(
-                top: 40,
-                bottom: 40,
-                left: 20,
-                right: 40,
-              ),
+              padding: const EdgeInsets.only(top:20, bottom: 20, left: 5, right: 40),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(20),
                 child: Stack(
@@ -113,7 +108,7 @@ class _CustomerBuy extends State<CustomerBuy> {
                           fontSize: 14,
                         ),
                       ),
-                      child: const Text('Search product'),
+                      child: const Text('Search'),
                       onPressed: () async {
                         _items = searchProduct.getProductItems(barcode.text);
 
@@ -185,7 +180,7 @@ class _CustomerBuy extends State<CustomerBuy> {
                   return PaginatedDataTable(
                     actions: [
                       Padding(
-                        padding: const EdgeInsets.all(10),
+                        padding: const EdgeInsets.all(5),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(20),
                           child: Stack(
@@ -233,7 +228,7 @@ class _CustomerBuy extends State<CustomerBuy> {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.all(10),
+                        padding: const EdgeInsets.all(5),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(20),
                           child: Stack(
@@ -287,7 +282,7 @@ class _CustomerBuy extends State<CustomerBuy> {
                           padding: const EdgeInsets.only(right: 50),
                           child: Text('ON HAND: $onhand'),
                         ),
-                        Text("Date Today ${Mapping.dateToday()}"),
+                        Text("Date Today: ${Mapping.dateToday()}"),
                       ],
                     ),
                     showCheckboxColumn: true,

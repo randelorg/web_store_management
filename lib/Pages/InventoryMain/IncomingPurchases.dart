@@ -69,8 +69,7 @@ class _IncomingPurchases extends State<IncomingPurchases> {
             Row(
               children: [
                 Container(
-                  padding: const EdgeInsets.only(
-                      top: 15, bottom: 15, left: 20, right: 5),
+                  padding: const EdgeInsets.only(top: 20, left: 20, right: 5),
                   width: 350,
                   child: TextField(
                     controller: searchValue,
@@ -85,11 +84,11 @@ class _IncomingPurchases extends State<IncomingPurchases> {
                       });
                     },
                     decoration: InputDecoration(
-                      hintText: 'Search Product',
+                      hintText: 'Search Order',
                       filled: true,
                       fillColor: Colors.blueGrey[50],
                       labelStyle: TextStyle(fontSize: 12),
-                      contentPadding: EdgeInsets.only(left: 30),
+                      contentPadding: EdgeInsets.only(left: 15),
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.blueGrey.shade50),
                       ),

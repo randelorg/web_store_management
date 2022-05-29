@@ -55,7 +55,7 @@ class _Home extends State<Home> {
         appBar: AppBar(
           toolbarHeight: 45,
           title: Text(
-            'Dellrains Management System',
+            'Dellrains Store Management System',
             style: TextStyle(
               color: HexColor("#155293"),
               fontFamily: 'Cairo_Bold',
@@ -112,29 +112,7 @@ class _Home extends State<Home> {
                 _destinationMenu(value);
               },
             ),
-            //notification button
-            PopupMenuButton(
-              // add icon, by default "3 dot" icon
-              icon: Icon(
-                Icons.notifications,
-                color: HexColor("#155293"),
-              ),
-              itemBuilder: (context) {
-                return [
-                  PopupMenuItem<int>(
-                    child: Text("Notification 01"),
-                    value: 0,
-                  ),
-                  PopupMenuItem<int>(
-                    child: Text("Notification 02"),
-                    value: 1,
-                  ),
-                ];
-              },
-              onSelected: (value) {
-                _destinationNotif(value);
-              },
-            ),
+          
             //logout button
             Padding(
               padding: EdgeInsets.only(right: 30),

@@ -93,8 +93,7 @@ class ProductOperation implements IProduct {
     );
 
     try {
-      await Environment.methodPost(
-              "http://localhost:8090/api/addsupplier", newSupplier)
+      await Environment.methodPost("http://localhost:8090/api/addsupplier", newSupplier)
           .then((value) {
         response = value;
       });

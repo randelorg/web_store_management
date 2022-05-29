@@ -81,8 +81,7 @@ class _InventoryDashboard extends State<InventoryDashboard> {
                   },
                 ),
                 Container(
-                  padding: const EdgeInsets.only(
-                      top: 15, bottom: 15, left: 20, right: 5),
+                  padding: const EdgeInsets.only(top: 20, left: 20, right: 5),
                   width: 350,
                   child: TextField(
                     controller: searchValue,
@@ -101,7 +100,7 @@ class _InventoryDashboard extends State<InventoryDashboard> {
                       filled: true,
                       fillColor: Colors.blueGrey[50],
                       labelStyle: TextStyle(fontSize: 12),
-                      contentPadding: EdgeInsets.only(left: 30),
+                      contentPadding: EdgeInsets.only(left: 15),
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.blueGrey.shade50),
                       ),
@@ -124,7 +123,7 @@ class _InventoryDashboard extends State<InventoryDashboard> {
   Iterable<Widget> productTypeWidget(Set<String> types) {
     return types.map((type) {
       return Padding(
-        padding: const EdgeInsets.all(4.0),
+        padding: const EdgeInsets.only(top: 10),
         child: FilterChip(
           label: Text(type),
           selected: _filters.contains(type),

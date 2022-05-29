@@ -244,14 +244,7 @@ class _LoginPage extends State<LoginPage> {
         Container(
           decoration: BoxDecoration(
             color: Colors.white,
-            borderRadius: BorderRadius.circular(30),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.deepPurple.shade100,
-                spreadRadius: 10,
-                blurRadius: 20,
-              ),
-            ],
+            borderRadius: BorderRadius.circular(10),
           ),
           child: ElevatedButton(
             child: Container(
