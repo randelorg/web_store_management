@@ -74,16 +74,16 @@ class _IncomingPurchases extends State<IncomingPurchases> {
                   width: 350,
                   child: TextField(
                     controller: searchValue,
-                    // onChanged: (value) {
-                    //   setState(() {
-                    //     _searchResult = value;
-                    //     _incomingFiltered = Mapping.groupedPurchase
-                    //         .where((product) => product.getProductName
-                    //             .toLowerCase()
-                    //             .contains(_searchResult.toLowerCase()))
-                    //         .toList();
-                    //   });
-                    // },
+                    onChanged: (value) {
+                      setState(() {
+                        _searchResult = value;
+                        _incomingFiltered = Mapping.groupedPurchase
+                            .where((product) => product.getSupplierName
+                                .toLowerCase()
+                                .contains(_searchResult.toLowerCase()))
+                            .toList();
+                      });
+                    },
                     decoration: InputDecoration(
                       hintText: 'Search Product',
                       filled: true,
@@ -138,6 +138,7 @@ class _IncomingPurchases extends State<IncomingPurchases> {
                       DataColumn(label: Text('Order Slip ID')),
                       DataColumn(label: Text('Supplier Name')),
                       DataColumn(label: Text('Date Purchased')),
+                      DataColumn(label: Text('Status')),
                       DataColumn(label: Text('Action'))
                     ],
                     source:
@@ -164,12 +165,14 @@ class _Row {
     this.valueB,
     this.valueE,
     this.valueD,
+    this.valueC,
   );
 
   final String valueA; //order slip id
   final String valueB; //supplier name
   final String valueE; //purchase date
-  final Widget valueD; //view button
+  final String valueD; //status
+  final Widget valueC; //view button
 
   bool selected = false;
 }
@@ -207,7 +210,15 @@ class _DataSource extends DataTableSource {
           DataCell(Text(row.valueA)),
           DataCell(Text(row.valueB)),
           DataCell(Text(row.valueE.toString())),
-          DataCell((row.valueD), onTap: () {
+          DataCell(Text(
+            row.valueD,
+            style: TextStyle(
+              fontFamily: 'Cairo_Bold',
+              fontSize: 20,
+              color: Colors.green,
+            ),
+          )),
+          DataCell((row.valueC), onTap: () {
             showModalSideSheet(
               context: context,
               width: MediaQuery.of(context).size.width / 1.5,
@@ -240,6 +251,7 @@ class _DataSource extends DataTableSource {
           incomingProducts[index].getPurchaseOrderSlip,
           incomingProducts[index].getSupplierName,
           incomingProducts[index].getDatePurchase,
+          incomingProducts[index].getStatus,
           ClipRRect(
             borderRadius: BorderRadius.circular(20),
             child: Stack(
@@ -272,6 +284,7 @@ class _DataSource extends DataTableSource {
       //if product list is empty
       return List.generate(0, (index) {
         return _Row(
+          '',
           '',
           '',
           '',

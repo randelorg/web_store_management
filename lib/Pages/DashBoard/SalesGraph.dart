@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:web_store_management/Models/GraphModel.dart';
 
-class CollectionGraph extends StatefulWidget {
+class SalesGraph extends StatefulWidget {
   final String? caption;
   final List<GraphModel>? graphData;
-  CollectionGraph({this.caption, this.graphData});
+  SalesGraph({this.caption, this.graphData});
   @override
-  _CollectionGraph createState() => _CollectionGraph();
+  _SalesGraph createState() => _SalesGraph();
 }
 
-class _CollectionGraph extends State<CollectionGraph> {
+class _SalesGraph extends State<SalesGraph> {
   @override
   void initState() {
     super.initState();
@@ -37,9 +37,9 @@ class _CollectionGraph extends State<CollectionGraph> {
                   //name: widget.caption.toString(),
                   dataSource: widget.graphData!.toList(),
                   xValueMapper: (GraphModel collection, _) =>
-                      collection.getGivenDate,
+                      collection.getDateSold,
                   yValueMapper: (GraphModel collection, _) =>
-                      collection.getCollection,
+                      collection.getSales,
 
                   // Enable data label
                   dataLabelSettings: DataLabelSettings(isVisible: true),

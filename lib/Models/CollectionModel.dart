@@ -1,3 +1,59 @@
+class SalesModel {
+  double? today;
+  double? week;
+  double? month;
+
+  get getToday => this.today;
+
+  set setToday(double today) => this.today = today;
+
+  get getWeek => this.week;
+
+  set setWeek(week) => this.week = week;
+
+  get getMonth => this.month;
+
+  set setMonth(month) => this.month = month;
+
+  SalesModel.empty();
+
+  SalesModel.full({
+    this.today,
+    this.week,
+    this.month,
+  });
+
+  SalesModel.today({this.today});
+  SalesModel.week({this.week});
+  SalesModel.month({this.month});
+
+  factory SalesModel.fromJsonToday(Map<String, dynamic> json) {
+    return SalesModel.today(
+      today: json["today"] as double,
+    );
+  }
+
+  factory SalesModel.fromJsonWeek(Map<String, dynamic> json) {
+    return SalesModel.week(
+      week: json["week"] as double,
+    );
+  }
+
+  factory SalesModel.fromJsonMonth(Map<String, dynamic> json) {
+    return SalesModel.month(
+      month: json["month"] as double,
+    );
+  }
+
+  factory SalesModel.fromJson(Map<String, dynamic> json) {
+    return SalesModel.full(
+      today: json["today"] as double,
+      week: json["week"] as double,
+      month: json["month"] as double,
+    );
+  }
+}
+
 class CollectionModel {
   double? today;
   double? week;

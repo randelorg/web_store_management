@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:web_store_management/Backend/Session.dart';
+import 'package:web_store_management/Pages/InventoryMain/InventoryMain.dart';
+import 'package:web_store_management/Pages/LoanRelated/Attendant.dart';
+import 'package:web_store_management/Pages/Purchase/CustomerBuy.dart';
+import 'package:web_store_management/Pages/Purchase/PurchaseProducts.dart';
 import '../DashBoard/TimeCollection.dart';
 import '../NewLoan/SelectionOfProductsPage.dart';
 import '../Borrowers/BorrowersPage.dart';
@@ -29,9 +33,12 @@ class _NavDrawerAttendant extends State<NavDrawerAttendant> {
 
   List<Widget> pages = [
     TimeCollection(),
-    InventoryPage(),
+    InventoryMain(),
+    PurchaseProducts(),
+    CustomerBuy(),
     SelectionOfProductsPage(),
     BorrowersPage(),
+    Attendant(),
     ViewReport(),
   ];
 
@@ -99,16 +106,16 @@ class _NavDrawerAttendant extends State<NavDrawerAttendant> {
                         ),
                         NavigationRailDestination(
                           icon: Icon(
-                            Icons.create,
+                            Icons.shopping_basket,
                             color: Colors.white,
                           ),
                           selectedIcon: Icon(
-                            Icons.create,
+                            Icons.shopping_basket,
                             color: Colors.red,
                             size: iconSize,
                           ),
                           label: Text(
-                            'New Loan',
+                            'Purchase',
                             style: TextStyle(
                               fontSize: 8,
                               color: Colors.white,
@@ -117,18 +124,34 @@ class _NavDrawerAttendant extends State<NavDrawerAttendant> {
                         ),
                         NavigationRailDestination(
                           icon: Icon(
-                            Icons.new_releases,
+                            Icons.shopping_cart,
                             color: Colors.white,
                           ),
                           selectedIcon: Icon(
-                            Icons.new_releases,
+                            Icons.shopping_cart,
                             color: Colors.red,
                             size: iconSize,
                           ),
                           label: Text(
-                            'Release \n Product',
-                            softWrap: true,
-                            textAlign: TextAlign.center,
+                            'Buy',
+                            style: TextStyle(
+                              fontSize: 8,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                        NavigationRailDestination(
+                          icon: Icon(
+                            Icons.create,
+                            color: Colors.white,
+                          ),
+                          selectedIcon: Icon(
+                            Icons.create,
+                            color: Colors.red,
+                            size: iconSize,
+                          ),
+                          label: Text(
+                            'Loan',
                             style: TextStyle(
                               fontSize: 8,
                               color: Colors.white,
@@ -156,36 +179,16 @@ class _NavDrawerAttendant extends State<NavDrawerAttendant> {
                         ),
                         NavigationRailDestination(
                           icon: Icon(
-                            Icons.request_quote,
+                            Icons.workspaces,
                             color: Colors.white,
                           ),
                           selectedIcon: Icon(
-                            Icons.request_quote,
+                            Icons.workspaces,
                             color: Colors.red,
                             size: iconSize,
                           ),
                           label: Text(
-                            'Request',
-                            softWrap: true,
-                            style: TextStyle(
-                              fontSize: 8,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                        NavigationRailDestination(
-                          icon: Icon(
-                            Icons.build,
-                            color: Colors.white,
-                          ),
-                          selectedIcon: Icon(
-                            Icons.build,
-                            color: Colors.red,
-                            size: iconSize,
-                          ),
-                          label: Text(
-                            'Repair',
-                            softWrap: true,
+                            'More',
                             style: TextStyle(
                               fontSize: 8,
                               color: Colors.white,

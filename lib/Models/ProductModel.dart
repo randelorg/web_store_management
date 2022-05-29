@@ -6,7 +6,6 @@ class ProductModel {
   double? productPrice;
   String? productUnit;
   String? prodType;
-  int? startingInventory;
   int? inventoryReceived;
   int? inventoryOnHand;
   int? inventorySold;
@@ -39,11 +38,6 @@ class ProductModel {
   get getProdType => this.prodType;
 
   set setProdType(prodType) => this.prodType = prodType;
-
-  get getStartingInventory => this.startingInventory;
-
-  set setStartingInventory(startingInventory) =>
-      this.startingInventory = startingInventory;
 
   get getInventoryReceived => this.inventoryReceived;
 
@@ -98,7 +92,6 @@ class ProductModel {
       String productUnit,
       String prodType,
       String prodLabel,
-      int startingInventory,
       int inventoryReceived,
       int inventoryOnHand,
       int inventorySold) {
@@ -109,7 +102,6 @@ class ProductModel {
     this.prodType = prodType;
     this.productLabel = prodLabel;
     this.productItemCode = productItemCode;
-    this.startingInventory = startingInventory;
     this.inventoryReceived = inventoryReceived;
     this.inventoryOnHand = inventoryOnHand;
     this.inventorySold = inventorySold;
@@ -122,7 +114,6 @@ class ProductModel {
       this.productUnit,
       this.prodType,
       this.productLabel,
-      this.startingInventory,
       this.inventoryReceived,
       this.inventoryOnHand,
       this.inventorySold}) {
@@ -132,7 +123,6 @@ class ProductModel {
     this.productUnit = productUnit;
     this.prodType = prodType;
     this.productLabel = productLabel;
-    this.startingInventory = startingInventory;
     this.inventoryReceived = inventoryReceived;
     this.inventoryOnHand = inventoryOnHand;
     this.inventorySold = inventorySold;
@@ -146,7 +136,6 @@ class ProductModel {
       productUnit: json['ProdUnit'] as String,
       prodType: json['ProdType'] as String,
       productLabel: json['ProdLabel'] as String?,
-      startingInventory: json['StartingInventory'] as int,
       inventoryReceived: json['InventoryReceived'] as int,
       inventoryOnHand: json['InventoryOnHand'] as int,
       inventorySold: json['InventorySold'] as int,

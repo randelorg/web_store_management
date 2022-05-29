@@ -2,15 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:web_store_management/Backend/DashboardOperation.dart';
+import 'package:web_store_management/Pages/DashBoard/SalesGraph.dart';
 import '../../Models/GraphModel.dart';
 import '../DashBoard/CollectionGraph.dart';
 
-class CollectionSummary extends StatefulWidget {
+class SalesReport extends StatefulWidget {
   @override
-  _CollectionSummary createState() => _CollectionSummary();
+  _SalesReport createState() => _SalesReport();
 }
 
-class _CollectionSummary extends State<CollectionSummary> {
+class _SalesReport extends State<SalesReport> {
   TextEditingController startDate = TextEditingController();
   TextEditingController endDate = TextEditingController();
   late Future<List<GraphModel>> report;
@@ -20,7 +21,7 @@ class _CollectionSummary extends State<CollectionSummary> {
   void initState() {
     startDate.text = "";
     endDate.text = "";
-    report = dashboard.getCollectionGraphReport('', '');
+    report = dashboard.getSalesGraphReport('', '');
     super.initState();
   }
 
@@ -183,7 +184,7 @@ class _CollectionSummary extends State<CollectionSummary> {
                       child: const Text('VIEW'),
                       onPressed: () {
                         setState(() {
-                          report = dashboard.getCollectionGraphReport(
+                          report = dashboard.getSalesGraphReport(
                             startDate.text,
                             endDate.text,
                           );
@@ -230,7 +231,7 @@ class _CollectionSummary extends State<CollectionSummary> {
                     ),
                     shadowColor: Colors.black,
                     elevation: 5,
-                    child: CollectionGraph(graphData: snapshot.data),
+                    child: SalesGraph(graphData: snapshot.data),
                   );
                 } else if (snapshot.data!.isEmpty) {
                   return Center(

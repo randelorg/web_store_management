@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:web_store_management/Pages/Reports/SalesReport.dart';
-import 'CollectionSummary.dart';
-import 'HistoryScreen.dart';
+import 'package:web_store_management/Pages/LoanRelated/Release/ReleasePage.dart';
+import 'package:web_store_management/Pages/LoanRelated/Repairs/RepairsScreen.dart';
 
-class ViewReport extends StatelessWidget {
+class Attendant extends StatelessWidget {
   final List<Tab> myTabs = <Tab>[
-    Tab(text: 'Sales Report'),
-    Tab(text: 'Transfer Products Report'),
-    Tab(text: 'Collection Report'),
-    Tab(text: 'Loan and Payment Report'),
+    Tab(text: 'Release Products'),
+    Tab(text: 'Returns'),
   ];
 
   @override
@@ -29,10 +26,8 @@ class ViewReport extends StatelessWidget {
         ),
         body: TabBarView(
           children: [
-            Center(child: SalesReport()),
-            Center(child: CollectionSummary()),
-            Center(child: CollectionSummary()),
-            Center(child: HistoryScreen()),
+            Center(child: ReleasePage()),
+            Center(child: ReturnsPage()),
           ],
         ),
       ),

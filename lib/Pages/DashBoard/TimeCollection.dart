@@ -3,11 +3,11 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:web_store_management/Backend/DashboardOperation.dart';
 import 'package:web_store_management/Backend/EmployeeOperation.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
-import 'package:web_store_management/Models/GraphCollectionModel.dart';
+import 'package:web_store_management/Models/GraphModel.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:web_store_management/Notification/BannerNotif.dart';
 import 'package:web_store_management/Backend/Session.dart';
-import 'CollectionGraph.dart';
+import 'package:web_store_management/Pages/DashBoard/SalesGraph.dart';
 
 class TimeCollection extends StatefulWidget {
   @override
@@ -19,8 +19,8 @@ class _TimeCollection extends State<TimeCollection> {
   var emp = EmployeeOperation();
   bool _isAuthorized = false, _isEmployee = true;
   String? name;
-  late Future day, week, month;
-  late Future<List<GraphCollectionModel>> weekGraph;
+  late Future day, week, month, weekCollection;
+  late Future<List<GraphModel>> weekGraph;
   String timeStatus = "CLOCK IN";
 
   @override
@@ -28,9 +28,10 @@ class _TimeCollection extends State<TimeCollection> {
     displayName(); //display user name in dashboard
     weekGraph = dashboard.getGraphWeek(); //graph
     //collection total
-    day = dashboard.getTodayCollection();
-    week = dashboard.getWeekCollection();
-    month = dashboard.getMonthCollection();
+    day = dashboard.getTodaySales();
+    week = dashboard.getWeekSales();
+    month = dashboard.getMonthSales();
+    weekCollection = dashboard.getWeekCollection();
     super.initState();
   }
 
@@ -137,13 +138,13 @@ class _TimeCollection extends State<TimeCollection> {
         Row(
           children: [
             //collection summary total
-            todayCollection(),
-            weekCollection(),
-            monthCollection(),
+            todaySales(),
+            weekSales(),
+            monthSales(),
             //TODO: add sales summary here
             Padding(
-              padding: EdgeInsets.only(left: 50),
-              child: totalSales(),
+              padding: EdgeInsets.only(left: 80),
+              child: totalCollection(),
             ),
           ],
         ),
@@ -160,7 +161,7 @@ class _TimeCollection extends State<TimeCollection> {
                 ),
                 shadowColor: Colors.black,
                 elevation: 3,
-                child: collectionGraph('Month'),
+                child: salesGraph('Week'),
               ),
             ),
           ),
@@ -220,7 +221,7 @@ class _TimeCollection extends State<TimeCollection> {
     );
   }
 
-  Widget todayCollection() {
+  Widget todaySales() {
     return Padding(
       padding: const EdgeInsets.only(top: 0, left: 10),
       child: Container(
@@ -283,7 +284,7 @@ class _TimeCollection extends State<TimeCollection> {
                 ),
                 Center(
                   child: const Text(
-                    'Today Collection',
+                    'Today Sales',
                   ),
                 ),
               ],
@@ -294,7 +295,7 @@ class _TimeCollection extends State<TimeCollection> {
     );
   }
 
-  Widget weekCollection() {
+  Widget weekSales() {
     return Container(
       //width: 200,
       child: Card(
@@ -315,7 +316,7 @@ class _TimeCollection extends State<TimeCollection> {
                   if (!snapshot.hasData) {
                     return Center(
                       child: CircularProgressIndicator(
-                        semanticsLabel: 'Fetching this week collection',
+                        semanticsLabel: 'Fetching this week sales',
                       ),
                     );
                   }
@@ -355,7 +356,7 @@ class _TimeCollection extends State<TimeCollection> {
               ),
               Center(
                 child: const Text(
-                  'Week Collection',
+                  'Week Sales',
                 ),
               ),
             ],
@@ -365,7 +366,7 @@ class _TimeCollection extends State<TimeCollection> {
     );
   }
 
-  Widget monthCollection() {
+  Widget monthSales() {
     return Container(
       // width: 200,
       child: Card(
@@ -426,7 +427,7 @@ class _TimeCollection extends State<TimeCollection> {
               ),
               Center(
                 child: const Text(
-                  'Month Collection',
+                  'Month Sales',
                 ),
               ),
             ],
@@ -436,7 +437,7 @@ class _TimeCollection extends State<TimeCollection> {
     );
   }
 
-  Widget totalSales() {
+  Widget totalCollection() {
     return Container(
       // width: 200,
       child: Card(
@@ -452,12 +453,12 @@ class _TimeCollection extends State<TimeCollection> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               FutureBuilder(
-                future: month,
+                future: weekCollection,
                 builder: (context, snapshot) {
                   if (!snapshot.hasData) {
                     return Center(
                       child: CircularProgressIndicator(
-                        semanticsLabel: 'Fetching total sales',
+                        semanticsLabel: 'Fetching total collection',
                       ),
                     );
                   }
@@ -497,7 +498,7 @@ class _TimeCollection extends State<TimeCollection> {
               ),
               Center(
                 child: const Text(
-                  'Cash Payment Sales',
+                  'Week Collection',
                 ),
               ),
             ],
@@ -507,8 +508,8 @@ class _TimeCollection extends State<TimeCollection> {
     );
   }
 
-  Widget collectionGraph(String caption) {
-    return FutureBuilder<List<GraphCollectionModel>>(
+  Widget salesGraph(String caption) {
+    return FutureBuilder<List<GraphModel>>(
       future: weekGraph,
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
@@ -520,7 +521,7 @@ class _TimeCollection extends State<TimeCollection> {
         }
         if (snapshot.hasData) {
           //checkLength();
-          return CollectionGraph(caption: caption, graphData: snapshot.data);
+          return SalesGraph(caption: caption, graphData: snapshot.data);
         } else if (snapshot.data == []) {
           return Center(
             child: Text(

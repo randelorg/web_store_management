@@ -7,10 +7,11 @@ import 'package:web_store_management/Pages/InventoryMain/ViewOrders/ReceiveOrder
 
 class ViewOrderList extends StatefulWidget {
   final String? orderSlipId, datePurchase, supplierName;
-  ViewOrderList(
-      {required this.orderSlipId,
-      required this.datePurchase,
-      required this.supplierName});
+  ViewOrderList({
+    required this.orderSlipId,
+    required this.datePurchase,
+    required this.supplierName,
+  });
 
   @override
   _ViewOrderList createState() => _ViewOrderList();
@@ -95,10 +96,10 @@ class _ViewOrderList extends State<ViewOrderList> {
                           });
                         },
                       ),
-                      DataColumn(label: Text('PNAME')),
+                      DataColumn(label: Text('NAME')),
                       DataColumn(label: Text('TYPE')),
                       DataColumn(label: Text('QUANTITY ORDERED')),
-                      DataColumn(label: Text('ACTIION')),
+                      DataColumn(label: Text('ACTION')),
                     ],
                     source: _DataSource(context),
                   ),
@@ -129,6 +130,34 @@ class _ViewOrderList extends State<ViewOrderList> {
               ),
             );
           },
+        ),
+        Padding(
+          padding: const EdgeInsets.all(10),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(20),
+            child: Stack(
+              children: <Widget>[
+                Positioned.fill(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: HexColor("#155293"),
+                    ),
+                  ),
+                ),
+                TextButton(
+                  style: TextButton.styleFrom(
+                    padding: const EdgeInsets.only(
+                        top: 18, bottom: 18, left: 36, right: 36),
+                    primary: Colors.white,
+                    textStyle:
+                        TextStyle(fontFamily: 'Cairo_SemiBold', fontSize: 14),
+                  ),
+                  child: const Text('COMPLETE ORDER'),
+                  onPressed: () async {},
+                ),
+              ],
+            ),
+          ),
         ),
       ],
     );

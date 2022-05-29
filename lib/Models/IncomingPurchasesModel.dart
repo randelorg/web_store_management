@@ -9,6 +9,11 @@ class IncomingPurchasesModel extends ProductModel {
   String? productItemCode;
   String? remarks;
   String? status;
+  int? qty;
+
+  get getStatus => this.status;
+
+  set setStatus(status) => this.status = status;
 
   get getProductItemCode => this.productItemCode;
 
@@ -18,7 +23,6 @@ class IncomingPurchasesModel extends ProductModel {
   get getRemarks => this.remarks;
 
   set setRemarks(remarks) => this.remarks = remarks;
-  int? qty;
 
   get getPurchaseOrderSlip => this.purchaseOrderSlip;
 
@@ -122,7 +126,10 @@ class IncomingPurchasesModel extends ProductModel {
   }
 
   IncomingPurchasesModel.orderSlip(
-      {this.purchaseOrderSlip, this.supplierName, this.datePurchase})
+      {this.purchaseOrderSlip,
+      this.supplierName,
+      this.datePurchase,
+      this.status})
       : super.empty();
 
   factory IncomingPurchasesModel.jsonOrderSlip(Map<String, dynamic> json) {
@@ -130,6 +137,7 @@ class IncomingPurchasesModel extends ProductModel {
       purchaseOrderSlip: json['PurchaseOrderSlipID'] as String,
       supplierName: json['SupplierName'] as String,
       datePurchase: json['PurchaseDate'] as String,
+      status: json['Status'] as String,
     );
   }
 

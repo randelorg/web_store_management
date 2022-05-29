@@ -1,8 +1,18 @@
 import 'package:intl/intl.dart';
 
-class GraphCollectionModel {
+class GraphModel {
   String? givenDate;
+  String? dateSold;
   double? collection;
+  double? sales;
+
+  get getSales => this.sales;
+
+  set setSales(sales) => this.sales = sales;
+
+  get getDateSold => convertDateTimeDisplay(this.dateSold.toString());
+
+  set setDateSold(dateSold) => this.dateSold = dateSold;
 
   get getGivenDate => convertDateTimeDisplay(this.givenDate.toString());
 
@@ -20,18 +30,32 @@ class GraphCollectionModel {
     return formatted;
   }
 
-  GraphCollectionModel(String givenDate, double collection) {
+  GraphModel.empty();
+
+  GraphModel(String givenDate, double collection) {
     this.givenDate = givenDate;
     this.collection = collection;
   }
 
-  GraphCollectionModel.full({
+  GraphModel.sales({
+    this.dateSold,
+    this.sales,
+  });
+
+  factory GraphModel.fromJsonSales(Map<String, dynamic> json) {
+    return GraphModel.sales(
+      dateSold: json["DateSold"] as String,
+      sales: json["Sales"] as double,
+    );
+  }
+
+  GraphModel.collection({
     this.givenDate,
     this.collection,
   });
 
-  factory GraphCollectionModel.fromJson(Map<String, dynamic> json) {
-    return GraphCollectionModel.full(
+  factory GraphModel.fromJsonCollection(Map<String, dynamic> json) {
+    return GraphModel.collection(
       givenDate: json["GivenDate"] as String,
       collection: json["Collection"] as double,
     );

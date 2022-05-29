@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:web_store_management/Backend/Interfaces/IDashboard.dart';
+import 'package:web_store_management/Backend/interfaces/IDashboard.dart';
 import 'package:web_store_management/Models/CollectionModel.dart';
-import 'package:web_store_management/Models/GraphCollectionModel.dart';
+import 'package:web_store_management/Models/GraphModel.dart';
 import 'package:web_store_management/environment/Environment.dart';
 
 class DashboardOperation implements IDashboard {
@@ -41,18 +41,18 @@ class DashboardOperation implements IDashboard {
   }
 
   @override
-  Future<double> getTodayCollection() async {
+  Future<double> getTodaySales() async {
     var response;
     try {
       await Environment.methodGet(
-              "${Environment.apiUrl}/api/today/${getTodayDate()}")
+              "http://localhost:8090/api/today/${getTodayDate()}")
           .then((value) {
         response = value;
       });
 
-      var todayTotalCollection = jsonDecode(response.body)[0];
+      var todayTotalSales = jsonDecode(response.body)[0];
 
-      var collection = CollectionModel.fromJsonToday(todayTotalCollection);
+      var collection = SalesModel.fromJsonToday(todayTotalSales);
 
       if (response.statusCode == 404) {
         return 0;
@@ -65,12 +65,61 @@ class DashboardOperation implements IDashboard {
   }
 
   @override
+  Future<double> getWeekSales() async {
+    List<String> dates = getWeekDates();
+    var response;
+    try {
+      await Environment.methodGet(
+              "http://localhost:8090/api/week/${dates[0]}/${dates[1]}")
+          .then((value) {
+        response = value;
+      });
+
+      var weekTotalSales = jsonDecode(response.body)[0];
+
+      var collection = SalesModel.fromJsonWeek(weekTotalSales);
+
+      if (response.statusCode == 404) {
+        return 0;
+      }
+
+      return collection.getWeek;
+    } catch (e) {
+      return 0;
+    }
+  }
+
+  @override
+  Future<double> getMonthSales() async {
+    List<String> dates = getMonthDates();
+    var response;
+    try {
+      await Environment.methodGet(
+              "http://localhost:8090/api/week/${dates[0]}/${dates[1]}")
+          .then((value) {
+        response = value;
+      });
+
+      var monthTotalSales = jsonDecode(response.body)[0];
+
+      var collection = SalesModel.fromJsonWeek(monthTotalSales);
+
+      if (response.statusCode == 404) {
+        return 0;
+      }
+
+      return collection.getWeek;
+    } catch (e) {
+      return 0;
+    }
+  }
+
   Future<double> getWeekCollection() async {
     List<String> dates = getWeekDates();
     var response;
     try {
       await Environment.methodGet(
-              "${Environment.apiUrl}/api/week/${dates[0]}/${dates[1]}")
+              "http://localhost:8090/api/weekcollection/${dates[0]}/${dates[1]}")
           .then((value) {
         response = value;
       });
@@ -89,42 +138,17 @@ class DashboardOperation implements IDashboard {
     }
   }
 
-  @override
-  Future<double> getMonthCollection() async {
-    List<String> dates = getMonthDates();
-    var response;
-    try {
-      await Environment.methodGet(
-              "${Environment.apiUrl}/api/week/${dates[0]}/${dates[1]}")
-          .then((value) {
-        response = value;
-      });
-
-      var monthTotalCollection = jsonDecode(response.body)[0];
-
-      var collection = CollectionModel.fromJsonWeek(monthTotalCollection);
-
-      if (response.statusCode == 404) {
-        return 0;
-      }
-
-      return collection.getWeek;
-    } catch (e) {
-      return 0;
-    }
-  }
-
   //TODO: implement sales graph here and return a list of GraphCollectionModel
   //TODO: modify the api endpoint to get the sales data
   @override
-  Future<List<GraphCollectionModel>> getGraphWeek() async {
-    List<String> dates = getMonthDates();
-    List<GraphCollectionModel> graphCollection = [];
+  Future<List<GraphModel>> getGraphWeek() async {
+    List<String> dates = getWeekDates();
+    List<GraphModel> graphCollection = [];
     var response;
 
     try {
       await Environment.methodGet(
-              "${Environment.apiUrl}/api/datecollection/${dates[0]}/${dates[1]}")
+              "http://localhost:8090/api/datesales/${dates[0]}/${dates[1]}")
           .then((value) {
         response = value;
       });
@@ -132,8 +156,7 @@ class DashboardOperation implements IDashboard {
       final parsed =
           await jsonDecode(response.body).cast<Map<String, dynamic>>();
       graphCollection = parsed
-          .map<GraphCollectionModel>(
-              (json) => GraphCollectionModel.fromJson(json))
+          .map<GraphModel>((json) => GraphModel.fromJsonSales(json))
           .toList();
 
       if (response.statusCode == 404) {
@@ -147,24 +170,24 @@ class DashboardOperation implements IDashboard {
   }
 
   @override
-  Future<List<GraphCollectionModel>> getGraphMonth() {
+  Future<List<GraphModel>> getGraphMonth() {
     // TODO: implement getGraphMonth
     throw UnimplementedError();
   }
 
   @override
-  Future<List<GraphCollectionModel>> getGraphReport(
+  Future<List<GraphModel>> getCollectionGraphReport(
       String startDate, String endDate) async {
     if (startDate == '' && endDate == '') {
       return [];
     }
 
-    List<GraphCollectionModel> graphCollection = [];
+    List<GraphModel> graphCollection = [];
     var response;
 
     try {
       await Environment.methodGet(
-              "${Environment.apiUrl}/api/datecollection/$startDate/$endDate")
+              "http://localhost:8090/api/datecollection/$startDate/$endDate")
           .then((value) {
         response = value;
       });
@@ -172,8 +195,40 @@ class DashboardOperation implements IDashboard {
       final parsed =
           await jsonDecode(response.body).cast<Map<String, dynamic>>();
       graphCollection = parsed
-          .map<GraphCollectionModel>(
-              (json) => GraphCollectionModel.fromJson(json))
+          .map<GraphModel>((json) => GraphModel.fromJsonCollection(json))
+          .toList();
+
+      if (response.statusCode == 404) {
+        return [];
+      }
+
+      return graphCollection;
+    } catch (e) {
+      return [];
+    }
+  }
+
+  @override
+  Future<List<GraphModel>> getSalesGraphReport(
+      String startDate, String endDate) async {
+    if (startDate == '' && endDate == '') {
+      return [];
+    }
+
+    List<GraphModel> graphCollection = [];
+    var response;
+
+    try {
+      await Environment.methodGet(
+              "http://localhost:8090/api/datesales/$startDate/$endDate")
+          .then((value) {
+        response = value;
+      });
+
+      final parsed =
+          await jsonDecode(response.body).cast<Map<String, dynamic>>();
+      graphCollection = parsed
+          .map<GraphModel>((json) => GraphModel.fromJsonSales(json))
           .toList();
 
       if (response.statusCode == 404) {
