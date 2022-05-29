@@ -46,21 +46,10 @@ class _CreditPage extends State<CreditScreen> {
           child: Stack(
             children: [
               Align(
-                alignment: Alignment.topLeft,
-                child: const Text(
-                  'Credit Appovals',
-                  style: TextStyle(
-                    fontSize: 20,
-                    color: Colors.black,
-                    fontFamily: 'Cairo_SemiBold',
-                  ),
-                ),
-              ),
-              Align(
                 alignment: Alignment.topRight,
                 child: Container(
-                  //padding: EdgeInsets.only(top: 15, bottom: 15, right: 20),
-                  width: 300,
+                  padding: EdgeInsets.only(right: 85),
+                  width: 350,
                   child: TextField(
                     controller: searchValue,
                     onChanged: (value) {
@@ -79,7 +68,7 @@ class _CreditPage extends State<CreditScreen> {
                       filled: true,
                       fillColor: Colors.blueGrey[50],
                       labelStyle: TextStyle(fontSize: 12),
-                      contentPadding: EdgeInsets.only(left: 30),
+                      contentPadding: EdgeInsets.only(left: 15),
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.blueGrey.shade50),
                       ),

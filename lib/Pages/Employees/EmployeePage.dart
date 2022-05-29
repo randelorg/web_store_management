@@ -38,18 +38,18 @@ class _Employeepage extends State<EmployeePage> {
           child: Stack(
             children: [
               Align(
-                alignment: Alignment.topLeft,
+                alignment: Alignment.topCenter,
                 child: const Text(
-                  'Branches',
+                  'Employees',
                   style: TextStyle(
                     fontSize: 20,
                     color: Colors.black,
-                    fontFamily: 'Cairo_SemiBold',
+                    fontFamily: 'Cairo_Bold',
                   ),
                 ),
               ),
               Align(
-                alignment: Alignment.topCenter,
+                alignment: Alignment.topLeft,
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(10),
                   child: Stack(
@@ -87,8 +87,8 @@ class _Employeepage extends State<EmployeePage> {
               Align(
                 alignment: Alignment.topRight,
                 child: Container(
-                  //padding: EdgeInsets.only(top: 15, bottom: 15, right: 20),
-                  width: 300,
+                  padding: EdgeInsets.only(left: 20, right: 85),
+                  width: 350,
                   child: TextField(
                     controller: searchValue,
                     onChanged: (value) {
@@ -107,7 +107,7 @@ class _Employeepage extends State<EmployeePage> {
                       filled: true,
                       fillColor: Colors.blueGrey[50],
                       labelStyle: TextStyle(fontSize: 12),
-                      contentPadding: EdgeInsets.only(left: 30),
+                      contentPadding: EdgeInsets.only(left: 15),
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.blueGrey.shade50),
                       ),

@@ -48,21 +48,10 @@ class _ReleasePage extends State<ReleasePage> {
           child: Stack(
             children: [
               Align(
-                alignment: Alignment.topLeft,
-                child: const Text(
-                  'Release Product',
-                  style: TextStyle(
-                    fontSize: 20,
-                    color: Colors.black,
-                    fontFamily: 'Cairo_SemiBold',
-                  ),
-                ),
-              ),
-              Align(
                 alignment: Alignment.topRight,
                 child: Container(
-                  //padding: EdgeInsets.only(top: 15, bottom: 15, right: 20),
-                  width: 300,
+                  padding: EdgeInsets.only(right: 85),      
+                  width: 350,
                   child: TextField(
                     controller: searchValue,
                     onChanged: (value) {

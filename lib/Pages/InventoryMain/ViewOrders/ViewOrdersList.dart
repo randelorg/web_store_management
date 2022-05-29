@@ -95,10 +95,10 @@ class _ViewOrderList extends State<ViewOrderList> {
                           });
                         },
                       ),
-                      DataColumn(label: Text('PNAME')),
+                      DataColumn(label: Text('PRODUCT NAME')),
                       DataColumn(label: Text('TYPE')),
                       DataColumn(label: Text('QUANTITY ORDERED')),
-                      DataColumn(label: Text('ACTIION')),
+                      DataColumn(label: Text('ACTION')),
                     ],
                     source: _DataSource(context),
                   ),
@@ -222,8 +222,7 @@ class _DataSource extends DataTableSource {
                     ),
                   ),
                   Padding(
-                    padding:
-                        EdgeInsets.only(top: 8, bottom: 8, left: 16, right: 16),
+                    padding: EdgeInsets.only(top: 8, bottom: 8, left: 16, right: 16),
                     child: Text(
                       'RECEIEVE',
                       style: TextStyle(

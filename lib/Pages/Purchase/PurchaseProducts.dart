@@ -9,6 +9,7 @@ import 'package:web_store_management/Models/ProductModel.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
 import 'package:web_store_management/Backend/ProductOperation.dart';
 import 'package:web_store_management/Notification/BannerNotif.dart';
+import 'package:web_store_management/Pages/Purchase/NewProduct.dart';
 import 'package:web_store_management/Pages/Purchase/NewSupplier.dart';
 
 class PurchaseProducts extends StatefulWidget {
@@ -58,26 +59,25 @@ class _PurchaseProducts extends State<PurchaseProducts> {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: <Widget>[
         Container(
           width: (MediaQuery.of(context).size.width) / 5,
           child: Column(
             children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 120),
+            Padding(
+              padding: EdgeInsets.only(top: 160, left: 15),
+              child: Container(
+                alignment: Alignment.centerLeft,
                 child: Text(
                   'Choose Supplier',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: HexColor("#155293"),
+                  style: TextStyle(            
                     fontFamily: 'Cairo_Bold',
-                    fontSize: 30,
-                    overflow: TextOverflow.fade,
+                    fontSize: 25,
                   ),
-                  maxLines: 2,
                 ),
               ),
+            ),
               FutureBuilder(
                 future: _suppliers,
                 builder: (context, snapshot) {
@@ -89,10 +89,8 @@ class _PurchaseProducts extends State<PurchaseProducts> {
                     );
                   }
                   if (snapshot.hasData) {
-                    return Padding(
-                      padding: EdgeInsets.only(bottom: 20),
-                      child: Container(
-                        width: (MediaQuery.of(context).size.width) / 5,
+                    return Container(         
+                        width: 350,
                         alignment: Alignment.topLeft,
                         decoration: BoxDecoration(
                           color: Colors.blueGrey[50],
@@ -122,14 +120,13 @@ class _PurchaseProducts extends State<PurchaseProducts> {
                                   padding: EdgeInsets.only(left: 10),
                                   child: Text(
                                     value,
-                                    style: TextStyle(fontSize: 15),
+                                    style: TextStyle(fontSize: 14),
                                   ),
                                 ),
                               );
                             }).toList(),
                           ),
                         ),
-                      ),
                     );
                   }
                   return Center(
@@ -146,12 +143,15 @@ class _PurchaseProducts extends State<PurchaseProducts> {
               ),
               Center(
                 child: TextButton(
-                  child: Text(
-                    'New Supplier, add supplier here',
-                    style: TextStyle(
-                      color: Colors.blue,
-                      fontSize: 15,
-                      fontFamily: 'Cairo_SemiBold',
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 215),
+                    child: Text(
+                      'New Supplier? Add here.',
+                      style: TextStyle(
+                        fontSize: 12,
+                        fontFamily: 'Cairo_SemiBold',
+                        color: HexColor("#155293"),                    
+                      ),
                     ),
                   ),
                   onPressed: () {
@@ -172,43 +172,70 @@ class _PurchaseProducts extends State<PurchaseProducts> {
               ),
               //search products
               Padding(
-                padding: const EdgeInsets.only(top: 20),
+              padding: EdgeInsets.only(left: 15),
+              child: Container(
+                alignment: Alignment.centerLeft,
                 child: Text(
-                  'Purchase product',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: HexColor("#155293"),
+                  'Purchase Product',
+                  style: TextStyle(             
                     fontFamily: 'Cairo_Bold',
-                    fontSize: 30,
-                    overflow: TextOverflow.fade,
-                  ),
-                  maxLines: 2,
-                ),
-              ),
-              Padding(
-                //scan barcode or manually enter barcode
-                padding: EdgeInsets.all(6),
-                child: TextField(
-                  controller: barcode,
-                  decoration: InputDecoration(
-                    hintText: 'Barcode',
-                    filled: true,
-                    fillColor: Colors.blueGrey[50],
-                    labelStyle: TextStyle(fontSize: 10),
-                    contentPadding: EdgeInsets.only(left: 15),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                      borderRadius: BorderRadius.circular(5),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                      borderRadius: BorderRadius.circular(5),
-                    ),
+                    fontSize: 25,
                   ),
                 ),
               ),
+            ),
+              Container(
+                width: 350,
+                  child: TextField(
+                    controller: barcode,
+                    decoration: InputDecoration(
+                      hintText: 'Product Barcode',
+                      filled: true,
+                      fillColor: Colors.blueGrey[50],
+                      labelStyle: TextStyle(fontSize: 12),
+                      contentPadding: EdgeInsets.only(left: 15),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                    ),
+                  ),          
+              ),
+              Center(
+                child: TextButton(
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 215),
+                    child: Text(
+                      'New Product? Add here.',
+                      style: TextStyle(
+                        fontSize: 12,
+                        fontFamily: 'Cairo_SemiBold',
+                        color: HexColor("#155293"),                    
+                      ),
+                    ),
+                  ),
+                  onPressed: () {
+                    showModalSideSheet(
+                      context: context,
+                      width: MediaQuery.of(context).size.width / 4,
+                      body: ListView(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(30.0),
+                            child: NewProduct(),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                ),
+              ),
               Padding(
-                padding: const EdgeInsets.all(10),
+                padding: const EdgeInsets.all(15),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(20),
                   child: Stack(
@@ -222,13 +249,11 @@ class _PurchaseProducts extends State<PurchaseProducts> {
                       ),
                       TextButton(
                         style: TextButton.styleFrom(
-                          padding: const EdgeInsets.only(
-                              top: 18, bottom: 18, left: 36, right: 36),
+                          padding: const EdgeInsets.only(top: 18, bottom: 18, left: 36, right: 36),
                           primary: Colors.white,
-                          textStyle: TextStyle(
-                              fontFamily: 'Cairo_SemiBold', fontSize: 14),
+                          textStyle: TextStyle(fontFamily: 'Cairo_SemiBold', fontSize: 14),
                         ),
-                        child: const Text('Search product'),
+                        child: const Text('Search'),
                         onPressed: () async {
                           searchProduct
                               .getProductInfo(barcode.text)
@@ -255,8 +280,9 @@ class _PurchaseProducts extends State<PurchaseProducts> {
                   }
                   if (snapshot.hasData) {
                     productName.text = snapshot.data.toString();
-                    return Padding(
-                      padding: const EdgeInsets.all(6),
+                    return Container(
+                     padding: const EdgeInsets.only(top: 30, bottom: 10),
+                      width: 350,
                       child: TextField(
                         controller: productName,
                         readOnly: true,
@@ -269,12 +295,12 @@ class _PurchaseProducts extends State<PurchaseProducts> {
                           enabledBorder: OutlineInputBorder(
                             borderSide:
                                 BorderSide(color: Colors.blueGrey.shade50),
-                            borderRadius: BorderRadius.circular(10),
+                            borderRadius: BorderRadius.circular(5),
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderSide:
                                 BorderSide(color: Colors.blueGrey.shade50),
-                            borderRadius: BorderRadius.circular(10),
+                            borderRadius: BorderRadius.circular(5),
                           ),
                         ),
                       ),
@@ -283,29 +309,29 @@ class _PurchaseProducts extends State<PurchaseProducts> {
                   return Center(child: Text("Product name"));
                 },
               ),
-              Padding(
-                padding: const EdgeInsets.all(6),
+              Container(
+                width: 350,
                 child: TextField(
                   controller: qty,
                   decoration: InputDecoration(
-                    hintText: 'Quantity',
+                    hintText: 'Product Quantity',
                     filled: true,
                     fillColor: Colors.blueGrey[50],
                     labelStyle: TextStyle(fontSize: 12),
                     contentPadding: EdgeInsets.only(left: 15),
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                      borderRadius: BorderRadius.circular(10),
+                      borderRadius: BorderRadius.circular(5),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                      borderRadius: BorderRadius.circular(10),
+                      borderRadius: BorderRadius.circular(5),
                     ),
                   ),
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(10),
+                padding: const EdgeInsets.all(15),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(20),
                   child: Stack(
@@ -319,13 +345,11 @@ class _PurchaseProducts extends State<PurchaseProducts> {
                       ),
                       TextButton(
                         style: TextButton.styleFrom(
-                          padding: const EdgeInsets.only(
-                              top: 18, bottom: 18, left: 36, right: 36),
+                          padding: const EdgeInsets.only(top: 18, bottom: 18, left: 36, right: 36),
                           primary: Colors.white,
-                          textStyle: TextStyle(
-                              fontFamily: 'Cairo_SemiBold', fontSize: 14),
+                          textStyle: TextStyle(fontFamily: 'Cairo_SemiBold', fontSize: 14),
                         ),
-                        child: const Text('ADD'),
+                        child: const Text('Add'),
                         onPressed: () async {
                           _purchases = searchProduct.addToPurchaseTable(
                             barcode.text,
@@ -351,7 +375,7 @@ class _PurchaseProducts extends State<PurchaseProducts> {
           child: Row(
             children: [
               Padding(
-                padding: const EdgeInsets.only(left: 25, right: 25),
+                padding: const EdgeInsets.only(left: 20, right: 20),
                 child: const VerticalDivider(
                   color: Colors.grey,
                   thickness: 1,
@@ -363,6 +387,7 @@ class _PurchaseProducts extends State<PurchaseProducts> {
             ],
           ),
         ),
+        
 
         //the list of products
         Column(
@@ -377,8 +402,8 @@ class _PurchaseProducts extends State<PurchaseProducts> {
       child: Align(
         alignment: Alignment.center,
         child: Container(
-          width: (MediaQuery.of(context).size.width) / 2,
-          height: (MediaQuery.of(context).size.height),
+          width: (MediaQuery.of(context).size.width / 1.4),
+          height: (MediaQuery.of(context).size.height / 1.5),
           child: ListView(
             children: [
               FutureBuilder<List<IncomingPurchasesModel>>(
@@ -429,7 +454,7 @@ class _PurchaseProducts extends State<PurchaseProducts> {
                                       BannerNotif.notif(
                                         'Success',
                                         'New order added',
-                                        Colors.green.shade200,
+                                        Colors.green.shade600,
                                       );
                                       Mapping.purchases.clear();
                                     });
