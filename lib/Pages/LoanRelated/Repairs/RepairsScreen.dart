@@ -63,7 +63,7 @@ class _ReturnsPage extends State<ReturnsPage> {
                           textStyle: TextStyle(
                               fontSize: 18, fontFamily: 'Cairo_SemiBold'),
                         ),
-                        label: Text('NEW REPAIRS'),
+                        label: Text('NEW RETURN'),
                         onPressed: () {
                           showDialog(
                             context: context,
@@ -352,7 +352,7 @@ class _ReturnsPage extends State<ReturnsPage> {
                               primary: Colors.white,
                               textStyle: TextStyle(
                                   fontSize: 18, fontFamily: 'Cairo_SemiBold')),
-                          child: const Text('REPAIRED'),
+                          child: const Text('RELEASE'),
                           onPressed: () {
                             repairStatus(
                               brwRepair[index].getRepairId,

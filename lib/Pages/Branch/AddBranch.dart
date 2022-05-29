@@ -68,7 +68,6 @@ class _AddBranch extends State<AddBranch> {
                 fontSize: 30,
               ),
             ),
-
             Padding(
               padding: EdgeInsets.only(top: 20, left: 2),
               child: Container(
@@ -100,7 +99,6 @@ class _AddBranch extends State<AddBranch> {
                 ),
               ),
             ),
-
             Padding(
               padding: EdgeInsets.only(left: 2),
               child: Container(
@@ -132,59 +130,6 @@ class _AddBranch extends State<AddBranch> {
                 ),
               ),
             ),
-
-            Padding(
-              padding: EdgeInsets.only(left: 2),
-              child: Container(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  'Select Employee Assigned',
-                  style: TextStyle(fontSize: 10),
-                ),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(bottom: 15),
-              child: Container(
-                width: 320,
-                alignment: Alignment.topLeft,
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: Colors.blueGrey.shade50,
-                    style: BorderStyle.solid,
-                    width: 0.80,
-                  ),
-                ),
-                child: DropdownButtonHideUnderline(
-                  child: DropdownButton<String>(
-                    isExpanded: true,
-                    value: employeeAssigned,
-                    icon: const Icon(Icons.arrow_drop_down),
-                    iconSize: 24,
-                    elevation: 16,
-                    style: TextStyle(color: HexColor("#155293")),
-                    onChanged: (value) {
-                      setState(() {
-                        employeeAssigned = value!;
-                      });
-                    },
-                    items:
-                        employees.map<DropdownMenuItem<String>>((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Padding(
-                          padding: EdgeInsets.only(left: 10),
-                          child: Text(
-                            value,
-                            style: TextStyle(fontSize: 15),
-                          ),
-                        ),
-                      );
-                    }).toList(),
-                  ),
-                ),
-              ),
-            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
@@ -203,7 +148,8 @@ class _AddBranch extends State<AddBranch> {
                         ),
                         TextButton(
                           style: TextButton.styleFrom(
-                            padding: const EdgeInsets.only(left: 20, right: 20, top: 15, bottom: 15),
+                            padding: const EdgeInsets.only(
+                                left: 20, right: 20, top: 15, bottom: 15),
                             primary: Colors.white,
                             textStyle: TextStyle(
                               fontFamily: 'Cairo_SemiBold',
@@ -213,10 +159,12 @@ class _AddBranch extends State<AddBranch> {
                           ),
                           child: const Text('CONFIRM'),
                           onPressed: () {
-                            if (branchName.text.isEmpty || branchAddress.text.isEmpty) {                     
+                            if (branchName.text.isEmpty ||
+                                branchAddress.text.isEmpty) {
                               BannerNotif.notif(
-                                   "Error",
-                                   "Please fill all the fields",Colors.red.shade600);
+                                  "Error",
+                                  "Please fill all the fields",
+                                  Colors.red.shade600);
                             } else {
                               branch
                                   .addBranch(branchName.text,

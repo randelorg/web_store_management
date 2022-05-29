@@ -7,7 +7,6 @@ import 'package:web_store_management/Pages/Purchase/PurchaseProducts.dart';
 import '../DashBoard/TimeCollection.dart';
 import '../NewLoan/SelectionOfProductsPage.dart';
 import '../Borrowers/BorrowersPage.dart';
-import '../Inventory/InventoryPage.dart';
 import '../Reports/ReportScreen.dart';
 
 class NavDrawerAttendant extends StatefulWidget {

@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:web_store_management/Backend/Interfaces/IProduct.dart';
+import 'package:web_store_management/Backend/interfaces/IProduct.dart';
 import 'package:web_store_management/Notification/BannerNotif.dart';
 import 'package:web_store_management/environment/Environment.dart';
 
@@ -42,24 +42,23 @@ class ProductOperation implements IProduct {
   }
 
   @override
-  Future<bool> addProduct(String barcode, String productName, String quantity,
-      String unit, double price, String prodType, String supplierName) async {
-    var response, newProduct;
-    newProduct = json.encode(
+  Future<bool> addProduct(String barcode, String productName, double price,
+      String unit, String prodType, String prodLabel) async {
+    var response, newBarcode;
+    newBarcode = json.encode(
       {
         "barcode": barcode,
         "name": productName,
-        "quantity": quantity,
-        "unit": unit,
         "price": price,
+        "unit": unit,
         "prodType": prodType,
-        "supplierName": supplierName
+        "prodLabel": prodLabel,
       },
     );
 
     try {
       await Environment.methodPost(
-              "http://localhost:8090/api/addproduct", newProduct)
+              "http://localhost:8090/api/addbarcode", newBarcode)
           .then((value) {
         response = value;
       });
@@ -93,7 +92,8 @@ class ProductOperation implements IProduct {
     );
 
     try {
-      await Environment.methodPost("http://localhost:8090/api/addsupplier", newSupplier)
+      await Environment.methodPost(
+              "http://localhost:8090/api/addsupplier", newSupplier)
           .then((value) {
         response = value;
       });

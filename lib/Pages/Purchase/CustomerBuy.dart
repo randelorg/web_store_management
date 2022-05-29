@@ -31,9 +31,11 @@ class _CustomerBuy extends State<CustomerBuy> {
   int onhand = 0;
   double total = 0;
   var purchaseOrderId = CashPaymentOperation();
-  TextEditingController productName = TextEditingController();
-  TextEditingController barcode = TextEditingController();
-  TextEditingController qty = TextEditingController();
+  var productName = TextEditingController();
+  var barcode = TextEditingController();
+  var amountTendered = TextEditingController();
+  var change = TextEditingController();
+  var totalAmount = TextEditingController();
 
   @override
   void initState() {
@@ -59,30 +61,32 @@ class _CustomerBuy extends State<CustomerBuy> {
             Align(
               alignment: Alignment.topLeft,
               child: Container(
-                  width: 400,
-                  padding: const EdgeInsets.only(top: 50, bottom: 10, left: 135, right: 5),
-                  child: TextField(
-                    controller: barcode,
-                    decoration: InputDecoration(
-                      hintText: 'Product Barcode',
-                      filled: true,
-                      fillColor: Colors.blueGrey[50],
-                      labelStyle: TextStyle(fontSize: 12),
-                      contentPadding: EdgeInsets.only(left: 15),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                        borderRadius: BorderRadius.circular(5),
-                      ),
+                width: 400,
+                padding: const EdgeInsets.only(
+                    top: 50, bottom: 10, left: 135, right: 5),
+                child: TextField(
+                  controller: barcode,
+                  decoration: InputDecoration(
+                    hintText: 'Product Barcode',
+                    filled: true,
+                    fillColor: Colors.blueGrey[50],
+                    labelStyle: TextStyle(fontSize: 12),
+                    contentPadding: EdgeInsets.only(left: 15),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                      borderRadius: BorderRadius.circular(5),
                     ),
                   ),
-                ),           
+                ),
+              ),
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 50, bottom: 10, left: 5, right: 40),
+              padding: const EdgeInsets.only(
+                  top: 50, bottom: 10, left: 5, right: 40),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(20),
                 child: Stack(
@@ -154,7 +158,7 @@ class _CustomerBuy extends State<CustomerBuy> {
   double getTotal() {
     double total = 0;
     for (var i in Mapping.invoice) {
-      total = i.currentPrice + i.currentPrice;
+      total += i.currentPrice;
     }
     return total;
   }
@@ -208,19 +212,13 @@ class _CustomerBuy extends State<CustomerBuy> {
                                 ),
                                 child: const Text('PROCEED'),
                                 onPressed: () async {
-                                  searchProduct
-                                      .customerPurchase(_orderId)
-                                      .then((value) {
-                                    //after sending the data print the invoice
-                                    showDialog(
-                                      context: context,
-                                      builder: (BuildContext context) {
-                                        return showInvoice(
-                                            invoiceContent(_orderId));
-                                      },
-                                    );
-                                  });
-                                  //TODO: ADD TO PURCHASE ORDER HERE O THE DB
+                                  //show payment and change or paying window
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return paymentAndChange();
+                                    },
+                                  );
                                 },
                               ),
                             ],
@@ -307,6 +305,190 @@ class _CustomerBuy extends State<CustomerBuy> {
           ],
         ),
       ),
+    );
+  }
+
+  Widget paymentAndChange() {
+    return AlertDialog(
+      actionsPadding: EdgeInsets.only(bottom: 5, left: 5, right: 5),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+      actions: <Widget>[
+        Column(
+          children: [
+            Align(
+              alignment: Alignment.topRight,
+              child: IconButton(
+                icon: Icon(
+                  Icons.cancel,
+                  color: Colors.black,
+                  size: 30,
+                ),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Text(
+                'PAYMENT',
+                softWrap: true,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: HexColor("#155293"),
+                  fontFamily: 'Cairo_Bold',
+                  fontSize: 30,
+                ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(left: 2),
+              child: Container(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Total Amount',
+                  style: TextStyle(fontSize: 10),
+                ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(left: 2, bottom: 10),
+              child: Container(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  getTotal().toString(),
+                  style: TextStyle(
+                    fontSize: 30,
+                    fontFamily: 'Cairo_Bold',
+                  ),
+                ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(left: 2),
+              child: Container(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Amount Tendered',
+                  style: TextStyle(fontSize: 10),
+                ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(bottom: 15),
+              child: TextField(
+                controller: amountTendered,
+                decoration: InputDecoration(
+                  hintText: 'enter amount',
+                  filled: true,
+                  fillColor: Colors.blueGrey[50],
+                  labelStyle: TextStyle(fontSize: 8),
+                  contentPadding: EdgeInsets.only(left: 10),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(left: 2),
+              child: Container(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Change',
+                  style: TextStyle(fontSize: 10),
+                ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(bottom: 15),
+              child: TextField(
+                controller: change,
+                readOnly: true,
+                decoration: InputDecoration(
+                  hintText: 'change here',
+                  filled: true,
+                  fillColor: Colors.blueGrey[50],
+                  labelStyle: TextStyle(fontSize: 8),
+                  contentPadding: EdgeInsets.only(left: 10),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                ),
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 20),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(5),
+                    child: Stack(
+                      children: <Widget>[
+                        Positioned.fill(
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: HexColor("#155293"),
+                            ),
+                          ),
+                        ),
+                        TextButton(
+                          style: TextButton.styleFrom(
+                            padding: const EdgeInsets.only(
+                                left: 20, right: 20, top: 15, bottom: 15),
+                            primary: Colors.white,
+                            textStyle: TextStyle(
+                              fontFamily: 'Cairo_SemiBold',
+                              fontSize: 14,
+                              color: Colors.white,
+                            ),
+                          ),
+                          child: const Text('PAY'),
+                          onPressed: () {
+                            double left =
+                                double.parse(amountTendered.text) - getTotal();
+                            setState(() {
+                              change.text = left.toString();
+                            });
+
+                            //TODO: ADD TO PURCHASE ORDER HERE O THE DB
+                            //delay show of receipt to view change
+                            Future.delayed(const Duration(seconds: 5), () {
+                              searchProduct
+                                  .customerPurchase(_orderId)
+                                  .then((value) {
+                                //after sending the data print the invoice
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return showInvoice(
+                                        invoiceContent(_orderId));
+                                  },
+                                );
+                              });
+                            });
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        )
+      ],
     );
   }
 

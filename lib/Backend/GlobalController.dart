@@ -44,22 +44,13 @@ class GlobalController {
     await Session.getBranch().then((branchName) {
       branch = branchName;
     });
-    //TODO:: change the URL to deployed API; localhost is for debugging ang testting
-    if (branch == 'Main') {
-      response = await http.get(
-        Uri.parse(
-          "http://localhost:8090/api/products/$main",
-        ),
-        headers: {HttpHeaders.authorizationHeader: "${Environment.apiToken}"},
-      );
-    } else {
-      response = await http.get(
-        Uri.parse(
-          "http://localhost:8090/api/products/${Mapping.findBranchCode(branch)}",
-        ),
-        headers: {HttpHeaders.authorizationHeader: "${Environment.apiToken}"},
-      );
-    }
+
+    response = await http.get(
+      Uri.parse(
+        "http://localhost:8090/api/products/${Mapping.findBranchCode(branch)}",
+      ),
+      headers: {HttpHeaders.authorizationHeader: "${Environment.apiToken}"},
+    );
 
     final parsed = jsonDecode(response.body).cast<Map<String, dynamic>>();
     Mapping.productList = parsed

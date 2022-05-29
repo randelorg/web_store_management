@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:web_store_management/Backend/ProductOperation.dart';
+import 'package:web_store_management/Notification/BannerNotif.dart';
 
 class NewProduct extends StatefulWidget {
   @override
@@ -7,18 +9,14 @@ class NewProduct extends StatefulWidget {
 }
 
 class _NewProduct extends State<NewProduct> {
-
+  var product = ProductOperation();
   var productCode = new TextEditingController();
   var productName = new TextEditingController();
   var productPrice = new TextEditingController();
   var productUnit = new TextEditingController();
   var productLabel = new TextEditingController();
 
-
-  String _appliances = 'Appliances';
-  final String grocery= 'Grocery';
-  final String ComputerAccessories = 'Computer Accessories';
-
+  String _prodType = 'Appliances';
 
   @override
   void initState() {
@@ -106,7 +104,7 @@ class _NewProduct extends State<NewProduct> {
             ),
           ),
         ),
-          Padding(
+        Padding(
           padding: const EdgeInsets.all(6),
           child: TextField(
             controller: productUnit,
@@ -127,48 +125,47 @@ class _NewProduct extends State<NewProduct> {
             ),
           ),
         ),
-         Container(
-            width: 405,
-            decoration: BoxDecoration(
-              color: Colors.blueGrey[50],
-              borderRadius: BorderRadius.circular(15),
-              border: Border.all(
-                color: Colors.blueGrey.shade50,
-                style: BorderStyle.solid,
-                width: 0.80,
-              ),
+        Container(
+          width: 405,
+          decoration: BoxDecoration(
+            color: Colors.blueGrey[50],
+            borderRadius: BorderRadius.circular(15),
+            border: Border.all(
+              color: Colors.blueGrey.shade50,
+              style: BorderStyle.solid,
+              width: 0.80,
             ),
-            child: DropdownButtonHideUnderline(
-              child: DropdownButton<String>(
-                isExpanded: true,
-                value:_appliances,
-                icon: const Icon(Icons.arrow_drop_down),
-                iconSize: 24,
-                elevation: 16,
-                style: TextStyle(color: HexColor("#155293")),
-                onChanged: (type) {
-                  setState(() {
-                    _appliances = type!;
-                  });
-                },
-                items: <String>['Appliances', 'Grocery', 'Computer Accessories']
-                    .map<DropdownMenuItem<String>>((String value) {
-                  return DropdownMenuItem<String>(
-                    value: value,
-                    child: Padding(
-                      padding: EdgeInsets.only(left: 25),
-                      child: Text(
-                        value,
-                        style: TextStyle(fontSize: 15),
-                      ),
+          ),
+          child: DropdownButtonHideUnderline(
+            child: DropdownButton<String>(
+              isExpanded: true,
+              value: _prodType,
+              icon: const Icon(Icons.arrow_drop_down),
+              iconSize: 24,
+              elevation: 16,
+              style: TextStyle(color: HexColor("#155293")),
+              onChanged: (type) {
+                setState(() {
+                  _prodType = type!;
+                });
+              },
+              items: <String>['Appliances', 'Grocery', 'Computer Accessories']
+                  .map<DropdownMenuItem<String>>((String value) {
+                return DropdownMenuItem<String>(
+                  value: value,
+                  child: Padding(
+                    padding: EdgeInsets.only(left: 25),
+                    child: Text(
+                      value,
+                      style: TextStyle(fontSize: 15),
                     ),
-                  );
-                }).toList(),
-              ),
+                  ),
+                );
+              }).toList(),
             ),
-          
+          ),
         ),
-          Padding(
+        Padding(
           padding: const EdgeInsets.all(6),
           child: TextField(
             controller: productLabel,
@@ -217,7 +214,27 @@ class _NewProduct extends State<NewProduct> {
                     ),
                   ),
                   child: const Text('ADD PRODUCT'),
-                  onPressed: () async {},
+                  onPressed: () async {
+                    product
+                        .addProduct(
+                      productCode.text,
+                      productName.text,
+                      double.parse(productPrice.text),
+                      productUnit.text,
+                      _prodType,
+                      productLabel.text,
+                    )
+                        .then((value) {
+                      if (value) {
+                        Navigator.pop(context);
+                        BannerNotif.notif(
+                          'Succcess',
+                          'Product barcode addded',
+                          Colors.green,
+                        );
+                      }
+                    });
+                  },
                 ),
               ],
             ),

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:web_store_management/Notification/BannerNotif.dart';
-import 'package:web_store_management/Pages/Inventory/InventoryPage.dart';
 import '../../Backend/ProductOperation.dart';
 import '../../Backend/Utility/Mapping.dart';
 
@@ -15,7 +14,6 @@ class UpdateProduct extends StatefulWidget {
 
 class _UpdateProduct extends State<UpdateProduct> {
   var operation = ProductOperation();
-  var updateTable = InventoryPage();
   final prodName = TextEditingController();
   final prodQuantity = TextEditingController();
   final prodQtySuffix = TextEditingController();

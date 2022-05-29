@@ -65,19 +65,19 @@ class _PurchaseProducts extends State<PurchaseProducts> {
           width: (MediaQuery.of(context).size.width) / 5,
           child: Column(
             children: [
-            Padding(
-              padding: EdgeInsets.only(top: 160, left: 15),
-              child: Container(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  'Choose Supplier',
-                  style: TextStyle(            
-                    fontFamily: 'Cairo_Bold',
-                    fontSize: 25,
+              Padding(
+                padding: EdgeInsets.only(top: 160, left: 15),
+                child: Container(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    'Choose Supplier',
+                    style: TextStyle(
+                      fontFamily: 'Cairo_Bold',
+                      fontSize: 25,
+                    ),
                   ),
                 ),
               ),
-            ),
               FutureBuilder(
                 future: _suppliers,
                 builder: (context, snapshot) {
@@ -89,44 +89,44 @@ class _PurchaseProducts extends State<PurchaseProducts> {
                     );
                   }
                   if (snapshot.hasData) {
-                    return Container(         
-                        width: 350,
-                        alignment: Alignment.topLeft,
-                        decoration: BoxDecoration(
-                          color: Colors.blueGrey[50],
-                          border: Border.all(
-                              color: Colors.blueGrey.shade50,
-                              style: BorderStyle.solid,
-                              width: 0.80),
-                        ),
-                        child: DropdownButtonHideUnderline(
-                          child: DropdownButton<String>(
-                            isExpanded: true,
-                            value: pickedSupplier,
-                            icon: const Icon(Icons.arrow_drop_down),
-                            iconSize: 24,
-                            elevation: 16,
-                            style: TextStyle(color: HexColor("#155293")),
-                            onChanged: (String? newValue) {
-                              setState(() {
-                                pickedSupplier = newValue!;
-                              });
-                            },
-                            items: getSupplierNames()
-                                .map<DropdownMenuItem<String>>((String value) {
-                              return DropdownMenuItem<String>(
-                                value: value,
-                                child: Padding(
-                                  padding: EdgeInsets.only(left: 10),
-                                  child: Text(
-                                    value,
-                                    style: TextStyle(fontSize: 14),
-                                  ),
+                    return Container(
+                      width: 350,
+                      alignment: Alignment.topLeft,
+                      decoration: BoxDecoration(
+                        color: Colors.blueGrey[50],
+                        border: Border.all(
+                            color: Colors.blueGrey.shade50,
+                            style: BorderStyle.solid,
+                            width: 0.80),
+                      ),
+                      child: DropdownButtonHideUnderline(
+                        child: DropdownButton<String>(
+                          isExpanded: true,
+                          value: pickedSupplier,
+                          icon: const Icon(Icons.arrow_drop_down),
+                          iconSize: 24,
+                          elevation: 16,
+                          style: TextStyle(color: HexColor("#155293")),
+                          onChanged: (String? newValue) {
+                            setState(() {
+                              pickedSupplier = newValue!;
+                            });
+                          },
+                          items: getSupplierNames()
+                              .map<DropdownMenuItem<String>>((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Padding(
+                                padding: EdgeInsets.only(left: 10),
+                                child: Text(
+                                  value,
+                                  style: TextStyle(fontSize: 14),
                                 ),
-                              );
-                            }).toList(),
-                          ),
+                              ),
+                            );
+                          }).toList(),
                         ),
+                      ),
                     );
                   }
                   return Center(
@@ -150,7 +150,7 @@ class _PurchaseProducts extends State<PurchaseProducts> {
                       style: TextStyle(
                         fontSize: 12,
                         fontFamily: 'Cairo_SemiBold',
-                        color: HexColor("#155293"),                    
+                        color: HexColor("#155293"),
                       ),
                     ),
                   ),
@@ -172,38 +172,38 @@ class _PurchaseProducts extends State<PurchaseProducts> {
               ),
               //search products
               Padding(
-              padding: EdgeInsets.only(left: 15),
-              child: Container(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  'Purchase Product',
-                  style: TextStyle(             
-                    fontFamily: 'Cairo_Bold',
-                    fontSize: 25,
+                padding: EdgeInsets.only(left: 15),
+                child: Container(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    'Purchase Product',
+                    style: TextStyle(
+                      fontFamily: 'Cairo_Bold',
+                      fontSize: 25,
+                    ),
                   ),
                 ),
               ),
-            ),
               Container(
                 width: 350,
-                  child: TextField(
-                    controller: barcode,
-                    decoration: InputDecoration(
-                      hintText: 'Product Barcode',
-                      filled: true,
-                      fillColor: Colors.blueGrey[50],
-                      labelStyle: TextStyle(fontSize: 12),
-                      contentPadding: EdgeInsets.only(left: 15),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                        borderRadius: BorderRadius.circular(5),
-                      ),
+                child: TextField(
+                  controller: barcode,
+                  decoration: InputDecoration(
+                    hintText: 'Product Barcode',
+                    filled: true,
+                    fillColor: Colors.blueGrey[50],
+                    labelStyle: TextStyle(fontSize: 12),
+                    contentPadding: EdgeInsets.only(left: 15),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                      borderRadius: BorderRadius.circular(5),
                     ),
-                  ),          
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                  ),
+                ),
               ),
               Center(
                 child: TextButton(
@@ -214,7 +214,7 @@ class _PurchaseProducts extends State<PurchaseProducts> {
                       style: TextStyle(
                         fontSize: 12,
                         fontFamily: 'Cairo_SemiBold',
-                        color: HexColor("#155293"),                    
+                        color: HexColor("#155293"),
                       ),
                     ),
                   ),
@@ -249,9 +249,11 @@ class _PurchaseProducts extends State<PurchaseProducts> {
                       ),
                       TextButton(
                         style: TextButton.styleFrom(
-                          padding: const EdgeInsets.only(top: 18, bottom: 18, left: 36, right: 36),
+                          padding: const EdgeInsets.only(
+                              top: 18, bottom: 18, left: 36, right: 36),
                           primary: Colors.white,
-                          textStyle: TextStyle(fontFamily: 'Cairo_SemiBold', fontSize: 14),
+                          textStyle: TextStyle(
+                              fontFamily: 'Cairo_SemiBold', fontSize: 14),
                         ),
                         child: const Text('Search'),
                         onPressed: () async {
@@ -281,7 +283,7 @@ class _PurchaseProducts extends State<PurchaseProducts> {
                   if (snapshot.hasData) {
                     productName.text = snapshot.data.toString();
                     return Container(
-                     padding: const EdgeInsets.only(top: 30, bottom: 10),
+                      padding: const EdgeInsets.only(top: 30, bottom: 10),
                       width: 350,
                       child: TextField(
                         controller: productName,
@@ -345,9 +347,11 @@ class _PurchaseProducts extends State<PurchaseProducts> {
                       ),
                       TextButton(
                         style: TextButton.styleFrom(
-                          padding: const EdgeInsets.only(top: 18, bottom: 18, left: 36, right: 36),
+                          padding: const EdgeInsets.only(
+                              top: 18, bottom: 18, left: 36, right: 36),
                           primary: Colors.white,
-                          textStyle: TextStyle(fontFamily: 'Cairo_SemiBold', fontSize: 14),
+                          textStyle: TextStyle(
+                              fontFamily: 'Cairo_SemiBold', fontSize: 14),
                         ),
                         child: const Text('Add'),
                         onPressed: () async {
@@ -387,7 +391,6 @@ class _PurchaseProducts extends State<PurchaseProducts> {
             ],
           ),
         ),
-        
 
         //the list of products
         Column(

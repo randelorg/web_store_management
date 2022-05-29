@@ -18,7 +18,7 @@ class _LoginPage extends State<LoginPage> {
   final username = TextEditingController();
   final password = TextEditingController();
 
-  String _originBranch = 'Main';
+  String _originBranch = 'Dellrains Main';
   String _manager = 'Manager';
   final String storeAttendant = 'Store Attendant';
   String? loginRole;
@@ -39,7 +39,6 @@ class _LoginPage extends State<LoginPage> {
   List<String> getLocations() {
     List<String> branches = [];
     branches.addAll(Mapping.branchList.map((e) => e.branchName));
-    branches.add('Main');
     return branches;
   }
 

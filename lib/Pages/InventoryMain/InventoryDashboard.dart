@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:hexcolor/hexcolor.dart';
+import 'package:modal_side_sheet/modal_side_sheet.dart';
 import 'package:web_store_management/Backend/GlobalController.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
 import 'package:web_store_management/Models/ProductModel.dart';
@@ -178,6 +180,7 @@ class _InventoryDashboard extends State<InventoryDashboard> {
                       DataColumn(label: Text('QUANTITY \n RECEIVED')),
                       DataColumn(label: Text('QUANTITY \n BOUGHT')),
                       DataColumn(label: Text('QUANTITY \n ON HAND')),
+                      DataColumn(label: Text('TRANSFER')),
                     ],
                     source:
                         _DataSource(context, getLocations(), _productsFiltered),
@@ -204,6 +207,7 @@ class _Row {
     this.valueF,
     this.valueG,
     this.valueH,
+    this.valueI,
   );
 
   final String valueA; //product name
@@ -211,6 +215,7 @@ class _Row {
   final int valueF; //inventory received
   final int valueG; //inventory bought
   final int valueH; //inventory on hand
+  final Widget valueI; //transfer button
 
   bool selected = false;
 }
@@ -250,6 +255,22 @@ class _DataSource extends DataTableSource {
         DataCell(Text(row.valueF.toString())),
         DataCell(Text(row.valueG.toString())),
         DataCell(Text(row.valueH.toString())),
+        DataCell(row.valueI, onTap: () {
+          showModalSideSheet(
+            context: context,
+            width: MediaQuery.of(context).size.width / 2.3,
+            body: ListView(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(30.0),
+                  child: Text(
+                    'Transfer product here and select product itesm to be transffered',
+                  ),
+                ),
+              ],
+            ),
+          );
+        }),
       ],
     );
   }
@@ -272,6 +293,29 @@ class _DataSource extends DataTableSource {
           products[index].getInventoryReceived,
           products[index].getInventorySold,
           products[index].getInventoryOnHand,
+          ClipRRect(
+            borderRadius: BorderRadius.circular(20),
+            child: Stack(
+              children: <Widget>[
+                Positioned.fill(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: HexColor("#155293"),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding:
+                      EdgeInsets.only(top: 8, bottom: 8, left: 16, right: 16),
+                  child: Icon(
+                    Icons.transfer_within_a_station,
+                    color: Colors.white,
+                    size: 25,
+                  ),
+                ),
+              ],
+            ),
+          ),
         );
       });
     } catch (e) {
@@ -283,6 +327,7 @@ class _DataSource extends DataTableSource {
           0,
           0,
           0,
+          Text(''),
         );
       });
     }

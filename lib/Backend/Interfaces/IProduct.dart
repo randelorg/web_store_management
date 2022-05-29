@@ -5,8 +5,8 @@ class IProduct {
     return a;
   }
 
-  Future<bool> addProduct(String barcode, String productName, String quantity,
-      String unit, double price, String prodType, String supplierName) {
+  Future<bool> addProduct(String barcode, String productName, double price,
+      String unit, String prodType, String prodLabel) {
     var a;
     return a;
   }
