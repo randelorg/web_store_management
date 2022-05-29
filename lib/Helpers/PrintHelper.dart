@@ -51,6 +51,8 @@ class PrintHelper {
       ),
     );
 
+    Mapping.invoice.clear();
+
     return pdf.save();
   }
 

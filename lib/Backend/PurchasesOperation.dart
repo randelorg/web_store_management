@@ -118,7 +118,9 @@ class PurchasesOperation {
   Future<bool> customerPurchase(String invoiceNumber) async {
     var response;
     final String sold = 'SOLD';
+    String productCode = '';
     for (var item in Mapping.invoice) {
+      productCode = item.prodCode;
       try {
         var payload = json.encode({
           "itemCode": item.itemCode,
@@ -166,7 +168,9 @@ class PurchasesOperation {
 
   Future<bool> receivedItems() async {
     var response;
+    String productCode = '';
     for (var item in Mapping.receiverOrders) {
+      productCode = item.getProductCode;
       try {
         var payload = json.encode({
           "prodItemID": item.getProductItemCode,
@@ -187,6 +191,25 @@ class PurchasesOperation {
         );
         return false;
       }
+    }
+
+    try {
+      var payload = json.encode({
+        "prodCode": productCode,
+      });
+      await Environment.methodPost(
+              "http://localhost:8090/api/onhandreceive", payload)
+          .then((value) {
+        response = value;
+      });
+    } catch (e) {
+      e.toString();
+      BannerNotif.notif(
+        'Error',
+        'Something while buying',
+        Colors.red.shade600,
+      );
+      return false;
     }
 
     return true;

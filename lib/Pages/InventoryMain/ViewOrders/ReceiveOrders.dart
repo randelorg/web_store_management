@@ -295,6 +295,7 @@ class _ReceiveOrders extends State<ReceiveOrders> {
                                         Colors.green.shade200,
                                       );
                                       Mapping.purchases.clear();
+                                      Mapping.receiverOrders.clear();
                                     });
                                   },
                                 ),
