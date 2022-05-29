@@ -23,6 +23,7 @@ class _ReturnsPage extends State<ReturnsPage> {
   String _searchResult = '';
   final double textSize = 15;
   final double titleSize = 30;
+  bool _sortAscending = true;
 
   @override
   void initState() {
@@ -124,60 +125,67 @@ class _ReturnsPage extends State<ReturnsPage> {
             ],
           ),
         ),
-        FutureBuilder<List<BorrowerModel>>(
-          future: _repairs,
-          builder: (context, snapshot) {
-            if (!snapshot.hasData) {
-              return Center(
-                child: CircularProgressIndicator(
-                  semanticsLabel: 'Fetching repairs',
-                ),
-              );
-            }
-            if (snapshot.hasData) {
-              if (snapshot.data!.length > 0) {
-                return Expanded(
-                  child: Container(
-                    padding: EdgeInsets.only(right: 20, left: 20),
-                    width: (MediaQuery.of(context).size.width),
-                    height: (MediaQuery.of(context).size.height),
-                    child: GridView.count(
-                      crossAxisCount: 5,
-                      crossAxisSpacing: 10,
-                      mainAxisSpacing: 10,
-                      shrinkWrap: true,
-                      childAspectRatio: (MediaQuery.of(context).size.width) /
-                          (MediaQuery.of(context).size.height) /
-                          2.5,
-                      children: _cards(_borrowerFiltered),
+        Expanded(
+          child: Container(
+            width: (MediaQuery.of(context).size.width),
+            height: (MediaQuery.of(context).size.height),
+            child: FutureBuilder<List<BorrowerModel>>(
+              future: _repairs,
+              builder: (context, snapshot) {
+                if (!snapshot.hasData) {
+                  return Center(
+                    child: CircularProgressIndicator(
+                      semanticsLabel: 'Fetching borrowers',
                     ),
-                  ),
-                );
-              } else {
+                  );
+                }
+                if (snapshot.hasData) {
+                  return ListView(
+                    scrollDirection: Axis.vertical,
+                    padding: const EdgeInsets.only(right: 100, left: 100),
+                    children: [
+                      PaginatedDataTable(
+                        showCheckboxColumn: false,
+                        showFirstLastButtons: true,
+                        sortAscending: _sortAscending,
+                        sortColumnIndex: 1,
+                        rowsPerPage: 14,
+                        columns: [
+                          DataColumn(label: Text('BID')),
+                          DataColumn(
+                            label: Text('NAME'),
+                            onSort: (index, sortAscending) {
+                              setState(() {
+                                _sortAscending = sortAscending;
+                                if (sortAscending) {
+                                  _borrowerFiltered.sort((a, b) =>
+                                      a.toString().compareTo(b.toString()));
+                                } else {
+                                  _borrowerFiltered.sort((a, b) =>
+                                      b.toString().compareTo(a.toString()));
+                                }
+                              });
+                            },
+                          ),
+                          DataColumn(label: Text('ADDRESS')),
+                          DataColumn(label: Text('NUMBER')),
+                          DataColumn(label: Text('PRODUCT ')),
+                          DataColumn(label: Text('REPLACE')),
+                          DataColumn(label: Text('DELETE')),
+                        ],
+                        source: _DataSource(context, _borrowerFiltered),
+                      )
+                    ],
+                  );
+                }
                 return Center(
-                  child: Text(
-                    'NO REPAIRS FOUND',
-                    style: TextStyle(
-                      color: Colors.grey[500],
-                      fontFamily: 'Cairo_SemiBold',
-                      fontSize: 20,
-                    ),
+                  child: CircularProgressIndicator(
+                    semanticsLabel: 'Fetching borrowers',
                   ),
                 );
-              }
-            } else {
-              return Center(
-                child: Text(
-                  'NO REPAIRS FOUND',
-                  style: TextStyle(
-                    color: Colors.grey[500],
-                    fontFamily: 'Cairo_SemiBold',
-                    fontSize: 20,
-                  ),
-                ),
-              );
-            }
-          },
+              },
+            ),
+          ),
         ),
       ],
     );
@@ -435,5 +443,172 @@ class _ReturnsPage extends State<ReturnsPage> {
         });
       }
     });
+  }
+}
+
+class _Row {
+  _Row(
+    this.valueA,
+    this.valueB,
+    this.valueC,
+    this.valueD,
+    this.valueE,
+    this.valueF,
+    this.valueG,
+  );
+
+  final String valueA;
+  final String valueB;
+  final String valueC;
+  final String valueD;
+  final String valueE;
+  final Widget valueF;
+  final Widget valueG;
+
+  get getValueA => this.valueA;
+  get getValueB => this.valueB;
+
+  bool selected = false;
+}
+
+class _DataSource extends DataTableSource {
+  _DataSource(this.context, this.brw) {
+    brw = brw;
+    _borrowers = _borrowerProfile(brw);
+  }
+
+  final BuildContext context;
+  List<BorrowerModel> brw = [];
+  List<_Row> _borrowers = [];
+  int _selectedCount = 0;
+
+  @override
+  DataRow? getRow(int index) {
+    assert(index >= 0);
+    if (index >= _borrowers.length) return null;
+    final row = _borrowers[index];
+    return DataRow.byIndex(
+      index: index,
+      selected: row.selected,
+      onSelectChanged: (value) {
+        if (row.selected != value) {
+          var value = false;
+          _selectedCount += value ? 1 : -1;
+          assert(_selectedCount >= 0);
+          row.selected = value;
+          notifyListeners();
+        }
+      },
+      cells: [
+        DataCell(Text(
+          row.valueA,
+          style: TextStyle(
+            fontFamily: 'Cairo_Bold',
+            fontSize: 20,
+            color: Colors.green,
+          ),
+        )),
+        DataCell(Text(row.valueB)),
+        DataCell(Text(row.valueC)),
+        DataCell(Text(row.valueD)),
+        DataCell(Text(row.valueE)),
+        DataCell((row.valueF), onTap: () {}),
+        DataCell((row.valueG), onTap: () {}),
+      ],
+    );
+  }
+
+  @override
+  int get rowCount => _borrowers.length;
+
+  @override
+  bool get isRowCountApproximate => false;
+
+  @override
+  int get selectedRowCount => _selectedCount;
+}
+
+List<_Row> _borrowerProfile(List<BorrowerModel> brw) {
+  try {
+    return List.generate(
+      brw.length,
+      (index) {
+        return new _Row(
+          brw[index].getBorrowerId.toString(),
+          brw[index].toString(),
+          brw[index].getHomeAddress,
+          brw[index].getMobileNumber,
+          brw[index].getRepairProductName,
+          ClipRRect(
+            borderRadius: BorderRadius.circular(20),
+            child: Stack(
+              children: <Widget>[
+                Positioned.fill(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: HexColor("#155293"),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding:
+                      EdgeInsets.only(top: 8, bottom: 8, left: 16, right: 16),
+                  child: Text(
+                    'REPLACE',
+                    style: TextStyle(
+                      fontFamily: 'Cairo_SemiBold',
+                      fontSize: 14,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(20),
+            child: Stack(
+              children: <Widget>[
+                Positioned.fill(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.red,
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding:
+                      EdgeInsets.only(top: 8, bottom: 8, left: 16, right: 16),
+                  child: Text(
+                    'DELETE',
+                    style: TextStyle(
+                      fontFamily: 'Cairo_SemiBold',
+                      fontSize: 14,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  } catch (e) {
+    //if list borrowers is empty
+    return List.generate(
+      0,
+      (index) {
+        return new _Row(
+          "",
+          "",
+          "",
+          "",
+          "",
+          Text(''),
+          Text(''),
+        );
+      },
+    );
   }
 }
