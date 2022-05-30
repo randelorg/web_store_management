@@ -4,7 +4,7 @@ import 'package:web_store_management/Models/LoanedProductHistoryModel.dart';
 import 'package:web_store_management/Models/PaymentHistoryModel.dart';
 import 'package:web_store_management/Notification/BannerNotif.dart';
 import 'package:web_store_management/environment/Environment.dart';
-import 'Interfaces/IHistory.dart';
+import 'interfaces/IHistory.dart';
 import '../Backend/Utility/Mapping.dart';
 
 class HistoryOperation implements IHistory {
