@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:web_store_management/Backend/ProductOperation.dart';
-import 'package:web_store_management/Models/SupplierModel.dart';
-
 import '../../Notification/BannerNotif.dart';
 
 class NewSupplier extends StatefulWidget {

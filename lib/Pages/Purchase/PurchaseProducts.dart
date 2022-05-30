@@ -257,13 +257,20 @@ class _PurchaseProducts extends State<PurchaseProducts> {
                         ),
                         child: const Text('Search'),
                         onPressed: () async {
-                          searchProduct
-                              .getProductInfo(barcode.text)
-                              .then((value) {
-                            setState(() {
-                              _productName = Future.value(value);
+                          if (barcode.text.isEmpty) {
+                            BannerNotif.notif(
+                                "Error",
+                                "Please fill the product barcode field",
+                                Colors.red.shade600);
+                          } else {
+                            searchProduct
+                                .getProductInfo(barcode.text)
+                                .then((value) {
+                              setState(() {
+                                _productName = Future.value(value);
+                              });
                             });
-                          });
+                          }
                         },
                       ),
                     ],
@@ -355,17 +362,24 @@ class _PurchaseProducts extends State<PurchaseProducts> {
                         ),
                         child: const Text('Add'),
                         onPressed: () async {
-                          _purchases = searchProduct.addToPurchaseTable(
-                            barcode.text,
-                            int.parse(qty.text),
-                            Mapping.dateToday(),
-                          );
+                          if (barcode.text.isEmpty || qty.text.isEmpty) {
+                            BannerNotif.notif(
+                              "Error",
+                              "Please fill all the fields",
+                              Colors.red.shade600);
+                          } else {
+                            _purchases = searchProduct.addToPurchaseTable(
+                              barcode.text,
+                              int.parse(qty.text),
+                              Mapping.dateToday(),
+                            );
 
-                          _purchases.whenComplete(() {
-                            setState(() {
-                              _purchases = _purchases;
+                            _purchases.whenComplete(() {
+                              setState(() {
+                                _purchases = _purchases;
+                              });
                             });
-                          });
+                          }
                         },
                       ),
                     ],

@@ -114,21 +114,28 @@ class _CustomerBuy extends State<CustomerBuy> {
                       ),
                       child: const Text('Search'),
                       onPressed: () async {
-                        _items = searchProduct.getProductItems(barcode.text);
+                        if (barcode.text.isEmpty) {
+                          BannerNotif.notif(
+                              "Error",
+                              "Please fill the product barcode field",
+                              Colors.red.shade600);
+                        } else {
+                          _items = searchProduct.getProductItems(barcode.text);
 
-                        _items.whenComplete(() {
-                          setState(() {
-                            _items = _items;
-                            onhand = Mapping.productItems.length;
-                            if (onhand == 0) {
-                              BannerNotif.notif(
-                                'SOLD OUT',
-                                'Product is sold out',
-                                Colors.orange,
-                              );
-                            }
+                          _items.whenComplete(() {
+                            setState(() {
+                              _items = _items;
+                              onhand = Mapping.productItems.length;
+                              if (onhand == 0) {
+                                BannerNotif.notif(
+                                  'SOLD OUT',
+                                  'Product is sold out',
+                                  Colors.orange,
+                                );
+                              }
+                            });
                           });
-                        });
+                        }
                       },
                     ),
                   ],
@@ -311,7 +318,7 @@ class _CustomerBuy extends State<CustomerBuy> {
   Widget paymentAndChange() {
     return AlertDialog(
       actionsPadding: EdgeInsets.only(bottom: 5, left: 5, right: 5),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       actions: <Widget>[
         Column(
           children: [
@@ -328,17 +335,14 @@ class _CustomerBuy extends State<CustomerBuy> {
                 },
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Text(
-                'PAYMENT',
-                softWrap: true,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: HexColor("#155293"),
-                  fontFamily: 'Cairo_Bold',
-                  fontSize: 30,
-                ),
+            Text(
+              'Make Payment',
+              softWrap: true,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: HexColor("#155293"),
+                fontFamily: 'Cairo_Bold',
+                fontSize: 30,
               ),
             ),
             Padding(
@@ -352,7 +356,7 @@ class _CustomerBuy extends State<CustomerBuy> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(left: 2, bottom: 10),
+              padding: EdgeInsets.only(left: 2, bottom: 5),
               child: Container(
                 alignment: Alignment.centerLeft,
                 child: Text(
@@ -379,7 +383,7 @@ class _CustomerBuy extends State<CustomerBuy> {
               child: TextField(
                 controller: amountTendered,
                 decoration: InputDecoration(
-                  hintText: 'enter amount',
+                  hintText: 'Enter Amount',
                   filled: true,
                   fillColor: Colors.blueGrey[50],
                   labelStyle: TextStyle(fontSize: 8),
@@ -400,7 +404,7 @@ class _CustomerBuy extends State<CustomerBuy> {
               child: Container(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  'Change',
+                  'Change Amount',
                   style: TextStyle(fontSize: 10),
                 ),
               ),
@@ -411,7 +415,7 @@ class _CustomerBuy extends State<CustomerBuy> {
                 controller: change,
                 readOnly: true,
                 decoration: InputDecoration(
-                  hintText: 'change here',
+                  hintText: 'Change Amount',
                   filled: true,
                   fillColor: Colors.blueGrey[50],
                   labelStyle: TextStyle(fontSize: 8),
@@ -427,64 +431,70 @@ class _CustomerBuy extends State<CustomerBuy> {
                 ),
               ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 20),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(5),
-                    child: Stack(
-                      children: <Widget>[
-                        Positioned.fill(
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: HexColor("#155293"),
-                            ),
-                          ),
+            Padding(
+              padding: const EdgeInsets.only(top: 20),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                child: Stack(
+                  children: <Widget>[
+                    Positioned.fill(
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: HexColor("#155293"),
                         ),
-                        TextButton(
-                          style: TextButton.styleFrom(
-                            padding: const EdgeInsets.only(
-                                left: 20, right: 20, top: 15, bottom: 15),
-                            primary: Colors.white,
-                            textStyle: TextStyle(
-                              fontFamily: 'Cairo_SemiBold',
-                              fontSize: 14,
-                              color: Colors.white,
-                            ),
-                          ),
-                          child: const Text('PAY'),
-                          onPressed: () {
-                            double left =
-                                double.parse(amountTendered.text) - getTotal();
-                            setState(() {
-                              change.text = left.toString();
-                            });
-
-                            //TODO: ADD TO PURCHASE ORDER HERE O THE DB
-                            //delay show of receipt to view change
-                            Future.delayed(const Duration(seconds: 5), () {
-                              searchProduct
-                                  .customerPurchase(_orderId)
-                                  .then((value) {
-                                //after sending the data print the invoice
-                                showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return showInvoice(
-                                        invoiceContent(_orderId));
-                                  },
-                                );
-                              });
-                            });
-                          },
-                        ),
-                      ],
+                      ),
                     ),
-                  ),
+                    TextButton(
+                      style: TextButton.styleFrom(
+                        padding: const EdgeInsets.only(
+                            left: 36, right: 36, top: 18, bottom: 18),
+                        primary: Colors.white,
+                        textStyle: TextStyle(
+                          fontFamily: 'Cairo_SemiBold',
+                          fontSize: 14,
+                          color: Colors.white,
+                        ),
+                      ),
+                      child: const Text('PAY'),
+                      onPressed: () {
+                        if (amountTendered.text.isEmpty) {
+                          BannerNotif.notif(
+                              "Error",
+                              "Please fill the amount field",
+                              Colors.red.shade600);
+                        } else if (amountTendered.text.isEmpty) {
+                          BannerNotif.notif(
+                              "Error",
+                              "Please fill all the fields",
+                              Colors.red.shade600);
+                        } else {
+                          double left =
+                              double.parse(amountTendered.text) - getTotal();
+                          setState(() {
+                            change.text = left.toString();
+                          });
+
+                          //TODO: ADD TO PURCHASE ORDER HERE O THE DB
+                          //delay show of receipt to view change
+                          Future.delayed(const Duration(seconds: 5), () {
+                            searchProduct
+                                .customerPurchase(_orderId)
+                                .then((value) {
+                              //after sending the data print the invoice
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return showInvoice(invoiceContent(_orderId));
+                                },
+                              );
+                            });
+                          });
+                        }
+                      },
+                    ),
+                  ],
                 ),
-              ],
+              ),
             ),
           ],
         )

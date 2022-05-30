@@ -126,7 +126,7 @@ class _NewProduct extends State<NewProduct> {
           ),
         ),
         Container(
-          width: 405,
+          width: 410,
           decoration: BoxDecoration(
             color: Colors.blueGrey[50],
             borderRadius: BorderRadius.circular(15),
@@ -154,7 +154,7 @@ class _NewProduct extends State<NewProduct> {
                 return DropdownMenuItem<String>(
                   value: value,
                   child: Padding(
-                    padding: EdgeInsets.only(left: 25),
+                    padding: EdgeInsets.only(left: 15),
                     child: Text(
                       value,
                       style: TextStyle(fontSize: 15),
@@ -215,25 +215,34 @@ class _NewProduct extends State<NewProduct> {
                   ),
                   child: const Text('ADD PRODUCT'),
                   onPressed: () async {
-                    product
-                        .addProduct(
-                      productCode.text,
-                      productName.text,
-                      double.parse(productPrice.text),
-                      productUnit.text,
-                      _prodType,
-                      productLabel.text,
-                    )
-                        .then((value) {
-                      if (value) {
-                        Navigator.pop(context);
-                        BannerNotif.notif(
-                          'Succcess',
-                          'Product barcode addded',
-                          Colors.green,
-                        );
-                      }
-                    });
+                    if (productCode.text.isEmpty ||
+                        productName.text.isEmpty ||
+                        productPrice.text.isEmpty ||
+                        productUnit.text.isEmpty ||
+                        productLabel.text.isEmpty) {
+                      BannerNotif.notif("Error", "Please fill all the fields",
+                          Colors.red.shade600);
+                    } else {
+                      product
+                          .addProduct(
+                        productCode.text,
+                        productName.text,
+                        double.parse(productPrice.text),
+                        productUnit.text,
+                        _prodType,
+                        productLabel.text,
+                      )
+                          .then((value) {
+                        if (value) {
+                          Navigator.pop(context);
+                          BannerNotif.notif(
+                            'Succcess',
+                            'Product added',
+                            Colors.green,
+                          );
+                        }
+                      });
+                    }
                   },
                 ),
               ],

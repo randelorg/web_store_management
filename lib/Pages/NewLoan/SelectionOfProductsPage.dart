@@ -298,18 +298,25 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
                           ),
                           child: const Text('Search'),
                           onPressed: () async {
-                            bool status = true;
-                            _products.whenComplete(() {
-                              status = findProductBarcode(barcode.text);
+                            if (barcode.text.isEmpty) {
+                              BannerNotif.notif(
+                                  "Error",
+                                  "Please fill the product barcode field",
+                                  Colors.red.shade600);
+                            } else {
+                              bool status = true;
+                              _products.whenComplete(() {
+                                status = findProductBarcode(barcode.text);
 
-                              if (!status) {
-                                BannerNotif.notif(
-                                  'NOT FOUND',
-                                  'Product code is not exisiting or type is not a appliances',
-                                  Colors.orange,
-                                );
-                              }
-                            });
+                                if (!status) {
+                                  BannerNotif.notif(
+                                    'NOT FOUND',
+                                    'Product code is not exisiting or type is not a appliances',
+                                    Colors.orange,
+                                  );
+                                }
+                              });
+                            }
                           },
                         ),
                       ],
@@ -429,7 +436,7 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
           child: Padding(
             padding: const EdgeInsets.only(top: 10),
             child: ClipRRect(
-              borderRadius: BorderRadius.circular(5),
+              borderRadius: BorderRadius.circular(10),
               child: Stack(
                 children: <Widget>[
                   Positioned.fill(
@@ -745,20 +752,36 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
                         ),
                         child: const Text('DONE'),
                         onPressed: () async {
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return PaymentPlanPage(
-                                action: 'new_loan',
-                                firstname: firstname.text,
-                                lastname: lastname.text,
-                                mobile: mobileNumberOtp.text,
-                                address: homeAddress.text,
-                                total: double.parse(productPrice.text),
-                                contract: pick.image,
-                              );
-                            },
-                          );
+                          if (firstname.text.isEmpty ||
+                              lastname.text.isEmpty ||
+                              mobileNumberOtp.text.isEmpty ||
+                              homeAddress.text.isEmpty ||
+                              productPrice.text.isEmpty) {
+                            BannerNotif.notif(
+                                "Error",
+                                "Please fill all the fields",
+                                Colors.red.shade600);
+                          } else if (pick.image == null) {
+                            BannerNotif.notif(
+                                "Error",
+                                "Please upload a file (jpg, png, jpeg)",
+                                Colors.red.shade600);
+                          } else {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return PaymentPlanPage(
+                                  action: 'new_loan',
+                                  firstname: firstname.text,
+                                  lastname: lastname.text,
+                                  mobile: mobileNumberOtp.text,
+                                  address: homeAddress.text,
+                                  total: double.parse(productPrice.text),
+                                  contract: pick.image,
+                                );
+                              },
+                            );
+                          }                  
                         }),
                   ],
                 ),

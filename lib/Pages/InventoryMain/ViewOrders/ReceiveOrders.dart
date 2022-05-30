@@ -142,7 +142,7 @@ class _ReceiveOrders extends State<ReceiveOrders> {
                               );
                               if (pickedDate != null) {
                                 String formattedDate =
-                                    DateFormat('yyyy-MM-dd').format(pickedDate);
+                                    DateFormat('dd-MM-yyyy').format(pickedDate);
                                 setState(() {
                                   dateinput.text = formattedDate;
                                 });
