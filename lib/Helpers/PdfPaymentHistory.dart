@@ -34,7 +34,6 @@ class PdfPaymentHistory {
           ),
         ],
       );
-
   static Widget buildCustomerAddress(BorrowerModel customer) => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -45,11 +44,10 @@ class PdfPaymentHistory {
             ),
           ),
           Text(customer.getHomeAddress),
-        ],  
+        ],
       );
 
-  static Widget buildInvoiceInfo(InvoiceInfo info) {
-    final paymentTerms = '${info.dueDate.difference(info.date).inDays} days';
+  static Widget buildInvoiceInfo(InvoiceInfo cash) {
     final titles = <String>[
       'Invoice Number:',
       'Invoice Date:',
@@ -57,10 +55,8 @@ class PdfPaymentHistory {
       'Due Date:'
     ];
     final data = <String>[
-      info.number,
-      Mapping.formatDate(info.date),
-      paymentTerms,
-      Mapping.formatDate(info.dueDate),
+      cash.number,
+      Mapping.formatDate(cash.date),
     ];
 
     return Column(
@@ -96,12 +92,12 @@ class PdfPaymentHistory {
       'Total',
     ];
     final data = invoice.items.map((item) {
-      final total = item.unitPrice * item.quantity * (1 + item.vat);
+      final total = item.currentPrice * item.qty * (1 + item.vat);
 
       return [
-        item.description,
-        '${item.quantity}',
-        '\$ ${item.unitPrice}',
+        item.remarks,
+        '${item.qty}',
+        '\$ ${item.currentPrice}',
         '${item.vat} %',
         '\$ ${total.toStringAsFixed(2)}',
       ];
@@ -127,7 +123,7 @@ class PdfPaymentHistory {
 
   static Widget buildTotal(Invoice invoice) {
     final netTotal = invoice.items
-        .map((item) => item.unitPrice * item.quantity)
+        .map((item) => item.currentPrice * item.qty)
         .reduce((item1, item2) => item1 + item2);
     final vatPercent = invoice.items.first.vat;
     final vat = netTotal * vatPercent;

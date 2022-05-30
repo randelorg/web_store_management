@@ -22,6 +22,10 @@ android/
 ios/
 .idea/
 
+#other folders
+windows/
+android/
+
 
 # Visual Studio Code related
 .vscode/
@@ -44,3 +48,6 @@ ios/
 
 # Service account files
 svc-keyfile.json
+
+#environment variables
+.env

@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:web_store_management/Backend/GlobalController.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
-import 'package:web_store_management/Models/BranchModel.dart';
 import 'package:web_store_management/Pages/Branch/AddBranch.dart';
 import 'package:web_store_management/Pages/Branch/UpdateBranch.dart';
+import 'package:web_store_management/Models/BranchModel.dart';
 
 class BranchPage extends StatefulWidget {
   @override
@@ -15,84 +15,95 @@ class _BranchPage extends State<BranchPage> {
   var controller = GlobalController();
   var _sortAscending = true;
   late Future<List<BranchModel>> branches;
+  List<BranchModel> _branchFiltered = [];
+  TextEditingController searchValue = TextEditingController();
+  String _searchResult = '';
 
   @override
   void initState() {
-    super.initState();
     branches = controller.fetchBranches();
+    branches.whenComplete(() => _branchFiltered = Mapping.branchList);
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        Stack(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(top: 15, bottom: 15, left: 20),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
-                    child: Stack(
-                      children: <Widget>[
-                        Positioned.fill(
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: HexColor("#155293"),
-                            ),
-                          ),
-                        ),
-                        TextButton.icon(
-                          icon:
-                              Icon(Icons.add_box_rounded, color: Colors.white),
-                          style: TextButton.styleFrom(
-                            padding: const EdgeInsets.only(
-                                left: 10, right: 10, top: 10, bottom: 10),
-                            primary: Colors.white,
-                            textStyle: TextStyle(
-                                fontSize: 18, fontFamily: 'Cairo_SemiBold'),
-                          ),
-                          label: Text('NEW BRANCH'),
-                          onPressed: () {
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return AddBranch();
-                              },
-                            );
-                          },
-                        ),
-                      ],
-                    ),
+        Padding(
+          padding: const EdgeInsets.only(left: 10, right: 20, top: 10),
+          child: Stack(
+            children: [
+              Align(
+                alignment: Alignment.topCenter,
+                child: const Text(
+                  'Branches',
+                  style: TextStyle(
+                    fontSize: 20,
+                    color: Colors.black,
+                    fontFamily: 'Cairo_Bold',
                   ),
                 ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                Container(
-                  padding: EdgeInsets.only(top: 15, bottom: 15, right: 100),
-                  width: 400,
-                  child: TextField(
-                    decoration: InputDecoration(
-                      hintText: 'Search Branch',
-                      suffixIcon: InkWell(
-                        child: IconButton(
-                          icon: Icon(Icons.qr_code_scanner_outlined),
-                          color: Colors.grey,
-                          tooltip: 'Search by QR',
-                          onPressed: () {},
+              ),
+              Align(
+                alignment: Alignment.topLeft,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: Stack(
+                    children: <Widget>[
+                      Positioned.fill(
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: HexColor("#155293"),
+                          ),
                         ),
                       ),
+                      TextButton.icon(
+                        icon: Icon(Icons.add_box_rounded, color: Colors.white),
+                        style: TextButton.styleFrom(
+                          padding: const EdgeInsets.only(
+                              left: 10, right: 10, top: 10, bottom: 10),
+                          primary: Colors.white,
+                          textStyle: TextStyle(
+                              fontSize: 18, fontFamily: 'Cairo_SemiBold'),
+                        ),
+                        label: Text('NEW BRANCH'),
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AddBranch();
+                            },
+                          );
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Align(
+                alignment: Alignment.topRight,
+                child: Container(
+                  padding: EdgeInsets.only(left: 20, right: 85),
+                  width: 350,
+                  child: TextField(
+                    controller: searchValue,
+                    onChanged: (value) {
+                      setState(() {
+                        _searchResult = value;
+                        _branchFiltered = Mapping.branchList
+                            .where((branch) => branch.branchName
+                                .toLowerCase()
+                                .contains(_searchResult.toLowerCase()))
+                            .toList();
+                      });
+                    },
+                    decoration: InputDecoration(
+                      hintText: 'Search Branch',
                       filled: true,
                       fillColor: Colors.blueGrey[50],
                       labelStyle: TextStyle(fontSize: 12),
-                      contentPadding: EdgeInsets.only(left: 30),
+                      contentPadding: EdgeInsets.only(left: 15),
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.blueGrey.shade50),
                       ),
@@ -102,9 +113,9 @@ class _BranchPage extends State<BranchPage> {
                     ),
                   ),
                 ),
-              ],
-            ),
-          ],
+              ),
+            ],
+          ),
         ),
         Expanded(
           child: Container(
@@ -138,10 +149,10 @@ class _BranchPage extends State<BranchPage> {
                               setState(() {
                                 _sortAscending = sortAscending;
                                 if (sortAscending) {
-                                  snapshot.data!.sort((a, b) =>
+                                  _branchFiltered.sort((a, b) =>
                                       a.branchCode.compareTo(b.branchCode));
                                 } else {
-                                  snapshot.data!.sort((a, b) =>
+                                  _branchFiltered.sort((a, b) =>
                                       b.branchCode.compareTo(a.branchCode));
                                 }
                               });
@@ -151,7 +162,7 @@ class _BranchPage extends State<BranchPage> {
                           DataColumn(label: Text('ADDRESS')),
                           DataColumn(label: Text('UPDATE')),
                         ],
-                        source: _DataSource(context),
+                        source: _DataSource(context, _branchFiltered),
                       )
                     ],
                   );
@@ -187,14 +198,16 @@ class _Row {
 }
 
 class _DataSource extends DataTableSource {
-  _DataSource(this.context) {
-    _branch = _borrowerProfile(context);
+  _DataSource(this.context, this._branchesFiltered) {
+    _branchesFiltered = _branchesFiltered;
+    _branch = _borrowerProfile(_branchesFiltered);
   }
 
   final BuildContext context;
 
   int _selectedCount = 0;
   List<_Row> _branch = [];
+  List<BranchModel> _branchesFiltered = [];
 
   @override
   DataRow? getRow(int index) {
@@ -242,13 +255,13 @@ class _DataSource extends DataTableSource {
   @override
   int get selectedRowCount => _selectedCount;
 
-  List<_Row> _borrowerProfile(BuildContext context) {
+  List<_Row> _borrowerProfile(List<BranchModel> branch) {
     try {
-      return List.generate(Mapping.branchList.length, (index) {
+      return List.generate(branch.length, (index) {
         return new _Row(
-          Mapping.branchList[index].branchCode.toString(),
-          Mapping.branchList[index].branchName.toString(),
-          Mapping.branchList[index].branchAddress.toString(),
+          branch[index].branchCode.toString(),
+          branch[index].branchName.toString(),
+          branch[index].branchAddress.toString(),
           ClipRRect(
             borderRadius: BorderRadius.circular(20),
             child: Stack(

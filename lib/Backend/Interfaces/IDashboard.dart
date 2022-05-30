@@ -1,7 +1,6 @@
-import 'package:web_store_management/Models/GraphCollectionModel.dart';
+import 'package:web_store_management/Models/GraphModel.dart';
 
 class IDashboard {
-
   String getTodayDate() {
     return '';
   }
@@ -14,32 +13,39 @@ class IDashboard {
     return [];
   }
 
-  Future<double> getWeekCollection() async {
+  Future<double> getWeekSales() async {
     return 0;
   }
 
-  Future<double> getTodayCollection() async {
+  Future<double> getTodaySales() async {
     return 0;
   }
 
-  Future<double> getMonthCollection() async {
+  Future<double> getMonthSales() async {
     return 0;
   }
 
   //this is for the graph {week and month}
-  Future<List<GraphCollectionModel>> getGraphWeek() async {
+  Future<List<GraphModel>> getGraphWeek() async {
     var a;
     return a;
   }
 
   //this is for the graph {week and month}
-  Future<List<GraphCollectionModel>> getGraphMonth() async {
+  Future<List<GraphModel>> getGraphMonth() async {
     var a;
     return a;
   }
 
   //this is for the graph {week and month}
-  Future<List<GraphCollectionModel>> getGraphReport(
+  Future<List<GraphModel>> getCollectionGraphReport(
+      String startDate, String endDate) async {
+    var a;
+    return a;
+  }
+
+  //this is for the graph {week and month}
+  Future<List<GraphModel>> getSalesGraphReport(
       String startDate, String endDate) async {
     var a;
     return a;

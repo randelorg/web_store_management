@@ -386,7 +386,7 @@ class _AddAccount extends State<AddAccount> {
                                     mobileNumber: mobileNumber.text,
                                     homeAddress: homeAddress.text,
                                     username: username.text,
-                                    password: hash.encrypt(password.text),
+                                    password: password.text.trim(),
                                     image: pick.getImageBytes(),
                                   );
                                 },

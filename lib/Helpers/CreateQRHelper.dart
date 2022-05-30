@@ -5,12 +5,13 @@ class CreateQrHelper {
   static Widget createQr(String content) {
     return QrImage(
       data: content,
+      gapless: true,
       version: QrVersions.auto,
-      embeddedImage: AssetImage('assets/images/store-logo.png'),
-      embeddedImageStyle: QrEmbeddedImageStyle(
-        size: Size(70, 70),
-      ),
-      size: 200.0,
+      size: 150,
+      // embeddedImage: AssetImage('assets/images/store-logo.png'),
+      // embeddedImageStyle: QrEmbeddedImageStyle(
+      //   size: Size(20, 20),
+      // ),
     );
   }
 }

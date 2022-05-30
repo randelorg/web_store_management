@@ -1,7 +1,9 @@
 import 'package:hexcolor/hexcolor.dart';
 import 'package:flutter/material.dart';
+import 'package:modal_side_sheet/modal_side_sheet.dart';
 import 'package:web_store_management/Models/BorrowerModel.dart';
-import 'ViewBorrowerProfile.dart';
+import 'package:web_store_management/Pages/Borrowers/ViewBrwProfile.dart';
+import 'package:web_store_management/Pages/Payment/MakePayment.dart';
 import '../../Backend/Utility/Mapping.dart';
 import '../../Backend/GlobalController.dart';
 
@@ -13,50 +15,83 @@ class BorrowersPage extends StatefulWidget {
 class _BorrowersPage extends State<BorrowersPage> {
   var controller = GlobalController();
   late Future<List<BorrowerModel>> borrowers;
+  List<BorrowerModel> _borrowerFiltered = [];
+  TextEditingController searchValue = TextEditingController();
+  String _searchResult = '';
   var _sortAscending = true;
 
   @override
   void initState() {
-    super.initState();
     borrowers = controller.fetchBorrowers();
+
+    //fill the list with all the borrowers
+    //to have a init state of filled table
+    borrowers.whenComplete(() => _borrowerFiltered = Mapping.borrowerList);
+
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    searchValue.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            Container(
-              padding: EdgeInsets.only(top: 15, bottom: 15, right: 100),
-              width: 400,
-              child: TextField(
-                decoration: InputDecoration(
-                  hintText: 'Search Borrower',
-                  suffixIcon: InkWell(
-                    child: IconButton(
-                      icon: Icon(Icons.qr_code_scanner_outlined),
-                      color: Colors.grey,
-                      tooltip: 'Search by QR',
-                      onPressed: () {},
-                    ),
-                  ),
-                  filled: true,
-                  fillColor: Colors.blueGrey[50],
-                  labelStyle: TextStyle(fontSize: 12),
-                  contentPadding: EdgeInsets.only(left: 30),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.blueGrey.shade50),
+        Padding(
+          padding: const EdgeInsets.only(left: 10, right: 20, top: 10),
+          child: Stack(
+            children: [
+              Align(
+                alignment: Alignment.topCenter,
+                child: const Text(
+                  'Borrowers',
+                  style: TextStyle(
+                    fontSize: 20,
+                    color: Colors.black,
+                    fontFamily: 'Cairo_Bold',
                   ),
                 ),
               ),
-            ),
-          ],
+              Align(
+                alignment: Alignment.topRight,
+                child: Container(
+                  padding: EdgeInsets.only(left: 20, right: 85),
+                  width: 350,
+                  child: TextField(
+                    controller: searchValue,
+                    onChanged: (value) {
+                      setState(() {
+                        _searchResult = value;
+                        _borrowerFiltered = Mapping.borrowerList
+                            .where((brw) => brw
+                                .toString()
+                                .toLowerCase()
+                                .contains(_searchResult.toLowerCase()))
+                            .toList();
+                      });
+                    },
+                    decoration: InputDecoration(
+                      hintText: 'Search Borrower',
+                      filled: true,
+                      fillColor: Colors.blueGrey[50],
+                      labelStyle: TextStyle(fontSize: 12),
+                      contentPadding: EdgeInsets.only(left: 15),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
         Expanded(
           child: Container(
@@ -73,7 +108,6 @@ class _BorrowersPage extends State<BorrowersPage> {
                   );
                 }
                 if (snapshot.hasData) {
-                  //checkLength();
                   return ListView(
                     scrollDirection: Axis.vertical,
                     padding: const EdgeInsets.only(right: 100, left: 100),
@@ -92,20 +126,20 @@ class _BorrowersPage extends State<BorrowersPage> {
                               setState(() {
                                 _sortAscending = sortAscending;
                                 if (sortAscending) {
-                                  snapshot.data!.sort((a, b) =>
+                                  _borrowerFiltered.sort((a, b) =>
                                       a.getFirstname.compareTo(b.getFirstname));
                                 } else {
-                                  snapshot.data!.sort((a, b) =>
+                                  _borrowerFiltered.sort((a, b) =>
                                       b.getFirstname.compareTo(a.getFirstname));
                                 }
                               });
                             },
                           ),
-                          DataColumn(label: Text('NUMBER')),
                           DataColumn(label: Text('BALANCE')),
-                          DataColumn(label: Text('ACTION')),
+                          DataColumn(label: Text('PAY')),
+                          DataColumn(label: Text('VIEW')),
                         ],
-                        source: _DataSource(context),
+                        source: _DataSource(context, _borrowerFiltered),
                       )
                     ],
                   );
@@ -136,7 +170,7 @@ class _Row {
   final String valueA;
   final String valueB;
   final String valueC;
-  final String valueD;
+  final Widget valueD;
   final Widget valueE;
 
   get getValueA => this.valueA;
@@ -146,11 +180,13 @@ class _Row {
 }
 
 class _DataSource extends DataTableSource {
-  _DataSource(this.context) {
-    _borrowers = _borrowerProfile();
+  _DataSource(this.context, this.brw) {
+    brw = brw;
+    _borrowers = _borrowerProfile(brw);
   }
 
   final BuildContext context;
+  List<BorrowerModel> brw = [];
   List<_Row> _borrowers = [];
   int _selectedCount = 0;
 
@@ -175,18 +211,35 @@ class _DataSource extends DataTableSource {
         DataCell(Text(row.valueA)),
         DataCell(Text(row.valueB)),
         DataCell(Text(row.valueC)),
-        DataCell(Text(row.valueD)),
-        DataCell((row.valueE), onTap: () {
+        DataCell((row.valueD), onTap: () {
           showDialog(
             context: context,
             builder: (BuildContext context) {
-              return ViewBorrowerProfile(
-                id: int.parse(row.valueA),
+              return MakePayment(
+                id: row.valueA,
                 name: row.valueB,
-                number: row.valueC,
-                balance: double.parse(row.valueD),
+                debt: row.valueC,
               );
             },
+          );
+        }),
+        DataCell((row.valueE), onTap: () {
+          showModalSideSheet(
+            context: context,
+            width: MediaQuery.of(context).size.width / 4,
+            body: ListView(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(30.0),
+                  child: ViewBrwProfile(
+                    id: int.parse(row.valueA),
+                    name: row.valueB,
+                    number: row.valueC,
+                    balance: double.parse(row.valueC),
+                  ),
+                ),
+              ],
+            ),
           );
         }),
       ],
@@ -203,16 +256,41 @@ class _DataSource extends DataTableSource {
   int get selectedRowCount => _selectedCount;
 }
 
-List<_Row> _borrowerProfile() {
+List<_Row> _borrowerProfile(List<BorrowerModel> brw) {
   try {
     return List.generate(
-      Mapping.borrowerList.length,
+      brw.length,
       (index) {
         return new _Row(
-          Mapping.borrowerList[index].getBorrowerId.toString(),
-          Mapping.borrowerList[index].toString(),
-          Mapping.borrowerList[index].getMobileNumber.toString(),
-          Mapping.borrowerList[index].getBalance.toStringAsFixed(2).toString(),
+          brw[index].getBorrowerId.toString(),
+          brw[index].toString(),
+          brw[index].getBalance.toStringAsFixed(2).toString(),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(20),
+            child: Stack(
+              children: <Widget>[
+                Positioned.fill(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: HexColor("#155293"),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding:
+                      EdgeInsets.only(top: 8, bottom: 8, left: 16, right: 16),
+                  child: Text(
+                    'PAY',
+                    style: TextStyle(
+                      fontFamily: 'Cairo_SemiBold',
+                      fontSize: 14,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
           ClipRRect(
             borderRadius: BorderRadius.circular(20),
             child: Stack(
@@ -251,7 +329,7 @@ List<_Row> _borrowerProfile() {
           "",
           "",
           "",
-          "",
+          Text(''),
           Text(''),
         );
       },

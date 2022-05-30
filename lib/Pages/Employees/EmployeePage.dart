@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:modal_side_sheet/modal_side_sheet.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
 import 'package:web_store_management/Models/EmployeeModel.dart';
 import 'package:web_store_management/Pages/Employees/AttendancePage.dart';
@@ -18,84 +19,96 @@ class _Employeepage extends State<EmployeePage> {
   String storeAttendant = 'Store Attendant';
   var _sortAscending = true;
   late Future<List<EmployeeModel>> employees;
+  List<EmployeeModel> _employeeFiltered = [];
+  TextEditingController searchValue = TextEditingController();
+  String _searchResult = '';
 
   @override
   void initState() {
-    super.initState();
     employees = controller.fetchAllEmployees();
+    employees.whenComplete(() => _employeeFiltered = Mapping.employeeList);
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        Stack(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(top: 15, bottom: 15, left: 20),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
-                    child: Stack(
-                      children: <Widget>[
-                        Positioned.fill(
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: HexColor("#155293"),
-                            ),
-                          ),
-                        ),
-                        TextButton.icon(
-                          icon:
-                              Icon(Icons.add_box_rounded, color: Colors.white),
-                          style: TextButton.styleFrom(
-                            padding: const EdgeInsets.only(
-                                left: 10, right: 10, top: 10, bottom: 10),
-                            primary: Colors.white,
-                            textStyle: TextStyle(
-                                fontSize: 18, fontFamily: 'Cairo_SemiBold'),
-                          ),
-                          label: Text('NEW EMPLOYEE'),
-                          onPressed: () {
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return AddEmployee();
-                              },
-                            );
-                          },
-                        ),
-                      ],
-                    ),
+        Padding(
+          padding: const EdgeInsets.only(left: 10, right: 20, top: 10),
+          child: Stack(
+            children: [
+              Align(
+                alignment: Alignment.topCenter,
+                child: const Text(
+                  'Employees',
+                  style: TextStyle(
+                    fontSize: 20,
+                    color: Colors.black,
+                    fontFamily: 'Cairo_Bold',
                   ),
                 ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                Container(
-                  padding: EdgeInsets.only(top: 15, bottom: 15, right: 100),
-                  width: 400,
-                  child: TextField(
-                    decoration: InputDecoration(
-                      hintText: 'Search Employee',
-                      suffixIcon: InkWell(
-                        child: IconButton(
-                          icon: Icon(Icons.qr_code_scanner_outlined),
-                          color: Colors.grey,
-                          tooltip: 'Search by QR',
-                          onPressed: () {},
+              ),
+              Align(
+                alignment: Alignment.topLeft,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: Stack(
+                    children: <Widget>[
+                      Positioned.fill(
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: HexColor("#155293"),
+                          ),
                         ),
                       ),
+                      TextButton.icon(
+                        icon: Icon(Icons.add_box_rounded, color: Colors.white),
+                        style: TextButton.styleFrom(
+                          padding: const EdgeInsets.only(
+                              left: 10, right: 10, top: 10, bottom: 10),
+                          primary: Colors.white,
+                          textStyle: TextStyle(
+                              fontSize: 18, fontFamily: 'Cairo_SemiBold'),
+                        ),
+                        label: Text('NEW EMPLOYEE'),
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AddEmployee();
+                            },
+                          );
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Align(
+                alignment: Alignment.topRight,
+                child: Container(
+                  padding: EdgeInsets.only(left: 20, right: 85),
+                  width: 350,
+                  child: TextField(
+                    controller: searchValue,
+                    onChanged: (value) {
+                      setState(() {
+                        _searchResult = value;
+                        _employeeFiltered = Mapping.employeeList
+                            .where((emp) => emp
+                                .toString()
+                                .toLowerCase()
+                                .contains(_searchResult.toLowerCase()))
+                            .toList();
+                      });
+                    },
+                    decoration: InputDecoration(
+                      hintText: 'Search Employee',
                       filled: true,
                       fillColor: Colors.blueGrey[50],
                       labelStyle: TextStyle(fontSize: 12),
-                      contentPadding: EdgeInsets.only(left: 30),
+                      contentPadding: EdgeInsets.only(left: 15),
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.blueGrey.shade50),
                       ),
@@ -105,9 +118,9 @@ class _Employeepage extends State<EmployeePage> {
                     ),
                   ),
                 ),
-              ],
-            ),
-          ],
+              ),
+            ],
+          ),
         ),
         Expanded(
           child: Container(
@@ -142,10 +155,10 @@ class _Employeepage extends State<EmployeePage> {
                               setState(() {
                                 _sortAscending = sortAscending;
                                 if (sortAscending) {
-                                  snapshot.data!.sort(
+                                  _employeeFiltered.sort(
                                       (a, b) => a.getRole.compareTo(b.getRole));
                                 } else {
-                                  snapshot.data!.sort(
+                                  _employeeFiltered.sort(
                                       (a, b) => b.getRole.compareTo(a.getRole));
                                 }
                               });
@@ -156,7 +169,7 @@ class _Employeepage extends State<EmployeePage> {
                           DataColumn(label: Text('PROFILE')),
                           DataColumn(label: Text('ATTENDANCE')),
                         ],
-                        source: _DataSource(context),
+                        source: _DataSource(context, _employeeFiltered),
                       )
                     ],
                   );
@@ -196,14 +209,16 @@ class _Row {
 }
 
 class _DataSource extends DataTableSource {
-  _DataSource(this.context) {
-    _employees = _borrowerProfile();
+  _DataSource(this.context, this._employeeFiltered) {
+    _employeeFiltered = _employeeFiltered;
+    _employees = _borrowerProfile(_employeeFiltered);
   }
 
   final BuildContext context;
 
   int _selectedCount = 0;
   List<_Row> _employees = [];
+  List<EmployeeModel> _employeeFiltered = [];
 
   @override
   DataRow? getRow(int index) {
@@ -228,16 +243,22 @@ class _DataSource extends DataTableSource {
         DataCell(Text(row.valueC)),
         DataCell(Text(row.valueD)),
         DataCell((row.valueE), onTap: () {
-          showDialog(
+          showModalSideSheet(
             context: context,
-            builder: (BuildContext context) {
-              return ViewEmpProfile(
-                eid: row.valueA,
-                role: row.valueB,
-                name: row.valueC,
-                number: row.valueD,
-              );
-            },
+            width: MediaQuery.of(context).size.width / 4,
+            body: ListView(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(30.0),
+                  child: ViewEmpProfile(
+                    eid: row.valueA,
+                    role: row.valueB,
+                    name: row.valueC,
+                    number: row.valueD,
+                  ),
+                ),
+              ],
+            ),
           );
         }),
         DataCell((row.valueF), onTap: () {
@@ -271,67 +292,67 @@ class _DataSource extends DataTableSource {
 
   @override
   int get selectedRowCount => _selectedCount;
+}
 
-  List<_Row> _borrowerProfile() {
-    try {
-      return List.generate(Mapping.employeeList.length, (index) {
-        return new _Row(
-          Mapping.employeeList[index].getEmployeeID.toString(),
-          Mapping.employeeList[index].getRole.toString(),
-          Mapping.employeeList[index].toString(),
-          Mapping.employeeList[index].getMobileNumber.toString(),
-          ClipRRect(
-            borderRadius: BorderRadius.circular(20),
-            child: Stack(
-              children: <Widget>[
-                Positioned.fill(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: HexColor("#155293"),
-                    ),
+List<_Row> _borrowerProfile(List<EmployeeModel> emp) {
+  try {
+    return List.generate(emp.length, (index) {
+      return _Row(
+        emp[index].getEmployeeID.toString(),
+        emp[index].getRole.toString(),
+        emp[index].toString(),
+        emp[index].getMobileNumber.toString(),
+        ClipRRect(
+          borderRadius: BorderRadius.circular(20),
+          child: Stack(
+            children: <Widget>[
+              Positioned.fill(
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: HexColor("#155293"),
                   ),
                 ),
-                Padding(
-                  padding:
-                      EdgeInsets.only(top: 8, bottom: 8, left: 16, right: 16),
-                  child: Icon(Icons.badge, color: Colors.white),
-                ),
-              ],
-            ),
+              ),
+              Padding(
+                padding:
+                    EdgeInsets.only(top: 8, bottom: 8, left: 16, right: 16),
+                child: Icon(Icons.badge, color: Colors.white),
+              ),
+            ],
           ),
-          ClipRRect(
-            borderRadius: BorderRadius.circular(20),
-            child: Stack(
-              children: <Widget>[
-                Positioned.fill(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: HexColor("#155293"),
-                    ),
+        ),
+        ClipRRect(
+          borderRadius: BorderRadius.circular(20),
+          child: Stack(
+            children: <Widget>[
+              Positioned.fill(
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: HexColor("#155293"),
                   ),
                 ),
-                Padding(
-                  padding:
-                      EdgeInsets.only(top: 8, bottom: 8, left: 16, right: 16),
-                  child: Icon(Icons.date_range, color: Colors.white),
-                ),
-              ],
-            ),
+              ),
+              Padding(
+                padding:
+                    EdgeInsets.only(top: 8, bottom: 8, left: 16, right: 16),
+                child: Icon(Icons.date_range, color: Colors.white),
+              ),
+            ],
           ),
-        );
-      });
-    } catch (e) {
-      //if employees list is empty
-      return List.generate(0, (index) {
-        return _Row(
-          '',
-          '',
-          '',
-          '',
-          Text(''),
-          Text(''),
-        );
-      });
-    }
+        ),
+      );
+    });
+  } catch (e) {
+    //if employees list is empty
+    return List.generate(0, (index) {
+      return _Row(
+        '',
+        '',
+        '',
+        '',
+        Text(''),
+        Text(''),
+      );
+    });
   }
 }

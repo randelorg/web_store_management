@@ -1,15 +1,16 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:web_store_management/Models/EmployeeModel.dart';
+import 'package:web_store_management/Models/AdminModel.dart';
+import 'package:web_store_management/environment/Environment.dart';
 import '../Helpers/HashingHelper.dart';
 import 'GlobalController.dart';
 import 'Interfaces/ILogin.dart';
-import '../Models/AdminModel.dart';
-import 'Utility/ApiUrl.dart';
 import 'Utility/Mapping.dart';
 import 'Session.dart';
 
 class Login extends GlobalController implements ILogin {
+  //var auth = Auth();
   var hash = Hashing();
   var admin = AdminModel.empty();
   var session = Session();
@@ -18,38 +19,28 @@ class Login extends GlobalController implements ILogin {
   Future<bool> mainLogin(
       String branch, String role, String username, String password) async {
     //holds the json body
-    var entity;
-
+    var entity, response;
     switch (role.replaceAll(' ', '')) {
       case 'Manager':
         entity = json.encode({
           "Username": username,
-          "Password": hash.encrypt(password),
+          "Password": hash.encrypt(password.trim()),
         });
         break;
       case 'StoreAttendant':
         entity = json.encode({
           "Role": role.replaceAll(' ', ''),
           "Username": username.toString(),
-          "Password": hash.encrypt(password)
+          "Password": hash.encrypt(password.trim())
         });
         break;
       default:
     }
 
-    final response = await http.post(
-      Uri.parse("${Url.url}api/login"),
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      },
-      body: entity,
-    );
-
-    //if response is empty return false
-    if (response.statusCode == 404) {
-      return false;
-    }
+    await Environment.methodPost("${Environment.apiUrl}/api/login", entity)
+        .then((value) {
+      response = value;
+    });
 
     try {
       //if response is not empty
@@ -57,7 +48,6 @@ class Login extends GlobalController implements ILogin {
 
       if (!status) return false;
     } catch (e) {
-      print(e.toString());
     }
 
     return true;
@@ -89,7 +79,7 @@ class Login extends GlobalController implements ILogin {
             ),
           );
 
-          await setSession(admin.toString(), true, role, branch);
+          await _setSession(admin.toString(), true, role, branch);
 
           break;
         case 'StoreAttendant':
@@ -109,7 +99,7 @@ class Login extends GlobalController implements ILogin {
             emp.getUserImage,
           ));
 
-          await setSession(emp.toString(), true, role, branch);
+          await _setSession(emp.toString(), true, role, branch);
           break;
         default:
       }
@@ -120,7 +110,7 @@ class Login extends GlobalController implements ILogin {
     return true;
   }
 
-  Future<void> setSession(
+  Future<void> _setSession(
       String id, bool status, String role, String branch) async {
     await Session.setValues(id, status, role, branch);
   }

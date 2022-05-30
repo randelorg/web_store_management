@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:web_store_management/Backend/DashboardOperation.dart';
-import '../../Models/GraphCollectionModel.dart';
+import '../../Models/GraphModel.dart';
 import '../DashBoard/CollectionGraph.dart';
 
 class CollectionSummary extends StatefulWidget {
@@ -13,14 +13,14 @@ class CollectionSummary extends StatefulWidget {
 class _CollectionSummary extends State<CollectionSummary> {
   TextEditingController startDate = TextEditingController();
   TextEditingController endDate = TextEditingController();
-  late Future<List<GraphCollectionModel>> report;
+  late Future<List<GraphModel>> report;
   var dashboard = DashboardOperation();
 
   @override
   void initState() {
     startDate.text = "";
     endDate.text = "";
-    report = dashboard.getGraphReport('', '');
+    report = dashboard.getCollectionGraphReport('', '');
     super.initState();
   }
 
@@ -179,7 +179,7 @@ class _CollectionSummary extends State<CollectionSummary> {
                       child: const Text('VIEW'),
                       onPressed: () {
                         setState(() {
-                          report = dashboard.getGraphReport(
+                          report = dashboard.getCollectionGraphReport(
                             startDate.text,
                             endDate.text,
                           );
@@ -201,7 +201,7 @@ class _CollectionSummary extends State<CollectionSummary> {
         ),
         Expanded(
           child: Center(
-            child: FutureBuilder<List<GraphCollectionModel>>(
+            child: FutureBuilder<List<GraphModel>>(
               future: report,
               builder: (context, snapshot) {
                 if (ConnectionState.waiting == snapshot.connectionState) {
@@ -220,7 +220,14 @@ class _CollectionSummary extends State<CollectionSummary> {
                 }
                 if (snapshot.hasData) {
                   //checkLength();
-                  return CollectionGraph(graphData: snapshot.data);
+                  return Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                    shadowColor: Colors.black,
+                    elevation: 5,
+                    child: CollectionGraph(graphData: snapshot.data),
+                  );
                 } else if (snapshot.data!.isEmpty) {
                   return Center(
                     child: Text(
