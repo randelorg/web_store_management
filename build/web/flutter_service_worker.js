@@ -3,7 +3,7 @@ const MANIFEST = 'flutter-app-manifest';
 const TEMP = 'flutter-temp-cache';
 const CACHE_NAME = 'flutter-app-cache';
 const RESOURCES = {
-  "assets/AssetManifest.json": "c1051d02ebaee8f4cb65896b02633909",
+  "assets/AssetManifest.json": "dff9d9f1cdde5bdbc15378dca6c52d87",
 "assets/assets/fonts/Cairo_Bold.ttf": "80ada5fcee2d9415ee00ef7739eba6df",
 "assets/assets/fonts/Cairo_Light.ttf": "521aad886875e8c23944c69616960523",
 "assets/assets/fonts/Cairo_SemiBold.ttf": "df4b7a4fa0bbf338ddcf7abad1885344",
@@ -15,12 +15,12 @@ const RESOURCES = {
 "assets/assets/images/user.png": "e459835010bf256bf5e3f7423b43bc51",
 "assets/FontManifest.json": "ece65f34aa67c81b9eef82e08046e50b",
 "assets/fonts/MaterialIcons-Regular.otf": "7e7a6cccddf6d7b20012a548461d5d81",
-"assets/NOTICES": "deaeb5be14a204d0cb33a7a82b237899",
+"assets/NOTICES": "db175cd2c0e0b9edbe2cdd9e2cf16806",
 "assets/packages/cupertino_icons/assets/CupertinoIcons.ttf": "6d342eb68f170c97609e9da345464e5e",
 "assets/packages/material_design_icons_flutter/lib/fonts/materialdesignicons-webfont.ttf": "b62641afc9ab487008e996a5c5865e56",
-"canvaskit/canvaskit.js": "3725a0811e16affbef87d783520e61d4",
+"canvaskit/canvaskit.js": "c2b4e5f3d7a3d82aed024e7249a78487",
 "canvaskit/canvaskit.wasm": "4b83d89d9fecbea8ca46f2f760c5a9ba",
-"canvaskit/profiling/canvaskit.js": "491df729e7b715d86fc167feabea031a",
+"canvaskit/profiling/canvaskit.js": "ae2949af4efc61d28a4a80fffa1db900",
 "canvaskit/profiling/canvaskit.wasm": "95e736ab31147d1b2c7b25f11d4c32cd",
 "composer.json": "99914b932bd37a50b983c5e7c90ae93b",
 "favicon.ico": "510d8790400cea06c10f645115d68b12",
@@ -29,10 +29,10 @@ const RESOURCES = {
 "icons/Icon-512.png": "96e752610906ba2a93c65f8abe1645f1",
 "icons/Icon-maskable-192.png": "c457ef57daa1d16f64b27b786ec2ea3c",
 "icons/Icon-maskable-512.png": "301a7604d45b3e739efc881eb04896ea",
-"index.html": "c566da62e5eea9fc021dfeaead48c9c9",
-"/": "c566da62e5eea9fc021dfeaead48c9c9",
+"index.html": "8a706a0f9cbd2f8658cdcb47325320ba",
+"/": "8a706a0f9cbd2f8658cdcb47325320ba",
 "index.php": "ad0328aebc71b83400dcdecbfda3371b",
-"main.dart.js": "34367400acc4cabbf7c1f09111f28d69",
+"main.dart.js": "ec50e347cee35f6d09afff30591fece0",
 "manifest.json": "86f23c25621ff749f73ef1a6a575cc0e",
 "version.json": "05bf621484f9ed742c733ad6a776c285"
 };
