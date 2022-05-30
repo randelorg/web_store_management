@@ -142,7 +142,7 @@ class _ReceiveOrders extends State<ReceiveOrders> {
                               );
                               if (pickedDate != null) {
                                 String formattedDate =
-                                    DateFormat('dd-MM-yyyy').format(pickedDate);
+                                    DateFormat('yyyy-MM-dd').format(pickedDate);
                                 setState(() {
                                   dateinput.text = formattedDate;
                                 });
@@ -296,6 +296,7 @@ class _ReceiveOrders extends State<ReceiveOrders> {
                                       );
                                       Mapping.purchases.clear();
                                       Mapping.receiverOrders.clear();
+                                      Navigator.pop(context);
                                     });
                                   },
                                 ),
@@ -328,6 +329,7 @@ class _ReceiveOrders extends State<ReceiveOrders> {
                                   ),
                                   onPressed: () async {
                                     Mapping.receiverOrders.clear();
+                                    Navigator.pop(context);
                                   },
                                 ),
                               ),

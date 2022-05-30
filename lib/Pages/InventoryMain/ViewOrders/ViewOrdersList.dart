@@ -3,6 +3,7 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:web_store_management/Backend/PurchasesOperation.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
 import 'package:web_store_management/Models/IncomingPurchasesModel.dart';
+import 'package:web_store_management/Notification/BannerNotif.dart';
 import 'package:web_store_management/Pages/InventoryMain/ViewOrders/ReceiveOrders.dart';
 
 class ViewOrderList extends StatefulWidget {
@@ -152,8 +153,20 @@ class _ViewOrderList extends State<ViewOrderList> {
                     textStyle:
                         TextStyle(fontFamily: 'Cairo_SemiBold', fontSize: 14),
                   ),
-                  child: const Text('COMPLETE ORDER'),
-                  onPressed: () async {},
+                  child: const Text('RECEIVE PURCHASE ORDER'),
+                  onPressed: () async {
+                    orders
+                        .markAsRecieved(widget.orderSlipId.toString())
+                        .then((value) {
+                      if (value) {
+                        BannerNotif.notif(
+                          'Success',
+                          '${widget.orderSlipId.toString()} is now marked as received',
+                          Colors.green.shade600,
+                        );
+                      }
+                    });
+                  },
                 ),
               ],
             ),

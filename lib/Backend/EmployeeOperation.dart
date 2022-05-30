@@ -2,10 +2,10 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:web_store_management/Backend/DashboardOperation.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
+import 'package:web_store_management/Backend/interfaces/IEmployee.dart';
 import 'package:web_store_management/Models/EmployeeModel.dart';
 import 'package:web_store_management/Notification/BannerNotif.dart';
 import 'package:web_store_management/environment/Environment.dart';
-import 'Interfaces/IEmployee.dart';
 import '../Helpers/HashingHelper.dart';
 import 'dart:convert';
 
@@ -15,25 +15,23 @@ class EmployeeOperation implements IEmployee {
 
   @override
   Future<bool> createEmployeeAccount(
-      String? role,
-      String? firstname,
-      String? lastname,
-      String? mobileNumber,
-      String? homeAddress,
-      double? basicWage,
-      String? username,
-      String? password,
+      String role,
+      String firstname,
+      String lastname,
+      String mobileNumber,
+      String homeAddress,
+      String username,
+      String password,
       Uint8List? image) async {
     var addEmployee = json.encode(
       {
-        'Role': role!.replaceAll(' ', '').toString(),
+        'Role': role.replaceAll(' ', '').toString(),
         'Username': username,
-        'Password': _hash.encrypt(password.toString()),
+        'Password': _hash.encrypt(password..trim()),
         'Firstname': firstname,
         'Lastname': lastname,
         'MobileNumber': mobileNumber,
         'HomeAddress': homeAddress,
-        'Wage': basicWage,
         'UserImage': image
       },
     );

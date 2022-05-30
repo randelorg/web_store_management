@@ -268,6 +268,7 @@ class _LoginPage extends State<LoginPage> {
                   Colors.red.shade600,
                 );
               } else {
+                print(_manager);
                 login
                     .mainLogin(
                   _originBranch,

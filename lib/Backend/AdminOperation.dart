@@ -1,8 +1,8 @@
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
+import 'package:web_store_management/Backend/interfaces/IAdmin.dart';
 import 'package:web_store_management/Notification/BannerNotif.dart';
 import 'package:web_store_management/environment/Environment.dart';
-import 'Interfaces/IAdmin.dart';
 import 'Utility/Mapping.dart';
 import '../Helpers/HashingHelper.dart';
 import 'dart:convert';
@@ -19,7 +19,7 @@ class AdminOperation implements IAdmin {
 
     try {
       await Environment.methodPost(
-              "${Environment.apiUrl}/api/checkpoinchangepass", payload)
+              "http://localhost:8090/api/checkpoinchangepass", payload)
           .then((value) {
         response = value;
       });
@@ -45,17 +45,18 @@ class AdminOperation implements IAdmin {
 
   @override
   Future<void> createAdminAccount(
-      String? firstname,
-      String? lastname,
-      String? mobileNumber,
-      String? homeAddress,
-      String? username,
-      String? password,
+      String firstname,
+      String lastname,
+      String mobileNumber,
+      String homeAddress,
+      String username,
+      String password,
       Uint8List? image) async {
     //json body
+    print("creation ${hash.encrypt(password.trim().toString())}");
     var addAdmin = json.encode({
       'Username': username,
-      'Password': hash.encrypt(password.toString()),
+      'Password': hash.encrypt(password.trim()),
       'Firstname': firstname,
       'Lastname': lastname,
       'MobileNumber': mobileNumber,
@@ -65,7 +66,7 @@ class AdminOperation implements IAdmin {
     var response;
 
     try {
-      await Environment.methodPost("${Environment.apiUrl}/api/admin", addAdmin)
+      await Environment.methodPost("http://localhost:8090/api/admin", addAdmin)
           .then((value) {
         response = value;
       });

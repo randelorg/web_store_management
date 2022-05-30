@@ -6,17 +6,17 @@ import '../../Notification/BannerNotif.dart';
 
 // ignore: must_be_immutable
 class ConfirmAccount extends StatefulWidget {
-  String? firstname, lastname, mobileNumber, homeAddress, username, password;
-  Uint8List? image;
+  String firstname, lastname, mobileNumber, homeAddress, username, password;
+  Uint8List image;
   //constructor
   ConfirmAccount({
-    this.firstname,
-    this.lastname,
-    this.mobileNumber,
-    this.homeAddress,
-    this.username,
-    this.password,
-    this.image,
+    required this.firstname,
+    required this.lastname,
+    required this.mobileNumber,
+    required this.homeAddress,
+    required this.username,
+    required this.password,
+    required this.image,
   });
 
   @override
@@ -62,7 +62,6 @@ class _ConfirmAccount extends State<ConfirmAccount> {
                 fontSize: 30,
               ),
             ),
-
             Padding(
               padding: EdgeInsets.only(top: 20, left: 2),
               child: Container(
@@ -72,8 +71,7 @@ class _ConfirmAccount extends State<ConfirmAccount> {
                   style: TextStyle(fontSize: 10),
                 ),
               ),
-            ),   
-            
+            ),
             Container(
               width: 320,
               child: Padding(
@@ -117,14 +115,17 @@ class _ConfirmAccount extends State<ConfirmAccount> {
                         ),
                         TextButton(
                           style: TextButton.styleFrom(
-                            padding: const EdgeInsets.only(left: 20, right: 20, top: 15, bottom: 15),
+                            padding: const EdgeInsets.only(
+                                left: 20, right: 20, top: 15, bottom: 15),
                             primary: Colors.white,
                             textStyle: TextStyle(fontSize: 20),
                           ),
                           onPressed: () {
                             if (password.text.isEmpty) {
                               BannerNotif.notif(
-                                  "Error", "Please fill the password field", Colors.red.shade600);
+                                  "Error",
+                                  "Please fill the password field",
+                                  Colors.red.shade600);
                             } else {
                               bool status = admin.verifyAdmin(password.text);
                               if (status) {
@@ -136,11 +137,11 @@ class _ConfirmAccount extends State<ConfirmAccount> {
                                   widget.username,
                                   widget.password,
                                   widget.image,
-                                );                        
-                                Navigator.pop(context);                           
-                              } else {                           
-                                BannerNotif.notif('Try again',
-                                    'Wrong Password', Colors.red.shade600);
+                                );
+                                Navigator.pop(context);
+                              } else {
+                                BannerNotif.notif('Try again', 'Wrong Password',
+                                    Colors.red.shade600);
                               }
                             }
                           },

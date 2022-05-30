@@ -214,7 +214,7 @@ class _Row {
   final String valueB; //label
   final int valueF; //inventory received
   final int valueG; //inventory bought
-  final int valueH; //inventory on hand
+  final valueH; //inventory on hand
   final Widget valueI; //transfer button
 
   bool selected = false;
@@ -254,7 +254,7 @@ class _DataSource extends DataTableSource {
         DataCell(Text(row.valueB)),
         DataCell(Text(row.valueF.toString())),
         DataCell(Text(row.valueG.toString())),
-        DataCell(Text(row.valueH.toString())),
+        DataCell(row.valueH),
         DataCell(row.valueI, onTap: () {
           showModalSideSheet(
             context: context,
@@ -292,7 +292,7 @@ class _DataSource extends DataTableSource {
           products[index].getProductLabel.toString(),
           products[index].getInventoryReceived,
           products[index].getInventorySold,
-          products[index].getInventoryOnHand,
+          _dangerStock(products[index].getInventoryOnHand),
           ClipRRect(
             borderRadius: BorderRadius.circular(20),
             child: Stack(
@@ -337,26 +337,15 @@ class _DataSource extends DataTableSource {
 //this will identify if stock is <= 2
 //if it reacher 2 stock this will return an icon
 //else it will return the stock number
-Widget _dangerStock(String qty) {
-  String temp = qty;
-  if (int.parse(qty) > 2) {
-    return Text(qty);
+Widget _dangerStock(int qty) {
+  if (qty > 2) {
+    return Text(qty.toString());
   }
 
   return Row(
     children: [
-      Text(qty.toString()),
       Icon(Icons.warning, color: Colors.red),
+      Text(qty.toString()),
     ],
   );
-}
-
-String determineWidget(widget) {
-  if (widget is Row) {
-    return '<= 2';
-  }
-  //get data from the TEXT widget
-  Text txt = widget;
-
-  return txt.data.toString();
 }

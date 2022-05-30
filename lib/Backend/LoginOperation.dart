@@ -20,25 +20,25 @@ class Login extends GlobalController implements ILogin {
       String branch, String role, String username, String password) async {
     //holds the json body
     var entity, response;
-
+    print("login ${hash.encrypt(password.trim())}");
     switch (role.replaceAll(' ', '')) {
       case 'Manager':
         entity = json.encode({
           "Username": username,
-          "Password": hash.encrypt(password),
+          "Password": hash.encrypt(password.trim()),
         });
         break;
       case 'StoreAttendant':
         entity = json.encode({
           "Role": role.replaceAll(' ', ''),
           "Username": username.toString(),
-          "Password": hash.encrypt(password)
+          "Password": hash.encrypt(password.trim())
         });
         break;
       default:
     }
 
-    await Environment.methodPost("${Environment.apiUrl}/api/login", entity)
+    await Environment.methodPost("http://localhost:8090/api/login", entity)
         .then((value) {
       response = value;
     });

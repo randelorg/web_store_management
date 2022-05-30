@@ -41,6 +41,44 @@ class PurchasesOperation {
     return true;
   }
 
+  Future<bool> markAsRecieved(String poId) async {
+    var response;
+    final status = 'RECIEVED';
+    try {
+      await Environment.methodGet(
+              "http://localhost:8090/api/purchaseStatus/$poId/$status")
+          .then((value) {
+        response = value;
+      });
+
+      final parsed =
+          await jsonDecode(response.body).cast<Map<String, dynamic>>();
+      Mapping.ordersList = parsed
+          .map<IncomingPurchasesModel>(
+              (json) => IncomingPurchasesModel.jsonOrder(json))
+          .toList();
+
+      if (response.statusCode == 404) {
+        BannerNotif.notif(
+          'Error',
+          'Cant fetch orders',
+          Colors.red.shade600,
+        );
+        return false;
+      }
+    } catch (e) {
+      print(e.toString());
+      BannerNotif.notif(
+        'Error',
+        'Cant fetch orders',
+        Colors.red.shade600,
+      );
+      return false;
+    }
+
+    return true;
+  }
+
   Future<List<IncomingPurchasesModel>> getOrders(
       String orderId, String suppName, String date) async {
     var response;
