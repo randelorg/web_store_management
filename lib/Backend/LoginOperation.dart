@@ -5,7 +5,7 @@ import 'package:web_store_management/Models/AdminModel.dart';
 import 'package:web_store_management/environment/Environment.dart';
 import '../Helpers/HashingHelper.dart';
 import 'GlobalController.dart';
-import 'Interfaces/ILogin.dart';
+import 'interfaces/ILogin.dart';
 import 'Utility/Mapping.dart';
 import 'Session.dart';
 
@@ -47,8 +47,7 @@ class Login extends GlobalController implements ILogin {
       bool status = await _users(response, role, branch);
 
       if (!status) return false;
-    } catch (e) {
-    }
+    } catch (e) {}
 
     return true;
   }
