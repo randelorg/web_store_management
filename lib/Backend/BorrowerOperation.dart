@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:web_store_management/Backend/Interfaces/IBorrower.dart';
-import 'package:web_store_management/Backend/Interfaces/IPay.dart';
-import 'package:web_store_management/Backend/Interfaces/IServices.dart';
+import 'package:web_store_management/Backend/interfaces/IBorrower.dart';
+import 'package:web_store_management/Backend/interfaces/IPay.dart';
+import 'package:web_store_management/Backend/interfaces/IServices.dart';
 import 'package:web_store_management/Models/BorrowerModel.dart';
 import 'package:web_store_management/Notification/BannerNotif.dart';
 import 'package:web_store_management/environment/Environment.dart';

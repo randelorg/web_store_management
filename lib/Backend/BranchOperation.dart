@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:web_store_management/Backend/Interfaces/IBranch.dart';
-import 'package:web_store_management/Backend/Interfaces/IInventory.dart';
+import 'package:web_store_management/Backend/interfaces/IBranch.dart';
+import 'package:web_store_management/Backend/interfaces/IInventory.dart';
 import 'package:web_store_management/Notification/BannerNotif.dart';
 import 'package:web_store_management/environment/Environment.dart';
 
