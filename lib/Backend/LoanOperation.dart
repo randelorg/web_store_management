@@ -5,8 +5,9 @@ import 'package:web_store_management/Backend/Interfaces/ILoan.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'dart:io';
 import 'package:web_store_management/Notification/BannerNotif.dart';
-import 'Utility/ApiUrl.dart';
+import 'package:web_store_management/environment/Environment.dart';
 
 class LoanOperation extends BorrowerOperation implements INewLoan {
   @override
@@ -21,6 +22,7 @@ class LoanOperation extends BorrowerOperation implements INewLoan {
     String term,
     String duedate,
   ) async {
+    var response;
     var brwDetail = json.encode({
       'firstname': firstname.trim(),
       'lastname': lastname.trim(),
@@ -31,14 +33,11 @@ class LoanOperation extends BorrowerOperation implements INewLoan {
     });
 
     try {
-      final response = await http.post(
-        Uri.parse("${Url.url}api/addborrower"),
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: brwDetail,
-      );
+      await Environment.methodPost(
+              "${Environment.apiUrl}/api/addborrower", brwDetail)
+          .then((value) {
+        response = value;
+      });
 
       //add investigation
       await addInvestigation(firstname, lastname);
@@ -64,20 +63,18 @@ class LoanOperation extends BorrowerOperation implements INewLoan {
   }
 
   Future<bool> addInvestigation(String firstname, String lastname) async {
+    var response;
     var brwDetail2 = json.encode({
       'firstname': firstname.trim(),
       'lastname': lastname.trim(),
     });
 
     try {
-      final response = await http.post(
-        Uri.parse("${Url.url}api/addinvestigation"),
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: brwDetail2,
-      );
+      await Environment.methodPost(
+              "${Environment.apiUrl}/api/addinvestigation", brwDetail2)
+          .then((value) {
+        response = value;
+      });
 
       if (response.statusCode == 404) {
         return false;
@@ -99,26 +96,24 @@ class LoanOperation extends BorrowerOperation implements INewLoan {
   @override
   Future<bool> addNewLoan(String firstname, String lastname, String plan,
       String term, String duedate) async {
+    var response;
     for (var item in Mapping.selectedProducts) {
       try {
-        final response = await http.post(
-          Uri.parse("${Url.url}api/addloan"),
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-          },
-          body: json.encode({
-            "firstname": firstname,
-            "lastname": lastname,
-            "productCode": item.getProductCode,
-            'plan': plan,
-            'duedate': duedate,
-            'term': term,
-            'qty': item.getProductQty,
-            'status': 'UNPAID',
-          }),
-        );
-
+        var payload = json.encode({
+          "firstname": firstname,
+          "lastname": lastname,
+          "productCode": item.getProductCode,
+          'plan': plan,
+          'duedate': duedate,
+          'term': term,
+          'qty': 1,
+          'status': 'UNPAID',
+        });
+        await Environment.methodPost(
+                "${Environment.apiUrl}/api/addloan", payload)
+            .then((value) {
+          response = value;
+        });
       } catch (e) {
         e.toString();
         BannerNotif.notif(
@@ -139,16 +134,18 @@ class LoanOperation extends BorrowerOperation implements INewLoan {
     try {
       final response = await http.get(
         Uri.parse(
-          "${Url.url}api/approved/${investigationId.toString()}/${borrowerId.toString()}/$status",
+          "${Environment.apiUrl}/api/approved/${investigationId.toString()}/${borrowerId.toString()}/$status",
         ),
+        headers: {HttpHeaders.authorizationHeader: "${Environment.apiToken}"},
       );
 
       //initate deduction of stock here
       if (status == 'RELEASED') {
         await http.get(
           Uri.parse(
-            "${Url.url}api/loans/${borrowerId.toString()}",
+            "${Environment.apiUrl}/api/loans/${borrowerId.toString()}",
           ),
+          headers: {HttpHeaders.authorizationHeader: "${Environment.apiToken}"},
         );
       }
 
@@ -175,19 +172,17 @@ class LoanOperation extends BorrowerOperation implements INewLoan {
   @override
   Future<bool> updateBalanceAndContract(num balance, int id, String firstname,
       String lastname, plan, term, dueDate, Uint8List? contract) async {
+    var response, load;
+    load = json.encode({
+      "id": id,
+      "balance": balance,
+      "contract": contract,
+    });
     try {
-      final response = await http.post(
-        Uri.parse("${Url.url}api/updatebal"),
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: json.encode({
-          "id": id,
-          "balance": balance,
-          "contract": contract,
-        }),
-      );
+      await Environment.methodPost("${Environment.apiUrl}/api/updatebal", load)
+          .then((value) {
+        response = value;
+      });
 
       //if response is empty return false
       if (response.statusCode == 404) {

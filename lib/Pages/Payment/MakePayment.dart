@@ -128,7 +128,7 @@ class _MakePayment extends State<MakePayment> {
               child: Container(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  'Amount to be Paid',
+                  'Amount',
                   style: TextStyle(fontSize: 10),
                 ),
               ),
@@ -138,7 +138,7 @@ class _MakePayment extends State<MakePayment> {
               child: TextField(
                 controller: givenAmount,
                 decoration: InputDecoration(
-                  hintText: 'Amount to be Paid',
+                  hintText: 'Amount',
                   filled: true,
                   fillColor: Colors.blueGrey[50],
                   labelStyle: TextStyle(fontSize: 12),

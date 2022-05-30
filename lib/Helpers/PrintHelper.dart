@@ -51,13 +51,20 @@ class PrintHelper {
       ),
     );
 
+    Mapping.invoice.clear();
+
     return pdf.save();
   }
 
   static Future<Uint8List> generateInvoice(
       PdfPageFormat format, Invoice invoice) async {
     final pdf = pw.Document(version: PdfVersion.pdf_1_5, compress: true);
+    //compute total
+    double netTotal = invoice.items
+        .map((item) => item.currentPrice * item.qty)
+        .reduce((item1, item2) => item1 + item2);
 
+    //build the invoice
     pdf.addPage(pw.MultiPage(
       build: (context) => [
         PdfInvoiceApi.buildHeader(invoice),
@@ -72,7 +79,6 @@ class PrintHelper {
 
     //clear the selected products
     Mapping.invoice.clear();
-
     return pdf.save();
   }
 

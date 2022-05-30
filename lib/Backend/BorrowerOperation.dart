@@ -1,18 +1,18 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:web_store_management/Backend/Interfaces/IBorrower.dart';
 import 'package:web_store_management/Backend/Interfaces/IPay.dart';
 import 'package:web_store_management/Backend/Interfaces/IServices.dart';
 import 'package:web_store_management/Models/BorrowerModel.dart';
 import 'package:web_store_management/Notification/BannerNotif.dart';
+import 'package:web_store_management/environment/Environment.dart';
 import 'LoginOperation.dart';
-import 'Utility/ApiUrl.dart';
 
 class BorrowerOperation extends Login implements IBorrower, IPay, IServices {
   @override
   Future<bool> updateBorrower(int id, String firstname, String lastname,
       String mobile, String address) async {
+    var response;
     var borrowerUpdateLoad = json.encode({
       'id': id,
       'firstname': firstname.trim(),
@@ -22,14 +22,11 @@ class BorrowerOperation extends Login implements IBorrower, IPay, IServices {
     });
 
     try {
-      final response = await http.post(
-        Uri.parse(Url.url + "api/updatebrw"),
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: borrowerUpdateLoad,
-      );
+      await Environment.methodPost(
+              "${Environment.apiUrl}/api/updatebrw", borrowerUpdateLoad)
+          .then((value) {
+        response = value;
+      });
 
       if (response.statusCode == 404) return false;
     } catch (e) {
@@ -48,18 +45,16 @@ class BorrowerOperation extends Login implements IBorrower, IPay, IServices {
 
   @override
   Future<bool> makePayment(int id, double payment, String date) async {
+    var response;
     var paymentLoad = json.encode(
         {'BorrowerID': id, 'CollectionAmount': payment, 'GivenDate': date});
 
     try {
-      final response = await http.post(
-        Uri.parse(Url.url + "api/payment"),
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: paymentLoad,
-      );
+      await Environment.methodPost(
+              "${Environment.apiUrl}/api/payment", paymentLoad)
+          .then((value) {
+        response = value;
+      });
 
       if (response.statusCode == 404) return false;
     } catch (e) {
@@ -79,6 +74,7 @@ class BorrowerOperation extends Login implements IBorrower, IPay, IServices {
   @override
   Future<bool> addRequest(int borrowerid, String product, String date) async {
     final String status = 'PENDING';
+    var response;
     var requestLoad = json.encode({
       'id': borrowerid,
       'status': status,
@@ -87,14 +83,11 @@ class BorrowerOperation extends Login implements IBorrower, IPay, IServices {
     });
 
     try {
-      final response = await http.post(
-        Uri.parse(Url.url + "api/addrequest"),
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: requestLoad,
-      );
+      await Environment.methodPost(
+              "${Environment.apiUrl}/api/addrequest", requestLoad)
+          .then((value) {
+        response = value;
+      });
 
       //if response is empty return false
       if (response.statusCode == 404) {
@@ -119,6 +112,7 @@ class BorrowerOperation extends Login implements IBorrower, IPay, IServices {
   @override
   Future<bool> addRepair(int borrowerid, String product, String date) async {
     final String status = 'PENDING';
+    var response;
     var repairLoad = json.encode({
       'id': borrowerid,
       'status': status,
@@ -127,14 +121,11 @@ class BorrowerOperation extends Login implements IBorrower, IPay, IServices {
     });
 
     try {
-      final response = await http.post(
-        Uri.parse(Url.url + "api/addrepair"),
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: repairLoad,
-      );
+      await Environment.methodPost(
+              "${Environment.apiUrl}/api/addrepair", repairLoad)
+          .then((value) {
+        response = value;
+      });
 
       //if response is empty return false
       if (response.statusCode == 404) {
@@ -163,20 +154,18 @@ class BorrowerOperation extends Login implements IBorrower, IPay, IServices {
 
   @override
   Future<bool> updateRepair(int id, final String status) async {
+    var response;
     var updateRepairLoad = json.encode({
       'id': id,
       'status': status,
     });
 
     try {
-      final response = await http.post(
-        Uri.parse(Url.url + "api/updaterepair"),
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: updateRepairLoad,
-      );
+      await Environment.methodPost(
+              "${Environment.apiUrl}/api/updaterepair", updateRepairLoad)
+          .then((value) {
+        response = value;
+      });
 
       //if response is empty return false
       if (response.statusCode == 404) {
@@ -200,20 +189,18 @@ class BorrowerOperation extends Login implements IBorrower, IPay, IServices {
 
   @override
   Future<bool> updateRequest(int id, final String status) async {
+    var response;
     var updateRequestLoad = json.encode({
       'id': id,
       'status': status,
     });
 
     try {
-      final response = await http.post(
-        Uri.parse(Url.url + "api/updaterequest"),
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: updateRequestLoad,
-      );
+      await Environment.methodPost(
+              "${Environment.apiUrl}/api/updaterequest", updateRequestLoad)
+          .then((value) {
+        response = value;
+      });
 
       //if response is empty return false
       if (response.statusCode == 404) {
@@ -238,13 +225,14 @@ class BorrowerOperation extends Login implements IBorrower, IPay, IServices {
   Future<List<int>> getContract(int id) async {
     List<BorrowerModel> contractImage = [];
     List<int> picture = [];
+    var response;
 
     try {
-      final response = await http.get(
-        Uri.parse(
-          "${Url.url}api/contract/" + id.toString(),
-        ),
-      );
+      await Environment.methodGet(
+              "${Environment.apiUrl}/api/contract/${id.toString()}")
+          .then((value) {
+        response = value;
+      });
 
       Map<String, dynamic> brwMap =
           jsonDecode(response.body)[0] as Map<String, dynamic>;

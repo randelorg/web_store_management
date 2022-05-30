@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
-import 'package:web_store_management/Models/GraphCollectionModel.dart';
+import 'package:web_store_management/Models/GraphModel.dart';
 
 class CollectionGraph extends StatefulWidget {
   final String? caption;
-  final List<GraphCollectionModel>? graphData;
+  final List<GraphModel>? graphData;
   CollectionGraph({this.caption, this.graphData});
   @override
   _CollectionGraph createState() => _CollectionGraph();
@@ -27,17 +27,19 @@ class _CollectionGraph extends State<CollectionGraph> {
             child: SfCartesianChart(
               primaryXAxis: CategoryAxis(),
               // Enable legend
-              legend: Legend(isVisible: true),
+              legend: Legend(isVisible: false),
               // Enable tooltip
               tooltipBehavior: TooltipBehavior(enable: true),
-              series: <ChartSeries<GraphCollectionModel, String>>[
-                LineSeries<GraphCollectionModel, String>(
+              crosshairBehavior: CrosshairBehavior(enable: true),
+              trackballBehavior: TrackballBehavior(enable: true),
+              series: <ChartSeries<GraphModel, String>>[
+                LineSeries<GraphModel, String>(
                   //name: widget.caption.toString(),
                   dataSource: widget.graphData!.toList(),
-                  xValueMapper: (GraphCollectionModel sales, _) =>
-                      sales.getGivenDate,
-                  yValueMapper: (GraphCollectionModel sales, _) =>
-                      sales.getCollection,
+                  xValueMapper: (GraphModel collection, _) =>
+                      collection.getGivenDate,
+                  yValueMapper: (GraphModel collection, _) =>
+                      collection.getCollection,
 
                   // Enable data label
                   dataLabelSettings: DataLabelSettings(isVisible: true),

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:web_store_management/Models/ProductModel.dart';
+import 'package:web_store_management/Backend/TextMessage.dart';
 import 'package:web_store_management/Notification/BannerNotif.dart';
+import 'package:web_store_management/Pages/NewLoan/PaymentPlan.dart';
 import '../../Helpers/FilePickerHelper.dart';
-import 'FinalizePage.dart';
 import '../../Backend/Utility/Mapping.dart';
 import '../../Backend/GlobalController.dart';
 
@@ -17,7 +17,7 @@ class SelectionOfProductsPage extends StatefulWidget {
 class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
   final firstname = TextEditingController();
   final lastname = TextEditingController();
-  final mobileNumber = TextEditingController();
+  //final mobileNumber = TextEditingController();
   final homeAddress = TextEditingController();
   //classess
   var pick = Picker();
@@ -27,6 +27,28 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
 
   var controller = GlobalController();
   late Future _products;
+  int indexValue = 0;
+
+  //for product details
+  final barcode = TextEditingController();
+  final productCode = TextEditingController();
+  final productName = TextEditingController();
+  final productPrice = TextEditingController();
+  final productType = TextEditingController();
+
+  //for mobile verification
+  final mobileNumberOtp = TextEditingController();
+  final otp = TextEditingController();
+  var sendMessOtp = TextMessage();
+  int counter = 0;
+  bool successSentOtp = false, sendButton = true, verified = false;
+  String _verifyOtp = '';
+
+  bool checkOtp(int code) {
+    if (code == int.parse(_verifyOtp)) return true;
+
+    return false;
+  }
 
   @override
   void initState() {
@@ -46,23 +68,24 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
+                const Text(
                   "Step 1",
                   style: TextStyle(
                     fontSize: 15,
                     fontWeight: FontWeight.normal,
                   ),
                 ),
-                Text(
+                const Text(
                   "BORROWER DETAILS",
                   style: TextStyle(fontFamily: 'Cairo_Bold', fontSize: 30),
                 ),
                 Padding(
                   padding: EdgeInsets.only(
-                      top: 20,
-                      bottom: 6,
-                      right: 6,
-                      left: 6), //add padding to the textfields
+                    top: 20,
+                    bottom: 6,
+                    right: 6,
+                    left: 6,
+                  ), //add padding to the textfields
                   child: TextField(
                     controller: firstname,
                     decoration: InputDecoration(
@@ -106,29 +129,6 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
                 Padding(
                   padding: EdgeInsets.all(6),
                   child: TextField(
-                    controller: mobileNumber,
-                    maxLength: 12,
-                    decoration: InputDecoration(
-                      counterText: '',
-                      hintText: 'Mobile Number',
-                      filled: true,
-                      fillColor: Colors.blueGrey[50],
-                      labelStyle: TextStyle(fontSize: 12),
-                      contentPadding: EdgeInsets.only(left: 15),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.all(6),
-                  child: TextField(
                     controller: homeAddress,
                     decoration: InputDecoration(
                       hintText: 'Home Address',
@@ -148,7 +148,31 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(top: 3),
+                  padding: EdgeInsets.all(6),
+                  child: TextField(
+                    controller: mobileNumberOtp,
+                    maxLength: 12,
+                    decoration: InputDecoration(
+                      counterText: '',
+                      hintText: 'Mobile Number',
+                      filled: true,
+                      fillColor: Colors.blueGrey[50],
+                      labelStyle: TextStyle(fontSize: 12),
+                      contentPadding: EdgeInsets.only(left: 15),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                  ),
+                ),
+                mobileOtp(),
+                Padding(
+                  padding: EdgeInsets.only(top: 10),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(8),
                     child: Stack(
@@ -165,7 +189,9 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
                           style: TextButton.styleFrom(
                             primary: Colors.white,
                             textStyle: TextStyle(
-                                fontSize: 18, fontFamily: 'Cairo_SemiBold'),
+                              fontSize: 12,
+                              fontFamily: 'Cairo_SemiBold',
+                            ),
                           ),
                           label: Text(fileName),
                           onPressed: () {
@@ -192,108 +218,521 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
           endIndent: 60,
           width: 10,
         ),
-        Container(
-          width: (MediaQuery.of(context).size.width) / 2,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
+        Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 40.0),
+              child: const Text(
                 "Step 2",
                 style: TextStyle(
                   fontSize: 15,
                   fontWeight: FontWeight.normal,
                 ),
               ),
-              Padding(
-                padding: EdgeInsets.only(bottom: 5),
-                child: Text(
-                  "SELECT PRODUCTS",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontFamily: 'Cairo_Bold', fontSize: 30),
-                ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(bottom: 5),
+              child: Text(
+                "SEARCH PRODUCT",
+                textAlign: TextAlign.center,
+                style: TextStyle(fontFamily: 'Cairo_Bold', fontSize: 30),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.only(left: 5, right: 20),
-                    child: Container(
-                      width: 300,
-                      child: TextField(
-                        decoration: InputDecoration(
-                          hintText: 'Search Product',
-                          suffixIcon: IconButton(
-                            onPressed: () {},
-                            icon: Icon(Icons.scanner_sharp),
-                            tooltip: 'Scan Product Barcode',
-                          ),
-                          filled: true,
-                          fillColor: Colors.blueGrey[50],
-                          labelStyle: TextStyle(fontSize: 10),
-                          contentPadding: EdgeInsets.only(left: 10),
-                          enabledBorder: OutlineInputBorder(
-                            borderSide:
-                                BorderSide(color: Colors.blueGrey.shade50),
-                            borderRadius: BorderRadius.circular(5),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide:
-                                BorderSide(color: Colors.blueGrey.shade50),
-                            borderRadius: BorderRadius.circular(5),
-                          ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(left: 5, right: 15),
+                  child: Container(
+                    width: 300,
+                    child: TextField(
+                      controller: barcode,
+                      decoration: InputDecoration(
+                        hintText: 'Product Barcode',
+                        //TODO: add scan feature barcode here
+                        // suffixIcon: IconButton(
+                        //   onPressed: () {},
+                        //   icon: Icon(Icons.scanner_sharp),
+                        //   tooltip: 'Scan Product Barcode',
+                        // ),
+                        filled: true,
+                        fillColor: Colors.blueGrey[50],
+                        labelStyle: TextStyle(fontSize: 10),
+                        contentPadding: EdgeInsets.only(left: 10),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide:
+                              BorderSide(color: Colors.blueGrey.shade50),
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide:
+                              BorderSide(color: Colors.blueGrey.shade50),
+                          borderRadius: BorderRadius.circular(5),
                         ),
                       ),
                     ),
                   ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(20),
+                    child: Stack(
+                      children: <Widget>[
+                        Positioned.fill(
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: HexColor("#155293"),
+                            ),
+                          ),
+                        ),
+                        TextButton(
+                          style: TextButton.styleFrom(
+                            padding: const EdgeInsets.only(
+                                top: 18, bottom: 18, left: 36, right: 36),
+                            primary: Colors.white,
+                            textStyle: TextStyle(
+                                fontFamily: 'Cairo_SemiBold', fontSize: 14),
+                          ),
+                          child: const Text('Search'),
+                          onPressed: () async {
+                            if (barcode.text.isEmpty) {
+                              BannerNotif.notif(
+                                  "Error",
+                                  "Please fill the product barcode field",
+                                  Colors.red.shade600);
+                            } else {
+                              bool status = true;
+                              _products.whenComplete(() {
+                                status = findProductBarcode(barcode.text);
+
+                                if (!status) {
+                                  BannerNotif.notif(
+                                    'NOT FOUND',
+                                    'Product code is not exisiting or type is not a appliances',
+                                    Colors.orange,
+                                  );
+                                }
+                              });
+                            }
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            productInfo()
+          ],
+        ),
+
+        // Row(
+        //   mainAxisAlignment: MainAxisAlignment.end,
+        //   crossAxisAlignment: CrossAxisAlignment.end,
+        //   children: [
+        //     Container(
+        //       alignment: Alignment.center,
+        //       width: 120,
+        //       height: 60,
+        //       child: ClipRRect(
+        //         borderRadius: BorderRadius.circular(12),
+        //         child: Stack(
+        //           children: <Widget>[
+        //             Positioned.fill(
+        //               child: Container(
+        //                 decoration: BoxDecoration(
+        //                   color: HexColor("#155293"),
+        //                 ),
+        //               ),
+        //             ),
+        //             TextButton(
+        //               style: TextButton.styleFrom(
+        //                 padding: const EdgeInsets.all(15),
+        //                 primary: Colors.white,
+        //                 textStyle: TextStyle(
+        //                   fontSize: 25,
+        //                   fontFamily: 'Cairo_SemiBold',
+        //                 ),
+        //               ),
+        //               onPressed: () {
+        //                 //push to second page
+        //                 //which is the finalize order page
+        //                 if (firstname.text.isEmpty ||
+        //                     lastname.text.isEmpty ||
+        //                     homeAddress.text.isEmpty) {
+        //                   BannerNotif.notif(
+        //                       "Error",
+        //                       "Please fill all the fields",
+        //                       Colors.red.shade600);
+        //                 } else if (pick.image == null) {
+        //                   BannerNotif.notif(
+        //                       "Error",
+        //                       "Please upload a file (jpg, png, jpeg)",
+        //                       Colors.red.shade600);
+        //                 } else {
+        //                   showDialog(
+        //                     context: context,
+        //                     builder: (BuildContext context) {
+        //                       return SimpleDialog(
+        //                         children: [
+        //                           Container(
+        //                             width:
+        //                                 (MediaQuery.of(context).size.width) / 2,
+        //                             height: 555,
+        //                             child: FinalizePage(
+        //                               action: 'new_loan',
+        //                               firstname: firstname.text,
+        //                               lastname: lastname.text,
+        //                               mobile: mobileNumberOtp.text,
+        //                               address: homeAddress.text,
+        //                               contract: pick.getImageBytes(),
+        //                             ),
+        //                           ),
+        //                         ],
+        //                       );
+        //                     },
+        //                   );
+        //                 }
+        //               },
+        //               child: const Text('NEXT'),
+        //             ),
+        //           ],
+        //         ),
+        //       ),
+        //     ),
+        //   ],
+        // ),
+      ],
+    );
+  }
+
+  bool findProductBarcode(String barcode) {
+    final appliance = 'Appliances';
+    Mapping.productList
+        .where((element) =>
+            element.getProductCode == barcode &&
+            element.getProdType == appliance)
+        .forEach((element) {
+      setState(() {
+        productCode.text = element.getProductCode;
+        productName.text = element.getProductName;
+        productPrice.text = element.getProductPrice.toString();
+        productType.text = element.getProdType;
+      });
+    });
+
+    return false;
+  }
+
+  Widget mobileOtp() {
+    return Column(
+      children: [
+        //send OTP to the mobile number button
+        Visibility(
+          visible: sendButton,
+          child: Padding(
+            padding: const EdgeInsets.only(top: 10),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: Stack(
+                children: <Widget>[
+                  Positioned.fill(
+                    child: Container(
+                      decoration: BoxDecoration(color: HexColor("#155293")),
+                    ),
+                  ),
+                  TextButton(
+                    style: TextButton.styleFrom(
+                      padding: const EdgeInsets.only(
+                          left: 20, right: 20, top: 15, bottom: 15),
+                      primary: Colors.white,
+                      textStyle: TextStyle(
+                        fontFamily: 'Cairo_SemiBold',
+                        fontSize: 14,
+                        color: Colors.white,
+                      ),
+                    ),
+                    child: Text('Verify'),
+                    onPressed: () {
+                      if (mobileNumberOtp.text.isEmpty) {
+                        BannerNotif.notif(
+                          "Error",
+                          "Please fill the mobile number field",
+                          Colors.red.shade600,
+                        );
+                      } else {
+                        if (mobileNumberOtp.text.isNotEmpty) {
+                          _checkNumberifExisting(mobileNumberOtp.text)
+                              .then((value) {
+                            if (!value) {
+                              sendMessOtp
+                                  .getOtp(mobileNumberOtp.text)
+                                  .then((value) {
+                                if (value > 0) {
+                                  setState(() {
+                                    successSentOtp = true;
+                                    sendButton = false;
+                                  });
+                                  _verifyOtp = value.toString();
+                                } else {
+                                  BannerNotif.notif(
+                                    "Error",
+                                    "Something went wrong please try again",
+                                    Colors.red.shade600,
+                                  );
+                                }
+                              });
+                            } else {
+                              BannerNotif.notif(
+                                "Existing",
+                                "Mobile number is existing or use in different application",
+                                Colors.red.shade600,
+                              );
+                            }
+                          });
+                        }
+                      }
+                    },
+                  ),
                 ],
               ),
-              FutureBuilder(
-                future: this._products,
-                builder: (context, snapshot) {
-                  if (!snapshot.hasData) {
-                    return Center(
-                      child: CircularProgressIndicator(
-                        semanticsLabel: 'Fetching products',
-                      ),
-                    );
-                  }
-                  if (snapshot.hasData) {
-                    return Container(
-                      width: (MediaQuery.of(context).size.width) / 2,
-                      child: PaginatedDataTable(
-                        sortAscending: true,
-                        showFirstLastButtons: true,
-                        rowsPerPage: 11,
-                        columns: [
-                          DataColumn(label: Text('BARCODE')),
-                          DataColumn(label: Text('PRODUCT NAME')),
-                          DataColumn(label: Text('PRICE')),
-                        ],
-                        source: _SelectionOfProducts(context),
-                      ),
-                    );
-                  }
-                  return Center(
-                    child: CircularProgressIndicator(
-                      semanticsLabel: 'Fetching products',
+            ),
+          ),
+        ),
+        Visibility(
+          visible: successSentOtp,
+          child: Column(
+            children: [
+              Padding(
+                padding: EdgeInsets.only(top: 30, left: 7),
+                child: Container(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    'Enter OTP',
+                    style: TextStyle(fontSize: 10),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(bottom: 20),
+                child: TextField(
+                  controller: otp,
+                  autofocus: true,
+                  maxLength: 6,
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: Colors.blueGrey[50],
+                    labelStyle: TextStyle(fontSize: 10),
+                    contentPadding: EdgeInsets.only(left: 10),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                      borderRadius: BorderRadius.circular(5),
                     ),
-                  );
-                },
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                  ),
+                ),
+              ),
+              //verify OTP
+              Padding(
+                padding: const EdgeInsets.only(top: 10),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(5),
+                  child: Stack(
+                    children: <Widget>[
+                      Positioned.fill(
+                        child: Container(
+                          decoration: BoxDecoration(color: HexColor("#155293")),
+                        ),
+                      ),
+                      TextButton(
+                        style: TextButton.styleFrom(
+                          padding: const EdgeInsets.only(
+                              left: 20, right: 20, top: 15, bottom: 15),
+                          primary: Colors.white,
+                          textStyle: TextStyle(
+                              fontFamily: 'Cairo_SemiBold',
+                              fontSize: 14,
+                              color: Colors.white),
+                        ),
+                        child: Text('Verify OTP'),
+                        onPressed: () {
+                          if (mobileNumberOtp.text.isEmpty) {
+                            BannerNotif.notif(
+                              "Error",
+                              "Please fill the mobile number field",
+                              Colors.red.shade600,
+                            );
+                          } else {
+                            if (checkOtp(int.parse(otp.text))) {
+                              setState(() {
+                                //show done button
+                                verified = true;
+                                //hide otp widgets
+                                successSentOtp = false;
+                                sendButton = false;
+
+                                BannerNotif.notif(
+                                  'Verified number',
+                                  'Can now proceed to the application',
+                                  Colors.green.shade600,
+                                );
+                              });
+                            } else {
+                              setState(() {
+                                counter++;
+                              });
+
+                              //show snackbar that the otp is wrong
+                              BannerNotif.notif(
+                                'Try again',
+                                'Wrong OTP',
+                                Colors.red.shade600,
+                              );
+
+                              if (counter >= 3) {
+                                setState(() {
+                                  successSentOtp = false;
+                                  sendButton = true;
+                                });
+                                //attempted to enter wrong OTP 3 times
+                                BannerNotif.notif(
+                                  'WRONG OTP',
+                                  'You enter wrong OTP for 3 times, try again in few minutes',
+                                  Colors.red.shade600,
+                                );
+                              }
+                            }
+                          }
+                        },
+                      ),
+                    ],
+                  ),
+                ),
               ),
             ],
           ),
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            Container(
-              alignment: Alignment.center,
-              width: 120,
-              height: 60,
+      ],
+    );
+  }
+
+  Widget productInfo() {
+    return Container(
+      width: (MediaQuery.of(context).size.width) / 2.5,
+      height: (MediaQuery.of(context).size.width) / 3,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Text(
+            "PRODUCT DETAILS",
+            style: TextStyle(fontFamily: 'Cairo_Bold', fontSize: 30),
+          ),
+          Padding(
+            padding: EdgeInsets.only(
+                top: 20,
+                bottom: 6,
+                right: 6,
+                left: 6), //add padding to the textfields
+            child: TextField(
+              controller: productCode,
+              readOnly: true,
+              decoration: InputDecoration(
+                hintText: 'Product Code',
+                filled: true,
+                fillColor: Colors.blueGrey[50],
+                labelStyle: TextStyle(fontSize: 12),
+                contentPadding: EdgeInsets.only(left: 15),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.all(6),
+            child: TextField(
+              controller: productName,
+              readOnly: true,
+              decoration: InputDecoration(
+                hintText: 'Product Name',
+                filled: true,
+                fillColor: Colors.blueGrey[50],
+                labelStyle: TextStyle(fontSize: 12),
+                contentPadding: EdgeInsets.only(left: 15),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.all(6),
+            child: TextField(
+              controller: productPrice,
+              readOnly: true,
+              decoration: InputDecoration(
+                hintText: 'Product Price',
+                filled: true,
+                fillColor: Colors.blueGrey[50],
+                labelStyle: TextStyle(fontSize: 12),
+                contentPadding: EdgeInsets.only(left: 15),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.all(6),
+            child: TextField(
+              controller: productType,
+              maxLength: 12,
+              readOnly: true,
+              decoration: InputDecoration(
+                counterText: '',
+                hintText: 'Product Type',
+                filled: true,
+                fillColor: Colors.blueGrey[50],
+                labelStyle: TextStyle(fontSize: 12),
+                contentPadding: EdgeInsets.only(left: 15),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+            ),
+          ),
+          Visibility(
+            visible: verified,
+            child: Padding(
+              padding: const EdgeInsets.all(10),
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: BorderRadius.circular(20),
                 child: Stack(
                   children: <Widget>[
                     Positioned.fill(
@@ -304,176 +743,65 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
                       ),
                     ),
                     TextButton(
-                      style: TextButton.styleFrom(
-                        padding: const EdgeInsets.all(15),
-                        primary: Colors.white,
-                        textStyle: TextStyle(
-                          fontSize: 25,
-                          fontFamily: 'Cairo_SemiBold',
+                        style: TextButton.styleFrom(
+                          padding: const EdgeInsets.only(
+                              top: 18, bottom: 18, left: 36, right: 36),
+                          primary: Colors.white,
+                          textStyle: TextStyle(
+                              fontFamily: 'Cairo_SemiBold', fontSize: 20),
                         ),
-                      ),
-                      onPressed: () {
-                        //push to second page
-                        //which is the finalize order page
-                        if (firstname.text.isEmpty ||
-                            lastname.text.isEmpty ||
-                            mobileNumber.text.isEmpty ||
-                            homeAddress.text.isEmpty) {
-                          BannerNotif.notif(
-                              "Error",
-                              "Please fill all the fields",
-                              Colors.red.shade600);
-                        } else if (pick.image == null) {
-                          BannerNotif.notif(
-                              "Error",
-                              "Please upload a file (jpg, png, jpeg)",
-                              Colors.red.shade600);
-                        } else {
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return SimpleDialog(
-                                children: [
-                                  Container(
-                                    width:
-                                        (MediaQuery.of(context).size.width) / 2,
-                                    height: 555,
-                                    child: FinalizePage(
-                                      action: 'new_loan',
-                                      firstname: firstname.text,
-                                      lastname: lastname.text,
-                                      mobile: mobileNumber.text,
-                                      address: homeAddress.text,
-                                      contract: pick.getImageBytes(),
-                                    ),
-                                  ),
-                                ],
-                              );
-                            },
-                          );
-                        }
-                      },
-                      child: const Text('NEXT'),
-                    ),
+                        child: const Text('DONE'),
+                        onPressed: () async {
+                          if (firstname.text.isEmpty ||
+                              lastname.text.isEmpty ||
+                              mobileNumberOtp.text.isEmpty ||
+                              homeAddress.text.isEmpty ||
+                              productPrice.text.isEmpty) {
+                            BannerNotif.notif(
+                                "Error",
+                                "Please fill all the fields",
+                                Colors.red.shade600);
+                          } else if (pick.image == null) {
+                            BannerNotif.notif(
+                                "Error",
+                                "Please upload a file (jpg, png, jpeg)",
+                                Colors.red.shade600);
+                          } else {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return PaymentPlanPage(
+                                  action: 'new_loan',
+                                  firstname: firstname.text,
+                                  lastname: lastname.text,
+                                  mobile: mobileNumberOtp.text,
+                                  address: homeAddress.text,
+                                  total: double.parse(productPrice.text),
+                                  contract: pick.image,
+                                );
+                              },
+                            );
+                          }                  
+                        }),
                   ],
                 ),
               ),
             ),
-          ],
-        ),
-      ],
-    );
-  }
-}
-
-//selection of products
-class _RowSelectProducts {
-  _RowSelectProducts(
-    this.valueA,
-    this.valueB,
-    this.valueC,
-  );
-
-  final String valueA;
-  final String valueB;
-  final String valueC;
-
-  bool selected = false;
-}
-
-class _SelectionOfProducts extends DataTableSource {
-  _SelectionOfProducts(this.context) {
-    _rows = _selectionProducts();
-  }
-
-  int _selectedCount = 0;
-  final BuildContext context;
-  List<_RowSelectProducts> _rows = [];
-
-  @override
-  DataRow? getRow(int index) {
-    assert(index >= 0);
-    if (index >= _rows.length) return null;
-    final row = _rows[index];
-    return DataRow.byIndex(
-      index: index,
-      selected: row.selected,
-      onSelectChanged: (value) {
-        if (row.selected) {
-          value = false;
-        } else {
-          value = true;
-        }
-
-        if (row.selected != value) {
-          if (value) {
-            _selectedCount = 1;
-          }
-
-          assert(_selectedCount >= 0);
-          row.selected = value;
-          //add the checked product to the list
-          //we will remove the duplicate products afterward
-          Mapping.selectedProducts.add(
-            ProductModel.selectedProduct(
-              row.valueA.toString(), //code
-              row.valueB.toString(), //name
-              double.parse(
-                row.valueC.toString(), //price
-              ),
-            ),
-          );
-
-          //delete the uncheck product to the list
-          if (value == false) {
-            Mapping.selectedProducts.removeWhere(
-              (element) => element.productCode == row.valueA.toString(),
-            );
-          }
-
-          notifyListeners();
-        }
-      },
-      cells: [
-        DataCell(Text(row.valueA)),
-        DataCell(Text(row.valueB)),
-        DataCell(Text(row.valueC)),
-      ],
+          ),
+        ],
+      ),
     );
   }
 
-  @override
-  int get rowCount => _rows.length;
+  Future<bool> _checkNumberifExisting(String mobile) async {
+    bool result = false;
+    await sendMessOtp.checkNumberIfNew(mobile).then((value) {
+      if (value)
+        result = value;
+      else
+        result = value;
+    });
 
-  @override
-  bool get isRowCountApproximate => false;
-
-  @override
-  int get selectedRowCount => _selectedCount;
-
-  List<_RowSelectProducts> _selectionProducts() {
-    try {
-      return List.generate(
-        Mapping.productList.length,
-        (index) {
-          return new _RowSelectProducts(
-            Mapping.productList[index].getProductCode.toString(),
-            Mapping.productList[index].getProductName.toString(),
-            Mapping.productList[index].getProductPrice
-                .toStringAsFixed(2)
-                .toString(),
-          );
-        },
-      );
-    } catch (e) {
-      //if product list is empty
-      return List.generate(0, (index) {
-        return _RowSelectProducts(
-          '',
-          '',
-          '',
-        );
-      });
-    }
+    return result;
   }
 }

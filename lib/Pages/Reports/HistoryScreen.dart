@@ -41,29 +41,24 @@ class _HistoryScreen extends State<HistoryScreen> {
             child: ListView(
               scrollDirection: Axis.vertical,
               children: [
-                Container(
-                  padding:
-                      EdgeInsets.only(top: 15, bottom: 5, left: 5, right: 5),
-                  child: TextField(
-                    decoration: InputDecoration(
-                      hintText: 'Search Borrower',
-                      suffixIcon: InkWell(
-                        child: IconButton(
-                          icon: Icon(Icons.qr_code_scanner_outlined),
-                          color: Colors.grey,
-                          tooltip: 'Search by QR',
-                          onPressed: () {},
+                Align(
+                  alignment: Alignment.topRight,
+                  child: Container(
+                    padding: EdgeInsets.only(left: 25, right: 5),
+                    width: 350,                
+                    child: TextField(
+                      decoration: InputDecoration(
+                        hintText: 'Search Borrower',
+                        filled: true,
+                        fillColor: Colors.blueGrey[50],
+                        labelStyle: TextStyle(fontSize: 12),
+                        contentPadding: EdgeInsets.only(left: 15),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.blueGrey.shade50),
                         ),
-                      ),
-                      filled: true,
-                      fillColor: Colors.blueGrey[50],
-                      labelStyle: TextStyle(fontSize: 10),
-                      contentPadding: EdgeInsets.only(left: 30),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                        ),
                       ),
                     ),
                   ),

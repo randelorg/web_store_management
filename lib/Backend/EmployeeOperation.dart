@@ -1,13 +1,12 @@
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:web_store_management/Backend/DashboardOperation.dart';
-import 'package:web_store_management/Backend/Utility/ApiUrl.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
+import 'package:web_store_management/Backend/interfaces/IEmployee.dart';
 import 'package:web_store_management/Models/EmployeeModel.dart';
 import 'package:web_store_management/Notification/BannerNotif.dart';
-import 'Interfaces/IEmployee.dart';
+import 'package:web_store_management/environment/Environment.dart';
 import '../Helpers/HashingHelper.dart';
-import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class EmployeeOperation implements IEmployee {
@@ -16,38 +15,34 @@ class EmployeeOperation implements IEmployee {
 
   @override
   Future<bool> createEmployeeAccount(
-      String? role,
-      String? firstname,
-      String? lastname,
-      String? mobileNumber,
-      String? homeAddress,
-      double? basicWage,
-      String? username,
-      String? password,
+      String role,
+      String firstname,
+      String lastname,
+      String mobileNumber,
+      String homeAddress,
+      String username,
+      String password,
       Uint8List? image) async {
     var addEmployee = json.encode(
       {
-        'Role': role!.replaceAll(' ', '').toString(),
+        'Role': role.replaceAll(' ', '').toString(),
         'Username': username,
-        'Password': _hash.encrypt(password.toString()),
+        'Password': _hash.encrypt(password..trim()),
         'Firstname': firstname,
         'Lastname': lastname,
         'MobileNumber': mobileNumber,
         'HomeAddress': homeAddress,
-        'Wage': basicWage,
         'UserImage': image
       },
     );
+    var response;
 
     try {
-      final response = await http.post(
-        Uri.parse("${Url.url}api/employee"),
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: addEmployee,
-      );
+      await Environment.methodPost(
+              "${Environment.apiUrl}/api/employee", addEmployee)
+          .then((value) {
+        response = value;
+      });
 
       if (response.statusCode == 404) {
         return false;
@@ -80,16 +75,14 @@ class EmployeeOperation implements IEmployee {
       'mobile': mobile,
       'address': address,
     });
+    var response;
 
     try {
-      final response = await http.post(
-        Uri.parse(Url.url + "api/updateemp"),
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: adminUpdateLoad,
-      );
+      await Environment.methodPost(
+              "${Environment.apiUrl}/api/updateemp", adminUpdateLoad)
+          .then((value) {
+        response = value;
+      });
 
       if (response.statusCode == 404) return false;
     } catch (e) {
@@ -108,10 +101,12 @@ class EmployeeOperation implements IEmployee {
 
   Future<List<EmployeeModel>> getAttendance(String empId) async {
     if (empId == "") return [];
+    var response;
     try {
-      final response = await http.get(
-        Uri.parse("${Url.url}api/attendance/$empId"),
-      );
+      await Environment.methodGet("${Environment.apiUrl}/api/attendance/$empId")
+          .then((value) {
+        response = value;
+      });
 
       final parsed =
           await jsonDecode(response.body).cast<Map<String, dynamic>>();
@@ -145,16 +140,14 @@ class EmployeeOperation implements IEmployee {
       'id': id,
       'timeIn': date,
     });
+    var response;
 
     try {
-      final response = await http.post(
-        Uri.parse("${Url.url}api/clockin"),
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: updateRequestLoad,
-      );
+      await Environment.methodPost(
+              "${Environment.apiUrl}/api/clockin", updateRequestLoad)
+          .then((value) {
+        response = value;
+      });
 
       //if response is empty return false
       if (response.statusCode == 404) {
@@ -178,16 +171,14 @@ class EmployeeOperation implements IEmployee {
       'dateToday': dashboard.getTodayDate().toString(),
       'timeOut': date,
     });
+    var response;
 
     try {
-      final response = await http.post(
-        Uri.parse("${Url.url}api/clockout"),
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: adminUpdateLoad,
-      );
+      await Environment.methodPost(
+              "${Environment.apiUrl}/api/clockout", adminUpdateLoad)
+          .then((value) {
+        response = value;
+      });
 
       //if response is empty return false
       if (response.statusCode == 404) {

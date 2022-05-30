@@ -1,13 +1,15 @@
 import 'package:intl/intl.dart';
+import 'package:web_store_management/Models/AdminModel.dart';
+import 'package:web_store_management/Models/BorrowerModel.dart';
 import 'package:web_store_management/Models/BranchModel.dart';
+import 'package:web_store_management/Models/EmployeeModel.dart';
 import 'package:web_store_management/Models/ForgetPasswordModel.dart';
+import 'package:web_store_management/Models/IncomingPurchasesModel.dart';
 import 'package:web_store_management/Models/InvoiceModel.dart';
 import 'package:web_store_management/Models/LoanedProductHistoryModel.dart';
-import '../../Models/PaymentHistoryModel.dart';
-import '../../Models/AdminModel.dart';
-import '../../Models/EmployeeModel.dart';
-import '../../Models/ProductModel.dart';
-import '../../Models/BorrowerModel.dart';
+import 'package:web_store_management/Models/PaymentHistoryModel.dart';
+import 'package:web_store_management/Models/ProductModel.dart';
+import 'package:web_store_management/Models/SupplierModel.dart';
 
 class Mapping {
   static String findBranchCode(String branchName) {
@@ -21,8 +23,22 @@ class Mapping {
     return code;
   }
 
+  static String dateTodayTime() {
+    var _formatter = new DateFormat('dd-MM-yyy hh:mm:ss a');
+    var _now = new DateTime.now();
+    String formattedDate = _formatter.format(_now);
+    return formattedDate;
+  }
+
+  static String dateToday() {
+    var _formatter = new DateFormat('dd-MM-yyyy');
+    var _now = new DateTime.now();
+    String formattedDate = _formatter.format(_now);
+    return formattedDate;
+  }
+
   //formating currency and date
-  static formatPrice(double price) => '\$ ${price.toStringAsFixed(2)}';
+  static formatPrice(double price) => '\PHP ${price.toStringAsFixed(2)}';
   static formatDate(DateTime date) => DateFormat.yMd().format(date);
 
   //for login purposes
@@ -48,9 +64,15 @@ class Mapping {
   static List<BorrowerModel> repairs = [];
   static List<BorrowerModel> requested = [];
   static List<BranchModel> branchList = [];
+  static List<IncomingPurchasesModel> groupedPurchase = [];
+  static List<IncomingPurchasesModel> purchases = [];
+  static List<IncomingPurchasesModel> ordersList = [];
+  static List<SupplierModel> suppliersList = [];
+  static List<IncomingPurchasesModel> receiverOrders = [];
+  static List<IncomingPurchasesModel> productItems = [];
 
   //invoice
-  static List<InvoiceItem> invoice = [];
+  static List<InvoiceProductItem> invoice = [];
 
   //forget password
   static List<ForgetPasswordModel> forgetPassword = [];

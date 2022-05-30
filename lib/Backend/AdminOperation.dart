@@ -1,31 +1,28 @@
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
+import 'package:web_store_management/Backend/interfaces/IAdmin.dart';
 import 'package:web_store_management/Notification/BannerNotif.dart';
-import 'Interfaces/IAdmin.dart';
-import 'Utility/ApiUrl.dart';
+import 'package:web_store_management/environment/Environment.dart';
 import 'Utility/Mapping.dart';
 import '../Helpers/HashingHelper.dart';
-import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class AdminOperation implements IAdmin {
   final hash = Hashing();
 
   Future<bool> changePassword(final String id, final String password) async {
+    var response;
     var payload = json.encode({
       "id": id,
       "password": hash.encrypt(password),
     });
 
     try {
-      final response = await http.post(
-        Uri.parse("${Url.url}api/checkpoinchangepass"),
-        headers: {
-          "Content-Type": "application/json",
-          "Accept": "application/json"
-        },
-        body: payload,
-      );
+      await Environment.methodPost(
+              "${Environment.apiUrl}/api/checkpoinchangepass", payload)
+          .then((value) {
+        response = value;
+      });
 
       if (response.statusCode == 404) {
         BannerNotif.notif(
@@ -40,7 +37,7 @@ class AdminOperation implements IAdmin {
       BannerNotif.notif(
         'Error',
         'Unexpected error occured',
-      Colors.red.shade600,
+        Colors.red.shade600,
       );
     }
     return true;
@@ -48,33 +45,30 @@ class AdminOperation implements IAdmin {
 
   @override
   Future<void> createAdminAccount(
-      String? firstname,
-      String? lastname,
-      String? mobileNumber,
-      String? homeAddress,
-      String? username,
-      String? password,
+      String firstname,
+      String lastname,
+      String mobileNumber,
+      String homeAddress,
+      String username,
+      String password,
       Uint8List? image) async {
     //json body
     var addAdmin = json.encode({
       'Username': username,
-      'Password': hash.encrypt(password.toString()),
+      'Password': hash.encrypt(password.trim()),
       'Firstname': firstname,
       'Lastname': lastname,
       'MobileNumber': mobileNumber,
       'HomeAddress': homeAddress,
       'UserImage': image
     });
+    var response;
 
     try {
-      final response = await http.post(
-        Uri.parse(Url.url + "api/admin"),
-        headers: {
-          "Content-Type": "application/json",
-          "Accept": "application/json"
-        },
-        body: addAdmin,
-      );
+      await Environment.methodPost("${Environment.apiUrl}/api/admin", addAdmin)
+          .then((value) {
+        response = value;
+      });
 
       if (response.statusCode == 404) {
         BannerNotif.notif(
@@ -116,6 +110,7 @@ class AdminOperation implements IAdmin {
   @override
   Future<bool> updateAdminAccount(
       final String id, String username, final String password) async {
+    var response;
     var adminUpdateLoad = json.encode({
       'id': id,
       'Username': username.trim(),
@@ -123,14 +118,11 @@ class AdminOperation implements IAdmin {
     });
 
     try {
-      final response = await http.post(
-        Uri.parse(Url.url + "api/updateadmin"),
-        headers: {
-          "Content-Type": "application/json",
-          "Accept": "application/json"
-        },
-        body: adminUpdateLoad,
-      );
+      await Environment.methodPost(
+              "${Environment.apiUrl}/api/updateadmin", adminUpdateLoad)
+          .then((value) {
+        response = value;
+      });
 
       if (response.statusCode == 404) return false;
     } catch (e) {

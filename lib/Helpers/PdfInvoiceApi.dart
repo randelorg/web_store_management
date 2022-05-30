@@ -45,18 +45,13 @@ class PdfInvoiceApi {
       );
 
   static Widget buildInvoiceInfo(InvoiceInfo info) {
-    final paymentTerms = '${info.dueDate.difference(info.date).inDays} days';
     final titles = <String>[
       'Invoice Number:',
       'Invoice Date:',
-      'Payment Terms:',
-      'Due Date:'
     ];
     final data = <String>[
       info.number,
       Mapping.formatDate(info.date),
-      paymentTerms,
-      Mapping.formatDate(info.dueDate),
     ];
 
     return Column(
@@ -91,15 +86,16 @@ class PdfInvoiceApi {
       'VAT',
       'Total',
     ];
+
     final data = invoice.items.map((item) {
-      final total = item.unitPrice * item.quantity * (1 + item.vat);
+      final total = item.currentPrice * item.qty * (1 + item.vat);
 
       return [
-        item.description,
-        '${item.quantity}',
-        '\$ ${item.unitPrice}',
+        item.remarks,
+        '${item.qty}',
+        '\PHP ${item.currentPrice}',
         '${item.vat} %',
-        '\$ ${total.toStringAsFixed(2)}',
+        '\PHP ${total.toStringAsFixed(2)}',
       ];
     }).toList();
 
@@ -123,7 +119,7 @@ class PdfInvoiceApi {
 
   static Widget buildTotal(Invoice invoice) {
     final netTotal = invoice.items
-        .map((item) => item.unitPrice * item.quantity)
+        .map((item) => item.currentPrice * item.qty)
         .reduce((item1, item2) => item1 + item2);
     final vatPercent = invoice.items.first.vat;
     final vat = netTotal * vatPercent;
@@ -176,7 +172,8 @@ class PdfInvoiceApi {
         children: [
           Divider(),
           SizedBox(height: 2 * PdfPageFormat.mm),
-          buildSimpleText(title: 'Store Address:', value: 'Dellrains Store Mabolo'),
+          buildSimpleText(
+              title: 'Store Address:', value: 'Dellrains Store Mabolo'),
           SizedBox(height: 1 * PdfPageFormat.mm),
           buildSimpleText(title: 'Contact No:', value: '+63 933 854 5538  '),
         ],

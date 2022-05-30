@@ -25,7 +25,6 @@ class _AddEmployee extends State<AddEmployee> {
   final lastname = TextEditingController();
   final mobileNumber = TextEditingController();
   final homeAddress = TextEditingController();
-  final basicWage = TextEditingController();
   final password = TextEditingController();
   final confirmPassword = TextEditingController();
 
@@ -81,6 +80,7 @@ class _AddEmployee extends State<AddEmployee> {
                 width: 320,
                 alignment: Alignment.topLeft,
                 decoration: BoxDecoration(
+                  color: Colors.blueGrey[50],
                   border: Border.all(
                     color: Colors.blueGrey.shade50,
                     style: BorderStyle.solid,
@@ -266,37 +266,6 @@ class _AddEmployee extends State<AddEmployee> {
               child: Container(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  'Basic Wage',
-                  style: TextStyle(fontSize: 10),
-                ),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(bottom: 15),
-              child: TextField(
-                controller: basicWage,
-                decoration: InputDecoration(
-                  hintText: 'Basic Wage',
-                  filled: true,
-                  fillColor: Colors.blueGrey[50],
-                  labelStyle: TextStyle(fontSize: 10),
-                  contentPadding: EdgeInsets.only(left: 10),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                ),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(left: 2),
-              child: Container(
-                alignment: Alignment.centerLeft,
-                child: Text(
                   'Home Address',
                   style: TextStyle(fontSize: 10),
                 ),
@@ -450,7 +419,6 @@ class _AddEmployee extends State<AddEmployee> {
                                 lastname.text.isEmpty ||
                                 mobileNumber.text.isEmpty ||
                                 homeAddress.text.isEmpty ||
-                                basicWage.text.isEmpty ||
                                 password.text.isEmpty ||
                                 confirmPassword.text.isEmpty) {
                               BannerNotif.notif(
@@ -476,9 +444,8 @@ class _AddEmployee extends State<AddEmployee> {
                                       lastname.text,
                                       mobileNumber.text,
                                       homeAddress.text,
-                                      double.parse(basicWage.text),
                                       username.text,
-                                      hash.encrypt(password.text),
+                                      password.text,
                                       pick.getImageBytes())
                                   .then((value) {
                                 if (value) {

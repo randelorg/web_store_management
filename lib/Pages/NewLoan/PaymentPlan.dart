@@ -7,12 +7,12 @@ import 'package:web_store_management/Notification/BannerNotif.dart';
 
 class PaymentPlanPage extends StatefulWidget {
   final String? action, firstname, lastname, mobile, address;
-  final int? id;
+  final int? borrowerId;
   final num total;
   final Uint8List contract;
   PaymentPlanPage({
     this.action,
-    this.id,
+    this.borrowerId,
     required this.firstname,
     required this.lastname,
     required this.mobile,
@@ -326,7 +326,7 @@ class _PaymentPlanPage extends State<PaymentPlanPage> {
         loan
             .updateBalanceAndContract(
                 widget.total,
-                widget.id!.toInt(),
+                widget.borrowerId!.toInt(),
                 widget.firstname.toString(),
                 widget.lastname.toString(),
                 plan,

@@ -1,7 +1,11 @@
 #!/bin/sh
 # This is a generated file; do not edit or check into version control.
 export "FLUTTER_ROOT=C:\flutter"
+<<<<<<< HEAD
 export "FLUTTER_APPLICATION_PATH=D:\web_store_management"
+=======
+export "FLUTTER_APPLICATION_PATH=G:\CAPSTONE\web_store_management"
+>>>>>>> new-inventory
 export "COCOAPODS_PARALLEL_CODE_SIGN=true"
 export "FLUTTER_TARGET=lib\main.dart"
 export "FLUTTER_BUILD_DIR=build"
