@@ -66,40 +66,6 @@ class _IncomingPurchases extends State<IncomingPurchases> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            Row(
-              children: [
-                Container(
-                  padding: const EdgeInsets.only(top: 20, left: 20, right: 5),
-                  width: 350,
-                  child: TextField(
-                    controller: searchValue,
-                    onChanged: (value) {
-                      setState(() {
-                        _searchResult = value;
-                        _incomingFiltered = Mapping.groupedPurchase
-                            .where((product) => product.getSupplierName
-                                .toLowerCase()
-                                .contains(_searchResult.toLowerCase()))
-                            .toList();
-                      });
-                    },
-                    decoration: InputDecoration(
-                      hintText: 'Search Order',
-                      filled: true,
-                      fillColor: Colors.blueGrey[50],
-                      labelStyle: TextStyle(fontSize: 12),
-                      contentPadding: EdgeInsets.only(left: 15),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
             //the list of products
             _tableProducts(_incomingFiltered),
           ],
@@ -133,6 +99,42 @@ class _IncomingPurchases extends State<IncomingPurchases> {
                     sortAscending: _sortAscending,
                     sortColumnIndex: 1,
                     rowsPerPage: 14,
+                    header: Text('Incoming Purchases'),
+                    actions: [
+                      Container(
+                        padding:
+                            const EdgeInsets.only(top: 20, left: 20, right: 5),
+                        width: 350,
+                        child: TextField(
+                          controller: searchValue,
+                          onChanged: (value) {
+                            setState(() {
+                              _searchResult = value;
+                              _incomingFiltered = Mapping.groupedPurchase
+                                  .where((product) => product.getSupplierName
+                                      .toLowerCase()
+                                      .contains(_searchResult.toLowerCase()))
+                                  .toList();
+                            });
+                          },
+                          decoration: InputDecoration(
+                            hintText: 'Search Order',
+                            filled: true,
+                            fillColor: Colors.blueGrey[50],
+                            labelStyle: TextStyle(fontSize: 12),
+                            contentPadding: EdgeInsets.only(left: 15),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: Colors.blueGrey.shade50),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: Colors.blueGrey.shade50),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                     columns: [
                       DataColumn(label: Text('Order Slip ID')),
                       DataColumn(label: Text('Supplier Name')),

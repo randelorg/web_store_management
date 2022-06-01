@@ -20,7 +20,6 @@ class Login extends GlobalController implements ILogin {
       String branch, String role, String username, String password) async {
     //holds the json body
     var entity, response;
-    print("login ${hash.encrypt(password.trim())}");
     switch (role.replaceAll(' ', '')) {
       case 'Manager':
         entity = json.encode({

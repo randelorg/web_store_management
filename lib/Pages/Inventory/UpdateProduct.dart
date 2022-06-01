@@ -211,9 +211,10 @@ class _UpdateProduct extends State<UpdateProduct> {
                             left: 36, right: 36, top: 18, bottom: 18),
                         primary: Colors.white,
                         textStyle: TextStyle(
-                            fontFamily: 'Cairo_SemiBold',
-                            fontSize: 14,
-                            color: Colors.white),
+                          fontFamily: 'Cairo_SemiBold',
+                          fontSize: 14,
+                          color: Colors.white,
+                        ),
                       ),
                       child: const Text('UPDATE'),
                       onPressed: () {

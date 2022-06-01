@@ -19,17 +19,21 @@ class CustomerBuy extends StatefulWidget {
 }
 
 class _CustomerBuy extends State<CustomerBuy> {
-  var _sortAscending = true;
-  var controller = GlobalController();
-  var prod = ProductOperation();
-  var searchProduct = PurchasesOperation();
   late Future<List<ProductModel>> _products;
   late Future<List<IncomingPurchasesModel>> _purchases;
   late Future<List<IncomingPurchasesModel>> _items;
+
   String _orderId = '', pickedSupplier = '';
   bool show = false;
   int onhand = 0;
   double total = 0;
+  final int dangerStock = 2;
+
+  var _sortAscending = true;
+  var controller = GlobalController();
+  var prod = ProductOperation();
+  var searchProduct = PurchasesOperation();
+
   var purchaseOrderId = CashPaymentOperation();
   var productName = TextEditingController();
   var barcode = TextEditingController();
@@ -63,7 +67,11 @@ class _CustomerBuy extends State<CustomerBuy> {
               child: Container(
                 width: 400,
                 padding: const EdgeInsets.only(
-                    top: 50, bottom: 10, left: 135, right: 5),
+                  top: 50,
+                  bottom: 10,
+                  left: 135,
+                  right: 5,
+                ),
                 child: TextField(
                   controller: barcode,
                   decoration: InputDecoration(
@@ -126,7 +134,7 @@ class _CustomerBuy extends State<CustomerBuy> {
                             setState(() {
                               _items = _items;
                               onhand = Mapping.productItems.length;
-                              if (onhand == 0) {
+                              if (onhand <= 2) {
                                 BannerNotif.notif(
                                   'SOLD OUT',
                                   'Product is sold out',
@@ -457,6 +465,9 @@ class _CustomerBuy extends State<CustomerBuy> {
                       ),
                       child: const Text('PAY'),
                       onPressed: () {
+                        if (double.parse(amountTendered.text) < getTotal())
+                          return;
+
                         if (amountTendered.text.isEmpty) {
                           BannerNotif.notif(
                               "Error",
@@ -464,9 +475,10 @@ class _CustomerBuy extends State<CustomerBuy> {
                               Colors.red.shade600);
                         } else if (amountTendered.text.isEmpty) {
                           BannerNotif.notif(
-                              "Error",
-                              "Please fill all the fields",
-                              Colors.red.shade600);
+                            "Error",
+                            "Please fill all the fields",
+                            Colors.red.shade600,
+                          );
                         } else {
                           double left =
                               double.parse(amountTendered.text) - getTotal();

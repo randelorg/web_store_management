@@ -92,11 +92,9 @@ class GlobalController {
     );
 
     final parsed = jsonDecode(response.body).cast<Map<String, dynamic>>();
-    print("Global supplier ${Mapping.suppliersList.length}");
     Mapping.suppliersList = parsed
         .map<SupplierModel>((json) => SupplierModel.fromJson(json))
         .toList();
-    print("Global supplier ${Mapping.suppliersList.length}");
     return Mapping.suppliersList;
   }
 

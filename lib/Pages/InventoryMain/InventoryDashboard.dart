@@ -37,6 +37,15 @@ class _InventoryDashboard extends State<InventoryDashboard> {
     super.initState();
   }
 
+  @override
+  void dispose() {
+    _filters;
+    _products;
+    _productsFiltered;
+    searchValue.dispose();
+    super.dispose();
+  }
+
   //get the product types using SET
   Future<Set<String>> getTypes() async {
     Set<String> types = new Set<String>();
@@ -64,56 +73,6 @@ class _InventoryDashboard extends State<InventoryDashboard> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            Row(
-              children: [
-                FutureBuilder<Set<String>>(
-                  future: _futureTypes,
-                  builder: (context, snapshot) {
-                    if (!snapshot.hasData) {
-                      return CircularProgressIndicator();
-                    }
-                    if (snapshot.hasData) {
-                      if (snapshot.data!.length > 0) {
-                        return Wrap(
-                            children: productTypeWidget(snapshot.data!.toSet())
-                                .toList());
-                      }
-                    }
-                    return Text("No product type available");
-                  },
-                ),
-                Container(
-                  padding: const EdgeInsets.only(top: 20, left: 20, right: 5),
-                  width: 350,
-                  child: TextField(
-                    controller: searchValue,
-                    onChanged: (value) {
-                      setState(() {
-                        _searchResult = value;
-                        _productsFiltered = Mapping.productList
-                            .where((product) => product.getProductName
-                                .toLowerCase()
-                                .contains(_searchResult.toLowerCase()))
-                            .toList();
-                      });
-                    },
-                    decoration: InputDecoration(
-                      hintText: 'Search Product',
-                      filled: true,
-                      fillColor: Colors.blueGrey[50],
-                      labelStyle: TextStyle(fontSize: 12),
-                      contentPadding: EdgeInsets.only(left: 15),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
             //the list of products
             _tableProducts(_productsFiltered),
           ],
@@ -126,7 +85,7 @@ class _InventoryDashboard extends State<InventoryDashboard> {
     return types.map((type) {
       return Padding(
         padding: const EdgeInsets.only(top: 10),
-        child: FilterChip(
+        child: ChoiceChip(
           label: Text(type),
           selected: _filters.contains(type),
           onSelected: (bool value) {
@@ -174,12 +133,67 @@ class _InventoryDashboard extends State<InventoryDashboard> {
                     sortAscending: _sortAscending,
                     sortColumnIndex: 1,
                     rowsPerPage: 14,
+                    header: Text('Products'),
+                    actions: [
+                      //choice chips
+                      FutureBuilder<Set<String>>(
+                        future: _futureTypes,
+                        builder: (context, snapshot) {
+                          if (!snapshot.hasData) {
+                            return CircularProgressIndicator();
+                          }
+                          if (snapshot.hasData) {
+                            if (snapshot.data!.length > 0) {
+                              return Wrap(
+                                  children:
+                                      productTypeWidget(snapshot.data!.toSet())
+                                          .toList());
+                            }
+                          }
+                          return Text("No product type available");
+                        },
+                      ),
+                      //search button
+                      Container(
+                        padding:
+                            const EdgeInsets.only(top: 20, left: 20, right: 5),
+                        width: 350,
+                        child: TextField(
+                          controller: searchValue,
+                          onChanged: (value) {
+                            setState(() {
+                              _searchResult = value;
+                              _productsFiltered = Mapping.productList
+                                  .where((product) => product.getProductName
+                                      .toLowerCase()
+                                      .contains(_searchResult.toLowerCase()))
+                                  .toList();
+                            });
+                          },
+                          decoration: InputDecoration(
+                            hintText: 'Search Product',
+                            filled: true,
+                            fillColor: Colors.blueGrey[50],
+                            labelStyle: TextStyle(fontSize: 12),
+                            contentPadding: EdgeInsets.only(left: 15),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: Colors.blueGrey.shade50),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: Colors.blueGrey.shade50),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                     columns: [
                       DataColumn(label: Text('PRODUCT \n NAME')),
                       DataColumn(label: Text('PRODUCT \n LABEL')),
-                      DataColumn(label: Text('QUANTITY \n RECEIVED')),
-                      DataColumn(label: Text('QUANTITY \n BOUGHT')),
                       DataColumn(label: Text('QUANTITY \n ON HAND')),
+                      DataColumn(label: Text('QUANTITY \n SOLD')),
+                      DataColumn(label: Text('QUANTITY \n RECEIVED')),
                       DataColumn(label: Text('TRANSFER')),
                     ],
                     source:
@@ -212,9 +226,9 @@ class _Row {
 
   final String valueA; //product name
   final String valueB; //label
-  final int valueF; //inventory received
-  final int valueG; //inventory bought
-  final valueH; //inventory on hand
+  final Widget valueF; //inventory on hand
+  final int valueG; //inventory sol
+  final int valueH; //inventory receive
   final Widget valueI; //transfer button
 
   bool selected = false;
@@ -252,9 +266,9 @@ class _DataSource extends DataTableSource {
       cells: [
         DataCell(Text(row.valueA)),
         DataCell(Text(row.valueB)),
-        DataCell(Text(row.valueF.toString())),
+        DataCell((row.valueF)),
         DataCell(Text(row.valueG.toString())),
-        DataCell(row.valueH),
+        DataCell(Text(row.valueH.toString())),
         DataCell(row.valueI, onTap: () {
           showModalSideSheet(
             context: context,
@@ -264,7 +278,7 @@ class _DataSource extends DataTableSource {
                 Padding(
                   padding: const EdgeInsets.all(30.0),
                   child: Text(
-                    'Transfer product here and select product itesm to be transffered',
+                    'Transfer product here and select product items to be transffered',
                   ),
                 ),
               ],
@@ -290,9 +304,9 @@ class _DataSource extends DataTableSource {
         return _Row(
           products[index].getProductName.toString(),
           products[index].getProductLabel.toString(),
-          products[index].getInventoryReceived,
-          products[index].getInventorySold,
           _dangerStock(products[index].getInventoryOnHand),
+          products[index].getInventorySold,
+          products[index].getInventoryReceived,
           ClipRRect(
             borderRadius: BorderRadius.circular(20),
             child: Stack(
@@ -324,7 +338,7 @@ class _DataSource extends DataTableSource {
         return _Row(
           '',
           '',
-          0,
+          Text(''),
           0,
           0,
           Text(''),
@@ -341,7 +355,6 @@ Widget _dangerStock(int qty) {
   if (qty > 2) {
     return Text(qty.toString());
   }
-
   return Row(
     children: [
       Icon(Icons.warning, color: Colors.red),

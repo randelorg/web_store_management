@@ -251,12 +251,6 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
                       controller: barcode,
                       decoration: InputDecoration(
                         hintText: 'Product Barcode',
-                        //TODO: add scan feature barcode here
-                        // suffixIcon: IconButton(
-                        //   onPressed: () {},
-                        //   icon: Icon(Icons.scanner_sharp),
-                        //   tooltip: 'Scan Product Barcode',
-                        // ),
                         filled: true,
                         fillColor: Colors.blueGrey[50],
                         labelStyle: TextStyle(fontSize: 10),
@@ -325,86 +319,10 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
                 ),
               ],
             ),
-            productInfo()
+            //product information result
+            productCardInfo()
           ],
         ),
-
-        // Row(
-        //   mainAxisAlignment: MainAxisAlignment.end,
-        //   crossAxisAlignment: CrossAxisAlignment.end,
-        //   children: [
-        //     Container(
-        //       alignment: Alignment.center,
-        //       width: 120,
-        //       height: 60,
-        //       child: ClipRRect(
-        //         borderRadius: BorderRadius.circular(12),
-        //         child: Stack(
-        //           children: <Widget>[
-        //             Positioned.fill(
-        //               child: Container(
-        //                 decoration: BoxDecoration(
-        //                   color: HexColor("#155293"),
-        //                 ),
-        //               ),
-        //             ),
-        //             TextButton(
-        //               style: TextButton.styleFrom(
-        //                 padding: const EdgeInsets.all(15),
-        //                 primary: Colors.white,
-        //                 textStyle: TextStyle(
-        //                   fontSize: 25,
-        //                   fontFamily: 'Cairo_SemiBold',
-        //                 ),
-        //               ),
-        //               onPressed: () {
-        //                 //push to second page
-        //                 //which is the finalize order page
-        //                 if (firstname.text.isEmpty ||
-        //                     lastname.text.isEmpty ||
-        //                     homeAddress.text.isEmpty) {
-        //                   BannerNotif.notif(
-        //                       "Error",
-        //                       "Please fill all the fields",
-        //                       Colors.red.shade600);
-        //                 } else if (pick.image == null) {
-        //                   BannerNotif.notif(
-        //                       "Error",
-        //                       "Please upload a file (jpg, png, jpeg)",
-        //                       Colors.red.shade600);
-        //                 } else {
-        //                   showDialog(
-        //                     context: context,
-        //                     builder: (BuildContext context) {
-        //                       return SimpleDialog(
-        //                         children: [
-        //                           Container(
-        //                             width:
-        //                                 (MediaQuery.of(context).size.width) / 2,
-        //                             height: 555,
-        //                             child: FinalizePage(
-        //                               action: 'new_loan',
-        //                               firstname: firstname.text,
-        //                               lastname: lastname.text,
-        //                               mobile: mobileNumberOtp.text,
-        //                               address: homeAddress.text,
-        //                               contract: pick.getImageBytes(),
-        //                             ),
-        //                           ),
-        //                         ],
-        //                       );
-        //                     },
-        //                   );
-        //                 }
-        //               },
-        //               child: const Text('NEXT'),
-        //             ),
-        //           ],
-        //         ),
-        //       ),
-        //     ),
-        //   ],
-        // ),
       ],
     );
   }
@@ -622,6 +540,103 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
     );
   }
 
+  Widget productCardInfo() {
+    return SizedBox(
+      width: (MediaQuery.of(context).size.width) / 2.5,
+      height: (MediaQuery.of(context).size.width) / 3,
+      child: Card(
+        child: Column(
+          children: [
+            ListTile(
+              title: Text(
+                'Product Information',
+                style: TextStyle(fontSize: 20),
+              ),
+              subtitle: Text(
+                'Product Code',
+                style: TextStyle(fontSize: 15),
+              ),
+            ),
+            ListTile(
+              title: Text(
+                'Product Information',
+                style: TextStyle(fontSize: 20),
+              ),
+              subtitle: Text(
+                'Product name',
+                style: TextStyle(fontSize: 15),
+              ),
+            ),
+            ListTile(
+              title: Text(
+                'Product Information',
+                style: TextStyle(fontSize: 20),
+              ),
+              subtitle: Text(
+                'Product Price',
+                style: TextStyle(fontSize: 15),
+              ),
+            ),
+            ListTile(
+              title: Text(
+                'Product Information',
+                style: TextStyle(fontSize: 20),
+              ),
+              subtitle: Text(
+                'Product Type',
+                style: TextStyle(fontSize: 15),
+              ),
+            ),
+            ButtonBar(
+              children: [
+                TextButton(
+                  child: const Text('DONE'),
+                  style: TextButton.styleFrom(
+                    padding: const EdgeInsets.only(
+                        top: 18, bottom: 18, left: 36, right: 36),
+                    primary: Colors.white,
+                    textStyle:
+                        TextStyle(fontFamily: 'Cairo_SemiBold', fontSize: 20),
+                  ),
+                  onPressed: () {
+                    if (firstname.text.isEmpty ||
+                        lastname.text.isEmpty ||
+                        mobileNumberOtp.text.isEmpty ||
+                        homeAddress.text.isEmpty ||
+                        productPrice.text.isEmpty) {
+                      BannerNotif.notif("Error", "Please fill all the fields",
+                          Colors.red.shade600);
+                    } else if (pick.image == null) {
+                      BannerNotif.notif(
+                          "Error",
+                          "Please upload a file (jpg, png, jpeg)",
+                          Colors.red.shade600);
+                    } else {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return PaymentPlanPage(
+                            action: 'new_loan',
+                            firstname: firstname.text,
+                            lastname: lastname.text,
+                            mobile: mobileNumberOtp.text,
+                            address: homeAddress.text,
+                            total: double.parse(productPrice.text),
+                            contract: pick.image,
+                          );
+                        },
+                      );
+                    }
+                  },
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
   Widget productInfo() {
     return Container(
       width: (MediaQuery.of(context).size.width) / 2.5,
@@ -781,7 +796,7 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
                                 );
                               },
                             );
-                          }                  
+                          }
                         }),
                   ],
                 ),

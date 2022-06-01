@@ -56,40 +56,6 @@ class _BorrowersPage extends State<BorrowersPage> {
                   ),
                 ),
               ),
-              Align(
-                alignment: Alignment.topRight,
-                child: Container(
-                  padding: EdgeInsets.only(left: 20, right: 85),
-                  width: 350,
-                  child: TextField(
-                    controller: searchValue,
-                    onChanged: (value) {
-                      setState(() {
-                        _searchResult = value;
-                        _borrowerFiltered = Mapping.borrowerList
-                            .where((brw) => brw
-                                .toString()
-                                .toLowerCase()
-                                .contains(_searchResult.toLowerCase()))
-                            .toList();
-                      });
-                    },
-                    decoration: InputDecoration(
-                      hintText: 'Search Borrower',
-                      filled: true,
-                      fillColor: Colors.blueGrey[50],
-                      labelStyle: TextStyle(fontSize: 12),
-                      contentPadding: EdgeInsets.only(left: 15),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
             ],
           ),
         ),
@@ -118,6 +84,44 @@ class _BorrowersPage extends State<BorrowersPage> {
                         sortAscending: _sortAscending,
                         sortColumnIndex: 1,
                         rowsPerPage: 14,
+                        header: Text(''),
+                        actions: [
+                          Container(
+                            padding: const EdgeInsets.only(
+                                top: 20, left: 20, right: 5),
+                            width: 350,
+                            child: TextField(
+                              controller: searchValue,
+                              onChanged: (value) {
+                                setState(() {
+                                  _searchResult = value;
+                                  _borrowerFiltered = Mapping.borrowerList
+                                      .where((brw) => brw
+                                          .toString()
+                                          .toLowerCase()
+                                          .contains(
+                                              _searchResult.toLowerCase()))
+                                      .toList();
+                                });
+                              },
+                              decoration: InputDecoration(
+                                hintText: 'Search Borrower',
+                                filled: true,
+                                fillColor: Colors.blueGrey[50],
+                                labelStyle: TextStyle(fontSize: 12),
+                                contentPadding: EdgeInsets.only(left: 15),
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: Colors.blueGrey.shade50),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: Colors.blueGrey.shade50),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                         columns: [
                           DataColumn(label: Text('BID')),
                           DataColumn(

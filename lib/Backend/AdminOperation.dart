@@ -53,7 +53,6 @@ class AdminOperation implements IAdmin {
       String password,
       Uint8List? image) async {
     //json body
-    print("creation ${hash.encrypt(password.trim().toString())}");
     var addAdmin = json.encode({
       'Username': username,
       'Password': hash.encrypt(password.trim()),
