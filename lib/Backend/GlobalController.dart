@@ -143,21 +143,6 @@ class GlobalController {
     return Mapping.repairs;
   }
 
-  //fetch all the credit approvals from the database
-  Future<List<BorrowerModel>> fetchRequestedProducts() async {
-    final response = await http.get(
-      Uri.parse("${Environment.apiUrl}/api/requestedproducts"),
-      headers: {HttpHeaders.authorizationHeader: "${Environment.apiToken}"},
-    );
-    final parsed = jsonDecode(response.body).cast<Map<String, dynamic>>();
-    Mapping.requested = parsed
-        .map<BorrowerModel>(
-            (json) => BorrowerModel.fromJsonRequestedProduct(json))
-        .toList();
-    // Use the compute function to run parseAdmin in a separate isolate.
-    return Mapping.requested;
-  }
-
   //fetch all the branches from the database
   Future<List<BranchModel>> fetchBranches() async {
     final response = await http.get(

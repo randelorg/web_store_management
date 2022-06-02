@@ -32,6 +32,7 @@ class _TransferStock extends State<TransferStock> {
       });
     });
     setState(() {
+      widget.branches!.remove('Dellrains Main');
       originStore = widget.branches![0].toString();
       destinationBranch = originStore;
       productName.text = widget.productName.toString();
@@ -42,25 +43,11 @@ class _TransferStock extends State<TransferStock> {
 
   @override
   Widget build(BuildContext context) {
-    return AlertDialog(
-      actionsPadding: EdgeInsets.only(bottom: 5, left: 5, right: 5),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-      actions: <Widget>[
-        Column(
+    return Padding(
+      padding: const EdgeInsets.all(30.0),
+      child: Container(
+        child: Column(
           children: [
-            Align(
-              alignment: Alignment.topRight,
-              child: IconButton(
-                icon: Icon(
-                  Icons.cancel,
-                  color: Colors.black,
-                  size: 30,
-                ),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-            ),
             Text(
               'Transfer Stock',
               softWrap: true,
@@ -117,7 +104,7 @@ class _TransferStock extends State<TransferStock> {
                 Padding(
                   padding: EdgeInsets.only(bottom: 20),
                   child: Container(
-                    width: 300,
+                    width: 280,
                     alignment: Alignment.topLeft,
                     decoration: BoxDecoration(
                       color: Colors.blueGrey[50],
@@ -313,8 +300,8 @@ class _TransferStock extends State<TransferStock> {
               ],
             ),
           ],
-        )
-      ],
+        ),
+      ),
     );
   }
 

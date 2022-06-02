@@ -1,11 +1,11 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:web_store_management/Backend/interfaces/ILogin.dart';
 import 'package:web_store_management/Models/EmployeeModel.dart';
 import 'package:web_store_management/Models/AdminModel.dart';
 import 'package:web_store_management/environment/Environment.dart';
 import '../Helpers/HashingHelper.dart';
 import 'GlobalController.dart';
-import 'Interfaces/ILogin.dart';
 import 'Utility/Mapping.dart';
 import 'Session.dart';
 

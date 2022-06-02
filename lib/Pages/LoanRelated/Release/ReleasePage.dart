@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:modal_side_sheet/modal_side_sheet.dart';
 import 'package:printing/printing.dart';
 import 'package:web_store_management/Backend/GlobalController.dart';
 import 'package:web_store_management/Backend/LoanOperation.dart';
@@ -7,7 +8,7 @@ import 'package:web_store_management/Backend/TextMessage.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
 import 'package:web_store_management/Helpers/PrintHelper.dart';
 import 'package:web_store_management/Models/BorrowerModel.dart';
-import 'package:web_store_management/Notification/BannerNotif.dart';
+import 'package:web_store_management/Pages/LoanRelated/Release/ReleaseItems.dart';
 
 class ReleasePage extends StatefulWidget {
   @override
@@ -23,8 +24,6 @@ class _ReleasePage extends State<ReleasePage> {
 
   List<BorrowerModel> _borrowerFiltered = [];
   TextEditingController searchValue = TextEditingController();
-  String _searchResult = '';
-  bool _sortAscending = false;
 
   int vid = 0, bid = 0;
   double textSize = 15;
@@ -43,47 +42,6 @@ class _ReleasePage extends State<ReleasePage> {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.only(left: 10, right: 20, top: 10),
-          child: Stack(
-            children: [
-              Align(
-                alignment: Alignment.topRight,
-                child: Container(
-                  padding: EdgeInsets.only(bottom: 10),
-                  width: 300,
-                  child: TextField(
-                    controller: searchValue,
-                    onChanged: (value) {
-                      setState(() {
-                        _searchResult = value;
-                        _borrowerFiltered = Mapping.releaseApproval
-                            .where((brw) => brw
-                                .toString()
-                                .toLowerCase()
-                                .contains(_searchResult.toLowerCase()))
-                            .toList();
-                      });
-                    },
-                    decoration: InputDecoration(
-                      hintText: 'Search Borrower',
-                      filled: true,
-                      fillColor: Colors.blueGrey[50],
-                      labelStyle: TextStyle(fontSize: 12),
-                      contentPadding: EdgeInsets.only(left: 30),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
         Expanded(
           child: Container(
             width: (MediaQuery.of(context).size.width),
@@ -94,26 +52,25 @@ class _ReleasePage extends State<ReleasePage> {
                 if (!snapshot.hasData) {
                   return Center(
                     child: CircularProgressIndicator(
-                      semanticsLabel: 'Fetching credits',
+                      semanticsLabel: 'Fetching items',
                     ),
                   );
                 }
                 if (snapshot.hasData) {
                   if (snapshot.data!.length > 0) {
                     return GridView.count(
-                      crossAxisCount: 5,
+                      crossAxisCount: 4,
                       crossAxisSpacing: 40,
                       mainAxisSpacing: 40,
                       shrinkWrap: true,
                       childAspectRatio: (MediaQuery.of(context).size.width) /
-                          (MediaQuery.of(context).size.height) /
-                          2.5,
+                          (MediaQuery.of(context).size.height),
                       children: _cards(_borrowerFiltered),
                     );
                   } else {
                     return Center(
                       child: Text(
-                        'NO BORROWERS TO RELEASE',
+                        'NO ITEM IS AVAILABLEs',
                         style: TextStyle(
                           color: Colors.grey[500],
                           fontFamily: 'Cairo_SemiBold',
@@ -314,41 +271,53 @@ class _ReleasePage extends State<ReleasePage> {
                                   fontSize: 18, fontFamily: 'Cairo_SemiBold')),
                           child: const Text('RELEASE'),
                           onPressed: () {
-                            vid = brwRelease[index].getinvestigationID;
-                            bid = brwRelease[index].getBorrowerId;
-                            loan
-                                .approvedCredit(vid, bid, released)
-                                .then((value) {
-                              if (!value) {
-                                BannerNotif.notif(
-                                  'Error',
-                                  'Something went wrong while approving the loan',
-                                  Colors.redAccent.shade200,
-                                );
-                              } else {
-                                //refresh the data in the window
-                                setState(() {
-                                  _releaseApproval =
-                                      controller.fetchReleaseApprovals();
-                                  _releaseApproval.whenComplete(() =>
-                                      _borrowerFiltered =
-                                          Mapping.releaseApproval);
-                                });
+                            // vid = brwRelease[index].getinvestigationID;
+                            // bid = brwRelease[index].getBorrowerId;
+                            // loan
+                            //     .approvedCredit(vid, bid, released)
+                            //     .then((value) {
+                            //   if (!value) {
+                            //     BannerNotif.notif(
+                            //       'Error',
+                            //       'Something went wrong while approving the loan',
+                            //       Colors.redAccent.shade200,
+                            //     );
+                            //   } else {
+                            //     //refresh the data in the window
+                            //     setState(() {
+                            //       _releaseApproval =
+                            //           controller.fetchReleaseApprovals();
+                            //       _releaseApproval.whenComplete(() =>
+                            //           _borrowerFiltered =
+                            //               Mapping.releaseApproval);
+                            //     });
 
-                                //show the print screen
-                                showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return showPrint(
-                                      brwRelease[index]
-                                          .getBorrowerId
-                                          .toString(),
-                                      brwRelease[index].toString(),
-                                    );
-                                  },
-                                );
-                              }
-                            });
+                            //     //show the print screen
+                            //     showDialog(
+                            //       context: context,
+                            //       builder: (BuildContext context) {
+                            //         return showPrint(
+                            //           brwRelease[index]
+                            //               .getBorrowerId
+                            //               .toString(),
+                            //           brwRelease[index].toString(),
+                            //         );
+                            //       },
+                            //     );
+                            //   }
+                            // });
+                            showModalSideSheet(
+                              context: context,
+                              width: MediaQuery.of(context).size.width / 4,
+                              body: ListView(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.all(30.0),
+                                    child: ReleaseItems(barcode: 'asdads'),
+                                  ),
+                                ],
+                              ),
+                            );
                           },
                         ),
                       ],

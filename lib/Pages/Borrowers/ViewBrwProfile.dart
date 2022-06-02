@@ -144,9 +144,10 @@ class _ViewBrwProfile extends State<ViewBrwProfile> {
                     child: Text(
                       'Mobile Number',
                       style: TextStyle(
-                          color: Colors.grey[700],
-                          fontFamily: 'Cairo_SemiBold',
-                          fontSize: 12),
+                        color: Colors.grey[700],
+                        fontFamily: 'Cairo_SemiBold',
+                        fontSize: 12,
+                      ),
                     ),
                   ),
                   Text(

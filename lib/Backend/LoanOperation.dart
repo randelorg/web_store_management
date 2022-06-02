@@ -1,9 +1,9 @@
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:web_store_management/Backend/BorrowerOperation.dart';
-import 'package:web_store_management/Backend/Interfaces/ILoan.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
 import 'package:http/http.dart' as http;
+import 'package:web_store_management/Backend/interfaces/ILoan.dart';
 import 'dart:convert';
 import 'dart:io';
 import 'package:web_store_management/Notification/BannerNotif.dart';

@@ -5,6 +5,7 @@ import 'package:web_store_management/Backend/GlobalController.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
 import 'package:web_store_management/Models/ProductModel.dart';
 import 'package:web_store_management/Backend/ProductOperation.dart';
+import 'package:web_store_management/Pages/Inventory/TransferStock.dart';
 
 class InventoryDashboard extends StatefulWidget {
   @override
@@ -272,14 +273,13 @@ class _DataSource extends DataTableSource {
         DataCell(row.valueI, onTap: () {
           showModalSideSheet(
             context: context,
-            width: MediaQuery.of(context).size.width / 2.3,
+            width: MediaQuery.of(context).size.width / 4,
             body: ListView(
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(30.0),
-                  child: Text(
-                    'Transfer product here and select product items to be transffered',
-                  ),
+                TransferStock(
+                  branches: _branches,
+                  productName: row.valueA,
+                  qty: determineWidget(row.valueF),
                 ),
               ],
             ),
@@ -361,4 +361,14 @@ Widget _dangerStock(int qty) {
       Text(qty.toString()),
     ],
   );
+}
+
+String determineWidget(widget) {
+  if (widget is Row) {
+    return '<= 2';
+  }
+  //get data from the TEXT widget
+  Text txt = widget;
+
+  return txt.data.toString();
 }
