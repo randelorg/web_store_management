@@ -10,6 +10,9 @@ import 'package:web_store_management/Notification/BannerNotif.dart';
 class CreditScreen extends StatefulWidget {
   @override
   _CreditPage createState() => _CreditPage();
+  final String denied = "DENIED";
+  final String tobeRelease = 'TO-BE-RELEASE';
+  final String approved = 'APPROVED';
 }
 
 class _CreditPage extends State<CreditScreen> {
@@ -24,9 +27,6 @@ class _CreditPage extends State<CreditScreen> {
   int vid = 0, bid = 0;
   final double textSize = 15;
   final double titleSize = 30;
-  final String denied = "DENIED",
-      tobeRelease = 'TO-BE-RELEASE',
-      approved = 'APPROVED';
   bool _sortAscending = true;
 
   @override
@@ -99,12 +99,13 @@ class _CreditPage extends State<CreditScreen> {
                 if (snapshot.hasData) {
                   if (snapshot.data!.length > 0) {
                     return GridView.count(
-                      crossAxisCount: 5,
+                      crossAxisCount: 4,
                       crossAxisSpacing: 40,
                       mainAxisSpacing: 40,
                       shrinkWrap: true,
                       childAspectRatio: (MediaQuery.of(context).size.width) /
-                          (MediaQuery.of(context).size.height) / 2.5,
+                          (MediaQuery.of(context).size.height) /
+                          2,
                       children: _cards(_borrowerFiltered),
                     );
                   } else {
@@ -143,7 +144,7 @@ class _CreditPage extends State<CreditScreen> {
     return List.generate(brwCredit.length, (index) {
       return new Card(
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(35.0),
+          borderRadius: BorderRadius.circular(10.0),
         ),
         shadowColor: Colors.black,
         child: Column(
@@ -310,7 +311,7 @@ class _CreditPage extends State<CreditScreen> {
                           vid = brwCredit[index].getinvestigationID;
                           bid = brwCredit[index].getBorrowerId;
                           loan
-                              .approvedCredit(vid, bid, tobeRelease)
+                              .approvedCredit(vid, bid, widget.tobeRelease, '')
                               .then((value) {
                             if (!value) {
                               BannerNotif.notif(
@@ -332,7 +333,7 @@ class _CreditPage extends State<CreditScreen> {
                                   .whenComplete(() => sendMessageApproved(
                                         brwCredit[index].getMobileNumber,
                                         brwCredit[index].toString(),
-                                        approved,
+                                        widget.approved,
                                       ));
                             }
                           });
@@ -348,7 +349,9 @@ class _CreditPage extends State<CreditScreen> {
                   onPressed: () {
                     vid = brwCredit[index].getinvestigationID;
                     bid = brwCredit[index].getBorrowerId;
-                    loan.approvedCredit(vid, bid, denied).then((value) {
+                    loan
+                        .approvedCredit(vid, bid, widget.denied, '')
+                        .then((value) {
                       if (!value) {
                         BannerNotif.notif(
                           'Error',
@@ -366,7 +369,7 @@ class _CreditPage extends State<CreditScreen> {
                         _creditapproval.whenComplete(() => sendMessageApproved(
                               brwCredit[index].getMobileNumber,
                               brwCredit[index].toString(),
-                              denied,
+                              widget.denied,
                             ));
                       }
                     });

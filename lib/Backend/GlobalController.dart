@@ -101,7 +101,7 @@ class GlobalController {
   //fetch all the credit approvals from the database
   Future<List<BorrowerModel>> fetchCreditApprovals() async {
     final response = await http.get(
-      Uri.parse("${Environment.apiUrl}/api/credit"),
+      Uri.parse("http://localhost:8090/api/credit"),
       headers: {HttpHeaders.authorizationHeader: "${Environment.apiToken}"},
     );
 
@@ -116,13 +116,13 @@ class GlobalController {
 //fetch all the credit approvals from the database
   Future<List<BorrowerModel>> fetchReleaseApprovals() async {
     final response = await http.get(
-      Uri.parse("${Environment.apiUrl}/api/toberelease"),
+      Uri.parse("http://localhost:8090/api/toberelease"),
       headers: {HttpHeaders.authorizationHeader: "${Environment.apiToken}"},
     );
 
     final parsed = jsonDecode(response.body).cast<Map<String, dynamic>>();
     Mapping.releaseApproval = parsed
-        .map<BorrowerModel>((json) => BorrowerModel.fromJsonApproval(json))
+        .map<BorrowerModel>((json) => BorrowerModel.fromJsonRelaease(json))
         .toList();
     // Use the compute function to run parseAdmin in a separate isolate.
     return Mapping.releaseApproval;
@@ -131,7 +131,7 @@ class GlobalController {
   //fetch all the credit approvals from the database
   Future<List<BorrowerModel>> fetchRepairs() async {
     final response = await http.get(
-      Uri.parse("${Environment.apiUrl}/api/repairs"),
+      Uri.parse("http://localhost:8090/api/repairs"),
       headers: {HttpHeaders.authorizationHeader: "${Environment.apiToken}"},
     );
 

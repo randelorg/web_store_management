@@ -1,7 +1,6 @@
 import 'dart:typed_data';
 
 class INewLoan {
-  
   Future<bool> addBorrower(
       String firstname,
       String lastname,
@@ -34,8 +33,8 @@ class INewLoan {
     return a;
   }
 
-  Future<bool> approvedCredit(
-      int investigationId, int borrowerId, String status) {
+  Future<bool> approvedCredit(int investigationId, int borrowerId,
+      String status, String? invoiceNumber) {
     var a;
     return a;
   }

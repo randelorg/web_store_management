@@ -2,6 +2,7 @@ class PersonModel {
   int? personId;
   String? firstname;
   String? lastname;
+  String? fullname;
   String? mobileNumber;
   String? homeAddress;
 
@@ -16,6 +17,10 @@ class PersonModel {
   get getLastname => this.lastname;
 
   set setLastname(lastname) => this.lastname = lastname;
+
+  get getFullname => this.fullname;
+
+  set setFullname(fullname) => this.fullname = fullname;
 
   get getMobileNumber => this.mobileNumber;
 
@@ -32,9 +37,8 @@ class PersonModel {
 
   PersonModel.empty();
 
-  PersonModel.invoice(String fname, String lname, String address) {
-    this.firstname = fname;
-    this.lastname = lname;
+  PersonModel.invoice(String name, String address) {
+    this.fullname = name;
     this.homeAddress = address;
   }
 

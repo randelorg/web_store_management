@@ -38,6 +38,18 @@ class InvoiceItem {
   });
 }
 
+class InvoiceLoan {
+  final String description;
+  final DateTime date;
+  final String invoiceNumber;
+
+  InvoiceLoan({
+    required this.description,
+    required this.date,
+    required this.invoiceNumber,
+  });
+}
+
 class InvoiceProductItem {
   String remarks;
   final String itemCode;

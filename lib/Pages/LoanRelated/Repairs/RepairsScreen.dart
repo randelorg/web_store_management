@@ -17,12 +17,12 @@ class _ReturnsPage extends State<ReturnsPage> {
   var controller = GlobalController();
   var borrower = BorrowerOperation();
   var message = TextMessage();
+
   late Future<List<BorrowerModel>> _repairs;
   List<BorrowerModel> _borrowerFiltered = [];
+
   TextEditingController searchValue = TextEditingController();
   String _searchResult = '';
-  final double textSize = 15;
-  final double titleSize = 30;
   bool _sortAscending = true;
 
   @override
@@ -131,13 +131,13 @@ class _ReturnsPage extends State<ReturnsPage> {
                 if (snapshot.hasData) {
                   if (snapshot.data!.length > 0) {
                     return GridView.count(
-                      crossAxisCount: 5,
-                      crossAxisSpacing: 50,
-                      mainAxisSpacing: 50,
+                      crossAxisCount: 4,
+                      crossAxisSpacing: 40,
+                      mainAxisSpacing: 40,
                       shrinkWrap: true,
                       childAspectRatio: (MediaQuery.of(context).size.width) /
                           (MediaQuery.of(context).size.height) /
-                          2.5,
+                          2,
                       children: _cards(_borrowerFiltered),
                     );
                   } else {
@@ -178,7 +178,7 @@ class _ReturnsPage extends State<ReturnsPage> {
       (index) {
         return new Card(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(35.0),
+            borderRadius: BorderRadius.circular(10.0),
           ),
           shadowColor: Colors.black,
           child: Column(

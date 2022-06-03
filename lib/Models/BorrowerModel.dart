@@ -4,6 +4,7 @@ class BorrowerModel extends PersonModel {
   int? borrowerId;
   int? repairId;
   int? requestId;
+  String? productCode;
   int? investigationID;
   String? repairProductName;
   String? requestedProductName;
@@ -22,6 +23,10 @@ class BorrowerModel extends PersonModel {
   get getRequestId => this.requestId;
 
   set setRequestId(int requestId) => this.requestId = requestId;
+
+  get getProductCode => this.productCode;
+
+  set setProductCode(productCode) => this.productCode = productCode;
 
   get getinvestigationID => this.investigationID;
 
@@ -52,8 +57,8 @@ class BorrowerModel extends PersonModel {
 
   BorrowerModel.empty() : super.empty();
 
-  BorrowerModel.invoice(String firstname, String lastname, String homeAddress)
-      : super.invoice(firstname, lastname, homeAddress);
+  BorrowerModel.invoice(String name, String homeAddress)
+      : super.invoice(name, homeAddress);
 
   BorrowerModel.newLoan(String firstname, String lastname, String mobile,
       String homeAddress, List<dynamic> contract)
@@ -105,6 +110,17 @@ class BorrowerModel extends PersonModel {
       this.status})
       : super.withOutId(firstname, lastname, mobileNumber, homeAddress);
 
+  BorrowerModel.toBeRelease(
+      {this.investigationID,
+      this.borrowerId,
+      firstname,
+      lastname,
+      mobileNumber,
+      homeAddress,
+      this.status,
+      this.productCode})
+      : super.withOutId(firstname, lastname, mobileNumber, homeAddress);
+
   BorrowerModel.repairs(
       {this.repairId,
       this.borrowerId,
@@ -139,6 +155,19 @@ class BorrowerModel extends PersonModel {
       mobileNumber: json['MobileNumber'] as String,
       homeAddress: json['HomeAddress'] as String,
       status: json['ResultStatus'] as String,
+    );
+  }
+
+  factory BorrowerModel.fromJsonRelaease(Map<String, dynamic> json) {
+    return BorrowerModel.toBeRelease(
+      investigationID: json['InvestigationID'] as int,
+      borrowerId: json['BorrowerID'] as int,
+      firstname: json['Firstname'] as String,
+      lastname: json['Lastname'] as String,
+      mobileNumber: json['MobileNumber'] as String,
+      homeAddress: json['HomeAddress'] as String,
+      status: json['ResultStatus'] as String,
+      productCode: json['ProductCode'] as String,
     );
   }
 

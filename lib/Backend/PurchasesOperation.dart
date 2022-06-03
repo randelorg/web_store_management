@@ -153,16 +153,17 @@ class PurchasesOperation {
     return Mapping.productItems;
   }
 
-  Future<bool> customerPurchase(String invoiceNumber) async {
+  Future<bool> customerPurchase(
+      String invoiceNumber, String modeOfPayment) async {
     var response;
-    final String sold = 'SOLD';
+
     String productCode = '';
     for (var item in Mapping.invoice) {
       productCode = item.prodCode;
       try {
         var payload = json.encode({
           "itemCode": item.itemCode,
-          "status": sold,
+          "status": modeOfPayment,
           "invoiceNumber": invoiceNumber,
           "prodCode": item.prodCode,
           "currentPrice": item.currentPrice,

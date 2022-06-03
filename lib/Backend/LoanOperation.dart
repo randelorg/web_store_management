@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:web_store_management/Backend/BorrowerOperation.dart';
+import 'package:web_store_management/Backend/PurchasesOperation.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
 import 'package:http/http.dart' as http;
 import 'package:web_store_management/Backend/interfaces/ILoan.dart';
@@ -129,8 +130,10 @@ class LoanOperation extends BorrowerOperation implements INewLoan {
   }
 
   @override
-  Future<bool> approvedCredit(
-      int investigationId, int borrowerId, String status) async {
+  Future<bool> approvedCredit(int investigationId, int borrowerId,
+      String status, String? invoiceNumber) async {
+    var x = PurchasesOperation();
+    const String loan = 'LOAN';
     try {
       final response = await http.get(
         Uri.parse(
@@ -140,13 +143,17 @@ class LoanOperation extends BorrowerOperation implements INewLoan {
       );
 
       //initate deduction of stock here
+      // if (status == 'RELEASED') {
+      //   await http.get(
+      //     Uri.parse(
+      //       "${Environment.apiUrl}/api/loans/${borrowerId.toString()}",
+      //     ),
+      //     headers: {HttpHeaders.authorizationHeader: "${Environment.apiToken}"},
+      //   );
+      // }
+      //replace this with the deduct of stock in purchase class
       if (status == 'RELEASED') {
-        await http.get(
-          Uri.parse(
-            "${Environment.apiUrl}/api/loans/${borrowerId.toString()}",
-          ),
-          headers: {HttpHeaders.authorizationHeader: "${Environment.apiToken}"},
-        );
+        await x.customerPurchase(invoiceNumber.toString(), loan);
       }
 
       //if response is empty return false

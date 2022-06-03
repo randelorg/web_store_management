@@ -355,8 +355,7 @@ class _CashPaymentPage extends State<CashPaymentPage> {
   Invoice invoiceContent(String invoiceNumber) {
     return Invoice(
       customer: BorrowerModel.invoice(
-        fname.text.trim(),
-        lname.text.trim(),
+        fname.text.trim() + " " + lname.text.trim(),
         address.text.trim(),
       ),
       info: InvoiceInfo(

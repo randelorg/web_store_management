@@ -1,160 +1,198 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:printing/printing.dart';
-import 'package:web_store_management/Backend/GlobalController.dart';
+import 'package:web_store_management/Backend/CashPaymentOperation.dart';
+import 'package:web_store_management/Backend/LoanOperation.dart';
 import 'package:web_store_management/Backend/PurchasesOperation.dart';
 import 'package:web_store_management/Helpers/PrintHelper.dart';
 import 'package:web_store_management/Models/BorrowerModel.dart';
 import 'package:web_store_management/Models/IncomingPurchasesModel.dart';
 import 'package:web_store_management/Models/InvoiceModel.dart';
-import 'package:web_store_management/Models/ProductModel.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
 import 'package:web_store_management/Backend/ProductOperation.dart';
 
 class ReleaseItems extends StatefulWidget {
-  final String? barcode;
-  ReleaseItems({required this.barcode});
+  final String? name, address, barcode, borrowerId, investigationId;
+  ReleaseItems({
+    required this.name,
+    required this.address,
+    required this.barcode,
+    required this.borrowerId,
+    required this.investigationId,
+  });
 
   @override
   _ReleaseItems createState() => _ReleaseItems();
+
+  final int dangerStock = 2;
+  final String released = 'RELEASED';
 }
 
 class _ReleaseItems extends State<ReleaseItems> {
-  late Future<List<ProductModel>> _products;
-  late Future<List<IncomingPurchasesModel>> _purchases;
   late Future<List<IncomingPurchasesModel>> _items;
-
-  String _orderId = '', pickedSupplier = '';
-  bool show = false;
+  String invoiceNumber = '';
   int onhand = 0;
   double total = 0;
-  final int dangerStock = 2;
 
   var _sortAscending = true;
-  var controller = GlobalController();
   var prod = ProductOperation();
   var releaseItem = PurchasesOperation();
+  var loan = LoanOperation();
+  var purchaseOrderId = CashPaymentOperation();
 
   @override
   void initState() {
     //fetches the products
-    _products = controller.fetchProducts();
-    _purchases = Future.value([]);
     _items = releaseItem.getProductItems(widget.barcode.toString());
+    _items.whenComplete(() => onhand = Mapping.productItems.length);
+    purchaseOrderId.getInvoiceNumber().then((value) {
+      setState(() {
+        invoiceNumber = value;
+      });
+    });
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        //the list of products
-        Expanded(
-          child: Container(
-            child: ListView(
-              children: [
-                FutureBuilder<List<IncomingPurchasesModel>>(
-                  future: _items,
-                  builder: (context, snapshot) {
-                    if (!snapshot.hasData) {
-                      return Center(
-                        child: CircularProgressIndicator(
-                          semanticsLabel: 'Fetching purchases products',
-                        ),
-                      );
-                    }
-                    if (snapshot.hasData) {
-                      return PaginatedDataTable(
-                        columnSpacing: 20,
-                        actions: [
-                          Padding(
-                            padding: const EdgeInsets.all(5),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(20),
-                              child: Stack(
-                                children: <Widget>[
-                                  Positioned.fill(
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        color: HexColor("#155293"),
-                                      ),
-                                    ),
-                                  ),
-                                  TextButton(
-                                    style: TextButton.styleFrom(
-                                      padding: const EdgeInsets.only(
-                                        top: 18,
-                                        bottom: 18,
-                                        left: 36,
-                                        right: 36,
-                                      ),
-                                      primary: Colors.white,
-                                      textStyle: TextStyle(
-                                        fontFamily: 'Cairo_SemiBold',
-                                        fontSize: 14,
-                                      ),
-                                    ),
-                                    child: const Text('RELEASE'),
-                                    onPressed: () async {
-                                      //reset all in the page
-                                      //barcode.clear();
-                                      Mapping.productItems.clear();
-                                      Mapping.invoice.clear();
-
-                                      setState(() {
-                                        onhand = 0;
-                                        _items = Future.value([]);
-                                      });
-                                    },
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
-                        header: Row(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(right: 50),
-                              child: Text('ON HAND: $onhand'),
-                            ),
-                            Text("Date Today: ${Mapping.dateToday()}"),
-                          ],
-                        ),
-                        showCheckboxColumn: true,
-                        showFirstLastButtons: true,
-                        sortAscending: _sortAscending,
-                        sortColumnIndex: 1,
-                        rowsPerPage: 9,
-                        columns: [
-                          DataColumn(label: Text('Item Code')),
-                          DataColumn(label: Text('Remarks')),
-                        ],
-                        source: _DataSource(context),
-                      );
-                    }
-                    return Center(
-                      child: CircularProgressIndicator(
-                        semanticsLabel: 'Fetching on hand products',
-                      ),
-                    );
-                  },
-                ),
-              ],
+    return SizedBox(
+      width: MediaQuery.of(context).size.width / 2,
+      height: MediaQuery.of(context).size.height,
+      child: ListView(
+        children: [
+          Text(
+            'Release product to ${widget.name!.toUpperCase()}',
+            softWrap: true,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: HexColor("#155293"),
+              fontFamily: 'Cairo_Bold',
+              fontSize: 30,
             ),
           ),
-        ),
-      ],
+          FutureBuilder<List<IncomingPurchasesModel>>(
+            future: _items,
+            builder: (context, snapshot) {
+              if (!snapshot.hasData) {
+                return Center(
+                  child: CircularProgressIndicator(
+                    semanticsLabel: 'Fetching purchases products',
+                  ),
+                );
+              }
+              if (snapshot.hasData) {
+                if (snapshot.data!.isEmpty) {
+                  return Center(
+                    child: Text('No items found'),
+                  );
+                }
+                return PaginatedDataTable(
+                  columnSpacing: 20,
+                  actions: [
+                    Padding(
+                      padding: const EdgeInsets.all(5),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(20),
+                        child: Stack(
+                          children: <Widget>[
+                            Positioned.fill(
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: HexColor("#155293"),
+                                ),
+                              ),
+                            ),
+                            TextButton(
+                              style: TextButton.styleFrom(
+                                padding: const EdgeInsets.only(
+                                  top: 18,
+                                  bottom: 18,
+                                  left: 36,
+                                  right: 36,
+                                ),
+                                primary: Colors.white,
+                                textStyle: TextStyle(
+                                  fontFamily: 'Cairo_SemiBold',
+                                  fontSize: 14,
+                                ),
+                              ),
+                              child: const Text('RELEASE'),
+                              onPressed: () async {
+                                await loan
+                                    .approvedCredit(
+                                  int.parse(widget.investigationId.toString()),
+                                  int.parse(widget.borrowerId.toString()),
+                                  widget.released,
+                                  invoiceNumber,
+                                )
+                                    .then((value) {
+                                  //reset all in the page
+                                  //barcode.clear();
+                                  Mapping.productItems.clear();
+                                  Mapping.invoice.clear();
+
+                                  setState(() {
+                                    onhand = 0;
+                                    _items = Future.value([]);
+                                  });
+
+                                  Navigator.pop(context);
+                                });
+                              },
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                  header: Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(right: 50),
+                        child: Text('ON HAND: $onhand'),
+                      ),
+                      Text("Date Today: ${Mapping.dateToday()}"),
+                    ],
+                  ),
+                  showCheckboxColumn: true,
+                  showFirstLastButtons: true,
+                  sortAscending: _sortAscending,
+                  sortColumnIndex: 1,
+                  rowsPerPage: 9,
+                  columns: [
+                    DataColumn(label: Text('Item Code')),
+                    DataColumn(label: Text('Remarks')),
+                  ],
+                  source: _DataSource(
+                      context, widget.barcode.toString(), getPrice()),
+                );
+              }
+              return Center(
+                child: CircularProgressIndicator(
+                  semanticsLabel: 'Fetching on hand products',
+                ),
+              );
+            },
+          ),
+        ],
+      ),
     );
+  }
+
+  double getPrice() {
+    for (var i in Mapping.productList) {
+      if (i.getProductCode == widget.barcode) {
+        return i.getProductPrice;
+      }
+    }
+    return 0;
   }
 
   Invoice invoiceContent(String invoiceNumber) {
     return Invoice(
       customer: BorrowerModel.invoice(
-        'RANDEL',
-        'REYES',
-        'Mabolo',
+        widget.name.toString(),
+        widget.address.toString(),
       ),
       info: InvoiceInfo(
         date: DateTime.now(),
@@ -191,7 +229,7 @@ class _Row {
 }
 
 class _DataSource extends DataTableSource {
-  _DataSource(this.context) {
+  _DataSource(this.context, this.barcode, this.price) {
     _products = _productList();
   }
 
@@ -225,8 +263,8 @@ class _DataSource extends DataTableSource {
           //we will remove the duplicate products afterward
           Mapping.invoice.add(
             InvoiceProductItem(
-              remarks: row.valueB,
               itemCode: row.valueA,
+              remarks: row.valueB,
               prodCode: barcode,
               currentPrice: price,
               vat: 0,

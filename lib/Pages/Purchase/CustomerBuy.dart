@@ -16,6 +16,9 @@ import 'package:web_store_management/Notification/BannerNotif.dart';
 class CustomerBuy extends StatefulWidget {
   @override
   _CustomerBuy createState() => _CustomerBuy();
+
+  final String sold = 'SOLD';
+  final int dangerStock = 2;
 }
 
 class _CustomerBuy extends State<CustomerBuy> {
@@ -27,7 +30,6 @@ class _CustomerBuy extends State<CustomerBuy> {
   bool show = false;
   int onhand = 0;
   double total = 0;
-  final int dangerStock = 2;
 
   var _sortAscending = true;
   var controller = GlobalController();
@@ -134,7 +136,7 @@ class _CustomerBuy extends State<CustomerBuy> {
                             setState(() {
                               _items = _items;
                               onhand = Mapping.productItems.length;
-                              if (onhand <= 2) {
+                              if (onhand <= widget.dangerStock) {
                                 BannerNotif.notif(
                                   'SOLD OUT',
                                   'Product is sold out',
@@ -490,7 +492,7 @@ class _CustomerBuy extends State<CustomerBuy> {
                           //delay show of receipt to view change
                           Future.delayed(const Duration(seconds: 5), () {
                             searchProduct
-                                .customerPurchase(_orderId)
+                                .customerPurchase(_orderId, widget.sold)
                                 .then((value) {
                               //after sending the data print the invoice
                               showDialog(
@@ -517,8 +519,7 @@ class _CustomerBuy extends State<CustomerBuy> {
   Invoice invoiceContent(String invoiceNumber) {
     return Invoice(
       customer: BorrowerModel.invoice(
-        'RANDEL',
-        'REYES',
+        'RANDEL REYES',
         'Mabolo',
       ),
       info: InvoiceInfo(
