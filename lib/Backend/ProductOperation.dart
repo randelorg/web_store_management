@@ -6,13 +6,13 @@ import 'package:web_store_management/environment/Environment.dart';
 
 class ProductOperation implements IProduct {
   @override
-  Future<bool> updateProductDetails(
-      String barcode, String name, int qty, String unit, double price) async {
+  Future<bool> updateProductDetails(String barcode, String name, String label,
+      String unit, double price) async {
     var product = json.encode(
       {
         "barcode": barcode,
         "name": name,
-        "quantity": qty,
+        "label": label,
         "unit": unit,
         "price": price,
       },
@@ -20,7 +20,7 @@ class ProductOperation implements IProduct {
     var response;
 
     try {
-      await Environment.methodPost("${Environment.apiUrl}/api/product", product)
+      await Environment.methodPost("http://localhost:8090/api/product", product)
           .then((value) {
         response = value;
       });
@@ -34,6 +34,41 @@ class ProductOperation implements IProduct {
       BannerNotif.notif(
         'Error',
         "Product " + name + " failed to  update",
+        Colors.red.shade600,
+      );
+    }
+
+    return true;
+  }
+
+  @override
+  Future<bool> updateSupplier(
+      String suppname, String suppmobile, String suppwebsite) async {
+    var supplier = json.encode(
+      {
+        "suppname": suppname,
+        "suppmobile": suppmobile,
+        "suppwebsite": suppwebsite,
+      },
+    );
+    var response;
+
+    try {
+      await Environment.methodPost(
+              "http://localhost:8090/api/supplier", supplier)
+          .then((value) {
+        response = value;
+      });
+
+      if (response.statusCode == 202) {
+        return true;
+      }
+    } catch (e) {
+      e.toString();
+      //if there is an error in the method
+      BannerNotif.notif(
+        'Error',
+        "Supplier $suppname failed to update",
         Colors.red.shade600,
       );
     }

@@ -39,7 +39,6 @@ class GlobalController {
   //fetch all the products from the database
   Future<List<ProductModel>> fetchProducts() async {
     String branch = '';
-    final String main = "Main";
     var response;
     await Session.getBranch().then((branchName) {
       branch = branchName;

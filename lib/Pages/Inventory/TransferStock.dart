@@ -104,7 +104,7 @@ class _TransferStock extends State<TransferStock> {
                 Padding(
                   padding: EdgeInsets.only(bottom: 20),
                   child: Container(
-                    width: 280,
+                    width: MediaQuery.of(context).size.width / 4.8,
                     alignment: Alignment.topLeft,
                     decoration: BoxDecoration(
                       color: Colors.blueGrey[50],

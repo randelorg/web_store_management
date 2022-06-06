@@ -62,7 +62,7 @@ class _ViewOrderList extends State<ViewOrderList> {
           ],
         ),
         FutureBuilder<List<IncomingPurchasesModel>>(
-          future: this._order,
+          future: _order,
           builder: (context, snapshot) {
             if (!snapshot.hasData) {
               return Center(
@@ -76,6 +76,7 @@ class _ViewOrderList extends State<ViewOrderList> {
                 return Padding(
                   padding: EdgeInsets.only(top: 5, left: 15, right: 15),
                   child: PaginatedDataTable(
+                    columnSpacing: 35,
                     showCheckboxColumn: false,
                     showFirstLastButtons: true,
                     sortAscending: _sortAscending,

@@ -21,12 +21,17 @@ class _HistoryScreen extends State<HistoryScreen> {
   var history = HistoryOperation();
   var _sortAscending = true;
   late Future<List<BorrowerModel>> borrowers;
+  List<BorrowerModel> _borrowerFiltered = [];
+
+  var searchValue = TextEditingController();
+  String _searchResult = '';
 
   @override
   void initState() {
     super.initState();
     //fetches the borrowers from the database
     borrowers = controller.fetchBorrowers();
+    borrowers.whenComplete(() => _borrowerFiltered = Mapping.borrowerList);
   }
 
   Widget build(BuildContext context) {
@@ -41,28 +46,6 @@ class _HistoryScreen extends State<HistoryScreen> {
             child: ListView(
               scrollDirection: Axis.vertical,
               children: [
-                Align(
-                  alignment: Alignment.topRight,
-                  child: Container(
-                    padding: EdgeInsets.only(left: 25, right: 5),
-                    width: 350,                
-                    child: TextField(
-                      decoration: InputDecoration(
-                        hintText: 'Search Borrower',
-                        filled: true,
-                        fillColor: Colors.blueGrey[50],
-                        labelStyle: TextStyle(fontSize: 12),
-                        contentPadding: EdgeInsets.only(left: 15),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
                 FutureBuilder<List<BorrowerModel>>(
                   future: borrowers,
                   builder: ((context, snapshot) {
@@ -70,10 +53,7 @@ class _HistoryScreen extends State<HistoryScreen> {
                       return Center(child: CircularProgressIndicator());
                     }
                     if (snapshot.hasData) {
-                      return tableBorrowers(
-                        snapshot.data ?? [],
-                        _sortAscending,
-                      );
+                      return tableBorrowers(_borrowerFiltered, _sortAscending);
                     } else {
                       return Center(child: Text('No Borrowers'));
                     }
@@ -94,6 +74,43 @@ class _HistoryScreen extends State<HistoryScreen> {
       sortAscending: sortAscending,
       sortColumnIndex: 1,
       rowsPerPage: 12,
+      header: Text(''),
+      actions: [
+        Align(
+          alignment: Alignment.topRight,
+          child: Container(
+            padding: EdgeInsets.only(left: 25, right: 5),
+            width: 350,
+            child: TextField(
+              controller: searchValue,
+              onChanged: (value) {
+                setState(() {
+                  _searchResult = value;
+                  _borrowerFiltered = Mapping.borrowerList
+                      .where((brw) => brw
+                          .toString()
+                          .toLowerCase()
+                          .contains(_searchResult.toLowerCase()))
+                      .toList();
+                });
+              },
+              decoration: InputDecoration(
+                hintText: 'Search Borrower',
+                filled: true,
+                fillColor: Colors.blueGrey[50],
+                labelStyle: TextStyle(fontSize: 12),
+                contentPadding: EdgeInsets.only(left: 15),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ],
       columns: [
         DataColumn(label: Text('BID')),
         DataColumn(
@@ -112,7 +129,7 @@ class _HistoryScreen extends State<HistoryScreen> {
         DataColumn(label: Text('PAYMENT HISTORY')),
         DataColumn(label: Text('LOANED PRODUCT HISTORY')),
       ],
-      source: _DataSource(context),
+      source: _DataSource(context, _borrowerFiltered),
     );
   }
 }
@@ -136,19 +153,21 @@ class _Row {
 class _DataSource extends DataTableSource {
   var history = HistoryOperation();
 
-  _DataSource(this.context) {
-    _borrowersList();
+  _DataSource(this.context, this.brw) {
+    brw = brw;
+    _borrowersList(brw);
   }
 
   final BuildContext context;
+  List<BorrowerModel> brw = [];
 
   int _selectedCount = 0;
 
   @override
   DataRow? getRow(int index) {
     assert(index >= 0);
-    if (index >= _borrowersList().length) return null;
-    final row = _borrowersList()[index];
+    if (index >= _borrowersList(brw).length) return null;
+    final row = _borrowersList(brw)[index];
     return DataRow.byIndex(
       index: index,
       selected: row.selected,
@@ -198,7 +217,7 @@ class _DataSource extends DataTableSource {
   }
 
   @override
-  int get rowCount => _borrowersList().length;
+  int get rowCount => _borrowersList(brw).length;
 
   @override
   bool get isRowCountApproximate => false;
@@ -206,14 +225,14 @@ class _DataSource extends DataTableSource {
   @override
   int get selectedRowCount => _selectedCount;
 
-  List _borrowersList() {
+  List _borrowersList(List<BorrowerModel> brw) {
     try {
       return List.generate(
-        Mapping.borrowerList.length,
+        brw.length,
         (index) {
           return _Row(
-            Mapping.borrowerList[index].getBorrowerId.toString(),
-            Mapping.borrowerList[index].toString(),
+            brw[index].getBorrowerId.toString(),
+            brw[index].toString(),
             Icon(
               Icons.payments,
               color: HexColor("#155293"),

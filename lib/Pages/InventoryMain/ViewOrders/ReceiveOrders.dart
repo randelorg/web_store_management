@@ -242,8 +242,6 @@ class _ReceiveOrders extends State<ReceiveOrders> {
       child: Align(
         alignment: Alignment.center,
         child: Container(
-          width: (MediaQuery.of(context).size.width) / 2,
-          height: (MediaQuery.of(context).size.height),
           child: ListView(
             children: [
               FutureBuilder<List<IncomingPurchasesModel>>(

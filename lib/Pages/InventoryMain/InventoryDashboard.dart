@@ -5,6 +5,7 @@ import 'package:web_store_management/Backend/GlobalController.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
 import 'package:web_store_management/Models/ProductModel.dart';
 import 'package:web_store_management/Backend/ProductOperation.dart';
+import 'package:web_store_management/Notification/BannerNotif.dart';
 import 'package:web_store_management/Pages/Inventory/TransferStock.dart';
 
 class InventoryDashboard extends StatefulWidget {
@@ -265,7 +266,44 @@ class _DataSource extends DataTableSource {
         }
       },
       cells: [
-        DataCell(Text(row.valueA)),
+        DataCell(Text(row.valueA), showEditIcon: true, onTap: () {
+          showModalSideSheet(
+            context: context,
+            width: MediaQuery.of(context).size.width / 4,
+            body: ListView(
+              children: [
+                UpdateProduct(
+                    supplierName: Mapping.productList
+                        .firstWhere(
+                            (product) => product.getProductName == row.valueA)
+                        .getSupplierName,
+                    supplierMobile: Mapping.productList
+                        .firstWhere(
+                            (product) => product.getProductName == row.valueA)
+                        .getSupplierMobile,
+                    supplierWebsite: Mapping.productList
+                        .firstWhere(
+                            (product) => product.getProductName == row.valueA)
+                        .getSupplierWebsite,
+                    barcode: Mapping.productList
+                        .firstWhere(
+                            (product) => product.getProductName == row.valueA)
+                        .getProductCode,
+                    name: row.valueA,
+                    price: Mapping.productList
+                        .firstWhere(
+                            (product) => product.getProductName == row.valueA)
+                        .getProductPrice
+                        .toString(),
+                    label: row.valueB,
+                    unit: Mapping.productList
+                        .firstWhere(
+                            (product) => product.getProductName == row.valueA)
+                        .getProductUnit),
+              ],
+            ),
+          );
+        }),
         DataCell(Text(row.valueB)),
         DataCell((row.valueF)),
         DataCell(Text(row.valueG.toString())),
@@ -371,4 +409,373 @@ String determineWidget(widget) {
   Text txt = widget;
 
   return txt.data.toString();
+}
+
+class UpdateProduct extends StatefulWidget {
+  final String? barcode, name, price, unit, label;
+  final String? supplierName, supplierMobile, supplierWebsite;
+  UpdateProduct({
+    Key? key,
+    required this.barcode,
+    required this.name,
+    required this.price,
+    required this.label,
+    required this.unit,
+    required this.supplierName,
+    required this.supplierMobile,
+    required this.supplierWebsite,
+  }) : super(key: key);
+
+  @override
+  State<UpdateProduct> createState() => _UpdateProductState();
+}
+
+class _UpdateProductState extends State<UpdateProduct> {
+  var product = ProductOperation();
+  var productName = TextEditingController();
+  var productPrice = TextEditingController();
+  var productLabel = TextEditingController();
+  var productUnit = TextEditingController();
+  var suppmobile = TextEditingController();
+  var suppwebsite = TextEditingController();
+
+  @override
+  void initState() {
+    productName.text = widget.name.toString();
+    productPrice.text = widget.price.toString();
+    productLabel.text = widget.label.toString();
+    productUnit.text = widget.unit.toString();
+    suppmobile.text = widget.supplierMobile.toString();
+    suppwebsite.text = widget.supplierWebsite.toString();
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 50.0, left: 20, right: 20),
+      child: Container(
+        child: Column(
+          children: [
+            Text(
+              'Update ${widget.name}',
+              softWrap: true,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: HexColor("#155293"),
+                fontFamily: 'Cairo_Bold',
+                fontSize: 30,
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(top: 20, left: 2),
+              child: Container(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Product name',
+                  style: TextStyle(fontSize: 10),
+                ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(bottom: 15),
+              child: TextField(
+                controller: productName,
+                decoration: InputDecoration(
+                  hintText: '',
+                  filled: true,
+                  fillColor: Colors.blueGrey[50],
+                  labelStyle: TextStyle(fontSize: 10),
+                  contentPadding: EdgeInsets.only(left: 10),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(left: 2),
+              child: Container(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Product unit',
+                  style: TextStyle(fontSize: 10),
+                ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(bottom: 15),
+              child: TextField(
+                controller: productUnit,
+                maxLength: 12,
+                decoration: InputDecoration(
+                  counterText: '',
+                  hintText: 'Mobile Number',
+                  filled: true,
+                  fillColor: Colors.blueGrey[50],
+                  labelStyle: TextStyle(fontSize: 10),
+                  contentPadding: EdgeInsets.only(left: 10),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(left: 2),
+              child: Container(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Product label',
+                  style: TextStyle(fontSize: 10),
+                ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(bottom: 15),
+              child: TextField(
+                controller: productLabel,
+                decoration: InputDecoration(
+                  hintText: '',
+                  filled: true,
+                  fillColor: Colors.blueGrey[50],
+                  labelStyle: TextStyle(fontSize: 10),
+                  contentPadding: EdgeInsets.only(left: 10),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(left: 2),
+              child: Container(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Product price',
+                  style: TextStyle(fontSize: 10),
+                ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(bottom: 15),
+              child: TextField(
+                controller: productPrice,
+                decoration: InputDecoration(
+                  hintText: '',
+                  filled: true,
+                  fillColor: Colors.blueGrey[50],
+                  labelStyle: TextStyle(fontSize: 10),
+                  contentPadding: EdgeInsets.only(left: 10),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                ),
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 20, bottom: 40),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(5),
+                    child: Stack(
+                      children: <Widget>[
+                        Positioned.fill(
+                          child: Container(
+                            decoration:
+                                BoxDecoration(color: HexColor("#155293")),
+                          ),
+                        ),
+                        TextButton(
+                          style: TextButton.styleFrom(
+                            padding: const EdgeInsets.only(
+                                left: 20, right: 20, top: 15, bottom: 15),
+                            primary: Colors.white,
+                            textStyle: TextStyle(
+                              fontFamily: 'Cairo_SemiBold',
+                              fontSize: 14,
+                              color: Colors.white,
+                            ),
+                          ),
+                          child: const Text('UPDATE PRODUCT'),
+                          onPressed: () {
+                            product
+                                .updateProductDetails(
+                              widget.barcode.toString(),
+                              productName.text,
+                              productLabel.text,
+                              productUnit.text,
+                              double.parse(productPrice.text),
+                            )
+                                .then((value) {
+                              if (value) {
+                                Navigator.pop(context);
+                                BannerNotif.notif(
+                                  'Success',
+                                  "Product " + productName.text + " is updated",
+                                  Colors.green.shade600,
+                                );
+                              }
+                            });
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            Text(
+              'Update Supplier: ${widget.supplierName}',
+              softWrap: true,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: HexColor("#155293"),
+                fontFamily: 'Cairo_Bold',
+                fontSize: 30,
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(left: 2),
+              child: Container(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Supplier mobile',
+                  style: TextStyle(fontSize: 10),
+                ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(bottom: 15),
+              child: TextField(
+                controller: suppmobile,
+                maxLength: 12,
+                decoration: InputDecoration(
+                  counterText: '',
+                  hintText: 'Mobile Number',
+                  filled: true,
+                  fillColor: Colors.blueGrey[50],
+                  labelStyle: TextStyle(fontSize: 10),
+                  contentPadding: EdgeInsets.only(left: 10),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(left: 2),
+              child: Container(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Supplier Website',
+                  style: TextStyle(fontSize: 10),
+                ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(bottom: 15),
+              child: TextField(
+                controller: suppwebsite,
+                decoration: InputDecoration(
+                  hintText: '',
+                  filled: true,
+                  fillColor: Colors.blueGrey[50],
+                  labelStyle: TextStyle(fontSize: 10),
+                  contentPadding: EdgeInsets.only(left: 10),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                ),
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 20, bottom: 40),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(5),
+                    child: Stack(
+                      children: <Widget>[
+                        Positioned.fill(
+                          child: Container(
+                            decoration:
+                                BoxDecoration(color: HexColor("#155293")),
+                          ),
+                        ),
+                        TextButton(
+                          style: TextButton.styleFrom(
+                            padding: const EdgeInsets.only(
+                                left: 20, right: 20, top: 15, bottom: 15),
+                            primary: Colors.white,
+                            textStyle: TextStyle(
+                              fontFamily: 'Cairo_SemiBold',
+                              fontSize: 14,
+                              color: Colors.white,
+                            ),
+                          ),
+                          child: const Text('UPDATE SUPPLIER'),
+                          onPressed: () {
+                            product
+                                .updateSupplier(
+                              widget.supplierName.toString(),
+                              suppmobile.text,
+                              suppwebsite.text,
+                            )
+                                .then((value) {
+                              if (value) {
+                                Navigator.pop(context);
+                                BannerNotif.notif(
+                                  'Success',
+                                  "Supplier ${widget.supplierName} is updated",
+                                  Colors.green.shade600,
+                                );
+                              }
+                            });
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 }

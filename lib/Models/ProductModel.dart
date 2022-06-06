@@ -1,4 +1,6 @@
-class ProductModel {
+import 'package:web_store_management/Models/SupplierModel.dart';
+
+class ProductModel extends SupplierModel {
   String? productCode;
   String? productItemCode;
   String? productName;
@@ -53,31 +55,34 @@ class ProductModel {
 
   set setInventorySold(inventorySold) => this.inventorySold = inventorySold;
 
-  ProductModel.empty();
+  ProductModel.empty() : super.empty();
 
-  ProductModel.productCodeOnly(String prodCode) {
+  ProductModel.productCodeOnly(String prodCode) : super.empty() {
     this.productCode = prodCode;
   }
 
-  ProductModel.productPrice(String prodCode, double price) {
+  ProductModel.productPrice(String prodCode, double price) : super.empty() {
     this.productCode = prodCode;
     this.productPrice = price;
   }
 
   ProductModel.incomingPurchases(
-      String prodCode, String prodName, String prodType) {
+      String prodCode, String prodName, String prodType)
+      : super.empty() {
     this.productCode = prodCode;
     this.productName = prodName;
     this.prodType = prodType;
   }
 
-  ProductModel.cashPayment(String barcode, String name, double price, int qty) {
+  ProductModel.cashPayment(String barcode, String name, double price, int qty)
+      : super.empty() {
     this.productCode = barcode;
     this.productName = name;
     this.productPrice = price;
   }
 
-  ProductModel.selectedProduct(String barcode, String name, double price) {
+  ProductModel.selectedProduct(String barcode, String name, double price)
+      : super.empty() {
     this.productCode = barcode;
     this.productName = name;
     this.productPrice = price;
@@ -94,7 +99,8 @@ class ProductModel {
       String prodLabel,
       int inventoryReceived,
       int inventoryOnHand,
-      int inventorySold) {
+      int inventorySold)
+      : super.empty() {
     this.productCode = productCode;
     this.productName = productName;
     this.productPrice = productPrice;
@@ -116,7 +122,11 @@ class ProductModel {
       this.productLabel,
       this.inventoryReceived,
       this.inventoryOnHand,
-      this.inventorySold}) {
+      this.inventorySold,
+      name,
+      mobile,
+      website})
+      : super.full(name, mobile, website) {
     this.productCode = productCode;
     this.productName = productName;
     this.productPrice = productPrice;
@@ -139,6 +149,9 @@ class ProductModel {
       inventoryReceived: json['InventoryReceived'] as int,
       inventoryOnHand: json['InventoryOnHand'] as int,
       inventorySold: json['InventorySold'] as int,
+      name: json['SupplierName'] as String,
+      mobile: json['SupplierMobile'] as String,
+      website: json['SupplierWebsite'] as String,
     );
   }
 }

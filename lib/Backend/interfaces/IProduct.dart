@@ -1,6 +1,12 @@
 class IProduct {
   Future<bool> updateProductDetails(
-      String barcode, String name, int qty, String unit, double price) {
+      String barcode, String name, String label, String unit, double price) {
+    var a;
+    return a;
+  }
+
+  Future<bool> updateSupplier(
+      String suppname, String suppmobile, String suppwebsite) {
     var a;
     return a;
   }
