@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:web_store_management/Pages/LoanRelated/Release/ReleasePage.dart';
-import 'package:web_store_management/Pages/LoanRelated/Repairs/RepairsScreen.dart';
-
+import 'package:web_store_management/Pages/LoanRelated/Returns/ReturnsScreen.dart';
 class Attendant extends StatelessWidget {
   final List<Tab> myTabs = <Tab>[
     Tab(text: 'Release Products'),

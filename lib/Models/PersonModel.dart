@@ -32,7 +32,7 @@ class PersonModel {
 
   @override
   String toString() {
-    return getFirstname + " " + getLastname;
+    return "${getFirstname} ${getLastname}";
   }
 
   PersonModel.empty();
@@ -40,6 +40,12 @@ class PersonModel {
   PersonModel.invoice(String name, String address) {
     this.fullname = name;
     this.homeAddress = address;
+  }
+
+  PersonModel.returns(String name, String address, String mobile) {
+    this.fullname = name;
+    this.homeAddress = address;
+    this.mobileNumber = mobile;
   }
 
   PersonModel.full(int persondId, String firstname, String lastname,

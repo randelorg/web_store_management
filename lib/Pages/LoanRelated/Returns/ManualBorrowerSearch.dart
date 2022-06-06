@@ -3,7 +3,7 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:web_store_management/Backend/BorrowerOperation.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
 import 'package:web_store_management/Notification/BannerNotif.dart';
-import 'package:web_store_management/Pages/LoanRelated/Repairs/AddRepair.dart';
+import 'package:web_store_management/Pages/LoanRelated/Returns/AddReturn.dart';
 
 class ManualBorrowerSearch extends StatefulWidget {
   @override
@@ -136,7 +136,7 @@ class _ManualBorrowerSearch extends State<ManualBorrowerSearch> {
                             showDialog(
                               context: context,
                               builder: (BuildContext context) {
-                                return AddRepair(
+                                return AddReturn(
                                   id: borrowerDetail[0],
                                   name: borrowerDetail[1],
                                   address: borrowerDetail[2],

@@ -4,14 +4,14 @@ import 'package:intl/intl.dart';
 import 'package:web_store_management/Backend/BorrowerOperation.dart';
 import 'package:web_store_management/Notification/BannerNotif.dart';
 
-class AddRepair extends StatefulWidget {
+class AddReturn extends StatefulWidget {
   final String? id, name, address, number;
-  AddRepair({required this.id, this.name, this.address, this.number});
+  AddReturn({required this.id, this.name, this.address, this.number});
   @override
-  _AddRepair createState() => _AddRepair();
+  _AddReturn createState() => _AddReturn();
 }
 
-class _AddRepair extends State<AddRepair> {
+class _AddReturn extends State<AddReturn> {
   var borrower = BorrowerOperation();
   final TextEditingController dateinput = TextEditingController();
   final TextEditingController productname = TextEditingController();
@@ -59,7 +59,6 @@ class _AddRepair extends State<AddRepair> {
                 fontSize: 30,
               ),
             ),
-
             Padding(
               padding: EdgeInsets.only(top: 20, left: 2),
               child: Container(
@@ -94,7 +93,6 @@ class _AddRepair extends State<AddRepair> {
                 ),
               ),
             ),
-          
             Padding(
               padding: EdgeInsets.only(left: 2),
               child: Container(
@@ -135,7 +133,6 @@ class _AddRepair extends State<AddRepair> {
                 ),
               ),
             ),
-
             Padding(
               padding: EdgeInsets.only(left: 2),
               child: Container(
@@ -168,7 +165,6 @@ class _AddRepair extends State<AddRepair> {
                 ),
               ),
             ),
-          
             Padding(
               padding: EdgeInsets.only(left: 2),
               child: Container(
@@ -201,7 +197,6 @@ class _AddRepair extends State<AddRepair> {
                 ),
               ),
             ),
-
             Padding(
               padding: EdgeInsets.only(left: 2),
               child: Container(
@@ -282,7 +277,8 @@ class _AddRepair extends State<AddRepair> {
                     ),
                     TextButton(
                       style: TextButton.styleFrom(
-                        padding: const EdgeInsets.only(left: 20, right: 20, top: 18, bottom: 18),
+                        padding: const EdgeInsets.only(
+                            left: 20, right: 20, top: 18, bottom: 18),
                         primary: Colors.white,
                         textStyle: TextStyle(
                             fontFamily: 'Cairo_SemiBold',
@@ -291,10 +287,12 @@ class _AddRepair extends State<AddRepair> {
                       ),
                       child: const Text('ADD REPAIR'),
                       onPressed: () {
-                        if (productname.text.isEmpty || dateinput.text.isEmpty) {
+                        if (productname.text.isEmpty ||
+                            dateinput.text.isEmpty) {
                           BannerNotif.notif(
-                            "Error",
-                             "Please fill all the fields",Colors.red.shade600);
+                              "Error",
+                              "Please fill all the fields",
+                              Colors.red.shade600);
                         } else {
                           Navigator.pop(context);
                           borrower

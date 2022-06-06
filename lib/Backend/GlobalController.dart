@@ -128,18 +128,22 @@ class GlobalController {
   }
 
   //fetch all the credit approvals from the database
-  Future<List<BorrowerModel>> fetchRepairs() async {
+  Future<List<BorrowerModel>> fetchReturns(String status) async {
     final response = await http.get(
-      Uri.parse("http://localhost:8090/api/repairs"),
+      Uri.parse("http://localhost:8090/api/returns/$status"),
       headers: {HttpHeaders.authorizationHeader: "${Environment.apiToken}"},
     );
 
+    print("before parse : ${response.body}");
     final parsed = jsonDecode(response.body).cast<Map<String, dynamic>>();
-    Mapping.repairs = parsed
-        .map<BorrowerModel>((json) => BorrowerModel.fromJsonRepair(json))
+    print("parse : $parsed");
+    Mapping.returns = parsed
+        .map<BorrowerModel>((json) => BorrowerModel.fromJsonReturns(json))
         .toList();
+
+    print("after parse : ${Mapping.returns}");
     // Use the compute function to run parseAdmin in a separate isolate.
-    return Mapping.repairs;
+    return Mapping.returns;
   }
 
   //fetch all the branches from the database

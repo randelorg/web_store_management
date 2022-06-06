@@ -6,11 +6,14 @@ import 'package:web_store_management/Backend/TextMessage.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
 import 'package:web_store_management/Models/BorrowerModel.dart';
 import 'package:web_store_management/Notification/BannerNotif.dart';
-import 'package:web_store_management/Pages/LoanRelated/Repairs/ManualBorrowerSearch.dart';
+import 'package:web_store_management/Pages/LoanRelated/Returns/ManualBorrowerSearch.dart';
 
 class ReturnsPage extends StatefulWidget {
   @override
   _ReturnsPage createState() => _ReturnsPage();
+
+  final String statusPending = 'PENDING';
+  final String statusReturned = 'RETURNED';
 }
 
 class _ReturnsPage extends State<ReturnsPage> {
@@ -18,7 +21,7 @@ class _ReturnsPage extends State<ReturnsPage> {
   var borrower = BorrowerOperation();
   var message = TextMessage();
 
-  late Future<List<BorrowerModel>> _repairs;
+  late Future<List<BorrowerModel>> _returns;
   List<BorrowerModel> _borrowerFiltered = [];
 
   TextEditingController searchValue = TextEditingController();
@@ -28,8 +31,8 @@ class _ReturnsPage extends State<ReturnsPage> {
   @override
   void initState() {
     controller.fetchBorrowers();
-    _repairs = controller.fetchRepairs();
-    _repairs.whenComplete(() => _borrowerFiltered = Mapping.repairs);
+    _returns = controller.fetchReturns(widget.statusPending);
+    _returns.whenComplete(() => _borrowerFiltered = Mapping.returns);
     super.initState();
   }
 
@@ -87,7 +90,7 @@ class _ReturnsPage extends State<ReturnsPage> {
                     onChanged: (value) {
                       setState(() {
                         _searchResult = value;
-                        _borrowerFiltered = Mapping.repairs
+                        _borrowerFiltered = Mapping.returns
                             .where((brw) => brw
                                 .toString()
                                 .toLowerCase()
@@ -119,7 +122,7 @@ class _ReturnsPage extends State<ReturnsPage> {
             width: (MediaQuery.of(context).size.width),
             height: (MediaQuery.of(context).size.height),
             child: FutureBuilder<List<BorrowerModel>>(
-              future: _repairs,
+              future: _returns,
               builder: (context, snapshot) {
                 if (!snapshot.hasData) {
                   return Center(
@@ -188,7 +191,7 @@ class _ReturnsPage extends State<ReturnsPage> {
               Padding(
                 padding: EdgeInsets.all(10),
                 child: ListTile(
-                  title: Text('PENDING',
+                  title: Text(brwRepair[index].getReturnStatus,
                       style: TextStyle(
                           fontSize: 30, fontFamily: 'Cairo_SemiBold')),
                   subtitle: Text(
@@ -210,7 +213,7 @@ class _ReturnsPage extends State<ReturnsPage> {
                       padding: EdgeInsets.only(
                           left: 10, top: 10, bottom: 10, right: 40),
                       child: Text(
-                        'Product \n Name',
+                        'Product  Name \n and Serial#',
                         softWrap: true,
                         style: TextStyle(
                           color: Colors.grey[700],
@@ -221,12 +224,14 @@ class _ReturnsPage extends State<ReturnsPage> {
                     ),
                     Expanded(
                       child: Text(
-                        brwRepair[index].getRepairProductName,
+                        "${brwRepair[index].getReturnProductName} SN:${brwRepair[index].getProductItemId}",
                         overflow: TextOverflow.visible,
                         softWrap: true,
                         maxLines: 2,
                         style: TextStyle(
-                            fontFamily: 'Cairo_SemiBold', fontSize: 14),
+                          fontFamily: 'Cairo_SemiBold',
+                          fontSize: 14,
+                        ),
                       ),
                     ),
                   ],
@@ -254,12 +259,14 @@ class _ReturnsPage extends State<ReturnsPage> {
                     ),
                     Expanded(
                       child: Text(
-                        brwRepair[index].toString(),
+                        brwRepair[index].getFullname,
                         overflow: TextOverflow.visible,
                         softWrap: true,
                         maxLines: 2,
                         style: TextStyle(
-                            fontFamily: 'Cairo_SemiBold', fontSize: 14),
+                          fontFamily: 'Cairo_SemiBold',
+                          fontSize: 14,
+                        ),
                       ),
                     ),
                   ],
@@ -292,7 +299,9 @@ class _ReturnsPage extends State<ReturnsPage> {
                         softWrap: true,
                         maxLines: 3,
                         style: TextStyle(
-                            fontFamily: 'Cairo_SemiBold', fontSize: 14),
+                          fontFamily: 'Cairo_SemiBold',
+                          fontSize: 14,
+                        ),
                       ),
                     ),
                   ],
@@ -355,10 +364,10 @@ class _ReturnsPage extends State<ReturnsPage> {
                           child: const Text('RELEASE'),
                           onPressed: () {
                             repairStatus(
-                              brwRepair[index].getRepairId,
+                              brwRepair[index].getReturnId,
                               'REPAIRED',
-                              brwRepair[index].getRepairProductName,
-                              brwRepair[index].toString(),
+                              brwRepair[index].getReturnProductName,
+                              brwRepair[index].getFullname,
                               brwRepair[index].getMobileNumber,
                             );
                           },
@@ -372,9 +381,9 @@ class _ReturnsPage extends State<ReturnsPage> {
                     tooltip: 'UNREPAIRABLE',
                     onPressed: () {
                       repairStatus(
-                        brwRepair[index].getRepairId,
+                        brwRepair[index].getReturnId,
                         'UNREPAIRABLE',
-                        brwRepair[index].getRepairProductName,
+                        brwRepair[index].getReturnProductName,
                         brwRepair[index].toString(),
                         brwRepair[index].getMobileNumber,
                       );
@@ -415,11 +424,11 @@ class _ReturnsPage extends State<ReturnsPage> {
       } else {
         //refresh the future and the widget
         setState(() {
-          _repairs = controller.fetchRepairs();
-          _repairs.whenComplete(() => _borrowerFiltered = Mapping.repairs);
+          _returns = controller.fetchReturns(widget.statusPending);
+          _returns.whenComplete(() => _borrowerFiltered = Mapping.returns);
         });
         //send message to the receiver
-        _repairs.whenComplete(() {
+        _returns.whenComplete(() {
           sendRepairedMessage(name, number, product, status);
         });
       }

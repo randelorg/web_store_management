@@ -2,27 +2,38 @@ import 'PersonModel.dart';
 
 class BorrowerModel extends PersonModel {
   int? borrowerId;
-  int? repairId;
-  int? requestId;
+  int? returnId;
   String? productCode;
   int? investigationID;
-  String? repairProductName;
-  String? requestedProductName;
+  String? returnProductName;
   double? balance;
   String? status;
   List<dynamic>? contractImage;
+
+  //new retuns attribs
+  String? productItemId;
+  String? turnOverDate;
+  String? returnStatus;
+
+  get getProductItemId => this.productItemId;
+
+  set setProductItemId(productItemId) => this.productItemId = productItemId;
+
+  get getTurnOverDate => this.turnOverDate;
+
+  set setTurnOverDate(turnOverDate) => this.turnOverDate = turnOverDate;
+
+  get getReturnStatus => this.returnStatus;
+
+  set setReturnStatus(returnStatus) => this.returnStatus = returnStatus;
 
   get getBorrowerId => this.borrowerId;
 
   set setBorrowerId(borrowerId) => this.borrowerId = borrowerId;
 
-  get getRepairId => this.repairId;
+  get getReturnId => this.returnId;
 
-  set setRepairId(repairId) => this.repairId = repairId;
-
-  get getRequestId => this.requestId;
-
-  set setRequestId(int requestId) => this.requestId = requestId;
+  set setReturnId(repairId) => this.returnId = repairId;
 
   get getProductCode => this.productCode;
 
@@ -33,15 +44,10 @@ class BorrowerModel extends PersonModel {
   set setinvestigationID(int investigationID) =>
       this.investigationID = investigationID;
 
-  get getRepairProductName => this.repairProductName;
+  get getReturnProductName => this.returnProductName;
 
-  set setRepairProductName(String repairProductName) =>
-      this.repairProductName = repairProductName;
-
-  get getRequestedProductName => this.requestedProductName;
-
-  set setRequestedProductName(String requestedProductName) =>
-      this.requestedProductName = requestedProductName;
+  set setReturnProductName(String returnProductName) =>
+      this.returnProductName = returnProductName;
 
   get getBalance => this.balance;
 
@@ -121,15 +127,16 @@ class BorrowerModel extends PersonModel {
       this.productCode})
       : super.withOutId(firstname, lastname, mobileNumber, homeAddress);
 
-  BorrowerModel.repairs(
-      {this.repairId,
-      this.borrowerId,
-      this.repairProductName,
-      firstname,
-      lastname,
-      mobileNumber,
-      homeAddress})
-      : super.withOutId(firstname, lastname, mobileNumber, homeAddress);
+  BorrowerModel.returns({
+    this.returnStatus,
+    this.returnId,
+    this.productItemId,
+    this.turnOverDate,
+    this.returnProductName,
+    name,
+    mobile,
+    address,
+  }) : super.returns(name, mobile, address);
 
   BorrowerModel.fullJsonPartial({
     this.borrowerId,
@@ -171,15 +178,16 @@ class BorrowerModel extends PersonModel {
     );
   }
 
-  factory BorrowerModel.fromJsonRepair(Map<String, dynamic> json) {
-    return BorrowerModel.repairs(
-      repairId: json['RepairID'] as int,
-      borrowerId: json['BorrowerID'] as int,
-      repairProductName: json['Product'] as String,
-      firstname: json['Firstname'] as String,
-      lastname: json['Lastname'] as String,
-      mobileNumber: json['MobileNumber'] as String,
-      homeAddress: json['HomeAddress'] as String,
+  factory BorrowerModel.fromJsonReturns(Map<String, dynamic> json) {
+    return BorrowerModel.returns(
+      returnStatus: json['Status'] as String,
+      returnId: json['ReturnID'] as int,
+      productItemId: json['ProductItemID'] as String,
+      turnOverDate: json['TurnoverDate'] as String,
+      returnProductName: json['ProdName'] as String,
+      name: json['Fullname'] as String,
+      mobile: json['MobileNumber'] as String,
+      address: json['Address'] as String,
     );
   }
 

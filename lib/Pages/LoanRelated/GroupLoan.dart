@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:web_store_management/Pages/LoanRelated/CreditApproval/CreditPage.dart';
 import 'package:web_store_management/Pages/LoanRelated/Release/ReleasePage.dart';
-import 'package:web_store_management/Pages/LoanRelated/Repairs/RepairsScreen.dart';
+import 'package:web_store_management/Pages/LoanRelated/Returns/ReturnsScreen.dart';
 
 class GroupLoan extends StatelessWidget {
   final List<Tab> myTabs = <Tab>[

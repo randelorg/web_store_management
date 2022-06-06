@@ -61,7 +61,7 @@ class Mapping {
   static List<BorrowerModel> releaseApproval = [];
   static List<PaymentHistoryModel> paymentList = [];
   static List<LoanedProductHistory> productHistoryList = [];
-  static List<BorrowerModel> repairs = [];
+  static List<BorrowerModel> returns = [];
   static List<BorrowerModel> requested = [];
   static List<BranchModel> branchList = [];
   static List<IncomingPurchasesModel> groupedPurchase = [];
