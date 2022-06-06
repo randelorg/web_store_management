@@ -5,320 +5,386 @@ import 'package:web_store_management/Backend/BorrowerOperation.dart';
 import 'package:web_store_management/Notification/BannerNotif.dart';
 
 class AddReturn extends StatefulWidget {
-  final String? id, name, address, number;
-  AddReturn({required this.id, this.name, this.address, this.number});
+  final String? itemcode, barcode, remarks;
+  AddReturn({required this.itemcode, this.barcode, this.remarks});
   @override
   _AddReturn createState() => _AddReturn();
+
+  final String returnStatus = 'PENDING';
 }
 
 class _AddReturn extends State<AddReturn> {
   var borrower = BorrowerOperation();
-  final TextEditingController dateinput = TextEditingController();
-  final TextEditingController productname = TextEditingController();
-  final TextEditingController brwname = TextEditingController();
-  final TextEditingController address = TextEditingController();
-  final TextEditingController mobile = TextEditingController();
+
+  var dateinput = TextEditingController();
+  var productItemcode = TextEditingController();
+  var productBarcode = TextEditingController();
+  var productRemarks = TextEditingController();
+
+  //for customers
+  var mobile = TextEditingController();
+  var fullname = TextEditingController();
+  var address = TextEditingController();
 
   @override
   void initState() {
-    super.initState();
     dateinput.text = "";
-    brwname.text = widget.name.toString();
-    address.text = widget.address.toString();
-    mobile.text = widget.number.toString();
+    productItemcode.text = widget.itemcode.toString();
+    productBarcode.text = widget.barcode.toString();
+    productRemarks.text = widget.remarks.toString();
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return AlertDialog(
-      actionsPadding: EdgeInsets.only(bottom: 5, left: 5, right: 5),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-      actions: <Widget>[
-        Column(
-          children: [
-            Align(
-              alignment: Alignment.topRight,
-              child: IconButton(
-                icon: Icon(
-                  Icons.cancel,
-                  color: Colors.black,
-                  size: 30,
+    return Column(
+      children: [
+        Text(
+          'Add Return',
+          softWrap: true,
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            color: HexColor("#155293"),
+            fontFamily: 'Cairo_Bold',
+            fontSize: 30,
+          ),
+        ),
+        Text(
+          'Product Details',
+          softWrap: true,
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            color: HexColor("#155293"),
+            fontFamily: 'Cairo_Bold',
+            fontSize: 15,
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.only(top: 10, left: 2),
+          child: Container(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              'Product Barcode',
+              style: TextStyle(fontSize: 10),
+            ),
+          ),
+        ),
+        Container(
+          width: 320,
+          child: Padding(
+            padding: EdgeInsets.only(bottom: 15),
+            child: TextField(
+              controller: productItemcode,
+              enabled: false,
+              decoration: InputDecoration(
+                hintText: 'Product barcode',
+                filled: true,
+                fillColor: Colors.blueGrey[50],
+                labelStyle: TextStyle(fontSize: 12),
+                contentPadding: EdgeInsets.only(left: 15),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                  borderRadius: BorderRadius.circular(10),
                 ),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-            ),
-            Text(
-              'New Repair',
-              softWrap: true,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: HexColor("#155293"),
-                fontFamily: 'Cairo_Bold',
-                fontSize: 30,
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(top: 20, left: 2),
-              child: Container(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  'Product Name',
-                  style: TextStyle(fontSize: 10),
-                ),
-              ),
-            ),
-            Container(
-              width: 320,
-              child: Padding(
-                padding: EdgeInsets.only(bottom: 15),
-                child: TextField(
-                  controller: productname,
-                  decoration: InputDecoration(
-                    hintText: 'Product Name',
-                    filled: true,
-                    fillColor: Colors.blueGrey[50],
-                    labelStyle: TextStyle(fontSize: 12),
-                    contentPadding: EdgeInsets.only(left: 15),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                  borderRadius: BorderRadius.circular(10),
                 ),
               ),
             ),
-            Padding(
-              padding: EdgeInsets.only(left: 2),
-              child: Container(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  'Borrower Name',
-                  style: TextStyle(fontSize: 10),
-                ),
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.only(left: 2),
+          child: Container(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              'Product Item Code',
+              style: TextStyle(fontSize: 10),
+            ),
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.only(bottom: 15),
+          child: TextField(
+            controller: productItemcode,
+            enabled: false,
+            decoration: InputDecoration(
+              hintText: 'Item code',
+              filled: true,
+              fillColor: Colors.blueGrey[50],
+              labelStyle: TextStyle(fontSize: 12),
+              contentPadding: EdgeInsets.only(left: 15),
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                borderRadius: BorderRadius.circular(10),
               ),
             ),
-            Padding(
-              padding: EdgeInsets.only(bottom: 15),
-              child: TextField(
-                controller: brwname,
-                enabled: false,
-                decoration: InputDecoration(
-                  hintText: 'Borrower Name',
-                  suffixIcon: InkWell(
-                    child: IconButton(
-                      icon: Icon(Icons.qr_code_scanner_outlined),
-                      color: Colors.grey,
-                      tooltip: 'Search by QR',
-                      onPressed: () {},
-                    ),
-                  ),
-                  filled: true,
-                  fillColor: Colors.blueGrey[50],
-                  labelStyle: TextStyle(fontSize: 12),
-                  contentPadding: EdgeInsets.only(left: 15),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                ),
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.only(left: 2),
+          child: Container(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              'Product Description',
+              style: TextStyle(fontSize: 10),
+            ),
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.only(bottom: 15),
+          child: TextField(
+            controller: productRemarks,
+            enabled: false,
+            decoration: InputDecoration(
+              hintText: 'Description',
+              filled: true,
+              fillColor: Colors.blueGrey[50],
+              labelStyle: TextStyle(fontSize: 12),
+              contentPadding: EdgeInsets.only(left: 15),
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                borderRadius: BorderRadius.circular(10),
               ),
             ),
-            Padding(
-              padding: EdgeInsets.only(left: 2),
-              child: Container(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  'Home Address',
-                  style: TextStyle(fontSize: 10),
-                ),
+          ),
+        ),
+        Text(
+          'Customer Details',
+          softWrap: true,
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            color: HexColor("#155293"),
+            fontFamily: 'Cairo_Bold',
+            fontSize: 15,
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.only(left: 2),
+          child: Container(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              'Full name',
+              style: TextStyle(fontSize: 10),
+            ),
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.only(bottom: 15),
+          child: TextField(
+            controller: fullname,
+            decoration: InputDecoration(
+              hintText: 'Full name',
+              filled: true,
+              fillColor: Colors.blueGrey[50],
+              labelStyle: TextStyle(fontSize: 12),
+              contentPadding: EdgeInsets.only(left: 15),
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                borderRadius: BorderRadius.circular(10),
               ),
             ),
-            Padding(
-              padding: EdgeInsets.only(bottom: 15),
-              child: TextField(
-                controller: address,
-                enabled: false,
-                decoration: InputDecoration(
-                  hintText: 'Home Address',
-                  filled: true,
-                  fillColor: Colors.blueGrey[50],
-                  labelStyle: TextStyle(fontSize: 12),
-                  contentPadding: EdgeInsets.only(left: 15),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                ),
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.only(left: 2),
+          child: Container(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              'Mobile number',
+              style: TextStyle(fontSize: 10),
+            ),
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.only(bottom: 15),
+          child: TextField(
+            controller: mobile,
+            decoration: InputDecoration(
+              hintText: 'Mobile number',
+              filled: true,
+              fillColor: Colors.blueGrey[50],
+              labelStyle: TextStyle(fontSize: 12),
+              contentPadding: EdgeInsets.only(left: 15),
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                borderRadius: BorderRadius.circular(10),
               ),
             ),
-            Padding(
-              padding: EdgeInsets.only(left: 2),
-              child: Container(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  'Mobile Number',
-                  style: TextStyle(fontSize: 10),
-                ),
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.only(left: 2),
+          child: Container(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              'Address',
+              style: TextStyle(fontSize: 10),
+            ),
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.only(bottom: 15),
+          child: TextField(
+            controller: address,
+            decoration: InputDecoration(
+              hintText: 'Address',
+              filled: true,
+              fillColor: Colors.blueGrey[50],
+              labelStyle: TextStyle(fontSize: 12),
+              contentPadding: EdgeInsets.only(left: 15),
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                borderRadius: BorderRadius.circular(10),
               ),
             ),
-            Padding(
-              padding: EdgeInsets.only(bottom: 15),
-              child: TextField(
-                controller: mobile,
-                enabled: false,
-                decoration: InputDecoration(
-                  hintText: 'Mobile Number',
-                  filled: true,
-                  fillColor: Colors.blueGrey[50],
-                  labelStyle: TextStyle(fontSize: 12),
-                  contentPadding: EdgeInsets.only(left: 15),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                ),
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.only(left: 2),
+          child: Container(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              'Date of Turn Over',
+              style: TextStyle(fontSize: 10),
+            ),
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.only(bottom: 15),
+          child: TextField(
+            controller: dateinput,
+            decoration: InputDecoration(
+              labelStyle: TextStyle(fontSize: 12),
+              hintText: 'Date of Turn Over',
+              filled: true,
+              fillColor: Colors.blueGrey[50],
+              contentPadding: EdgeInsets.only(left: 15),
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                borderRadius: BorderRadius.circular(10),
               ),
             ),
-            Padding(
-              padding: EdgeInsets.only(left: 2),
-              child: Container(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  'Date of Turn Over',
-                  style: TextStyle(fontSize: 10),
-                ),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(bottom: 15),
-              child: TextField(
-                controller: dateinput,
-                decoration: InputDecoration(
-                  labelStyle: TextStyle(fontSize: 12),
-                  hintText: 'Date of Turn Over',
-                  filled: true,
-                  fillColor: Colors.blueGrey[50],
-                  contentPadding: EdgeInsets.only(left: 15),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                ),
-                //readOnly: true,
-                onTap: () async {
-                  DateTime? pickedDate = await showDatePicker(
-                    context: context,
-                    initialDate: DateTime.now(),
-                    firstDate: DateTime(2022),
-                    lastDate: DateTime(2032),
-                    builder: (context, child) {
-                      return Theme(
-                        data: Theme.of(context).copyWith(
-                          colorScheme: ColorScheme.light(
-                            primary: Colors.red, //Background Color
-                            onPrimary: Colors.white, //Text Color
-                          ),
-                          textButtonTheme: TextButtonThemeData(
-                            style: TextButton.styleFrom(
-                              primary: Colors.black, //Button Text Color
-                            ),
-                          ),
+            //readOnly: true,
+            onTap: () async {
+              DateTime? pickedDate = await showDatePicker(
+                context: context,
+                initialDate: DateTime.now(),
+                firstDate: DateTime(2022),
+                lastDate: DateTime(2032),
+                builder: (context, child) {
+                  return Theme(
+                    data: Theme.of(context).copyWith(
+                      colorScheme: ColorScheme.light(
+                        primary: Colors.red, //Background Color
+                        onPrimary: Colors.white, //Text Color
+                      ),
+                      textButtonTheme: TextButtonThemeData(
+                        style: TextButton.styleFrom(
+                          primary: Colors.black, //Button Text Color
                         ),
-                        child: child!,
-                      );
-                    },
+                      ),
+                    ),
+                    child: child!,
                   );
-                  if (pickedDate != null) {
-                    String formattedDate =
-                        DateFormat('yyyy-MM-dd').format(pickedDate);
-                    setState(() {
-                      dateinput.text = formattedDate;
-                    });
-                  } else {
-                    print("Date is not selected");
-                  }
                 },
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 20),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(20),
-                child: Stack(
-                  children: <Widget>[
-                    Positioned.fill(
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: HexColor("#155293"),
-                        ),
-                      ),
+              );
+              if (pickedDate != null) {
+                String formattedDate =
+                    DateFormat('yyyy-MM-dd').format(pickedDate);
+                setState(() {
+                  dateinput.text = formattedDate;
+                });
+              } else {
+                print("Date is not selected");
+              }
+            },
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(top: 20),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(20),
+            child: Stack(
+              children: <Widget>[
+                Positioned.fill(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: HexColor("#155293"),
                     ),
-                    TextButton(
-                      style: TextButton.styleFrom(
-                        padding: const EdgeInsets.only(
-                            left: 20, right: 20, top: 18, bottom: 18),
-                        primary: Colors.white,
-                        textStyle: TextStyle(
-                            fontFamily: 'Cairo_SemiBold',
-                            fontSize: 16,
-                            color: Colors.white),
-                      ),
-                      child: const Text('ADD REPAIR'),
-                      onPressed: () {
-                        if (productname.text.isEmpty ||
-                            dateinput.text.isEmpty) {
-                          BannerNotif.notif(
-                              "Error",
-                              "Please fill all the fields",
-                              Colors.red.shade600);
-                        } else {
-                          Navigator.pop(context);
-                          borrower
-                              .addRepair(
-                            int.parse(widget.id.toString()),
-                            productname.text,
-                            dateinput.text,
-                          )
-                              .then((value) {
-                            if (value) {
-                              BannerNotif.notif(
-                                "Success",
-                                "Successfully added repair",
-                                Colors.green.shade600,
-                              );
-                            }
-                          });
-                        }
-                      },
-                    ),
-                  ],
+                  ),
                 ),
-              ),
+                TextButton(
+                  style: TextButton.styleFrom(
+                    padding: const EdgeInsets.only(
+                        left: 20, right: 20, top: 18, bottom: 18),
+                    primary: Colors.white,
+                    textStyle: TextStyle(
+                      fontFamily: 'Cairo_SemiBold',
+                      fontSize: 16,
+                      color: Colors.white,
+                    ),
+                  ),
+                  child: const Text('ADD RETURN'),
+                  onPressed: () {
+                    if (fullname.text.isEmpty) {
+                      BannerNotif.notif(
+                        "Error",
+                        "Please fill all the fields",
+                        Colors.red.shade600,
+                      );
+                    } else {
+                      Navigator.pop(context);
+                      borrower
+                          .addReturn(
+                        widget.returnStatus,
+                        widget.itemcode.toString(),
+                        dateinput.text,
+                        fullname.text,
+                        mobile.text,
+                        address.text,
+                      )
+                          .then((value) {
+                        if (value) {
+                          BannerNotif.notif(
+                            "Success",
+                            "Successfully added return",
+                            Colors.green.shade600,
+                          );
+                        }
+                      });
+                    }
+                  },
+                ),
+              ],
             ),
-          ],
-        )
+          ),
+        ),
       ],
     );
   }

@@ -6,7 +6,7 @@ import 'package:web_store_management/Backend/TextMessage.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
 import 'package:web_store_management/Models/BorrowerModel.dart';
 import 'package:web_store_management/Notification/BannerNotif.dart';
-import 'package:web_store_management/Pages/LoanRelated/Returns/ManualBorrowerSearch.dart';
+import 'package:web_store_management/Pages/LoanRelated/Returns/SearchSerialNumber.dart';
 
 class ReturnsPage extends StatefulWidget {
   @override
@@ -14,6 +14,7 @@ class ReturnsPage extends StatefulWidget {
 
   final String statusPending = 'PENDING';
   final String statusReturned = 'RETURNED';
+  final String statusRejected = 'REJECTED';
 }
 
 class _ReturnsPage extends State<ReturnsPage> {
@@ -71,7 +72,7 @@ class _ReturnsPage extends State<ReturnsPage> {
                           showDialog(
                             context: context,
                             builder: (BuildContext context) {
-                              return ManualBorrowerSearch();
+                              return SearchSerialNumber();
                             },
                           );
                         },
@@ -91,8 +92,7 @@ class _ReturnsPage extends State<ReturnsPage> {
                       setState(() {
                         _searchResult = value;
                         _borrowerFiltered = Mapping.returns
-                            .where((brw) => brw
-                                .toString()
+                            .where((brw) => brw.getFullname
                                 .toLowerCase()
                                 .contains(_searchResult.toLowerCase()))
                             .toList();
@@ -283,7 +283,7 @@ class _ReturnsPage extends State<ReturnsPage> {
                       padding: EdgeInsets.only(
                           left: 10, top: 10, bottom: 10, right: 43),
                       child: Text(
-                        'Address',
+                        'Number',
                         softWrap: true,
                         style: TextStyle(
                           color: Colors.grey[700],
@@ -318,7 +318,7 @@ class _ReturnsPage extends State<ReturnsPage> {
                       padding: EdgeInsets.only(
                           left: 10, top: 10, bottom: 10, right: 44),
                       child: Text(
-                        'Number',
+                        'Address',
                         softWrap: true,
                         style: TextStyle(
                           color: Colors.grey[700],
@@ -334,7 +334,9 @@ class _ReturnsPage extends State<ReturnsPage> {
                         softWrap: true,
                         maxLines: 2,
                         style: TextStyle(
-                            fontFamily: 'Cairo_SemiBold', fontSize: 14),
+                          fontFamily: 'Cairo_SemiBold',
+                          fontSize: 14,
+                        ),
                       ),
                     ),
                   ],
@@ -356,16 +358,17 @@ class _ReturnsPage extends State<ReturnsPage> {
                         ),
                         TextButton(
                           style: TextButton.styleFrom(
-                              padding: const EdgeInsets.only(
-                                  left: 20, right: 20, top: 12, bottom: 12),
-                              primary: Colors.white,
-                              textStyle: TextStyle(
-                                  fontSize: 18, fontFamily: 'Cairo_SemiBold')),
-                          child: const Text('RELEASE'),
+                            padding: const EdgeInsets.only(
+                                left: 20, right: 20, top: 12, bottom: 12),
+                            primary: Colors.white,
+                            textStyle: TextStyle(
+                                fontSize: 18, fontFamily: 'Cairo_SemiBold'),
+                          ),
+                          child: const Text('RETURN'),
                           onPressed: () {
                             repairStatus(
                               brwRepair[index].getReturnId,
-                              'REPAIRED',
+                              widget.statusReturned,
                               brwRepair[index].getReturnProductName,
                               brwRepair[index].getFullname,
                               brwRepair[index].getMobileNumber,
@@ -378,11 +381,11 @@ class _ReturnsPage extends State<ReturnsPage> {
                   IconButton(
                     icon: Icon(Icons.delete_forever),
                     color: Colors.redAccent.shade400,
-                    tooltip: 'UNREPAIRABLE',
+                    tooltip: 'Reject',
                     onPressed: () {
                       repairStatus(
                         brwRepair[index].getReturnId,
-                        'UNREPAIRABLE',
+                        widget.statusRejected,
                         brwRepair[index].getReturnProductName,
                         brwRepair[index].toString(),
                         brwRepair[index].getMobileNumber,

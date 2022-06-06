@@ -1,10 +1,39 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:web_store_management/Backend/Utility/Mapping.dart';
 import 'package:web_store_management/Backend/interfaces/IProduct.dart';
+import 'package:web_store_management/Models/IncomingPurchasesModel.dart';
 import 'package:web_store_management/Notification/BannerNotif.dart';
 import 'package:web_store_management/environment/Environment.dart';
 
 class ProductOperation implements IProduct {
+  
+  Future<List<IncomingPurchasesModel>> findItemCode(String productCode) async {
+    var response;
+    try {
+      await Environment.methodGet(
+              "http://localhost:8090/api/itemcode/$productCode")
+          .then((value) {
+        response = value;
+      });
+
+      final parsed =
+          await jsonDecode(response.body).cast<Map<String, dynamic>>();
+      Mapping.productItems = parsed
+          .map<IncomingPurchasesModel>(
+              (json) => IncomingPurchasesModel.jsonFindItem(json))
+          .toList();
+
+      if (response.statusCode == 404) {
+        return [];
+      }
+
+      return Mapping.productItems;
+    } catch (e) {
+      return [];
+    }
+  }
+
   @override
   Future<bool> updateProductDetails(String barcode, String name, String label,
       String unit, double price) async {

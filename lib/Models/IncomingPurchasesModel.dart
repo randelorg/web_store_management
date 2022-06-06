@@ -114,6 +114,18 @@ class IncomingPurchasesModel extends ProductModel {
     this.datePurchase = purchaseDate;
   }
 
+  IncomingPurchasesModel.findItem(
+      {this.productItemCode, productCode, this.remarks})
+      : super.productCodeOnly(productCode);
+
+  factory IncomingPurchasesModel.jsonFindItem(Map<String, dynamic> json) {
+    return IncomingPurchasesModel.findItem(
+      productItemCode: json['ProductItemID'] as String,
+      productCode: json['ProductCode'] as String,
+      remarks: json['Remarks'] as String,
+    );
+  }
+
   IncomingPurchasesModel.order({
     productCode,
     productName,

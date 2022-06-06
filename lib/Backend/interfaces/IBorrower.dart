@@ -1,5 +1,4 @@
 class IBorrower {
-
   Future<bool> updateBorrower(int id, String firstname, String lastname,
       String mobile, String address) {
     var a;
@@ -16,7 +15,7 @@ class IBorrower {
     return a;
   }
 
-  Future<bool> addRepair(int borrowerid, String product, String date) {
+  Future<bool> addReturn(String status, String itemcode, String turnoverdate, String fullname, String mobile, String address) {
     var a;
     return a;
   }

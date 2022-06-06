@@ -111,19 +111,21 @@ class BorrowerOperation extends Login implements IBorrower, IPay, IServices {
   }
 
   @override
-  Future<bool> addRepair(int borrowerid, String product, String date) async {
-    final String status = 'PENDING';
+  Future<bool> addReturn(String status, String itemcode, String turnoverdate,
+      String fullname, String mobile, String address) async {
     var response;
-    var repairLoad = json.encode({
-      'id': borrowerid,
+    var returnLoad = json.encode({
       'status': status,
-      'productname': product.trim(),
-      'turnover': date.trim(),
+      'itemcode': itemcode.trim(),
+      'turnoverdate': turnoverdate.trim(),
+      'fullname': fullname.trim(),
+      'mobile': mobile.trim(),
+      'address': address.trim(),
     });
 
     try {
       await Environment.methodPost(
-              "${Environment.apiUrl}/api/addrepair", repairLoad)
+              "http://localhost:8090/api/addreturn", returnLoad)
           .then((value) {
         response = value;
       });
@@ -134,11 +136,6 @@ class BorrowerOperation extends Login implements IBorrower, IPay, IServices {
       }
 
       if (response.statusCode == 202) {
-        BannerNotif.notif(
-          'Success',
-          'New repair added successfully',
-          Colors.green.shade600,
-        );
         return true;
       }
     } catch (e) {
