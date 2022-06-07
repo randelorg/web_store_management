@@ -39,17 +39,6 @@ class _Employeepage extends State<EmployeePage> {
           child: Stack(
             children: [
               Align(
-                alignment: Alignment.topCenter,
-                child: const Text(
-                  'Employees',
-                  style: TextStyle(
-                    fontSize: 20,
-                    color: Colors.black,
-                    fontFamily: 'Cairo_Bold',
-                  ),
-                ),
-              ),
-              Align(
                 alignment: Alignment.topLeft,
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(10),
@@ -85,40 +74,6 @@ class _Employeepage extends State<EmployeePage> {
                   ),
                 ),
               ),
-              Align(
-                alignment: Alignment.topRight,
-                child: Container(
-                  padding: EdgeInsets.only(left: 20, right: 85),
-                  width: 350,
-                  child: TextField(
-                    controller: searchValue,
-                    onChanged: (value) {
-                      setState(() {
-                        _searchResult = value;
-                        _employeeFiltered = Mapping.employeeList
-                            .where((emp) => emp
-                                .toString()
-                                .toLowerCase()
-                                .contains(_searchResult.toLowerCase()))
-                            .toList();
-                      });
-                    },
-                    decoration: InputDecoration(
-                      hintText: 'Search Employee',
-                      filled: true,
-                      fillColor: Colors.blueGrey[50],
-                      labelStyle: TextStyle(fontSize: 12),
-                      contentPadding: EdgeInsets.only(left: 15),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
             ],
           ),
         ),
@@ -147,6 +102,49 @@ class _Employeepage extends State<EmployeePage> {
                         sortAscending: _sortAscending,
                         sortColumnIndex: 1,
                         rowsPerPage: 14,
+                        header: Text(
+                          'Employee List',
+                          style: TextStyle(
+                              fontSize: 18,
+                              color: Colors.black,
+                              fontFamily: 'Cairo_Bold'),
+                        ),
+                        actions: [
+                          Container(
+                            padding: const EdgeInsets.only(top: 5, left: 20, right: 5),
+                            width: 300,
+                            child: TextField(
+                              controller: searchValue,
+                              onChanged: (value) {
+                                setState(() {
+                                  _searchResult = value;
+                                  _employeeFiltered = Mapping.employeeList
+                                      .where((emp) => emp
+                                          .toString()
+                                          .toLowerCase()
+                                          .contains(
+                                              _searchResult.toLowerCase()))
+                                      .toList();
+                                });
+                              },
+                              decoration: InputDecoration(
+                                hintText: 'Search Employee',
+                                filled: true,
+                                fillColor: Colors.blueGrey[50],
+                                labelStyle: TextStyle(fontSize: 12),
+                                contentPadding: EdgeInsets.only(left: 15),
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: Colors.blueGrey.shade50),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: Colors.blueGrey.shade50),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                         columns: [
                           DataColumn(label: Text('EID')),
                           DataColumn(

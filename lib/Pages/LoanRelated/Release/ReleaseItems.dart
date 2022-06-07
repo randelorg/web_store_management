@@ -60,14 +60,17 @@ class _ReleaseItems extends State<ReleaseItems> {
       height: MediaQuery.of(context).size.height,
       child: ListView(
         children: [
-          Text(
-            'Release product to ${widget.name!.toUpperCase()}',
-            softWrap: true,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              color: HexColor("#155293"),
-              fontFamily: 'Cairo_Bold',
-              fontSize: 30,
+          Padding(
+            padding: const EdgeInsets.only(top: 160),
+            child: Text(
+              'Release Product to ${widget.name!.toUpperCase()}',
+              softWrap: true,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: HexColor("#155293"),
+                fontFamily: 'Cairo_Bold',
+                fontSize: 25,
+              ),
             ),
           ),
           FutureBuilder<List<IncomingPurchasesModel>>(

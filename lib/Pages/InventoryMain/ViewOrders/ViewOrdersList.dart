@@ -35,14 +35,17 @@ class _ViewOrderList extends State<ViewOrderList> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text(
-          'Order Slip ID: ${widget.orderSlipId} ordered from ${widget.supplierName!.toUpperCase()}',
-          softWrap: true,
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            color: HexColor("#155293"),
-            fontFamily: 'Cairo_Bold',
-            fontSize: 30,
+        Padding(
+          padding: const EdgeInsets.only(top: 145),
+          child: Text(
+            'Order Slip ID: ${widget.orderSlipId} ordered from ${widget.supplierName!.toUpperCase()}',
+            softWrap: true,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: HexColor("#155293"),
+              fontFamily: 'Cairo_Bold',
+              fontSize: 25,
+            ),
           ),
         ),
         Row(
@@ -154,7 +157,7 @@ class _ViewOrderList extends State<ViewOrderList> {
                     textStyle:
                         TextStyle(fontFamily: 'Cairo_SemiBold', fontSize: 14),
                   ),
-                  child: const Text('RECEIVE PURCHASE ORDER'),
+                  child: const Text('RECEIVED PURCHASE ORDER'),
                   onPressed: () async {
                     orders
                         .markAsRecieved(widget.orderSlipId.toString())
@@ -266,9 +269,9 @@ class _DataSource extends DataTableSource {
                   ),
                   Padding(
                     padding:
-                        EdgeInsets.only(top: 8, bottom: 8, left: 16, right: 16),
+                        EdgeInsets.only(top: 8, bottom: 8, left: 10, right: 10),
                     child: Text(
-                      'RECEIEVE',
+                      'RECEIVE',
                       style: TextStyle(
                         fontFamily: 'Cairo_SemiBold',
                         fontSize: 14,

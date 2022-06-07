@@ -135,7 +135,12 @@ class _InventoryDashboard extends State<InventoryDashboard> {
                     sortAscending: _sortAscending,
                     sortColumnIndex: 1,
                     rowsPerPage: 14,
-                    header: Text('Products'),
+                    header: Text('Product List',
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: Colors.black,
+                      fontFamily: 'Cairo_Bold'),
+                    ),
                     actions: [
                       //choice chips
                       FutureBuilder<Set<String>>(
@@ -157,9 +162,8 @@ class _InventoryDashboard extends State<InventoryDashboard> {
                       ),
                       //search button
                       Container(
-                        padding:
-                            const EdgeInsets.only(top: 20, left: 20, right: 5),
-                        width: 350,
+                        padding: const EdgeInsets.only(left: 20, right: 5),
+                        width: 300,
                         child: TextField(
                           controller: searchValue,
                           onChanged: (value) {
@@ -453,18 +457,21 @@ class _UpdateProductState extends State<UpdateProduct> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 50.0, left: 20, right: 20),
+      padding: const EdgeInsets.only(top: 80, left: 20, right: 20),
       child: Container(
         child: Column(
           children: [
-            Text(
-              'Update ${widget.name}',
-              softWrap: true,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: HexColor("#155293"),
-                fontFamily: 'Cairo_Bold',
-                fontSize: 30,
+            Padding(
+              padding: const EdgeInsets.only(top: 30),
+              child: Text(
+                'Update ${widget.name}',
+                softWrap: true,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: HexColor("#155293"),
+                  fontFamily: 'Cairo_Bold',
+                  fontSize: 25,
+                ),
               ),
             ),
             Padding(
@@ -472,7 +479,7 @@ class _UpdateProductState extends State<UpdateProduct> {
               child: Container(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  'Product name',
+                  'Product Name',
                   style: TextStyle(fontSize: 10),
                 ),
               ),
@@ -503,7 +510,7 @@ class _UpdateProductState extends State<UpdateProduct> {
               child: Container(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  'Product unit',
+                  'Product Unit',
                   style: TextStyle(fontSize: 10),
                 ),
               ),
@@ -536,7 +543,7 @@ class _UpdateProductState extends State<UpdateProduct> {
               child: Container(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  'Product label',
+                  'Product Label',
                   style: TextStyle(fontSize: 10),
                 ),
               ),
@@ -567,7 +574,7 @@ class _UpdateProductState extends State<UpdateProduct> {
               child: Container(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  'Product price',
+                  'Product Price',
                   style: TextStyle(fontSize: 10),
                 ),
               ),
@@ -594,10 +601,10 @@ class _UpdateProductState extends State<UpdateProduct> {
               ),
             ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(top: 20, bottom: 40),
+                  padding: const EdgeInsets.only(top: 10, bottom: 80),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(5),
                     child: Stack(
@@ -610,8 +617,7 @@ class _UpdateProductState extends State<UpdateProduct> {
                         ),
                         TextButton(
                           style: TextButton.styleFrom(
-                            padding: const EdgeInsets.only(
-                                left: 20, right: 20, top: 15, bottom: 15),
+                            padding: const EdgeInsets.only(left: 20, right: 20, top: 15, bottom: 15),
                             primary: Colors.white,
                             textStyle: TextStyle(
                               fontFamily: 'Cairo_SemiBold',
@@ -619,26 +625,38 @@ class _UpdateProductState extends State<UpdateProduct> {
                               color: Colors.white,
                             ),
                           ),
-                          child: const Text('UPDATE PRODUCT'),
+                          child: const Text('UPDATE'),
                           onPressed: () {
-                            product
-                                .updateProductDetails(
-                              widget.barcode.toString(),
-                              productName.text,
-                              productLabel.text,
-                              productUnit.text,
-                              double.parse(productPrice.text),
-                            )
-                                .then((value) {
-                              if (value) {
-                                Navigator.pop(context);
-                                BannerNotif.notif(
-                                  'Success',
-                                  "Product " + productName.text + " is updated",
-                                  Colors.green.shade600,
-                                );
-                              }
-                            });
+                            if (productName.text.isEmpty ||
+                                productLabel.text.isEmpty ||
+                                productPrice.text.isEmpty ||
+                                productUnit.text.isEmpty) {
+                              BannerNotif.notif(
+                                  'Error',
+                                  'Please fill all the fields',
+                                  Colors.red.shade600);
+                            } else {
+                              product
+                                  .updateProductDetails(
+                                widget.barcode.toString(),
+                                productName.text,
+                                productLabel.text,
+                                productUnit.text,
+                                double.parse(productPrice.text),
+                              )
+                                  .then((value) {
+                                if (value) {
+                                  Navigator.pop(context);
+                                  BannerNotif.notif(
+                                    'Success',
+                                    "Product " +
+                                        productName.text +
+                                        " is updated",
+                                    Colors.green.shade600,
+                                  );
+                                }
+                              });
+                            }
                           },
                         ),
                       ],
@@ -654,7 +672,7 @@ class _UpdateProductState extends State<UpdateProduct> {
               style: TextStyle(
                 color: HexColor("#155293"),
                 fontFamily: 'Cairo_Bold',
-                fontSize: 30,
+                fontSize: 25,
               ),
             ),
             Padding(
@@ -662,7 +680,7 @@ class _UpdateProductState extends State<UpdateProduct> {
               child: Container(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  'Supplier mobile',
+                  'Supplier Mobile',
                   style: TextStyle(fontSize: 10),
                 ),
               ),
@@ -722,10 +740,10 @@ class _UpdateProductState extends State<UpdateProduct> {
               ),
             ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(top: 20, bottom: 40),
+                  padding: const EdgeInsets.only(top: 10),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(5),
                     child: Stack(
@@ -747,24 +765,32 @@ class _UpdateProductState extends State<UpdateProduct> {
                               color: Colors.white,
                             ),
                           ),
-                          child: const Text('UPDATE SUPPLIER'),
+                          child: const Text('UPDATE'),
                           onPressed: () {
-                            product
-                                .updateSupplier(
-                              widget.supplierName.toString(),
-                              suppmobile.text,
-                              suppwebsite.text,
-                            )
-                                .then((value) {
-                              if (value) {
-                                Navigator.pop(context);
-                                BannerNotif.notif(
-                                  'Success',
-                                  "Supplier ${widget.supplierName} is updated",
-                                  Colors.green.shade600,
-                                );
-                              }
-                            });
+                            if (suppmobile.text.isEmpty ||
+                                suppwebsite.text.isEmpty) {
+                              BannerNotif.notif(
+                                  'Error',
+                                  'Please fill all the fields',
+                                  Colors.red.shade600);
+                            } else {
+                              product
+                                  .updateSupplier(
+                                widget.supplierName.toString(),
+                                suppmobile.text,
+                                suppwebsite.text,
+                              )
+                                  .then((value) {
+                                if (value) {
+                                  Navigator.pop(context);
+                                  BannerNotif.notif(
+                                    'Success',
+                                    "Supplier ${widget.supplierName} is updated",
+                                    Colors.green.shade600,
+                                  );
+                                }
+                              });
+                            }
                           },
                         ),
                       ],

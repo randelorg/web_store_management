@@ -213,7 +213,7 @@ class _ReturnsPage extends State<ReturnsPage> {
                       padding: EdgeInsets.only(
                           left: 10, top: 10, bottom: 10, right: 40),
                       child: Text(
-                        'Product  Name \n and Serial#',
+                        'Product Name \n and Serial no.',
                         softWrap: true,
                         style: TextStyle(
                           color: Colors.grey[700],
@@ -246,7 +246,7 @@ class _ReturnsPage extends State<ReturnsPage> {
                   children: [
                     Padding(
                       padding: EdgeInsets.only(
-                          left: 10, top: 10, bottom: 10, right: 53),
+                          left: 10, top: 10, bottom: 10, right: 85),
                       child: Text(
                         'Name',
                         softWrap: true,
@@ -281,7 +281,7 @@ class _ReturnsPage extends State<ReturnsPage> {
                   children: [
                     Padding(
                       padding: EdgeInsets.only(
-                          left: 10, top: 10, bottom: 10, right: 43),
+                          left: 10, top: 10, bottom: 10, right: 75),
                       child: Text(
                         'Number',
                         softWrap: true,
@@ -316,7 +316,7 @@ class _ReturnsPage extends State<ReturnsPage> {
                   children: [
                     Padding(
                       padding: EdgeInsets.only(
-                          left: 10, top: 10, bottom: 10, right: 44),
+                          left: 10, top: 10, bottom: 10, right: 75),
                       child: Text(
                         'Address',
                         softWrap: true,

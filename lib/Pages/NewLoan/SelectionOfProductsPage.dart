@@ -436,28 +436,31 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
                   ),
                 ),
               ),
-              Padding(
-                padding: EdgeInsets.only(bottom: 20),
-                child: TextField(
-                  controller: otp,
-                  autofocus: true,
-                  maxLength: 6,
-                  decoration: InputDecoration(
-                    filled: true,
-                    fillColor: Colors.blueGrey[50],
-                    labelStyle: TextStyle(fontSize: 10),
-                    contentPadding: EdgeInsets.only(left: 10),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                      borderRadius: BorderRadius.circular(5),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                      borderRadius: BorderRadius.circular(5),
+                 Padding(
+                  padding: EdgeInsets.all(6),
+                  child: TextField(
+                    controller: otp,
+                    autofocus: true,
+                    maxLength: 6,
+                    decoration: InputDecoration(
+                      hintText: 'OTP Code',
+                      counterText: '',
+                      filled: true,
+                      fillColor: Colors.blueGrey[50],
+                      labelStyle: TextStyle(fontSize: 12),
+                      contentPadding: EdgeInsets.only(left: 15),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
                     ),
                   ),
                 ),
-              ),
+              
               //verify OTP
               Padding(
                 padding: const EdgeInsets.only(top: 10),

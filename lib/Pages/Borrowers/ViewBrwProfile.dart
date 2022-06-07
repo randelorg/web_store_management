@@ -46,14 +46,17 @@ class _ViewBrwProfile extends State<ViewBrwProfile> {
         alignment: Alignment.center,
         child: Column(
           children: [
-            Text(
-              'Borrower Profile',
-              softWrap: true,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: HexColor("#155293"),
-                fontFamily: 'Cairo_Bold',
-                fontSize: 25,
+            Padding(
+              padding: const EdgeInsets.only(top: 210),
+              child: Text(
+                'Borrower Profile',
+                softWrap: true,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: HexColor("#155293"),
+                  fontFamily: 'Cairo_Bold',
+                  fontSize: 25,
+                ),
               ),
             ),
             SizedBox(

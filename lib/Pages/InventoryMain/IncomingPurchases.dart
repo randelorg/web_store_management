@@ -99,12 +99,17 @@ class _IncomingPurchases extends State<IncomingPurchases> {
                     sortAscending: _sortAscending,
                     sortColumnIndex: 1,
                     rowsPerPage: 14,
-                    header: Text('Incoming Purchases'),
+                    header: Text('Incoming Purchases',
+                    style: TextStyle(
+                          fontSize: 18,
+                          color: Colors.black,
+                          fontFamily: 'Cairo_Bold'),
+                    ),
                     actions: [
                       Container(
                         padding:
-                            const EdgeInsets.only(top: 20, left: 20, right: 5),
-                        width: 350,
+                            const EdgeInsets.only(left: 20, right: 5),
+                        width: 300,
                         child: TextField(
                           controller: searchValue,
                           onChanged: (value) {

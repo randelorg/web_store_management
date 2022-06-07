@@ -486,9 +486,9 @@ class _PurchaseProducts extends State<PurchaseProducts> {
                         children: [
                           Padding(
                             padding: const EdgeInsets.only(right: 40),
-                            child: Text(_orderId.toUpperCase()),
+                            child: Text("Purchase Order #: ${_orderId.toUpperCase()}"),
                           ),
-                          Text(Mapping.dateToday()),
+                          Text("Date Today: ${Mapping.dateToday()}"),
                         ],
                       ),
                       showCheckboxColumn: false,
