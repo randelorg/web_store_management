@@ -44,76 +44,88 @@ class _ReturnsPage extends State<ReturnsPage> {
     return Column(
       children: <Widget>[
         Padding(
-          padding: const EdgeInsets.all(10.0),
+          padding: const EdgeInsets.only(left: 10, right: 20, top: 10),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(8),
-                child: Stack(
-                  children: <Widget>[
-                    Positioned.fill(
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: HexColor("#155293"),
+              Align(
+                alignment: Alignment.topLeft,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(8),
+                  child: Stack(
+                    children: <Widget>[
+                      Positioned.fill(
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: HexColor("#155293"),
+                          ),
                         ),
                       ),
-                    ),
-                    TextButton.icon(
-                      icon: Icon(Icons.add_box_rounded, color: Colors.white),
-                      style: TextButton.styleFrom(
-                        padding: const EdgeInsets.only(
-                            left: 10, right: 10, top: 10, bottom: 10),
-                        primary: Colors.white,
-                        textStyle: TextStyle(
-                            fontSize: 18, fontFamily: 'Cairo_SemiBold'),
+                      TextButton.icon(
+                        icon: Icon(Icons.add_box_rounded, color: Colors.white),
+                        style: TextButton.styleFrom(
+                          padding: const EdgeInsets.only(
+                              left: 10, right: 10, top: 10, bottom: 10),
+                          primary: Colors.white,
+                          textStyle: TextStyle(
+                              fontSize: 18, fontFamily: 'Cairo_SemiBold'),
+                        ),
+                        label: Text('NEW RETURN'),
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return SearchSerialNumber();
+                            },
+                          );
+                        },
                       ),
-                      label: Text('NEW RETURN'),
-                      onPressed: () {
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return SearchSerialNumber();
-                          },
-                        );
-                      },
-                    ),
-                  ],
-                ),
-              ),
-              Wrap(
-                children: productTypeWidget().toList(),
-              ),
-              Container(
-                //padding: EdgeInsets.only(top: 15, bottom: 15, right: 20),
-                width: 300,
-                child: TextField(
-                  controller: searchValue,
-                  onChanged: (value) {
-                    setState(() {
-                      _searchResult = value;
-                      _borrowerFiltered = Mapping.returns
-                          .where((brw) => brw.getFullname
-                              .toLowerCase()
-                              .contains(_searchResult.toLowerCase()))
-                          .toList();
-                    });
-                  },
-                  decoration: InputDecoration(
-                    hintText: 'Search Borrower',
-                    filled: true,
-                    fillColor: Colors.blueGrey[50],
-                    labelStyle: TextStyle(fontSize: 12),
-                    contentPadding: EdgeInsets.only(left: 30),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                    ),
+                    ],
                   ),
                 ),
               ),
+              Row(
+                children: [
+                  Align(
+                    alignment: Alignment.topRight,
+                    child: Wrap(
+                      children: productTypeWidget().toList(),
+                    ),
+                  ),
+                  Container(
+                    width: 300,
+                    padding: EdgeInsets.only(bottom: 10),
+                    child: TextField(
+                      controller: searchValue,
+                      onChanged: (value) {
+                        setState(() {
+                          _searchResult = value;
+                          _borrowerFiltered = Mapping.returns
+                              .where((brw) => brw.getFullname
+                                  .toLowerCase()
+                                  .contains(_searchResult.toLowerCase()))
+                              .toList();
+                        });
+                      },
+                      decoration: InputDecoration(
+                        hintText: 'Search Borrower',
+                        filled: true,
+                        fillColor: Colors.blueGrey[50],
+                        labelStyle: TextStyle(fontSize: 12),
+                        contentPadding: EdgeInsets.only(left: 15),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide:
+                              BorderSide(color: Colors.blueGrey.shade50),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide:
+                              BorderSide(color: Colors.blueGrey.shade50),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              )
             ],
           ),
         ),
@@ -127,7 +139,7 @@ class _ReturnsPage extends State<ReturnsPage> {
                 if (!snapshot.hasData) {
                   return Center(
                     child: CircularProgressIndicator(
-                      semanticsLabel: 'Fetching repairs',
+                      semanticsLabel: 'Fetching returns',
                     ),
                   );
                 }
@@ -146,7 +158,7 @@ class _ReturnsPage extends State<ReturnsPage> {
                   } else {
                     return Center(
                       child: Text(
-                        'NO REPAIRS FOUND',
+                        'NO RETURNS FOUND',
                         style: TextStyle(
                           color: Colors.grey[500],
                           fontFamily: 'Cairo_SemiBold',
@@ -158,7 +170,7 @@ class _ReturnsPage extends State<ReturnsPage> {
                 } else {
                   return Center(
                     child: Text(
-                      'NO REPAIRS FOUND',
+                      'NO RETURNS FOUND',
                       style: TextStyle(
                         color: Colors.grey[500],
                         fontFamily: 'Cairo_SemiBold',
@@ -181,7 +193,7 @@ class _ReturnsPage extends State<ReturnsPage> {
       (index) {
         return new Card(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10.0),
+            borderRadius: BorderRadius.circular(20),
           ),
           shadowColor: Colors.black,
           child: Column(
@@ -362,7 +374,7 @@ class _ReturnsPage extends State<ReturnsPage> {
                           TextButton(
                             style: TextButton.styleFrom(
                               padding: const EdgeInsets.only(
-                                  left: 20, right: 20, top: 12, bottom: 12),
+                                  left: 20, right: 20, top: 10, bottom: 10),
                               primary: Colors.white,
                               textStyle: TextStyle(
                                   fontSize: 18, fontFamily: 'Cairo_SemiBold'),
@@ -408,7 +420,7 @@ class _ReturnsPage extends State<ReturnsPage> {
   Iterable<Widget> productTypeWidget() {
     return widget.filters.map((status) {
       return Padding(
-        padding: const EdgeInsets.only(right: 20),
+        padding: const EdgeInsets.only(right: 15),
         child: ChoiceChip(
           label: Text(status),
           selected: filteredStatus.contains(status),
@@ -452,7 +464,7 @@ class _ReturnsPage extends State<ReturnsPage> {
       if (!value) {
         BannerNotif.notif(
           'Error',
-          'Something went wrong while updating the repair',
+          'Something went wrong while updating the returns',
           Colors.redAccent.shade200,
         );
       } else {

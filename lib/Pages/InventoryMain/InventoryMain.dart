@@ -17,9 +17,10 @@ class InventoryMain extends StatelessWidget {
           preferredSize: Size.fromHeight(50),
           child: AppBar(
             automaticallyImplyLeading: false,
-            backgroundColor: Colors.blue[700],
+            backgroundColor: Colors.blue[800],
             elevation: 5,
             bottom: TabBar(
+              indicatorColor: Colors.amberAccent,
               tabs: myTabs,
             ),
           ),

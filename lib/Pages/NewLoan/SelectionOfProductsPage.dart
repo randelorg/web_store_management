@@ -597,11 +597,7 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
                 TextButton(
                   child: const Text('DONE'),
                   style: TextButton.styleFrom(
-                    padding: const EdgeInsets.only(
-                      top: 18,
-                      bottom: 18,
-                      left: 36,
-                      right: 36,
+                    padding: const EdgeInsets.only(top: 18, bottom: 18, left: 36, right: 36,
                     ),
                     primary: Colors.blue.shade400,
                     textStyle: TextStyle(
@@ -609,6 +605,7 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
                       fontSize: 20,
                     ),
                   ),
+                  
                   onPressed: () {
                     if (firstname.text.isEmpty ||
                         lastname.text.isEmpty ||

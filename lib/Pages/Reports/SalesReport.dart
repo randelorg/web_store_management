@@ -4,7 +4,6 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:web_store_management/Backend/DashboardOperation.dart';
 import 'package:web_store_management/Pages/DashBoard/SalesGraph.dart';
 import '../../Models/GraphModel.dart';
-import '../DashBoard/CollectionGraph.dart';
 
 class SalesReport extends StatefulWidget {
   @override

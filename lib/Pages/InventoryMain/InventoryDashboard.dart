@@ -86,7 +86,7 @@ class _InventoryDashboard extends State<InventoryDashboard> {
   Iterable<Widget> productTypeWidget(Set<String> types) {
     return types.map((type) {
       return Padding(
-        padding: const EdgeInsets.only(top: 10),
+        padding: const EdgeInsets.only(right: 10),
         child: ChoiceChip(
           label: Text(type),
           selected: _filters.contains(type),

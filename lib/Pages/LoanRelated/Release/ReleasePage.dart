@@ -154,7 +154,7 @@ class _ReleasePage extends State<ReleasePage> {
   Iterable<Widget> productTypeWidget() {
     return widget.filter.map((status) {
       return Padding(
-        padding: const EdgeInsets.only(right: 20),
+        padding: const EdgeInsets.only(right: 15),
         child: ChoiceChip(
           label: Text(status),
           selected: filteredStatus.contains(status),
@@ -184,7 +184,7 @@ class _ReleasePage extends State<ReleasePage> {
       (index) {
         return new Card(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10.0),
+            borderRadius: BorderRadius.circular(20),
           ),
           shadowColor: Colors.black,
           child: Column(
