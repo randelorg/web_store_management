@@ -74,13 +74,16 @@ class _HistoryScreen extends State<HistoryScreen> {
       sortAscending: sortAscending,
       sortColumnIndex: 1,
       rowsPerPage: 12,
-      header: Text(''),
+      header: Text('Borrower List', 
+      style: TextStyle(
+        fontSize: 18,
+        color: Colors.black,
+        fontFamily: 'Cairo_Bold'),
+      ),                  
       actions: [
-        Align(
-          alignment: Alignment.topRight,
-          child: Container(
+        Container(
             padding: EdgeInsets.only(left: 25, right: 5),
-            width: 350,
+            width: 300,
             child: TextField(
               controller: searchValue,
               onChanged: (value) {
@@ -109,7 +112,6 @@ class _HistoryScreen extends State<HistoryScreen> {
               ),
             ),
           ),
-        ),
       ],
       columns: [
         DataColumn(label: Text('BID')),

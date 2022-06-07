@@ -519,8 +519,8 @@ class _CustomerBuy extends State<CustomerBuy> {
   Invoice invoiceContent(String invoiceNumber) {
     return Invoice(
       customer: BorrowerModel.invoice(
-        'RANDEL REYES',
-        'Mabolo',
+        'DELLRAINS',
+        'STORE',
       ),
       info: InvoiceInfo(
         date: DateTime.now(),

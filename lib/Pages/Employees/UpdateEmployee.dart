@@ -45,18 +45,21 @@ class _UpdateEmployee extends State<UpdateEmployee> {
         alignment: Alignment.center,
           child: Column(
             children: [
-              Text(
-                'Update Employee',
-                softWrap: true,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: HexColor("#155293"),
-                  fontFamily: 'Cairo_Bold',
-                  fontSize: 25,
+              Padding(
+                padding: const EdgeInsets.only(top: 225),
+                child: Text(
+                  'Update Employee',
+                  softWrap: true,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: HexColor("#155293"),
+                    fontFamily: 'Cairo_Bold',
+                    fontSize: 25,
+                  ),
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(top: 20, left: 2),
+                padding: EdgeInsets.only(top: 15, left: 2),
                 child: Container(
                   alignment: Alignment.centerLeft,
                   child: Text(
@@ -241,7 +244,7 @@ class _UpdateEmployee extends State<UpdateEmployee> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(top: 20),
+                    padding: const EdgeInsets.only(top: 10),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(5),
                       child: Stack(

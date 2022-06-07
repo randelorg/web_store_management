@@ -178,7 +178,7 @@ class _TimeCollection extends State<TimeCollection> {
           Positioned.fill(
             child: Container(
               decoration: BoxDecoration(
-                color: HexColor("#155293"),
+                color: Colors.green.shade600,
               ),
             ),
           ),
@@ -190,7 +190,7 @@ class _TimeCollection extends State<TimeCollection> {
                 color: Colors.white,
               ),
               style: TextButton.styleFrom(
-                padding: const EdgeInsets.all(5),
+                padding: const EdgeInsets.all(10),
                 primary: Colors.white,
                 onSurface: Colors.white, //remove it if enable the button
                 textStyle: TextStyle(
@@ -356,7 +356,7 @@ class _TimeCollection extends State<TimeCollection> {
               ),
               Center(
                 child: const Text(
-                  'Week Sales',
+                  'Weekly Sales',
                 ),
               ),
             ],
@@ -427,7 +427,7 @@ class _TimeCollection extends State<TimeCollection> {
               ),
               Center(
                 child: const Text(
-                  'Month Sales',
+                  'Monthly Sales',
                 ),
               ),
             ],
@@ -498,7 +498,7 @@ class _TimeCollection extends State<TimeCollection> {
               ),
               Center(
                 child: const Text(
-                  'Week Collection',
+                  'Weekly Collection',
                 ),
               ),
             ],

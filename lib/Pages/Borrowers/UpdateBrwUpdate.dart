@@ -40,18 +40,21 @@ class _UpdateBrwPage extends State<UpdateBrwPage> {
         alignment: Alignment.center,
         child: Column(
           children: [
-            Text(
-              'Update Borrower',
-              softWrap: true,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: HexColor("#155293"),
-                fontFamily: 'Cairo_Bold',
-                fontSize: 25,
+            Padding(
+              padding: const EdgeInsets.only(top: 225),
+              child: Text(
+                'Update Borrower',
+                softWrap: true,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: HexColor("#155293"),
+                  fontFamily: 'Cairo_Bold',
+                  fontSize: 25,
+                ),
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(top: 20, left: 2),
+              padding: EdgeInsets.only(top: 15, left: 2),
               child: Container(
                 alignment: Alignment.centerLeft,
                 child: Text(
@@ -176,71 +179,76 @@ class _UpdateBrwPage extends State<UpdateBrwPage> {
                 ),
               ),
             ),
-            Padding(
-              padding: EdgeInsets.only(top: 20),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(20),
-                child: Stack(
-                  children: <Widget>[
-                    Positioned.fill(
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: HexColor("#155293"),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 10),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(5),
+                    child: Stack(
+                      children: <Widget>[
+                        Positioned.fill(
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: HexColor("#155293"),
+                            ),
+                          ),
                         ),
+                        TextButton(
+                            style: TextButton.styleFrom(
+                              padding: const EdgeInsets.only(
+                                  left: 20, right: 20, top: 15, bottom: 15),
+                              primary: Colors.white,
+                              textStyle: TextStyle(
+                                  fontFamily: 'Cairo_SemiBold',
+                                  fontSize: 14,
+                                  color: Colors.white),
+                            ),
+                            child: const Text('UPDATE'),
+                            onPressed: () {
+                              if (firstname.text.isEmpty ||
+                                  lastname.text.isEmpty ||
+                                  number.text.isEmpty ||
+                                  address.text.isEmpty) {
+                                BannerNotif.notif(
+                                    "Error",
+                                    "Please fill all the fields",
+                                    Colors.red.shade600);
+                              } else {
+                                borrower
+                                    .updateBorrower(
+                                  int.parse(widget.bid.toString()),
+                                  firstname.text,
+                                  lastname.text,
+                                  number.text,
+                                  address.text,
+                                )
+                                    .then((value) {
+                                  if (value) {
+                                    Navigator.pop(context);
+                                    BannerNotif.notif(
+                                      'Success',
+                                      'Borrower ' +
+                                          widget.firstname.toString() +
+                                          ' ' +
+                                          widget.lastname.toString() +
+                                          ' has been updated',
+                                      Colors.green.shade600,
+                                    );
+                                    }
+                                  });
+                                }
+                              }
+                          ),     
+                        ],
                       ),
                     ),
-                    TextButton(
-                      style: TextButton.styleFrom(
-                        padding: const EdgeInsets.only(
-                            left: 36, right: 36, top: 18, bottom: 18),
-                        primary: Colors.white,
-                        textStyle: TextStyle(
-                            fontFamily: 'Cairo_SemiBold',
-                            fontSize: 14,
-                            color: Colors.white),
-                      ),
-                      child: const Text('UPDATE'),
-                      onPressed: () {
-                        if (firstname.text.isEmpty ||
-                            lastname.text.isEmpty ||
-                            number.text.isEmpty ||
-                            address.text.isEmpty) {
-                          BannerNotif.notif(
-                              "Error",
-                              "Please fill all the fields",
-                              Colors.red.shade600);
-                        } else {
-                          borrower
-                              .updateBorrower(
-                            int.parse(widget.bid.toString()),
-                            firstname.text,
-                            lastname.text,
-                            number.text,
-                            address.text,
-                          )
-                              .then((value) {
-                            if (value) {
-                              Navigator.pop(context);
-                              BannerNotif.notif(
-                                'Success',
-                                'Borrower ' +
-                                    widget.firstname.toString() +
-                                    ' ' +
-                                    widget.lastname.toString() +
-                                    ' has been updated',
-                                Colors.green.shade600,
-                              );
-                            }
-                          });
-                        }
-                      },
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-            ),
-          ],
-        ),
+            ],
+          )
       ),
     );
   }

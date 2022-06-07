@@ -40,25 +40,7 @@ class _BorrowersPage extends State<BorrowersPage> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.only(left: 10, right: 20, top: 10),
-          child: Stack(
-            children: [
-              Align(
-                alignment: Alignment.topCenter,
-                child: const Text(
-                  'Borrowers',
-                  style: TextStyle(
-                    fontSize: 20,
-                    color: Colors.black,
-                    fontFamily: 'Cairo_Bold',
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
+      children: <Widget>[  
         Expanded(
           child: Container(
             width: (MediaQuery.of(context).size.width),
@@ -76,7 +58,7 @@ class _BorrowersPage extends State<BorrowersPage> {
                 if (snapshot.hasData) {
                   return ListView(
                     scrollDirection: Axis.vertical,
-                    padding: const EdgeInsets.only(right: 100, left: 100),
+                    padding: const EdgeInsets.only(top: 45, right: 100, left: 100),
                     children: [
                       PaginatedDataTable(
                         showCheckboxColumn: false,
@@ -84,12 +66,16 @@ class _BorrowersPage extends State<BorrowersPage> {
                         sortAscending: _sortAscending,
                         sortColumnIndex: 1,
                         rowsPerPage: 14,
-                        header: Text(''),
+                        header: Text('Borrower List', 
+                        style: TextStyle(
+                          fontSize: 18,
+                          color: Colors.black,
+                          fontFamily: 'Cairo_Bold'),
+                        ),
                         actions: [
                           Container(
-                            padding: const EdgeInsets.only(
-                                top: 20, left: 20, right: 5),
-                            width: 350,
+                            padding: const EdgeInsets.only(left: 20, right: 5),
+                            width: 300,
                             child: TextField(
                               controller: searchValue,
                               onChanged: (value) {

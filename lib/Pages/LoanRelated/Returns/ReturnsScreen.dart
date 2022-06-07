@@ -103,7 +103,7 @@ class _ReturnsPage extends State<ReturnsPage> {
                       filled: true,
                       fillColor: Colors.blueGrey[50],
                       labelStyle: TextStyle(fontSize: 12),
-                      contentPadding: EdgeInsets.only(left: 30),
+                      contentPadding: EdgeInsets.only(left: 15),
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.blueGrey.shade50),
                       ),
@@ -213,7 +213,7 @@ class _ReturnsPage extends State<ReturnsPage> {
                       padding: EdgeInsets.only(
                           left: 10, top: 10, bottom: 10, right: 40),
                       child: Text(
-                        'Product  Name \n and Serial#',
+                        'Product Name \n and Serial no.',
                         softWrap: true,
                         style: TextStyle(
                           color: Colors.grey[700],
@@ -246,7 +246,7 @@ class _ReturnsPage extends State<ReturnsPage> {
                   children: [
                     Padding(
                       padding: EdgeInsets.only(
-                          left: 10, top: 10, bottom: 10, right: 53),
+                          left: 10, top: 10, bottom: 10, right: 85),
                       child: Text(
                         'Name',
                         softWrap: true,
@@ -281,7 +281,7 @@ class _ReturnsPage extends State<ReturnsPage> {
                   children: [
                     Padding(
                       padding: EdgeInsets.only(
-                          left: 10, top: 10, bottom: 10, right: 43),
+                          left: 10, top: 10, bottom: 10, right: 75),
                       child: Text(
                         'Number',
                         softWrap: true,
@@ -316,7 +316,7 @@ class _ReturnsPage extends State<ReturnsPage> {
                   children: [
                     Padding(
                       padding: EdgeInsets.only(
-                          left: 10, top: 10, bottom: 10, right: 44),
+                          left: 10, top: 10, bottom: 10, right: 75),
                       child: Text(
                         'Address',
                         softWrap: true,
@@ -359,7 +359,7 @@ class _ReturnsPage extends State<ReturnsPage> {
                         TextButton(
                           style: TextButton.styleFrom(
                             padding: const EdgeInsets.only(
-                                left: 20, right: 20, top: 12, bottom: 12),
+                                left: 20, right: 20, top: 10, bottom: 10),
                             primary: Colors.white,
                             textStyle: TextStyle(
                                 fontSize: 18, fontFamily: 'Cairo_SemiBold'),

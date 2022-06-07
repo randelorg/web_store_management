@@ -42,7 +42,7 @@ class _ReceiveOrders extends State<ReceiveOrders> {
   Widget build(BuildContext context) {
     return AlertDialog(
       title: Text(
-          'Receive orders from product code ${widget.supplierBarcode.toString()}'),
+          'Receive Orders from Product Code ${widget.supplierBarcode.toString()}'),
       content: Container(
         width: (MediaQuery.of(context).size.width) / 2,
         height: (MediaQuery.of(context).size.height) / 1.5,

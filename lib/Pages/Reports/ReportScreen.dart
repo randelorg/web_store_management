@@ -8,7 +8,7 @@ class ViewReport extends StatelessWidget {
     Tab(text: 'Sales Report'),
     Tab(text: 'Transfer Products Report'),
     Tab(text: 'Collection Report'),
-    Tab(text: 'Loan and Payment Report'),
+    Tab(text: 'Payment and Loan Report'),
   ];
 
   @override

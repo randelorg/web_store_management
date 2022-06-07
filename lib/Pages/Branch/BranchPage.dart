@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:modal_side_sheet/modal_side_sheet.dart';
 import 'package:web_store_management/Backend/GlobalController.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
 import 'package:web_store_management/Pages/Branch/AddBranch.dart';
@@ -34,17 +35,6 @@ class _BranchPage extends State<BranchPage> {
           padding: const EdgeInsets.only(left: 10, right: 20, top: 10),
           child: Stack(
             children: [
-              Align(
-                alignment: Alignment.topCenter,
-                child: const Text(
-                  'Branches',
-                  style: TextStyle(
-                    fontSize: 20,
-                    color: Colors.black,
-                    fontFamily: 'Cairo_Bold',
-                  ),
-                ),
-              ),
               Align(
                 alignment: Alignment.topLeft,
                 child: ClipRRect(
@@ -81,39 +71,6 @@ class _BranchPage extends State<BranchPage> {
                   ),
                 ),
               ),
-              Align(
-                alignment: Alignment.topRight,
-                child: Container(
-                  padding: EdgeInsets.only(left: 20, right: 85),
-                  width: 350,
-                  child: TextField(
-                    controller: searchValue,
-                    onChanged: (value) {
-                      setState(() {
-                        _searchResult = value;
-                        _branchFiltered = Mapping.branchList
-                            .where((branch) => branch.branchName
-                                .toLowerCase()
-                                .contains(_searchResult.toLowerCase()))
-                            .toList();
-                      });
-                    },
-                    decoration: InputDecoration(
-                      hintText: 'Search Branch',
-                      filled: true,
-                      fillColor: Colors.blueGrey[50],
-                      labelStyle: TextStyle(fontSize: 12),
-                      contentPadding: EdgeInsets.only(left: 15),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
             ],
           ),
         ),
@@ -134,7 +91,7 @@ class _BranchPage extends State<BranchPage> {
                 if (snapshot.hasData) {
                   return ListView(
                     scrollDirection: Axis.vertical,
-                    padding: const EdgeInsets.only(right: 100, left: 100),
+                    padding: const EdgeInsets.only(top: 5, right: 100, left: 100),
                     children: [
                       PaginatedDataTable(
                         showCheckboxColumn: false,
@@ -142,6 +99,46 @@ class _BranchPage extends State<BranchPage> {
                         sortAscending: _sortAscending,
                         sortColumnIndex: 0,
                         rowsPerPage: 14,
+                        header: Text('Branch List', 
+                        style: TextStyle(
+                          fontSize: 18,
+                          color: Colors.black,
+                          fontFamily: 'Cairo_Bold'),
+                        ),
+                        actions: [
+                          Container(
+                            padding: const EdgeInsets.only(left: 20, right: 5),
+                            width: 300,
+                            child: TextField(
+                              controller: searchValue,
+                              onChanged: (value) {
+                                setState(() {
+                                  _searchResult = value;                          
+                                  _branchFiltered = Mapping.branchList
+                                      .where((branch) => branch.branchName
+                                           .toLowerCase()
+                                           .contains(_searchResult.toLowerCase()))
+                                      .toList();
+                                });
+                              },
+                              decoration: InputDecoration(
+                                hintText: 'Search Branch',
+                                filled: true,
+                                fillColor: Colors.blueGrey[50],
+                                labelStyle: TextStyle(fontSize: 12),
+                                contentPadding: EdgeInsets.only(left: 15),
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: Colors.blueGrey.shade50),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: Colors.blueGrey.shade50),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                         columns: [
                           DataColumn(
                             label: Text('CODE'),
@@ -231,15 +228,21 @@ class _DataSource extends DataTableSource {
         DataCell(Text(row.valueB)),
         DataCell(Text(row.valueC)),
         DataCell((row.valueD), onTap: () {
-          showDialog(
+           showModalSideSheet(
             context: context,
-            builder: (BuildContext context) {
-              return UpdateBranch(
-                branchCode: row.valueA,
-                branchName: row.valueB,
-                branchAddress: row.valueC,
-              );
-            },
+            width: MediaQuery.of(context).size.width / 4,
+            body: ListView(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(30.0),
+                  child: UpdateBranch(
+                    branchCode: row.valueA,
+                    branchName: row.valueB,
+                    branchAddress: row.valueC,     
+                  ),
+                ),
+              ],
+            ),
           );
         }),
       ],
