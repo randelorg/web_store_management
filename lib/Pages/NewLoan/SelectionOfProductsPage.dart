@@ -8,7 +8,18 @@ import '../../Backend/Utility/Mapping.dart';
 import '../../Backend/GlobalController.dart';
 
 class SelectionOfProductsPage extends StatefulWidget {
-  const SelectionOfProductsPage({Key? key}) : super(key: key);
+  final int? id;
+  final String? firstname, lastname, number, address;
+  final String? action;
+  const SelectionOfProductsPage({
+    Key? key,
+    this.id,
+    this.action,
+    this.firstname,
+    this.lastname,
+    this.number,
+    this.address,
+  }) : super(key: key);
 
   @override
   _SelectionOfProductsPage createState() => _SelectionOfProductsPage();
@@ -19,7 +30,6 @@ class SelectionOfProductsPage extends StatefulWidget {
 class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
   final firstname = TextEditingController();
   final lastname = TextEditingController();
-  //final mobileNumber = TextEditingController();
   final homeAddress = TextEditingController();
   //classess
   var pick = Picker();
@@ -52,10 +62,27 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
     return false;
   }
 
+  void setTextFields() {
+    setState(() {
+      firstname.text = widget.firstname.toString();
+      lastname.text = widget.lastname.toString();
+      homeAddress.text = widget.address.toString();
+      mobileNumberOtp.text = widget.number.toString();
+    });
+  }
+
   @override
   void initState() {
-    super.initState();
+    try {
+      if (widget.action!.isEmpty) {
+        setTextFields();
+      }
+    } catch (e) {
+      print(e);
+    }
+
     this._products = controller.fetchProducts();
+    super.initState();
   }
 
   @override
@@ -436,31 +463,31 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
                   ),
                 ),
               ),
-                 Padding(
-                  padding: EdgeInsets.all(6),
-                  child: TextField(
-                    controller: otp,
-                    autofocus: true,
-                    maxLength: 6,
-                    decoration: InputDecoration(
-                      hintText: 'OTP Code',
-                      counterText: '',
-                      filled: true,
-                      fillColor: Colors.blueGrey[50],
-                      labelStyle: TextStyle(fontSize: 12),
-                      contentPadding: EdgeInsets.only(left: 15),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
+              Padding(
+                padding: EdgeInsets.all(6),
+                child: TextField(
+                  controller: otp,
+                  autofocus: true,
+                  maxLength: 6,
+                  decoration: InputDecoration(
+                    hintText: 'OTP Code',
+                    counterText: '',
+                    filled: true,
+                    fillColor: Colors.blueGrey[50],
+                    labelStyle: TextStyle(fontSize: 12),
+                    contentPadding: EdgeInsets.only(left: 15),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                      borderRadius: BorderRadius.circular(10),
                     ),
                   ),
                 ),
-              
+              ),
+
               //verify OTP
               Padding(
                 padding: const EdgeInsets.only(top: 10),

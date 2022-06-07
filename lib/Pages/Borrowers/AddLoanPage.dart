@@ -355,31 +355,6 @@ class _AddLoanPage extends State<AddLoanPage> {
                           } else {
                             //exit
                             Navigator.pop(context);
-                            //show dialog
-                            // showDialog(
-                            //   context: context,
-                            //   builder: (BuildContext context) {
-                            //     return SimpleDialog(
-                            //       children: [
-                            //         Container(
-                            //           width:
-                            //               (MediaQuery.of(context).size.width) /
-                            //                   2,
-                            //           height: 555,
-                            //           child: FinalizePage(
-                            //             action: widget.action,
-                            //             id: widget.id,
-                            //             firstname: firstname.text,
-                            //             lastname: lastname.text,
-                            //             mobile: mobileNumber.text,
-                            //             address: homeAddress.text,
-                            //             contract: pick.getImageBytes(),
-                            //           ),
-                            //         ),
-                            //       ],
-                            //     );
-                            //   },
-                            // );
                           }
                         },
                         child: const Text('NEXT'),
