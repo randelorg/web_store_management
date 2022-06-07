@@ -16,25 +16,27 @@ class ReleasePage extends StatefulWidget {
   _ReleasePage createState() => _ReleasePage();
 
   final String released = "RELEASED";
+  final String toBeRelease = 'TO-BE-RELEASE';
+  final List<String> filter = ["RELEASED", "TO-BE-RELEASE"];
 }
 
 class _ReleasePage extends State<ReleasePage> {
+  late Future<List<BorrowerModel>> _releaseApproval;
+  late Future<List<ProductModel>> _products;
+  List<String> filteredStatus = [];
+  List<BorrowerModel> _borrowerFiltered = [];
+
   var controller = GlobalController();
   var loan = LoanOperation();
   var message = TextMessage();
 
-  String _searchResult = '';
-  late Future<List<BorrowerModel>> _releaseApproval;
-  late Future<List<ProductModel>> _products;
-
-  List<BorrowerModel> _borrowerFiltered = [];
   TextEditingController searchValue = TextEditingController();
 
-  int vid = 0, bid = 0;
+  String _searchResult = '';
 
   @override
   void initState() {
-    _releaseApproval = controller.fetchReleaseApprovals();
+    _releaseApproval = controller.fetchReleaseApprovals(widget.toBeRelease);
     _products = controller.fetchProducts();
     //_releaseApproval = controller.fetchBorrowers();
     _releaseApproval
@@ -48,8 +50,12 @@ class _ReleasePage extends State<ReleasePage> {
       children: <Widget>[
         Padding(
           padding: const EdgeInsets.only(left: 10, right: 20, top: 10),
-          child: Stack(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
             children: [
+              Wrap(
+                children: productTypeWidget().toList(),
+              ),
               Align(
                 alignment: Alignment.topRight,
                 child: Container(
@@ -110,7 +116,7 @@ class _ReleasePage extends State<ReleasePage> {
                       shrinkWrap: true,
                       childAspectRatio: (MediaQuery.of(context).size.width) /
                           (MediaQuery.of(context).size.height) /
-                          2,
+                          2.5,
                       children: _cards(_borrowerFiltered),
                     );
                   } else {
@@ -143,6 +149,33 @@ class _ReleasePage extends State<ReleasePage> {
         ),
       ],
     );
+  }
+
+  Iterable<Widget> productTypeWidget() {
+    return widget.filter.map((status) {
+      return Padding(
+        padding: const EdgeInsets.only(right: 20),
+        child: ChoiceChip(
+          label: Text(status),
+          selected: filteredStatus.contains(status),
+          onSelected: (bool value) {
+            setState(() {
+              if (value) {
+                filteredStatus.add(status);
+                _releaseApproval = controller.fetchReleaseApprovals(status);
+                _releaseApproval.whenComplete(
+                    () => _borrowerFiltered = Mapping.releaseApproval);
+              } else {
+                filteredStatus.removeWhere((name) {
+                  _borrowerFiltered = Mapping.releaseApproval;
+                  return name == status;
+                });
+              }
+            });
+          },
+        ),
+      );
+    });
   }
 
   List<Widget> _cards(List<BorrowerModel> brwRelease) {
@@ -292,59 +325,79 @@ class _ReleasePage extends State<ReleasePage> {
                     color: HexColor("#155293"),
                   ),
                 ),
-                onPressed: () {},
-              ),
-              ButtonBar(
-                alignment: MainAxisAlignment.center,
-                children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(20),
-                    child: Stack(
-                      children: <Widget>[
-                        Positioned.fill(
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: HexColor("#155293"),
-                            ),
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return Container(
+                        child: PdfPreview(
+                          padding: EdgeInsets.all(100),
+                          build: (format) => PrintHelper.generatePdfContract(
+                            brwRelease[index].getBorrowerId.toString(),
                           ),
                         ),
-                        TextButton(
-                          style: TextButton.styleFrom(
-                              padding: const EdgeInsets.only(
-                                  left: 20, right: 20, top: 10, bottom: 10),
-                              primary: Colors.white,
-                              textStyle: TextStyle(
-                                  fontSize: 18, fontFamily: 'Cairo_SemiBold')),
-                          child: const Text('RELEASE'),
-                          onPressed: () {
-                            showModalSideSheet(
-                              context: context,
-                              width: MediaQuery.of(context).size.width / 2.3,
-                              body: ListView(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.all(30.0),
-                                    child: ReleaseItems(
-                                      name: brwRelease[index].toString(),
-                                      address: brwRelease[index].getHomeAddress,
-                                      barcode: brwRelease[index].getProductCode,
-                                      borrowerId: brwRelease[index]
-                                          .getBorrowerId
-                                          .toString(),
-                                      investigationId: brwRelease[index]
-                                          .getinvestigationID
-                                          .toString(),
-                                    ),
-                                  ),
-                                ],
+                      );
+                    },
+                  );
+                },
+              ),
+              Visibility(
+                visible: brwRelease[index].getStatus == widget.toBeRelease,
+                child: ButtonBar(
+                  alignment: MainAxisAlignment.center,
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(20),
+                      child: Stack(
+                        children: <Widget>[
+                          Positioned.fill(
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: HexColor("#155293"),
                               ),
-                            );
-                          },
-                        ),
-                      ],
+                            ),
+                          ),
+                          TextButton(
+                            style: TextButton.styleFrom(
+                                padding: const EdgeInsets.only(
+                                    left: 20, right: 20, top: 10, bottom: 10),
+                                primary: Colors.white,
+                                textStyle: TextStyle(
+                                    fontSize: 18,
+                                    fontFamily: 'Cairo_SemiBold')),
+                            child: const Text('RELEASE'),
+                            onPressed: () {
+                              showModalSideSheet(
+                                context: context,
+                                width: MediaQuery.of(context).size.width / 2.3,
+                                body: ListView(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.all(30.0),
+                                      child: ReleaseItems(
+                                        name: brwRelease[index].toString(),
+                                        address:
+                                            brwRelease[index].getHomeAddress,
+                                        barcode:
+                                            brwRelease[index].getProductCode,
+                                        borrowerId: brwRelease[index]
+                                            .getBorrowerId
+                                            .toString(),
+                                        investigationId: brwRelease[index]
+                                            .getinvestigationID
+                                            .toString(),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            },
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ],
           ),

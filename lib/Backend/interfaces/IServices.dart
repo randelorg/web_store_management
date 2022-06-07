@@ -4,7 +4,7 @@ class IServices {
     return a;
   }
 
-  Future<bool> updateRepair(int id, String status) {
+  Future<bool> updateReturn(int id, String status) {
     var a;
     return a;
   }

@@ -98,9 +98,9 @@ class GlobalController {
   }
 
   //fetch all the credit approvals from the database
-  Future<List<BorrowerModel>> fetchCreditApprovals() async {
+  Future<List<BorrowerModel>> fetchCreditApprovals(String status) async {
     final response = await http.get(
-      Uri.parse("http://localhost:8090/api/credit"),
+      Uri.parse("http://localhost:8090/api/credit/$status"),
       headers: {HttpHeaders.authorizationHeader: "${Environment.apiToken}"},
     );
 
@@ -113,9 +113,9 @@ class GlobalController {
   }
 
 //fetch all the credit approvals from the database
-  Future<List<BorrowerModel>> fetchReleaseApprovals() async {
+  Future<List<BorrowerModel>> fetchReleaseApprovals(String status) async {
     final response = await http.get(
-      Uri.parse("http://localhost:8090/api/toberelease"),
+      Uri.parse("http://localhost:8090/api/toberelease/$status"),
       headers: {HttpHeaders.authorizationHeader: "${Environment.apiToken}"},
     );
 

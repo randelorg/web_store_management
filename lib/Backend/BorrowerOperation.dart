@@ -152,16 +152,16 @@ class BorrowerOperation extends Login implements IBorrower, IPay, IServices {
   }
 
   @override
-  Future<bool> updateRepair(int id, final String status) async {
+  Future<bool> updateReturn(int id, final String status) async {
     var response;
-    var updateRepairLoad = json.encode({
+    var updateReturnLoad = json.encode({
       'id': id,
       'status': status,
     });
 
     try {
       await Environment.methodPost(
-              "${Environment.apiUrl}/api/updaterepair", updateRepairLoad)
+              "http://localhost:8090/api/updatereturn", updateReturnLoad)
           .then((value) {
         response = value;
       });
@@ -174,7 +174,7 @@ class BorrowerOperation extends Login implements IBorrower, IPay, IServices {
       if (response.statusCode == 202) {
         BannerNotif.notif(
           'Success',
-          'Product Repair is updated',
+          'Product return is updated',
           Colors.green.shade600,
         );
         return true;

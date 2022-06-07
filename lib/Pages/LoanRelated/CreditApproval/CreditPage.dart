@@ -1,37 +1,44 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:printing/printing.dart';
 import 'package:web_store_management/Backend/GlobalController.dart';
 import 'package:web_store_management/Backend/LoanOperation.dart';
 import 'package:web_store_management/Backend/TextMessage.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
+import 'package:web_store_management/Helpers/PrintHelper.dart';
 import 'package:web_store_management/Models/BorrowerModel.dart';
 import 'package:web_store_management/Notification/BannerNotif.dart';
 
 class CreditScreen extends StatefulWidget {
   @override
   _CreditPage createState() => _CreditPage();
+
   final String denied = "DENIED";
-  final String tobeRelease = 'TO-BE-RELEASE';
-  final String approved = 'APPROVED';
+  final String approved = 'TO-BE-RELEASE';
+  final String pending = 'PENDING';
+  final List<String> filters = [
+    "PENDING",
+    "APPROVED",
+    "DENIED",
+  ];
 }
 
 class _CreditPage extends State<CreditScreen> {
   var controller = GlobalController();
   var loan = LoanOperation();
   var message = TextMessage();
-  late Future<List<BorrowerModel>> _creditapproval;
-  List<BorrowerModel> _borrowerFiltered = [];
-  TextEditingController searchValue = TextEditingController();
-  String _searchResult = '';
 
+  late Future<List<BorrowerModel>> _creditapproval;
+  List<String> filteredStatus = [];
+  List<BorrowerModel> _borrowerFiltered = [];
+
+  var searchValue = TextEditingController();
   int vid = 0, bid = 0;
-  final double textSize = 15;
-  final double titleSize = 30;
-  bool _sortAscending = true;
+  String _searchResult = '';
 
   @override
   void initState() {
-    _creditapproval = controller.fetchCreditApprovals();
+    _creditapproval = controller.fetchCreditApprovals(widget.pending);
     _creditapproval
         .whenComplete(() => _borrowerFiltered = Mapping.creditApprovals);
     super.initState();
@@ -43,38 +50,39 @@ class _CreditPage extends State<CreditScreen> {
       children: <Widget>[
         Padding(
           padding: const EdgeInsets.only(left: 10, right: 20, top: 10),
-          child: Stack(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              Align(
-                alignment: Alignment.topRight,
-                child: Container(
-                  padding: EdgeInsets.only(bottom: 10),
-                  width: 300,
-                  child: TextField(
-                    controller: searchValue,
-                    onChanged: (value) {
-                      setState(() {
-                        _searchResult = value;
-                        _borrowerFiltered = Mapping.creditApprovals
-                            .where((brw) => brw
-                                .toString()
-                                .toLowerCase()
-                                .contains(_searchResult.toLowerCase()))
-                            .toList();
-                      });
-                    },
-                    decoration: InputDecoration(
-                      hintText: 'Search Borrower',
-                      filled: true,
-                      fillColor: Colors.blueGrey[50],
-                      labelStyle: TextStyle(fontSize: 12),
-                      contentPadding: EdgeInsets.only(left: 15),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                      ),
+              Wrap(
+                children: productTypeWidget().toList(),
+              ),
+              Container(
+                padding: EdgeInsets.only(bottom: 10),
+                width: 300,
+                child: TextField(
+                  controller: searchValue,
+                  onChanged: (value) {
+                    setState(() {
+                      _searchResult = value;
+                      _borrowerFiltered = Mapping.creditApprovals
+                          .where((brw) => brw
+                              .toString()
+                              .toLowerCase()
+                              .contains(_searchResult.toLowerCase()))
+                          .toList();
+                    });
+                  },
+                  decoration: InputDecoration(
+                    hintText: 'Search Borrower',
+                    filled: true,
+                    fillColor: Colors.blueGrey[50],
+                    labelStyle: TextStyle(fontSize: 12),
+                    contentPadding: EdgeInsets.only(left: 15),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.blueGrey.shade50),
                     ),
                   ),
                 ),
@@ -105,7 +113,7 @@ class _CreditPage extends State<CreditScreen> {
                       shrinkWrap: true,
                       childAspectRatio: (MediaQuery.of(context).size.width) /
                           (MediaQuery.of(context).size.height) /
-                          2,
+                          2.5,
                       children: _cards(_borrowerFiltered),
                     );
                   } else {
@@ -140,6 +148,36 @@ class _CreditPage extends State<CreditScreen> {
     );
   }
 
+  Iterable<Widget> productTypeWidget() {
+    return widget.filters.map((status) {
+      return Padding(
+        padding: const EdgeInsets.only(right: 10),
+        child: ChoiceChip(
+          label: Text(status),
+          selected: filteredStatus.contains(status),
+          onSelected: (bool value) {
+            setState(() {
+              if (value) {
+                if (status == widget.filters[1]) {
+                  status = widget.approved;
+                }
+                filteredStatus.add(status);
+                _creditapproval = controller.fetchCreditApprovals(status);
+                _creditapproval.whenComplete(
+                    () => _borrowerFiltered = Mapping.creditApprovals);
+              } else {
+                filteredStatus.removeWhere((name) {
+                  _borrowerFiltered = Mapping.creditApprovals;
+                  return name == status;
+                });
+              }
+            });
+          },
+        ),
+      );
+    });
+  }
+
   List<Widget> _cards(List<BorrowerModel> brwCredit) {
     return List.generate(brwCredit.length, (index) {
       return new Card(
@@ -155,7 +193,9 @@ class _CreditPage extends State<CreditScreen> {
               padding: EdgeInsets.all(10),
               child: ListTile(
                 title: Text(
-                  brwCredit[index].getStatus.toString(),
+                  brwCredit[index].getStatus == widget.approved
+                      ? 'APPROVED'
+                      : brwCredit[index].getStatus,
                   style: TextStyle(
                     fontSize: 30,
                     fontFamily: 'Cairo_SemiBold',
@@ -283,99 +323,118 @@ class _CreditPage extends State<CreditScreen> {
                   color: HexColor("#155293"),
                 ),
               ),
-              onPressed: () {},
-            ),
-            ButtonBar(
-              alignment: MainAxisAlignment.center,
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(20),
-                  child: Stack(
-                    children: <Widget>[
-                      Positioned.fill(
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: HexColor("#155293"),
-                          ),
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return Container(
+                      child: PdfPreview(
+                        padding: EdgeInsets.all(100),
+                        build: (format) => PrintHelper.generatePdfContract(
+                          brwCredit[index].getBorrowerId.toString(),
                         ),
                       ),
-                      TextButton(
-                        style: TextButton.styleFrom(
-                            padding: const EdgeInsets.only(
-                                left: 20, right: 20, top: 10, bottom: 10),
-                            primary: Colors.white,
-                            textStyle: TextStyle(
-                                fontSize: 18, fontFamily: 'Cairo_SemiBold')),
-                        child: const Text('APPROVE'),
-                        onPressed: () {
-                          vid = brwCredit[index].getinvestigationID;
-                          bid = brwCredit[index].getBorrowerId;
-                          loan
-                              .approvedCredit(vid, bid, widget.tobeRelease, '')
-                              .then((value) {
-                            if (!value) {
-                              BannerNotif.notif(
-                                'Error',
-                                'Something went wrong while approving the loan',
-                                Colors.red.shade600,
-                              );
-                            } else {
-                              //refresh the data in the window
-                              setState(() {
-                                _creditapproval =
-                                    controller.fetchCreditApprovals();
-                                _creditapproval.whenComplete(() =>
-                                    _borrowerFiltered =
-                                        Mapping.creditApprovals);
-                              });
-                              //send message to the borrower that the credit has been approved
-                              _creditapproval
-                                  .whenComplete(() => sendMessageApproved(
-                                        brwCredit[index].getMobileNumber,
-                                        brwCredit[index].toString(),
-                                        widget.approved,
-                                      ));
-                            }
-                          });
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-                IconButton(
-                  icon: Icon(Icons.cancel),
-                  color: Colors.redAccent.shade400,
-                  tooltip: 'DENY CREDIT',
-                  onPressed: () {
-                    vid = brwCredit[index].getinvestigationID;
-                    bid = brwCredit[index].getBorrowerId;
-                    loan
-                        .approvedCredit(vid, bid, widget.denied, '')
-                        .then((value) {
-                      if (!value) {
-                        BannerNotif.notif(
-                          'Error',
-                          'Something went wrong while approving the loan',
-                          Colors.red.shade600,
-                        );
-                      } else {
-                        //refresh the data in the window
-                        setState(() {
-                          _creditapproval = controller.fetchCreditApprovals();
-                          _creditapproval.whenComplete(() =>
-                              _borrowerFiltered = Mapping.creditApprovals);
-                        });
-                        //send message to the borrower that the credit has been approved
-                        _creditapproval.whenComplete(() => sendMessageApproved(
-                              brwCredit[index].getMobileNumber,
-                              brwCredit[index].toString(),
-                              widget.denied,
-                            ));
-                      }
-                    });
+                    );
                   },
-                ),
-              ],
+                );
+              },
+            ),
+            Visibility(
+              visible: brwCredit[index].getStatus == widget.pending,
+              child: ButtonBar(
+                alignment: MainAxisAlignment.center,
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(20),
+                    child: Stack(
+                      children: <Widget>[
+                        Positioned.fill(
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: HexColor("#155293"),
+                            ),
+                          ),
+                        ),
+                        TextButton(
+                          style: TextButton.styleFrom(
+                              padding: const EdgeInsets.only(
+                                  left: 20, right: 20, top: 10, bottom: 10),
+                              primary: Colors.white,
+                              textStyle: TextStyle(
+                                  fontSize: 18, fontFamily: 'Cairo_SemiBold')),
+                          child: const Text('APPROVE'),
+                          onPressed: () {
+                            vid = brwCredit[index].getinvestigationID;
+                            bid = brwCredit[index].getBorrowerId;
+                            loan
+                                .approvedCredit(vid, bid, widget.approved, '')
+                                .then((value) {
+                              if (!value) {
+                                BannerNotif.notif(
+                                  'Error',
+                                  'Something went wrong while approving the loan',
+                                  Colors.red.shade600,
+                                );
+                              } else {
+                                //refresh the data in the window
+                                setState(() {
+                                  _creditapproval = controller
+                                      .fetchCreditApprovals(widget.pending);
+                                  _creditapproval.whenComplete(() =>
+                                      _borrowerFiltered =
+                                          Mapping.creditApprovals);
+                                });
+                                //send message to the borrower that the credit has been approved
+                                _creditapproval
+                                    .whenComplete(() => sendMessageApproved(
+                                          brwCredit[index].getMobileNumber,
+                                          brwCredit[index].toString(),
+                                          widget.approved,
+                                        ));
+                              }
+                            });
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.cancel),
+                    color: Colors.redAccent.shade400,
+                    tooltip: 'DENY CREDIT',
+                    onPressed: () {
+                      vid = brwCredit[index].getinvestigationID;
+                      bid = brwCredit[index].getBorrowerId;
+                      loan
+                          .approvedCredit(vid, bid, widget.denied, '')
+                          .then((value) {
+                        if (!value) {
+                          BannerNotif.notif(
+                            'Error',
+                            'Something went wrong while approving the loan',
+                            Colors.red.shade600,
+                          );
+                        } else {
+                          //refresh the data in the window
+                          setState(() {
+                            _creditapproval =
+                                controller.fetchCreditApprovals(widget.pending);
+                            _creditapproval.whenComplete(() =>
+                                _borrowerFiltered = Mapping.creditApprovals);
+                          });
+                          //send message to the borrower that the credit has been approved
+                          _creditapproval
+                              .whenComplete(() => sendMessageApproved(
+                                    brwCredit[index].getMobileNumber,
+                                    brwCredit[index].toString(),
+                                    widget.denied,
+                                  ));
+                        }
+                      });
+                    },
+                  ),
+                ],
+              ),
             ),
           ],
         ),
