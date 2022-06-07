@@ -15,6 +15,7 @@ class ReturnsPage extends StatefulWidget {
   final String statusPending = 'PENDING';
   final String statusReturned = 'RETURNED';
   final String statusRejected = 'REJECTED';
+  final List<String> filters = ['PENDING', 'RETURNED', 'REJECTED'];
 }
 
 class _ReturnsPage extends State<ReturnsPage> {
@@ -24,6 +25,7 @@ class _ReturnsPage extends State<ReturnsPage> {
 
   late Future<List<BorrowerModel>> _returns;
   List<BorrowerModel> _borrowerFiltered = [];
+  List<String> filteredStatus = [];
 
   TextEditingController searchValue = TextEditingController();
   String _searchResult = '';
@@ -42,74 +44,72 @@ class _ReturnsPage extends State<ReturnsPage> {
     return Column(
       children: <Widget>[
         Padding(
-          padding: const EdgeInsets.only(left: 10, right: 20, top: 10),
-          child: Stack(
+          padding: const EdgeInsets.all(10.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Align(
-                alignment: Alignment.topLeft,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(8),
-                  child: Stack(
-                    children: <Widget>[
-                      Positioned.fill(
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: HexColor("#155293"),
-                          ),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: Stack(
+                  children: <Widget>[
+                    Positioned.fill(
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: HexColor("#155293"),
                         ),
                       ),
-                      TextButton.icon(
-                        icon: Icon(Icons.add_box_rounded, color: Colors.white),
-                        style: TextButton.styleFrom(
-                          padding: const EdgeInsets.only(
-                              left: 10, right: 10, top: 10, bottom: 10),
-                          primary: Colors.white,
-                          textStyle: TextStyle(
-                              fontSize: 18, fontFamily: 'Cairo_SemiBold'),
-                        ),
-                        label: Text('NEW RETURN'),
-                        onPressed: () {
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return SearchSerialNumber();
-                            },
-                          );
-                        },
+                    ),
+                    TextButton.icon(
+                      icon: Icon(Icons.add_box_rounded, color: Colors.white),
+                      style: TextButton.styleFrom(
+                        padding: const EdgeInsets.only(
+                            left: 10, right: 10, top: 10, bottom: 10),
+                        primary: Colors.white,
+                        textStyle: TextStyle(
+                            fontSize: 18, fontFamily: 'Cairo_SemiBold'),
                       ),
-                    ],
-                  ),
+                      label: Text('NEW RETURN'),
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return SearchSerialNumber();
+                          },
+                        );
+                      },
+                    ),
+                  ],
                 ),
               ),
-              Align(
-                alignment: Alignment.topRight,
-                child: Container(
-                  //padding: EdgeInsets.only(top: 15, bottom: 15, right: 20),
-                  width: 300,
-                  child: TextField(
-                    controller: searchValue,
-                    onChanged: (value) {
-                      setState(() {
-                        _searchResult = value;
-                        _borrowerFiltered = Mapping.returns
-                            .where((brw) => brw.getFullname
-                                .toLowerCase()
-                                .contains(_searchResult.toLowerCase()))
-                            .toList();
-                      });
-                    },
-                    decoration: InputDecoration(
-                      hintText: 'Search Borrower',
-                      filled: true,
-                      fillColor: Colors.blueGrey[50],
-                      labelStyle: TextStyle(fontSize: 12),
-                      contentPadding: EdgeInsets.only(left: 30),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                      ),
+              Wrap(
+                children: productTypeWidget().toList(),
+              ),
+              Container(
+                //padding: EdgeInsets.only(top: 15, bottom: 15, right: 20),
+                width: 300,
+                child: TextField(
+                  controller: searchValue,
+                  onChanged: (value) {
+                    setState(() {
+                      _searchResult = value;
+                      _borrowerFiltered = Mapping.returns
+                          .where((brw) => brw.getFullname
+                              .toLowerCase()
+                              .contains(_searchResult.toLowerCase()))
+                          .toList();
+                    });
+                  },
+                  decoration: InputDecoration(
+                    hintText: 'Search Borrower',
+                    filled: true,
+                    fillColor: Colors.blueGrey[50],
+                    labelStyle: TextStyle(fontSize: 12),
+                    contentPadding: EdgeInsets.only(left: 30),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.blueGrey.shade50),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.blueGrey.shade50),
                     ),
                   ),
                 ),
@@ -140,7 +140,7 @@ class _ReturnsPage extends State<ReturnsPage> {
                       shrinkWrap: true,
                       childAspectRatio: (MediaQuery.of(context).size.width) /
                           (MediaQuery.of(context).size.height) /
-                          2,
+                          2.5,
                       children: _cards(_borrowerFiltered),
                     );
                   } else {
@@ -342,63 +342,94 @@ class _ReturnsPage extends State<ReturnsPage> {
                   ],
                 ),
               ),
-              ButtonBar(
-                alignment: MainAxisAlignment.center,
-                children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(20),
-                    child: Stack(
-                      children: <Widget>[
-                        Positioned.fill(
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: HexColor("#155293"),
+              Visibility(
+                visible:
+                    brwRepair[index].getReturnStatus == widget.statusPending,
+                child: ButtonBar(
+                  alignment: MainAxisAlignment.center,
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(20),
+                      child: Stack(
+                        children: <Widget>[
+                          Positioned.fill(
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: HexColor("#155293"),
+                              ),
                             ),
                           ),
-                        ),
-                        TextButton(
-                          style: TextButton.styleFrom(
-                            padding: const EdgeInsets.only(
-                                left: 20, right: 20, top: 12, bottom: 12),
-                            primary: Colors.white,
-                            textStyle: TextStyle(
-                                fontSize: 18, fontFamily: 'Cairo_SemiBold'),
+                          TextButton(
+                            style: TextButton.styleFrom(
+                              padding: const EdgeInsets.only(
+                                  left: 20, right: 20, top: 12, bottom: 12),
+                              primary: Colors.white,
+                              textStyle: TextStyle(
+                                  fontSize: 18, fontFamily: 'Cairo_SemiBold'),
+                            ),
+                            child: const Text('RETURN'),
+                            onPressed: () {
+                              repairStatus(
+                                brwRepair[index].getReturnId,
+                                widget.statusReturned,
+                                brwRepair[index].getReturnProductName,
+                                brwRepair[index].getFullname,
+                                brwRepair[index].getMobileNumber,
+                              );
+                            },
                           ),
-                          child: const Text('RETURN'),
-                          onPressed: () {
-                            repairStatus(
-                              brwRepair[index].getReturnId,
-                              widget.statusReturned,
-                              brwRepair[index].getReturnProductName,
-                              brwRepair[index].getFullname,
-                              brwRepair[index].getMobileNumber,
-                            );
-                          },
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                  IconButton(
-                    icon: Icon(Icons.delete_forever),
-                    color: Colors.redAccent.shade400,
-                    tooltip: 'Reject',
-                    onPressed: () {
-                      repairStatus(
-                        brwRepair[index].getReturnId,
-                        widget.statusRejected,
-                        brwRepair[index].getReturnProductName,
-                        brwRepair[index].toString(),
-                        brwRepair[index].getMobileNumber,
-                      );
-                    },
-                  ),
-                ],
+                    IconButton(
+                      icon: Icon(Icons.delete_forever),
+                      color: Colors.redAccent.shade400,
+                      tooltip: 'Reject',
+                      onPressed: () {
+                        repairStatus(
+                          brwRepair[index].getReturnId,
+                          widget.statusRejected,
+                          brwRepair[index].getReturnProductName,
+                          brwRepair[index].toString(),
+                          brwRepair[index].getMobileNumber,
+                        );
+                      },
+                    ),
+                  ],
+                ),
               )
             ],
           ),
         );
       },
     );
+  }
+
+  Iterable<Widget> productTypeWidget() {
+    return widget.filters.map((status) {
+      return Padding(
+        padding: const EdgeInsets.only(right: 20),
+        child: ChoiceChip(
+          label: Text(status),
+          selected: filteredStatus.contains(status),
+          onSelected: (bool value) {
+            setState(() {
+              if (value) {
+                filteredStatus.add(status);
+                _returns = controller.fetchReturns(status);
+                _returns
+                    .whenComplete(() => _borrowerFiltered = Mapping.returns);
+              } else {
+                filteredStatus.removeWhere((name) {
+                  _borrowerFiltered = Mapping.returns;
+                  return name == status;
+                });
+              }
+            });
+          },
+        ),
+      );
+    });
   }
 
   void sendRepairedMessage(
@@ -417,7 +448,7 @@ class _ReturnsPage extends State<ReturnsPage> {
 
   void repairStatus(
       int id, final String status, String product, String name, String number) {
-    borrower.updateRepair(id, status).then((value) {
+    borrower.updateReturn(id, status).then((value) {
       if (!value) {
         BannerNotif.notif(
           'Error',

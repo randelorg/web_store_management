@@ -12,6 +12,8 @@ class SelectionOfProductsPage extends StatefulWidget {
 
   @override
   _SelectionOfProductsPage createState() => _SelectionOfProductsPage();
+
+  final String appliance = 'Appliances';
 }
 
 class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
@@ -298,11 +300,8 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
                                   "Please fill the product barcode field",
                                   Colors.red.shade600);
                             } else {
-                              bool status = true;
                               _products.whenComplete(() {
-                                status = findProductBarcode(barcode.text);
-
-                                if (!status) {
+                                if (!findProductBarcode(barcode.text)) {
                                   BannerNotif.notif(
                                     'NOT FOUND',
                                     'Product code is not exisiting or type is not a appliances',
@@ -328,21 +327,24 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
   }
 
   bool findProductBarcode(String barcode) {
-    final appliance = 'Appliances';
+    bool status = false;
+
     Mapping.productList
         .where((element) =>
             element.getProductCode == barcode &&
-            element.getProdType == appliance)
+            element.getProdType == widget.appliance)
         .forEach((element) {
       setState(() {
         productCode.text = element.getProductCode;
         productName.text = element.getProductName;
         productPrice.text = element.getProductPrice.toString();
         productType.text = element.getProdType;
+
+        status = true;
       });
     });
 
-    return false;
+    return status;
   }
 
   Widget mobileOtp() {
@@ -543,13 +545,13 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
   Widget productCardInfo() {
     return SizedBox(
       width: (MediaQuery.of(context).size.width) / 2.5,
-      height: (MediaQuery.of(context).size.width) / 3,
+      height: (MediaQuery.of(context).size.width) / 4,
       child: Card(
         child: Column(
           children: [
             ListTile(
               title: Text(
-                'Product Information',
+                productCode.text,
                 style: TextStyle(fontSize: 20),
               ),
               subtitle: Text(
@@ -559,7 +561,7 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
             ),
             ListTile(
               title: Text(
-                'Product Information',
+                productName.text,
                 style: TextStyle(fontSize: 20),
               ),
               subtitle: Text(
@@ -569,7 +571,7 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
             ),
             ListTile(
               title: Text(
-                'Product Information',
+                productPrice.text,
                 style: TextStyle(fontSize: 20),
               ),
               subtitle: Text(
@@ -579,7 +581,7 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
             ),
             ListTile(
               title: Text(
-                'Product Information',
+                productType.text,
                 style: TextStyle(fontSize: 20),
               ),
               subtitle: Text(
@@ -593,10 +595,16 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
                   child: const Text('DONE'),
                   style: TextButton.styleFrom(
                     padding: const EdgeInsets.only(
-                        top: 18, bottom: 18, left: 36, right: 36),
-                    primary: Colors.white,
-                    textStyle:
-                        TextStyle(fontFamily: 'Cairo_SemiBold', fontSize: 20),
+                      top: 18,
+                      bottom: 18,
+                      left: 36,
+                      right: 36,
+                    ),
+                    primary: Colors.blue.shade400,
+                    textStyle: TextStyle(
+                      fontFamily: 'Cairo_SemiBold',
+                      fontSize: 20,
+                    ),
                   ),
                   onPressed: () {
                     if (firstname.text.isEmpty ||
