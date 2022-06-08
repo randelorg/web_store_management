@@ -74,7 +74,7 @@ class GlobalController {
 
   Future<List<BorrowerModel>> fetchBorrowers() async {
     final response = await http.get(
-      Uri.parse("${Environment.apiUrl}/api/borrowers"),
+      Uri.parse("http://localhost:8090/api/borrowers"),
       headers: {HttpHeaders.authorizationHeader: "${Environment.apiToken}"},
     );
     final parsed = jsonDecode(response.body).cast<Map<String, dynamic>>();

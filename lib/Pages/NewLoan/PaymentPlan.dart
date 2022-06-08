@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:intl/intl.dart';
 import 'package:web_store_management/Backend/LoanOperation.dart';
-import 'package:web_store_management/Notification/BannerNotif.dart';
 
 class PaymentPlanPage extends StatefulWidget {
   final String? action, firstname, lastname, mobile, address;
   final int? borrowerId;
   final num total;
+  final String productCode;
   final Uint8List contract;
   PaymentPlanPage({
     this.action,
@@ -19,6 +19,7 @@ class PaymentPlanPage extends StatefulWidget {
     required this.address,
     required this.total,
     required this.contract,
+    required this.productCode,
   });
 
   @override
@@ -26,11 +27,11 @@ class PaymentPlanPage extends StatefulWidget {
 }
 
 class _PaymentPlanPage extends State<PaymentPlanPage> {
+  var borrowerName = TextEditingController();
+  var totalAmount = TextEditingController();
+  var duedate = TextEditingController();
+
   var loan = LoanOperation();
-  var image;
-  TextEditingController borrowerName = TextEditingController();
-  TextEditingController totalAmount = TextEditingController();
-  TextEditingController duedate = TextEditingController();
 
   String plan = 'Daily';
   double _currenSliderValue = 3;
@@ -38,10 +39,10 @@ class _PaymentPlanPage extends State<PaymentPlanPage> {
   @override
   void initState() {
     duedate.text = "";
-    super.initState();
     borrowerName.text =
-        widget.firstname.toString() + " " + widget.lastname.toString();
+        "${widget.firstname.toString()} ${widget.lastname.toString()}";
     totalAmount.text = widget.total.toString();
+    super.initState();
   }
 
   @override
@@ -301,10 +302,11 @@ class _PaymentPlanPage extends State<PaymentPlanPage> {
   //this will be use as decission if the user add new loan or
   //renew a loan
   void actionTaken(final String action) {
+    var statusLoan;
     switch (action) {
       case 'new_loan':
-        loan
-            .addBorrower(
+        statusLoan = loan.addBorrower(
+          widget.productCode.toString(),
           widget.firstname.toString(),
           widget.lastname.toString(),
           widget.mobile.toString(),
@@ -314,42 +316,50 @@ class _PaymentPlanPage extends State<PaymentPlanPage> {
           plan,
           _currenSliderValue.toString(),
           duedate.text,
-        )
-            .then((value) {
-          if (value) {
-            BannerNotif.notif(
-              'Success',
-              'Potential Borrower sent to credit approval',
-              Colors.green.shade800,
-            );
-          }
-        });
+        );
+        showDone(statusLoan);
         break;
       case 'renew_loan':
-        loan
-            .updateBalanceAndContract(
-                widget.total,
-                widget.borrowerId!.toInt(),
-                widget.firstname.toString(),
-                widget.lastname.toString(),
-                plan,
-                _currenSliderValue.toString(),
-                duedate.text,
-                widget.contract)
-            .then((value) {
-          if (value) {
-            BannerNotif.notif(
-              'Success',
-              'Renewal successful',
-              Colors.green.shade800,
-            );
-          }
-        });
+        statusLoan = loan.updateBalanceAndContract(
+          widget.productCode.toString(),
+          widget.total,
+          widget.borrowerId!.toInt(),
+          widget.firstname.toString(),
+          widget.lastname.toString(),
+          plan,
+          _currenSliderValue.toString(),
+          duedate.text,
+          widget.contract,
+        );
+        showDone(statusLoan);
         break;
       default:
         {
           print('default');
         }
     }
+  }
+
+  void showDone(loanSendStatus) {
+    FutureBuilder<bool>(
+      future: loanSendStatus,
+      builder: (context, snapshot) {
+        if (!snapshot.hasData) {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+
+        if (snapshot.hasData) {
+          if (snapshot.data == true) {
+            return SnackBar(content: Text('DONE'));
+          } else {
+            return SnackBar(content: Text('FAILED'));
+          }
+        }
+
+        return CircularProgressIndicator();
+      },
+    );
   }
 }

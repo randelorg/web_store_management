@@ -13,7 +13,6 @@ class ProductHistory extends StatefulWidget {
 }
 
 class _ProductHistory extends State<ProductHistory> {
-  
   var history = HistoryOperation();
   late Future<List<LoanedProductHistory>> _productHistory;
   var _sortAscending = true;
@@ -21,7 +20,8 @@ class _ProductHistory extends State<ProductHistory> {
   @override
   void initState() {
     super.initState();
-    this._productHistory = history.viewLoanHistory(widget.borrowerId.toString());
+    this._productHistory =
+        history.viewLoanHistory(widget.borrowerId.toString());
   }
 
   @override
@@ -58,10 +58,9 @@ class _ProductHistory extends State<ProductHistory> {
               fontSize: 30,
             ),
           ),
-
-          Row(        
+          Row(
             mainAxisAlignment: MainAxisAlignment.start,
-            children: [         
+            children: [
               Padding(
                 padding: EdgeInsets.only(left: 20, top: 50),
                 child: Text(
@@ -79,8 +78,8 @@ class _ProductHistory extends State<ProductHistory> {
             future: this._productHistory,
             builder: (context, snapshot) {
               if (!snapshot.hasData) {
-                return Center(      
-                  child: CircularProgressIndicator(        
+                return Center(
+                  child: CircularProgressIndicator(
                     semanticsLabel: 'Fetching borrowers',
                   ),
                 );
@@ -96,8 +95,9 @@ class _ProductHistory extends State<ProductHistory> {
                       sortColumnIndex: 0,
                       rowsPerPage: 12,
                       columns: [
-                        DataColumn(label: Text('LOANID'),
-                        onSort: (index, sortAscending) {
+                        DataColumn(
+                          label: Text('LOANID'),
+                          onSort: (index, sortAscending) {
                             setState(() {
                               _sortAscending = sortAscending;
                               if (sortAscending) {
@@ -108,13 +108,13 @@ class _ProductHistory extends State<ProductHistory> {
                                     b.getLoanId.compareTo(a.getLoanId));
                               }
                             });
-                          },                      
+                          },
                         ),
                         DataColumn(
-                          label: Text(
-                            'PRODUCT \n NAME',
-                            textAlign: TextAlign.center,
-                          )),
+                            label: Text(
+                          'PRODUCT \n NAME',
+                          textAlign: TextAlign.center,
+                        )),
                         DataColumn(label: Text('PRICE')),
                         DataColumn(label: Text('QTY')),
                         DataColumn(
@@ -124,10 +124,10 @@ class _ProductHistory extends State<ProductHistory> {
                           ),
                         ),
                         DataColumn(
-                          label: Text(
-                            'DATE \n ADDED',
-                            textAlign: TextAlign.center,
-                          )),
+                            label: Text(
+                          'DATE \n ADDED',
+                          textAlign: TextAlign.center,
+                        )),
                         DataColumn(
                           label: Text(
                             'DUE \n DATE',
@@ -142,12 +142,11 @@ class _ProductHistory extends State<ProductHistory> {
                 } else {
                   return Center(
                     child: Text(
-                      'NO LOAN HISTORY',        
+                      'NO LOAN HISTORY',
                       style: TextStyle(
-                        color: Colors.grey[500],
-                        fontFamily: 'Cairo_SemiBold',
-                        fontSize: 20
-                      ),
+                          color: Colors.grey[500],
+                          fontFamily: 'Cairo_SemiBold',
+                          fontSize: 20),
                     ),
                   );
                 }
@@ -156,10 +155,9 @@ class _ProductHistory extends State<ProductHistory> {
                 child: Text(
                   'NO LOAN HISTORY FOR THIS BORROWER',
                   style: TextStyle(
-                    color: Colors.grey[500],
-                    fontFamily: 'Cairo_SemiBold',
-                    fontSize: 20
-                  ),
+                      color: Colors.grey[500],
+                      fontFamily: 'Cairo_SemiBold',
+                      fontSize: 20),
                 ),
               );
             },
@@ -244,7 +242,7 @@ class _DataSource extends DataTableSource {
             Mapping.productHistoryList[index].getLoanId.toString(),
             Mapping.productHistoryList[index].getProductName,
             Mapping.productHistoryList[index].getPrice,
-            Mapping.productHistoryList[index].getQty,
+            Mapping.productHistoryList[index].getProductItemId,
             Mapping.productHistoryList[index].getPaymentPlan,
             Mapping.productHistoryList[index].getDateAdded,
             Mapping.productHistoryList[index].getDueDate,

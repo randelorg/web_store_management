@@ -91,7 +91,8 @@ class _ForgotPassword extends State<ForgotPassword> {
                     ),
                     TextButton(
                       style: TextButton.styleFrom(
-                        padding: const EdgeInsets.only(left: 20, right: 20, top: 15, bottom: 15),
+                        padding: const EdgeInsets.only(
+                            left: 20, right: 20, top: 15, bottom: 15),
                         primary: Colors.white,
                         textStyle: TextStyle(
                             fontFamily: 'Cairo_SemiBold',
@@ -108,7 +109,7 @@ class _ForgotPassword extends State<ForgotPassword> {
                           );
                         } else {
                           message
-                              .checkNumberIfExisting(mobileNumber.text)
+                              .checkAdminNumberIfExisting(mobileNumber.text)
                               .then((value) {
                             if (value == 0) {
                               BannerNotif.notif(

@@ -2,14 +2,17 @@ import 'package:intl/intl.dart';
 
 class LoanedProductHistory {
   int? loanId;
-
   String? productName;
   double? price;
-  int? qty;
   String? paymentPlan;
   String? dueDate;
   String? term;
   String? dateAdded;
+  String? productItemId;
+
+  get getProductItemId => this.productItemId;
+
+  set setProductItemId(productItemId) => this.productItemId = productItemId;
 
   get getLoanId => this.loanId;
 
@@ -22,10 +25,6 @@ class LoanedProductHistory {
   get getPrice => this.price;
 
   set setPrice(price) => this.price = price;
-
-  get getQty => this.qty;
-
-  set setQty(qty) => this.qty = qty;
 
   get getPaymentPlan => this.paymentPlan;
 
@@ -57,27 +56,27 @@ class LoanedProductHistory {
       {this.loanId,
       this.productName,
       this.price,
-      this.qty,
+      this.productItemId,
       this.paymentPlan,
       this.dueDate,
       this.term,
-      this.dateAdded}) {
-    this.loanId = loanId;
-    this.productName = productName;
-    this.price = price;
-    this.qty = qty;
-    this.paymentPlan = paymentPlan;
-    this.dueDate = dueDate;
-    this.term = term;
-    this.dateAdded = dateAdded;
-  }
+      this.dateAdded});
+
+  // this.loanId = loanId;
+  // this.productName = productName;
+  // this.price = price;
+  // this.qty = qty;
+  // this.paymentPlan = paymentPlan;
+  // this.dueDate = dueDate;
+  // this.term = term;
+  // this.dateAdded = dateAdded;
 
   factory LoanedProductHistory.fromJson(Map<String, dynamic> json) {
     return LoanedProductHistory.full(
       loanId: json['LoanID'] as int,
       productName: json['ProdName'] as String,
       price: json['ProdPrice'] as double,
-      qty: json['Qty'] as int,
+      productItemId: json['ProductItemID'] as String,
       paymentPlan: json['PaymentPlan'] as String,
       dueDate: json['DueDate'] as String,
       term: json['Term'] as String,

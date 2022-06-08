@@ -8,8 +8,8 @@ import 'package:web_store_management/Backend/HistoryOperation.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
 import 'package:web_store_management/Helpers/PrintHelper.dart';
 import 'package:web_store_management/Notification/BannerNotif.dart';
-import 'package:web_store_management/Pages/Borrowers/AddLoanPage.dart';
 import 'package:web_store_management/Pages/Borrowers/UpdateBrwUpdate.dart';
+import 'package:web_store_management/Pages/NewLoan/SelectionOfProductsPage.dart';
 import '../Reports/GlobalHistoryScreens/PaymentHistoryScreen.dart';
 import '../Reports/GlobalHistoryScreens/ProductHistoryScreen.dart';
 import '../../Helpers/CreateQRHelper.dart';
@@ -27,6 +27,8 @@ class ViewBrwProfile extends StatefulWidget {
 
   @override
   _ViewBrwProfile createState() => _ViewBrwProfile();
+
+  final String renew = 'renew_loan';
 }
 
 class _ViewBrwProfile extends State<ViewBrwProfile> {
@@ -343,14 +345,15 @@ class _ViewBrwProfile extends State<ViewBrwProfile> {
                                     height:
                                         (MediaQuery.of(context).size.height) /
                                             1.2,
-                                    child: AddLoanPage(
-                                      action: 'renew_loan',
+                                    child: SelectionOfProductsPage(
                                       id: widget.id,
+                                      action: widget.renew,
                                       firstname: name[0],
                                       lastname: name[1],
                                       number: widget.number.toString(),
-                                      address:
-                                          _findAddress(widget.id.toString()),
+                                      address: _findAddress(
+                                        widget.id.toString(),
+                                      ),
                                     ),
                                   ),
                                 ],

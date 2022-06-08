@@ -2,6 +2,7 @@ import 'dart:typed_data';
 
 class INewLoan {
   Future<bool> addBorrower(
+      String barcode,
       String firstname,
       String lastname,
       String mobile,
@@ -23,6 +24,7 @@ class INewLoan {
   //this will add new loan to the Loan table
   //and this will add credit investigation to the CreditInvestigation table
   Future<bool> addNewLoan(
+    String barcode,
     String firstname,
     String lastname,
     String term,
@@ -39,8 +41,16 @@ class INewLoan {
     return a;
   }
 
-  Future<bool> updateBalanceAndContract(num balance, int id, String firstname,
-      String lastname, plan, term, dueDate, Uint8List contract) async {
+  Future<bool> updateBalanceAndContract(
+      String barcode,
+      num balance,
+      int id,
+      String firstname,
+      String lastname,
+      plan,
+      term,
+      dueDate,
+      Uint8List contract) async {
     return true;
   }
 }

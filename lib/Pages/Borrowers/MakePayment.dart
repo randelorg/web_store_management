@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:intl/intl.dart';
+import 'package:web_store_management/Backend/BorrowerOperation.dart';
 import 'package:web_store_management/Notification/BannerNotif.dart';
-import '../../Backend/BorrowerOperation.dart';
 
 class MakePayment extends StatefulWidget {
   final String? id, name, debt;
@@ -13,10 +13,10 @@ class MakePayment extends StatefulWidget {
 }
 
 class _MakePayment extends State<MakePayment> {
-  TextEditingController name = TextEditingController();
-  TextEditingController debt = TextEditingController();
-  TextEditingController givenAmount = TextEditingController();
-  TextEditingController dateinput = TextEditingController();
+  var name = TextEditingController();
+  var debt = TextEditingController();
+  var givenAmount = TextEditingController();
+  var dateinput = TextEditingController();
 
   var borrower = BorrowerOperation();
 
@@ -257,6 +257,7 @@ class _MakePayment extends State<MakePayment> {
                                   dateinput.text.toString())
                               .then((value) {
                             if (value) {
+                              // BorrowersPage(reload: () {});
                               BannerNotif.notif(
                                 'Success',
                                 'Payment has been recorded',

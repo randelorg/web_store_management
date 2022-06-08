@@ -22,7 +22,7 @@ class ITextMessage {
     return a;
   }
 
-  Future<int> checkNumberIfExisting(String mobile) {
+  Future<int> checkAdminNumberIfExisting(String mobile) {
     var a;
     return a;
   }

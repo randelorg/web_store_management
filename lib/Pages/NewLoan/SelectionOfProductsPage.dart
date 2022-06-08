@@ -9,10 +9,13 @@ import '../../Backend/GlobalController.dart';
 
 class SelectionOfProductsPage extends StatefulWidget {
   final int? id;
+  final String? barcode, itemCode;
   final String? firstname, lastname, number, address;
   final String? action;
   const SelectionOfProductsPage({
     Key? key,
+    this.barcode,
+    this.itemCode,
     this.id,
     this.action,
     this.firstname,
@@ -25,6 +28,8 @@ class SelectionOfProductsPage extends StatefulWidget {
   _SelectionOfProductsPage createState() => _SelectionOfProductsPage();
 
   final String appliance = 'Appliances';
+  final String newLoan = 'new_loan';
+  final String renewLoan = 'renew_loan';
 }
 
 class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
@@ -52,9 +57,11 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
   final mobileNumberOtp = TextEditingController();
   final otp = TextEditingController();
   var sendMessOtp = TextMessage();
+
+  bool successSentOtp = false, verified = false;
+  String _verifyOtp = '', actionTaken = '';
   int counter = 0;
-  bool successSentOtp = false,  verified = false;
-  String _verifyOtp = '';
+  int brwID = -1;
 
   bool checkOtp(int code) {
     if (code == int.parse(_verifyOtp)) return true;
@@ -74,11 +81,13 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
   @override
   void initState() {
     try {
-      if (widget.action!.isEmpty) {
+      if (widget.action!.isNotEmpty) {
         setTextFields();
+        actionTaken = widget.action.toString();
+        brwID = widget.id!.toInt();
       }
     } catch (e) {
-      print(e);
+      actionTaken = widget.newLoan;
     }
 
     this._products = controller.fetchProducts();
@@ -185,13 +194,12 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
                       decoration: InputDecoration(
                         counterText: '',
                         hintText: 'Mobile Number',
-
                         suffixIcon: TextButton(
                           style: TextButton.styleFrom(
                             textStyle: TextStyle(fontSize: 15),
                           ),
                           child: Text(
-                            'Send',
+                            'Send OTP',
                             style: TextStyle(
                               fontSize: 15,
                               color: HexColor("#155293"),
@@ -347,7 +355,6 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
                     ],
                   ),
                 ),
-
                 Padding(
                   padding: EdgeInsets.only(top: 10),
                   child: ClipRRect(
@@ -388,7 +395,6 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
             ),
           ),
         ),
-        
         const VerticalDivider(
           color: Colors.grey,
           thickness: 1,
@@ -400,6 +406,24 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            Visibility(
+              visible: actionTaken == widget.renewLoan ? true : false,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  IconButton(
+                    icon: Icon(
+                      Icons.cancel,
+                      color: Colors.black,
+                      size: 30,
+                    ),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ],
+              ),
+            ),
             Padding(
               padding: const EdgeInsets.only(top: 100),
               child: const Text(
@@ -605,13 +629,15 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
                         context: context,
                         builder: (BuildContext context) {
                           return PaymentPlanPage(
-                            action: 'new_loan',
+                            borrowerId: brwID,
+                            action: actionTaken,
                             firstname: firstname.text,
                             lastname: lastname.text,
                             mobile: mobileNumberOtp.text,
                             address: homeAddress.text,
                             total: double.parse(productPrice.text),
-                            contract: pick.image,
+                            contract: pick.getImageBytes(),
+                            productCode: productCode.text,
                           );
                         },
                       );
@@ -626,184 +652,17 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
     );
   }
 
-  Widget productInfo() {
-    return Container(
-      width: (MediaQuery.of(context).size.width) / 2.5,
-      height: (MediaQuery.of(context).size.width) / 3,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const Text(
-            "PRODUCT DETAILS",
-            style: TextStyle(fontFamily: 'Cairo_Bold', fontSize: 30),
-          ),
-          Padding(
-            padding: EdgeInsets.only(
-                top: 20,
-                bottom: 6,
-                right: 6,
-                left: 6), //add padding to the textfields
-            child: TextField(
-              controller: productCode,
-              readOnly: true,
-              decoration: InputDecoration(
-                hintText: 'Product Code',
-                filled: true,
-                fillColor: Colors.blueGrey[50],
-                labelStyle: TextStyle(fontSize: 12),
-                contentPadding: EdgeInsets.only(left: 15),
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-              ),
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.all(6),
-            child: TextField(
-              controller: productName,
-              readOnly: true,
-              decoration: InputDecoration(
-                hintText: 'Product Name',
-                filled: true,
-                fillColor: Colors.blueGrey[50],
-                labelStyle: TextStyle(fontSize: 12),
-                contentPadding: EdgeInsets.only(left: 15),
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-              ),
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.all(6),
-            child: TextField(
-              controller: productPrice,
-              readOnly: true,
-              decoration: InputDecoration(
-                hintText: 'Product Price',
-                filled: true,
-                fillColor: Colors.blueGrey[50],
-                labelStyle: TextStyle(fontSize: 12),
-                contentPadding: EdgeInsets.only(left: 15),
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-              ),
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.all(6),
-            child: TextField(
-              controller: productType,
-              maxLength: 12,
-              readOnly: true,
-              decoration: InputDecoration(
-                counterText: '',
-                hintText: 'Product Type',
-                filled: true,
-                fillColor: Colors.blueGrey[50],
-                labelStyle: TextStyle(fontSize: 12),
-                contentPadding: EdgeInsets.only(left: 15),
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-              ),
-            ),
-          ),
-          Visibility(
-            visible: verified,
-            child: Padding(
-              padding: const EdgeInsets.all(10),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(20),
-                child: Stack(
-                  children: <Widget>[
-                    Positioned.fill(
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: HexColor("#155293"),
-                        ),
-                      ),
-                    ),
-                    TextButton(
-                        style: TextButton.styleFrom(
-                          padding: const EdgeInsets.only(
-                              top: 18, bottom: 18, left: 36, right: 36),
-                          primary: Colors.white,
-                          textStyle: TextStyle(
-                              fontFamily: 'Cairo_SemiBold', fontSize: 20),
-                        ),
-                        child: const Text('DONE'),
-                        onPressed: () async {
-                          if (firstname.text.isEmpty ||
-                              lastname.text.isEmpty ||
-                              mobileNumberOtp.text.isEmpty ||
-                              homeAddress.text.isEmpty ||
-                              productPrice.text.isEmpty) {
-                            BannerNotif.notif(
-                                "Error",
-                                "Please fill all the fields",
-                                Colors.red.shade600);
-                          } else if (pick.image == null) {
-                            BannerNotif.notif(
-                                "Error",
-                                "Please upload a file (jpg, png, jpeg)",
-                                Colors.red.shade600);
-                          } else {
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return PaymentPlanPage(
-                                  action: 'new_loan',
-                                  firstname: firstname.text,
-                                  lastname: lastname.text,
-                                  mobile: mobileNumberOtp.text,
-                                  address: homeAddress.text,
-                                  total: double.parse(productPrice.text),
-                                  contract: pick.image,
-                                );
-                              },
-                            );
-                          }
-                        }),
-                  ],
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
   Future<bool> _checkNumberifExisting(String mobile) async {
     bool result = false;
-    await sendMessOtp.checkNumberIfNew(mobile).then((value) {
-      if (value)
+    await sendMessOtp.checkBorrowerNumberIfExisting(mobile).then((value) {
+      if (value) {
+        if (actionTaken == widget.renewLoan)
+          return result = false;
+        else
+          result = value;
+      } else {
         result = value;
-      else
-        result = value;
+      }
     });
 
     return result;

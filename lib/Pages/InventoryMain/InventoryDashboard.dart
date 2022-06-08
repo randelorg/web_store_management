@@ -6,7 +6,7 @@ import 'package:web_store_management/Backend/Utility/Mapping.dart';
 import 'package:web_store_management/Models/ProductModel.dart';
 import 'package:web_store_management/Backend/ProductOperation.dart';
 import 'package:web_store_management/Notification/BannerNotif.dart';
-import 'package:web_store_management/Pages/Inventory/TransferStock.dart';
+import 'package:web_store_management/Pages/InventoryMain/TransferStock.dart';
 
 class InventoryDashboard extends StatefulWidget {
   @override

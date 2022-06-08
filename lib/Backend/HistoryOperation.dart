@@ -14,7 +14,7 @@ class HistoryOperation implements IHistory {
     var response;
     try {
       await Environment.methodGet(
-              "${Environment.apiUrl}/api/loanedproducts/$borrowerId")
+              "http://localhost:8090/api/loanedproducts/$borrowerId")
           .then((value) {
         response = value;
       });

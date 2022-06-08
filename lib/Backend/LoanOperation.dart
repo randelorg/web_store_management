@@ -13,6 +13,7 @@ import 'package:web_store_management/environment/Environment.dart';
 class LoanOperation extends BorrowerOperation implements INewLoan {
   @override
   Future<bool> addBorrower(
+    String barcode,
     String firstname,
     String lastname,
     String mobile,
@@ -35,7 +36,7 @@ class LoanOperation extends BorrowerOperation implements INewLoan {
 
     try {
       await Environment.methodPost(
-              "${Environment.apiUrl}/api/addborrower", brwDetail)
+              "http://localhost:8090/api/addborrower", brwDetail)
           .then((value) {
         response = value;
       });
@@ -44,10 +45,14 @@ class LoanOperation extends BorrowerOperation implements INewLoan {
       await addInvestigation(firstname, lastname);
 
       //add the loan
-      await addNewLoan(firstname, lastname, plan, term, duedate);
+      await addNewLoan(barcode, firstname, lastname, plan, term, duedate);
 
       if (response.statusCode == 404) {
         return false;
+      }
+
+      if (response.statusCode == 202) {
+        return true;
       }
     } catch (e) {
       e.toString();
@@ -72,12 +77,12 @@ class LoanOperation extends BorrowerOperation implements INewLoan {
 
     try {
       await Environment.methodPost(
-              "${Environment.apiUrl}/api/addinvestigation", brwDetail2)
+              "http://localhost:8090/api/addinvestigation", brwDetail2)
           .then((value) {
         response = value;
       });
 
-      if (response.statusCode == 404) {
+      if (response.statusCode == 404 || response.statusCode == 204) {
         return false;
       }
     } catch (e) {
@@ -95,35 +100,32 @@ class LoanOperation extends BorrowerOperation implements INewLoan {
   }
 
   @override
-  Future<bool> addNewLoan(String firstname, String lastname, String plan,
-      String term, String duedate) async {
+  Future<bool> addNewLoan(String barcode, String firstname, String lastname,
+      String plan, String term, String duedate) async {
     var response;
-    for (var item in Mapping.selectedProducts) {
-      try {
-        var payload = json.encode({
-          "firstname": firstname,
-          "lastname": lastname,
-          "productCode": item.getProductCode,
-          'plan': plan,
-          'duedate': duedate,
-          'term': term,
-          'qty': 1,
-          'status': 'UNPAID',
-        });
-        await Environment.methodPost(
-                "${Environment.apiUrl}/api/addloan", payload)
-            .then((value) {
-          response = value;
-        });
-      } catch (e) {
-        e.toString();
-        BannerNotif.notif(
-          'Error',
-          'Something went wrong while adding the loan',
-          Colors.red.shade600,
-        );
-        return false;
-      }
+    final String unpaid = 'UNPAID';
+    try {
+      var payload = json.encode({
+        "firstname": firstname,
+        "lastname": lastname,
+        "productCode": barcode,
+        'plan': plan,
+        'duedate': duedate,
+        'term': term,
+        'status': unpaid,
+      });
+      await Environment.methodPost("http://localhost:8090/api/addloan", payload)
+          .then((value) {
+        response = value;
+      });
+    } catch (e) {
+      e.toString();
+      BannerNotif.notif(
+        'Error',
+        'Something went wrong while adding the loan',
+        Colors.red.shade600,
+      );
+      return false;
     }
 
     return true;
@@ -134,25 +136,16 @@ class LoanOperation extends BorrowerOperation implements INewLoan {
       String status, String? invoiceNumber) async {
     var x = PurchasesOperation();
     const String loan = 'LOAN';
+    const String released = 'RELEASED';
     try {
       final response = await http.get(
         Uri.parse(
-          "${Environment.apiUrl}/api/approved/${investigationId.toString()}/${borrowerId.toString()}/$status",
+          "http://localhost:8090/api/approved/${investigationId.toString()}/${borrowerId.toString()}/$status",
         ),
         headers: {HttpHeaders.authorizationHeader: "${Environment.apiToken}"},
       );
 
-      //initate deduction of stock here
-      // if (status == 'RELEASED') {
-      //   await http.get(
-      //     Uri.parse(
-      //       "${Environment.apiUrl}/api/loans/${borrowerId.toString()}",
-      //     ),
-      //     headers: {HttpHeaders.authorizationHeader: "${Environment.apiToken}"},
-      //   );
-      // }
-      //replace this with the deduct of stock in purchase class
-      if (status == 'RELEASED') {
+      if (status == released) {
         await x.customerPurchase(invoiceNumber.toString(), loan);
       }
 
@@ -178,8 +171,16 @@ class LoanOperation extends BorrowerOperation implements INewLoan {
   }
 
   @override
-  Future<bool> updateBalanceAndContract(num balance, int id, String firstname,
-      String lastname, plan, term, dueDate, Uint8List? contract) async {
+  Future<bool> updateBalanceAndContract(
+      String barcode,
+      num balance,
+      int id,
+      String firstname,
+      String lastname,
+      plan,
+      term,
+      dueDate,
+      Uint8List? contract) async {
     var response, load;
     load = json.encode({
       "id": id,
@@ -187,7 +188,7 @@ class LoanOperation extends BorrowerOperation implements INewLoan {
       "contract": contract,
     });
     try {
-      await Environment.methodPost("${Environment.apiUrl}/api/updatebal", load)
+      await Environment.methodPost("http://localhost:8090/api/updatebal", load)
           .then((value) {
         response = value;
       });
@@ -201,7 +202,7 @@ class LoanOperation extends BorrowerOperation implements INewLoan {
         await addInvestigation(firstname, lastname);
 
         //add to new loan {renewal}
-        await addNewLoan(firstname, lastname, plan, term, dueDate);
+        await addNewLoan(barcode, firstname, lastname, plan, term, dueDate);
         return true;
       }
     } catch (e) {

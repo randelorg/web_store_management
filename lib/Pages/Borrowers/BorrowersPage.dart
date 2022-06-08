@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:modal_side_sheet/modal_side_sheet.dart';
 import 'package:web_store_management/Models/BorrowerModel.dart';
 import 'package:web_store_management/Pages/Borrowers/ViewBrwProfile.dart';
-import 'package:web_store_management/Pages/Payment/MakePayment.dart';
+import 'package:web_store_management/Pages/Borrowers/MakePayment.dart';
 import '../../Backend/Utility/Mapping.dart';
 import '../../Backend/GlobalController.dart';
 
@@ -20,6 +20,13 @@ class _BorrowersPage extends State<BorrowersPage> {
   String _searchResult = '';
   var _sortAscending = true;
 
+  void reloadPage() {
+    setState(() {
+      borrowers = controller.fetchBorrowers();
+      borrowers.whenComplete(() => _borrowerFiltered = Mapping.borrowerList);
+    });
+  }
+
   @override
   void initState() {
     borrowers = controller.fetchBorrowers();
@@ -27,7 +34,6 @@ class _BorrowersPage extends State<BorrowersPage> {
     //fill the list with all the borrowers
     //to have a init state of filled table
     borrowers.whenComplete(() => _borrowerFiltered = Mapping.borrowerList);
-
     super.initState();
   }
 

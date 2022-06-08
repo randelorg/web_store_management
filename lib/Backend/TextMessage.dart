@@ -135,11 +135,11 @@ class TextMessage implements ITextMessage {
     return true;
   }
 
-  Future<bool> checkNumberIfNew(String mobile) async {
+  Future<bool> checkBorrowerNumberIfExisting(String mobile) async {
     var response;
     try {
       await Environment.methodGet(
-              "${Environment.apiUrl}/api/otpcheckpoint/$mobile")
+              "http://localhost:9090/api/brwotpcheckpoint/$mobile")
           .then((value) {
         response = value;
       });
@@ -162,12 +162,12 @@ class TextMessage implements ITextMessage {
     return true;
   }
 
-  Future<int> checkNumberIfExisting(String mobile) async {
+  Future<int> checkAdminNumberIfExisting(String mobile) async {
     int otp = 0;
     var response;
     try {
       await Environment.methodGet(
-              "${Environment.apiUrl}/api/otpcheckpoint/$mobile")
+              "http:localhost:8090/api/adminotpcheckpoint/$mobile")
           .then((value) {
         response = value;
       });

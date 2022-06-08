@@ -25,6 +25,10 @@ class Picker {
   }
 
   Uint8List getImageBytes() {
-    return image;
+    try {
+      return image;
+    } catch (e) {
+      return Uint8List(0);
+    }
   }
 }
