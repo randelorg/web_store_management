@@ -43,7 +43,7 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
   final otp = TextEditingController();
   var sendMessOtp = TextMessage();
   int counter = 0;
-  bool successSentOtp = false, sendButton = true, verified = false;
+  bool successSentOtp = false,  verified = false;
   String _verifyOtp = '';
 
   bool checkOtp(int code) {
@@ -149,40 +149,188 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
                     ),
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsets.all(6),
-                  child: TextField(
-                    controller: mobileNumberOtp,
-                    maxLength: 12,
-                    decoration: InputDecoration(
-                      counterText: '',
-                      hintText: 'Mobile Number',
-                      filled: true,
-                      fillColor: Colors.blueGrey[50],
-                      labelStyle: TextStyle(fontSize: 12),
-                      contentPadding: EdgeInsets.only(left: 15),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                        borderRadius: BorderRadius.circular(10),
+                Visibility(
+                  child: Padding(
+                    padding: EdgeInsets.all(6),
+                    child: TextField(
+                      controller: mobileNumberOtp,
+                      maxLength: 12,
+                      decoration: InputDecoration(
+                        counterText: '',
+                        hintText: 'Mobile Number',
+
+                        suffixIcon: TextButton(
+                          style: TextButton.styleFrom(
+                            textStyle: TextStyle(fontSize: 15),
+                          ),
+                          child: Text(
+                            'Send',
+                            style: TextStyle(
+                              fontSize: 15,
+                              color: HexColor("#155293"),
+                              fontFamily: 'Cairo_SemiBold',
+                            ),
+                          ),
+                          onPressed: () {
+                            if (mobileNumberOtp.text.isEmpty) {
+                              BannerNotif.notif(
+                                "Error",
+                                "Please fill the mobile number field",
+                                Colors.red.shade600,
+                              );
+                            } else {
+                              if (mobileNumberOtp.text.isNotEmpty) {
+                                _checkNumberifExisting(mobileNumberOtp.text)
+                                    .then((value) {
+                                  if (!value) {
+                                    sendMessOtp
+                                        .getOtp(mobileNumberOtp.text)
+                                        .then((value) {
+                                      if (value > 0) {
+                                        setState(() {
+                                          successSentOtp = true;
+                                        });
+                                        _verifyOtp = value.toString();
+                                      } else {
+                                        BannerNotif.notif(
+                                          "Error",
+                                          "Something went wrong please try again",
+                                          Colors.red.shade600,
+                                        );
+                                      }
+                                    });
+                                  } else {
+                                    BannerNotif.notif(
+                                      "Existing",
+                                      "Mobile number is existing or use in different application",
+                                      Colors.red.shade600,
+                                    );
+                                  }
+                                });
+                              }
+                            }
+                          },
+                        ),
+                        filled: true,
+                        fillColor: Colors.blueGrey[50],
+                        labelStyle: TextStyle(fontSize: 12),
+                        contentPadding: EdgeInsets.only(left: 15),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide:
+                              BorderSide(color: Colors.blueGrey.shade50),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide:
+                              BorderSide(color: Colors.blueGrey.shade50),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
                       ),
                     ),
                   ),
                 ),
-                mobileOtp(),
+                Visibility(
+                  visible: successSentOtp,
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.all(6),
+                        child: TextField(
+                          controller: otp,
+                          maxLength: 12,
+                          decoration: InputDecoration(
+                            counterText: '',
+                            hintText: 'Verification Code',
+                            suffixIcon: TextButton(
+                                style: TextButton.styleFrom(
+                                  textStyle: TextStyle(fontSize: 15),
+                                ),
+                                child: Text(
+                                  'Verify',
+                                  style: TextStyle(
+                                    fontSize: 15,
+                                    color: HexColor("#155293"),
+                                    fontFamily: 'Cairo_SemiBold',
+                                  ),
+                                ),
+                                onPressed: () {
+                                  if (otp.text.isEmpty) {
+                                    BannerNotif.notif(
+                                      "Error",
+                                      "Please fill the mobile number field",
+                                      Colors.red.shade600,
+                                    );
+                                  } else {
+                                    if (checkOtp(int.parse(otp.text))) {
+                                      setState(() {
+                                        //show done button
+                                        verified = true;
+                                        //hide otp widgets
+                                        successSentOtp = false;
+
+                                        BannerNotif.notif(
+                                          'Verified number',
+                                          'Can now proceed to the application',
+                                          Colors.green.shade600,
+                                        );
+                                      });
+                                    } else {
+                                      setState(() {
+                                        counter++;
+                                      });
+
+                                      //show snackbar that the otp is wrong
+                                      BannerNotif.notif(
+                                        'Try again',
+                                        'Wrong OTP',
+                                        Colors.red.shade600,
+                                      );
+
+                                      if (counter >= 3) {
+                                        setState(() {
+                                          successSentOtp = false;
+                                        });
+                                        //attempted to enter wrong OTP 3 times
+                                        BannerNotif.notif(
+                                          'WRONG OTP',
+                                          'You enter wrong OTP for 3 times, try again in few minutes',
+                                          Colors.red.shade600,
+                                        );
+                                      }
+                                    }
+                                  }
+                                }),
+                            filled: true,
+                            fillColor: Colors.blueGrey[50],
+                            labelStyle: TextStyle(fontSize: 12),
+                            contentPadding: EdgeInsets.only(left: 15),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: Colors.blueGrey.shade50),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: Colors.blueGrey.shade50),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
                 Padding(
                   padding: EdgeInsets.only(top: 10),
                   child: ClipRRect(
-                    borderRadius: BorderRadius.circular(8),
+                    borderRadius: BorderRadius.circular(10),
                     child: Stack(
                       children: <Widget>[
                         Positioned.fill(
                           child: Container(
                             decoration: BoxDecoration(
-                              color: HexColor("#155293"),
+                              color: Colors.green,
                             ),
                           ),
                         ),
@@ -191,7 +339,7 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
                           style: TextButton.styleFrom(
                             primary: Colors.white,
                             textStyle: TextStyle(
-                              fontSize: 12,
+                              fontSize: 14,
                               fontFamily: 'Cairo_SemiBold',
                             ),
                           ),
@@ -213,6 +361,7 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
             ),
           ),
         ),
+        
         const VerticalDivider(
           color: Colors.grey,
           thickness: 1,
@@ -225,7 +374,7 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Padding(
-              padding: const EdgeInsets.only(top: 40.0),
+              padding: const EdgeInsets.only(top: 100),
               child: const Text(
                 "Step 2",
                 style: TextStyle(
@@ -347,204 +496,6 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
     return status;
   }
 
-  Widget mobileOtp() {
-    return Column(
-      children: [
-        //send OTP to the mobile number button
-        Visibility(
-          visible: sendButton,
-          child: Padding(
-            padding: const EdgeInsets.only(top: 10),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(10),
-              child: Stack(
-                children: <Widget>[
-                  Positioned.fill(
-                    child: Container(
-                      decoration: BoxDecoration(color: HexColor("#155293")),
-                    ),
-                  ),
-                  TextButton(
-                    style: TextButton.styleFrom(
-                      padding: const EdgeInsets.only(
-                          left: 20, right: 20, top: 15, bottom: 15),
-                      primary: Colors.white,
-                      textStyle: TextStyle(
-                        fontFamily: 'Cairo_SemiBold',
-                        fontSize: 14,
-                        color: Colors.white,
-                      ),
-                    ),
-                    child: Text('Verify'),
-                    onPressed: () {
-                      if (mobileNumberOtp.text.isEmpty) {
-                        BannerNotif.notif(
-                          "Error",
-                          "Please fill the mobile number field",
-                          Colors.red.shade600,
-                        );
-                      } else {
-                        if (mobileNumberOtp.text.isNotEmpty) {
-                          _checkNumberifExisting(mobileNumberOtp.text)
-                              .then((value) {
-                            if (!value) {
-                              sendMessOtp
-                                  .getOtp(mobileNumberOtp.text)
-                                  .then((value) {
-                                if (value > 0) {
-                                  setState(() {
-                                    successSentOtp = true;
-                                    sendButton = false;
-                                  });
-                                  _verifyOtp = value.toString();
-                                } else {
-                                  BannerNotif.notif(
-                                    "Error",
-                                    "Something went wrong please try again",
-                                    Colors.red.shade600,
-                                  );
-                                }
-                              });
-                            } else {
-                              BannerNotif.notif(
-                                "Existing",
-                                "Mobile number is existing or use in different application",
-                                Colors.red.shade600,
-                              );
-                            }
-                          });
-                        }
-                      }
-                    },
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-        Visibility(
-          visible: successSentOtp,
-          child: Column(
-            children: [
-              Padding(
-                padding: EdgeInsets.only(top: 30, left: 7),
-                child: Container(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    'Enter OTP',
-                    style: TextStyle(fontSize: 10),
-                  ),
-                ),
-              ),
-                 Padding(
-                  padding: EdgeInsets.all(6),
-                  child: TextField(
-                    controller: otp,
-                    autofocus: true,
-                    maxLength: 6,
-                    decoration: InputDecoration(
-                      hintText: 'OTP Code',
-                      counterText: '',
-                      filled: true,
-                      fillColor: Colors.blueGrey[50],
-                      labelStyle: TextStyle(fontSize: 12),
-                      contentPadding: EdgeInsets.only(left: 15),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                  ),
-                ),
-              
-              //verify OTP
-              Padding(
-                padding: const EdgeInsets.only(top: 10),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(5),
-                  child: Stack(
-                    children: <Widget>[
-                      Positioned.fill(
-                        child: Container(
-                          decoration: BoxDecoration(color: HexColor("#155293")),
-                        ),
-                      ),
-                      TextButton(
-                        style: TextButton.styleFrom(
-                          padding: const EdgeInsets.only(
-                              left: 20, right: 20, top: 15, bottom: 15),
-                          primary: Colors.white,
-                          textStyle: TextStyle(
-                              fontFamily: 'Cairo_SemiBold',
-                              fontSize: 14,
-                              color: Colors.white),
-                        ),
-                        child: Text('Verify OTP'),
-                        onPressed: () {
-                          if (mobileNumberOtp.text.isEmpty) {
-                            BannerNotif.notif(
-                              "Error",
-                              "Please fill the mobile number field",
-                              Colors.red.shade600,
-                            );
-                          } else {
-                            if (checkOtp(int.parse(otp.text))) {
-                              setState(() {
-                                //show done button
-                                verified = true;
-                                //hide otp widgets
-                                successSentOtp = false;
-                                sendButton = false;
-
-                                BannerNotif.notif(
-                                  'Verified number',
-                                  'Can now proceed to the application',
-                                  Colors.green.shade600,
-                                );
-                              });
-                            } else {
-                              setState(() {
-                                counter++;
-                              });
-
-                              //show snackbar that the otp is wrong
-                              BannerNotif.notif(
-                                'Try again',
-                                'Wrong OTP',
-                                Colors.red.shade600,
-                              );
-
-                              if (counter >= 3) {
-                                setState(() {
-                                  successSentOtp = false;
-                                  sendButton = true;
-                                });
-                                //attempted to enter wrong OTP 3 times
-                                BannerNotif.notif(
-                                  'WRONG OTP',
-                                  'You enter wrong OTP for 3 times, try again in few minutes',
-                                  Colors.red.shade600,
-                                );
-                              }
-                            }
-                          }
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-
   Widget productCardInfo() {
     return SizedBox(
       width: (MediaQuery.of(context).size.width) / 2.5,
@@ -597,7 +548,11 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
                 TextButton(
                   child: const Text('DONE'),
                   style: TextButton.styleFrom(
-                    padding: const EdgeInsets.only(top: 18, bottom: 18, left: 36, right: 36,
+                    padding: const EdgeInsets.only(
+                      top: 18,
+                      bottom: 18,
+                      left: 36,
+                      right: 36,
                     ),
                     primary: Colors.blue.shade400,
                     textStyle: TextStyle(
@@ -605,7 +560,6 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
                       fontSize: 20,
                     ),
                   ),
-                  
                   onPressed: () {
                     if (firstname.text.isEmpty ||
                         lastname.text.isEmpty ||

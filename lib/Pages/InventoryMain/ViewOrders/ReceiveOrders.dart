@@ -309,7 +309,7 @@ class _ReceiveOrders extends State<ReceiveOrders> {
                               Positioned.fill(
                                 child: Container(
                                   decoration: BoxDecoration(
-                                    color: HexColor("#155293"),
+                                    color: HexColor("#EA1C24"),
                                   ),
                                 ),
                               ),
@@ -318,7 +318,7 @@ class _ReceiveOrders extends State<ReceiveOrders> {
                                     top: 8, bottom: 8, left: 16, right: 16),
                                 child: TextButton(
                                   child: Text(
-                                    'CANCEL',
+                                    'Cancel',
                                     style: TextStyle(
                                       fontFamily: 'Cairo_SemiBold',
                                       fontSize: 14,

@@ -251,7 +251,7 @@ class _CustomerBuy extends State<CustomerBuy> {
                               Positioned.fill(
                                 child: Container(
                                   decoration: BoxDecoration(
-                                    color: HexColor("#155293"),
+                                    color: HexColor("#EA1C24"), 
                                   ),
                                 ),
                               ),

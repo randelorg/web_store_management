@@ -36,7 +36,7 @@ class _ViewOrderList extends State<ViewOrderList> {
     return Column(
       children: [
         Padding(
-          padding: const EdgeInsets.only(top: 145),
+          padding: const EdgeInsets.only(top: 140),
           child: Text(
             'Order Slip ID: ${widget.orderSlipId} ordered from ${widget.supplierName!.toUpperCase()}',
             softWrap: true,
@@ -64,53 +64,69 @@ class _ViewOrderList extends State<ViewOrderList> {
             ),
           ],
         ),
-        FutureBuilder<List<IncomingPurchasesModel>>(
-          future: _order,
-          builder: (context, snapshot) {
-            if (!snapshot.hasData) {
-              return Center(
-                child: CircularProgressIndicator(
-                  semanticsLabel: 'Fetching order list',
-                ),
-              );
-            }
-            if (snapshot.hasData) {
-              if (snapshot.data!.isNotEmpty) {
-                return Padding(
-                  padding: EdgeInsets.only(top: 5, left: 15, right: 15),
-                  child: PaginatedDataTable(
-                    columnSpacing: 35,
-                    showCheckboxColumn: false,
-                    showFirstLastButtons: true,
-                    sortAscending: _sortAscending,
-                    sortColumnIndex: 0,
-                    rowsPerPage: 8,
-                    columns: [
-                      DataColumn(
-                        label: Text('BARCODE'),
-                        onSort: (index, sortAscending) {
-                          setState(() {
-                            _sortAscending = sortAscending;
-                            if (sortAscending) {
-                              snapshot.data!.sort((a, b) =>
-                                  a.getProductCode.compareTo(b.getProductCode));
-                            } else {
-                              snapshot.data!.sort((a, b) =>
-                                  b.getProductCode.compareTo(a.getProductCode));
-                            }
-                          });
-                        },
-                      ),
-                      DataColumn(label: Text('NAME')),
-                      DataColumn(label: Text('TYPE')),
-                      DataColumn(label: Text('QUANTITY ORDERED')),
-                      DataColumn(label: Text('ACTION')),
-                    ],
-                    source: _DataSource(context),
+        Expanded(
+            child: Container(
+          width: (MediaQuery.of(context).size.width),
+          height: (MediaQuery.of(context).size.height),
+          child: FutureBuilder<List<IncomingPurchasesModel>>(
+            future: _order,
+            builder: (context, snapshot) {
+              if (!snapshot.hasData) {
+                return Center(
+                  child: CircularProgressIndicator(
+                    semanticsLabel: 'Fetching order list',
                   ),
                 );
-              } else {
-                return Center(
+              }
+              if (snapshot.hasData) {
+                if (snapshot.data!.isNotEmpty) {
+                  return Padding(
+                    padding: const EdgeInsets.only(top: 5, left: 15, right: 15),
+                    child: PaginatedDataTable(
+                      showCheckboxColumn: false,
+                      showFirstLastButtons: true,
+                      sortAscending: _sortAscending,
+                      sortColumnIndex: 0,
+                      rowsPerPage: 8,
+                      columns: [
+                        DataColumn(
+                          label: Text('BARCODE'),
+                          onSort: (index, sortAscending) {
+                            setState(() {
+                              _sortAscending = sortAscending;
+                              if (sortAscending) {
+                                snapshot.data!.sort((a, b) => a.getProductCode
+                                    .compareTo(b.getProductCode));
+                              } else {
+                                snapshot.data!.sort((a, b) => b.getProductCode
+                                    .compareTo(a.getProductCode));
+                              }
+                            });
+                          },
+                        ),
+                        DataColumn(label: Text('NAME')),
+                        DataColumn(label: Text('TYPE')),
+                        DataColumn(label: Text('QUANTITY ORDERED')),
+                        DataColumn(label: Text('ACTION')),
+                      ],
+                      source: _DataSource(context),
+                    ),
+                  );
+                } else {
+                  return Center(
+                    child: Text(
+                      'NO ORDER DETAILS FOUND',
+                      style: TextStyle(
+                        color: Colors.grey[500],
+                        fontFamily: 'Cairo_SemiBold',
+                        fontSize: 20,
+                      ),
+                    ),
+                  );
+                }
+              }
+              return Center(
+                child: Center(
                   child: Text(
                     'NO ORDER DETAILS FOUND',
                     style: TextStyle(
@@ -119,23 +135,11 @@ class _ViewOrderList extends State<ViewOrderList> {
                       fontSize: 20,
                     ),
                   ),
-                );
-              }
-            }
-            return Center(
-              child: Center(
-                child: Text(
-                  'NO ORDER DETAILS FOUND',
-                  style: TextStyle(
-                    color: Colors.grey[500],
-                    fontFamily: 'Cairo_SemiBold',
-                    fontSize: 20,
-                  ),
                 ),
-              ),
-            );
-          },
-        ),
+              );
+            },
+          ),
+        )),
         Padding(
           padding: const EdgeInsets.all(10),
           child: ClipRRect(
