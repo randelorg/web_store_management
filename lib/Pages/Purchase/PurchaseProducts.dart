@@ -18,20 +18,23 @@ class PurchaseProducts extends StatefulWidget {
 }
 
 class _PurchaseProducts extends State<PurchaseProducts> {
-  var _sortAscending = true;
   var controller = GlobalController();
   var prod = ProductOperation();
   var searchProduct = PurchasesOperation();
-  late Future<String> _productName;
+
   late Future<List<ProductModel>> _products;
   late Future _suppliers;
   late Future<List<IncomingPurchasesModel>> _purchases;
+  late Future<String> _productName;
+
   String _orderId = '', pickedSupplier = '';
   bool show = false;
+  var _sortAscending = true;
+
   var purchaseOrderId = CashPaymentOperation();
-  TextEditingController productName = TextEditingController();
-  TextEditingController barcode = TextEditingController();
-  TextEditingController qty = TextEditingController();
+  var productName = TextEditingController();
+  var barcode = TextEditingController();
+  var qty = TextEditingController();
 
   @override
   void initState() {
@@ -47,6 +50,14 @@ class _PurchaseProducts extends State<PurchaseProducts> {
       });
     });
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    productName.dispose();
+    barcode.dispose();
+    qty.dispose();
+    super.dispose();
   }
 
   //get store available branches
@@ -364,9 +375,9 @@ class _PurchaseProducts extends State<PurchaseProducts> {
                         onPressed: () async {
                           if (barcode.text.isEmpty || qty.text.isEmpty) {
                             BannerNotif.notif(
-                              "Error",
-                              "Please fill all the fields",
-                              Colors.red.shade600);
+                                "Error",
+                                "Please fill all the fields",
+                                Colors.red.shade600);
                           } else {
                             _purchases = searchProduct.addToPurchaseTable(
                               barcode.text,
@@ -486,7 +497,8 @@ class _PurchaseProducts extends State<PurchaseProducts> {
                         children: [
                           Padding(
                             padding: const EdgeInsets.only(right: 40),
-                            child: Text("Purchase Order #: ${_orderId.toUpperCase()}"),
+                            child: Text(
+                                "Purchase Order #: ${_orderId.toUpperCase()}"),
                           ),
                           Text("Date Today: ${Mapping.dateToday()}"),
                         ],

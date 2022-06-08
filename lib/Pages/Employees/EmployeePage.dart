@@ -11,17 +11,24 @@ import '../../Backend/GlobalController.dart';
 class EmployeePage extends StatefulWidget {
   @override
   _Employeepage createState() => _Employeepage();
+
+  final String attendant = 'Store Attendant';
+  final String collector = 'Collector';
+  final List<String> filters = ["Store Attendant", "Collector"];
 }
 
 class _Employeepage extends State<EmployeePage> {
   var controller = GlobalController();
-  String collector = 'Collector';
-  String storeAttendant = 'Store Attendant';
   var _sortAscending = true;
+
   late Future<List<EmployeeModel>> employees;
   List<EmployeeModel> _employeeFiltered = [];
-  TextEditingController searchValue = TextEditingController();
+  List<String> filterEmp = [];
+
+  var searchValue = TextEditingController();
   String _searchResult = '';
+  String collector = 'Collector';
+  String storeAttendant = 'Store Attendant';
 
   @override
   void initState() {
@@ -105,13 +112,18 @@ class _Employeepage extends State<EmployeePage> {
                         header: Text(
                           'Employee List',
                           style: TextStyle(
-                              fontSize: 18,
-                              color: Colors.black,
-                              fontFamily: 'Cairo_Bold'),
+                            fontSize: 18,
+                            color: Colors.black,
+                            fontFamily: 'Cairo_Bold',
+                          ),
                         ),
                         actions: [
+                          Wrap(
+                            children: productTypeWidget().toList(),
+                          ),
                           Container(
-                            padding: const EdgeInsets.only(top: 5, left: 20, right: 5),
+                            padding: const EdgeInsets.only(
+                                top: 5, left: 20, right: 5),
                             width: 300,
                             child: TextField(
                               controller: searchValue,
@@ -183,6 +195,34 @@ class _Employeepage extends State<EmployeePage> {
         ),
       ],
     );
+  }
+
+  Iterable<Widget> productTypeWidget() {
+    return widget.filters.map((status) {
+      return Padding(
+        padding: const EdgeInsets.only(right: 20),
+        child: ChoiceChip(
+          label: Text(status),
+          selected: filterEmp.contains(status),
+          onSelected: (bool value) {
+            setState(() {
+              if (value) {
+                filterEmp.add(status);
+                _employeeFiltered = Mapping.employeeList
+                    .where((emp) =>
+                        emp.getRole.contains(status.replaceAll(' ', '')))
+                    .toList();
+              } else {
+                filterEmp.removeWhere((name) {
+                  _employeeFiltered = Mapping.employeeList;
+                  return name == status;
+                });
+              }
+            });
+          },
+        ),
+      );
+    });
   }
 }
 
