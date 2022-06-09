@@ -116,7 +116,7 @@ class _ProductHistory extends State<ProductHistory> {
                           textAlign: TextAlign.center,
                         )),
                         DataColumn(label: Text('PRICE')),
-                        DataColumn(label: Text('QTY')),
+                        DataColumn(label: Text('Item Code')),
                         DataColumn(
                           label: Text(
                             'PAYMENT \n PLAN',
@@ -183,7 +183,7 @@ class _Row {
   final String valueA;
   final String valueB;
   final double valueC; //price
-  final int valueD; //quantity
+  final String valueD; //item code
   final String valueE;
   final String valueF;
   final String valueG;
@@ -254,7 +254,7 @@ class _DataSource extends DataTableSource {
       return List.generate(
         0,
         (index) {
-          return _Row('', '', 0, 0, '', '', '', '');
+          return _Row('', '', 0, '', '', '', '', '');
         },
       );
     }
