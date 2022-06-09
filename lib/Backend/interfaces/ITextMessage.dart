@@ -10,12 +10,6 @@ class ITextMessage {
     return Future.value(a);
   }
 
-  Future<bool> sendRequestedProduct(
-      String name, String number, String product, String status) {
-    var a;
-    return a;
-  }
-
   Future<bool> sendRepairedProduct(
       String name, String number, String product, String status) {
     var a;

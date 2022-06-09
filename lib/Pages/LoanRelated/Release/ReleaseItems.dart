@@ -13,7 +13,9 @@ import 'package:web_store_management/Backend/ProductOperation.dart';
 
 class ReleaseItems extends StatefulWidget {
   final String? name, address, barcode, borrowerId, investigationId;
+  final int? loaniId;
   ReleaseItems({
+    required this.loaniId,
     required this.name,
     required this.address,
     required this.barcode,
@@ -121,6 +123,7 @@ class _ReleaseItems extends State<ReleaseItems> {
                               ),
                               child: const Text('RELEASE'),
                               onPressed: () async {
+                                bool isReleased = false;
                                 await loan
                                     .approvedCredit(
                                   int.parse(widget.investigationId.toString()),
@@ -129,6 +132,15 @@ class _ReleaseItems extends State<ReleaseItems> {
                                   invoiceNumber,
                                 )
                                     .then((value) {
+                                  isReleased = true;
+                                });
+
+                                if (isReleased) {
+                                  await loan.updateLoanProductItemId(
+                                    int.parse(widget.loaniId.toString()),
+                                    Mapping.invoice.first.itemCode,
+                                  );
+
                                   //reset all in the page
                                   //barcode.clear();
                                   Mapping.productItems.clear();
@@ -140,7 +152,7 @@ class _ReleaseItems extends State<ReleaseItems> {
                                   });
 
                                   Navigator.pop(context);
-                                });
+                                }
                               },
                             ),
                           ],

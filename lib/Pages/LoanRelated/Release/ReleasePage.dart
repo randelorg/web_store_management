@@ -375,6 +375,7 @@ class _ReleasePage extends State<ReleasePage> {
                                     Padding(
                                       padding: const EdgeInsets.all(30.0),
                                       child: ReleaseItems(
+                                        loaniId: brwRelease[index].getLoanId,
                                         name: brwRelease[index].toString(),
                                         address:
                                             brwRelease[index].getHomeAddress,

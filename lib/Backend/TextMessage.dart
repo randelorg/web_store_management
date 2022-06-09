@@ -13,12 +13,12 @@ class TextMessage implements ITextMessage {
   @override
   Future<bool> sendApprovedCredit(
       String name, String number, String status) async {
-    if (status == "APPROVED") {
+    if (status == "TO-BE-RELEASE") {
       message =
-          "Dear $name,\n\nYour credit has been $status. You can now visit the store. \n\n- Team Dellrains Store";
+          "Dear $name,\n\nYour credit has been approved. You can now visit the store. \n\n- Team Dellrains Store";
     } else {
       message =
-          "Dear $name,\n\nSorry your credit has been $status. \n\n- Team Dellrains Store";
+          "Dear $name,\n\nSorry your credit has been denied. \n\n- Team Dellrains Store";
     }
 
     var payload, response;
@@ -53,46 +53,6 @@ class TextMessage implements ITextMessage {
   @override
   Future<bool> sendPromotions() {
     throw UnimplementedError();
-  }
-
-  @override
-  Future<bool> sendRequestedProduct(
-      String name, String number, String product, String status) async {
-    if (status == "IN-STORE") {
-      message =
-          "Dear $name,\n\nThe $product you requested is now at the store.\nThank you for using our service. Visit the store anytime within 8:00AM to 5:00PM.\n\nRegards,\n- Team Dellrains Store";
-    } else {
-      message =
-          "Dear $name,\n\nThe $product you requested is $status.\nThank you for using our service. \n\nRegards,\n- Team Dellrains Store";
-    }
-
-    var payload, response;
-    payload = json.encode(
-      {"number": number, "message": message, "sendername": "DELLRAINS"},
-    );
-
-    try {
-      await Environment.methodPost(
-              "${Environment.apiUrl}/api/sendmessage", payload)
-          .then((value) {
-        response = value;
-      });
-
-      if (response.statusCode == 200) {
-        return true;
-      }
-    } catch (e) {
-      print(e.toString());
-      //if there is an error in the method
-      BannerNotif.notif(
-        "Error",
-        "Something went wrong while sending the message",
-        Colors.red.shade600,
-      );
-      return false;
-    }
-
-    return true;
   }
 
   @override

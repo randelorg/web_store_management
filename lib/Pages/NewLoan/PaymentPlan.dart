@@ -305,7 +305,7 @@ class _PaymentPlanPage extends State<PaymentPlanPage> {
     var statusLoan;
     switch (action) {
       case 'new_loan':
-        statusLoan = loan.addBorrower(
+        loan.addBorrower(
           widget.productCode.toString(),
           widget.firstname.toString(),
           widget.lastname.toString(),
@@ -320,7 +320,7 @@ class _PaymentPlanPage extends State<PaymentPlanPage> {
         showDone(statusLoan);
         break;
       case 'renew_loan':
-        statusLoan = loan.updateBalanceAndContract(
+        loan.updateBalanceAndContract(
           widget.productCode.toString(),
           widget.total,
           widget.borrowerId!.toInt(),
@@ -331,7 +331,7 @@ class _PaymentPlanPage extends State<PaymentPlanPage> {
           duedate.text,
           widget.contract,
         );
-        showDone(statusLoan);
+
         break;
       default:
         {

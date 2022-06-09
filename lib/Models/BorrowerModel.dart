@@ -9,11 +9,16 @@ class BorrowerModel extends PersonModel {
   double? balance;
   String? status;
   List<dynamic>? contractImage;
+  int? loanId;
 
   //new retuns attribs
   String? productItemId;
   String? turnOverDate;
   String? returnStatus;
+
+  get getLoanId => this.loanId;
+
+  set setLoanId(loanId) => this.loanId = loanId;
 
   get getProductItemId => this.productItemId;
 
@@ -124,7 +129,8 @@ class BorrowerModel extends PersonModel {
       mobileNumber,
       homeAddress,
       this.status,
-      this.productCode})
+      this.productCode,
+      this.loanId})
       : super.withOutId(firstname, lastname, mobileNumber, homeAddress);
 
   BorrowerModel.returns({
@@ -175,6 +181,7 @@ class BorrowerModel extends PersonModel {
       homeAddress: json['HomeAddress'] as String,
       status: json['ResultStatus'] as String,
       productCode: json['ProductCode'] as String,
+      loanId: json['LoanID'] as int,
     );
   }
 

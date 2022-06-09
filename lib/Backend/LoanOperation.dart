@@ -2,7 +2,6 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:web_store_management/Backend/BorrowerOperation.dart';
 import 'package:web_store_management/Backend/PurchasesOperation.dart';
-import 'package:web_store_management/Backend/Utility/Mapping.dart';
 import 'package:http/http.dart' as http;
 import 'package:web_store_management/Backend/interfaces/ILoan.dart';
 import 'dart:convert';
@@ -25,6 +24,7 @@ class LoanOperation extends BorrowerOperation implements INewLoan {
     String duedate,
   ) async {
     var response;
+    bool status = false;
     var brwDetail = json.encode({
       'firstname': firstname.trim(),
       'lastname': lastname.trim(),
@@ -41,11 +41,17 @@ class LoanOperation extends BorrowerOperation implements INewLoan {
         response = value;
       });
 
-      //add investigation
-      await addInvestigation(firstname, lastname);
+      //add loan
+      await addNewLoan(barcode, firstname, lastname, plan, term, duedate)
+          .then((value) => status = value);
+      ;
+
+      if (status) {
+        //add investigation
+        await addInvestigation(firstname, lastname);
+      }
 
       //add the loan
-      await addNewLoan(barcode, firstname, lastname, plan, term, duedate);
 
       if (response.statusCode == 404) {
         return false;
@@ -82,8 +88,10 @@ class LoanOperation extends BorrowerOperation implements INewLoan {
         response = value;
       });
 
-      if (response.statusCode == 404 || response.statusCode == 204) {
+      if (response.statusCode == 404) {
         return false;
+      } else if (response.satusCode == 202) {
+        return true;
       }
     } catch (e) {
       e.toString();
@@ -118,6 +126,10 @@ class LoanOperation extends BorrowerOperation implements INewLoan {
           .then((value) {
         response = value;
       });
+
+      if (response.statusCode == 202) {
+        return true;
+      }
     } catch (e) {
       e.toString();
       BannerNotif.notif(
@@ -129,6 +141,19 @@ class LoanOperation extends BorrowerOperation implements INewLoan {
     }
 
     return true;
+  }
+
+  Future<void> updateLoanProductItemId(int loanId, String productItemID) async {
+    try {
+      await http.get(
+        Uri.parse(
+          "http://localhost:8090/api/loanproductitem/$loanId/$productItemID",
+        ),
+        headers: {HttpHeaders.authorizationHeader: "${Environment.apiToken}"},
+      );
+    } catch (e) {
+      print(e.toString());
+    }
   }
 
   @override
