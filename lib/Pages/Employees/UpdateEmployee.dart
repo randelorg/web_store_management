@@ -42,7 +42,7 @@ class _UpdateEmployee extends State<UpdateEmployee> {
   Widget build(BuildContext context) {
     return Container(
       child: Align(
-        alignment: Alignment.center,
+          alignment: Alignment.center,
           child: Column(
             children: [
               Padding(
@@ -191,6 +191,7 @@ class _UpdateEmployee extends State<UpdateEmployee> {
                   controller: number,
                   maxLength: 12,
                   decoration: InputDecoration(
+                    suffixIcon: Icon(Icons.edit),
                     counterText: '',
                     hintText: 'Mobile Number',
                     filled: true,
@@ -223,6 +224,7 @@ class _UpdateEmployee extends State<UpdateEmployee> {
                 child: TextField(
                   controller: address,
                   decoration: InputDecoration(
+                    suffixIcon: Icon(Icons.edit),
                     hintText: 'Home Address',
                     filled: true,
                     fillColor: Colors.blueGrey[50],
@@ -239,7 +241,6 @@ class _UpdateEmployee extends State<UpdateEmployee> {
                   ),
                 ),
               ),
-              
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
@@ -258,7 +259,8 @@ class _UpdateEmployee extends State<UpdateEmployee> {
                           ),
                           TextButton(
                               style: TextButton.styleFrom(
-                                padding: const EdgeInsets.only(left: 20, right: 20, top: 15, bottom: 15),
+                                padding: const EdgeInsets.only(
+                                    left: 20, right: 20, top: 15, bottom: 15),
                                 primary: Colors.white,
                                 textStyle: TextStyle(
                                     fontFamily: 'Cairo_SemiBold',
@@ -267,7 +269,8 @@ class _UpdateEmployee extends State<UpdateEmployee> {
                               ),
                               child: const Text('UPDATE'),
                               onPressed: () {
-                                if (number.text.isEmpty || address.text.isEmpty) {
+                                if (number.text.isEmpty ||
+                                    address.text.isEmpty) {
                                   BannerNotif.notif(
                                       "Error",
                                       "Please fill all the fields",
@@ -293,8 +296,7 @@ class _UpdateEmployee extends State<UpdateEmployee> {
                                     }
                                   });
                                 }
-                              }
-                          ),     
+                              }),
                         ],
                       ),
                     ),
@@ -302,9 +304,7 @@ class _UpdateEmployee extends State<UpdateEmployee> {
                 ],
               ),
             ],
-          )
-        
-      ),
+          )),
     );
   }
 }

@@ -140,6 +140,7 @@ class _Employeepage extends State<EmployeePage> {
                                 });
                               },
                               decoration: InputDecoration(
+                                suffix: Icon(Icons.search_rounded),
                                 hintText: 'Search Employee',
                                 filled: true,
                                 fillColor: Colors.blueGrey[50],

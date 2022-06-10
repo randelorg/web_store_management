@@ -42,6 +42,7 @@ class _SalesReport extends State<SalesReport> {
                 child: TextField(
                   controller: startDate,
                   decoration: InputDecoration(
+                     suffixIcon: Icon(Icons.date_range_rounded),
                     labelStyle: TextStyle(fontSize: 12),
                     contentPadding: EdgeInsets.only(left: 15),
                     filled: true,
@@ -108,6 +109,7 @@ class _SalesReport extends State<SalesReport> {
                 child: TextField(
                   controller: endDate,
                   decoration: InputDecoration(
+                      suffixIcon: Icon(Icons.date_range_rounded),
                     labelStyle: TextStyle(fontSize: 12),
                     contentPadding: EdgeInsets.only(left: 15),
                     filled: true,

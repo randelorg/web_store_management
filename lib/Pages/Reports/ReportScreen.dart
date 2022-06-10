@@ -30,10 +30,27 @@ class ViewReport extends StatelessWidget {
         ),
         body: TabBarView(
           children: [
-            Center(child: SalesReport()),
-            Center(child: CollectionSummary()),
-            Center(child: CollectionSummary()),
-            Center(child: HistoryScreen()),
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: SalesReport(),
+              ),
+            ),
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: CollectionSummary(),
+              ),
+            ),
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: CollectionSummary(),
+              ),
+            ),
+            Center(
+              child: HistoryScreen(),
+            ),
           ],
         ),
       ),

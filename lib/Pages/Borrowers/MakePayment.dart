@@ -138,6 +138,7 @@ class _MakePayment extends State<MakePayment> {
               child: TextField(
                 controller: givenAmount,
                 decoration: InputDecoration(
+                  suffixIcon: Icon(Icons.edit),
                   hintText: 'Amount',
                   filled: true,
                   fillColor: Colors.blueGrey[50],
@@ -169,6 +170,7 @@ class _MakePayment extends State<MakePayment> {
               child: TextField(
                 controller: dateinput,
                 decoration: InputDecoration(
+                  suffixIcon: Icon(Icons.date_range_rounded),
                   labelStyle: TextStyle(fontSize: 12),
                   contentPadding: EdgeInsets.only(left: 15),
                   filled: true,

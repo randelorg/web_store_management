@@ -99,6 +99,7 @@ class _BorrowersPage extends State<BorrowersPage> {
                                 });
                               },
                               decoration: InputDecoration(
+                                suffixIcon: Icon(Icons.search_rounded),
                                 hintText: 'Search Borrower',
                                 filled: true,
                                 fillColor: Colors.blueGrey[50],

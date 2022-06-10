@@ -108,6 +108,7 @@ class _ReturnsPage extends State<ReturnsPage> {
                         });
                       },
                       decoration: InputDecoration(
+                        suffixIcon: Icon(Icons.search_rounded),
                         hintText: 'Search Borrower',
                         filled: true,
                         fillColor: Colors.blueGrey[50],

@@ -73,6 +73,7 @@ class _CreditPage extends State<CreditScreen> {
                     });
                   },
                   decoration: InputDecoration(
+                    suffixIcon: Icon(Icons.search_rounded),
                     hintText: 'Search Borrower',
                     filled: true,
                     fillColor: Colors.blueGrey[50],

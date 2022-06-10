@@ -135,11 +135,12 @@ class _InventoryDashboard extends State<InventoryDashboard> {
                     sortAscending: _sortAscending,
                     sortColumnIndex: 1,
                     rowsPerPage: 14,
-                    header: Text('Product List',
-                    style: TextStyle(
-                      fontSize: 18,
-                      color: Colors.black,
-                      fontFamily: 'Cairo_Bold'),
+                    header: Text(
+                      'Product List',
+                      style: TextStyle(
+                          fontSize: 18,
+                          color: Colors.black,
+                          fontFamily: 'Cairo_Bold'),
                     ),
                     actions: [
                       //choice chips
@@ -177,6 +178,7 @@ class _InventoryDashboard extends State<InventoryDashboard> {
                             });
                           },
                           decoration: InputDecoration(
+                             suffixIcon: Icon(Icons.search_rounded),
                             hintText: 'Search Product',
                             filled: true,
                             fillColor: Colors.blueGrey[50],
@@ -489,6 +491,7 @@ class _UpdateProductState extends State<UpdateProduct> {
               child: TextField(
                 controller: productName,
                 decoration: InputDecoration(
+                  suffixIcon: Icon(Icons.edit),
                   hintText: '',
                   filled: true,
                   fillColor: Colors.blueGrey[50],
@@ -521,6 +524,7 @@ class _UpdateProductState extends State<UpdateProduct> {
                 controller: productUnit,
                 maxLength: 12,
                 decoration: InputDecoration(
+                  suffixIcon: Icon(Icons.edit),
                   counterText: '',
                   hintText: 'Mobile Number',
                   filled: true,
@@ -553,6 +557,7 @@ class _UpdateProductState extends State<UpdateProduct> {
               child: TextField(
                 controller: productLabel,
                 decoration: InputDecoration(
+                  suffixIcon: Icon(Icons.edit),
                   hintText: '',
                   filled: true,
                   fillColor: Colors.blueGrey[50],
@@ -584,6 +589,7 @@ class _UpdateProductState extends State<UpdateProduct> {
               child: TextField(
                 controller: productPrice,
                 decoration: InputDecoration(
+                  suffixIcon: Icon(Icons.edit),
                   hintText: '',
                   filled: true,
                   fillColor: Colors.blueGrey[50],
@@ -617,7 +623,8 @@ class _UpdateProductState extends State<UpdateProduct> {
                         ),
                         TextButton(
                           style: TextButton.styleFrom(
-                            padding: const EdgeInsets.only(left: 20, right: 20, top: 15, bottom: 15),
+                            padding: const EdgeInsets.only(
+                                left: 20, right: 20, top: 15, bottom: 15),
                             primary: Colors.white,
                             textStyle: TextStyle(
                               fontFamily: 'Cairo_SemiBold',
@@ -691,6 +698,7 @@ class _UpdateProductState extends State<UpdateProduct> {
                 controller: suppmobile,
                 maxLength: 12,
                 decoration: InputDecoration(
+                  suffixIcon: Icon(Icons.edit),
                   counterText: '',
                   hintText: 'Mobile Number',
                   filled: true,
@@ -723,6 +731,7 @@ class _UpdateProductState extends State<UpdateProduct> {
               child: TextField(
                 controller: suppwebsite,
                 decoration: InputDecoration(
+                  suffixIcon: Icon(Icons.edit),
                   hintText: '',
                   filled: true,
                   fillColor: Colors.blueGrey[50],

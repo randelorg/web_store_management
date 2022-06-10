@@ -74,44 +74,44 @@ class _HistoryScreen extends State<HistoryScreen> {
       sortAscending: sortAscending,
       sortColumnIndex: 1,
       rowsPerPage: 12,
-      header: Text('Borrower List', 
-      style: TextStyle(
-        fontSize: 18,
-        color: Colors.black,
-        fontFamily: 'Cairo_Bold'),
-      ),                  
+      header: Text(
+        'Borrower List',
+        style: TextStyle(
+            fontSize: 18, color: Colors.black, fontFamily: 'Cairo_Bold'),
+      ),
       actions: [
         Container(
-            padding: EdgeInsets.only(left: 25, right: 5),
-            width: 300,
-            child: TextField(
-              controller: searchValue,
-              onChanged: (value) {
-                setState(() {
-                  _searchResult = value;
-                  _borrowerFiltered = Mapping.borrowerList
-                      .where((brw) => brw
-                          .toString()
-                          .toLowerCase()
-                          .contains(_searchResult.toLowerCase()))
-                      .toList();
-                });
-              },
-              decoration: InputDecoration(
-                hintText: 'Search Borrower',
-                filled: true,
-                fillColor: Colors.blueGrey[50],
-                labelStyle: TextStyle(fontSize: 12),
-                contentPadding: EdgeInsets.only(left: 15),
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                ),
+          padding: EdgeInsets.only(left: 25, right: 5),
+          width: 300,
+          child: TextField(
+            controller: searchValue,
+            onChanged: (value) {
+              setState(() {
+                _searchResult = value;
+                _borrowerFiltered = Mapping.borrowerList
+                    .where((brw) => brw
+                        .toString()
+                        .toLowerCase()
+                        .contains(_searchResult.toLowerCase()))
+                    .toList();
+              });
+            },
+            decoration: InputDecoration(
+              suffixIcon: Icon(Icons.search_rounded),
+              hintText: 'Search Borrower',
+              filled: true,
+              fillColor: Colors.blueGrey[50],
+              labelStyle: TextStyle(fontSize: 12),
+              contentPadding: EdgeInsets.only(left: 15),
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.blueGrey.shade50),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.blueGrey.shade50),
               ),
             ),
           ),
+        ),
       ],
       columns: [
         DataColumn(label: Text('BID')),

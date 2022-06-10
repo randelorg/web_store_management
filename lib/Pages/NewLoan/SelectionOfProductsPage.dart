@@ -452,6 +452,7 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
                     child: TextField(
                       controller: barcode,
                       decoration: InputDecoration(
+                         suffixIcon: Icon(Icons.search_rounded),
                         hintText: 'Product Barcode',
                         filled: true,
                         fillColor: Colors.blueGrey[50],

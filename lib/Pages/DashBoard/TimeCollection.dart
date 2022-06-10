@@ -89,84 +89,87 @@ class _TimeCollection extends State<TimeCollection> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        Padding(
-          padding: EdgeInsets.only(left: 10, right: 20, top: 10),
-          child: Stack(
-            children: [
-              Align(
-                alignment: Alignment.topLeft,
-                child: const Text(
-                  'Dashboard',
-                  style: TextStyle(
-                    fontSize: 20,
-                    color: Colors.black,
-                    fontFamily: 'Cairo_Bold',
+    return Padding(
+      padding: const EdgeInsets.all(20.0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Padding(
+            padding: EdgeInsets.only(left: 10, right: 20, top: 10),
+            child: Stack(
+              children: [
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: const Text(
+                    'Dashboard',
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: Colors.black,
+                      fontFamily: 'Cairo_Bold',
+                    ),
                   ),
                 ),
-              ),
-              Column(
-                children: [
-                  Align(
-                    alignment: Alignment.topRight,
-                    child: Text(
-                      'Welcome, ${name.toString()}',
-                      style: TextStyle(
-                        fontSize: 15,
-                        color: Colors.black,
-                        fontFamily: 'Cairo_SemiBold',
+                Column(
+                  children: [
+                    Align(
+                      alignment: Alignment.topRight,
+                      child: Text(
+                        'Welcome, ${name.toString()}',
+                        style: TextStyle(
+                          fontSize: 15,
+                          color: Colors.black,
+                          fontFamily: 'Cairo_SemiBold',
+                        ),
                       ),
                     ),
-                  ),
-                  Visibility(
-                    visible: _isEmployee,
-                    maintainSize: false,
-                    maintainAnimation: true,
-                    maintainState: true,
-                    child: Align(
-                      alignment: Alignment.topRight,
-                      child: attendantClock(),
+                    Visibility(
+                      visible: _isEmployee,
+                      maintainSize: false,
+                      maintainAnimation: true,
+                      maintainState: true,
+                      child: Align(
+                        alignment: Alignment.topRight,
+                        child: attendantClock(),
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
+              ],
+            ),
+          ),
+          Row(
+            children: [
+              //collection summary total
+              todaySales(),
+              weekSales(),
+              monthSales(),
+              //TODO: add sales summary here
+              Padding(
+                padding: EdgeInsets.only(left: 80),
+                child: totalCollection(),
               ),
             ],
           ),
-        ),
-        Row(
-          children: [
-            //collection summary total
-            todaySales(),
-            weekSales(),
-            monthSales(),
-            //TODO: add sales summary here
-            Padding(
-              padding: EdgeInsets.only(left: 80),
-              child: totalCollection(),
-            ),
-          ],
-        ),
-        Expanded(
-          child: Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Container(
-              //the actual graph
-              width: (MediaQuery.of(context).size.width),
-              height: (MediaQuery.of(context).size.height),
-              child: Card(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(5),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Container(
+                //the actual graph
+                width: (MediaQuery.of(context).size.width),
+                height: (MediaQuery.of(context).size.height),
+                child: Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  shadowColor: Colors.black,
+                  elevation: 3,
+                  child: salesGraph('Week'),
                 ),
-                shadowColor: Colors.black,
-                elevation: 3,
-                child: salesGraph('Week'),
               ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 

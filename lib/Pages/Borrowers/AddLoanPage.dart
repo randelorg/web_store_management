@@ -241,12 +241,8 @@ class _AddLoanPage extends State<AddLoanPage> {
                       width: 300,
                       child: TextField(
                         decoration: InputDecoration(
+                          suffixIcon: Icon(Icons.search_rounded),
                           hintText: 'Search Product',
-                          suffixIcon: IconButton(
-                            onPressed: () {},
-                            icon: Icon(Icons.scanner_sharp),
-                            tooltip: 'Scan Product Barcode',
-                          ),
                           filled: true,
                           fillColor: Colors.blueGrey[50],
                           labelStyle: TextStyle(fontSize: 10),

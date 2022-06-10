@@ -77,6 +77,7 @@ class _CustomerBuy extends State<CustomerBuy> {
                 child: TextField(
                   controller: barcode,
                   decoration: InputDecoration(
+                 
                     hintText: 'Product Barcode',
                     filled: true,
                     fillColor: Colors.blueGrey[50],

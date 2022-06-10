@@ -99,6 +99,7 @@ class _ReceiveOrders extends State<ReceiveOrders> {
                           child: TextField(
                             controller: dateinput,
                             decoration: InputDecoration(
+                              suffixIcon: Icon(Icons.date_range_rounded),
                               labelStyle: TextStyle(fontSize: 12),
                               contentPadding: EdgeInsets.only(left: 15),
                               filled: true,

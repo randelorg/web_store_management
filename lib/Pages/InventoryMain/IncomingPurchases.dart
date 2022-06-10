@@ -99,16 +99,16 @@ class _IncomingPurchases extends State<IncomingPurchases> {
                     sortAscending: _sortAscending,
                     sortColumnIndex: 1,
                     rowsPerPage: 14,
-                    header: Text('Incoming Purchases',
-                    style: TextStyle(
+                    header: Text(
+                      'Incoming Purchases',
+                      style: TextStyle(
                           fontSize: 18,
                           color: Colors.black,
                           fontFamily: 'Cairo_Bold'),
                     ),
                     actions: [
                       Container(
-                        padding:
-                            const EdgeInsets.only(left: 20, right: 5),
+                        padding: const EdgeInsets.only(left: 20, right: 5),
                         width: 300,
                         child: TextField(
                           controller: searchValue,
@@ -123,6 +123,7 @@ class _IncomingPurchases extends State<IncomingPurchases> {
                             });
                           },
                           decoration: InputDecoration(
+                            suffix: Icon(Icons.search_rounded),
                             hintText: 'Search Order',
                             filled: true,
                             fillColor: Colors.blueGrey[50],
@@ -227,7 +228,7 @@ class _DataSource extends DataTableSource {
           DataCell((row.valueC), onTap: () {
             showModalSideSheet(
               context: context,
-              width: MediaQuery.of(context).size.width / 2 ,
+              width: MediaQuery.of(context).size.width / 2,
               body: Padding(
                 padding: const EdgeInsets.all(25),
                 child: ViewOrderList(
