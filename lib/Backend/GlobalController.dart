@@ -40,6 +40,7 @@ class GlobalController {
   Future<List<ProductModel>> fetchProducts() async {
     String branch = '';
     var response;
+    const String mainName = 'Dellrains Main';
     await Session.getBranch().then((branchName) {
       branch = branchName;
     });
@@ -55,7 +56,7 @@ class GlobalController {
 
     print("parsed $parsed");
 
-    if (branch == 'Dellrains Main') {
+    if (branch == mainName) {
       Mapping.productList = parsed
           .map<ProductModel>((json) => ProductModel.fromJson(json))
           .toList();

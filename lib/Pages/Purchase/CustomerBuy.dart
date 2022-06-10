@@ -77,7 +77,6 @@ class _CustomerBuy extends State<CustomerBuy> {
                 child: TextField(
                   controller: barcode,
                   decoration: InputDecoration(
-                 
                     hintText: 'Product Barcode',
                     filled: true,
                     fillColor: Colors.blueGrey[50],
@@ -134,16 +133,17 @@ class _CustomerBuy extends State<CustomerBuy> {
                           _items = searchProduct.getProductItems(barcode.text);
 
                           _items.whenComplete(() {
+                            if (onhand <= widget.dangerStock) {
+                              BannerNotif.notif(
+                                'SOLD OUT',
+                                'Product is sold out',
+                                Colors.orange,
+                              );
+                              return;
+                            }
                             setState(() {
                               _items = _items;
                               onhand = Mapping.productItems.length;
-                              if (onhand <= widget.dangerStock) {
-                                BannerNotif.notif(
-                                  'SOLD OUT',
-                                  'Product is sold out',
-                                  Colors.orange,
-                                );
-                              }
                             });
                           });
                         }
@@ -252,7 +252,7 @@ class _CustomerBuy extends State<CustomerBuy> {
                               Positioned.fill(
                                 child: Container(
                                   decoration: BoxDecoration(
-                                    color: HexColor("#EA1C24"), 
+                                    color: HexColor("#EA1C24"),
                                   ),
                                 ),
                               ),

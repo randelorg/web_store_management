@@ -32,18 +32,9 @@ class _InventoryDashboard extends State<InventoryDashboard> {
 
   @override
   void initState() {
-    //isMain = Future.value(false);
-    //get current branch
-    Session.getBranch().then((branch) {
-      setState(() {
-        branchName = branch;
-        if (branch != widget.mainBranchName) {
-          isMain = Future.value(false);
-        } else {
-          isMain = Future.value(true);
-        }
-      });
-    });
+    isMain = Future.value(false);
+    isMainBranch();
+
     _products = controller.fetchProducts();
     controller.fetchBranches();
     //fetch logged in branch
@@ -62,6 +53,19 @@ class _InventoryDashboard extends State<InventoryDashboard> {
     _productsFiltered;
     searchValue.dispose();
     super.dispose();
+  }
+
+  Future<void> isMainBranch() async {
+    await Session.getBranch().then((branch) {
+      setState(() {
+        branchName = branch;
+        if (branch != widget.mainBranchName) {
+          isMain = Future.value(false);
+        } else {
+          isMain = Future.value(true);
+        }
+      });
+    });
   }
 
   //get the product types using SET

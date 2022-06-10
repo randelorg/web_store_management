@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:web_store_management/Backend/Session.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
 import 'package:web_store_management/environment/Environment.dart';
 import 'package:web_store_management/Models/IncomingPurchasesModel.dart';
@@ -119,9 +120,21 @@ class PurchasesOperation {
   Future<List<IncomingPurchasesModel>> getProductItems(String barcode) async {
     var response;
     final String receive = "RECEIVED";
+    String branchCode = '', branchName = '';
+
+    await Session.getBranch().then((branch) {
+      branchName = branch;
+    });
+
+    Mapping.branchList.forEach((element) {
+      if (element.branchName == branchName) {
+        branchCode = element.branchCode;
+      }
+    });
+
     try {
       await Environment.methodGet(
-              "http://localhost:8090/api/item/$barcode/$receive")
+              "http://localhost:8090/api/item/$barcode/$receive/$branchCode")
           .then((value) {
         response = value;
       });
@@ -157,6 +170,18 @@ class PurchasesOperation {
       String invoiceNumber, String modeOfPayment) async {
     var response;
 
+    String branchCode = '', branchName = '';
+
+    await Session.getBranch().then((branch) {
+      branchName = branch;
+    });
+
+    Mapping.branchList.forEach((element) {
+      if (element.branchName == branchName) {
+        branchCode = element.branchCode;
+      }
+    });
+
     String productCode = '';
     for (var item in Mapping.invoice) {
       productCode = item.prodCode;
@@ -168,6 +193,7 @@ class PurchasesOperation {
           "prodCode": item.prodCode,
           "currentPrice": item.currentPrice,
           "date": Mapping.dateToday(),
+          "branchCode": branchCode,
         });
         await Environment.methodPost(
                 "http://localhost:8090/api/buyitem", payload)

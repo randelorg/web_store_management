@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:web_store_management/Backend/Session.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
 import 'package:web_store_management/Backend/interfaces/IProduct.dart';
 import 'package:web_store_management/Models/IncomingPurchasesModel.dart';
@@ -7,7 +8,6 @@ import 'package:web_store_management/Notification/BannerNotif.dart';
 import 'package:web_store_management/environment/Environment.dart';
 
 class ProductOperation implements IProduct {
-  
   Future<List<IncomingPurchasesModel>> findItemCode(String productCode) async {
     var response;
     try {
@@ -176,6 +176,81 @@ class ProductOperation implements IProduct {
     }
 
     return true;
+  }
+
+  Future<int> getBranchSoldProducts(String barcode) async {
+    var response;
+    String branchCode = '', branchName = '';
+
+    await Session.getBranch().then((branch) {
+      branchName = branch;
+    });
+
+    Mapping.branchList.forEach((element) {
+      if (element.branchName == branchName) {
+        branchCode = element.branchCode;
+      }
+    });
+
+    try {
+      await Environment.methodGet(
+              "http://localhost:8090/api/branchsold/$branchCode/$barcode")
+          .then((value) {
+        response = value;
+      });
+
+      Map<String, dynamic> sold = jsonDecode(response.body);
+
+      if (response.statusCode == 202) {
+        return sold["SOLD_PRODUCTS"];
+      }
+
+      if (response.statusCode == 404) {
+        return 0;
+      }
+    } catch (e) {
+      return 0;
+    }
+
+    return 0;
+  }
+
+  Future<int> getBranchOnHandProducts(String barcode) async {
+    var response;
+    String branchCode = '', branchName = '';
+
+    await Session.getBranch().then((branch) {
+      branchName = branch;
+    });
+
+    Mapping.branchList.forEach((element) {
+      if (element.branchName == branchName) {
+        branchCode = element.branchCode;
+      }
+    });
+
+    try {
+      await Environment.methodGet(
+              "http://localhost:8090/api/branchonhand/$branchCode/$barcode")
+          .then((value) {
+        response = value;
+      });
+
+      Map<String, dynamic> onhand = jsonDecode(response.body);
+
+      if (response.statusCode == 202) {
+        return onhand["ONHAND"];
+      }
+
+      if (response.statusCode == 404) {
+        return 0;
+      }
+    } catch (e) {
+      print(e.toString());
+      return 0;
+    }
+
+    return 0;
   }
 
   @override

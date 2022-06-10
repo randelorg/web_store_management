@@ -99,12 +99,12 @@ class ProductModel extends SupplierModel {
 
   factory ProductModel.branchProductFromJson(Map<String, dynamic> json) {
     return ProductModel.branchProducts(
-      productCode: json['productCode'] as String,
-      productName: json['productName'] as String,
-      productPrice: json['productPrice'] as double,
-      productUnit: json['productUnit'] as String,
-      prodType: json['prodType'] as String,
-      productLabel: json['productLabel'] as String,
+      productCode: json['ProductCode'] as String,
+      productName: json['ProdName'] as String,
+      productPrice: json['ProdPrice'] as double,
+      productUnit: json['ProdUnit'] as String,
+      prodType: json['ProdType'] as String,
+      productLabel: json['ProdLabel'] as String,
     );
   }
 

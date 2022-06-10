@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:hexcolor/hexcolor.dart';
-import 'package:modal_side_sheet/modal_side_sheet.dart';
 import 'package:web_store_management/Backend/GlobalController.dart';
-import 'package:web_store_management/Backend/Session.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
 import 'package:web_store_management/Models/ProductModel.dart';
 import 'package:web_store_management/Backend/ProductOperation.dart';
-import 'package:web_store_management/Notification/BannerNotif.dart';
 
 class InventoryBranch extends StatefulWidget {
   @override
@@ -61,18 +57,20 @@ class _InventoryBranch extends State<InventoryBranch> {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            //the list of products
-            _tableProducts(_productsFiltered),
-          ],
-        ),
-      ],
+    return Expanded(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              //the list of products
+              _tableProducts(_productsFiltered),
+            ],
+          ),
+        ],
+      ),
     );
   }
 
@@ -223,7 +221,7 @@ class _Row {
   final String valueA; //product name
   final String valueB; //label
   final Widget valueF; //inventory on hand
-  final int valueG; //inventory sol
+  final Widget valueG; //inventory sol
 
   bool selected = false;
 }
@@ -259,7 +257,7 @@ class _DataSource extends DataTableSource {
         DataCell(Text(row.valueA)),
         DataCell(Text(row.valueB)),
         DataCell((row.valueF)),
-        DataCell(Text(row.valueG.toString())),
+        DataCell((row.valueG)),
       ],
     );
   }
@@ -274,13 +272,40 @@ class _DataSource extends DataTableSource {
   int get selectedRowCount => _selectedCount;
 
   List<_Row> _productList(List<ProductModel> products, BuildContext context) {
+    var x = ProductOperation();
     try {
       return List.generate(products.length, (index) {
         return _Row(
           products[index].getProductName.toString(),
           products[index].getProductLabel.toString(),
-          _dangerStock(2),
-          4,
+          FutureBuilder(
+            future: x.getBranchOnHandProducts(products[index].getProductCode),
+            builder: (context, snapshot) {
+              if (!snapshot.hasData) {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+              if (snapshot.hasData) {
+                return Text(snapshot.data.toString());
+              }
+              return Text('0');
+            },
+          ),
+          FutureBuilder(
+            future: x.getBranchSoldProducts(products[index].getProductCode),
+            builder: (context, snapshot) {
+              if (!snapshot.hasData) {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+              if (snapshot.hasData) {
+                return Text(snapshot.data.toString());
+              }
+              return Text('0');
+            },
+          ),
           // _dangerStock(products[index].getInventoryOnHand),
           // products[index].getInventorySold,
         );
@@ -292,7 +317,7 @@ class _DataSource extends DataTableSource {
           '',
           '',
           Text(''),
-          0,
+          Text(''),
         );
       });
     }
@@ -322,402 +347,4 @@ String determineWidget(widget) {
   Text txt = widget;
 
   return txt.data.toString();
-}
-
-class UpdateProduct extends StatefulWidget {
-  final String? barcode, name, price, unit, label;
-  final String? supplierName, supplierMobile, supplierWebsite;
-  UpdateProduct({
-    Key? key,
-    required this.barcode,
-    required this.name,
-    required this.price,
-    required this.label,
-    required this.unit,
-    required this.supplierName,
-    required this.supplierMobile,
-    required this.supplierWebsite,
-  }) : super(key: key);
-
-  @override
-  State<UpdateProduct> createState() => _UpdateProductState();
-}
-
-class _UpdateProductState extends State<UpdateProduct> {
-  var product = ProductOperation();
-  var productName = TextEditingController();
-  var productPrice = TextEditingController();
-  var productLabel = TextEditingController();
-  var productUnit = TextEditingController();
-  var suppmobile = TextEditingController();
-  var suppwebsite = TextEditingController();
-
-  @override
-  void initState() {
-    productName.text = widget.name.toString();
-    productPrice.text = widget.price.toString();
-    productLabel.text = widget.label.toString();
-    productUnit.text = widget.unit.toString();
-    suppmobile.text = widget.supplierMobile.toString();
-    suppwebsite.text = widget.supplierWebsite.toString();
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 80, left: 20, right: 20),
-      child: Container(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 30),
-              child: Text(
-                'Update ${widget.name}',
-                softWrap: true,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: HexColor("#155293"),
-                  fontFamily: 'Cairo_Bold',
-                  fontSize: 25,
-                ),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(top: 20, left: 2),
-              child: Container(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  'Product Name',
-                  style: TextStyle(fontSize: 10),
-                ),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(bottom: 15),
-              child: TextField(
-                controller: productName,
-                decoration: InputDecoration(
-                  suffixIcon: Icon(Icons.edit),
-                  hintText: '',
-                  filled: true,
-                  fillColor: Colors.blueGrey[50],
-                  labelStyle: TextStyle(fontSize: 10),
-                  contentPadding: EdgeInsets.only(left: 10),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                ),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(left: 2),
-              child: Container(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  'Product Unit',
-                  style: TextStyle(fontSize: 10),
-                ),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(bottom: 15),
-              child: TextField(
-                controller: productUnit,
-                maxLength: 12,
-                decoration: InputDecoration(
-                  suffixIcon: Icon(Icons.edit),
-                  counterText: '',
-                  hintText: 'Mobile Number',
-                  filled: true,
-                  fillColor: Colors.blueGrey[50],
-                  labelStyle: TextStyle(fontSize: 10),
-                  contentPadding: EdgeInsets.only(left: 10),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                ),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(left: 2),
-              child: Container(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  'Product Label',
-                  style: TextStyle(fontSize: 10),
-                ),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(bottom: 15),
-              child: TextField(
-                controller: productLabel,
-                decoration: InputDecoration(
-                  suffixIcon: Icon(Icons.edit),
-                  hintText: '',
-                  filled: true,
-                  fillColor: Colors.blueGrey[50],
-                  labelStyle: TextStyle(fontSize: 10),
-                  contentPadding: EdgeInsets.only(left: 10),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                ),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(left: 2),
-              child: Container(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  'Product Price',
-                  style: TextStyle(fontSize: 10),
-                ),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(bottom: 15),
-              child: TextField(
-                controller: productPrice,
-                decoration: InputDecoration(
-                  suffixIcon: Icon(Icons.edit),
-                  hintText: '',
-                  filled: true,
-                  fillColor: Colors.blueGrey[50],
-                  labelStyle: TextStyle(fontSize: 10),
-                  contentPadding: EdgeInsets.only(left: 10),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                ),
-              ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 10, bottom: 80),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(5),
-                    child: Stack(
-                      children: <Widget>[
-                        Positioned.fill(
-                          child: Container(
-                            decoration:
-                                BoxDecoration(color: HexColor("#155293")),
-                          ),
-                        ),
-                        TextButton(
-                          style: TextButton.styleFrom(
-                            padding: const EdgeInsets.only(
-                                left: 20, right: 20, top: 15, bottom: 15),
-                            primary: Colors.white,
-                            textStyle: TextStyle(
-                              fontFamily: 'Cairo_SemiBold',
-                              fontSize: 14,
-                              color: Colors.white,
-                            ),
-                          ),
-                          child: const Text('UPDATE'),
-                          onPressed: () {
-                            if (productName.text.isEmpty ||
-                                productLabel.text.isEmpty ||
-                                productPrice.text.isEmpty ||
-                                productUnit.text.isEmpty) {
-                              BannerNotif.notif(
-                                  'Error',
-                                  'Please fill all the fields',
-                                  Colors.red.shade600);
-                            } else {
-                              product
-                                  .updateProductDetails(
-                                widget.barcode.toString(),
-                                productName.text,
-                                productLabel.text,
-                                productUnit.text,
-                                double.parse(productPrice.text),
-                              )
-                                  .then((value) {
-                                if (value) {
-                                  Navigator.pop(context);
-                                  BannerNotif.notif(
-                                    'Success',
-                                    "Product " +
-                                        productName.text +
-                                        " is updated",
-                                    Colors.green.shade600,
-                                  );
-                                }
-                              });
-                            }
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            Text(
-              'Update Supplier: ${widget.supplierName}',
-              softWrap: true,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: HexColor("#155293"),
-                fontFamily: 'Cairo_Bold',
-                fontSize: 25,
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(left: 2),
-              child: Container(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  'Supplier Mobile',
-                  style: TextStyle(fontSize: 10),
-                ),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(bottom: 15),
-              child: TextField(
-                controller: suppmobile,
-                maxLength: 12,
-                decoration: InputDecoration(
-                  suffixIcon: Icon(Icons.edit),
-                  counterText: '',
-                  hintText: 'Mobile Number',
-                  filled: true,
-                  fillColor: Colors.blueGrey[50],
-                  labelStyle: TextStyle(fontSize: 10),
-                  contentPadding: EdgeInsets.only(left: 10),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                ),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(left: 2),
-              child: Container(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  'Supplier Website',
-                  style: TextStyle(fontSize: 10),
-                ),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(bottom: 15),
-              child: TextField(
-                controller: suppwebsite,
-                decoration: InputDecoration(
-                  suffixIcon: Icon(Icons.edit),
-                  hintText: '',
-                  filled: true,
-                  fillColor: Colors.blueGrey[50],
-                  labelStyle: TextStyle(fontSize: 10),
-                  contentPadding: EdgeInsets.only(left: 10),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.blueGrey.shade50),
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                ),
-              ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 10),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(5),
-                    child: Stack(
-                      children: <Widget>[
-                        Positioned.fill(
-                          child: Container(
-                            decoration:
-                                BoxDecoration(color: HexColor("#155293")),
-                          ),
-                        ),
-                        TextButton(
-                          style: TextButton.styleFrom(
-                            padding: const EdgeInsets.only(
-                                left: 20, right: 20, top: 15, bottom: 15),
-                            primary: Colors.white,
-                            textStyle: TextStyle(
-                              fontFamily: 'Cairo_SemiBold',
-                              fontSize: 14,
-                              color: Colors.white,
-                            ),
-                          ),
-                          child: const Text('UPDATE'),
-                          onPressed: () {
-                            if (suppmobile.text.isEmpty ||
-                                suppwebsite.text.isEmpty) {
-                              BannerNotif.notif(
-                                  'Error',
-                                  'Please fill all the fields',
-                                  Colors.red.shade600);
-                            } else {
-                              product
-                                  .updateSupplier(
-                                widget.supplierName.toString(),
-                                suppmobile.text,
-                                suppwebsite.text,
-                              )
-                                  .then((value) {
-                                if (value) {
-                                  Navigator.pop(context);
-                                  BannerNotif.notif(
-                                    'Success',
-                                    "Supplier ${widget.supplierName} is updated",
-                                    Colors.green.shade600,
-                                  );
-                                }
-                              });
-                            }
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
-      ),
-    );
-  }
 }
