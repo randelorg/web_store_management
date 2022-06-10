@@ -88,6 +88,26 @@ class ProductModel extends SupplierModel {
     this.productPrice = price;
   }
 
+  ProductModel.branchProducts(
+      {this.productCode,
+      this.productName,
+      this.productPrice,
+      this.productUnit,
+      this.prodType,
+      this.productLabel})
+      : super.empty();
+
+  factory ProductModel.branchProductFromJson(Map<String, dynamic> json) {
+    return ProductModel.branchProducts(
+      productCode: json['productCode'] as String,
+      productName: json['productName'] as String,
+      productPrice: json['productPrice'] as double,
+      productUnit: json['productUnit'] as String,
+      prodType: json['prodType'] as String,
+      productLabel: json['productLabel'] as String,
+    );
+  }
+
   ProductModel.full(
       String productCode,
       String productItemCode,

@@ -7,45 +7,29 @@ import 'package:web_store_management/Backend/Utility/Mapping.dart';
 import 'package:web_store_management/Models/ProductModel.dart';
 import 'package:web_store_management/Backend/ProductOperation.dart';
 import 'package:web_store_management/Notification/BannerNotif.dart';
-import 'package:web_store_management/Pages/InventoryMain/InventoryBranch.dart';
-import 'package:web_store_management/Pages/InventoryMain/TransferStock.dart';
 
-class InventoryDashboard extends StatefulWidget {
+class InventoryBranch extends StatefulWidget {
   @override
-  _InventoryDashboard createState() => _InventoryDashboard();
-
-  final String mainBranchName = 'Dellrains Main';
+  _InventoryBranch createState() => _InventoryBranch();
 }
 
-class _InventoryDashboard extends State<InventoryDashboard> {
+class _InventoryBranch extends State<InventoryBranch> {
   var _sortAscending = true;
   var controller = GlobalController();
   var prod = ProductOperation();
   late Future<Set<String>> _futureTypes;
   late Future<List<ProductModel>> _products;
-  late Future<bool> isMain;
   List<ProductModel> _productsFiltered = [];
   final List<String> _filters = [];
-  String _searchResult = '', branchName = '';
+  String _searchResult = '';
   bool show = false;
   TextEditingController searchValue = TextEditingController();
 
   @override
   void initState() {
-    //isMain = Future.value(false);
-    //get current branch
-    Session.getBranch().then((branch) {
-      setState(() {
-        branchName = branch;
-        if (branch != widget.mainBranchName) {
-          isMain = Future.value(false);
-        } else {
-          isMain = Future.value(true);
-        }
-      });
-    });
+    //fetches the products
     _products = controller.fetchProducts();
-    controller.fetchBranches();
+
     //fetch logged in branch
     _products.whenComplete(() {
       _productsFiltered = Mapping.productList;
@@ -75,13 +59,6 @@ class _InventoryDashboard extends State<InventoryDashboard> {
     return types;
   }
 
-  //get store available branches
-  List<String> getLocations() {
-    List<String> branches = [];
-    branches.addAll(Mapping.branchList.map((e) => e.branchName));
-    return branches;
-  }
-
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -92,24 +69,7 @@ class _InventoryDashboard extends State<InventoryDashboard> {
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             //the list of products
-            FutureBuilder<bool>(
-              future: isMain,
-              builder: (context, snapshot) {
-                if (!snapshot.hasData) {
-                  return CircularProgressIndicator.adaptive();
-                }
-
-                if (snapshot.hasData) {
-                  if (snapshot.data == true) {
-                    return _tableProducts(_productsFiltered);
-                  } else {
-                    return InventoryBranch();
-                  }
-                }
-
-                return CircularProgressIndicator.adaptive();
-              },
-            ),
+            _tableProducts(_productsFiltered),
           ],
         ),
       ],
@@ -234,11 +194,8 @@ class _InventoryDashboard extends State<InventoryDashboard> {
                       DataColumn(label: Text('PRODUCT \n LABEL')),
                       DataColumn(label: Text('QUANTITY \n ON HAND')),
                       DataColumn(label: Text('QUANTITY \n SOLD')),
-                      DataColumn(label: Text('QUANTITY \n RECEIVED')),
-                      DataColumn(label: Text('TRANSFER')),
                     ],
-                    source:
-                        _DataSource(context, getLocations(), _productsFiltered),
+                    source: _DataSource(context, _productsFiltered),
                   );
                 }
                 return Center(
@@ -261,30 +218,24 @@ class _Row {
     this.valueB,
     this.valueF,
     this.valueG,
-    this.valueH,
-    this.valueI,
   );
 
   final String valueA; //product name
   final String valueB; //label
   final Widget valueF; //inventory on hand
   final int valueG; //inventory sol
-  final int valueH; //inventory receive
-  final Widget valueI; //transfer button
 
   bool selected = false;
 }
 
 class _DataSource extends DataTableSource {
-  _DataSource(this.context, this._branches, this._productsFiltered) {
-    _products = _productList(_productsFiltered);
-    _branches = _branches;
+  _DataSource(this.context, this._productsFiltered) {
+    _products = _productList(_productsFiltered, context);
   }
 
   final BuildContext context;
   int _selectedCount = 0;
   List<_Row> _products = [];
-  List<String> _branches = [];
   List<ProductModel> _productsFiltered = [];
 
   @override
@@ -305,63 +256,10 @@ class _DataSource extends DataTableSource {
         }
       },
       cells: [
-        DataCell(Text(row.valueA), showEditIcon: true, onTap: () {
-          showModalSideSheet(
-            context: context,
-            width: MediaQuery.of(context).size.width / 4,
-            body: ListView(
-              children: [
-                UpdateProduct(
-                    supplierName: Mapping.productList
-                        .firstWhere(
-                            (product) => product.getProductName == row.valueA)
-                        .getSupplierName,
-                    supplierMobile: Mapping.productList
-                        .firstWhere(
-                            (product) => product.getProductName == row.valueA)
-                        .getSupplierMobile,
-                    supplierWebsite: Mapping.productList
-                        .firstWhere(
-                            (product) => product.getProductName == row.valueA)
-                        .getSupplierWebsite,
-                    barcode: Mapping.productList
-                        .firstWhere(
-                            (product) => product.getProductName == row.valueA)
-                        .getProductCode,
-                    name: row.valueA,
-                    price: Mapping.productList
-                        .firstWhere(
-                            (product) => product.getProductName == row.valueA)
-                        .getProductPrice
-                        .toString(),
-                    label: row.valueB,
-                    unit: Mapping.productList
-                        .firstWhere(
-                            (product) => product.getProductName == row.valueA)
-                        .getProductUnit),
-              ],
-            ),
-          );
-        }),
+        DataCell(Text(row.valueA)),
         DataCell(Text(row.valueB)),
         DataCell((row.valueF)),
         DataCell(Text(row.valueG.toString())),
-        DataCell(Text(row.valueH.toString())),
-        DataCell(row.valueI, onTap: () {
-          showModalSideSheet(
-            context: context,
-            width: MediaQuery.of(context).size.width / 4,
-            body: ListView(
-              children: [
-                TransferStock(
-                  branches: _branches,
-                  productName: row.valueA,
-                  qty: determineWidget(row.valueF),
-                ),
-              ],
-            ),
-          );
-        }),
       ],
     );
   }
@@ -375,38 +273,16 @@ class _DataSource extends DataTableSource {
   @override
   int get selectedRowCount => _selectedCount;
 
-  List<_Row> _productList(List<ProductModel> products) {
+  List<_Row> _productList(List<ProductModel> products, BuildContext context) {
     try {
       return List.generate(products.length, (index) {
         return _Row(
           products[index].getProductName.toString(),
           products[index].getProductLabel.toString(),
-          _dangerStock(products[index].getInventoryOnHand),
-          products[index].getInventorySold,
-          products[index].getInventoryReceived,
-          ClipRRect(
-            borderRadius: BorderRadius.circular(20),
-            child: Stack(
-              children: <Widget>[
-                Positioned.fill(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: HexColor("#155293"),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding:
-                      EdgeInsets.only(top: 8, bottom: 8, left: 16, right: 16),
-                  child: Icon(
-                    Icons.transfer_within_a_station,
-                    color: Colors.white,
-                    size: 25,
-                  ),
-                ),
-              ],
-            ),
-          ),
+          _dangerStock(2),
+          4,
+          // _dangerStock(products[index].getInventoryOnHand),
+          // products[index].getInventorySold,
         );
       });
     } catch (e) {
@@ -417,8 +293,6 @@ class _DataSource extends DataTableSource {
           '',
           Text(''),
           0,
-          0,
-          Text(''),
         );
       });
     }

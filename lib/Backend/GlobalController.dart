@@ -52,9 +52,19 @@ class GlobalController {
     );
 
     final parsed = jsonDecode(response.body).cast<Map<String, dynamic>>();
-    Mapping.productList = parsed
-        .map<ProductModel>((json) => ProductModel.fromJson(json))
-        .toList();
+
+    print("parsed $parsed");
+
+    if (branch == 'Dellrains Main') {
+      Mapping.productList = parsed
+          .map<ProductModel>((json) => ProductModel.fromJson(json))
+          .toList();
+    } else {
+      Mapping.productList = parsed
+          .map<ProductModel>((json) => ProductModel.branchProductFromJson(json))
+          .toList();
+    }
+
     // Use the compute function to run parseAdmin in a separate isolate.
     return Mapping.productList;
   }

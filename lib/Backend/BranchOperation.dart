@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:web_store_management/Backend/Utility/Mapping.dart';
 import 'package:web_store_management/Backend/interfaces/IBranch.dart';
 import 'package:web_store_management/Backend/interfaces/IInventory.dart';
 import 'package:web_store_management/Notification/BannerNotif.dart';
@@ -95,6 +96,7 @@ class BranchOperation implements IBranch, IInventory {
       'prodCode': productCode.trim(),
       'qty': qty,
       'branchCode': branchCode,
+      'dateTransferred': Mapping.dateToday(),
     });
 
     try {
