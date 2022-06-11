@@ -50,6 +50,7 @@ dependencies:
   dcdg: ^4.0.1
   flutter_dotenv: ^5.0.2
   modal_side_sheet: ^0.0.1
+  timelines: ^0.1.0
   
 
 dev_dependencies:

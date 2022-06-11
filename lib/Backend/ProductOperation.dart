@@ -227,6 +227,7 @@ class ProductOperation implements IProduct {
       Map<String, dynamic> onhand = jsonDecode(response.body);
 
       if (response.statusCode == 202) {
+        print("onhand ${onhand["ONHAND"]}");
         return onhand["ONHAND"];
       }
 

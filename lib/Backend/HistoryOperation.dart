@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:web_store_management/Backend/interfaces/IHistory.dart';
 import 'package:web_store_management/Models/LoanedProductHistoryModel.dart';
 import 'package:web_store_management/Models/PaymentHistoryModel.dart';
+import 'package:web_store_management/Models/ProductTranferHistoryModel.dart';
 import 'package:web_store_management/Notification/BannerNotif.dart';
 import 'package:web_store_management/environment/Environment.dart';
 import '../Backend/Utility/Mapping.dart';
@@ -44,6 +45,34 @@ class HistoryOperation implements IHistory {
       return [];
     }
     return Mapping.productHistoryList;
+  }
+
+  Future<List<ProductTransferHistoryModel>> productTransferHistory(
+      String branchCode) async {
+    try {
+      var response;
+      await Environment.methodGet(
+              "http://localhost:8090/api/transferhistory/$branchCode")
+          .then((value) {
+        response = value;
+      });
+
+      final parsed =
+          await jsonDecode(response.body).cast<Map<String, dynamic>>();
+
+      return parsed
+          .map<ProductTransferHistoryModel>(
+              (json) => ProductTransferHistoryModel.fromJson(json))
+          .toList();
+    } catch (e) {
+      print(e.toString());
+      BannerNotif.notif(
+        'Error',
+        'Cant fetch loaned product history',
+        Colors.red.shade600,
+      );
+      return [];
+    }
   }
 
   @override

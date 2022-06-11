@@ -155,7 +155,7 @@ class GlobalController {
   //fetch all the branches from the database
   Future<List<BranchModel>> fetchBranches() async {
     final response = await http.get(
-      Uri.parse("${Environment.apiUrl}/api/branches"),
+      Uri.parse("http://localhost:8090/api/branches"),
       headers: {HttpHeaders.authorizationHeader: "${Environment.apiToken}"},
     );
 

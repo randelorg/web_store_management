@@ -55,6 +55,11 @@ class ProductModel extends SupplierModel {
     this.productPrice = price;
   }
 
+  ProductModel.codeAndName(String prodCode, String prodName) : super.empty(){
+    this.productCode = prodCode;
+    this.productName = prodName;
+  }
+
   ProductModel.incomingPurchases(
       String prodCode, String prodName, String prodType)
       : super.empty() {

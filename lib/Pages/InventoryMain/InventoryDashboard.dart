@@ -297,6 +297,7 @@ class _DataSource extends DataTableSource {
   List<_Row> _products = [];
   List<String> _branches = [];
   List<ProductModel> _productsFiltered = [];
+  var x = ProductOperation();
 
   @override
   DataRow? getRow(int index) {
@@ -358,23 +359,44 @@ class _DataSource extends DataTableSource {
         DataCell((row.valueF)),
         DataCell((row.valueG)),
         DataCell(Text(row.valueH.toString())),
-        DataCell(row.valueI, onTap: () {
-          showModalSideSheet(
-            context: context,
-            width: MediaQuery.of(context).size.width / 4,
-            body: ListView(
-              children: [
-                TransferStock(
-                  branches: _branches,
-                  productName: row.valueA,
-                  qty: determineWidget(row.valueF),
-                ),
-              ],
-            ),
-          );
+        DataCell(row.valueI, onTap: () async {
+          await getQty(row.valueA).then((value) {
+            showModalSideSheet(
+              context: context,
+              width: MediaQuery.of(context).size.width / 4,
+              body: ListView(
+                children: [
+                  TransferStock(
+                    branches: _branches,
+                    productName: row.valueA,
+                    qty: value,
+                  ),
+                ],
+              ),
+            );
+          });
         }),
       ],
     );
+  }
+
+  Future<String> getQty(String productname) async {
+    String qty = '';
+    await x.getBranchOnHandProducts(getBarcode(productname)).then((value) {
+      qty = value.toString();
+    });
+    return qty;
+  }
+
+  String getBarcode(productname) {
+    var barcode = '';
+    _productsFiltered.forEach((element) {
+      if (element.getProductName == productname) {
+        barcode = element.getProductCode;
+      }
+    });
+
+    return barcode;
   }
 
   @override
@@ -387,7 +409,6 @@ class _DataSource extends DataTableSource {
   int get selectedRowCount => _selectedCount;
 
   List<_Row> _productList(List<ProductModel> products, BuildContext context) {
-    var x = ProductOperation();
     try {
       return List.generate(products.length, (index) {
         return _Row(
@@ -481,16 +502,6 @@ Widget _dangerStock(widget) {
       Text(qty.toString()),
     ],
   );
-}
-
-String determineWidget(widget) {
-  if (widget is Row) {
-    return '<= 2';
-  }
-  //get data from the TEXT widget
-  Text txt = widget;
-
-  return txt.data.toString();
 }
 
 class UpdateProduct extends StatefulWidget {
