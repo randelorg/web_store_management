@@ -1,7 +1,7 @@
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
-import '../../Backend/Session.dart';
-import '../../Backend/Utility/Mapping.dart';
+import 'package:web_store_management/Backend/Session.dart';
+import 'package:web_store_management/Backend/Utility/Mapping.dart';
 
 class ViewProfile extends StatefulWidget {
   @override
@@ -68,7 +68,8 @@ class _ViewProfileState extends State<ViewProfile> {
               child: Row(
                 children: [
                   Padding(
-                    padding: EdgeInsets.only(left: 10, top: 10, bottom: 10, right: 50),
+                    padding: EdgeInsets.only(
+                        left: 10, top: 10, bottom: 10, right: 50),
                     child: Text(
                       'Name',
                       style: TextStyle(
@@ -95,7 +96,8 @@ class _ViewProfileState extends State<ViewProfile> {
               child: Row(
                 children: [
                   Padding(
-                    padding: EdgeInsets.only(left: 10, top: 10, bottom: 10, right: 30),
+                    padding: EdgeInsets.only(
+                        left: 10, top: 10, bottom: 10, right: 30),
                     child: Text(
                       'User Level',
                       style: TextStyle(

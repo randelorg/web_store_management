@@ -4,11 +4,13 @@ import 'package:web_store_management/Backend/GlobalController.dart';
 import 'package:web_store_management/Backend/LoginOperation.dart';
 import 'package:web_store_management/Backend/Session.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
-import 'package:web_store_management/Pages/Navbar/AddAccount.dart';
+import 'package:web_store_management/Pages/Navbar/Dropdowns/AddAccount.dart';
+import 'package:web_store_management/Pages/Navbar/Dropdowns/UpdateProfile.dart';
+import 'package:web_store_management/Pages/Navbar/Dropdowns/ViewProfile.dart';
 import 'package:web_store_management/Pages/Navbar/NavDrawerAdmin.dart';
+import 'package:web_store_management/Pages/Navbar/NavDrawerAdminBranch.dart';
 import 'package:web_store_management/Pages/Navbar/NavDrawerAttendant.dart';
-import 'package:web_store_management/Pages/Navbar/UpdateProfile.dart';
-import 'package:web_store_management/Pages/Navbar/ViewProfile.dart';
+import 'package:web_store_management/Pages/Navbar/NavrDrawerAttendantBranch.dart';
 
 class Home extends StatefulWidget with PreferredSizeWidget {
   @override
@@ -16,6 +18,9 @@ class Home extends StatefulWidget with PreferredSizeWidget {
 
   @override
   Size get preferredSize => Size.fromHeight(kToolbarHeight);
+
+  final String manager = "Manager", attendant = "Store Attendant";
+  final mainBranch = 'Dellrains Main';
 }
 
 class _Home extends State<Home> {
@@ -25,9 +30,19 @@ class _Home extends State<Home> {
   String branchName = '';
   late Future<int> route;
 
+  Future<void> getBranch() async {
+    await Session.getBranch().then((branch) {
+      setState(() {
+        branchName = branch;
+        route = _identifyRoute();
+      });
+    });
+  }
+
   @override
   void initState() {
-    route = _identifyRoute();
+    getBranch();
+    route = Future.value(-1);
     Session.getid().then((id) {
       setState(() {
         if (id.isEmpty) {
@@ -41,11 +56,7 @@ class _Home extends State<Home> {
         _isAuthorized = true;
       });
     }
-    Session.getBranch().then((branch) {
-      setState(() {
-        branchName = branch;
-      });
-    });
+
     super.initState();
   }
 
@@ -112,7 +123,7 @@ class _Home extends State<Home> {
                 _destinationMenu(value);
               },
             ),
-          
+
             //logout button
             Padding(
               padding: EdgeInsets.only(right: 30),
@@ -138,11 +149,19 @@ class _Home extends State<Home> {
                 child: CircularProgressIndicator(),
               );
             }
+            // 2 = Main branch and admin role
+            // 0 = Other branch and admin role
+            // 3 = Main branch and attendant role
+            // 1 = Other branch and attendant role
             if (snapshot.hasData) {
-              if (snapshot.data == 0) {
+              if (snapshot.data == 2) {
                 return NavDrawerAdmin();
-              } else if (snapshot.data == 1) {
+              } else if (snapshot.data == 0) {
+                return NavDrawerAdminBranch();
+              } else if (snapshot.data == 3) {
                 return NavDrawerAttendant();
+              } else if (snapshot.data == 1) {
+                return NavDrawerAttendantBranch();
               } else {
                 return Center(
                   child: Text("You are not authorized to access this page"),
@@ -157,15 +176,29 @@ class _Home extends State<Home> {
   }
 
   Future<int> _identifyRoute() async {
-    final String manager = "Manager", attendant = "Store Attendant";
     int result = -1;
+
+    // 2 = Main branch and admin role
+    // 0 = Other branch and admin role
+    // 3 = Main branch and attendant role
+    // 1 = Other branch and attendant role
     await Session.getrole().then((role) {
-      if (role == manager) {
-        result = 0;
-      } else if (role == attendant) {
-        result = 1;
+      if (role == widget.manager) {
+        if (branchName == widget.mainBranch) {
+          result = 2;
+        } else {
+          result = 0;
+        }
+      } else if (role == widget.attendant) {
+        if (branchName == widget.mainBranch) {
+          result = 3;
+        } else {
+          result = 1;
+        }
       }
     });
+
+    print("result route $result");
     return result;
   }
 
@@ -191,23 +224,5 @@ class _Home extends State<Home> {
         return name;
       },
     );
-  }
-
-  void _destinationNotif(dynamic value) {
-    if (value == 1) {
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return UpdateProfile();
-        },
-      );
-    } else if (value == 2) {
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return ViewProfile();
-        },
-      );
-    }
   }
 }

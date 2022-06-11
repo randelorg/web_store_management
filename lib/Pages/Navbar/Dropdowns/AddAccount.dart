@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:web_store_management/Helpers/FilePickerHelper.dart';
+import 'package:web_store_management/Helpers/HashingHelper.dart';
 import 'package:web_store_management/Notification/BannerNotif.dart';
-import '../../Helpers/HashingHelper.dart';
 import 'ConfirmNewAccount.dart';
-import '../../Helpers/FilePickerHelper.dart';
 
 class AddAccount extends StatefulWidget {
   @override

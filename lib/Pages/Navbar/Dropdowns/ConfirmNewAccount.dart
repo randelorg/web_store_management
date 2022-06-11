@@ -1,8 +1,8 @@
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
-import '../../Backend/AdminOperation.dart';
-import '../../Notification/BannerNotif.dart';
+import 'package:web_store_management/Backend/AdminOperation.dart';
+import 'package:web_store_management/Notification/BannerNotif.dart';
 
 // ignore: must_be_immutable
 class ConfirmAccount extends StatefulWidget {
