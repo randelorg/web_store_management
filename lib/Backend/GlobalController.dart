@@ -54,8 +54,6 @@ class GlobalController {
 
     final parsed = jsonDecode(response.body).cast<Map<String, dynamic>>();
 
-    print("parsed $parsed");
-
     if (branch == mainName) {
       Mapping.productList = parsed
           .map<ProductModel>((json) => ProductModel.fromJson(json))
@@ -145,14 +143,11 @@ class GlobalController {
       headers: {HttpHeaders.authorizationHeader: "${Environment.apiToken}"},
     );
 
-    print("before parse : ${response.body}");
     final parsed = jsonDecode(response.body).cast<Map<String, dynamic>>();
-    print("parse : $parsed");
     Mapping.returns = parsed
         .map<BorrowerModel>((json) => BorrowerModel.fromJsonReturns(json))
         .toList();
 
-    print("after parse : ${Mapping.returns}");
     // Use the compute function to run parseAdmin in a separate isolate.
     return Mapping.returns;
   }

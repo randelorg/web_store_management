@@ -9,12 +9,10 @@ class ProductModel extends SupplierModel {
   String? productUnit;
   String? prodType;
   int? inventoryReceived;
-  int? inventoryOnHand;
-  int? inventorySold;
 
   get getProductCode => this.productCode;
 
-  set setProductCode(String? productCode) => this.productCode = productCode;
+  set setProductCode(productCode) => this.productCode = productCode;
 
   get getProductItemCode => this.productItemCode;
 
@@ -45,15 +43,6 @@ class ProductModel extends SupplierModel {
 
   set setInventoryReceived(inventoryReceived) =>
       this.inventoryReceived = inventoryReceived;
-
-  get getInventoryOnHand => this.inventoryOnHand;
-
-  set setInventoryOnHand(inventoryOnHand) =>
-      this.inventoryOnHand = inventoryOnHand;
-
-  get getInventorySold => this.inventorySold;
-
-  set setInventorySold(inventorySold) => this.inventorySold = inventorySold;
 
   ProductModel.empty() : super.empty();
 
@@ -109,18 +98,16 @@ class ProductModel extends SupplierModel {
   }
 
   ProductModel.full(
-      String productCode,
-      String productItemCode,
-      String productName,
-      String productLabel,
-      double productPrice,
-      String productUnit,
-      String prodType,
-      String prodLabel,
-      int inventoryReceived,
-      int inventoryOnHand,
-      int inventorySold)
-      : super.empty() {
+    String productCode,
+    String productItemCode,
+    String productName,
+    String productLabel,
+    double productPrice,
+    String productUnit,
+    String prodType,
+    String prodLabel,
+    int inventoryReceived,
+  ) : super.empty() {
     this.productCode = productCode;
     this.productName = productName;
     this.productPrice = productPrice;
@@ -129,8 +116,6 @@ class ProductModel extends SupplierModel {
     this.productLabel = prodLabel;
     this.productItemCode = productItemCode;
     this.inventoryReceived = inventoryReceived;
-    this.inventoryOnHand = inventoryOnHand;
-    this.inventorySold = inventorySold;
   }
 
   ProductModel.fullJson(
@@ -141,8 +126,6 @@ class ProductModel extends SupplierModel {
       this.prodType,
       this.productLabel,
       this.inventoryReceived,
-      this.inventoryOnHand,
-      this.inventorySold,
       name,
       mobile,
       website})
@@ -154,8 +137,6 @@ class ProductModel extends SupplierModel {
     this.prodType = prodType;
     this.productLabel = productLabel;
     this.inventoryReceived = inventoryReceived;
-    this.inventoryOnHand = inventoryOnHand;
-    this.inventorySold = inventorySold;
   }
 
   factory ProductModel.fromJson(Map<String, dynamic> json) {
@@ -167,8 +148,6 @@ class ProductModel extends SupplierModel {
       prodType: json['ProdType'] as String,
       productLabel: json['ProdLabel'] as String?,
       inventoryReceived: json['InventoryReceived'] as int,
-      inventoryOnHand: json['InventoryOnHand'] as int,
-      inventorySold: json['InventorySold'] as int,
       name: json['SupplierName'] as String,
       mobile: json['SupplierMobile'] as String,
       website: json['SupplierWebsite'] as String,

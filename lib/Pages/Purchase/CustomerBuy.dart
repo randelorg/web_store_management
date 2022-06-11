@@ -17,7 +17,7 @@ class CustomerBuy extends StatefulWidget {
   @override
   _CustomerBuy createState() => _CustomerBuy();
 
-  final String sold = 'SOLD';
+  final String cash = 'CASH';
   final int dangerStock = 2;
 }
 
@@ -133,6 +133,7 @@ class _CustomerBuy extends State<CustomerBuy> {
                           _items = searchProduct.getProductItems(barcode.text);
 
                           _items.whenComplete(() {
+                            onhand = Mapping.productItems.length;
                             if (onhand <= widget.dangerStock) {
                               BannerNotif.notif(
                                 'SOLD OUT',
@@ -143,7 +144,6 @@ class _CustomerBuy extends State<CustomerBuy> {
                             }
                             setState(() {
                               _items = _items;
-                              onhand = Mapping.productItems.length;
                             });
                           });
                         }
@@ -493,7 +493,7 @@ class _CustomerBuy extends State<CustomerBuy> {
                           //delay show of receipt to view change
                           Future.delayed(const Duration(seconds: 5), () {
                             searchProduct
-                                .customerPurchase(_orderId, widget.sold)
+                                .customerPurchase(_orderId, widget.cash)
                                 .then((value) {
                               //after sending the data print the invoice
                               showDialog(

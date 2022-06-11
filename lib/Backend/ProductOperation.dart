@@ -186,15 +186,9 @@ class ProductOperation implements IProduct {
       branchName = branch;
     });
 
-    Mapping.branchList.forEach((element) {
-      if (element.branchName == branchName) {
-        branchCode = element.branchCode;
-      }
-    });
-
     try {
       await Environment.methodGet(
-              "http://localhost:8090/api/branchsold/$branchCode/$barcode")
+              "http://localhost:8090/api/branchsold/${Mapping.findBranchCode(branchName)}/$barcode")
           .then((value) {
         response = value;
       });
@@ -217,21 +211,15 @@ class ProductOperation implements IProduct {
 
   Future<int> getBranchOnHandProducts(String barcode) async {
     var response;
-    String branchCode = '', branchName = '';
+    String branchName = '';
 
     await Session.getBranch().then((branch) {
       branchName = branch;
     });
 
-    Mapping.branchList.forEach((element) {
-      if (element.branchName == branchName) {
-        branchCode = element.branchCode;
-      }
-    });
-
     try {
       await Environment.methodGet(
-              "http://localhost:8090/api/branchonhand/$branchCode/$barcode")
+              "http://localhost:8090/api/branchonhand/${Mapping.findBranchCode(branchName)}/$barcode")
           .then((value) {
         response = value;
       });

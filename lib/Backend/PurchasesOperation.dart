@@ -182,13 +182,11 @@ class PurchasesOperation {
       }
     });
 
-    String productCode = '';
     for (var item in Mapping.invoice) {
-      productCode = item.prodCode;
       try {
         var payload = json.encode({
           "itemCode": item.itemCode,
-          "status": modeOfPayment,
+          "modeOfPayment": modeOfPayment,
           "invoiceNumber": invoiceNumber,
           "prodCode": item.prodCode,
           "currentPrice": item.currentPrice,
@@ -234,6 +232,13 @@ class PurchasesOperation {
   Future<bool> receivedItems() async {
     var response;
     String productCode = '';
+
+    String branchName = '';
+
+    await Session.getBranch().then((branch) {
+      branchName = branch;
+    });
+
     for (var item in Mapping.receiverOrders) {
       productCode = item.getProductCode;
       try {
@@ -241,6 +246,7 @@ class PurchasesOperation {
           "prodItemID": item.getProductItemCode,
           "prodCode": item.getProductCode,
           "remarks": item.getRemarks,
+          "branchCode": Mapping.findBranchCode(branchName),
         });
         await Environment.methodPost(
                 "http://localhost:8090/api/additem", payload)

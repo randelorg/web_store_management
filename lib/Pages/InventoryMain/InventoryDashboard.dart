@@ -35,7 +35,7 @@ class _InventoryDashboard extends State<InventoryDashboard> {
     isMain = Future.value(false);
     isMainBranch();
 
-    _products = controller.fetchProducts();
+    _products = Future.value([]);
     controller.fetchBranches();
     //fetch logged in branch
     _products.whenComplete(() {
@@ -63,6 +63,7 @@ class _InventoryDashboard extends State<InventoryDashboard> {
           isMain = Future.value(false);
         } else {
           isMain = Future.value(true);
+          _products = controller.fetchProducts();
         }
       });
     });
@@ -165,85 +166,91 @@ class _InventoryDashboard extends State<InventoryDashboard> {
                   );
                 }
                 if (snapshot.hasData) {
-                  return PaginatedDataTable(
-                    columnSpacing: 45,
-                    showCheckboxColumn: false,
-                    showFirstLastButtons: true,
-                    sortAscending: _sortAscending,
-                    sortColumnIndex: 1,
-                    rowsPerPage: 14,
-                    header: Text(
-                      'Product List',
-                      style: TextStyle(
-                          fontSize: 18,
-                          color: Colors.black,
-                          fontFamily: 'Cairo_Bold'),
-                    ),
-                    actions: [
-                      //choice chips
-                      FutureBuilder<Set<String>>(
-                        future: _futureTypes,
-                        builder: (context, snapshot) {
-                          if (!snapshot.hasData) {
-                            return CircularProgressIndicator();
-                          }
-                          if (snapshot.hasData) {
-                            if (snapshot.data!.length > 0) {
-                              return Wrap(
-                                  children:
-                                      productTypeWidget(snapshot.data!.toSet())
-                                          .toList());
-                            }
-                          }
-                          return Text("No product type available");
-                        },
+                  if (snapshot.data!.isNotEmpty) {
+                    return PaginatedDataTable(
+                      columnSpacing: 45,
+                      showCheckboxColumn: false,
+                      showFirstLastButtons: true,
+                      sortAscending: _sortAscending,
+                      sortColumnIndex: 1,
+                      rowsPerPage: 14,
+                      header: Text(
+                        'Product List',
+                        style: TextStyle(
+                            fontSize: 18,
+                            color: Colors.black,
+                            fontFamily: 'Cairo_Bold'),
                       ),
-                      //search button
-                      Container(
-                        padding: const EdgeInsets.only(left: 20, right: 5),
-                        width: 300,
-                        child: TextField(
-                          controller: searchValue,
-                          onChanged: (value) {
-                            setState(() {
-                              _searchResult = value;
-                              _productsFiltered = Mapping.productList
-                                  .where((product) => product.getProductName
-                                      .toLowerCase()
-                                      .contains(_searchResult.toLowerCase()))
-                                  .toList();
-                            });
+                      actions: [
+                        //choice chips
+                        FutureBuilder<Set<String>>(
+                          future: _futureTypes,
+                          builder: (context, snapshot) {
+                            if (!snapshot.hasData) {
+                              return CircularProgressIndicator();
+                            }
+                            if (snapshot.hasData) {
+                              if (snapshot.data!.length > 0) {
+                                return Wrap(
+                                    children: productTypeWidget(
+                                            snapshot.data!.toSet())
+                                        .toList());
+                              }
+                            }
+                            return Text("No product type available");
                           },
-                          decoration: InputDecoration(
-                            suffixIcon: Icon(Icons.search_rounded),
-                            hintText: 'Search Product',
-                            filled: true,
-                            fillColor: Colors.blueGrey[50],
-                            labelStyle: TextStyle(fontSize: 12),
-                            contentPadding: EdgeInsets.only(left: 15),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide:
-                                  BorderSide(color: Colors.blueGrey.shade50),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide:
-                                  BorderSide(color: Colors.blueGrey.shade50),
+                        ),
+                        //search button
+                        Container(
+                          padding: const EdgeInsets.only(left: 20, right: 5),
+                          width: 300,
+                          child: TextField(
+                            controller: searchValue,
+                            onChanged: (value) {
+                              setState(() {
+                                _searchResult = value;
+                                _productsFiltered = Mapping.productList
+                                    .where((product) => product.getProductName
+                                        .toLowerCase()
+                                        .contains(_searchResult.toLowerCase()))
+                                    .toList();
+                              });
+                            },
+                            decoration: InputDecoration(
+                              suffixIcon: Icon(Icons.search_rounded),
+                              hintText: 'Search Product',
+                              filled: true,
+                              fillColor: Colors.blueGrey[50],
+                              labelStyle: TextStyle(fontSize: 12),
+                              contentPadding: EdgeInsets.only(left: 15),
+                              enabledBorder: OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: Colors.blueGrey.shade50),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: Colors.blueGrey.shade50),
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                    ],
-                    columns: [
-                      DataColumn(label: Text('PRODUCT \n NAME')),
-                      DataColumn(label: Text('PRODUCT \n LABEL')),
-                      DataColumn(label: Text('QUANTITY \n ON HAND')),
-                      DataColumn(label: Text('QUANTITY \n SOLD')),
-                      DataColumn(label: Text('QUANTITY \n RECEIVED')),
-                      DataColumn(label: Text('TRANSFER')),
-                    ],
-                    source:
-                        _DataSource(context, getLocations(), _productsFiltered),
-                  );
+                      ],
+                      columns: [
+                        DataColumn(label: Text('PRODUCT \n NAME')),
+                        DataColumn(label: Text('PRODUCT \n LABEL')),
+                        DataColumn(label: Text('QUANTITY \n ON HAND')),
+                        DataColumn(label: Text('QUANTITY \n SOLD')),
+                        DataColumn(label: Text('QUANTITY \n RECEIVED')),
+                        DataColumn(label: Text('TRANSFER')),
+                      ],
+                      source: _DataSource(
+                          context, getLocations(), _productsFiltered),
+                    );
+                  } else {
+                    return Center(
+                      child: Text("No products available"),
+                    );
+                  }
                 }
                 return Center(
                   child: CircularProgressIndicator(
@@ -272,7 +279,7 @@ class _Row {
   final String valueA; //product name
   final String valueB; //label
   final Widget valueF; //inventory on hand
-  final int valueG; //inventory sol
+  final Widget valueG; //inventory sold
   final int valueH; //inventory receive
   final Widget valueI; //transfer button
 
@@ -281,7 +288,7 @@ class _Row {
 
 class _DataSource extends DataTableSource {
   _DataSource(this.context, this._branches, this._productsFiltered) {
-    _products = _productList(_productsFiltered);
+    _products = _productList(_productsFiltered, context);
     _branches = _branches;
   }
 
@@ -349,7 +356,7 @@ class _DataSource extends DataTableSource {
         }),
         DataCell(Text(row.valueB)),
         DataCell((row.valueF)),
-        DataCell(Text(row.valueG.toString())),
+        DataCell((row.valueG)),
         DataCell(Text(row.valueH.toString())),
         DataCell(row.valueI, onTap: () {
           showModalSideSheet(
@@ -379,14 +386,41 @@ class _DataSource extends DataTableSource {
   @override
   int get selectedRowCount => _selectedCount;
 
-  List<_Row> _productList(List<ProductModel> products) {
+  List<_Row> _productList(List<ProductModel> products, BuildContext context) {
+    var x = ProductOperation();
     try {
       return List.generate(products.length, (index) {
         return _Row(
           products[index].getProductName.toString(),
           products[index].getProductLabel.toString(),
-          _dangerStock(products[index].getInventoryOnHand),
-          products[index].getInventorySold,
+          FutureBuilder(
+            future: x.getBranchOnHandProducts(products[index].getProductCode),
+            builder: (context, snapshot) {
+              if (!snapshot.hasData) {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+              if (snapshot.hasData) {
+                return _dangerStock(Text(snapshot.data.toString()));
+              }
+              return Text('0');
+            },
+          ),
+          FutureBuilder(
+            future: x.getBranchSoldProducts(products[index].getProductCode),
+            builder: (context, snapshot) {
+              if (!snapshot.hasData) {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+              if (snapshot.hasData) {
+                return Text(snapshot.data.toString());
+              }
+              return Text('0');
+            },
+          ),
           products[index].getInventoryReceived,
           ClipRRect(
             borderRadius: BorderRadius.circular(20),
@@ -414,13 +448,14 @@ class _DataSource extends DataTableSource {
         );
       });
     } catch (e) {
+      print(e.toString());
       //if product list is empty
       return List.generate(0, (index) {
         return _Row(
           '',
           '',
           Text(''),
-          0,
+          Text(''),
           0,
           Text(''),
         );
@@ -432,8 +467,12 @@ class _DataSource extends DataTableSource {
 //this will identify if stock is <= 2
 //if it reacher 2 stock this will return an icon
 //else it will return the stock number
-Widget _dangerStock(int qty) {
-  if (qty > 2) {
+Widget _dangerStock(widget) {
+  Text txt = widget;
+  final int dangerStock = 2;
+  int qty = int.parse(txt.data.toString());
+
+  if (qty > dangerStock) {
     return Text(qty.toString());
   }
   return Row(

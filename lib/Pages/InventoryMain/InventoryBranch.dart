@@ -287,7 +287,7 @@ class _DataSource extends DataTableSource {
                 );
               }
               if (snapshot.hasData) {
-                return Text(snapshot.data.toString());
+                return _dangerStock(Text(snapshot.data.toString()));
               }
               return Text('0');
             },
@@ -306,8 +306,6 @@ class _DataSource extends DataTableSource {
               return Text('0');
             },
           ),
-          // _dangerStock(products[index].getInventoryOnHand),
-          // products[index].getInventorySold,
         );
       });
     } catch (e) {
@@ -327,8 +325,12 @@ class _DataSource extends DataTableSource {
 //this will identify if stock is <= 2
 //if it reacher 2 stock this will return an icon
 //else it will return the stock number
-Widget _dangerStock(int qty) {
-  if (qty > 2) {
+Widget _dangerStock(widget) {
+  Text txt = widget;
+  final int dangerStock = 2;
+  int qty = int.parse(txt.data.toString());
+
+  if (qty > dangerStock) {
     return Text(qty.toString());
   }
   return Row(
