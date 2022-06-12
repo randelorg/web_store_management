@@ -56,6 +56,9 @@ class _PurchaseProducts extends State<PurchaseProducts> {
   void dispose() {
     productName.dispose();
     barcode.dispose();
+    _products;
+    _suppliers;
+    _purchases;
     qty.dispose();
     super.dispose();
   }
