@@ -21,10 +21,11 @@ class _TimeCollection extends State<TimeCollection> {
   String? name;
   late Future day, week, month, weekCollection;
   late Future<List<GraphModel>> weekGraph;
-  String timeStatus = "CLOCK IN";
+  String timeStatus = "CLOCK IN", branchName = '';
 
   @override
   void initState() {
+    getBranch();
     displayName(); //display user name in dashboard
     weekGraph = dashboard.getGraphWeek(); //graph
     //collection total
@@ -33,6 +34,14 @@ class _TimeCollection extends State<TimeCollection> {
     month = dashboard.getMonthSales();
     weekCollection = dashboard.getWeekCollection();
     super.initState();
+  }
+
+  Future<void> getBranch() async {
+    await Session.getBranch().then((branch) {
+      setState(() {
+        branchName = branch;
+      });
+    });
   }
 
   void displayName() {
@@ -114,7 +123,7 @@ class _TimeCollection extends State<TimeCollection> {
                     Align(
                       alignment: Alignment.topRight,
                       child: Text(
-                        'Welcome, ${name.toString()}',
+                        "Welcome ${name.toString()}, you're in the $branchName",
                         style: TextStyle(
                           fontSize: 15,
                           color: Colors.black,

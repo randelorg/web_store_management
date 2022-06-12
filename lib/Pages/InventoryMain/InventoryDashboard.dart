@@ -23,7 +23,6 @@ class _InventoryDashboard extends State<InventoryDashboard> {
   var prod = ProductOperation();
   late Future<Set<String>> _futureTypes;
   late Future<List<ProductModel>> _products;
-  late Future<bool> isMain;
   List<ProductModel> _productsFiltered = [];
   final List<String> _filters = [];
   String _searchResult = '', branchName = '';
@@ -32,9 +31,7 @@ class _InventoryDashboard extends State<InventoryDashboard> {
 
   @override
   void initState() {
-    isMain = Future.value(false);
     isMainBranch();
-
     _products = Future.value([]);
     controller.fetchBranches();
     //fetch logged in branch
@@ -55,18 +52,15 @@ class _InventoryDashboard extends State<InventoryDashboard> {
     super.dispose();
   }
 
-  Future<void> isMainBranch() async {
-    await Session.getBranch().then((branch) {
-      setState(() {
-        branchName = branch;
-        if (branch != widget.mainBranchName) {
-          isMain = Future.value(false);
-        } else {
-          isMain = Future.value(true);
-          _products = controller.fetchProducts();
-        }
-      });
-    });
+  Future<bool> isMainBranch() async {
+    String branchName = await Session.getBranch().toString();
+
+    if (branchName != widget.mainBranchName) {
+      return false;
+    } else {
+      _products = controller.fetchProducts();
+      return true;
+    }
   }
 
   //get the product types using SET
@@ -98,7 +92,7 @@ class _InventoryDashboard extends State<InventoryDashboard> {
           children: [
             //the list of products
             FutureBuilder<bool>(
-              future: isMain,
+              future: isMainBranch(),
               builder: (context, snapshot) {
                 if (!snapshot.hasData) {
                   return CircularProgressIndicator.adaptive();

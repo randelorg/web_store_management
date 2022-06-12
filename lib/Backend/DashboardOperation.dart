@@ -1,10 +1,12 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:web_store_management/Backend/Utility/Mapping.dart';
 import 'package:web_store_management/Backend/interfaces/IDashboard.dart';
 import 'package:web_store_management/Models/CollectionModel.dart';
 import 'package:web_store_management/Models/GraphModel.dart';
 import 'package:web_store_management/environment/Environment.dart';
+import 'package:web_store_management/Backend/Session.dart';
 
 class DashboardOperation implements IDashboard {
   late final BuildContext context;
@@ -42,10 +44,16 @@ class DashboardOperation implements IDashboard {
 
   @override
   Future<double> getTodaySales() async {
+    String branchName = '';
+
+    await Session.getBranch().then((branch) {
+      branchName = branch;
+    });
+
     var response;
     try {
       await Environment.methodGet(
-              "http://localhost:8090/api/today/${getTodayDate()}")
+              "http://localhost:8090/api/today/${getTodayDate()}/${Mapping.findBranchCode(branchName)}")
           .then((value) {
         response = value;
       });
@@ -66,11 +74,17 @@ class DashboardOperation implements IDashboard {
 
   @override
   Future<double> getWeekSales() async {
+    String branchName = '';
+
+    await Session.getBranch().then((branch) {
+      branchName = branch;
+    });
+
     List<String> dates = getWeekDates();
     var response;
     try {
       await Environment.methodGet(
-              "http://localhost:8090/api/week/${dates[0]}/${dates[1]}")
+              "http://localhost:8090/api/week/${dates[0]}/${dates[1]}/${Mapping.findBranchCode(branchName)}")
           .then((value) {
         response = value;
       });
@@ -91,11 +105,16 @@ class DashboardOperation implements IDashboard {
 
   @override
   Future<double> getMonthSales() async {
+    String branchName = '';
+
+    await Session.getBranch().then((branch) {
+      branchName = branch;
+    });
     List<String> dates = getMonthDates();
     var response;
     try {
       await Environment.methodGet(
-              "http://localhost:8090/api/week/${dates[0]}/${dates[1]}")
+              "http://localhost:8090/api/week/${dates[0]}/${dates[1]}/${Mapping.findBranchCode(branchName)}")
           .then((value) {
         response = value;
       });

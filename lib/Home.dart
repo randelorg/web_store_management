@@ -79,49 +79,48 @@ class _Home extends State<Home> {
           leading: Image.asset('../assets/images/store-logo.png'),
           leadingWidth: 100,
           actions: [
-            //Menu Button
-            PopupMenuButton(
+            //view profile
+            IconButton(
               icon: Icon(
-                Icons.menu,
+                Icons.person,
                 color: HexColor("#155293"),
               ),
-              itemBuilder: (context) {
-                return [
-                  PopupMenuItem(
-                    child: ListTile(
-                      leading: Icon(Icons.store),
-                      title: Text('$branchName'),
-                    ),
-                    value: 0,
-                  ),
-                  PopupMenuItem(
-                    child: ListTile(
-                      leading: Icon(Icons.create_rounded),
-                      title: Text('View Profile'),
-                    ),
-                    value: 1,
-                  ),
-                  PopupMenuItem(
-                    enabled: _isAuthorized,
-                    child: ListTile(
-                      leading: Icon(Icons.person),
-                      title: Text('Update Profile'),
-                    ),
-                    value: 2,
-                  ),
-                  PopupMenuItem(
-                    enabled: _isAuthorized,
-                    child: ListTile(
-                      leading: Icon(Icons.person_add),
-                      title: Text('Add Manager'),
-                    ),
-                    value: 3,
-                  ),
-                ];
+              onPressed: () {
+                routeName(ViewProfile());
               },
-              onSelected: (value) {
-                _destinationMenu(value);
-              },
+            ),
+            //Menu Button
+            Visibility(
+              visible: _isAuthorized,
+              child: PopupMenuButton(
+                icon: Icon(
+                  Icons.menu,
+                  color: HexColor("#155293"),
+                ),
+                itemBuilder: (context) {
+                  return [
+                    PopupMenuItem(
+                      enabled: _isAuthorized,
+                      child: ListTile(
+                        leading: Icon(Icons.person),
+                        title: Text('Update Profile'),
+                      ),
+                      value: 2,
+                    ),
+                    PopupMenuItem(
+                      enabled: _isAuthorized,
+                      child: ListTile(
+                        leading: Icon(Icons.person_add),
+                        title: Text('Add Manager'),
+                      ),
+                      value: 3,
+                    ),
+                  ];
+                },
+                onSelected: (value) {
+                  _destinationMenu(value);
+                },
+              ),
             ),
 
             //logout button
@@ -204,9 +203,6 @@ class _Home extends State<Home> {
 
   void _destinationMenu(dynamic value) {
     switch (value) {
-      case 1:
-        routeName(ViewProfile());
-        break;
       case 2:
         routeName(UpdateProfile());
         break;

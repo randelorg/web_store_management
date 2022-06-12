@@ -120,21 +120,11 @@ class PurchasesOperation {
   Future<List<IncomingPurchasesModel>> getProductItems(String barcode) async {
     var response;
     final String receive = "RECEIVED";
-    String branchCode = '', branchName = '';
-
-    await Session.getBranch().then((branch) {
-      branchName = branch;
-    });
-
-    Mapping.branchList.forEach((element) {
-      if (element.branchName == branchName) {
-        branchCode = element.branchCode;
-      }
-    });
+    String branchName = await Session.getBranch().toString();
 
     try {
       await Environment.methodGet(
-              "http://localhost:8090/api/item/$barcode/$receive/$branchCode")
+              "http://localhost:8090/api/item/$barcode/$receive/${Mapping.findBranchCode(branchName)}")
           .then((value) {
         response = value;
       });
@@ -176,12 +166,6 @@ class PurchasesOperation {
       branchName = branch;
     });
 
-    Mapping.branchList.forEach((element) {
-      if (element.branchName == branchName) {
-        branchCode = element.branchCode;
-      }
-    });
-
     for (var item in Mapping.invoice) {
       try {
         var payload = json.encode({
@@ -191,7 +175,7 @@ class PurchasesOperation {
           "prodCode": item.prodCode,
           "currentPrice": item.currentPrice,
           "date": Mapping.dateToday(),
-          "branchCode": branchCode,
+          "branchCode": Mapping.findBranchCode(branchName),
         });
         await Environment.methodPost(
                 "http://localhost:8090/api/buyitem", payload)
