@@ -8,7 +8,9 @@ import 'package:web_store_management/Pages/InventoryMain/ViewOrders/ReceiveOrder
 
 class ViewOrderList extends StatefulWidget {
   final String? orderSlipId, datePurchase, supplierName;
+  final bool status;
   ViewOrderList({
+    required this.status,
     required this.orderSlipId,
     required this.datePurchase,
     required this.supplierName,
@@ -27,6 +29,7 @@ class _ViewOrderList extends State<ViewOrderList> {
   @override
   void initState() {
     super.initState();
+    print("view ${widget.status}");
     this._order = orders.getOrders(widget.orderSlipId.toString(),
         widget.supplierName.toString(), widget.datePurchase.toString());
   }
@@ -109,7 +112,10 @@ class _ViewOrderList extends State<ViewOrderList> {
                         DataColumn(label: Text('QUANTITY ORDERED')),
                         DataColumn(label: Text('ACTION')),
                       ],
-                      source: _DataSource(context),
+                      source: _DataSource(
+                        context,
+                        widget.status,
+                      ),
                     ),
                   );
                 } else {
@@ -140,43 +146,46 @@ class _ViewOrderList extends State<ViewOrderList> {
             },
           ),
         )),
-        Padding(
-          padding: const EdgeInsets.all(10),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(20),
-            child: Stack(
-              children: <Widget>[
-                Positioned.fill(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: HexColor("#155293"),
+        Visibility(
+          visible: widget.status,
+          child: Padding(
+            padding: const EdgeInsets.all(10),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(20),
+              child: Stack(
+                children: <Widget>[
+                  Positioned.fill(
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: HexColor("#155293"),
+                      ),
                     ),
                   ),
-                ),
-                TextButton(
-                  style: TextButton.styleFrom(
-                    padding: const EdgeInsets.only(
-                        top: 18, bottom: 18, left: 36, right: 36),
-                    primary: Colors.white,
-                    textStyle:
-                        TextStyle(fontFamily: 'Cairo_SemiBold', fontSize: 14),
+                  TextButton(
+                    style: TextButton.styleFrom(
+                      padding: const EdgeInsets.only(
+                          top: 18, bottom: 18, left: 36, right: 36),
+                      primary: Colors.white,
+                      textStyle:
+                          TextStyle(fontFamily: 'Cairo_SemiBold', fontSize: 14),
+                    ),
+                    child: const Text('RECEIVED PURCHASE ORDER'),
+                    onPressed: () async {
+                      orders
+                          .markAsRecieved(widget.orderSlipId.toString())
+                          .then((value) {
+                        if (value) {
+                          BannerNotif.notif(
+                            'Success',
+                            '${widget.orderSlipId.toString()} is now marked as received',
+                            Colors.green.shade600,
+                          );
+                        }
+                      });
+                    },
                   ),
-                  child: const Text('RECEIVED PURCHASE ORDER'),
-                  onPressed: () async {
-                    orders
-                        .markAsRecieved(widget.orderSlipId.toString())
-                        .then((value) {
-                      if (value) {
-                        BannerNotif.notif(
-                          'Success',
-                          '${widget.orderSlipId.toString()} is now marked as received',
-                          Colors.green.shade600,
-                        );
-                      }
-                    });
-                  },
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
@@ -204,7 +213,7 @@ class _Row {
 }
 
 class _DataSource extends DataTableSource {
-  _DataSource(this.context) {
+  _DataSource(this.context, this.status) {
     _payHistory = _orders();
   }
 
@@ -212,6 +221,7 @@ class _DataSource extends DataTableSource {
 
   int _selectedCount = 0;
   List<_Row> _payHistory = [];
+  bool status;
 
   @override
   DataRow? getRow(int index) {
@@ -227,6 +237,9 @@ class _DataSource extends DataTableSource {
         DataCell(Text(row.valueC)),
         DataCell(Text(row.valueD.toString())),
         DataCell((row.valueE), onTap: () {
+          if (!status) {
+            return;
+          }
           showDialog(
             context: context,
             builder: (BuildContext context) {
@@ -260,30 +273,33 @@ class _DataSource extends DataTableSource {
             Mapping.ordersList[index].getProductName,
             Mapping.ordersList[index].getProdType,
             Mapping.ordersList[index].getNumberReceived,
-            ClipRRect(
-              borderRadius: BorderRadius.circular(20),
-              child: Stack(
-                children: <Widget>[
-                  Positioned.fill(
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: HexColor("#155293"),
+            Visibility(
+              visible: status,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                child: Stack(
+                  children: <Widget>[
+                    Positioned.fill(
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: HexColor("#155293"),
+                        ),
                       ),
                     ),
-                  ),
-                  Padding(
-                    padding:
-                        EdgeInsets.only(top: 8, bottom: 8, left: 10, right: 10),
-                    child: Text(
-                      'RECEIVE',
-                      style: TextStyle(
-                        fontFamily: 'Cairo_SemiBold',
-                        fontSize: 14,
-                        color: Colors.white,
+                    Padding(
+                      padding: EdgeInsets.only(
+                          top: 8, bottom: 8, left: 10, right: 10),
+                      child: Text(
+                        'RECEIVE',
+                        style: TextStyle(
+                          fontFamily: 'Cairo_SemiBold',
+                          fontSize: 14,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           );

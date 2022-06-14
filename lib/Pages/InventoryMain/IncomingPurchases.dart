@@ -232,6 +232,7 @@ class _DataSource extends DataTableSource {
               body: Padding(
                 padding: const EdgeInsets.all(25),
                 child: ViewOrderList(
+                  status: row.valueD == 'RECEIVED' ? false : true,
                   orderSlipId: row.valueA,
                   datePurchase: row.valueE,
                   supplierName: row.valueB,

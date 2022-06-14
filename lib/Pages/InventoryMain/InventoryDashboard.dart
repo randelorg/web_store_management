@@ -53,7 +53,10 @@ class _InventoryDashboard extends State<InventoryDashboard> {
   }
 
   Future<bool> isMainBranch() async {
-    String branchName = await Session.getBranch().toString();
+    String branchName = '';
+    await Session.getBranch().then((value) {
+      branchName = value;
+    });
 
     if (branchName != widget.mainBranchName) {
       return false;
@@ -166,7 +169,7 @@ class _InventoryDashboard extends State<InventoryDashboard> {
                       showCheckboxColumn: false,
                       showFirstLastButtons: true,
                       sortAscending: _sortAscending,
-                      sortColumnIndex: 1,
+                      sortColumnIndex: 0,
                       rowsPerPage: 14,
                       header: Text(
                         'Product List',
@@ -230,7 +233,23 @@ class _InventoryDashboard extends State<InventoryDashboard> {
                         ),
                       ],
                       columns: [
-                        DataColumn(label: Text('PRODUCT \n NAME')),
+                        DataColumn(
+                          label: Text('PRODUCT \n NAME'),
+                          onSort: (index, sortAscending) {
+                            setState(() {
+                              _sortAscending = sortAscending;
+                              if (sortAscending) {
+                                _productsFiltered.sort((a, b) => a
+                                    .getProductName
+                                    .compareTo(b.getProductName));
+                              } else {
+                                _productsFiltered.sort((a, b) => b
+                                    .getProductName
+                                    .compareTo(a.getProductName));
+                              }
+                            });
+                          },
+                        ),
                         DataColumn(label: Text('PRODUCT \n LABEL')),
                         DataColumn(label: Text('QUANTITY \n ON HAND')),
                         DataColumn(label: Text('QUANTITY \n SOLD')),
@@ -238,7 +257,10 @@ class _InventoryDashboard extends State<InventoryDashboard> {
                         DataColumn(label: Text('TRANSFER')),
                       ],
                       source: _DataSource(
-                          context, getLocations(), _productsFiltered),
+                        context,
+                        getLocations(),
+                        _productsFiltered,
+                      ),
                     );
                   } else {
                     return Center(
@@ -292,6 +314,7 @@ class _DataSource extends DataTableSource {
   List<String> _branches = [];
   List<ProductModel> _productsFiltered = [];
   var x = ProductOperation();
+  final int dangerStock = 2;
 
   @override
   DataRow? getRow(int index) {
@@ -355,6 +378,15 @@ class _DataSource extends DataTableSource {
         DataCell(Text(row.valueH.toString())),
         DataCell(row.valueI, onTap: () async {
           await getQty(row.valueA).then((value) {
+            if (int.parse(value) <= dangerStock) {
+              BannerNotif.notif(
+                '',
+                'Not enough quantity to be transferred',
+                Colors.orange.shade400,
+              );
+              return;
+            }
+
             showModalSideSheet(
               context: context,
               width: MediaQuery.of(context).size.width / 4,
@@ -449,8 +481,12 @@ class _DataSource extends DataTableSource {
                   ),
                 ),
                 Padding(
-                  padding:
-                      EdgeInsets.only(top: 8, bottom: 8, left: 16, right: 16),
+                  padding: EdgeInsets.only(
+                    top: 8,
+                    bottom: 8,
+                    left: 16,
+                    right: 16,
+                  ),
                   child: Icon(
                     Icons.transfer_within_a_station,
                     color: Colors.white,
