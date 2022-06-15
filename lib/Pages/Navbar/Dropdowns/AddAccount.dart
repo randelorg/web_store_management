@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:web_store_management/Helpers/FilePickerHelper.dart';
 import 'package:web_store_management/Helpers/HashingHelper.dart';
 import 'package:web_store_management/Notification/BannerNotif.dart';
@@ -323,7 +324,7 @@ class _AddAccount extends State<AddAccount> {
                     });
                   });
                 },
-                icon: Icon(Icons.file_upload, color: HexColor("#155293")),
+                icon: Icon(MdiIcons.image, color: HexColor("#155293")),
                 label: Text(
                   fileName,
                   style: TextStyle(color: HexColor("#155293")),

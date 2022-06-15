@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:web_store_management/Backend/TextMessage.dart';
 import 'package:web_store_management/Notification/BannerNotif.dart';
 import 'package:web_store_management/Pages/NewLoan/PaymentPlan.dart';
@@ -358,22 +359,22 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
                 Padding(
                   padding: EdgeInsets.only(top: 10),
                   child: ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
+                    borderRadius: BorderRadius.circular(8),
                     child: Stack(
                       children: <Widget>[
                         Positioned.fill(
                           child: Container(
                             decoration: BoxDecoration(
-                              color: Colors.green,
+                              color: Colors.green.shade600,
                             ),
                           ),
                         ),
                         TextButton.icon(
-                          icon: Icon(Icons.attach_file, color: Colors.white),
+                          icon: Icon(MdiIcons.attachment, color: Colors.white),
                           style: TextButton.styleFrom(
                             primary: Colors.white,
                             textStyle: TextStyle(
-                              fontSize: 14,
+                              fontSize: 16,
                               fontFamily: 'Cairo_SemiBold',
                             ),
                           ),
@@ -443,21 +444,21 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
               ),
             ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Padding(
-                  padding: EdgeInsets.only(left: 5, right: 15),
+                Align(
+                  alignment: Alignment.topLeft,
                   child: Container(
-                    width: 300,
+                    width: 400,
+                    padding: const EdgeInsets.only(top: 20, bottom: 10, left: 135, right: 5),
                     child: TextField(
                       controller: barcode,
                       decoration: InputDecoration(
-                         suffixIcon: Icon(Icons.search_rounded),
                         hintText: 'Product Barcode',
                         filled: true,
                         fillColor: Colors.blueGrey[50],
-                        labelStyle: TextStyle(fontSize: 10),
-                        contentPadding: EdgeInsets.only(left: 10),
+                        labelStyle: TextStyle(fontSize: 12),
+                        contentPadding: EdgeInsets.only(left: 15),
                         enabledBorder: OutlineInputBorder(
                           borderSide:
                               BorderSide(color: Colors.blueGrey.shade50),
@@ -473,7 +474,7 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(10),
+                  padding: const EdgeInsets.only(top: 20, bottom: 10, left: 5, right: 505),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(20),
                     child: Stack(
@@ -600,16 +601,13 @@ class _SelectionOfProductsPage extends State<SelectionOfProductsPage> {
                 TextButton(
                   child: const Text('DONE'),
                   style: TextButton.styleFrom(
-                    padding: const EdgeInsets.only(
-                      top: 18,
-                      bottom: 18,
-                      left: 36,
-                      right: 36,
-                    ),
-                    primary: Colors.blue.shade400,
+                    padding: const EdgeInsets.only(top: 18, bottom: 18, left: 26, right: 26),
+                    backgroundColor: HexColor("#155293"),
+                    shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(8)),
+                    primary: Colors.white,
                     textStyle: TextStyle(
                       fontFamily: 'Cairo_SemiBold',
-                      fontSize: 20,
+                      fontSize: 15,
                     ),
                   ),
                   onPressed: () {

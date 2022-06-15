@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:web_store_management/Backend/BorrowerOperation.dart';
 import 'package:web_store_management/Backend/GlobalController.dart';
 import 'package:web_store_management/Backend/TextMessage.dart';
@@ -62,15 +63,14 @@ class _ReturnsPage extends State<ReturnsPage> {
                         ),
                       ),
                       TextButton.icon(
-                        icon: Icon(Icons.add_box_rounded, color: Colors.white),
+                        icon: Icon(MdiIcons.plusCircleOutline, color: Colors.white),
                         style: TextButton.styleFrom(
-                          padding: const EdgeInsets.only(
-                              left: 10, right: 10, top: 10, bottom: 10),
+                          padding: const EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 10),
                           primary: Colors.white,
                           textStyle: TextStyle(
                               fontSize: 18, fontFamily: 'Cairo_SemiBold'),
                         ),
-                        label: Text('NEW RETURN'),
+                        label: Text('NEW RETURNS'),
                         onPressed: () {
                           showDialog(
                             context: context,
@@ -109,7 +109,7 @@ class _ReturnsPage extends State<ReturnsPage> {
                       },
                       decoration: InputDecoration(
                         suffixIcon: Icon(Icons.search_rounded),
-                        hintText: 'Search Borrower',
+                        hintText: 'Search Customer',
                         filled: true,
                         fillColor: Colors.blueGrey[50],
                         labelStyle: TextStyle(fontSize: 12),

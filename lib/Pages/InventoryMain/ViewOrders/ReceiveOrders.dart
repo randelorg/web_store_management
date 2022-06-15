@@ -291,7 +291,7 @@ class _ReceiveOrders extends State<ReceiveOrders> {
                                       BannerNotif.notif(
                                         'Success',
                                         'Item Added',
-                                        Colors.green.shade200,
+                                        Colors.green.shade600,
                                       );
                                       Mapping.purchases.clear();
                                       Mapping.receiverOrders.clear();

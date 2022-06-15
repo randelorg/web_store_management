@@ -51,7 +51,7 @@ class _SearchSerialNumber extends State<SearchSerialNumber> {
               style: TextStyle(
                 color: HexColor("#155293"),
                 fontFamily: 'Cairo_Bold',
-                fontSize: 30,
+                fontSize: 15,
               ),
             ),
             Form(
@@ -60,12 +60,12 @@ class _SearchSerialNumber extends State<SearchSerialNumber> {
                   children: <Widget>[
                     // Input Borrowers Name
                     Container(
-                      padding: EdgeInsets.only(left: 5, right: 5, top: 10),
+                      padding: EdgeInsets.only(left: 5, right: 5, top: 5),
                       child: TextFormField(
                         controller: itemcode,
                         keyboardType: TextInputType.text,
                         decoration: InputDecoration(
-                          hintText: 'Serial number',
+                          hintText: 'Serial Number',
                           filled: true,
                           fillColor: Colors.blueGrey[50],
                           labelStyle: TextStyle(fontSize: 12),

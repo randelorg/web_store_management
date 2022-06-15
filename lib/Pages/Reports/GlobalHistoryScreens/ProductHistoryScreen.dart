@@ -80,7 +80,7 @@ class _ProductHistory extends State<ProductHistory> {
               if (!snapshot.hasData) {
                 return Center(
                   child: CircularProgressIndicator(
-                    semanticsLabel: 'Fetching borrowers',
+                    semanticsLabel: 'Fetching history',
                   ),
                 );
               }

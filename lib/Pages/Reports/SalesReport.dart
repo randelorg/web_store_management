@@ -4,6 +4,7 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:web_store_management/Backend/DashboardOperation.dart';
 import 'package:web_store_management/Pages/DashBoard/SalesGraph.dart';
 import '../../Models/GraphModel.dart';
+import '../../Notification/BannerNotif.dart';
 
 class SalesReport extends StatefulWidget {
   @override
@@ -36,13 +37,13 @@ class _SalesReport extends State<SalesReport> {
               child: Text('Start: '),
             ),
             Padding(
-              padding: EdgeInsets.only(top: 20, left: 10, right: 30),
+              padding: EdgeInsets.only(top: 20, left: 10, right: 30, bottom: 5),
               child: Container(
                 width: (MediaQuery.of(context).size.width) / 6,
                 child: TextField(
                   controller: startDate,
                   decoration: InputDecoration(
-                     suffixIcon: Icon(Icons.date_range_rounded),
+                    suffixIcon: Icon(Icons.date_range_rounded),
                     labelStyle: TextStyle(fontSize: 12),
                     contentPadding: EdgeInsets.only(left: 15),
                     filled: true,
@@ -103,13 +104,13 @@ class _SalesReport extends State<SalesReport> {
               child: Text('End:'),
             ),
             Padding(
-              padding: EdgeInsets.only(top: 20, left: 10, right: 30),
+              padding: EdgeInsets.only(top: 20, left: 10, right: 30, bottom: 5),
               child: Container(
                 width: (MediaQuery.of(context).size.width) / 6,
                 child: TextField(
                   controller: endDate,
                   decoration: InputDecoration(
-                      suffixIcon: Icon(Icons.date_range_rounded),
+                    suffixIcon: Icon(Icons.date_range_rounded),
                     labelStyle: TextStyle(fontSize: 12),
                     contentPadding: EdgeInsets.only(left: 15),
                     filled: true,
@@ -129,7 +130,7 @@ class _SalesReport extends State<SalesReport> {
                     DateTime? pickedDate = await showDatePicker(
                       context: context,
                       initialDate: DateTime.now(),
-                      firstDate: DateTime(2000),
+                      firstDate: DateTime(2022),
                       lastDate: DateTime(2032),
                       builder: (context, child) {
                         return Theme(
@@ -162,7 +163,7 @@ class _SalesReport extends State<SalesReport> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(top: 20),
+              padding: EdgeInsets.only(top: 20, bottom: 5),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(18),
                 child: Stack(
@@ -184,23 +185,23 @@ class _SalesReport extends State<SalesReport> {
                       ),
                       child: const Text('VIEW'),
                       onPressed: () {
-                        setState(() {
-                          report = dashboard.getSalesGraphReport(
-                            startDate.text,
-                            endDate.text,
-                          );
-                        });
+                        if (startDate.text.isEmpty || endDate.text.isEmpty) {
+                          BannerNotif.notif(
+                              "Error",
+                              "Please fill all the fields",
+                              Colors.red.shade600);
+                        } else {
+                          setState(() {
+                            report = dashboard.getSalesGraphReport(
+                              startDate.text,
+                              endDate.text,
+                            );
+                          });
+                        }
                       },
                     ),
                   ],
                 ),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(top: 20, left: 20),
-              child: Tooltip(
-                message: 'Print graph',
-                child: Icon(Icons.print_rounded),
               ),
             ),
           ],

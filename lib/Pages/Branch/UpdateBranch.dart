@@ -150,7 +150,7 @@ class _UpdateBranch extends State<UpdateBranch> {
                                       Navigator.pop(context);
                                       BannerNotif.notif(
                                         'Success',
-                                        "Branch" +
+                                        "Branch " +
                                             branchName.text +
                                             " is updated",
                                         Colors.green.shade600,

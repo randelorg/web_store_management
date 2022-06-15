@@ -68,12 +68,7 @@ class _CustomerBuy extends State<CustomerBuy> {
               alignment: Alignment.topLeft,
               child: Container(
                 width: 400,
-                padding: const EdgeInsets.only(
-                  top: 50,
-                  bottom: 10,
-                  left: 135,
-                  right: 5,
-                ),
+                padding: const EdgeInsets.only(top: 100, bottom: 10, left: 135, right: 5),
                 child: TextField(
                   controller: barcode,
                   decoration: InputDecoration(
@@ -95,8 +90,7 @@ class _CustomerBuy extends State<CustomerBuy> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(
-                  top: 50, bottom: 10, left: 5, right: 40),
+              padding: const EdgeInsets.only(top: 100, bottom: 10, left: 5, right: 40),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(20),
                 child: Stack(
@@ -110,12 +104,7 @@ class _CustomerBuy extends State<CustomerBuy> {
                     ),
                     TextButton(
                       style: TextButton.styleFrom(
-                        padding: const EdgeInsets.only(
-                          top: 18,
-                          bottom: 18,
-                          left: 36,
-                          right: 36,
-                        ),
+                        padding: const EdgeInsets.only(top: 18, bottom: 18, left: 36, right: 36),
                         primary: Colors.white,
                         textStyle: TextStyle(
                           fontFamily: 'Cairo_SemiBold',
@@ -131,7 +120,6 @@ class _CustomerBuy extends State<CustomerBuy> {
                               Colors.red.shade600);
                         } else {
                           _items = searchProduct.getProductItems(barcode.text);
-
                           _items.whenComplete(() {
                             onhand = Mapping.productItems.length;
                             if (onhand <= widget.dangerStock) {
@@ -305,7 +293,7 @@ class _CustomerBuy extends State<CustomerBuy> {
                     showFirstLastButtons: true,
                     sortAscending: _sortAscending,
                     sortColumnIndex: 1,
-                    rowsPerPage: 9,
+                    rowsPerPage: 10,
                     columns: [
                       DataColumn(label: Text('Item Code')),
                       DataColumn(label: Text('Remarks')),

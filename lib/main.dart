@@ -14,6 +14,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: 'Dellrains Store Management System',
+      theme: ThemeData(
+        progressIndicatorTheme: ProgressIndicatorThemeData(
+          color:Colors.amber),
+      ),
       debugShowCheckedModeBanner: false,
       routes: {
         '/': (context) => FrontLogin(),

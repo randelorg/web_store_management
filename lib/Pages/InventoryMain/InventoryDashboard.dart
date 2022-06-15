@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:modal_side_sheet/modal_side_sheet.dart';
 import 'package:web_store_management/Backend/GlobalController.dart';
 import 'package:web_store_management/Backend/Session.dart';
@@ -148,6 +149,7 @@ class _InventoryDashboard extends State<InventoryDashboard> {
   Widget _tableProducts(List<ProductModel> products) {
     return Expanded(
       child: Container(
+        padding: const EdgeInsets.only(top: 10),
         width: (MediaQuery.of(context).size.width) / 1.3,
         height: (MediaQuery.of(context).size.height),
         child: ListView(
@@ -386,16 +388,18 @@ class _DataSource extends DataTableSource {
               );
               return;
             }
-
             showModalSideSheet(
               context: context,
               width: MediaQuery.of(context).size.width / 4,
               body: ListView(
                 children: [
-                  TransferStock(
-                    branches: _branches,
-                    productName: row.valueA,
-                    qty: value,
+                  Padding(
+                    padding: const EdgeInsets.all(30.0),
+                    child: TransferStock(
+                      branches: _branches,
+                      productName: row.valueA,
+                      qty: value,
+                    ),
                   ),
                 ],
               ),
@@ -481,17 +485,8 @@ class _DataSource extends DataTableSource {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(
-                    top: 8,
-                    bottom: 8,
-                    left: 16,
-                    right: 16,
-                  ),
-                  child: Icon(
-                    Icons.transfer_within_a_station,
-                    color: Colors.white,
-                    size: 25,
-                  ),
+                  padding: EdgeInsets.only(top: 8, bottom: 8, left: 16, right: 16),
+                  child: Icon(MdiIcons.swapHorizontal, color: Colors.white),
                 ),
               ],
             ),

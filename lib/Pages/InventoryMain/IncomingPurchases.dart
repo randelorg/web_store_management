@@ -77,6 +77,7 @@ class _IncomingPurchases extends State<IncomingPurchases> {
   Widget _tableProducts(List<ProductModel> products) {
     return Expanded(
       child: Container(
+        padding: const EdgeInsets.only(top: 10),
         width: (MediaQuery.of(context).size.width) / 1.3,
         height: (MediaQuery.of(context).size.height),
         child: ListView(
@@ -123,7 +124,7 @@ class _IncomingPurchases extends State<IncomingPurchases> {
                             });
                           },
                           decoration: InputDecoration(
-                            suffix: Icon(Icons.search_rounded),
+                            suffixIcon: Icon(Icons.search_rounded),
                             hintText: 'Search Order',
                             filled: true,
                             fillColor: Colors.blueGrey[50],

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:modal_side_sheet/modal_side_sheet.dart';
 import 'package:web_store_management/Backend/GlobalController.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
@@ -50,15 +51,14 @@ class _TransferProductHistory extends State<TransferProductHistory> {
                 if (snapshot.hasData) {
                   return ListView(
                     scrollDirection: Axis.vertical,
-                    padding:
-                        const EdgeInsets.only(top: 5, right: 100, left: 100),
+                    padding: const EdgeInsets.only(top:30, right: 100, left: 100),
                     children: [
                       PaginatedDataTable(
                         showCheckboxColumn: false,
                         showFirstLastButtons: true,
                         sortAscending: _sortAscending,
                         sortColumnIndex: 0,
-                        rowsPerPage: 14,
+                        rowsPerPage: 12,
                         header: Text(
                           'Branch List',
                           style: TextStyle(
@@ -104,7 +104,7 @@ class _TransferProductHistory extends State<TransferProductHistory> {
                         ],
                         columns: [
                           DataColumn(
-                            label: Text('CODE'),
+                            label: Text('BCODE'),
                             onSort: (index, sortAscending) {
                               setState(() {
                                 _sortAscending = sortAscending;
@@ -119,7 +119,7 @@ class _TransferProductHistory extends State<TransferProductHistory> {
                             },
                           ),
                           DataColumn(label: Text('NAME')),
-                          DataColumn(label: Text('VIEW')),
+                          DataColumn(label: Text('TRANSFER HISTORY')),
                         ],
                         source: _DataSource(context, _branchFiltered),
                       )
@@ -235,9 +235,8 @@ class _DataSource extends DataTableSource {
                   ),
                 ),
                 Padding(
-                  padding:
-                      EdgeInsets.only(top: 8, bottom: 8, left: 16, right: 16),
-                  child: Icon(Icons.update, color: Colors.white),
+                  padding: EdgeInsets.only(top: 8, bottom: 8, left: 16, right: 16),
+                  child: Icon(MdiIcons.archiveClockOutline, color: Colors.white),
                 ),
               ],
             ),

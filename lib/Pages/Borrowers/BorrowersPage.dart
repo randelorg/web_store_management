@@ -1,5 +1,6 @@
 import 'package:hexcolor/hexcolor.dart';
 import 'package:flutter/material.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:modal_side_sheet/modal_side_sheet.dart';
 import 'package:web_store_management/Models/BorrowerModel.dart';
 import 'package:web_store_management/Pages/Borrowers/ViewBrwProfile.dart';
@@ -280,16 +281,8 @@ List<_Row> _borrowerProfile(List<BorrowerModel> brw) {
                   ),
                 ),
                 Padding(
-                  padding:
-                      EdgeInsets.only(top: 8, bottom: 8, left: 16, right: 16),
-                  child: Text(
-                    'PAY',
-                    style: TextStyle(
-                      fontFamily: 'Cairo_SemiBold',
-                      fontSize: 14,
-                      color: Colors.white,
-                    ),
-                  ),
+                  padding: EdgeInsets.only(top: 8, bottom: 8, left: 16, right: 16),
+                  child: Icon(MdiIcons.creditCardOutline, color: Colors.white),
                 ),
               ],
             ),
@@ -306,16 +299,8 @@ List<_Row> _borrowerProfile(List<BorrowerModel> brw) {
                   ),
                 ),
                 Padding(
-                  padding:
-                      EdgeInsets.only(top: 8, bottom: 8, left: 16, right: 16),
-                  child: Text(
-                    'VIEW',
-                    style: TextStyle(
-                      fontFamily: 'Cairo_SemiBold',
-                      fontSize: 14,
-                      color: Colors.white,
-                    ),
-                  ),
+                  padding: EdgeInsets.only(top: 8, bottom: 8, left: 16, right: 16),
+                  child: Icon(MdiIcons.eyeOutline, color: Colors.white),
                 ),
               ],
             ),

@@ -123,7 +123,7 @@ class _TimeCollection extends State<TimeCollection> {
                     Align(
                       alignment: Alignment.topRight,
                       child: Text(
-                        "Welcome ${name.toString()}, you're in the $branchName",
+                        "Welcome ${name.toString()}, you're in the $branchName!",
                         style: TextStyle(
                           fontSize: 15,
                           color: Colors.black,
@@ -198,7 +198,7 @@ class _TimeCollection extends State<TimeCollection> {
             message: timeStatus,
             child: TextButton.icon(
               icon: Icon(
-                Icons.timer,
+                MdiIcons.clockOutline,
                 color: Colors.white,
               ),
               style: TextButton.styleFrom(

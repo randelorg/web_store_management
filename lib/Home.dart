@@ -1,5 +1,6 @@
 import 'package:hexcolor/hexcolor.dart';
 import 'package:flutter/material.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:web_store_management/Backend/GlobalController.dart';
 import 'package:web_store_management/Backend/LoginOperation.dart';
 import 'package:web_store_management/Backend/Session.dart';
@@ -82,7 +83,7 @@ class _Home extends State<Home> {
             //view profile
             IconButton(
               icon: Icon(
-                Icons.person,
+                MdiIcons.accountEye,
                 color: HexColor("#155293"),
               ),
               onPressed: () {
@@ -94,7 +95,7 @@ class _Home extends State<Home> {
               visible: _isAuthorized,
               child: PopupMenuButton(
                 icon: Icon(
-                  Icons.menu,
+                  MdiIcons.menu,
                   color: HexColor("#155293"),
                 ),
                 itemBuilder: (context) {
@@ -102,7 +103,7 @@ class _Home extends State<Home> {
                     PopupMenuItem(
                       enabled: _isAuthorized,
                       child: ListTile(
-                        leading: Icon(Icons.person),
+                        leading: Icon(MdiIcons.accountEdit),
                         title: Text('Update Profile'),
                       ),
                       value: 2,
@@ -110,7 +111,7 @@ class _Home extends State<Home> {
                     PopupMenuItem(
                       enabled: _isAuthorized,
                       child: ListTile(
-                        leading: Icon(Icons.person_add),
+                        leading: Icon(MdiIcons.accountPlus),
                         title: Text('Add Manager'),
                       ),
                       value: 3,
@@ -127,7 +128,7 @@ class _Home extends State<Home> {
             Padding(
               padding: EdgeInsets.only(right: 30),
               child: IconButton(
-                icon: Icon(Icons.logout, color: HexColor("#EA1C24")),
+                icon: Icon(MdiIcons.logout, color: HexColor("#EA1C24")),
                 tooltip: 'Logout',
                 onPressed: () async {
                   await login.logout().then((value) {

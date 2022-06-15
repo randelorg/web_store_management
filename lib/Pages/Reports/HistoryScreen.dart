@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:web_store_management/Backend/GlobalController.dart';
 import 'package:web_store_management/Backend/HistoryOperation.dart';
 import 'package:web_store_management/Models/BorrowerModel.dart';
@@ -235,15 +236,41 @@ class _DataSource extends DataTableSource {
           return _Row(
             brw[index].getBorrowerId.toString(),
             brw[index].toString(),
-            Icon(
-              Icons.payments,
-              color: HexColor("#155293"),
-              size: 25,
+            ClipRRect(
+              borderRadius: BorderRadius.circular(20),
+              child: Stack(
+                children: <Widget>[
+                  Positioned.fill(
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: HexColor("#155293"),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(top: 8, bottom: 8, left: 16, right: 16),
+                    child: Icon(MdiIcons.creditCardClockOutline, color: Colors.white),
+                  ),
+                ],
+              ),
             ),
-            Icon(
-              Icons.inventory,
-              color: HexColor("#155293"),
-              size: 25,
+            ClipRRect(
+              borderRadius: BorderRadius.circular(20),
+              child: Stack(
+                children: <Widget>[
+                  Positioned.fill(
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: HexColor("#155293"),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(top: 8, bottom: 8, left: 16, right: 16),
+                    child: Icon(MdiIcons.clipboardTextClockOutline, color: Colors.white),
+                  ),
+                ],
+              ),
             ),
           );
         },

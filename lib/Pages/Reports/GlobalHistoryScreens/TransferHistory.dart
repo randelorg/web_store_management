@@ -28,14 +28,17 @@ class _TransferHistory extends State<TransferHistory> {
       child: ListView(
         scrollDirection: Axis.vertical,
         children: [
-          Text(
-            'Transfer History of ${widget.branchName}',
-            softWrap: true,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              color: HexColor("#155293"),
-              fontFamily: 'Cairo_Bold',
-              fontSize: 30,
+          Padding(
+            padding: const EdgeInsets.only(top: 150),
+            child: Text(
+              'Transfer History of ${widget.branchName}',
+              softWrap: true,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: HexColor("#155293"),
+                fontFamily: 'Cairo_Bold',
+                fontSize: 25,
+              ),
             ),
           ),
           FutureBuilder<List<ProductTransferHistoryModel>>(
@@ -46,7 +49,7 @@ class _TransferHistory extends State<TransferHistory> {
               if (!snapshot.hasData) {
                 return Center(
                   child: CircularProgressIndicator(
-                    semanticsLabel: 'Fetching borrowers',
+                    semanticsLabel: 'Fetching history',
                   ),
                 );
               }
@@ -55,6 +58,9 @@ class _TransferHistory extends State<TransferHistory> {
                   return SizedBox(
                     height: MediaQuery.of(context).size.height * 0.8,
                     child: Timeline.tileBuilder(
+                    theme: TimelineThemeData(
+                      color: Colors.amber,
+                    ),
                       builder: TimelineTileBuilder.fromStyle(
                         contentsAlign: ContentsAlign.alternating,
                         contentsBuilder: (context, index) => Padding(
@@ -64,21 +70,21 @@ class _TransferHistory extends State<TransferHistory> {
                               Text(
                                 'Date Transferred: ${snapshot.data![index].getDateTransferred}',
                                 style: TextStyle(
-                                  fontFamily: 'Cairo_Bold',
+                                  fontFamily: 'Cairo_SemiBold',
                                   fontSize: 15,
                                 ),
                               ),
                               Text(
                                 'Product Name: ${snapshot.data![index].getProductName}',
                                 style: TextStyle(
-                                  fontFamily: 'Cairo_Bold',
+                                  fontFamily: 'Cairo_semiBold',
                                   fontSize: 15,
                                 ),
                               ),
                               Text(
                                 'Quantity: ${snapshot.data![index].getQty}',
                                 style: TextStyle(
-                                  fontFamily: 'Cairo_Bold',
+                                  fontFamily: 'Cairo_SemiBold',
                                   fontSize: 15,
                                 ),
                               ),
@@ -92,7 +98,7 @@ class _TransferHistory extends State<TransferHistory> {
                 } else {
                   return Center(
                     child: Text(
-                      'NO LOAN HISTORY',
+                      'NO TRANSFER HISTORY',
                       style: TextStyle(
                         color: Colors.grey[500],
                         fontFamily: 'Cairo_SemiBold',
@@ -104,7 +110,7 @@ class _TransferHistory extends State<TransferHistory> {
               }
               return Center(
                 child: Text(
-                  'NO LOAN HISTORY FOR THIS BORROWER',
+                  'NO TRANSFER HISTORY FOR THIS BRANCH',
                   style: TextStyle(
                       color: Colors.grey[500],
                       fontFamily: 'Cairo_SemiBold',

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:modal_side_sheet/modal_side_sheet.dart';
 import 'package:web_store_management/Backend/GlobalController.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
@@ -49,10 +50,9 @@ class _BranchPage extends State<BranchPage> {
                         ),
                       ),
                       TextButton.icon(
-                        icon: Icon(Icons.add_box_rounded, color: Colors.white),
+                        icon: Icon(MdiIcons.storePlusOutline, color: Colors.white),
                         style: TextButton.styleFrom(
-                          padding: const EdgeInsets.only(
-                              left: 10, right: 10, top: 10, bottom: 10),
+                          padding: const EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 10),
                           primary: Colors.white,
                           textStyle: TextStyle(
                               fontSize: 18, fontFamily: 'Cairo_SemiBold'),
@@ -122,7 +122,8 @@ class _BranchPage extends State<BranchPage> {
                                 });
                               },
                               decoration: InputDecoration(
-                                hintText: 'Search Branch',
+                                suffixIcon: Icon(Icons.search_rounded),
+                                hintText: 'Search Branch', 
                                 filled: true,
                                 fillColor: Colors.blueGrey[50],
                                 labelStyle: TextStyle(fontSize: 12),
@@ -141,7 +142,7 @@ class _BranchPage extends State<BranchPage> {
                         ],
                         columns: [
                           DataColumn(
-                            label: Text('CODE'),
+                            label: Text('BCODE'),
                             onSort: (index, sortAscending) {
                               setState(() {
                                 _sortAscending = sortAscending;
@@ -279,7 +280,7 @@ class _DataSource extends DataTableSource {
                 Padding(
                   padding:
                       EdgeInsets.only(top: 8, bottom: 8, left: 16, right: 16),
-                  child: Icon(Icons.update, color: Colors.white),
+                  child: Icon(MdiIcons.storeEditOutline, color: Colors.white),
                 ),
               ],
             ),

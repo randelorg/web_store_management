@@ -43,23 +43,26 @@ class _TransferStock extends State<TransferStock> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(30.0),
-      child: Container(
+    return Container(
+      child: Align(
+        alignment: Alignment.center,
         child: Column(
           children: [
-            Text(
-              'Transfer Stock',
-              softWrap: true,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: HexColor("#155293"),
-                fontFamily: 'Cairo_Bold',
-                fontSize: 30,
+            Padding(
+              padding: const EdgeInsets.only(top: 220),
+              child: Text(
+                'Transfer Stock',
+                softWrap: true,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: HexColor("#155293"),
+                  fontFamily: 'Cairo_Bold',
+                  fontSize: 25,
+                ),
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(top: 20, left: 3),
+              padding: EdgeInsets.only(top: 15, left: 3),
               child: Container(
                 alignment: Alignment.topLeft,
                 child: Text(
@@ -69,15 +72,15 @@ class _TransferStock extends State<TransferStock> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(bottom: 20),
+              padding: EdgeInsets.only(bottom: 15),
               child: TextField(
                 controller: thisStore,
                 decoration: InputDecoration(
                   enabled: false,
                   filled: true,
                   fillColor: Colors.blueGrey[50],
-                  labelStyle: TextStyle(fontSize: 10),
-                  contentPadding: EdgeInsets.only(left: 10),
+                  labelStyle: TextStyle(fontSize: 12),
+                  contentPadding: EdgeInsets.only(left: 15),
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.blueGrey.shade50),
                     borderRadius: BorderRadius.circular(5),
@@ -102,9 +105,9 @@ class _TransferStock extends State<TransferStock> {
             Row(
               children: [
                 Padding(
-                  padding: EdgeInsets.only(bottom: 20),
+                  padding: EdgeInsets.only(bottom: 15),
                   child: Container(
-                    width: MediaQuery.of(context).size.width / 4.8,
+                    width: 417,
                     alignment: Alignment.topLeft,
                     decoration: BoxDecoration(
                       color: Colors.blueGrey[50],
@@ -131,7 +134,7 @@ class _TransferStock extends State<TransferStock> {
                           return DropdownMenuItem<String>(
                             value: value,
                             child: Padding(
-                              padding: EdgeInsets.only(left: 10),
+                              padding: EdgeInsets.only(left: 15),
                               child: Text(
                                 value,
                                 style: TextStyle(fontSize: 15),
@@ -146,7 +149,7 @@ class _TransferStock extends State<TransferStock> {
               ],
             ),
             Padding(
-              padding: EdgeInsets.only(left: 3),
+              padding: EdgeInsets.only(left: 2),
               child: Container(
                 alignment: Alignment.topLeft,
                 child: Text(
@@ -156,19 +159,14 @@ class _TransferStock extends State<TransferStock> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(bottom: 20),
+              padding: EdgeInsets.only(bottom: 15),
               child: TextField(
                 controller: productName,
                 decoration: InputDecoration(
-                  suffixIcon: IconButton(
-                    icon: Icon(Icons.scanner_sharp),
-                    tooltip: 'Scan product barcode',
-                    onPressed: () {},
-                  ),
                   filled: true,
                   fillColor: Colors.blueGrey[50],
-                  labelStyle: TextStyle(fontSize: 10),
-                  contentPadding: EdgeInsets.only(left: 10),
+                  labelStyle: TextStyle(fontSize: 12),
+                  contentPadding: EdgeInsets.only(left: 15),
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.blueGrey.shade50),
                     borderRadius: BorderRadius.circular(5),
@@ -183,11 +181,11 @@ class _TransferStock extends State<TransferStock> {
             Stack(
               children: [
                 Padding(
-                  padding: EdgeInsets.only(left: 3),
+                  padding: EdgeInsets.only(left: 2),
                   child: Container(
                     alignment: Alignment.topLeft,
                     child: Text(
-                      'Quantity',
+                      'Product Quantity',
                       style: TextStyle(fontSize: 10),
                     ),
                   ),
@@ -244,7 +242,7 @@ class _TransferStock extends State<TransferStock> {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(top: 20),
+                  padding: const EdgeInsets.only(top: 10),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(5),
                     child: Stack(

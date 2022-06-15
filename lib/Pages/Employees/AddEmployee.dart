@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:web_store_management/Notification/BannerNotif.dart';
 import '../../Helpers/FilePickerHelper.dart';
 import '../../Helpers/HashingHelper.dart';
@@ -381,7 +382,7 @@ class _AddEmployee extends State<AddEmployee> {
                     });
                   });
                 },
-                icon: Icon(Icons.file_upload, color: HexColor("#155293")),
+                icon: Icon(MdiIcons.image, color: HexColor("#155293")),
                 label: Text(
                   fileName,
                   style: TextStyle(color: HexColor("#155293")),

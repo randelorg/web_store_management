@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:web_store_management/Backend/DashboardOperation.dart';
 import '../../Models/GraphModel.dart';
+import '../../Notification/BannerNotif.dart';
 import '../DashBoard/CollectionGraph.dart';
 
 class CollectionSummary extends StatefulWidget {
@@ -36,7 +37,7 @@ class _CollectionSummary extends State<CollectionSummary> {
               child: Text('Start: '),
             ),
             Padding(
-              padding: EdgeInsets.only(top: 20, left: 10, right: 30),
+              padding: EdgeInsets.only(top: 20, left: 10, right: 30, bottom: 5),
               child: Container(
                 width: (MediaQuery.of(context).size.width) / 6,
                 child: TextField(
@@ -103,7 +104,7 @@ class _CollectionSummary extends State<CollectionSummary> {
               child: Text('End:'),
             ),
             Padding(
-              padding: EdgeInsets.only(top: 20, left: 10, right: 30),
+              padding: EdgeInsets.only(top: 20, left: 10, right: 30, bottom: 5),
               child: Container(
                 width: (MediaQuery.of(context).size.width) / 6,
                 child: TextField(
@@ -129,7 +130,7 @@ class _CollectionSummary extends State<CollectionSummary> {
                     DateTime? pickedDate = await showDatePicker(
                       context: context,
                       initialDate: DateTime.now(),
-                      firstDate: DateTime(2000),
+                      firstDate: DateTime(2022),
                       lastDate: DateTime(2032),
                       builder: (context, child) {
                         return Theme(
@@ -162,7 +163,7 @@ class _CollectionSummary extends State<CollectionSummary> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(top: 20),
+              padding: EdgeInsets.only(top: 20, bottom: 5),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(18),
                 child: Stack(
@@ -184,23 +185,23 @@ class _CollectionSummary extends State<CollectionSummary> {
                       ),
                       child: const Text('VIEW'),
                       onPressed: () {
-                        setState(() {
-                          report = dashboard.getCollectionGraphReport(
-                            startDate.text,
-                            endDate.text,
-                          );
-                        });
+                        if (startDate.text.isEmpty || endDate.text.isEmpty) {
+                          BannerNotif.notif(
+                              "Error",
+                              "Please fill all the fields",
+                              Colors.red.shade600);
+                        } else {
+                          setState(() {
+                            report = dashboard.getCollectionGraphReport(
+                              startDate.text,
+                              endDate.text,
+                            );
+                          });
+                        }
                       },
                     ),
                   ],
                 ),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(top: 20, left: 20),
-              child: Tooltip(
-                message: 'Print graph',
-                child: Icon(Icons.print_rounded),
               ),
             ),
           ],

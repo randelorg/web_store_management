@@ -79,7 +79,7 @@ class _LocalPaymentHistory extends State<LocalPaymentHistory> {
               if (!snapshot.hasData) {
                 return Center(
                   child: CircularProgressIndicator(
-                    semanticsLabel: 'Fetching borrowers',
+                    semanticsLabel: 'Fetching history',
                   ),
                 );
               }

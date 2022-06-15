@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:modal_side_sheet/modal_side_sheet.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
 import 'package:web_store_management/Models/EmployeeModel.dart';
@@ -59,13 +60,11 @@ class _Employeepage extends State<EmployeePage> {
                         ),
                       ),
                       TextButton.icon(
-                        icon: Icon(Icons.add_box_rounded, color: Colors.white),
+                        icon: Icon(MdiIcons.accountPlusOutline, color: Colors.white),
                         style: TextButton.styleFrom(
-                          padding: const EdgeInsets.only(
-                              left: 10, right: 10, top: 10, bottom: 10),
+                          padding: const EdgeInsets.only( left: 10, right: 10, top: 10, bottom: 10),
                           primary: Colors.white,
-                          textStyle: TextStyle(
-                              fontSize: 18, fontFamily: 'Cairo_SemiBold'),
+                          textStyle: TextStyle(fontSize: 18, fontFamily: 'Cairo_SemiBold'),
                         ),
                         label: Text('NEW EMPLOYEE'),
                         onPressed: () {
@@ -101,7 +100,7 @@ class _Employeepage extends State<EmployeePage> {
                 if (snapshot.hasData) {
                   return ListView(
                     scrollDirection: Axis.vertical,
-                    padding: const EdgeInsets.only(right: 100, left: 100),
+                    padding: const EdgeInsets.only(top: 5, right: 100, left: 100),
                     children: [
                       PaginatedDataTable(
                         showCheckboxColumn: false,
@@ -122,8 +121,7 @@ class _Employeepage extends State<EmployeePage> {
                             children: productTypeWidget().toList(),
                           ),
                           Container(
-                            padding: const EdgeInsets.only(
-                                top: 5, left: 20, right: 5),
+                            padding: const EdgeInsets.only(left: 20, right: 5),
                             width: 300,
                             child: TextField(
                               controller: searchValue,
@@ -140,7 +138,7 @@ class _Employeepage extends State<EmployeePage> {
                                 });
                               },
                               decoration: InputDecoration(
-                                suffix: Icon(Icons.search_rounded),
+                                suffixIcon: Icon(Icons.search_rounded),
                                 hintText: 'Search Employee',
                                 filled: true,
                                 fillColor: Colors.blueGrey[50],
@@ -201,7 +199,7 @@ class _Employeepage extends State<EmployeePage> {
   Iterable<Widget> productTypeWidget() {
     return widget.filters.map((status) {
       return Padding(
-        padding: const EdgeInsets.only(right: 20),
+        padding: const EdgeInsets.only(right: 10),
         child: ChoiceChip(
           label: Text(status),
           selected: filterEmp.contains(status),
@@ -353,9 +351,8 @@ List<_Row> _borrowerProfile(List<EmployeeModel> emp) {
                 ),
               ),
               Padding(
-                padding:
-                    EdgeInsets.only(top: 8, bottom: 8, left: 16, right: 16),
-                child: Icon(Icons.badge, color: Colors.white),
+                padding:EdgeInsets.only(top: 8, bottom: 8, left: 16, right: 16),
+                child: Icon(MdiIcons.accountEyeOutline, color: Colors.white),
               ),
             ],
           ),
@@ -372,9 +369,8 @@ List<_Row> _borrowerProfile(List<EmployeeModel> emp) {
                 ),
               ),
               Padding(
-                padding:
-                    EdgeInsets.only(top: 8, bottom: 8, left: 16, right: 16),
-                child: Icon(Icons.date_range, color: Colors.white),
+                padding: EdgeInsets.only(top: 8, bottom: 8, left: 16, right: 16),
+                child: Icon(MdiIcons.calendarMonthOutline, color: Colors.white),
               ),
             ],
           ),
