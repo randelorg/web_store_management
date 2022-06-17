@@ -1,9 +1,15 @@
+import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:web_store_management/Models/ProductModel.dart';
 
 class ProductTransferHistoryModel extends ProductModel {
   String? dateTransferred;
   int? qty;
+  String? itemCode;
+
+  get getItemCode => this.itemCode;
+
+  set setItemCode(itemCode) => this.itemCode = itemCode;
 
   get getQty => this.qty;
 
@@ -24,6 +30,10 @@ class ProductTransferHistoryModel extends ProductModel {
   }
 
   ProductTransferHistoryModel.empty() : super.empty();
+
+  ProductTransferHistoryModel.item(String itemCode) : super.empty() {
+    this.itemCode = itemCode;
+  }
 
   ProductTransferHistoryModel.full(
       {this.dateTransferred, this.qty, prodCode, prodName})

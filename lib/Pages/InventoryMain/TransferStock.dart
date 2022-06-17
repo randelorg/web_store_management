@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:modal_side_sheet/modal_side_sheet.dart';
 import 'package:web_store_management/Backend/BranchOperation.dart';
 import 'package:web_store_management/Backend/Session.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
 import 'package:web_store_management/Notification/BannerNotif.dart';
+import 'package:web_store_management/Pages/InventoryMain/ListofItemsTransferred.dart';
 
 class TransferStock extends StatefulWidget {
   final List<String>? branches;
@@ -281,12 +283,23 @@ class _TransferStock extends State<TransferStock> {
                                 _findBranchCode(destinationBranch),
                               )
                                   .then((value) {
-                                if (value) {
+                                if (value.isNotEmpty) {
                                   Navigator.pop(context);
-                                  BannerNotif.notif(
-                                    'Success',
-                                    "Product ${productName.text} is already transfered",
-                                    Colors.green.shade600,
+
+                                  showModalSideSheet(
+                                    context: context,
+                                    width:
+                                        MediaQuery.of(context).size.width / 3.5,
+                                    body: ListView(
+                                      children: [
+                                        LisofItemsTransferred(
+                                          itemCodes: value.toList(),
+                                          productname:
+                                              widget.productName.toString(),
+                                          branchDestination: destinationBranch,
+                                        )
+                                      ],
+                                    ),
                                   );
                                 }
                               });

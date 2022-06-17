@@ -1,5 +1,6 @@
-class IBranch {
+import 'package:web_store_management/Models/ProductTranferHistoryModel.dart';
 
+class IBranch {
   Future<bool> addBranch(
       String branchName, String branchAddress, String empId) {
     var a;
@@ -17,9 +18,9 @@ class IBranch {
     return a;
   }
 
-  Future<bool> transferStock(String productCode, int qty, String branchCode) {
+  Future<List<ProductTransferHistoryModel>> transferStock(
+      String productCode, int qty, String branchCode) {
     var a;
     return a;
   }
-  
 }
