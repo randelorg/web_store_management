@@ -2,11 +2,11 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:web_store_management/Backend/Utility/Mapping.dart';
 import 'package:web_store_management/Backend/interfaces/IBranch.dart';
-import 'package:web_store_management/Backend/interfaces/IInventory.dart';
+import 'package:web_store_management/Models/ProductTranferHistoryModel.dart';
 import 'package:web_store_management/Notification/BannerNotif.dart';
 import 'package:web_store_management/environment/Environment.dart';
 
-class BranchOperation implements IBranch, IInventory {
+class BranchOperation implements IBranch {
   @override
   Future<bool> addBranch(final String branchName, final String branchAddress,
       final String empId) async {
@@ -88,9 +88,10 @@ class BranchOperation implements IBranch, IInventory {
 
   //inventory
   @override
-  Future<bool> transferStock(
+  Future<List<ProductTransferHistoryModel>> transferStock(
       String productCode, int qty, String branchCode) async {
     //concatonate product code and branch code as the product code copy for this branch
+    List<ProductTransferHistoryModel> items = [];
     var response;
     var stockLoad = json.encode({
       'prodCode': productCode.trim(),
@@ -108,11 +109,20 @@ class BranchOperation implements IBranch, IInventory {
 
       //if response is empty return false
       if (response.statusCode == 404) {
-        return false;
+        return [];
       }
 
       if (response.statusCode == 202) {
-        return true;
+        Map<String, dynamic> parsed =
+            jsonDecode(response.body) as Map<String, dynamic>;
+
+        parsed.forEach((key, value) {
+          print('Key: $key, Value: $value');
+
+          items.add(ProductTransferHistoryModel.item(value));
+        });
+
+        return items;
       }
     } catch (e) {
       e.toString();
@@ -122,9 +132,9 @@ class BranchOperation implements IBranch, IInventory {
         "Product failed to be transferred",
         Colors.red.shade600,
       );
-      return false;
+      return [];
     }
 
-    return true;
+    return [];
   }
 }

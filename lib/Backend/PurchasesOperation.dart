@@ -120,7 +120,11 @@ class PurchasesOperation {
   Future<List<IncomingPurchasesModel>> getProductItems(String barcode) async {
     var response;
     final String receive = "RECEIVED";
-    String branchName = await Session.getBranch().toString();
+    String branchName = '';
+
+    await Session.getBranch().then((branch) {
+      branchName = branch;
+    });
 
     try {
       await Environment.methodGet(
