@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:web_store_management/Models/ProductTranferHistoryModel.dart';
 
 class LisofItemsTransferred extends StatelessWidget {
@@ -19,14 +20,14 @@ class LisofItemsTransferred extends StatelessWidget {
         padding: const EdgeInsets.only(top: 60, right: 10, left: 10),
         child: Column(
           children: [
-            Text(
-              'Item code(s) that been transferred under product name',
+            Text( 
+              'Item code(s) that been transferred under Product Name',
               softWrap: true,
               textAlign: TextAlign.center,
               maxLines: 2,
             ),
             Text(
-              '$productname → $branchDestination',
+             '$productname → $branchDestination',
               softWrap: true,
               textAlign: TextAlign.center,
               maxLines: 2,
@@ -47,7 +48,7 @@ class LisofItemsTransferred extends StatelessWidget {
     return List.generate(itemCodes.length, (index) {
       return ListTile(
         leading: Icon(
-          Icons.inventory_2,
+          MdiIcons.archive,
           color: HexColor("#155293"),
         ),
         title: Text(

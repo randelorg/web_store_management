@@ -80,7 +80,7 @@ class _ViewProfileState extends State<ViewProfile> {
                     ),
                   ),
                   Text(
-                    name.toString(),
+                    name.toString().toUpperCase(),
                     style: TextStyle(
                       fontFamily: 'Cairo_SemiBold',
                       fontSize: 14,
@@ -108,7 +108,7 @@ class _ViewProfileState extends State<ViewProfile> {
                     ),
                   ),
                   Text(
-                    Mapping.userRole.toUpperCase(),
+                    Mapping.userRole,
                     style: TextStyle(
                       fontFamily: 'Cairo_SemiBold',
                       fontSize: 14,

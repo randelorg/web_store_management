@@ -216,12 +216,12 @@ class _TimeCollection extends State<TimeCollection> {
                   if (!value) {
                     timeOut(
                       Mapping.employeeLogin[0].getEmployeeID,
-                      Mapping.dateToday(),
+                      Mapping.dateTodayTime(),
                     );
                   } else {
                     timeIn(
                       Mapping.employeeLogin[0].getEmployeeID,
-                      Mapping.dateToday(),
+                      Mapping.dateTodayTime(),
                     );
                   }
                 });

@@ -278,8 +278,7 @@ class _DataSource extends DataTableSource {
                   ),
                 ),
                 Padding(
-                  padding:
-                      EdgeInsets.only(top: 8, bottom: 8, left: 16, right: 16),
+                  padding: EdgeInsets.only(top: 8, bottom: 8, left: 16, right: 16),
                   child: Icon(MdiIcons.storeEditOutline, color: Colors.white),
                 ),
               ],
