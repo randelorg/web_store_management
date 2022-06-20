@@ -39,28 +39,35 @@ class _AddReturn extends State<AddReturn> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text(
-          'Add Return',
-          softWrap: true,
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            color: HexColor("#155293"),
-            fontFamily: 'Cairo_Bold',
-            fontSize: 30,
-          ),
-        ),
-        Text(
-          'Product Details',
-          softWrap: true,
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            color: HexColor("#155293"),
-            fontFamily: 'Cairo_Bold',
-            fontSize: 15,
+        Padding(
+          padding: EdgeInsets.only(top: 140),
+          child: Text(
+            'Add Returns',
+            softWrap: true,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: HexColor("#155293"),
+              fontFamily: 'Cairo_Bold',
+              fontSize: 25,
+            ),
           ),
         ),
         Padding(
-          padding: EdgeInsets.only(top: 10, left: 2),
+          padding: EdgeInsets.only(top: 20, left: 2),
+          child: Container(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              'Product Details',
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 18,
+                fontFamily: 'Cairo_Bold',
+                ),
+            ),
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.only(left: 2),
           child: Container(
             alignment: Alignment.centerLeft,
             child: Text(
@@ -70,14 +77,13 @@ class _AddReturn extends State<AddReturn> {
           ),
         ),
         Container(
-          width: 320,
           child: Padding(
             padding: EdgeInsets.only(bottom: 15),
             child: TextField(
               controller: productItemcode,
               enabled: false,
               decoration: InputDecoration(
-                hintText: 'Product barcode',
+                hintText: 'Product Barcode',
                 filled: true,
                 fillColor: Colors.blueGrey[50],
                 labelStyle: TextStyle(fontSize: 12),
@@ -110,7 +116,7 @@ class _AddReturn extends State<AddReturn> {
             controller: productItemcode,
             enabled: false,
             decoration: InputDecoration(
-              hintText: 'Item code',
+              hintText: 'Item Code',
               filled: true,
               fillColor: Colors.blueGrey[50],
               labelStyle: TextStyle(fontSize: 12),
@@ -158,22 +164,26 @@ class _AddReturn extends State<AddReturn> {
             ),
           ),
         ),
-        Text(
-          'Customer Details',
-          softWrap: true,
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            color: HexColor("#155293"),
-            fontFamily: 'Cairo_Bold',
-            fontSize: 15,
+         Padding(
+          padding: EdgeInsets.only(top: 20, left: 2),
+          child: Container(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              'Customer Details',
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 18,
+                fontFamily: 'Cairo_Bold',
+                ),
+            ),
           ),
-        ),
+        ),    
         Padding(
           padding: EdgeInsets.only(left: 2),
           child: Container(
             alignment: Alignment.centerLeft,
             child: Text(
-              'Full name',
+              'Full Name',
               style: TextStyle(fontSize: 10),
             ),
           ),
@@ -183,7 +193,7 @@ class _AddReturn extends State<AddReturn> {
           child: TextField(
             controller: fullname,
             decoration: InputDecoration(
-              hintText: 'Full name',
+              hintText: 'Full Name',
               filled: true,
               fillColor: Colors.blueGrey[50],
               labelStyle: TextStyle(fontSize: 12),
@@ -204,7 +214,7 @@ class _AddReturn extends State<AddReturn> {
           child: Container(
             alignment: Alignment.centerLeft,
             child: Text(
-              'Mobile number',
+              'Mobile Number',
               style: TextStyle(fontSize: 10),
             ),
           ),
@@ -214,7 +224,7 @@ class _AddReturn extends State<AddReturn> {
           child: TextField(
             controller: mobile,
             decoration: InputDecoration(
-              hintText: 'Mobile number',
+              hintText: 'Mobile Number',
               filled: true,
               fillColor: Colors.blueGrey[50],
               labelStyle: TextStyle(fontSize: 12),
@@ -235,7 +245,7 @@ class _AddReturn extends State<AddReturn> {
           child: Container(
             alignment: Alignment.centerLeft,
             child: Text(
-              'Address',
+              'Home Address',
               style: TextStyle(fontSize: 10),
             ),
           ),
@@ -245,7 +255,7 @@ class _AddReturn extends State<AddReturn> {
           child: TextField(
             controller: address,
             decoration: InputDecoration(
-              hintText: 'Address',
+              hintText: 'Home Address',
               filled: true,
               fillColor: Colors.blueGrey[50],
               labelStyle: TextStyle(fontSize: 12),
@@ -326,64 +336,67 @@ class _AddReturn extends State<AddReturn> {
             },
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.only(top: 20),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(20),
-            child: Stack(
-              children: <Widget>[
-                Positioned.fill(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: HexColor("#155293"),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 10),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(5),
+                child: Stack(
+                  children: <Widget>[
+                    Positioned.fill(
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: HexColor("#155293"),
+                        ),
+                      ),
                     ),
-                  ),
+                    TextButton(
+                        style: TextButton.styleFrom(
+                          padding: const EdgeInsets.only(
+                              left: 20, right: 20, top: 15, bottom: 15),
+                          primary: Colors.white,
+                          textStyle: TextStyle(
+                              fontFamily: 'Cairo_SemiBold',
+                              fontSize: 14,
+                              color: Colors.white),
+                        ),
+                        child: const Text('ADD RETURNS'),
+                        onPressed: () {
+                          if (fullname.text.isEmpty) {
+                            BannerNotif.notif(
+                              "Error",
+                              "Please fill all the fields",
+                              Colors.red.shade600,
+                            );
+                          } else {
+                            Navigator.pop(context);
+                            borrower
+                                .addReturn(
+                              widget.returnStatus,
+                              widget.itemcode.toString(),
+                              dateinput.text,
+                              fullname.text,
+                              mobile.text,
+                              address.text,
+                            )
+                                .then((value) {
+                              if (value) {
+                                BannerNotif.notif(
+                                  "Success",
+                                  "Successfully added return",
+                                  Colors.green.shade600,
+                                );
+                              }
+                            });
+                          }
+                        }),
+                  ],
                 ),
-                TextButton(
-                  style: TextButton.styleFrom(
-                    padding: const EdgeInsets.only(
-                        left: 20, right: 20, top: 18, bottom: 18),
-                    primary: Colors.white,
-                    textStyle: TextStyle(
-                      fontFamily: 'Cairo_SemiBold',
-                      fontSize: 16,
-                      color: Colors.white,
-                    ),
-                  ),
-                  child: const Text('ADD RETURN'),
-                  onPressed: () {
-                    if (fullname.text.isEmpty) {
-                      BannerNotif.notif(
-                        "Error",
-                        "Please fill all the fields",
-                        Colors.red.shade600,
-                      );
-                    } else {
-                      Navigator.pop(context);
-                      borrower
-                          .addReturn(
-                        widget.returnStatus,
-                        widget.itemcode.toString(),
-                        dateinput.text,
-                        fullname.text,
-                        mobile.text,
-                        address.text,
-                      )
-                          .then((value) {
-                        if (value) {
-                          BannerNotif.notif(
-                            "Success",
-                            "Successfully added return",
-                            Colors.green.shade600,
-                          );
-                        }
-                      });
-                    }
-                  },
-                ),
-              ],
+              ),
             ),
-          ),
+          ],
         ),
       ],
     );
